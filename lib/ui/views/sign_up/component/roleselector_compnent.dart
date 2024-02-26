@@ -1,0 +1,127 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
+
+class RoleSelector extends StatelessWidget {
+  final SignUpViewModel viewModel;
+  const RoleSelector({super.key, required this.viewModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: screenHeight(context) * 0.08,
+      decoration: BoxDecoration(
+        color: kcPrimaryColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () => viewModel.handleSignUpAs(0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                  color: viewModel.selectedSignUpAs == 'guest'
+                      ? kcPrimaryColorDark
+                      : Colors.transparent,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.person,
+                      color: kcPrimaryColor,
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Guest',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: kcPrimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () => viewModel.handleSignUpAs(1),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      width: 2,
+                      color: kcPrimaryColor.withOpacity(0.2),
+                    ),
+                    left: BorderSide(
+                      width: 2,
+                      color: kcPrimaryColor.withOpacity(0.2),
+                    ),
+                  ),
+                  color: viewModel.selectedSignUpAs == 'culinarySchool'
+                      ? kcPrimaryColorDark
+                      : Colors.transparent,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.school_rounded,
+                      color: kcPrimaryColor,
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Culinary school',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: kcPrimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => viewModel.handleSignUpAs(2),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  color: viewModel.selectedSignUpAs == 'chef'
+                      ? kcPrimaryColorDark
+                      : Colors.transparent,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/icons/chef.png',
+                    ),
+                    verticalSpaceTiny,
+                    const Text(
+                      'Chef',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

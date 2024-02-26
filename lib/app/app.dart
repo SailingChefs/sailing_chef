@@ -1,0 +1,40 @@
+import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:sailing_chefs/ui/views/startup/startup_view.dart';
+import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
+import 'package:sailing_chefs/ui/views/sign_up/sign_up_view.dart';
+import 'package:sailing_chefs/ui/views/login/login_view.dart';
+import 'package:sailing_chefs/ui/views/home/home_view.dart';
+// @stacked-import
+
+@StackedApp(
+  routes: [
+    MaterialRoute(page: StartupView),
+    MaterialRoute(page: OnboardingView),
+    MaterialRoute(page: SignUpView),
+    MaterialRoute(page: LoginView),
+    MaterialRoute(page: HomeView),
+// @stacked-route
+  ],
+  dependencies: [
+    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: DialogService),
+    LazySingleton(classType: NavigationService),
+    LazySingleton(classType: UserServices),
+    LazySingleton(classType: AuthService),
+    // @stacked-service
+  ],
+  bottomsheets: [
+    StackedBottomsheet(classType: NoticeSheet),
+    // @stacked-bottom-sheet
+  ],
+  dialogs: [
+    StackedDialog(classType: InfoAlertDialog),
+    // @stacked-dialog
+  ],
+)
+class App {}

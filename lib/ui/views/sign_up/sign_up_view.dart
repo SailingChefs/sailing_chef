@@ -1,0 +1,151 @@
+import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textfield.dart';
+import 'package:sailing_chefs/ui/widgets/or_design.dart';
+
+import '../../../core/imports/core_imports.dart';
+import '../../widgets/custom_elevatedbtn.dart';
+import 'sign_up_viewmodel.dart';
+
+class SignUpView extends StackedView<SignUpViewModel> {
+  const SignUpView({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    SignUpViewModel viewModel,
+    Widget? child,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Stack(children: [
+            Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/background/back_screen.png'),
+                      fit: BoxFit.fill)),
+            ),
+            Positioned.fill(
+                child: Container(
+              height: screenHeight(context),
+              width: screenWidth(context),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/background/back.png'),
+                      fit: BoxFit.fill)),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/logo/SAILING CHEFS.png',
+                        width: 130.w,
+                        height: 70.h,
+                      ),
+                      CustomElevatedButton(
+                        width: 80.w,
+                        height: 14.h,
+                        textFontSize: 12.sp,
+                        onPressed: () {
+                          viewModel.toLogin();
+                        },
+                        buttonText: 'Login',
+                        isEnabled: true,
+                        // other optional parameters can be provided here
+                      ),
+                    ],
+                  ),
+                  verticalSpaceMedium,
+                  verticalSpaceSmall,
+                  Text(
+                    'Let\'s Create Your Account ',
+                    style: globalTextStyle(
+                        fontSize: 20.sp,
+                        color: kcPrimaryColor,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  verticalSpaceSmall,
+                  Text(
+                    'Sign up as',
+                    style: globalTextStyle(
+                        fontSize: 14.sp,
+                        color: kcPrimaryColor,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  verticalSpaceMedium,
+                  RoleSelector(viewModel: viewModel),
+                  verticalSpaceLarge,
+                  Form(
+                    key: viewModel.formKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: viewModel.textController,
+                          labelText: 'Name',
+                          validator: viewModel.validateName,
+                          keyboardType: TextInputType.name,
+                        ),
+                        verticalSpaceSmall,
+                        verticalSpaceTiny,
+                        CustomTextField(
+                          controller: viewModel.emailController,
+                          labelText: 'Email',
+                          validator: viewModel.validateEmail,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        verticalSpaceSmall,
+                        verticalSpaceTiny,
+                        CustomTextField(
+                          controller: viewModel.passwordController,
+                          labelText: 'Password',
+                          obscureText: !viewModel.showPassword,
+                          suffixIcon: true,
+                          isPasswordVisible: viewModel.showPassword,
+                          onVisibilityToggle: () {
+                            viewModel.passwordVisibility();
+                          },
+                          validator: viewModel.validatePassword,
+                        ),
+                        verticalSpaceMedium,
+                        verticalSpaceSmall,
+                        CustomElevatedButton(
+                          textFontSize: 12.sp,
+                          width: 240.w,
+                          height: 40.h,
+                          borderRadius: 30,
+                          isEnabled: viewModel.isSignupButtonEnabled(),
+                          onPressed: () {
+                            viewModel.signup();
+                          },
+                          buttonText: 'Create Account',
+                          // other optional parameters can be provided here
+                        ),
+                      ],
+                    ),
+                  ),
+                  verticalSpaceLarge,
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: OrDesign(),
+                  ),
+                ]),
+              ),
+            )),
+          ])),
+    );
+  }
+
+  @override
+  SignUpViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      SignUpViewModel();
+}
