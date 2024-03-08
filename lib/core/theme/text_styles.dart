@@ -8,7 +8,7 @@ TextStyle globalTextStyle(
         FontWeight? fontWeight,
         TextDecoration? decoration}) =>
     TextStyle(
-      color: color ?? kcTextColor,
+      color: color ?? kcWhiteColor,
       fontSize: fontSize,
       letterSpacing: letterSpacing ?? 0.5,
       fontWeight: fontWeight ?? FontWeight.w600,

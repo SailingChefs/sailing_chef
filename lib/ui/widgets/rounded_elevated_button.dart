@@ -1,28 +1,28 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class CustomElevatedButton extends StatelessWidget {
+class RoundedElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final double borderRadius;
-  final Color buttonColor;
-  final Color borderColor;
+  final Color? buttonColor;
+  final Color? borderColor;
   final double borderWidth;
   final double textFontSize;
   final Color textColor;
   final FontWeight textFontWeight;
   final bool isEnabled;
 
-  const CustomElevatedButton({
+  const RoundedElevatedButton({
     Key? key,
     required this.onPressed,
     required this.buttonText,
-    this.width = 231,
-    this.height = 40,
+    this.width,
+    this.height,
     this.borderRadius = 30,
-    this.buttonColor = kcPrimaryColor,
-    this.borderColor = kcVeryLightGrey,
+    this.buttonColor,
+    this.borderColor,
     this.borderWidth = 1.0,
     this.textFontSize = 16, // Adjust the default font size
     this.textColor = kcTextColor,
@@ -38,13 +38,13 @@ class CustomElevatedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius.r),
           side: BorderSide(
-            color: Colors.transparent,
+            color: borderColor ?? Colors.transparent,
             width: borderWidth.w,
           ),
         ),
-        backgroundColor: buttonColor,
+        backgroundColor: buttonColor ?? kcWhiteColor,
         disabledBackgroundColor: kcPrimaryColor.withOpacity(0.2),
-        fixedSize: Size(width.w, height.h),
+        fixedSize: Size(width ?? 231.w, height ?? 41.h),
       ),
       child: Padding(
         padding: EdgeInsets.all(2.0.dg),

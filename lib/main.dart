@@ -51,26 +51,30 @@ class MainApp extends StatelessWidget {
       builder: (context, child) => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
-        child: MaterialApp(
-          initialRoute: Routes.startupView,
-          onGenerateRoute: StackedRouter().onGenerateRoute,
-          navigatorKey: StackedService.navigatorKey,
-          theme: ThemeData(
-            primaryColor: kcPrimaryColor,
-            primarySwatch: primarySwatch,
-            fontFamily: 'Inter',
-            appBarTheme: AppBarTheme(
-              color: Colors.white,
-              elevation: 0,
-              titleTextStyle: globalTextStyle(
-                fontSize: 14.sp,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.startupView,
+            onGenerateRoute: StackedRouter().onGenerateRoute,
+            navigatorKey: StackedService.navigatorKey,
+            theme: ThemeData(
+              primaryColor: kcPrimaryColor,
+              primarySwatch: primarySwatch,
+              fontFamily: 'Inter',
+              appBarTheme: AppBarTheme(
+                color: Colors.white,
+                elevation: 0,
+                titleTextStyle: globalTextStyle(
+                  fontSize: 14.sp,
+                ),
               ),
             ),
+            navigatorObservers: [
+              StackedService.routeObserver,
+            ],
+            builder: EasyLoading.init(),
           ),
-          navigatorObservers: [
-            StackedService.routeObserver,
-          ],
-          builder: EasyLoading.init(),
         ),
       ),
     );

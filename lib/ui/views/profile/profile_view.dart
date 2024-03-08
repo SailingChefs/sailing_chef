@@ -1,0 +1,58 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/saved_profile_screen.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/tab_bar.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
+
+import 'profile_viewmodel.dart';
+import 'widgets/my_recipe_profile_screen.dart';
+
+class ProfileView extends StackedView<ProfileViewModel> {
+  const ProfileView({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    ProfileViewModel viewModel,
+    Widget? child,
+  ) {
+    return Scaffold(
+        backgroundColor: kcBackgroundColor,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TopBarProfileScreen(),
+              verticalSpaceMedium,
+              const ProfileDetailsProfileScreen(),
+              verticalSpaceSmall,
+              const ProfileDescriptionProfileScreen(),
+              verticalSpaceMedium,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TabBarProfileScreen(),
+                  Icon(
+                    FlutterRemix.equalizer_line,
+                    color: kcPrimaryColor,
+                    size: 30.sp,
+                  ),
+                ],
+              ),
+              verticalSpaceMedium,
+              viewModel.isMySelected
+                  ? const MyRecipesProfileScreen()
+                  : const SavedProfileScreen(),
+            ],
+          ),
+        ));
+  }
+
+  @override
+  ProfileViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      ProfileViewModel();
+}

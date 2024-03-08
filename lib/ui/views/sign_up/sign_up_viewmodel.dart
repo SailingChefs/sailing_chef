@@ -64,13 +64,16 @@ class SignUpViewModel extends BaseViewModel {
 
   void signup() async {
     if (formKey.currentState?.validate() ?? false) {
-      await AuthService.register(
+      bool userRegistered = await AuthService.register(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
           name: textController.text.trim(),
           role: selectedSignUpAs);
-      //  HomeViewModel().getUserDetails();
-      _navigationService.replaceWithHomeView();
+      if (userRegistered) {
+        _navigationService.replaceWithUserDetailsView();
+      } else {
+        _navigationService.replaceWithSignUpView();
+      }
       // _navigationService.;
     } else {
       _navigationService.replaceWithSignUpView();

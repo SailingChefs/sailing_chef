@@ -1,0 +1,45 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+
+class ProfileViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+  String selectedTab = 'Myrecipes';
+  bool isMySelected = true;
+  bool isSavedSelected = false;
+  // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
+  void myRecipeSelected() {
+    isMySelected = true;
+    isSavedSelected = false;
+    notifyListeners();
+    rebuildUi();
+  }
+
+  // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
+  void savedSelected() {
+    isSavedSelected = true;
+    isMySelected = false;
+    notifyListeners();
+    rebuildUi();
+  }
+
+  // A function that navigates to the settings view.
+  void toSettings() {
+    _navigationService.navigateToSettingsView();
+  }
+
+  // A function that handles the tab based on the given index.
+  void handleTab(int index) {
+    switch (index) {
+      case 0:
+        selectedTab = 'Myrecipes';
+        break;
+      case 1:
+        selectedTab = 'Saved';
+        break;
+
+      default:
+        break;
+    }
+
+    rebuildUi();
+  }
+}

@@ -1,9 +1,9 @@
 import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
-import 'package:sailing_chefs/ui/widgets/custom_textfield.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/or_design.dart';
 
 import '../../../core/imports/core_imports.dart';
-import '../../widgets/custom_elevatedbtn.dart';
+import '../../widgets/rounded_elevated_button.dart';
 import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {
@@ -50,7 +50,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         width: 130.w,
                         height: 70.h,
                       ),
-                      CustomElevatedButton(
+                      RoundedElevatedButton(
                         width: 80.w,
                         height: 14.h,
                         textFontSize: 12.sp,
@@ -68,17 +68,13 @@ class SignUpView extends StackedView<SignUpViewModel> {
                   Text(
                     'Let\'s Create Your Account ',
                     style: globalTextStyle(
-                        fontSize: 20.sp,
-                        color: kcPrimaryColor,
-                        fontWeight: FontWeight.w700),
+                        fontSize: 20.sp, fontWeight: FontWeight.w700),
                   ),
                   verticalSpaceSmall,
                   Text(
                     'Sign up as',
                     style: globalTextStyle(
-                        fontSize: 14.sp,
-                        color: kcPrimaryColor,
-                        fontWeight: FontWeight.w400),
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
                   verticalSpaceMedium,
                   RoleSelector(viewModel: viewModel),
@@ -87,7 +83,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                     key: viewModel.formKey,
                     child: Column(
                       children: [
-                        CustomTextField(
+                        RoundedTransparentTextField(
                           controller: viewModel.textController,
                           labelText: 'Name',
                           validator: viewModel.validateName,
@@ -95,7 +91,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         ),
                         verticalSpaceSmall,
                         verticalSpaceTiny,
-                        CustomTextField(
+                        RoundedTransparentTextField(
                           controller: viewModel.emailController,
                           labelText: 'Email',
                           validator: viewModel.validateEmail,
@@ -103,7 +99,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         ),
                         verticalSpaceSmall,
                         verticalSpaceTiny,
-                        CustomTextField(
+                        RoundedTransparentTextField(
                           controller: viewModel.passwordController,
                           labelText: 'Password',
                           obscureText: !viewModel.showPassword,
@@ -116,7 +112,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         ),
                         verticalSpaceMedium,
                         verticalSpaceSmall,
-                        CustomElevatedButton(
+                        RoundedElevatedButton(
                           textFontSize: 12.sp,
                           width: 240.w,
                           height: 40.h,

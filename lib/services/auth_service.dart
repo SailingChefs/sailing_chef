@@ -54,15 +54,20 @@ class AuthService {
       EasyLoading.show();
       final UserCredential user = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      await UserServices.storeUserRoleAndName(
+      bool userStored = await UserServices.storeUserRoleAndName(
         uid: user.user!.uid,
         name: name,
         role: role,
       );
 
       EasyLoading.dismiss();
-
-      return true;
+      if (userStored) {
+        showToast(message: 'Registered successfully');
+        return true;
+      } else {
+        showToast(message: 'Failed to register');
+        return false;
+      }
     } on FirebaseAuthException catch (e) {
       log(e.code.toString());
       switch (e.code) {

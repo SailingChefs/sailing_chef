@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/widgets/custom_elevatedbtn.dart';
-import 'package:sailing_chefs/ui/widgets/custom_textfield.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/or_design.dart';
 import '../../widgets/custom_textbtn.dart';
 import 'login_viewmodel.dart';
@@ -51,7 +51,7 @@ class LoginView extends StackedView<LoginViewModel> {
                         width: 130.w,
                         height: 70.h,
                       ),
-                      CustomElevatedButton(
+                      RoundedElevatedButton(
                         onPressed: viewModel.toSignUp,
                         buttonText: 'Sign up',
                         width: 80.dg,
@@ -66,7 +66,7 @@ class LoginView extends StackedView<LoginViewModel> {
                     'Welcome Back ',
                     style: globalTextStyle(
                         fontSize: 20.sp,
-                        color: kcPrimaryColor,
+                        color: kcWhiteColor,
                         fontWeight: FontWeight.w700),
                   ),
                   verticalSpaceSmall,
@@ -74,7 +74,7 @@ class LoginView extends StackedView<LoginViewModel> {
                     'Login Here',
                     style: globalTextStyle(
                         fontSize: 14.sp,
-                        color: kcPrimaryColor,
+                        color: kcWhiteColor,
                         fontWeight: FontWeight.w400),
                   ),
                   verticalSpaceLarge,
@@ -82,7 +82,7 @@ class LoginView extends StackedView<LoginViewModel> {
                     key: viewModel.formKey,
                     child: Column(
                       children: [
-                        CustomTextField(
+                        RoundedTransparentTextField(
                           controller: viewModel.emailController,
                           labelText: 'Email',
                           validator: viewModel.validateEmail,
@@ -90,7 +90,7 @@ class LoginView extends StackedView<LoginViewModel> {
                         ),
                         verticalSpaceSmall,
                         verticalSpaceTiny,
-                        CustomTextField(
+                        RoundedTransparentTextField(
                           controller: viewModel.passwordController,
                           labelText: 'Password',
                           keyboardType: TextInputType.visiblePassword,
@@ -110,12 +110,12 @@ class LoginView extends StackedView<LoginViewModel> {
                         ),
                         verticalSpaceSmall,
                         verticalSpaceTiny,
-                        CustomElevatedButton(
+                        RoundedElevatedButton(
                           onPressed: viewModel.login,
                           buttonText: 'Login',
                           width: 144.dg,
                           height: 40.dg,
-                          textFontSize: getResponsiveMediumFontSize(context),
+                          textFontSize: 18.sp,
                           isEnabled: viewModel.isLoginButtonEnabled(),
                         ),
                       ],

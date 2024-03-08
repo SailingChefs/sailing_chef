@@ -33,14 +33,14 @@ class RoleSelector extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.person,
-                      color: kcPrimaryColor,
+                      color: kcWhiteColor,
                     ),
                     SizedBox(height: 3),
                     Text(
                       'Guest',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: kcPrimaryColor,
+                        color: kcWhiteColor,
                       ),
                     ),
                   ],
@@ -57,11 +57,11 @@ class RoleSelector extends StatelessWidget {
                   border: Border(
                     right: BorderSide(
                       width: 2,
-                      color: kcPrimaryColor.withOpacity(0.2),
+                      color: kcWhiteColor.withOpacity(0.2),
                     ),
                     left: BorderSide(
                       width: 2,
-                      color: kcPrimaryColor.withOpacity(0.2),
+                      color: kcWhiteColor.withOpacity(0.2),
                     ),
                   ),
                   color: viewModel.selectedSignUpAs == 'culinarySchool'
@@ -73,14 +73,14 @@ class RoleSelector extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.school_rounded,
-                      color: kcPrimaryColor,
+                      color: kcWhiteColor,
                     ),
                     SizedBox(height: 3),
                     Text(
                       'Culinary school',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: kcPrimaryColor,
+                        color: kcWhiteColor,
                       ),
                     ),
                   ],
@@ -112,7 +112,7 @@ class RoleSelector extends StatelessWidget {
                       'Chef',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: kcWhiteColor,
                       ),
                     ),
                   ],

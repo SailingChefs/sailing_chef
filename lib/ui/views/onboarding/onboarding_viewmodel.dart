@@ -21,6 +21,12 @@ class OnboardingViewModel extends BaseViewModel {
     ),
     OnboardModel(
       image: 'assets/images/background/onboarding3.png',
+      title: 'Join as a culinary school',
+      description:
+          ' Seeking inspiration for your next meal or looking to recruit the best chefs. ',
+    ),
+    OnboardModel(
+      image: 'assets/images/background/onboarding4.png',
       title: 'Join as a guest',
       description:
           ' Seeking inspiration for your next meal or looking to recruit the best chefs. ',
@@ -41,11 +47,11 @@ class OnboardingViewModel extends BaseViewModel {
   }
 
   void toHome() {
-    _navigationServices.replaceWithHomeView();
+    _navigationServices.replaceWithIndexView();
   }
 
   void next() {
-    if (currentPage < 2) {
+    if (currentPage < 3) {
       currentPage++;
       pageController.animateToPage(
         currentPage,

@@ -7,7 +7,7 @@ import 'package:sailing_chefs/core/instances.dart';
 import '../model/user_model.dart';
 
 class UserServices {
-  static Future<void> storeUserRoleAndName({
+  static Future<bool> storeUserRoleAndName({
     required String uid,
     required String name,
     required String role,
@@ -29,12 +29,14 @@ class UserServices {
         'name': name,
         'role': role,
       });
+
+      return true;
     } else {
-      Null;
+      return false;
     }
   }
 
- static Future<User> getUserDetails(String uid) async {
+  static Future<User> getUserDetails(String uid) async {
     try {
       EasyLoading.show();
       CollectionReference usersCollection =

@@ -49,13 +49,17 @@ class LoginViewModel extends BaseViewModel {
 
   void login() async {
     if (formKey.currentState?.validate() ?? false) {
-      await AuthService.login(
+      bool success = await AuthService.login(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      //  HomeViewModel().getUserDetails();
-      _navigationService.replaceWithHomeView();
-      // _navigationService.;
+      if (success) {
+        _navigationService.replaceWithUserDetailsView();
+
+        ///  _navigationService.replaceWithHomeView();
+      } else {
+        _navigationService.replaceWithLoginView();
+      }
     } else {
       _navigationService.replaceWithLoginView();
     }
