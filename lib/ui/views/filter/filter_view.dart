@@ -19,26 +19,28 @@ class FilterView extends StackedView<FilterViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          Container(
-              padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 30),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TopBarFilterScreen(),
-                    verticalSpaceMedium,
-                    const TimeSliderFilterScreen(),
-                    verticalSpaceMedium,
-                    const CourseTabBarFilerScreen(),
-                    verticalSpaceMedium,
-                    const CategoryTabsFilterScreen(),
-                    verticalSpaceMedium,
-                    const DietaryNeedTabsFilterScreen(),
-                    verticalSpaceMedium,
-                  ])),
-          const BottomButtons(),
-        ],
+                children: [
+                  const TopBarFilterScreen(),
+                  verticalSpaceMedium,
+                  const TimeSliderFilterScreen(),
+                  verticalSpaceMedium,
+                  const CourseTabBarFilerScreen(),
+                  verticalSpaceMedium,
+                  const CategoryTabsFilterScreen(),
+                  verticalSpaceMedium,
+                  const DietaryNeedTabsFilterScreen(),
+                ],
+              ),
+            ),
+            const BottomButtons(),
+          ],
+        ),
       ),
     );
   }

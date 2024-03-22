@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/chat/chat_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
@@ -96,7 +97,7 @@ class BottomNavBarView extends StatelessWidget {
       case 1:
         return const SavedRecipesView();
       case 2:
-        return const Center(child: Text('Add Recipe'));
+        return const AddRecipeView();
       case 3:
         return const ChatView();
       case 4:

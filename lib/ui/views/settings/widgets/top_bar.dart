@@ -13,7 +13,7 @@ class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: () => viewModel.getBack,
+            onTap: () => viewModel.getBack(),
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 8.0.dg),

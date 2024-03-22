@@ -17,6 +17,7 @@ import 'package:sailing_chefs/ui/views/settings/settings_view.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
+import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -34,6 +35,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
     MaterialRoute(page: FilterView),
     MaterialRoute(page: IndexView),
     MaterialRoute(page: AddRecipeView),
+    MaterialRoute(page: ComingsoonView),
 // @stacked-route
   ],
   dependencies: [

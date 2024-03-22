@@ -42,7 +42,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
         filled: true,
-        fillColor: fillColor ?? kcPrimaryColor.withOpacity(0.2),
+        fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
         labelStyle:
             TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
         labelText: labelText,

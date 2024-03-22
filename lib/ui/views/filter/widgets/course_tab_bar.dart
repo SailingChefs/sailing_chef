@@ -7,6 +7,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
   @override
   Widget build(BuildContext context, FilterViewModel viewModel) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Course',

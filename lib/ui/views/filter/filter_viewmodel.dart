@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -6,8 +5,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class FilterViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final DateTime minTime = DateTime(TimeOfDay.hoursPerDay - 24);
-  final DateTime maxTime = DateTime(TimeOfDay.hoursPerDay);
+
   String selectedTabMainCourse = '';
   String selectedTabSub = '';
   String selectedTabMainDietaryNeed = '';
@@ -27,9 +25,7 @@ class FilterViewModel extends BaseViewModel {
   bool isCharterSelected = false;
   bool isCrewSelected = false;
 
-  double startValue = 2.0;
-  double endValue = 5.0;
-  SfRangeValues values = const SfRangeValues(2.0, 5.0);
+  SfRangeValues values = const SfRangeValues(0.0, 5.0);
   // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
   void updateValue(SfRangeValues newValue) {
     values = newValue;
@@ -260,7 +256,7 @@ class FilterViewModel extends BaseViewModel {
     selectedTabMainDietaryNeed = '';
     selectedTabSubDietaryNeed = '';
 
-    values = const SfRangeValues(2.0, 5.0);
+    values = const SfRangeValues(0.0, 5.0);
     notifyListeners();
     rebuildUi();
   }
