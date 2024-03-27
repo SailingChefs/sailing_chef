@@ -1,10 +1,12 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
+import 'package:sailing_chefs/ui/widgets/recipes_list.dart';
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   final _bottomSheetService = locator<BottomSheetService>();
+  final _navigationService = locator<NavigationService>();
   String selectedValue = 'Public';
   int selectedQuantity = 1;
   List<XFile?> selectedImages = [];
@@ -44,9 +46,19 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void callBottomSheet() {
-    _bottomSheetService.showBottomSheet(
-      title: 'Bottom Sheet',
+  void callIngredientsBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.addIngredients,
+    );
+  }
+
+  void popBack() {
+    _navigationService.back();
+  }
+
+  void callCookingInstructionBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.cookingInstructions,
     );
   }
 
@@ -74,5 +86,21 @@ class AddRecipeViewModel extends BaseViewModel {
       notifyListeners();
       rebuildUi();
     }
+  }
+
+  void addRecipe() {
+    const RecipeeItem(
+      image: 'assets/background/burger.png',
+      title: 'Shiitaki Mushroom',
+      description: '',
+      time: '',
+      chef: 'Danica Nel',
+    );
+  }
+
+   
+
+  void navigateToRecipeListView() {
+    _navigationService.navigateToRecipeListPageView();
   }
 }

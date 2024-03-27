@@ -36,7 +36,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
               return Container(
                 width: 160,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: kcwhitecolor,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -57,9 +57,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         topRight: Radius.circular(20),
                       ),
                       child: Image.asset(
-                        'assets/images/icons/chefs.avif',
-                        fit: BoxFit
-                            .cover, // Use BoxFit.cover to ensure the image covers the entire container
+                        'assets/images/icons/chef.jpg',
+                        fit: BoxFit.cover,
                         height: 180,
                         width: double.infinity,
                       ),

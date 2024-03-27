@@ -18,6 +18,10 @@ import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
+import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -36,6 +40,7 @@ import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart';
     MaterialRoute(page: IndexView),
     MaterialRoute(page: AddRecipeView),
     MaterialRoute(page: ComingsoonView),
+    MaterialRoute(page: RecipeListPageView),
 // @stacked-route
   ],
   dependencies: [
@@ -48,11 +53,14 @@ import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: AddIngredientsSheet),
+    StackedBottomsheet(classType: CookingInstructionsSheet),
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: SaveDraftAlertboxDialog),
+// @stacked-dialog
   ],
 )
 class App {}

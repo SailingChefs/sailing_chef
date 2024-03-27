@@ -12,6 +12,7 @@ const Color kcVeryLightGrey = Color(0xFFE3E3E3);
 const Color kcBackgroundColor = Color.fromARGB(1, 108, 144, 141);
 const Color kcErrorColor = Color.fromARGB(255, 253, 0, 0);
 const Color ontop = Color.fromARGB(30, 93, 109, 1);
+const Color kcwhitecolor = Color(0xFFFFFFFF);
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,
   <int, Color>{

@@ -23,7 +23,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
               foodImagePath: 'assets/images/background/onboarding.png',
               dishName: "dish name",
               duration: "30",
-              chefImagePath: 'assets/images/icons/chefs.avif');
+              chefImagePath: 'assets/images/icons/chef.jpg');
         },
       ),
     );

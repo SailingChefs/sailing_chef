@@ -8,6 +8,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/pre
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/recipe_title.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/serving_quantity_dropdown.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/visibilty.dart';
+import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   const AddRecipeFormAddRecipeScreen({super.key});
@@ -31,6 +32,14 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         const PrepTime(),
         verticalSpaceMedium,
         const VisibiltyDropDown(),
+        verticalSpaceMedium,
+        Custom_BottomSheet_Buton(
+          onPressed: () {
+            viewModel.navigateToRecipeListView();
+          },
+          buttonText: 'Preview ',
+          postfix: Icons.remove_red_eye_outlined,
+        ),
         verticalSpaceMedium,
       ]),
     );

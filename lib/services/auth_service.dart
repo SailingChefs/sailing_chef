@@ -44,6 +44,10 @@ class AuthService {
     }
   }
 
+  static Future<void> signout() {
+    return firebaseAuth.signOut();
+  }
+
   static Future<bool> register({
     required String email,
     required String password,

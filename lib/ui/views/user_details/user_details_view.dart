@@ -22,15 +22,17 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Padding(
             padding: EdgeInsets.fromLTRB(10.0.dg, 30.0.dg, 10.0.dg, 0.0.dg),
-            child: Column(
-              children: [
-                const TopBarUserDetailsScreen(),
-                verticalSpaceMedium,
-                const ProfilePictureUserDetailsScreen(),
-                verticalSpaceMedium,
-                const FormUserDetailsScrenn(),
-                verticalSpaceMedium,
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const TopBarUserDetailsScreen(),
+                  verticalSpaceMedium,
+                  const ProfilePictureUserDetailsScreen(),
+                  verticalSpaceMedium,
+                  const FormUserDetailsScrenn(),
+                  verticalSpaceMedium,
+                ],
+              ),
             ),
           )),
     );

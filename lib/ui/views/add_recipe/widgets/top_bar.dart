@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 class TopBarAddRecipe extends ViewModelWidget<AddRecipeViewModel> {
   const TopBarAddRecipe({super.key});
@@ -9,20 +10,10 @@ class TopBarAddRecipe extends ViewModelWidget<AddRecipeViewModel> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.only(left: 8.0.dg),
-          height: 30.h,
-          width: 30.w,
-          decoration: const BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: kcBlackColor,
-            size: 19.sp,
-          ),
+        BackArrowWidget(
+          onTap: () {
+            viewModel.popBack();
+          },
         ),
         Text(
           'Create Recipe',

@@ -14,7 +14,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
       ),
       verticalSpaceTiny,
       GestureDetector(
-        onTap: viewModel.callBottomSheet,
+        onTap: viewModel.callIngredientsBottomSheet,
         child: Container(
           height: 50.h,
           padding: EdgeInsets.only(

@@ -2,10 +2,11 @@ import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class RoundedTransparentTextField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
   final bool obscureText;
   final bool? suffixIcon;
+  final bool? prefixIcon;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
@@ -17,7 +18,7 @@ class RoundedTransparentTextField extends StatelessWidget {
 
   const RoundedTransparentTextField({
     Key? key,
-    required this.controller,
+     this.controller,
     required this.labelText,
     this.keyboardType,
     this.obscureText = false,
@@ -29,6 +30,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
+    IconData? prefix, this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -44,7 +46,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         filled: true,
         fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
         labelStyle:
-            TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
+            TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -80,6 +82,12 @@ class RoundedTransparentTextField extends StatelessWidget {
             : GestureDetector(
                 onTap: onVisibilityToggle,
                 child: Image.asset('assets/images/icons/eye_button.png')),
+        prefix: prefixIcon == false
+            ? null
+            : GestureDetector(
+                onTap: onVisibilityToggle,
+                child: Icon(Icons.add,color: kcBlackColor,),
+      ),
       ),
     );
   }
