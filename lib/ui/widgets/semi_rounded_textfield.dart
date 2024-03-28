@@ -29,7 +29,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       fillColor: Colors.grey.withOpacity(0.2),
       borderRadius: 10.dg,
       textColor: Colors.black.withOpacity(0.6),
-      prefix: prefixIcon,
+      
     );
   }
 }

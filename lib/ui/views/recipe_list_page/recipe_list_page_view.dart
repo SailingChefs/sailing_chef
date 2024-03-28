@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
-import 'package:stacked/stacked.dart';
 import 'recipe_list_page_viewmodel.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {

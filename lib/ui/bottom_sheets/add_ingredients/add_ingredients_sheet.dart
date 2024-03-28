@@ -1,15 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/two_textfields_inarow.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import 'add_ingredients_sheet_model.dart';
 
@@ -54,9 +47,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                     },
                   ),
                   GestureDetector(
-                    onTap: (){
-                      
-                    },
+                    onTap: () {},
                     child: Text(
                       'Save',
                       style: globalTextStyle(

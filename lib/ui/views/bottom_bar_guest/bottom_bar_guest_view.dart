@@ -1,16 +1,24 @@
-import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
+import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/views/chat/chat_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
-import 'bottom_nav_bar_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
-class BottomNavBarView extends StatelessWidget {
-  const BottomNavBarView({Key? key}) : super(key: key);
+import 'bottom_bar_guest_viewmodel.dart';
+
+class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
+  const BottomBarGuestView({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<BottomNavBarViewModel>.reactive(
+  Widget builder(
+    BuildContext context,
+    BottomBarGuestViewModel viewModel,
+    Widget? child,
+  ) {
+    return ViewModelBuilder<BottomBarGuestViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: getViewForIndex(viewModel.currentIndex),
@@ -48,19 +56,7 @@ class BottomNavBarView extends StatelessWidget {
                 color: kcMediumGrey,
               ),
             ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                FlutterRemix.add_circle_fill,
-                color: kcDarkColor,
-                size: 48,
-              ),
-              label: '',
-              icon: Icon(
-                FlutterRemix.add_circle_fill,
-                color: kcDarkColor,
-                size: 48,
-              ),
-            ),
+           
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.chat_bubble_rounded,
@@ -85,10 +81,17 @@ class BottomNavBarView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      viewModelBuilder: () => BottomNavBarViewModel(),
+      ), 
+      viewModelBuilder: () => BottomBarGuestViewModel(),
     );
   }
+
+  @override
+  BottomBarGuestViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      BottomBarGuestViewModel();
+}
 
   Widget getViewForIndex(int index) {
     switch (index) {
@@ -97,13 +100,11 @@ class BottomNavBarView extends StatelessWidget {
       case 1:
         return const SavedRecipesView();
       case 2:
-        return const AddRecipeView();
-      case 3:
         return const ChatView();
-      case 4:
+      case 3:
         return const ProfileView();
+     
       default:
-        return const Text('On Index Number  4');
+        return const Text('On Index Number  3');
     }
   }
-}

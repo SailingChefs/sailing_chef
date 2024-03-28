@@ -8,6 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'save_draft_alertbox_dialog_model.dart';
 
+// ignore: unused_element
 const double _graphicSize = 60;
 
 class SaveDraftAlertboxDialog

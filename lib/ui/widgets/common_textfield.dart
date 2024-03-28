@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 
+// ignore: must_be_immutable
 class CommonTextField extends StatelessWidget {
   CommonTextField(
       {super.key, this.hintText, this.prefix, this.postfix, this.width});

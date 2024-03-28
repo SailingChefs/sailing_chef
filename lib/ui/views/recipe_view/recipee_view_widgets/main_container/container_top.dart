@@ -8,7 +8,6 @@ class TopBarRecipeView extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Colors.blue,
-
       ),
     );
   }

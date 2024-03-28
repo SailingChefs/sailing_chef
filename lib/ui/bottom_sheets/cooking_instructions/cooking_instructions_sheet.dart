@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';

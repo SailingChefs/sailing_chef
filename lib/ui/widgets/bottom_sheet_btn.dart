@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
 
 class Custom_BottomSheet_Buton extends StatelessWidget {
   final VoidCallback onPressed;

@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_renaming_method_parameters
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 
 class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
   const TwoTextFields({super.key});
