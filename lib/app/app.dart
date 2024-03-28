@@ -26,6 +26,7 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -48,6 +49,7 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
     MaterialRoute(page: PinDropMapView),
     MaterialRoute(page: FollowingListView),
     MaterialRoute(page: RecipeViewView),
+    MaterialRoute(page: BottomBarGuestView),
 // @stacked-route
   ],
   dependencies: [

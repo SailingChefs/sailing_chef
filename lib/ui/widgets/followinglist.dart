@@ -32,9 +32,7 @@ class FollowingFollowerList extends StatelessWidget {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(kcPrimaryColor),
               ),
-              onPressed: () {
-                
-              },
+              onPressed: () {},
               child: Text(
                 'Following',
                 style: TextStyle(color: kcwhitecolor),

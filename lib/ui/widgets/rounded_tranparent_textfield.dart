@@ -32,7 +32,6 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
-    IconData? prefix,
     this.prefixIcon,
   }) : super(key: key);
 
@@ -85,15 +84,7 @@ class RoundedTransparentTextField extends StatelessWidget {
             : GestureDetector(
                 onTap: onVisibilityToggle,
                 child: Image.asset('assets/images/icons/eye_button.png')),
-        prefix: prefixIcon == false
-            ? null
-            : GestureDetector(
-                onTap: onVisibilityToggle,
-                child: Icon(
-                  Icons.add,
-                  color: kcBlackColor,
-                ),
-              ),
+        
       ),
     );
   }

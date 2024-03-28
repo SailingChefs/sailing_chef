@@ -1,4 +1,3 @@
-
 // ignore_for_file: camel_case_types
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';

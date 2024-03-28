@@ -5,9 +5,11 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i20;
+import 'package:flutter/material.dart' as _i21;
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i14;
+import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart'
+    as _i20;
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
     as _i7;
 import 'package:sailing_chefs/ui/views/chat/chat_view.dart' as _i9;
@@ -33,7 +35,7 @@ import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
     as _i6;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i21;
+import 'package:stacked_services/stacked_services.dart' as _i22;
 
 class Routes {
   static const startupView = '/startup-view';
@@ -72,6 +74,8 @@ class Routes {
 
   static const recipeViewView = '/recipe-view-view';
 
+  static const bottomBarGuestView = '/bottom-bar-guest-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -91,6 +95,7 @@ class Routes {
     pinDropMapView,
     followingListView,
     recipeViewView,
+    bottomBarGuestView,
   };
 }
 
@@ -168,114 +173,124 @@ class StackedRouter extends _i1.RouterBase {
       Routes.recipeViewView,
       page: _i19.RecipeViewView,
     ),
+    _i1.RouteDef(
+      Routes.bottomBarGuestView,
+      page: _i20.BottomBarGuestView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartupView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
     _i3.OnboardingView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.OnboardingView(),
         settings: data,
       );
     },
     _i4.SignUpView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.SignUpView(),
         settings: data,
       );
     },
     _i5.LoginView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.LoginView(),
         settings: data,
       );
     },
     _i6.UserDetailsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.UserDetailsView(),
         settings: data,
       );
     },
     _i7.BottomNavBarView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.BottomNavBarView(),
         settings: data,
       );
     },
     _i8.SavedRecipesView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.SavedRecipesView(),
         settings: data,
       );
     },
     _i9.ChatView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ChatView(),
         settings: data,
       );
     },
     _i10.ProfileView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ProfileView(),
         settings: data,
       );
     },
     _i11.SettingsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.SettingsView(),
         settings: data,
       );
     },
     _i12.FilterView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.FilterView(),
         settings: data,
       );
     },
     _i13.IndexView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.IndexView(),
         settings: data,
       );
     },
     _i14.AddRecipeView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.AddRecipeView(),
         settings: data,
       );
     },
     _i15.ComingsoonView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.ComingsoonView(),
         settings: data,
       );
     },
     _i16.RecipeListPageView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.RecipeListPageView(),
         settings: data,
       );
     },
     _i17.PinDropMapView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.PinDropMapView(),
         settings: data,
       );
     },
     _i18.FollowingListView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i18.FollowingListView(),
         settings: data,
       );
     },
     _i19.RecipeViewView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i19.RecipeViewView(),
+        settings: data,
+      );
+    },
+    _i20.BottomBarGuestView: (data) {
+      return _i21.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i20.BottomBarGuestView(),
         settings: data,
       );
     },
@@ -288,7 +303,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i21.NavigationService {
+extension NavigatorStateExtension on _i22.NavigationService {
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -541,6 +556,20 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToBottomBarGuestView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.bottomBarGuestView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -787,6 +816,20 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.recipeViewView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithBottomBarGuestView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.bottomBarGuestView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
