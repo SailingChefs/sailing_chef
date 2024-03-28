@@ -53,7 +53,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       RoundedElevatedButton(
                         width: 80.w,
                         height: 14.h,
-                        textFontSize: 12.sp,
+                       
                         onPressed: () {
                           viewModel.toLogin();
                         },
