@@ -98,8 +98,6 @@ class AddRecipeViewModel extends BaseViewModel {
     );
   }
 
-   
-
   void navigateToRecipeListView() {
     _navigationService.navigateToRecipeListPageView();
   }

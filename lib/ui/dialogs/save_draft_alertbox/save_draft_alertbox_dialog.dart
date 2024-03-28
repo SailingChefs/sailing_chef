@@ -60,7 +60,7 @@ class SaveDraftAlertboxDialog
                             },
                             child: const Text(
                               'Yes',
-                              style:  TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: kcDarkColor,
@@ -68,10 +68,8 @@ class SaveDraftAlertboxDialog
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
-                              
-                            },
-                            child:  Text(
+                            onPressed: () {},
+                            child: Text(
                               'No',
                               style: const TextStyle(
                                 fontSize: 16,
@@ -97,10 +95,8 @@ class SaveDraftAlertboxDialog
                     ],
                   ),
                 ),
-                
               ],
             ),
-            
           ],
         ),
       ),

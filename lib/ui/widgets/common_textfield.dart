@@ -36,7 +36,6 @@ class CommonTextField extends StatelessWidget {
               controller: controller,
               labelText: '$hintText',
             ),
-           
           ),
         ),
       ],

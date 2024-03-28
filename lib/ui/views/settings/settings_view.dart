@@ -19,7 +19,7 @@ class SettingsView extends StackedView<SettingsViewModel> {
       backgroundColor: kcBackgroundColor,
       body: Column(
         children: [
-          TopBarSettingsScreen(),
+          TopBarSettingsScreen(title: 'Settings'),
           SettingsListSettingsScreen(),
         ],
       ),

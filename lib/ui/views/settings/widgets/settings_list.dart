@@ -128,6 +128,24 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           ),
         ),
         const Divider(),
+        ListTile(
+          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+          onTap: () {
+            viewModel.getToMap();
+          },
+          title: Text(
+            'Show Map',
+            style: globalTextStyle(
+                fontSize: 16.0.dg,
+                color: kcBlackColor,
+                fontWeight: FontWeight.w400),
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+            color: kcBlackColor,
+            size: 14,
+          ),
+        ),
       ],
     );
   }

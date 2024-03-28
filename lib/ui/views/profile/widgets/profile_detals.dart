@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -22,9 +23,8 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     child: Image.asset(
-                      'assets/images/icons/chefs.avif',
-                      fit: BoxFit
-                          .cover, // Use CrossAxisAlignment.cover to ensure the image covers the entire container
+                      'assets/images/icons/chef.jpg',
+                      fit: BoxFit.cover,
                       height: 90,
                       width: 90,
                     )),
@@ -41,25 +41,30 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '12',
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-              verticalSpaceTiny,
-              Text(
-                'Dishes',
-                style: globalTextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              viewModel.goTogoToProfileEditView('Hafsa Mehmood');
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '12',
+                  style: globalTextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Dishes',
+                  style: globalTextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+              ],
+            ),
           ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,

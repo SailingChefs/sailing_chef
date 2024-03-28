@@ -13,7 +13,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
         Form(
             child: Column(children: [
           SemiRoundedTranpaentTextField(
-              controller: viewModel.nameController, labelText: 'Name',),
+            controller: viewModel.nameController,
+            labelText: 'Name',
+          ),
           verticalSpaceMedium,
           SemiRoundedTranpaentTextField(
               controller: viewModel.bioController, labelText: 'Bio'),

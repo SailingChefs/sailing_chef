@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -19,6 +20,11 @@ class ProfileViewModel extends BaseViewModel {
     isMySelected = false;
     notifyListeners();
     rebuildUi();
+  }
+
+  void goTogoToProfileEditView(String name) {
+    _navigationService.navigateTo(Routes.followingListView,
+        arguments: FollowingListView());
   }
 
   // A function that navigates to the settings view.

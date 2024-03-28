@@ -74,7 +74,11 @@ class CookingInstructionsSheet
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Step 1',style: TextStyle(fontSize: 16,color: kcDarkColor.withOpacity(0.4)),),
+                  Text(
+                    'Step 1',
+                    style: TextStyle(
+                        fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
+                  ),
                   verticalSpaceTiny,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -84,7 +88,8 @@ class CookingInstructionsSheet
                         width: 300.w,
                         decoration: BoxDecoration(
                           color: kcVeryLightGrey.withOpacity(0.2),
-                          borderRadius: const BorderRadius.all(Radius.circular(30)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30)),
                         ),
                         child: Row(
                           children: [
@@ -118,11 +123,12 @@ class CookingInstructionsSheet
             ),
             // ignore: prefer_const_constructors
             Padding(
-              padding: const EdgeInsets.only(left:20.0,right: 55),
+              padding: const EdgeInsets.only(left: 20.0, right: 55),
               child: const SizedBox(
                 width: double.infinity,
-                child:  SemiRoundedTranpaentTextField(
-                      labelText: '+ Add one or multiple steps', ),
+                child: SemiRoundedTranpaentTextField(
+                  labelText: '+ Add one or multiple steps',
+                ),
               ),
             ),
             Custom_BottomSheet_Buton(

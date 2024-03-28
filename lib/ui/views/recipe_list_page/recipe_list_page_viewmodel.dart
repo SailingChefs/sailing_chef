@@ -7,5 +7,4 @@ class RecipeListPageViewModel extends BaseViewModel {
   void popBack() {
     _navigationService.back();
   }
-
 }

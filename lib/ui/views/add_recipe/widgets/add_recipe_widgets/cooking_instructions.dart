@@ -32,7 +32,6 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
         GestureDetector(
           onTap: viewModel.callCookingInstructionBottomSheet,
           child: Container(
-            
             height: 50.h,
             decoration: BoxDecoration(
               color: kcVeryLightGrey.withOpacity(0.2),

@@ -24,4 +24,6 @@ class AddIngredientsSheetModel extends BaseViewModel {
   void popBack() {
     _navigationService.back();
   }
+
+  void addIngredients() {}
 }

@@ -22,6 +22,10 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_s
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
 import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
+import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -41,6 +45,9 @@ import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.da
     MaterialRoute(page: AddRecipeView),
     MaterialRoute(page: ComingsoonView),
     MaterialRoute(page: RecipeListPageView),
+    MaterialRoute(page: PinDropMapView),
+    MaterialRoute(page: FollowingListView),
+    MaterialRoute(page: RecipeViewView),
 // @stacked-route
   ],
   dependencies: [
@@ -55,6 +62,7 @@ import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.da
     StackedBottomsheet(classType: NoticeSheet),
     StackedBottomsheet(classType: AddIngredientsSheet),
     StackedBottomsheet(classType: CookingInstructionsSheet),
+    StackedBottomsheet(classType: DropPinSheetSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

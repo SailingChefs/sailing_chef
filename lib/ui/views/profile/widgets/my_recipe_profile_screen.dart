@@ -23,7 +23,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
               foodImagePath: 'assets/images/background/onboarding2.png',
               dishName: "dish name",
               duration: "30",
-              chefImagePath: 'assets/images/icons/chefs.avif');
+              chefImagePath: 'assets/images/icons/chef.jpg');
         },
       ),
     );

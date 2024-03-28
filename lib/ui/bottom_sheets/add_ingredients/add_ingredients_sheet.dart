@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
@@ -52,12 +53,17 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                       viewModel.popBack();
                     },
                   ),
-                  Text(
-                    'Save',
-                    style: globalTextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: kcPrimaryColor.withOpacity(0.5)),
+                  GestureDetector(
+                    onTap: (){
+                      
+                    },
+                    child: Text(
+                      'Save',
+                      style: globalTextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: kcPrimaryColor.withOpacity(0.5)),
+                    ),
                   ),
                 ],
               ),

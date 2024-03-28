@@ -15,13 +15,13 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.validator,
       this.keyboardType,
       this.inputFormatters,
-     this.controller,
-      required this.labelText, this.prefixIcon});
+      this.controller,
+      required this.labelText,
+      this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
-      
       labelText: labelText,
       validator: validator,
       keyboardType: keyboardType,

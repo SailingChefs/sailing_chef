@@ -12,7 +12,7 @@ class CookingInstructionsSheetModel extends BaseViewModel {
 
   void saveData() {
     _dialogboxnavigation.showCustomDialog(
-        variant: DialogType.saveDraftAlertbox,
+      variant: DialogType.saveDraftAlertbox,
     );
   }
 }

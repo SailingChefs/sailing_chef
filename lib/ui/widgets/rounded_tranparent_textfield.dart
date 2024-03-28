@@ -18,7 +18,7 @@ class RoundedTransparentTextField extends StatelessWidget {
 
   const RoundedTransparentTextField({
     Key? key,
-     this.controller,
+    this.controller,
     required this.labelText,
     this.keyboardType,
     this.obscureText = false,
@@ -30,7 +30,8 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
-    IconData? prefix, this.prefixIcon,
+    IconData? prefix,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -86,8 +87,11 @@ class RoundedTransparentTextField extends StatelessWidget {
             ? null
             : GestureDetector(
                 onTap: onVisibilityToggle,
-                child: Icon(Icons.add,color: kcBlackColor,),
-      ),
+                child: Icon(
+                  Icons.add,
+                  color: kcBlackColor,
+                ),
+              ),
       ),
     );
   }

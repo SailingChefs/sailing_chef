@@ -2,8 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
 class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
-  const TopBarSettingsScreen({super.key});
-
+  const TopBarSettingsScreen({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
     return Padding(
@@ -31,7 +31,7 @@ class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             ),
           ),
           Text(
-            'Settings',
+            title,
             style: globalTextStyle(
                 fontSize: 20.0.dg,
                 color: kcBlackColor,
