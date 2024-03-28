@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:stacked/stacked.dart';
 
 class FollowingListViewModel extends BaseViewModel {
   final _navigationloactor = locator<NavigationService>();

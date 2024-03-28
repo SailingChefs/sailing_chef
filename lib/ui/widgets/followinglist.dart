@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class FollowingFollowerList extends StatelessWidget {
@@ -31,7 +33,7 @@ class FollowingFollowerList extends StatelessWidget {
                     MaterialStateProperty.all<Color>(kcPrimaryColor),
               ),
               onPressed: () {
-                print('Button pressed for ${names[index]}');
+                
               },
               child: Text(
                 'Following',

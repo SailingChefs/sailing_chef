@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
 
 class BackArrowWidget extends StatelessWidget {
   final void Function() onTap;

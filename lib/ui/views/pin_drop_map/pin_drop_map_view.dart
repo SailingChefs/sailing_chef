@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
-import 'package:stacked/stacked.dart';
 
 import 'pin_drop_map_viewmodel.dart';
 

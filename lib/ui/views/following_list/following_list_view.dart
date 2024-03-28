@@ -1,21 +1,9 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
-import 'package:sailing_chefs/ui/views/settings/widgets/top_bar.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:sailing_chefs/ui/widgets/followinglist.dart';
-import 'package:stacked/stacked.dart';
-
 import 'following_list_viewmodel.dart';
 
 class FollowingListView extends StackedView<FollowingListViewModel> {
