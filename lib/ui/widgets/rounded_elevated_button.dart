@@ -48,12 +48,16 @@ class RoundedElevatedButton extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.all(2.0.dg),
-        child: Text(
-          buttonText,
-          style: globalTextStyle(
-            fontSize: textFontSize.sp,
-            color: isEnabled ? textColor : kcPrimaryColor.withOpacity(0.5),
-            fontWeight: textFontWeight,
+        child: FittedBox(
+          child: Text(
+            buttonText,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: globalTextStyle(
+              fontSize: textFontSize.sp,
+              color: isEnabled ? textColor : kcPrimaryColor.withOpacity(0.5),
+              fontWeight: textFontWeight,
+            ),
           ),
         ),
       ),

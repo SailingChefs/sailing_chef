@@ -10,11 +10,11 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
+import 'package:sailing_chefs/ui/views/following_list/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/views/settings/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:sailing_chefs/ui/widgets/followinglist.dart';
-import 'package:stacked/stacked.dart';
 
 import 'following_list_viewmodel.dart';
 
@@ -29,35 +29,7 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          capitalizeEachWord('Chef Name'),
-          style: globalTextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w700,
-              color: kcBlackColor),
-        ),
-        centerTitle: true,
-        leading: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () => viewModel.popBack(),
-          child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(left: 10.0.dg),
-            height: 25.h,
-            width: 25.w,
-            decoration: const BoxDecoration(
-              color: kcVeryLightGrey,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: kcBlackColor,
-              size: 20.sp,
-            ),
-          ),
-        ),
-      ),
+      appBar: const TopBarFollowingList(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

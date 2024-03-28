@@ -66,7 +66,7 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 50,
+              bottom: 40,
               left: 10,
               child: Container(
                 width: 70.w,
@@ -95,7 +95,7 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 20,
+              bottom: 15,
               right: 10,
               child: Container(
                 width: 35.w,
@@ -119,7 +119,7 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 10,
+              bottom: 5,
               left: 10,
               child: Text(
                 capitalizeEachWord(dishName),
