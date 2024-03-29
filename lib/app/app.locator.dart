@@ -30,4 +30,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => UserServices());
   locator.registerLazySingleton(() => AuthService());
+  
 }

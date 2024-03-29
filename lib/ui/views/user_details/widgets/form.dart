@@ -8,39 +8,40 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, UserDetailsViewModel viewModel) {
-    return Column(
-      children: [
-        Form(
-            child: Column(children: [
-          SemiRoundedTranpaentTextField(
-            controller: viewModel.nameController,
-            labelText: 'Name',
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Form(
+              child: Column(children: [
+            SemiRoundedTranpaentTextField(
+              controller: viewModel.nameController,
+              labelText: 'Name',
+            ),
+            verticalSpaceMedium,
+            SemiRoundedTranpaentTextField(
+                controller: viewModel.bioController, labelText: 'Bio'),
+            verticalSpaceMedium,
+            SemiRoundedTranpaentTextField(
+                controller: viewModel.linkController, labelText: 'Link'),
+            verticalSpaceMedium,
+            SemiRoundedTranpaentTextField(
+                controller: viewModel.boatNameController, labelText: 'Boat Name'),
+            
+        
+            verticalSpaceMedium,
+            SemiRoundedTranpaentTextField(
+                controller: viewModel.syjoyController, labelText: 'Sy Joy '),
+            verticalSpaceMedium,
+            SemiRoundedTranpaentTextField(
+                controller: viewModel.locationController, labelText: 'Location'),
+          ])),
+          verticalSpaceMedium,
+          PrimaryColorRoundedElevatedButton(
+            onPressed: viewModel.saveUserDetails,
+            buttonText: 'SAVE',
           ),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.bioController, labelText: 'Bio'),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.linkController, labelText: 'Link'),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.boatNameController, labelText: 'Boat Name'),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.locationController, labelText: 'Location'),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.syjoyController, labelText: 'Sy Joy '),
-          verticalSpaceMedium,
-          SemiRoundedTranpaentTextField(
-              controller: viewModel.location2Controller, labelText: 'Location'),
-        ])),
-        verticalSpaceMedium,
-        PrimaryColorRoundedElevatedButton(
-          onPressed: viewModel.saveUserDetails,
-          buttonText: 'SAVE',
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
