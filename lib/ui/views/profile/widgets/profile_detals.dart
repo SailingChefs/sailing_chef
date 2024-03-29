@@ -22,7 +22,9 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: Image.network(
+                  
+                    child:  userDetails!.displayPicture == '' ? Image.asset('assets/images/misc/blank_image.png') :
+                     Image.network(
                       userDetails!.displayPicture!,
                       fit: BoxFit.cover,
                       height: 90,
@@ -31,6 +33,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               ),
               verticalSpaceSmall,
               Text(
+                userDetails!.displayName == '' ? '' :
                 capitalizeEachWord(userDetails!.displayName!),
                 style: globalTextStyle(
                     fontSize: 18.sp,

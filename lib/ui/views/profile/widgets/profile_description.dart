@@ -12,6 +12,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
+          userDetails!.location == '' && userDetails!.syJoy == '' ?  ' ' : userDetails!.location == '' ? capitalizeEachWord(userDetails!.syJoy!) : userDetails!.syJoy == '' ? capitalizeEachWord(userDetails!.location!) :
           capitalizeEachWord('${userDetails!.syJoy!}, ${userDetails!.location!}' ),
           style: globalTextStyle(
             fontSize: 16,
@@ -21,6 +22,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
         ),
         verticalSpaceSmall,
         Text(
+          userDetails!.bio == '' ? ' ' :
           userDetails!.bio!,
           style: globalTextStyle(
             fontSize: 14,
@@ -40,6 +42,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
             ),
             horizontalSpaceSmall,
             Text(
+              userDetails!.link == '' ? ' ' :
               userDetails!.link!,
               style: globalTextStyle(
                 fontSize: 14,
