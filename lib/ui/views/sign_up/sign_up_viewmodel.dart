@@ -127,18 +127,3 @@ class SignUpViewModel extends BaseViewModel {
     rebuildUi();
   }
 }
-//  displayName: name,
-//         email: email,
-//         userRole: userRole,
-//         uid: userCredential.user!.uid,
-//         bio: '',
-//         boatName: '',
-//         createdTime: null,
-//         displayPicture: '',
-//         dob: '',
-//         followers: [],
-//         following: [],
-//         location: '',
-//         link: '',
-//         phoneNumber: '',
-//         savedRecipes: [],

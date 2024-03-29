@@ -16,27 +16,29 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
     SavedRecipesViewModel viewModel,
     Widget? child,
   ) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25),
-            child: Column(
-              children: [
-                const TopBarSavedRecipesScreen(),
-                verticalSpaceLarge,
-                const TabBarSavedRecipesScreen(),
-                verticalSpaceMedium,
-                const SearchBarSavedRecipesScreen(),
-                verticalSpaceMedium,
-                viewModel.isAllSelected
-                    ? const AllSavedRecipesScreen()
-                    : const FollowingSavedRecipesScreen(),
-              ],
-            ),
-          )),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0,),
+              child: Column(
+                children: [
+                  const TopBarSavedRecipesScreen(),
+                  verticalSpaceLarge,
+                  const TabBarSavedRecipesScreen(),
+                  verticalSpaceMedium,
+                  const SearchBarSavedRecipesScreen(),
+                  verticalSpaceMedium,
+                  viewModel.isAllSelected
+                      ? const AllSavedRecipesScreen()
+                      : const FollowingSavedRecipesScreen(),
+                ],
+              ),
+            )),
+      ),
     );
   }
 

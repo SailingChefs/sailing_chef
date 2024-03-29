@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -16,7 +16,6 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController syjoyController = TextEditingController();
-
   final ImagePicker picker = ImagePicker();
   File? selectedImageFile;
   String? selectedImagePath;
@@ -30,6 +29,10 @@ class UserDetailsViewModel extends BaseViewModel {
 
       notifyListeners();
       rebuildUi();
+    }
+    else{
+      showToast(message: 'No image slected Please Select image to proceed');
+      
     }
   }
 
@@ -54,8 +57,12 @@ class UserDetailsViewModel extends BaseViewModel {
         
       );
       if(userDetailsStatus){
-
-    _navigationService.navigateToBottomNavBarView();
+        userDetails = await _userService.getUserDetails();
+      if(userDetails!.userRole == 'guest'){
+        _navigationService.replaceWithBottomBarGuestView();
+      }
+      else
+   { _navigationService.replaceWithBottomNavBarView();}
       }
       else{
         _navigationService.replaceWithUserDetailsView();
@@ -66,15 +73,20 @@ class UserDetailsViewModel extends BaseViewModel {
   Future<void> getImagefromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
+       selectedImageFile = File(pickedFile.path);
       selectedImagePath = pickedFile.path;
       notifyListeners();
       rebuildUi();
+      
+    }
+    else{
+      showToast(message: 'No image slected Please Select image to proceed');
     }
   }
   onViewModelReady() async{
     setBusy(true);
-   final UserModel user = await _userService.getUserDetails() ;
-    nameController.text = user.displayName ?? '';
+    userDetails = await _userService.getUserDetails() ;
+    nameController.text = userDetails!.displayName ?? '';
     setBusy(false);
   }
 }

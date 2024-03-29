@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -21,8 +22,8 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      'assets/images/icons/chef.jpg',
+                    child: Image.network(
+                      userDetails!.displayPicture!,
                       fit: BoxFit.cover,
                       height: 90,
                       width: 90,
@@ -30,7 +31,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               ),
               verticalSpaceSmall,
               Text(
-                capitalizeEachWord('Chef Name'),
+                capitalizeEachWord(userDetails!.displayName!),
                 style: globalTextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,

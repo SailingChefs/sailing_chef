@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
@@ -11,7 +12,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          capitalizeEachWord('Sy joy, french polynesia'),
+          capitalizeEachWord('${userDetails!.syJoy!}, ${userDetails!.location!}' ),
           style: globalTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -20,7 +21,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
         ),
         verticalSpaceSmall,
         Text(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          userDetails!.bio!,
           style: globalTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -39,7 +40,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
             ),
             horizontalSpaceSmall,
             Text(
-              'www.danicaswebsite.com',
+              userDetails!.link!,
               style: globalTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
