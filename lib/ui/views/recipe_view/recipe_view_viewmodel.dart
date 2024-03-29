@@ -13,7 +13,7 @@ class RecipeViewViewModel extends BaseViewModel {
     isMethodsSelected = false;
     notifyListeners();
     rebuildUi();
-  }
+  }   
 
   void methodsSelected() {
     isMethodsSelected = true;
