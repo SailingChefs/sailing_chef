@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 
 // ignore: must_be_immutable
@@ -19,22 +21,17 @@ class CommonTextField extends StatelessWidget {
           onPressed: () {},
           icon: Icon(
             prefix,
-            color: kcBlackColor.withOpacity(0.5),
+            color: kcBlackColor.withOpacity(0.4),
             size: 30.sp,
           ),
         ),
-        Container(
-          height: 50.h,
-          width: width ?? 290.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey.withOpacity(0.2),
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-          ),
+        Flexible(
           child: Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: SemiRoundedTranpaentTextField(
+            padding: const EdgeInsets.only(right:12.0),
+            child: RoundedTransparentTextField(
               controller: controller,
               labelText: '$hintText',
+              textColor: kcBlackColor.withOpacity(0.4),
             ),
           ),
         ),

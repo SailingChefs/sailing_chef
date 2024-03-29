@@ -13,6 +13,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final double? borderRadius;
   final Color? fillColor;
   final Color? textColor;
+  final double? hiegt;
   final Function()? onVisibilityToggle;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
@@ -32,7 +33,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
-    this.prefixIcon,
+    this.prefixIcon, this.hiegt,
   }) : super(key: key);
 
   @override
@@ -61,7 +62,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
           borderSide: BorderSide(
-              color: kcWhiteColor.withOpacity(0.2)), // Unfocused border color
+              color: kcWhiteColor.withOpacity(0.2)), 
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -76,7 +77,7 @@ class RoundedTransparentTextField extends StatelessWidget {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 10.0,
+          vertical: 15.0,
           horizontal: 20.0,
         ),
         suffixIcon: suffixIcon == false

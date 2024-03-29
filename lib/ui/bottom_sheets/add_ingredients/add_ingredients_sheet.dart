@@ -78,7 +78,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             ),
             verticalSpaceTiny,
             const TwoTextFields(),
-            verticalSpaceSmall,
+            verticalSpaceTiny,
             SizedBox(
               width: double.infinity,
               child: CommonTextField(
