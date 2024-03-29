@@ -29,7 +29,7 @@ class StartupViewModel extends BaseViewModel {
         if (firebaseAuth.currentUser == null) {
           _navigationService.replaceWithOnboardingView();
         } else {
-          _navigationService.replaceWithBottomBarGuestView();
+          _navigationService.replaceWithBottomNavBarView();
         }
       }
     });

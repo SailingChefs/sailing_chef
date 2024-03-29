@@ -47,7 +47,9 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                     },
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      viewModel.goToRecipePreview();
+                    },
                     child: Text(
                       'Save',
                       style: globalTextStyle(
