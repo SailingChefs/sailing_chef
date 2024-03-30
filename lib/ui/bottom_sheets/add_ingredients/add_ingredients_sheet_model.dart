@@ -13,6 +13,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
     'bunch',
     'bowl'
   ];
+final TextEditingController ingredientsController = TextEditingController();
+final TextEditingController quantityController = TextEditingController();
   void updateValue(String value) {
     selectedValue = value;
     notifyListeners();
@@ -21,6 +23,10 @@ class AddIngredientsSheetModel extends BaseViewModel {
 
   void popBack() {
     _navigationService.back();
+  }
+
+  void goToRecipePreview() {
+    _navigationService.navigateToRecipeViewView();
   }
 
   void addIngredients() {}

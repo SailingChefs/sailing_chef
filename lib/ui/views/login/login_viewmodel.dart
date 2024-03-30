@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
@@ -57,23 +56,20 @@ class LoginViewModel extends BaseViewModel {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-   
-      
-      if (success) {
-         userDetails =  await _userService.getUserDetails();
-         if(userDetails!.displayPicture == ''){
-        _navigationService.replaceWithUserDetailsView();
-         }
-         else{
-           if(userDetails!.userRole == 'guest'){
-              _navigationService.replaceWithBottomBarGuestView();
-         }
-         else{
-            _navigationService.replaceWithBottomNavBarView();
-         }
 
-        ///  _navigationService.replaceWithHomeView();
-      }
+      if (success) {
+        userDetails = await _userService.getUserDetails();
+        if (userDetails!.displayPicture == '') {
+          _navigationService.replaceWithUserDetailsView();
+        } else {
+          if (userDetails!.userRole == 'guest') {
+            _navigationService.replaceWithBottomBarGuestView();
+          } else {
+            _navigationService.replaceWithBottomNavBarView();
+          }
+
+          ///  _navigationService.replaceWithHomeView();
+        }
       } else {
         _navigationService.replaceWithLoginView();
       }
@@ -90,5 +86,4 @@ class LoginViewModel extends BaseViewModel {
   void toSignUp() {
     _navigationService.replaceWithSignUpView();
   }
-
 }

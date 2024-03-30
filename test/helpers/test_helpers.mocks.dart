@@ -7,8 +7,11 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
 import 'package:flutter/material.dart' as _i4;
+import 'package:image_picker/image_picker.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:sailing_chefs/model/recipe_model.dart' as _i8;
+import 'package:sailing_chefs/services/recipe_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -669,4 +672,31 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [RecipeService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRecipeService extends _i1.Mock implements _i7.RecipeService {
+  @override
+  _i5.Future<void> addRecipeToFirestore(_i8.RecipeModel? recipe) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addRecipeToFirestore,
+          [recipe],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<List<String>> uploadImagesToFirebase(List<_i9.XFile?>? images) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadImagesToFirebase,
+          [images],
+        ),
+        returnValue: _i5.Future<List<String>>.value(<String>[]),
+        returnValueForMissingStub: _i5.Future<List<String>>.value(<String>[]),
+      ) as _i5.Future<List<String>>);
 }

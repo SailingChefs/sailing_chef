@@ -49,10 +49,6 @@ class AuthService {
   static Future<void> signout() {
     return firebaseAuth.signOut();
   }
- 
-
-
-
 
   Future<bool> signUp({
     required String password,
@@ -61,7 +57,8 @@ class AuthService {
     try {
       EasyLoading.show();
       // Create user with email and password
-      UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email!,
         password: password,
       );
@@ -84,7 +81,6 @@ class AuthService {
     }
   }
 }
-
 
 //   static Future<bool> register({
 //     required String email,
@@ -126,4 +122,3 @@ class AuthService {
 //       return false;
 //     }
 //   }
-

@@ -1,16 +1,15 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   final String? displayName;
   final String? email;
   final String? userRole;
-  String ? userDocId;
-   String? uid;
+  String? userDocId;
+  String? uid;
   final String? bio;
   final String? boatName;
   final DateTime? createdTime;
-  String ?displayPicture;
+  String? displayPicture;
   final String? dob;
   final List<String>? followers;
   final List<String>? following;
@@ -22,10 +21,10 @@ class UserModel {
 
   UserModel({
     this.syJoy,
-     this.displayName,
-     this.email,
-     this.userRole,
-     this.uid,
+    this.displayName,
+    this.email,
+    this.userRole,
+    this.uid,
     this.bio,
     this.boatName,
     this.createdTime,
@@ -79,7 +78,6 @@ class UserModel {
       'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
       'sy_joy': syJoy
-
     };
   }
 

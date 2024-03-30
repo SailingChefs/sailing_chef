@@ -7,7 +7,10 @@ class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25.0, ),
+      padding: const EdgeInsets.only(
+        left: 25.0,
+        right: 25.0,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

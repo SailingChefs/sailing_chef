@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
@@ -23,15 +22,10 @@ class CommonTextField extends StatelessWidget {
             size: 30.sp,
           ),
         ),
-        Container(
-          height: 50.h,
-          width: width ?? 290.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey.withOpacity(0.2),
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-          ),
+        SizedBox(
+          width: width ?? 300.w,
           child: Padding(
-            padding: EdgeInsets.only(left: 8.0),
+            padding: const EdgeInsets.only(left: 8.0),
             child: SemiRoundedTranpaentTextField(
               controller: controller,
               labelText: '$hintText',

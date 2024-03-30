@@ -30,7 +30,6 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       borderRadius: 10.dg,
       textColor: Colors.black.withOpacity(0.6),
       controller: controller,
-      
     );
   }
 }

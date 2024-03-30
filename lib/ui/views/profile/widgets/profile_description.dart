@@ -12,8 +12,14 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          userDetails!.location == '' && userDetails!.syJoy == '' ?  ' ' : userDetails!.location == '' ? capitalizeEachWord(userDetails!.syJoy!) : userDetails!.syJoy == '' ? capitalizeEachWord(userDetails!.location!) :
-          capitalizeEachWord('${userDetails!.syJoy!}, ${userDetails!.location!}' ),
+          userDetails!.location == '' && userDetails!.syJoy == ''
+              ? ' '
+              : userDetails!.location == ''
+                  ? capitalizeEachWord(userDetails!.syJoy!)
+                  : userDetails!.syJoy == ''
+                      ? capitalizeEachWord(userDetails!.location!)
+                      : capitalizeEachWord(
+                          '${userDetails!.syJoy!}, ${userDetails!.location!}'),
           style: globalTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -22,8 +28,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
         ),
         verticalSpaceSmall,
         Text(
-          userDetails!.bio == '' ? ' ' :
-          userDetails!.bio!,
+          userDetails!.bio == '' ? ' ' : userDetails!.bio!,
           style: globalTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -42,8 +47,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
             ),
             horizontalSpaceSmall,
             Text(
-              userDetails!.link == '' ? ' ' :
-              userDetails!.link!,
+              userDetails!.link == '' ? ' ' : userDetails!.link!,
               style: globalTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

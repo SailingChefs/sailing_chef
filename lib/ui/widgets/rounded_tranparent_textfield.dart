@@ -84,7 +84,6 @@ class RoundedTransparentTextField extends StatelessWidget {
             : GestureDetector(
                 onTap: onVisibilityToggle,
                 child: Image.asset('assets/images/icons/eye_button.png')),
-        
       ),
     );
   }

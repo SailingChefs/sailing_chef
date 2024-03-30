@@ -20,9 +20,7 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-
       appBar: const TopBarFollowing(),
-
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

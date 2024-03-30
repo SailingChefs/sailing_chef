@@ -45,5 +45,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- PERMISSIONS -->
+	<key>NSMicrophoneUsageDescription</key>
+    <string>This app requires Mic permission.</string>
 </dict>
 </plist>

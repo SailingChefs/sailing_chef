@@ -30,6 +30,8 @@ dependencies:
   dotted_border: ^2.1.0
   carousel_slider: ^4.2.1
   firebase_storage: ^11.6.11
+  audioplayers: ^6.0.0
+  audio_waveforms: ^1.0.5
   
  
   

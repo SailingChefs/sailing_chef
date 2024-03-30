@@ -16,32 +16,35 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const RecipeTitle(),
-        verticalSpaceMedium,
-        const CoverPictureSelector(),
-        verticalSpaceSmall,
-        const ServingQuantity(),
-        verticalSpaceMedium,
-        const Ingredients(),
-        verticalSpaceMedium,
-        const CookingInstructions(),
-        verticalSpaceMedium,
-        const ChefsNote(),
-        verticalSpaceSmall,
-        const PrepTime(),
-        verticalSpaceMedium,
-        const VisibiltyDropDown(),
-        verticalSpaceMedium,
-        Custom_BottomSheet_Buton(
-          onPressed: () {
-            viewModel.navigateToRecipeListView();
-          },
-          buttonText: 'Preview ',
-          postfix: Icons.remove_red_eye_outlined,
-        ),
-        verticalSpaceMedium,
-      ]),
+      child: Form(
+        key: viewModel.formKey,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const RecipeTitle(),
+          verticalSpaceMedium,
+          const CoverPictureSelector(),
+          verticalSpaceSmall,
+          const ServingQuantity(),
+          verticalSpaceMedium,
+          const Ingredients(),
+          verticalSpaceMedium,
+          const CookingInstructions(),
+          verticalSpaceMedium,
+          const ChefsNote(),
+          verticalSpaceSmall,
+          const PrepTime(),
+          verticalSpaceMedium,
+          const VisibiltyDropDown(),
+          verticalSpaceMedium,
+          Custom_BottomSheet_Buton(
+            onPressed: 
+              viewModel.saveRecipe,
+            
+            buttonText: 'Preview ',
+            postfix: Icons.remove_red_eye_outlined,
+          ),
+          verticalSpaceMedium,
+        ]),
+      ),
     );
   }
 }

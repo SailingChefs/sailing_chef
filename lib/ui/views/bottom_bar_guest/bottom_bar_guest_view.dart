@@ -27,7 +27,6 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
           backgroundColor: kcWhiteColor,
           selectedItemColor: kcPrimaryColor,
           unselectedIconTheme: const IconThemeData(color: Colors.white),
-         
           selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
           unselectedLabelStyle: const TextStyle(color: Colors.white),
           selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
@@ -56,7 +55,6 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
                 color: kcMediumGrey,
               ),
             ),
-           
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.chat_bubble_rounded,
@@ -81,7 +79,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
             ),
           ],
         ),
-      ), 
+      ),
       viewModelBuilder: () => BottomBarGuestViewModel(),
     );
   }
@@ -93,18 +91,18 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
       BottomBarGuestViewModel();
 }
 
-  Widget getViewForIndex(int index) {
-    switch (index) {
-      case 0:
-        return const IndexView();
-      case 1:
-        return const SavedRecipesView();
-      case 2:
-        return const ChatView();
-      case 3:
-        return const ProfileView();
-     
-      default:
-        return const Text('On Index Number  3');
-    }
+Widget getViewForIndex(int index) {
+  switch (index) {
+    case 0:
+      return const IndexView();
+    case 1:
+      return const SavedRecipesView();
+    case 2:
+      return const ChatView();
+    case 3:
+      return const ProfileView();
+
+    default:
+      return const Text('On Index Number  3');
   }
+}

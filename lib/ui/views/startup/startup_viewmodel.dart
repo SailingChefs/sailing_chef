@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -26,7 +25,7 @@ class StartupViewModel extends BaseViewModel {
 
   Future runStartupLogic() async {
     await Future.delayed(const Duration(seconds: 3));
-   
+
     checkFirstTime().then((isFirstTime) async {
       if (isFirstTime) {
         _navigationService.replaceWithOnboardingView();
@@ -35,7 +34,7 @@ class StartupViewModel extends BaseViewModel {
           _navigationService.replaceWithLoginView();
           //    _navigationService.replaceWithOnboardingView();
         } else {
-           userDetails = await _userService.getUserDetails();
+          userDetails = await _userService.getUserDetails();
           if (userDetails!.userRole == 'guest') {
             _navigationService.replaceWithBottomBarGuestView();
           } else {
@@ -47,6 +46,4 @@ class StartupViewModel extends BaseViewModel {
       }
     });
   }
-
- 
 }

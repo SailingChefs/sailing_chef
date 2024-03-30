@@ -25,15 +25,15 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                 controller: viewModel.linkController, labelText: 'Link'),
             verticalSpaceMedium,
             SemiRoundedTranpaentTextField(
-                controller: viewModel.boatNameController, labelText: 'Boat Name'),
-            
-        
+                controller: viewModel.boatNameController,
+                labelText: 'Boat Name'),
             verticalSpaceMedium,
             SemiRoundedTranpaentTextField(
                 controller: viewModel.syjoyController, labelText: 'Sy Joy '),
             verticalSpaceMedium,
             SemiRoundedTranpaentTextField(
-                controller: viewModel.locationController, labelText: 'Location'),
+                controller: viewModel.locationController,
+                labelText: 'Location'),
           ])),
           verticalSpaceMedium,
           PrimaryColorRoundedElevatedButton(

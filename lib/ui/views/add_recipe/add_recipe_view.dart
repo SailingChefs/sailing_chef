@@ -13,23 +13,37 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
     AddRecipeViewModel viewModel,
     Widget? child,
   ) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 25),
-          child: Column(
-            children: [
-              const TopBarAddRecipe(),
-              verticalSpaceMedium,
-              const Expanded(child: AddRecipeFormAddRecipeScreen()),
-            ],
-          ),
-        ),
-      ),
-    );
+    return SizedBox(
+        child: viewModel.isBusy
+            ? const Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: GestureDetector(
+                  onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                  child: Scaffold(
+                    resizeToAvoidBottomInset: false,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    body: Container(
+                      padding: const EdgeInsets.only(
+                        left: 25.0,
+                        right: 25.0,
+                      ),
+                      child: Column(
+                        children: [
+                          const TopBarAddRecipe(),
+                          verticalSpaceMedium,
+                          const Expanded(child: AddRecipeFormAddRecipeScreen()),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+  }
+
+  @override
+  void onViewModelReady(AddRecipeViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

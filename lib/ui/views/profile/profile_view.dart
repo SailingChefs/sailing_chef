@@ -21,7 +21,10 @@ class ProfileView extends StackedView<ProfileViewModel> {
       child: Scaffold(
           backgroundColor: kcBackgroundColor,
           body: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0,),
+            padding: const EdgeInsets.only(
+              left: 15.0,
+              right: 15.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

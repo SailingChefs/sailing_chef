@@ -18,7 +18,6 @@ class BottomNavBarView extends StatelessWidget {
           backgroundColor: kcWhiteColor,
           selectedItemColor: kcPrimaryColor,
           unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
-         
           selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
           unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
           selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
@@ -94,7 +93,11 @@ class BottomNavBarView extends StatelessWidget {
       case 0:
         return const IndexView();
       case 1:
-        return const Center(child:Text('Map to be shown',style: TextStyle(color: Colors.black),));
+        return const Center(
+            child: Text(
+          'Map to be shown',
+          style: TextStyle(color: Colors.black),
+        ));
       case 2:
         return const AddRecipeView();
       case 3:

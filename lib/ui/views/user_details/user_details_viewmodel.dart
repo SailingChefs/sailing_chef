@@ -21,71 +21,63 @@ class UserDetailsViewModel extends BaseViewModel {
   String? selectedImagePath;
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    
 
     if (pickedFile != null) {
-       selectedImageFile = File(pickedFile.path);
+      selectedImageFile = File(pickedFile.path);
       selectedImagePath = pickedFile.path;
 
       notifyListeners();
       rebuildUi();
-    }
-    else{
+    } else {
       showToast(message: 'No image slected Please Select image to proceed');
-      
     }
   }
 
-  void saveUserDetails() async{
- 
-    final imageLink = await _userService.uploadImage(selectedImageFile as File, selectedImageFile!.path.split('/').last,);
-  
-      bool userDetailsStatus = await _userService.storeUserDetails(
-       
-          {
-          
-          'display_name': nameController.text,
-         'bio': bioController.text,
-          'link': linkController.text,
-          'boat_name': boatNameController.text,
-          'location': locationController.text,
-          'sy_joy': syjoyController.text,
-          'display_picture': imageLink,
-          },
-          FirebaseAuth.instance.currentUser!.uid,
-          
-        
-      );
-      if(userDetailsStatus){
-        userDetails = await _userService.getUserDetails();
-      if(userDetails!.userRole == 'guest'){
+  void saveUserDetails() async {
+    final imageLink = await _userService.uploadImage(
+      selectedImageFile as File,
+      selectedImageFile!.path.split('/').last,
+    );
+
+    bool userDetailsStatus = await _userService.storeUserDetails(
+      {
+        'display_name': nameController.text,
+        'bio': bioController.text,
+        'link': linkController.text,
+        'boat_name': boatNameController.text,
+        'location': locationController.text,
+        'sy_joy': syjoyController.text,
+        'display_picture': imageLink,
+      },
+      FirebaseAuth.instance.currentUser!.uid,
+    );
+    if (userDetailsStatus) {
+      userDetails = await _userService.getUserDetails();
+      if (userDetails!.userRole == 'guest') {
         _navigationService.replaceWithBottomBarGuestView();
+      } else {
+        _navigationService.replaceWithBottomNavBarView();
       }
-      else
-   { _navigationService.replaceWithBottomNavBarView();}
-      }
-      else{
-        _navigationService.replaceWithUserDetailsView();
-      }
-    
+    } else {
+      _navigationService.replaceWithUserDetailsView();
+    }
   }
 
   Future<void> getImagefromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-       selectedImageFile = File(pickedFile.path);
+      selectedImageFile = File(pickedFile.path);
       selectedImagePath = pickedFile.path;
       notifyListeners();
       rebuildUi();
-      
-    }
-    else{
+    } else {
       showToast(message: 'No image slected Please Select image to proceed');
     }
   }
-  onViewModelReady() async{
+
+  onViewModelReady() async {
     setBusy(true);
-    userDetails = await _userService.getUserDetails() ;
+    userDetails = await _userService.getUserDetails();
     nameController.text = userDetails!.displayName ?? '';
     setBusy(false);
   }

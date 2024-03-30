@@ -10,7 +10,7 @@ import '../model/user_model.dart';
 
 class UserServices {
   static Future<bool> storeUserRoleAndName({
-   required UserModel userModel,
+    required UserModel userModel,
   }) async {
     final user = firebaseAuth.currentUser;
     if (user == null) {
@@ -27,8 +27,8 @@ class UserServices {
     if (!userSnapshot.exists) {
       // User not stored in Firestore, so add their data
       await usersCollection.doc(user.uid).set(
-        userModel.toJson(),
-      );
+            userModel.toJson(),
+          );
 
       return true;
     } else {
@@ -36,23 +36,24 @@ class UserServices {
     }
   }
 
-   Future<UserModel> getUserDetails() async {
+  Future<UserModel> getUserDetails() async {
     try {
       EasyLoading.show();
-      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+      CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('users');
 
-      QuerySnapshot userSnapshot = await usersCollection.where('uid', isEqualTo: firebaseAuth.currentUser!.uid).get();
-
-   
+      QuerySnapshot userSnapshot = await usersCollection
+          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+          .get();
 
       if (userSnapshot.docs.isNotEmpty) {
         // User found in Firestore, return as User model
         DocumentSnapshot userDoc = userSnapshot.docs.first;
-           EasyLoading.dismiss();
+        EasyLoading.dismiss();
         return UserModel.fromSnapshot(userDoc);
       } else {
         // User not found in Firestore
-           EasyLoading.dismiss();
+        EasyLoading.dismiss();
         throw Exception("User not found in Firestore");
       }
     } catch (e) {
@@ -61,7 +62,9 @@ class UserServices {
       rethrow;
     }
   }
-  Future<bool> storeUserDetails(Map<String , dynamic> userModel,String uid) async {
+
+  Future<bool> storeUserDetails(
+      Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
       CollectionReference usersCollection =
@@ -70,7 +73,7 @@ class UserServices {
       DocumentSnapshot userSnapshot = await usersCollection.doc(uid).get();
       if (userSnapshot.exists) {
         // User not stored in Firestore, so add their data
-       
+
         await usersCollection.doc(uid).update(userModel);
         EasyLoading.dismiss();
         showToast(message: 'User Data Uploaded successfully');
@@ -83,11 +86,11 @@ class UserServices {
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());
-      
+
       rethrow;
     }
-    
   }
+
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
       EasyLoading.show();
