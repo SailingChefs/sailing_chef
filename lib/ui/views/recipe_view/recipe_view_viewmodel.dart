@@ -1,19 +1,17 @@
-
 import 'package:stacked/stacked.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
   // final _navigationService = locator<NavigationService>();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
-  bool isMethodsSelected = false; 
-
+  bool isMethodsSelected = false;
 
   void myIngredientsSelected() {
     isIngredientsSelected = true;
     isMethodsSelected = false;
     notifyListeners();
     rebuildUi();
-  }   
+  }
 
   void methodsSelected() {
     isMethodsSelected = true;
@@ -21,7 +19,8 @@ class RecipeViewViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
-    void handleTab(int index) {
+
+  void handleTab(int index) {
     switch (index) {
       case 0:
         selectedTab = 'Ingredients';

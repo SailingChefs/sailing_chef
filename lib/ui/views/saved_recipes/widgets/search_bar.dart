@@ -11,11 +11,10 @@ class SearchBarSavedRecipesScreen
       children: [
         SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.75,
-          height: 25.dg,
+          height: 40.dg,
           child: TextField(
             textAlign: TextAlign.start,
             decoration: InputDecoration(
-              hintText: 'Type your message here...',
               hintStyle: TextStyle(
                 color: kcBlackColor.withOpacity(0.6),
                 fontSize: 12.sp,

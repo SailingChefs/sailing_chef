@@ -10,7 +10,7 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
     return Container(
       height: 50.h,
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 10),
+      padding: const EdgeInsets.only(top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,18 +22,19 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
               log('following');
             },
             child: Container(
+              width: 170,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: viewModel.isFollowing == true
                         ? Colors.black
                         : Colors.transparent,
-                    width: 2.0,
+                    width: 1.0,
                   ),
                 ),
               ),
               child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
                 child: Text(
                   '98 Followers',
                   style: TextStyle(
@@ -51,18 +52,19 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
               log('Followers');
             },
             child: Container(
+              width: 170,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: viewModel.isFollowing == false
                         ? Colors.black
                         : Colors.transparent,
-                    width: 2.0,
+                    width: 1.0,
                   ),
                 ),
               ),
               child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                 child: Text(
                   '108 Following',
                   style: TextStyle(

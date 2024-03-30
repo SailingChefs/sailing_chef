@@ -25,9 +25,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
         TopBarRecipeView(),
         MainRecipeViewContainer(),
         verticalSpaceMedium,
-        viewModel.isIngredientsSelected
-            ?  Ingredients()
-            :  Methods(),
+        viewModel.isIngredientsSelected ? Ingredients() : Methods(),
       ]),
     );
   }

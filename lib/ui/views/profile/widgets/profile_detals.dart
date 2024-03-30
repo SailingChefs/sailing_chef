@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -43,9 +41,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              
-            },
+            onTap: () {},
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -70,7 +66,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: (){
+            onTap: () {
               viewModel.goTogoToProfileEditView('Hafsa Mehmood');
             },
             child: Column(
@@ -97,7 +93,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: (){
+            onTap: () {
               viewModel.goTogoToProfileEditView('Hafsa Mehmood');
             },
             child: Column(

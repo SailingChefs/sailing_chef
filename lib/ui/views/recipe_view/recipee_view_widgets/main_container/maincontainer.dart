@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../common/app_colors.dart';
-import '../../../../common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
+import '../../../../../core/imports/core_imports.dart';
 
-class MainRecipeViewContainer extends StatelessWidget {
+class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
   const MainRecipeViewContainer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
     return Stack(
       children: [
         SingleChildScrollView(
@@ -70,7 +67,8 @@ class MainRecipeViewContainer extends StatelessWidget {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left:10.0,right: 10,top:2),
+                      padding:
+                          const EdgeInsets.only(left: 10.0, right: 10, top: 2),
                       child: Text(
                         'This Healthy Taco Salad is the universal delight of taco night',
                         style: globalTextStyle(

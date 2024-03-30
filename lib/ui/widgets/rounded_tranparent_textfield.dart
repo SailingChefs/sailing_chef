@@ -8,7 +8,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final String labelText;
   final bool obscureText;
   final bool? suffixIcon;
-  final bool? prefixIcon;
+  final Icon? prefixIcon;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
@@ -33,7 +33,9 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
-    this.prefixIcon, this.hiegt,
+    this.prefixIcon,
+    this.hiegt,
+    void Function(dynamic value)? onTap,
   }) : super(key: key);
 
   @override
@@ -61,8 +63,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(
-              color: kcWhiteColor.withOpacity(0.2)), 
+          borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -80,12 +81,12 @@ class RoundedTransparentTextField extends StatelessWidget {
           vertical: 15.0,
           horizontal: 20.0,
         ),
+        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon == false
             ? null
             : GestureDetector(
                 onTap: onVisibilityToggle,
                 child: Image.asset('assets/images/icons/eye_button.png')),
-        
       ),
     );
   }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class TopBarRecipeView extends StatelessWidget {
+import '../../recipe_view_viewmodel.dart';
+
+class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
   const TopBarRecipeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(top:25.0),
+      padding: const EdgeInsets.only(top: 25.0),
       child: Container(
         width: double.infinity,
         height: 250,

@@ -19,7 +19,6 @@ class BottomNavBarView extends StatelessWidget {
           backgroundColor: kcWhiteColor,
           selectedItemColor: kcPrimaryColor,
           unselectedIconTheme: const IconThemeData(color: Colors.white),
-         
           selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
           unselectedLabelStyle: const TextStyle(color: Colors.white),
           selectedLabelStyle: const TextStyle(color: kcPrimaryColor),

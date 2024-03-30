@@ -64,7 +64,7 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
                   ),
-                  color: viewModel.selectedTab == 'Methods'
+                  color: viewModel.selectedTab == 'Method'
                       ? kcPrimaryColor
                       : Colors.transparent,
                 ),
@@ -72,10 +72,10 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Methods',
+                      'Method',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTab == 'Methods'
+                        color: viewModel.selectedTab == 'Method'
                             ? kcVeryLightGrey
                             : kcPrimaryColor,
                       ),
