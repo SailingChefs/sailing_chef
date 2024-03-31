@@ -40,13 +40,15 @@ class AddRecipeViewModel extends BaseViewModel {
       return 'Please enter some time';
     }
     return null;
-    
   }
+
   String? validateTitle(String? value) {
     if (value!.isEmpty) {
       return 'Please enter your name';
     }
-    return value.length >= 3 ? null : 'Title must be at least 3 characters long';
+    return value.length >= 3
+        ? null
+        : 'Title must be at least 3 characters long';
   }
 
   void onViewModelReady() {
@@ -159,41 +161,41 @@ class AddRecipeViewModel extends BaseViewModel {
       chef: 'Danica Nel',
     );
   }
+
   String mergeStrings(String time, String method) {
-  return '$time $method';
-}
+    return '$time $method';
+  }
 
   void saveRecipe() async {
-    if (titleController.text.trim().isNotEmpty  && prepTimeController.text.trim().isNotEmpty) {
-    if (selectedImages.isEmpty) {
-      showToast(message: 'Please add at least one image');
-      return;
-    }
+    if (titleController.text.trim().isNotEmpty &&
+        prepTimeController.text.trim().isNotEmpty) {
+      if (selectedImages.isEmpty) {
+        showToast(message: 'Please add at least one image');
+        return;
+      } else {
+        List<String> imageUrls =
+            await _recipeService.uploadImagesToFirebase(selectedImages);
 
-    else{
-    List<String> imageUrls =
-        await _recipeService.uploadImagesToFirebase(selectedImages);
-    
-    await _recipeService.addRecipeToFirestore(RecipeModel(
-      visibility: selectedValue,
-      chefNote: 'audioLink',
-      coverImage: imageUrls,
-      createdTime: Timestamp.now(),
-      ingredients: [
-        {'ingredients': 'ingredients'}
-      ],
-      methods: ['methods'],
-      prepTime: mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-      servingSize: selectedQuantity,
-      status: 'published',
-      title: titleController.text.trim(),
-      uid: firebaseAuth.currentUser!.uid,
-    ));
+        await _recipeService.addRecipeToFirestore(RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'audioLink',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: [
+            {'ingredients': 'ingredients'}
+          ],
+          methods: ['methods'],
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'published',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+        ));
 
-    _navigationService.navigateToRecipeListPageView();
-    }
-    }
-    else{
+        _navigationService.navigateToRecipeListPageView();
+      }
+    } else {
       showToast(message: 'Please fill all fields');
     }
   }

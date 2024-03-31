@@ -48,43 +48,42 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 keyboardType: TextInputType.number,
               ),
             ),
-             Container(
-  height: 40.h,
-   width: MediaQuery.sizeOf(context).width * 0.3,
-  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(15.0),
-    color: kcVeryLightGrey.withOpacity(0.2),
-  ),
-  child: Row(
-    children: [
-      Icon(Icons.timelapse_outlined,
-          color: kcBlackColor.withOpacity(0.5), size: 20.0),
-      horizontalSpaceMedium,
-      Expanded(
-        flex: 2,
-        child: DropdownButton<String>(
-          isExpanded: true,
-          dropdownColor: kcWhiteColor,
-          underline: const SizedBox(),
-          icon: Icon(FlutterRemix.arrow_down_s_line,
-              color: kcBlackColor.withOpacity(0.5), size: 30.0),
-          value: viewModel.selectedTimeMethod,
-          onChanged: (String? newValue) {
-            viewModel.onTimeMethodSelection( newValue!);
-          },
-          items: viewModel.timeMethod.map((index) {
-            return DropdownMenuItem<String>(
-              value: index.toString(), // Set the value here
-              child: Text(index),
-            );
-          }).toList(),
-        ),
-      ),
-    ],
-  ),
-),
-
+            Container(
+              height: 40.h,
+              width: MediaQuery.sizeOf(context).width * 0.3,
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: kcVeryLightGrey.withOpacity(0.2),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.timelapse_outlined,
+                      color: kcBlackColor.withOpacity(0.5), size: 20.0),
+                  horizontalSpaceMedium,
+                  Expanded(
+                    flex: 2,
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      dropdownColor: kcWhiteColor,
+                      underline: const SizedBox(),
+                      icon: Icon(FlutterRemix.arrow_down_s_line,
+                          color: kcBlackColor.withOpacity(0.5), size: 30.0),
+                      value: viewModel.selectedTimeMethod,
+                      onChanged: (String? newValue) {
+                        viewModel.onTimeMethodSelection(newValue!);
+                      },
+                      items: viewModel.timeMethod.map((index) {
+                        return DropdownMenuItem<String>(
+                          value: index.toString(), // Set the value here
+                          child: Text(index),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         )
       ],

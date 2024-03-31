@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/location_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +13,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<RecipeService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +21,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterRecipeService();
+  getAndRegisterLocationService();
 // @stacked-mock-register
 }
 
@@ -76,6 +79,13 @@ MockRecipeService getAndRegisterRecipeService() {
   _removeRegistrationIfExists<RecipeService>();
   final service = MockRecipeService();
   locator.registerSingleton<RecipeService>(service);
+  return service;
+}
+
+MockLocationService getAndRegisterLocationService() {
+  _removeRegistrationIfExists<LocationService>();
+  final service = MockLocationService();
+  locator.registerSingleton<LocationService>(service);
   return service;
 }
 // @stacked-mock-create

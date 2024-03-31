@@ -13,16 +13,18 @@ class AddIngredientsSheetModel extends BaseViewModel {
     'bunch',
     'bowl'
   ];
-final TextEditingController ingredientsController = TextEditingController();
-final TextEditingController quantityController = TextEditingController();
- List<Map<String, dynamic>> fieldDataList = [];
+  final TextEditingController ingredientsController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
+  List<Map<String, dynamic>> fieldDataList = [];
 
- void setIngredients(String value,index) {
+  void setIngredients(String value, index) {
     fieldDataList[index]['ingredient_name'] = value;
- }
- void setQuantity(String value,index) {
+  }
+
+  void setQuantity(String value, index) {
     fieldDataList[index]['quantity'] = value;
- }
+  }
+
   void updateValue(String value) {
     selectedValue = value;
     notifyListeners();
@@ -36,15 +38,17 @@ final TextEditingController quantityController = TextEditingController();
   void goToRecipePreview() {
     _navigationService.navigateToRecipeViewView();
   }
-   void addField() {
-    
-      fieldDataList.add({'field1': '', 'field2': '', 'dropdownValue': 'Option 1'});
-  
+
+  void addField() {
+    fieldDataList
+        .add({'field1': '', 'field2': '', 'dropdownValue': 'Option 1'});
   }
+
   void onViewModelReady() {
     setBusy(true);
-   fieldDataList.add({'ingredient_name': '', 'quantity': '', 'unit': 'bag'});
+    fieldDataList.add({'ingredient_name': '', 'quantity': '', 'unit': 'bag'});
     setBusy(false);
   }
+
   void addIngredients() {}
 }

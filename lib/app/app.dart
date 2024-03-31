@@ -28,6 +28,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_she
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/location_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -60,6 +61,7 @@ import 'package:sailing_chefs/services/recipe_service.dart';
     LazySingleton(classType: UserServices),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: RecipeService),
+    LazySingleton(classType: LocationService),
 // @stacked-service
   ],
   bottomsheets: [

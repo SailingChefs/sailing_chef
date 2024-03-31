@@ -12,6 +12,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
       child: Column(
         children: [
           Form(
+              key: viewModel.formKey,
               child: Column(children: [
             SemiRoundedTranpaentTextField(
               controller: viewModel.nameController,
@@ -31,10 +32,25 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             SemiRoundedTranpaentTextField(
                 controller: viewModel.syjoyController, labelText: 'Sy Joy '),
             verticalSpaceMedium,
-            SemiRoundedTranpaentTextField(
-                controller: viewModel.locationController,
-                labelText: 'Location'),
-          ])),
+            GestureDetector(
+              onTap: viewModel.getLocation,
+
+              child:Container(
+                height: 45.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.grey.withOpacity(0.2),
+
+             ),
+                child: Padding(
+                  padding:  EdgeInsets.all(12.0.dg),
+                  child: Text(viewModel.locationController.text.isNotEmpty ? viewModel.locationController.text : 'Location',style: globalTextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: kcBlackColor.withOpacity(0.6)),),
+                ),
+              )
+            
+            ),
+          ],),),
           verticalSpaceMedium,
           PrimaryColorRoundedElevatedButton(
             onPressed: viewModel.saveUserDetails,

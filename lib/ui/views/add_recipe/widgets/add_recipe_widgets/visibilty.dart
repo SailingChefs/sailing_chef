@@ -6,7 +6,6 @@ class VisibiltyDropDown extends ViewModelWidget<AddRecipeViewModel> {
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -14,7 +13,7 @@ class VisibiltyDropDown extends ViewModelWidget<AddRecipeViewModel> {
           'Visibility',
           style: globalTextStyle(
               fontSize: 16, fontWeight: FontWeight.w600, color: kcBlackColor),
-          ),
+        ),
         verticalSpaceSmall,
         Container(
           height: 50.h,

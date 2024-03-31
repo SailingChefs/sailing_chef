@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/quantity_measurment_input.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
@@ -51,9 +50,9 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                     ),
                     GestureDetector(
                       onTap: () {
-                   completer!(SheetResponse(
-                    confirmed: true,
-                  ));
+                        completer!(SheetResponse(
+                          confirmed: true,
+                        ));
                       },
                       child: Text(
                         'Save',
@@ -76,42 +75,41 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.3,
                 child: ListView(children: [
-                    for (int i = 0; i < viewModel.fieldDataList.length; i++)
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.drag_indicator_outlined,
-                            color: kcBlackColor.withOpacity(0.4),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 0.9,
-                            height: MediaQuery.sizeOf(context).height * 0.06,
-                            child: RoundedTransparentTextField(
-                              onChanged: (value) => viewModel.setIngredients(value,i),
-                              textColor: kcBlackColor.withOpacity(0.5),
-                              labelText: 'Add one or multiple steps',
-                               controller: viewModel.ingredientsController,
-                              
+                  for (int i = 0; i < viewModel.fieldDataList.length; i++)
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.drag_indicator_outlined,
+                              color: kcBlackColor.withOpacity(0.4),
                             ),
-                          ),
-                        ],
-                      ),
-                      verticalSpaceTiny,
-                      QuantityMeasurmentInput(index: i,),
-                    ],
-                  ),
-                    
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              height: MediaQuery.sizeOf(context).height * 0.06,
+                              child: RoundedTransparentTextField(
+                                onChanged: (value) =>
+                                    viewModel.setIngredients(value, i),
+                                textColor: kcBlackColor.withOpacity(0.5),
+                                labelText: 'Add one or multiple steps',
+                                controller: viewModel.ingredientsController,
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpaceTiny,
+                        QuantityMeasurmentInput(
+                          index: i,
+                        ),
+                      ],
+                    ),
                 ]),
-
               ),
               Save_Recipe_Button(
                 onPressed: () {},
                 buttonText: 'Ingredients ',
                 prefix: Icons.add,
               ),
-             
             ],
           ),
         ),

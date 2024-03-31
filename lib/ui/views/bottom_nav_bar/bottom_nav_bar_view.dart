@@ -3,6 +3,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/chat/chat_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
+
 import 'bottom_nav_bar_viewmodel.dart';
 
 class BottomNavBarView extends StatelessWidget {

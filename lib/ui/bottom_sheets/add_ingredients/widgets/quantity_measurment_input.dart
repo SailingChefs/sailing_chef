@@ -1,22 +1,22 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
-class QuantityMeasurmentInput extends ViewModelWidget<AddIngredientsSheetModel> {
+class QuantityMeasurmentInput
+    extends ViewModelWidget<AddIngredientsSheetModel> {
   final int index;
-  const QuantityMeasurmentInput({super.key,required this.index});
+  const QuantityMeasurmentInput({super.key, required this.index});
 
   @override
   Widget build(BuildContext context, AddIngredientsSheetModel viewModel) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         SizedBox(
           width: 160.w,
           height: 56.h,
           child: RoundedTransparentTextField(
-            onChanged: (value) => viewModel.setQuantity(value,index),
+            onChanged: (value) => viewModel.setQuantity(value, index),
             textColor: kcBlackColor.withOpacity(0.5),
             controller: viewModel.quantityController,
             labelText: 'Quantity',
@@ -25,7 +25,6 @@ class QuantityMeasurmentInput extends ViewModelWidget<AddIngredientsSheetModel> 
         Container(
           height: 47.h,
           width: 160.w,
-          
           decoration: BoxDecoration(
             color: kcVeryLightGrey.withOpacity(0.2),
             borderRadius: const BorderRadius.all(Radius.circular(30)),

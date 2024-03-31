@@ -36,9 +36,7 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
           const VisibiltyDropDown(),
           verticalSpaceMedium,
           Save_Recipe_Button(
-            onPressed: 
-              viewModel.saveRecipe,
-            
+            onPressed: viewModel.saveRecipe,
             buttonText: 'Preview ',
             postfix: Icons.remove_red_eye_outlined,
           ),

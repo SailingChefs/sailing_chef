@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i8;
+import 'package:sailing_chefs/services/location_service.dart' as _i10;
 import 'package:sailing_chefs/services/recipe_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
@@ -700,3 +701,8 @@ class MockRecipeService extends _i1.Mock implements _i7.RecipeService {
         returnValueForMissingStub: _i5.Future<List<String>>.value(<String>[]),
       ) as _i5.Future<List<String>>);
 }
+
+/// A class which mocks [LocationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocationService extends _i1.Mock implements _i10.LocationService {}

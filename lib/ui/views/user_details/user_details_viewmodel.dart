@@ -1,8 +1,11 @@
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -16,7 +19,9 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController syjoyController = TextEditingController();
+  final _locationService = locator<LocationService>();
   final ImagePicker picker = ImagePicker();
+ Position? location ;
   File? selectedImageFile;
   String? selectedImagePath;
   Future<void> getImagefromGallery() async {
@@ -31,6 +36,14 @@ class UserDetailsViewModel extends BaseViewModel {
     } else {
       showToast(message: 'No image slected Please Select image to proceed');
     }
+  }
+  void getLocation() async {
+
+    location = await _locationService.determinePosition();
+    locationController.text =location.toString();
+    notifyListeners();
+    rebuildUi();
+
   }
 
   void saveUserDetails() async {
