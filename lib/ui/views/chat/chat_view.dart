@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/chat/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/chat/widgets/input_field.dart';
 
 import 'chat_viewmodel.dart';
@@ -24,7 +23,8 @@ class ChatView extends StackedView<ChatViewModel> {
                     controller: viewModel.scrollController,
                     itemCount: viewModel.messages.length,
                     itemBuilder: (context, index) {
-                      return ChatMessage(viewModel.messages[index]);
+                      return Container();
+                    //  return ChatMessage(viewModel.messages[index]);
                     },
                   ),
                 ),

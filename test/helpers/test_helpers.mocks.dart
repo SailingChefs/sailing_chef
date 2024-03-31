@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i9;
+import 'package:sailing_chefs/services/conversation_service.dart' as _i12;
 import 'package:sailing_chefs/services/location_service.dart' as _i11;
 import 'package:sailing_chefs/services/recipe_service.dart' as _i8;
 import 'package:stacked_services/stacked_services.dart' as _i3;
@@ -740,3 +741,9 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
         )),
       ) as _i6.Future<_i2.Position>);
 }
+
+/// A class which mocks [ConversationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConversationService extends _i1.Mock
+    implements _i12.ConversationService {}

@@ -1,10 +1,9 @@
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/chat_model.dart';
+import 'package:sailing_chefs/model/messages_model.dart';
 
 class ChatViewModel extends BaseViewModel {
-  List<ChatMessageModel> messages = [];
+  List<MessageModel> messages = [];
   final TextEditingController textController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
@@ -12,24 +11,25 @@ class ChatViewModel extends BaseViewModel {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
-      addMessage(
-        ChatMessageModel(
-          text: '', // You might want to provide a caption for the image
-          image: FileImage(File(pickedFile.path)),
-          isMe: true,
-        ),
-      );
+      // addMessage(
+      //   MessageModel(
+      //     image: pickedFile.path,
+
+
+
+      //   ),
+     // );
     }
   }
 
   void sendMessage(String text) {
     if (text.isNotEmpty) {
-      addMessage(
-        ChatMessageModel(
-          text: text,
-          isMe: true,
-        ),
-      );
+      // addMessage(
+      //   // MessageModel(
+      //   //   text: text,
+      //   //   isMe: true,
+      //   // ),
+      // );
 
       textController.clear();
 
@@ -42,7 +42,7 @@ class ChatViewModel extends BaseViewModel {
     }
   }
 
-  void addMessage(ChatMessageModel message) {
+  void addMessage(MessageModel message) {
     messages.add(message);
     notifyListeners();
     rebuildUi();

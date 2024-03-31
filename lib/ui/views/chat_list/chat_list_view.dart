@@ -17,16 +17,17 @@ class ChatListView extends StackedView<ChatListViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body:  Padding(
-          padding: const EdgeInsets.only(left: 20,right: 20),
-          child: Column(children: [
-            const TopBarChatListScreen(),
-            verticalSpaceMedium,
-            const Expanded(child: ChatListScreen()),
-          ],),
-        )
-      ),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              children: [
+                const TopBarChatListScreen(),
+                verticalSpaceMedium,
+                const Expanded(child: ChatListScreen()),
+              ],
+            ),
+          )),
     );
   }
 

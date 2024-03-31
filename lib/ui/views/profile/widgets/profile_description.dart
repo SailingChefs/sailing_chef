@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -17,7 +19,7 @@ class ProfileDescriptionProfileScreen extends StatelessWidget {
               : userDetails!.location == ''
                   ? capitalizeEachWord(userDetails!.syJoy!)
                   : userDetails!.syJoy == ''
-                      ? capitalizeEachWord(userDetails!.location!)
+                      ? capitalizeEachWord(userDetails!.location! as String)
                       : capitalizeEachWord(
                           '${userDetails!.syJoy!}, ${userDetails!.location!}'),
           style: globalTextStyle(

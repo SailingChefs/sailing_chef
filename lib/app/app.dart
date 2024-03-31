@@ -30,6 +30,7 @@ import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.da
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -64,6 +65,7 @@ import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
     LazySingleton(classType: AuthService),
     LazySingleton(classType: RecipeService),
     LazySingleton(classType: LocationService),
+    LazySingleton(classType: ConversationService),
 // @stacked-service
   ],
   bottomsheets: [
