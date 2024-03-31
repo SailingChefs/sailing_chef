@@ -76,6 +76,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.3,
                 child: ListView(children: [
+                    for (int i = 0; i < viewModel.fieldDataList.length; i++)
                   Column(
                     children: [
                       Row(
@@ -88,6 +89,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                             width: MediaQuery.sizeOf(context).width * 0.9,
                             height: MediaQuery.sizeOf(context).height * 0.06,
                             child: RoundedTransparentTextField(
+                              onChanged: (value) => viewModel.setIngredients(value,i),
                               textColor: kcBlackColor.withOpacity(0.5),
                               labelText: 'Add one or multiple steps',
                                controller: viewModel.ingredientsController,
@@ -97,12 +99,14 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                         ],
                       ),
                       verticalSpaceTiny,
-                      const QuantityMeasurmentInput(),
+                      QuantityMeasurmentInput(index: i,),
                     ],
                   ),
+                    
                 ]),
+
               ),
-              Custom_BottomSheet_Buton(
+              Save_Recipe_Button(
                 onPressed: () {},
                 buttonText: 'Ingredients ',
                 prefix: Icons.add,

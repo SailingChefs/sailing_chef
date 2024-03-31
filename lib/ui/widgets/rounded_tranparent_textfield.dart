@@ -13,6 +13,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final double? borderRadius;
   final Color? fillColor;
   final Color? textColor;
+  final Function(String)? onChanged;
   final Function()? onVisibilityToggle;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
@@ -32,12 +33,13 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.borderRadius,
     this.fillColor,
     this.textColor,
-    this.prefixIcon,
+    this.prefixIcon, this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       obscureText: obscureText,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
