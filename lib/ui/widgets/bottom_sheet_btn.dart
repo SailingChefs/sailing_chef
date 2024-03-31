@@ -14,7 +14,7 @@ class Save_Recipe_Button extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.buttonText,
-    this.fontSize = 16,
+    this.fontSize = 17,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.normal,
     this.prefix,

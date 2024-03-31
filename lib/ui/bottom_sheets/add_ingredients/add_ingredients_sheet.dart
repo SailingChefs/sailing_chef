@@ -1,14 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/quantity_measurment_input.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredientssheet_topbar.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-
+import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
+import 'package:sailing_chefs/ui/widgets/two_textfields_inarow.dart';
 import 'add_ingredients_sheet_model.dart';
+import 'widgets/listview_quantity_name.dart';
 
 class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
+
   const AddIngredientsSheet({
     Key? key,
     required this.completer,
@@ -31,89 +32,48 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
           topRight: Radius.circular(30),
         ),
       ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BackArrowWidget(
-                      onTap: () {
-                        completer!(SheetResponse(confirmed: false));
-                      },
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        completer!(SheetResponse(
-                          confirmed: true,
-                        ));
-                      },
-                      child: Text(
-                        'Save',
-                        style: globalTextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: kcPrimaryColor.withOpacity(0.5)),
-                      ),
-                    ),
-                  ],
-                ),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const IngredientsSheetTopBar(),
+            Center(
+              child: Text(
+                request.title ?? 'Add your ingredients',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              const Center(
-                child: Text(
-                  'Add your ingredients',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
+            ),
+            verticalSpaceTiny,
+            const ListViewQuantityName(),
+            verticalSpaceMedium,
+            SizedBox(
+              width: double.infinity,
+              child: CommonTextField(
+                hintText: 'Add one or multiple steps',
+                prefix: Icons.drag_indicator,
               ),
-              verticalSpaceMedium,
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.3,
-                child: ListView(children: [
-                  for (int i = 0; i < viewModel.fieldDataList.length; i++)
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.drag_indicator_outlined,
-                              color: kcBlackColor.withOpacity(0.4),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.9,
-                              height: MediaQuery.sizeOf(context).height * 0.06,
-                              child: RoundedTransparentTextField(
-                                onChanged: (value) =>
-                                    viewModel.setIngredients(value, i),
-                                textColor: kcBlackColor.withOpacity(0.5),
-                                labelText: 'Add one or multiple steps',
-                                controller: viewModel.ingredientsController,
-                              ),
-                            ),
-                          ],
-                        ),
-                        verticalSpaceTiny,
-                        QuantityMeasurmentInput(
-                          index: i,
-                        ),
-                      ],
-                    ),
-                ]),
-              ),
-              Save_Recipe_Button(
-                onPressed: () {},
-                buttonText: 'Ingredients ',
-                prefix: Icons.add,
+            ),
+            verticalSpaceTiny,
+            const TwoTextFields(),
+            verticalSpaceTiny,
+            Save_Recipe_Button(
+              onPressed: () {
+                viewModel.addIngredientToList();
+              },
+              buttonText: 'Add Ingredient',
+              prefix: Icons.add,
+            ),
+            if (request.description != null) ...[
+              verticalSpaceTiny,
+              Text(
+                request.description!,
+                style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+                maxLines: 3,
+                softWrap: true,
               ),
             ],
-          ),
-        ),
-      ),
+          ]),
     );
   }
 

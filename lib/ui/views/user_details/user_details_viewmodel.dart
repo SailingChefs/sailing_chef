@@ -21,7 +21,7 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController syjoyController = TextEditingController();
   final _locationService = locator<LocationService>();
   final ImagePicker picker = ImagePicker();
- Position? location ;
+  Position? location;
   File? selectedImageFile;
   String? selectedImagePath;
   Future<void> getImagefromGallery() async {
@@ -37,13 +37,12 @@ class UserDetailsViewModel extends BaseViewModel {
       showToast(message: 'No image slected Please Select image to proceed');
     }
   }
-  void getLocation() async {
 
+  void getLocation() async {
     location = await _locationService.determinePosition();
-    locationController.text =location.toString();
+    locationController.text = location.toString();
     notifyListeners();
     rebuildUi();
-
   }
 
   void saveUserDetails() async {

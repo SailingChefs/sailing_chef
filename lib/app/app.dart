@@ -29,6 +29,7 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
+import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -52,6 +53,7 @@ import 'package:sailing_chefs/services/location_service.dart';
     MaterialRoute(page: FollowingListView),
     MaterialRoute(page: RecipeViewView),
     MaterialRoute(page: BottomBarGuestView),
+    MaterialRoute(page: ChatListView),
 // @stacked-route
   ],
   dependencies: [

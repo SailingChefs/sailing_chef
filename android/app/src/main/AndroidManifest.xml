@@ -6,7 +6,7 @@
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
-        android:label="sailing_chefs"
+        android:label="Sailing Chefs"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

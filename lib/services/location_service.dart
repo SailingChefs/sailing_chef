@@ -26,8 +26,8 @@ class LocationService {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showToast(message: 'Location is required for this app Please enable');
-      await Geolocator.openLocationSettings();
-        
+        await Geolocator.openLocationSettings();
+
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
         // Android's shouldShowRequestPermissionRationale
@@ -38,9 +38,11 @@ class LocationService {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      showToast(message: 'Location permissions are permanently denied, we cannot request permissions.');
+      showToast(
+          message:
+              'Location permissions are permanently denied, we cannot request permissions.');
       // Permissions are denied forever, handle appropriately.
-     await Geolocator.openLocationSettings();
+      await Geolocator.openLocationSettings();
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }

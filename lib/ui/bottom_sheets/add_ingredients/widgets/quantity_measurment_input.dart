@@ -16,7 +16,6 @@ class QuantityMeasurmentInput
           width: 160.w,
           height: 56.h,
           child: RoundedTransparentTextField(
-            onChanged: (value) => viewModel.setQuantity(value, index),
             textColor: kcBlackColor.withOpacity(0.5),
             controller: viewModel.quantityController,
             labelText: 'Quantity',

@@ -1,9 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
+import 'widgets/ingredients_class.dart';
+
 class AddIngredientsSheetModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  String selectedValue = 'bag';
+  String selectedValue = '---';
+  final quantityController = TextEditingController();
+  final ingredientNameController = TextEditingController();
+
   List<String> values = [
+    '---',
     'As needed',
     'bag',
     'block',
@@ -13,22 +19,25 @@ class AddIngredientsSheetModel extends BaseViewModel {
     'bunch',
     'bowl'
   ];
-  final TextEditingController ingredientsController = TextEditingController();
-  final TextEditingController quantityController = TextEditingController();
-  List<Map<String, dynamic>> fieldDataList = [];
-
-  void setIngredients(String value, index) {
-    fieldDataList[index]['ingredient_name'] = value;
-  }
-
-  void setQuantity(String value, index) {
-    fieldDataList[index]['quantity'] = value;
-  }
+  List<Ingredient> ingredientsList = [];
 
   void updateValue(String value) {
     selectedValue = value;
     notifyListeners();
     rebuildUi();
+  }
+
+  void addIngredientToList() {
+    if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {
+      ingredientsList.insert(
+          0,
+          Ingredient(
+              name: ingredientNameController.text, quantity: selectedValue));
+      quantityController.clear();
+      ingredientNameController.clear();
+      selectedValue = '---';
+      notifyListeners();
+    }
   }
 
   void popBack() {
@@ -39,16 +48,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
     _navigationService.navigateToRecipeViewView();
   }
 
-  void addField() {
-    fieldDataList
-        .add({'field1': '', 'field2': '', 'dropdownValue': 'Option 1'});
+  void addIngredients(String name, String quantity) {
+    ingredientsList.insert(0, Ingredient(name: name, quantity: quantity));
+    notifyListeners();
   }
-
-  void onViewModelReady() {
-    setBusy(true);
-    fieldDataList.add({'ingredient_name': '', 'quantity': '', 'unit': 'bag'});
-    setBusy(false);
-  }
-
-  void addIngredients() {}
 }

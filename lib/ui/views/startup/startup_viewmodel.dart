@@ -36,21 +36,17 @@ class StartupViewModel extends BaseViewModel {
         } else {
           userDetails = await _userService.getUserDetails();
           if (userDetails!.userRole == 'guest') {
-            print(userDetails!.bio!.isEmpty);
-            if (userDetails!.bio!.isNotEmpty) {
-            _navigationService.replaceWithBottomBarGuestView();
 
-              
-            }
-              _navigationService.replaceWithUserDetailsView();
-
+            // if (userDetails!.bio!.isNotEmpty) {
+              _navigationService.replaceWithBottomBarGuestView();
+            // }
+            // _navigationService.replaceWithUserDetailsView();
           } else {
-            print('bio  ${userDetails!.bio}');
-            if (userDetails!.bio!.isNotEmpty) {
-            _navigationService.replaceWithBottomNavBarView();
-             
-            }
-             _navigationService.replaceWithUserDetailsView();
+            // if (userDetails!.bio!.isNotEmpty) {
+              print('bio: ${userDetails!.bio!}');
+              _navigationService.replaceWithBottomNavBarView();
+            // }
+            // _navigationService.replaceWithUserDetailsView();
           }
 
           //
