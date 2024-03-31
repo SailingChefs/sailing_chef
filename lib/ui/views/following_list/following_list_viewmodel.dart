@@ -2,8 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class FollowingListViewModel extends BaseViewModel {
   final _navigationloactor = locator<NavigationService>();
-  bool isFollowing = false;
-  bool isFollower = true;
+  bool isFollowing = true;
+  bool isFollower = false;
   void popBack() {
     _navigationloactor.back();
   }

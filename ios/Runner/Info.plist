@@ -45,5 +45,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- PERMISSIONS -->
+	<key>NSMicrophoneUsageDescription</key>
+    <string>This app requires Mic permission.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open.</string>
+	<!-- Purpose Key -->
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+  <key>YourPurposeKey</key>
+  <string>The example App requires temporary access to the device&apos;s precise location.</string>
+   </dict>
 </dict>
 </plist>

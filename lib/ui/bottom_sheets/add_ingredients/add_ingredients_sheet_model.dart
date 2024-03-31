@@ -1,9 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
+import 'widgets/ingredients_class.dart';
+
 class AddIngredientsSheetModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  String selectedValue = 'bag';
+  String selectedValue = '---';
+  final quantityController = TextEditingController();
+  final ingredientNameController = TextEditingController();
+
   List<String> values = [
+    '---',
     'As needed',
     'bag',
     'block',
@@ -13,15 +19,37 @@ class AddIngredientsSheetModel extends BaseViewModel {
     'bunch',
     'bowl'
   ];
+  List<Ingredient> ingredientsList = [];
+
   void updateValue(String value) {
     selectedValue = value;
     notifyListeners();
     rebuildUi();
   }
 
+  void addIngredientToList() {
+    if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {
+      ingredientsList.insert(
+          0,
+          Ingredient(
+              name: ingredientNameController.text, quantity: selectedValue));
+      quantityController.clear();
+      ingredientNameController.clear();
+      selectedValue = '---';
+      notifyListeners();
+    }
+  }
+
   void popBack() {
     _navigationService.back();
   }
 
-  void addIngredients() {}
+  void goToRecipePreview() {
+    _navigationService.navigateToRecipeViewView();
+  }
+
+  void addIngredients(String name, String quantity) {
+    ingredientsList.insert(0, Ingredient(name: name, quantity: quantity));
+    notifyListeners();
+  }
 }

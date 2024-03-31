@@ -1,10 +1,13 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class LoginViewModel extends BaseViewModel {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final _userService = locator<UserServices>();
 
   @override
   void dispose() {
@@ -53,10 +56,20 @@ class LoginViewModel extends BaseViewModel {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      if (success) {
-        _navigationService.replaceWithUserDetailsView();
 
-        ///  _navigationService.replaceWithHomeView();
+      if (success) {
+        userDetails = await _userService.getUserDetails();
+        if (userDetails!.displayPicture == '') {
+          _navigationService.replaceWithUserDetailsView();
+        } else {
+          if (userDetails!.userRole == 'guest') {
+            _navigationService.replaceWithBottomBarGuestView();
+          } else {
+            _navigationService.replaceWithBottomNavBarView();
+          }
+
+          ///  _navigationService.replaceWithHomeView();
+        }
       } else {
         _navigationService.replaceWithLoginView();
       }

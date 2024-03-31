@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -21,16 +22,20 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      'assets/images/icons/chef.jpg',
-                      fit: BoxFit.cover,
-                      height: 90,
-                      width: 90,
-                    )),
+                    child: userDetails!.displayPicture == ''
+                        ? Image.asset('assets/images/misc/blank_image.png')
+                        : Image.network(
+                            userDetails!.displayPicture!,
+                            fit: BoxFit.cover,
+                            height: 90,
+                            width: 90,
+                          )),
               ),
               verticalSpaceSmall,
               Text(
-                capitalizeEachWord('Chef Name'),
+                userDetails!.displayName == ''
+                    ? ''
+                    : capitalizeEachWord(userDetails!.displayName!),
                 style: globalTextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
@@ -41,9 +46,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.goTogoToProfileEditView('Hafsa Mehmood');
-            },
+            onTap: () {},
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -67,47 +70,57 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '12',
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-              verticalSpaceTiny,
-              Text(
-                'Followers',
-                style: globalTextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              viewModel.goTogoToProfileEditView('Hafsa Mehmood');
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '12',
+                  style: globalTextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Followers',
+                  style: globalTextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+              ],
+            ),
           ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '12',
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-              verticalSpaceTiny,
-              Text(
-                'Following',
-                style: globalTextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              viewModel.goTogoToProfileEditView('Hafsa Mehmood');
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '12',
+                  style: globalTextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Following',
+                  style: globalTextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6)),
+                ),
+              ],
+            ),
           ),
         ],
       ),

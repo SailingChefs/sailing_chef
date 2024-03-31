@@ -19,11 +19,12 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   ) {
     return Scaffold(
       body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          height: 800,
-          color: Colors.amberAccent,
-          child: Column(children: [
+        width: double.infinity,
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        height: 800,
+        color: Colors.amberAccent,
+        child: Column(
+          children: [
             verticalSpaceMedium,
             const SearchBarIndexView(),
             verticalSpaceMedium,
@@ -36,7 +37,9 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
               },
               markers: viewModel.markers.values.toSet(),
             ),
-          ])),
+          ],
+        ),
+      ),
     );
   }
 

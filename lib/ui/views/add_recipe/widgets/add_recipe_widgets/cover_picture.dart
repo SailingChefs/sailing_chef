@@ -104,27 +104,32 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: viewModel.selectedImages.map((XFile? image) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 8.0),
-                          height: 35.0, // Adjust the height as needed
-                          width: 35.0, // Adjust the width as needed
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: FileImage(File(image!.path)),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        );
-                      }).toList(),
+                FittedBox(
+                  child: SingleChildScrollView(
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        // width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children:
+                              viewModel.selectedImages.map((XFile? image) {
+                            return Container(
+                              margin: const EdgeInsets.only(right: 8.0),
+                              height: 35.0, // Adjust the height as needed
+                              width: 35.0, // Adjust the width as needed
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: FileImage(File(image!.path)),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ),
                   ),
                 ),

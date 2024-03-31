@@ -17,37 +17,42 @@ class ProfileView extends StackedView<ProfileViewModel> {
     ProfileViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-        backgroundColor: kcBackgroundColor,
-        body: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TopBarProfileScreen(),
-              verticalSpaceMedium,
-              const ProfileDetailsProfileScreen(),
-              verticalSpaceSmall,
-              const ProfileDescriptionProfileScreen(),
-              verticalSpaceMedium,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TabBarProfileScreen(),
-                  Icon(
-                    FlutterRemix.equalizer_line,
-                    color: kcPrimaryColor,
-                    size: 30.sp,
-                  ),
-                ],
-              ),
-              verticalSpaceMedium,
-              viewModel.isMySelected
-                  ? const MyRecipesProfileScreen()
-                  : const SavedProfileScreen(),
-            ],
-          ),
-        ));
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: kcBackgroundColor,
+          body: Padding(
+            padding: const EdgeInsets.only(
+              left: 15.0,
+              right: 15.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TopBarProfileScreen(),
+                verticalSpaceMedium,
+                const ProfileDetailsProfileScreen(),
+                verticalSpaceSmall,
+                const ProfileDescriptionProfileScreen(),
+                verticalSpaceMedium,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const TabBarProfileScreen(),
+                    Icon(
+                      FlutterRemix.equalizer_line,
+                      color: kcPrimaryColor,
+                      size: 30.sp,
+                    ),
+                  ],
+                ),
+                verticalSpaceMedium,
+                viewModel.isMySelected
+                    ? const MyRecipesProfileScreen()
+                    : const SavedProfileScreen(),
+              ],
+            ),
+          )),
+    );
   }
 
   @override

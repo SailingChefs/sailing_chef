@@ -2,7 +2,7 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class Custom_BottomSheet_Buton extends StatelessWidget {
+class Save_Recipe_Button extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final double fontSize;
@@ -10,11 +10,11 @@ class Custom_BottomSheet_Buton extends StatelessWidget {
   final FontWeight fontWeight;
   final IconData? prefix, postfix;
 
-  const Custom_BottomSheet_Buton({
+  const Save_Recipe_Button({
     Key? key,
     required this.onPressed,
     required this.buttonText,
-    this.fontSize = 16,
+    this.fontSize = 17,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.normal,
     this.prefix,

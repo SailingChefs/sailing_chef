@@ -1,9 +1,9 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
-import 'package:sailing_chefs/ui/views/chat/chat_view.dart';
+import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
+
 import 'bottom_nav_bar_viewmodel.dart';
 
 class BottomNavBarView extends StatelessWidget {
@@ -18,10 +18,9 @@ class BottomNavBarView extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           backgroundColor: kcWhiteColor,
           selectedItemColor: kcPrimaryColor,
-          unselectedIconTheme: const IconThemeData(color: Colors.white),
-         
+          unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
           selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
-          unselectedLabelStyle: const TextStyle(color: Colors.white),
+          unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
           selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
           currentIndex: viewModel.currentIndex,
           onTap: viewModel.setIndex,
@@ -39,12 +38,12 @@ class BottomNavBarView extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(
-                FlutterRemix.bookmark_fill,
+                Icons.pin_drop_sharp,
                 color: kcDarkColor,
               ),
               label: '',
               icon: Icon(
-                Icons.bookmark_border_outlined,
+                Icons.pin_drop_outlined,
                 color: kcMediumGrey,
               ),
             ),
@@ -95,11 +94,15 @@ class BottomNavBarView extends StatelessWidget {
       case 0:
         return const IndexView();
       case 1:
-        return const SavedRecipesView();
+        return const Center(
+            child: Text(
+          'Map to be shown',
+          style: TextStyle(color: Colors.black),
+        ));
       case 2:
         return const AddRecipeView();
       case 3:
-        return const ChatView();
+        return const ChatListView();
       case 4:
         return const ProfileView();
       default:
