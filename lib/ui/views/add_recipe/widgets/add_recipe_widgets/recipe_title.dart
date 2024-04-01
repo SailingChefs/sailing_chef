@@ -33,6 +33,7 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
         RoundedTransparentTextField(
           controller: viewModel.titleController,
           labelText: 'Give your recipe a name',
+          validator: viewModel.validateTitle,
           textColor: kcBlackColor.withOpacity(0.5),
         ),
       ],

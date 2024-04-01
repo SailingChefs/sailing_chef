@@ -15,6 +15,7 @@ import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
 import 'package:sailing_chefs/ui/views/chat/chat_view.dart' as _i9;
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
     as _i22;
+import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i21;
 import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart' as _i15;
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart' as _i12;
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart'
@@ -83,6 +84,7 @@ class Routes {
   static const savedRecipeDetailsView = '/saved-recipe-details-view';
 
   static const chefProfileView = '/chef-profile-view';
+  static const chatListView = '/chat-list-view';
 
   static const all = <String>{
     startupView,
@@ -106,6 +108,7 @@ class Routes {
     bottomBarGuestView,
     savedRecipeDetailsView,
     chefProfileView,
+    chatListView,
   };
 }
 
@@ -186,6 +189,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.bottomBarGuestView,
       page: _i20.BottomBarGuestView,
+    ),
+    _i1.RouteDef(
+      Routes.chatListView,
+      page: _i21.ChatListView,
     ),
     _i1.RouteDef(
       Routes.savedRecipeDetailsView,
@@ -309,6 +316,12 @@ class StackedRouter extends _i1.RouterBase {
     _i20.BottomBarGuestView: (data) {
       return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => const _i20.BottomBarGuestView(),
+        settings: data,
+      );
+    },
+    _i21.ChatListView: (data) {
+      return _i22.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i21.ChatListView(),
         settings: data,
       );
     },
@@ -600,6 +613,7 @@ extension NavigatorStateExtension on _i24.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToChatListView([
   Future<dynamic> navigateToSavedRecipeDetailsView([
     int? routerId,
     bool preventDuplicates = true,
@@ -607,6 +621,7 @@ extension NavigatorStateExtension on _i24.NavigationService {
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
+    return navigateTo<dynamic>(Routes.chatListView,
     return navigateTo<dynamic>(Routes.savedRecipeDetailsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -894,28 +909,14 @@ extension NavigatorStateExtension on _i24.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithSavedRecipeDetailsView([
+  Future<dynamic> replaceWithChatListView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.savedRecipeDetailsView,
-        id: routerId,
-        preventDuplicates: preventDuplicates,
-        parameters: parameters,
-        transition: transition);
-  }
-
-  Future<dynamic> replaceWithChefProfileView([
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
-  ]) async {
-    return replaceWith<dynamic>(Routes.chefProfileView,
+    return replaceWith<dynamic>(Routes.chatListView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

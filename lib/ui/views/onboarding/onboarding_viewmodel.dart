@@ -8,7 +8,7 @@ class OnboardingViewModel extends BaseViewModel {
   int currentPage = 0;
   final List<OnboardModel> pages = [
     OnboardModel(
-      image: 'assets/images/background/onboarding.png',
+      image: 'assets/images/background/onboarding1.png',
       title: 'Discovering seagoing chefs and their best recipes.',
       description:
           'Follow your favorite chefs, save recipes and connect with those that inspire you.',

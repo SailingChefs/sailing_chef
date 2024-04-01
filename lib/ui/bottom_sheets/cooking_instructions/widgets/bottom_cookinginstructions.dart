@@ -20,11 +20,11 @@ class BottomCookingInstructions
               labelText: 'Add one or multiple steps',
               controller: viewModel.cookingInstructionController,
               textColor: kcBlackColor.withOpacity(0.4),
-              prefixIcon: Icon(Icons.add, color: kcBlackColor.withOpacity(0.4)),
+              prefixIcon: true,
             ),
           ),
         ),
-        Custom_BottomSheet_Buton(
+        Save_Recipe_Button(
           onPressed: () {
             viewModel.addInstruction();
           },

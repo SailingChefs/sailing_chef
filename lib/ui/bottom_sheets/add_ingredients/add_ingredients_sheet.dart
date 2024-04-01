@@ -22,18 +22,17 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
     AddIngredientsSheetModel viewModel,
     Widget? child,
   ) {
-    return SingleChildScrollView(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-        decoration: const BoxDecoration(
-          color: kcwhitecolor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      decoration: const BoxDecoration(
+        color: kcwhitecolor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        child: Column(
+      ),
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -58,7 +57,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             verticalSpaceTiny,
             const TwoTextFields(),
             verticalSpaceTiny,
-            Custom_BottomSheet_Buton(
+            Save_Recipe_Button(
               onPressed: () {
                 viewModel.addIngredientToList();
               },
@@ -74,9 +73,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                 softWrap: true,
               ),
             ],
-          ],
-        ),
-      ),
+          ]),
     );
   }
 

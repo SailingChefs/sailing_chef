@@ -26,9 +26,6 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
                     textColor: kcBlackColor.withOpacity(0.4),
-                    onTap: (value) {
-                      viewModel.updateValue(value);
-                    },
                   ),
                 ),
               ),

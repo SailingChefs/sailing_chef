@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';

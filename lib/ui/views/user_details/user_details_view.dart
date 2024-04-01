@@ -39,6 +39,12 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
   }
 
   @override
+  void onViewModelReady(UserDetailsViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
   UserDetailsViewModel viewModelBuilder(
     BuildContext context,
   ) =>

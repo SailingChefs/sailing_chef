@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';

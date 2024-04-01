@@ -3,7 +3,7 @@ import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class PinDropMapViewModel extends BaseViewModel {
-  late GoogleMapController controllermap;
+  GoogleMapController? controllermap;
   Map<String, Marker> markers = {};
   final _bottomSheetService = locator<BottomSheetService>();
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/views/chat/chat_view.dart';
+import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
@@ -98,7 +98,7 @@ Widget getViewForIndex(int index) {
     case 1:
       return const SavedRecipesView();
     case 2:
-      return const ChatView();
+      return const ChatListView();
     case 3:
       return const ProfileView();
 

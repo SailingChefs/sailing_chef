@@ -29,6 +29,9 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/location_service.dart';
+import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -54,6 +57,7 @@ import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart';
     MaterialRoute(page: BottomBarGuestView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
+    MaterialRoute(page: ChatListView),
 // @stacked-route
   ],
   dependencies: [
@@ -62,7 +66,9 @@ import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: UserServices),
     LazySingleton(classType: AuthService),
-    // @stacked-service
+    LazySingleton(classType: RecipeService),
+    LazySingleton(classType: LocationService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

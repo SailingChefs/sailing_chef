@@ -8,20 +8,22 @@ class RoundedTransparentTextField extends StatelessWidget {
   final String labelText;
   final bool obscureText;
   final bool? suffixIcon;
-  final Icon? prefixIcon;
+  final bool? prefixIcon;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
   final Color? textColor;
-  final double? hiegt;
+  final Function(String)? onChanged;
   final Function()? onVisibilityToggle;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final bool? readOnly;
   final List<TextInputFormatter>? inputFormatters;
 
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
+    this.readOnly = false,
     required this.labelText,
     this.keyboardType,
     this.obscureText = false,
@@ -34,13 +36,14 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.fillColor,
     this.textColor,
     this.prefixIcon,
-    this.hiegt,
-    void Function(dynamic value)? onTap,
+    this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly!,
+      onChanged: onChanged,
       obscureText: obscureText,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
@@ -63,7 +66,8 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(
+              color: kcWhiteColor.withOpacity(0.2)), // Unfocused border color
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -78,10 +82,9 @@ class RoundedTransparentTextField extends StatelessWidget {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 15.0,
+          vertical: 10.0,
           horizontal: 20.0,
         ),
-        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon == false
             ? null
             : GestureDetector(

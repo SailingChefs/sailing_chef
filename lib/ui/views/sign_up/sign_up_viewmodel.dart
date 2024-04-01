@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,6 +11,7 @@ class SignUpViewModel extends BaseViewModel {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final _authService = locator<AuthService>();
 
   @override
   void dispose() {
@@ -64,11 +66,26 @@ class SignUpViewModel extends BaseViewModel {
 
   void signup() async {
     if (formKey.currentState?.validate() ?? false) {
-      bool userRegistered = await AuthService.register(
-          email: emailController.text.trim(),
+      bool userRegistered = await _authService.signUp(
           password: passwordController.text.trim(),
-          name: textController.text.trim(),
-          role: selectedSignUpAs);
+          userModel: UserModel(
+            displayName: textController.text.trim(),
+            email: emailController.text.trim(),
+            userRole: selectedSignUpAs,
+            uid: '',
+            bio: '',
+            boatName: '',
+            createdTime: DateTime.now(),
+            displayPicture: '',
+            dob: '',
+            followers: [],
+            following: [],
+            location: '',
+            link: '',
+            phoneNumber: '',
+            savedRecipes: [],
+            syJoy: '',
+          ));
       if (userRegistered) {
         _navigationService.replaceWithUserDetailsView();
       } else {
