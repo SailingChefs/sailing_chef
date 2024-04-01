@@ -101,4 +101,8 @@ class AddRecipeViewModel extends BaseViewModel {
   void navigateToRecipeListView() {
     _navigationService.navigateToRecipeListPageView();
   }
+
+  void goToRecipePreview() {
+    _navigationService.navigateToRecipeViewView();
+  }
 }

@@ -29,6 +29,8 @@ dependencies:
   syncfusion_flutter_core: ^24.2.9
   dotted_border: ^2.1.0
   carousel_slider: ^4.2.1
+  flutter_rating_bar: ^4.0.1
+  
   
  
   

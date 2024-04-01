@@ -27,9 +27,9 @@ class ListViewCookingInstructions
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
+                  Flexible(
                     child: Container(
-                      height: 100.h,
+                      // height: 100.h,
                       width: 300.w,
                       decoration: BoxDecoration(
                         color: kcVeryLightGrey.withOpacity(0.2),
@@ -37,7 +37,7 @@ class ListViewCookingInstructions
                             const BorderRadius.all(Radius.circular(30)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Text(
                           instruction,
                           style: globalTextStyle(

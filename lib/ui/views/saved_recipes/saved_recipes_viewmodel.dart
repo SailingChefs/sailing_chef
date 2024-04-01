@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -40,5 +41,9 @@ class SavedRecipesViewModel extends BaseViewModel {
 
   void goBack() {
     _navigationService.back();
+  }
+
+  void toDishDetailsScreen() {
+    _navigationService.navigateToSavedRecipeDetailsView();
   }
 }

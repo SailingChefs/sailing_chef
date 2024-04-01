@@ -35,7 +35,8 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         verticalSpaceMedium,
         Custom_BottomSheet_Buton(
           onPressed: () {
-            viewModel.navigateToRecipeListView();
+            // viewModel.navigateToRecipeListView();
+            viewModel.goToRecipePreview();
           },
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,

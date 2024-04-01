@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
+import 'package:stacked/stacked.dart';
 
-class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
-  const TopBarRecipeView({super.key});
+import '../../../widgets/back_arrow.dart';
+import '../saved_recipe_details_viewmodel.dart';
 
+class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+  const TopBarDetailsScreen({
+    super.key,
+  });
   @override
-  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.only(top: 25.0),
       child: Stack(

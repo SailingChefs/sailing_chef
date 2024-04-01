@@ -14,7 +14,7 @@ class Custom_BottomSheet_Buton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.buttonText,
-    this.fontSize = 17,
+    this.fontSize = 14,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.normal,
     this.prefix,
