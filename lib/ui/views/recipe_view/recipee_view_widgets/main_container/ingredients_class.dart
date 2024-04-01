@@ -114,7 +114,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                   }),
             ),
             verticalSpaceMedium,
-            Custom_BottomSheet_Buton(
+            Save_Recipe_Button(
               onPressed: () {},
               buttonText: 'Submit Recipe',
             ),
