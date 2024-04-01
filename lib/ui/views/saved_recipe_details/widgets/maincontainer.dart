@@ -1,14 +1,16 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
-import 'ingredients_class.dart';
-import 'methods.dart';
-import 'tab_bars_recipe.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tab_bars_recipe.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
+import '../saved_recipe_details_viewmodel.dart';
 
-class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
+class MainRecipeViewContainer
+    extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   const MainRecipeViewContainer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Stack(
       children: [
         SingleChildScrollView(
@@ -42,12 +44,18 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                           ),
                         ),
                         Container(
-                          width: 70,
+                          width: 80,
                           height: 45,
                           padding: const EdgeInsets.all(10.0),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Text(
+                              Icon(
+                                FlutterRemix.time_line,
+                                size: 12,
+                                color: kcBlackColor.withOpacity(0.5),
+                              ),
+                              horizontalSpaceTiny,
+                              const Text(
                                 '20 mins',
                                 style: TextStyle(
                                   fontSize: 10.0,
@@ -71,11 +79,15 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ),
                     ),
+                    verticalSpaceSmall,
+                    const ViewProfileRow(),
+                    verticalSpaceLarge,
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
                         ? const IngredientsClass()
                         : const Methods(),
+                    verticalSpaceSmall,
                   ],
                 ),
               ),

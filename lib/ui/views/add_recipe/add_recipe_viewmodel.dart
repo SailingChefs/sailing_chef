@@ -200,4 +200,8 @@ class AddRecipeViewModel extends BaseViewModel {
       showToast(message: 'Please fill all fields');
     }
   }
+
+  void goToRecipePreview() {
+    _navigationService.navigateToRecipeViewView();
+  }
 }

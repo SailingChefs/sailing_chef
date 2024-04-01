@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
-import 'package:stacked/stacked.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../../../../common/app_colors.dart';
+import '../saved_recipe_details_viewmodel.dart';
 
-class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
+class RecipeViewTabBars extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   const RecipeViewTabBars({super.key});
 
   @override
-  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Container(
       height: screenHeight(context) * 0.05,
       width: screenWidth(context) * 0.83,

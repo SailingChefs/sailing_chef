@@ -52,4 +52,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
     ingredientsList.insert(index, Ingredient(name: name, quantity: quantity, unit: '---'));
     notifyListeners();
   }
+
+  void toDishDetailsScreen() {
+    _navigationService.navigateToSavedRecipeDetailsView();
+  }
 }

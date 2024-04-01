@@ -1,22 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
-import 'package:stacked/stacked.dart';
 
-import '../../../../common/app_colors.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
-  const RecipeViewTabBars({super.key});
+import '../saved_recipe_details_viewmodel.dart';
+
+class TabBarWidgets extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+  const TabBarWidgets({super.key});
 
   @override
-  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Container(
       height: screenHeight(context) * 0.05,
       width: screenWidth(context) * 0.83,
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.all(Radius.circular(30.dg)),
+        borderRadius: BorderRadius.all(Radius.circular(10.dg)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,7 +27,7 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(20.dg),
+                    Radius.circular(10.dg),
                   ),
                   color: viewModel.selectedTab == 'Ingredients'
                       ? kcPrimaryColor
@@ -62,9 +59,9 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(20.dg),
+                    Radius.circular(10.dg),
                   ),
-                  color: viewModel.selectedTab == 'Methods'
+                  color: viewModel.selectedTab == 'Method'
                       ? kcPrimaryColor
                       : Colors.transparent,
                 ),
@@ -72,10 +69,10 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Methods',
+                      'Method',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTab == 'Methods'
+                        color: viewModel.selectedTab == 'Method'
                             ? kcVeryLightGrey
                             : kcPrimaryColor,
                       ),

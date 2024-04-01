@@ -25,7 +25,6 @@ class ChefService {
     } catch (error) {
       // Handle any errors
       EasyLoading.dismiss();
-      print("Failed to fetch documents: $error");
       return users; // Return an empty list in case of error
     }
   }

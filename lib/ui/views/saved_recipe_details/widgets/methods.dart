@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
-import '../../../../widgets/bottom_sheet_btn.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
 
 class Methods extends StatelessWidget {
   const Methods({super.key});
@@ -28,7 +25,8 @@ class Methods extends StatelessWidget {
               itemCount: steps.length,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +38,8 @@ class Methods extends StatelessWidget {
                           backgroundColor: Colors.blueGrey,
                           child: Text(
                             steps[index],
-                            style: TextStyle(color: kcwhitecolor, fontSize: 12),
+                            style: const TextStyle(
+                                color: kcwhitecolor, fontSize: 12),
                           ),
                         ),
                       ),
@@ -85,7 +84,7 @@ class Methods extends StatelessWidget {
                     backgroundColor: kcPrimaryColor,
                   ),
                   onPressed: () {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.play_arrow,
                     color: kcwhitecolor,
                   ),
@@ -103,11 +102,8 @@ class Methods extends StatelessWidget {
               ],
             ),
           ),
-          verticalSpaceLarge,
-          Save_Recipe_Button(
-            onPressed: () {},
-            buttonText: 'Submit Recipe',
-          ),
+          const CommentsDetailsScreen(),
+          const LeaveComment(),
           horizontalSpaceSmall,
         ],
       ),

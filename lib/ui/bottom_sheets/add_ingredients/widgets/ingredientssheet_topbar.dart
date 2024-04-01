@@ -18,7 +18,9 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
             },
           ),
           GestureDetector(
-            onTap: viewModel.goToRecipePreview,
+            onTap: () {
+              viewModel.toDishDetailsScreen();
+            },
             child: Text(
               'Save',
               style: globalTextStyle(
