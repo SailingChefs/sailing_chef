@@ -31,6 +31,8 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/dishes_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -66,6 +68,8 @@ import 'package:sailing_chefs/services/conversation_service.dart';
     LazySingleton(classType: RecipeService),
     LazySingleton(classType: LocationService),
     LazySingleton(classType: ConversationService),
+    LazySingleton(classType: ChefService),
+    LazySingleton(classType: DishesService),
 // @stacked-service
   ],
   bottomsheets: [

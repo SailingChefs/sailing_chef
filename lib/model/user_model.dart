@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocator/geolocator.dart';
 
 class UserModel {
   final String? displayName;
@@ -14,7 +13,7 @@ class UserModel {
   final String? dob;
   final List<String>? followers;
   final List<String>? following;
-  final Position? location;
+  final Map<String, dynamic>? location;
   final String? link;
   final String? phoneNumber;
   final List<String>? savedRecipes;
@@ -40,8 +39,6 @@ class UserModel {
     this.savedRecipes,
   });
 
- 
-
   Map<String, dynamic> toJson() {
     return {
       'display_name': displayName,
@@ -55,7 +52,7 @@ class UserModel {
       'dob': dob,
       'followers': followers,
       'following': following,
-            'location': GeoPoint(location!.latitude, location!.longitude),
+      'location': location,
       'link': link,
       'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
@@ -78,7 +75,7 @@ class UserModel {
       dob: data['dob'],
       followers: List<String>.from(data['followers'] ?? []),
       following: List<String>.from(data['following'] ?? []),
-      location: Position(longitude: data['location'].longitude, latitude: data['location'].latitude, timestamp: DateTime.now(), accuracy: 10.0, altitude: 10, altitudeAccuracy: 10, heading: 10, headingAccuracy: 10, speed: 10, speedAccuracy: 10,),
+      location: data['location'],
       link: data['link'],
       phoneNumber: data['phone_number'],
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),

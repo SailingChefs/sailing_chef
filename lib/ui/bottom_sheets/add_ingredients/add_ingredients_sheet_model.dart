@@ -32,7 +32,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
       ingredientsList.insert(
           0,
           Ingredient(
-              name: ingredientNameController.text, quantity: selectedValue));
+              name: ingredientNameController.text, unit: selectedValue,quantity: quantityController.text));
       quantityController.clear();
       ingredientNameController.clear();
       selectedValue = '---';
@@ -48,8 +48,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
     _navigationService.navigateToRecipeViewView();
   }
 
-  void addIngredients(String name, String quantity) {
-    ingredientsList.insert(0, Ingredient(name: name, quantity: quantity));
+  void addIngredients(String name, String quantity,int index) {
+    ingredientsList.insert(index, Ingredient(name: name, quantity: quantity, unit: '---'));
     notifyListeners();
   }
 }

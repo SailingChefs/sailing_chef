@@ -33,6 +33,7 @@ dependencies:
   audioplayers: ^6.0.0
   audio_waveforms: ^1.0.5
   geolocator: ^11.0.0
+  geocoding: ^3.0.0
   
  
   

@@ -50,8 +50,8 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               ? viewModel.locationController.text
                               : 'Location',
                           style: globalTextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
                               color: kcBlackColor.withOpacity(0.6)),
                         ),
                       ),

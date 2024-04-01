@@ -41,6 +41,7 @@ class AuthService {
       return false;
     } catch (e) {
       EasyLoading.dismiss();
+      showToast(message: 'Failed to login');
       log(e.toString());
       return false;
     }

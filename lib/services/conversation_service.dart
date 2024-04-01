@@ -13,12 +13,12 @@ class ConversationService {
 
       await conversationsCollection.add(conversation.toJson());
     } catch (error) {
-
       log('Error creating conversation: $error');
       // Handle error appropriately
     }
   }
-   Future<List<ConversationModel>> fetchConversations(String userId) async {
+
+  Future<List<ConversationModel>> fetchConversations(String userId) async {
     try {
       final QuerySnapshot querySnapshot = await firebasestore
           .collection('conversations')
@@ -33,11 +33,12 @@ class ConversationService {
       return [];
     }
   }
-   Future<String?> checkConversationExistence(List<String> userIds) async {
+
+  Future<String?> checkConversationExistence(List<String> userIds) async {
     try {
       // Sort user IDs to ensure consistent order
       userIds.sort();
-      
+
       final QuerySnapshot querySnapshot = await firebasestore
           .collection('conversations')
           .where('users', arrayContainsAny: userIds)
@@ -51,7 +52,7 @@ class ConversationService {
           return doc.id;
         }
       }
-      
+
       // Return null if no conversation is found
       return null;
     } catch (error) {
@@ -60,6 +61,7 @@ class ConversationService {
       return null;
     }
   }
+
   final CollectionReference _conversationsCollection =
       firebasestore.collection('conversations');
 
@@ -74,11 +76,10 @@ class ConversationService {
     }
   }
 
-Stream<List<MessageModel>> getMessages(String conversationId) {
-  final CollectionReference messagesCollection =
-      _conversationsCollection.doc(conversationId).collection('messages');
-  return messagesCollection.orderBy('timestamp').snapshots().map((snapshot) =>
-      snapshot.docs.map((doc) => MessageModel.fromSnapshot(doc)).toList());
-}
-
+  Stream<List<MessageModel>> getMessages(String conversationId) {
+    final CollectionReference messagesCollection =
+        _conversationsCollection.doc(conversationId).collection('messages');
+    return messagesCollection.orderBy('timestamp').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => MessageModel.fromSnapshot(doc)).toList());
+  }
 }

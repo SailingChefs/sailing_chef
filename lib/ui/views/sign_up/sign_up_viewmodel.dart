@@ -81,7 +81,6 @@ class SignUpViewModel extends BaseViewModel {
             followers: [],
             following: [],
             link: '',
-            location: null,
             phoneNumber: '',
             savedRecipes: [],
             syJoy: '',

@@ -15,23 +15,33 @@ class IndexView extends StackedView<IndexViewModel> {
     IndexViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: kcBackgroundColor,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25),
-        child: Column(
-          children: [
-            const TopBarIndexScreen(),
-            const ChefListIndexScreen(),
-            verticalSpaceMedium,
-            const SearchBarIndexView(),
-            verticalSpaceMedium,
-            const DishListIndexScreen(),
-            verticalSpaceMedium,
-          ],
-        ),
-      ),
+    return SafeArea(
+      child: viewModel.isBusy
+          ? const Center(child: CircularProgressIndicator())
+          : Scaffold(
+              backgroundColor: kcBackgroundColor,
+              body: SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Column(
+                  children: [
+                    const TopBarIndexScreen(),
+                    const ChefListIndexScreen(),
+                    verticalSpaceMedium,
+                    const SearchBarIndexView(),
+                    verticalSpaceMedium,
+                    const DishListIndexScreen(),
+                    verticalSpaceMedium,
+                  ],
+                ),
+              ),
+            ),
     );
+  }
+
+  @override
+  void onViewModelReady(IndexViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

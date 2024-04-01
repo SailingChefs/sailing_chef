@@ -45,7 +45,7 @@ class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 30.0),
                           child: Text(
-                            '${viewModel.quantityController.text} ${ingredient.quantity}',
+                            '${ingredient.quantity} - ${ingredient.unit}',
                             overflow: TextOverflow.ellipsis,
                             style: globalTextStyle(
                                 fontSize: 14,

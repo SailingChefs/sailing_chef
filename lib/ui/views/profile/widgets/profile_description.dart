@@ -2,26 +2,29 @@
 
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
-class ProfileDescriptionProfileScreen extends StatelessWidget {
+class ProfileDescriptionProfileScreen
+    extends ViewModelWidget<ProfileViewModel> {
   const ProfileDescriptionProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ProfileViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          userDetails!.location == '' && userDetails!.syJoy == ''
+          viewModel.placemarks![0].country!.isEmpty &&
+                  userDetails!.syJoy!.isEmpty
               ? ' '
-              : userDetails!.location == ''
+              : viewModel.placemarks![0].country!.isEmpty
                   ? capitalizeEachWord(userDetails!.syJoy!)
-                  : userDetails!.syJoy == ''
-                      ? capitalizeEachWord(userDetails!.location! as String)
+                  : userDetails!.syJoy!.isEmpty
+                      ? capitalizeEachWord(viewModel.placemarks!.first.country!)
                       : capitalizeEachWord(
-                          '${userDetails!.syJoy!}, ${userDetails!.location!}'),
+                          '${userDetails!.syJoy!}, ${viewModel.placemarks!.first.country!}'),
           style: globalTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,

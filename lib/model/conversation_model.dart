@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ConversationModel {
@@ -16,7 +14,7 @@ class ConversationModel {
   });
 
   factory ConversationModel.fromSnapshot(DocumentSnapshot snapshot) {
-     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
     return ConversationModel(
       latestMessage: data['latestMessage'] ?? '',

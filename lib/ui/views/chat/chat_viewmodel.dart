@@ -15,10 +15,8 @@ class ChatViewModel extends BaseViewModel {
       //   MessageModel(
       //     image: pickedFile.path,
 
-
-
       //   ),
-     // );
+      // );
     }
   }
 

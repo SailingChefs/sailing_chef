@@ -7,10 +7,15 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
+    const double itemHeight =
+        7.4 / 9 * 140; // Assuming average item height is 200
+    const int itemCount = 10;
+    const double totalHeight = itemHeight * itemCount;
     return SizedBox(
-      height: 300.h,
+      height: totalHeight.h,
       child: GridView.builder(
         itemCount: 10,
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,

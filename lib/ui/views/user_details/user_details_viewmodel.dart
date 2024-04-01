@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -20,10 +22,12 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController syjoyController = TextEditingController();
   final _locationService = locator<LocationService>();
+  Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
   Position? location;
   File? selectedImageFile;
   String? selectedImagePath;
+  List<Placemark>? placemarks;
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -38,9 +42,30 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
+  getUserLocation() async {
+    placemarks = await placemarkFromCoordinates(
+        userlocation!['latitude'], userlocation!['longitude']);
+    locationController.text =
+        ' ${placemarks![0].street} - ${placemarks![0].locality},${placemarks![0].country}';
+  }
+
   void getLocation() async {
+    EasyLoading.show(status: 'Loading...');
     location = await _locationService.determinePosition();
-    locationController.text = location.toString();
+    await getUserLocation();
+    EasyLoading.dismiss();
+    userlocation = {
+      'latitude': location!.latitude,
+      'longitude': location!.longitude,
+      'timestamp': location!.timestamp.toString(),
+      'accuracy': location!.accuracy,
+      'altitude': location!.altitude,
+      'altitudeAccuracy': location!.altitudeAccuracy,
+      'heading': location!.heading,
+      'headingAccuracy': location!.headingAccuracy,
+      'speed': location!.speed,
+      'speedAccuracy': location!.speedAccuracy,
+    };
     notifyListeners();
     rebuildUi();
   }
@@ -57,7 +82,7 @@ class UserDetailsViewModel extends BaseViewModel {
         'bio': bioController.text,
         'link': linkController.text,
         'boat_name': boatNameController.text,
-        'location': locationController.text,
+        'location': userlocation,
         'sy_joy': syjoyController.text,
         'display_picture': imageLink,
       },

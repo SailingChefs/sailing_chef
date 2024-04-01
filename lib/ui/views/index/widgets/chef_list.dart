@@ -29,10 +29,11 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           height: 250,
           width: double.maxFinite,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: viewModel.chefList!.length,
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
+              final chef = viewModel.chefList![index];
               return Container(
                 width: 160,
                 decoration: BoxDecoration(
@@ -56,8 +57,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
-                      child: Image.asset(
-                        'assets/images/icons/chef.jpg',
+                      child: Image.network(
+                        chef.displayPicture!,
                         fit: BoxFit.cover,
                         height: 180,
                         width: double.infinity,
@@ -66,7 +67,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        capitalizeEachWord('chef name'),
+                        capitalizeEachWord(chef.displayName!),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
