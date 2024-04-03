@@ -1,8 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
-  const Ingredients({super.key});
+  final List<Ingredient>? ingredientsList ;
+  const Ingredients(this.ingredientsList, {super.key});
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {

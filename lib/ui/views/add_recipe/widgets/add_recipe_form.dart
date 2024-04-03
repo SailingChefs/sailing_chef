@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/chefs_note.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/cooking_instructions.dart';
@@ -11,7 +12,8 @@ import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/vis
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
-  const AddRecipeFormAddRecipeScreen({super.key});
+  final List<Ingredient> ? ingredientsList;
+  const AddRecipeFormAddRecipeScreen(this.ingredientsList, {super.key});
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
@@ -26,7 +28,7 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         verticalSpaceSmall,
         const ServingQuantity(),
         verticalSpaceMedium,
-        const Ingredients(),
+        Ingredients(ingredientsList),
         verticalSpaceMedium,
         const CookingInstructions(),
         verticalSpaceMedium,

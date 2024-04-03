@@ -100,7 +100,7 @@ class BottomNavBarView extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ));
       case 2:
-        return const AddRecipeView();
+        return const AddRecipeView([]);
       case 3:
         return const ChatListView();
       case 4:
