@@ -1,6 +1,4 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
 
 class RecipeViewViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();

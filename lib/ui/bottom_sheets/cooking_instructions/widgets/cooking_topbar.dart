@@ -19,7 +19,7 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
           ),
           GestureDetector(
             onTap: () {
-              viewModel.saveData();
+              viewModel.popBack();
             },
             child: Text(
               'Save',

@@ -24,7 +24,7 @@ class ChatView extends StackedView<ChatViewModel> {
                     itemCount: viewModel.messages.length,
                     itemBuilder: (context, index) {
                       return Container();
-                      //  return ChatMessage(viewModel.messages[index]);
+                      // child: ChatMessage(viewModel.messages[index]);
                     },
                   ),
                 ),

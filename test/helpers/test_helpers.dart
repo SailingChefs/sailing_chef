@@ -7,6 +7,7 @@ import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/dishes_service.dart';
+import 'package:sailing_chefs/services/userdata_service_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -20,6 +21,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ConversationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ChefService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DishesService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<UserdataServiceService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -31,6 +33,7 @@ void registerServices() {
   getAndRegisterConversationService();
   getAndRegisterChefService();
   getAndRegisterDishesService();
+  getAndRegisterUserdataServiceService();
 // @stacked-mock-register
 }
 
@@ -116,6 +119,13 @@ MockDishesService getAndRegisterDishesService() {
   _removeRegistrationIfExists<DishesService>();
   final service = MockDishesService();
   locator.registerSingleton<DishesService>(service);
+  return service;
+}
+
+MockUserdataServiceService getAndRegisterUserdataServiceService() {
+  _removeRegistrationIfExists<UserdataServiceService>();
+  final service = MockUserdataServiceService();
+  locator.registerSingleton<UserdataServiceService>(service);
   return service;
 }
 // @stacked-mock-create

@@ -1,8 +1,7 @@
-
 import '../../../core/imports/core_imports.dart';
 
 class SavedRecipeDetailsViewModel extends BaseViewModel {
-   final _navigationService = locator<NavigationService>();
+  final _navigationService = locator<NavigationService>();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
@@ -22,8 +21,10 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void moveBack() {
+  void move_Back() {
     _navigationService.back();
+    notifyListeners();
+    
   }
 
   void moveToChefProfileView() {
@@ -62,5 +63,4 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
     notifyListeners();
   }
- 
 }

@@ -16,9 +16,8 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return SingleChildScrollView(
-      child: Form(
-        key: viewModel.formKey,
-       
+        child: Form(
+      key: viewModel.formKey,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const RecipeTitle(),
         verticalSpaceMedium,
@@ -46,8 +45,6 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         ),
         verticalSpaceMedium,
       ]),
-    )
-    );
-
+    ));
   }
 }
