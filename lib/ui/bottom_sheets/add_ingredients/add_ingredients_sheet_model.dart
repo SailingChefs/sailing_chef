@@ -33,12 +33,14 @@ class AddIngredientsSheetModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
+
   void onSaved() {
 
     if(completer != null) {
       completer!(SheetResponse(confirmed: true,data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
     }
   }
+
 
   void addIngredientToList() {
     if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {

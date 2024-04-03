@@ -1,10 +1,12 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
+
 class DishModel {
   String dishId;
   String dishName;
   String dishImagePath;
   String dishPreparationTime;
-  String? dishChefId;
-  String dishChefImage;
+  String? dishChefId= userDetails!.uid;
+  String dishChefImage= userDetails!.displayPicture!;
 
   DishModel(
       {required this.dishId,

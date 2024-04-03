@@ -25,6 +25,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            horizontalSpaceMedium,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -89,6 +90,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
               height: 500,
               child: ListView.builder(
                   itemCount: ingredients.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       height: 50.0,

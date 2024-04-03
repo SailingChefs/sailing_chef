@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/dish_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/grid_view.dart';
 
@@ -9,12 +10,13 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   Widget build(BuildContext context, IndexViewModel viewModel) {
     const double itemHeight =
         7.4 / 9 * 140; // Assuming average item height is 200
-    const int itemCount = 10;
-    const double totalHeight = itemHeight * itemCount;
+    final int itemCount = viewModel.dishes.length;
+    double totalHeight = itemHeight * itemCount;
+    final List<DishModel> dishes = viewModel.dishes;
     return SizedBox(
       height: totalHeight.h,
       child: GridView.builder(
-        itemCount: 10,
+        itemCount: dishes.length,
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,11 +26,16 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return const PrimaryGridViewCard(
-              foodImagePath: 'assets/images/background/onboarding.png',
-              dishName: "dish name",
-              duration: "30",
-              chefImagePath: 'assets/images/icons/chef.jpg');
+          return GestureDetector(
+            onTap: (){viewModel.toDishDetailsScreen();},
+            child: PrimaryGridViewCard(
+                foodImagePath: dishes[index].dishImagePath,
+                dishName: dishes[index].dishName,
+                duration: dishes[index].dishPreparationTime,
+                chefImagePath: dishes[index].dishChefImage,
+                
+              ),
+          );
         },
       ),
     );

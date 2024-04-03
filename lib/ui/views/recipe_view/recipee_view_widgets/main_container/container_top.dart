@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
@@ -24,9 +26,11 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: BackArrowWidget(
+
               onTap: 
                 viewModel.moveBack,
               
+
             ),
           ),
         ],

@@ -7,7 +7,7 @@ import 'widgets/top_image.dart';
 
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   const SavedRecipeDetailsView({Key? key}) : super(key: key);
-
+  
   @override
   Widget builder(
     BuildContext context,
