@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,15 +7,21 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/widgets/recipes_list.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:path_provider/path_provider.dart' ;
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   late final RecorderController recorderController;
+  late final PlayerController playerController;
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
+  late Directory directory;
+  late String path;
   String selectedValue = 'Public';
   int selectedQuantity = 1;
   List<XFile?> selectedImages = [];
@@ -28,6 +34,11 @@ class AddRecipeViewModel extends BaseViewModel {
   List<String> timeMethod = ['secs', 'mins', 'hrs'];
   String selectedTimeMethod = 'secs';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List<Ingredient> ingredientsList = [];
+ 
+
+  List<double>? waveFormData;
+
 
   void onTimeMethodSelection(String value) {
     selectedTimeMethod = value;
@@ -51,29 +62,13 @@ class AddRecipeViewModel extends BaseViewModel {
         : 'Title must be at least 3 characters long';
   }
 
-  void onViewModelReady() {
+  void onViewModelReady() async{
     setBusy(true);
-    recorderController = RecorderController()
-      ..androidEncoder = AndroidEncoder.aac
-      ..androidOutputFormat = AndroidOutputFormat.mpeg4
-      ..iosEncoder = IosEncoder.kAudioFormatMPEG4AAC
-      ..sampleRate = 16000;
+    recorderController = RecorderController();
+    playerController = PlayerController();
+    directory  = await getApplicationDocumentsDirectory();
+    path = '${directory.path}/recording.m4a';
     setBusy(false);
-  }
-
-  void recordAudio() async {
-    final hasPermission = await recorderController
-        .checkPermission(); // Check mic permission (also called during record)
-    if (hasPermission) {
-      await recorderController.record(
-          path: 'path'); // Record (path is optional)
-      await recorderController.pause(); // Pause recording
-// Stop recording and get the path
-      recorderController.refresh(); // Refresh waveform to original position
-      recorderController.dispose();
-    } else {
-      log("Permission denied");
-    }
   }
 
   void showPreviousImage() {
@@ -111,9 +106,12 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void callIngredientsBottomSheet() async {
-    await _bottomSheetService.showCustomSheet(
+    final result = await _bottomSheetService.showCustomSheet<dynamic,AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
+    if(result == null) return;
+    ingredientsList = result.data!.ingredientsList;
+    notifyListeners();
   }
 
   void popBack() {
@@ -202,5 +200,28 @@ class AddRecipeViewModel extends BaseViewModel {
 
   void goToRecipePreview() {
     _navigationService.navigateToRecipeViewView();
+  }
+
+  void startRecording() async {
+    recorderController.reset();
+    await recorderController.record(path: path);
+    rebuildUi();
+  }
+
+  void pauseRecording() async {
+    await recorderController.pause();
+    waveFormData = await playerController.extractWaveformData(path: path);
+    await playerController.preparePlayer(path: path, volume: 1.0);
+    rebuildUi();
+  }
+
+  @override
+  void dispose() {
+    recorderController.dispose();
+    super.dispose();
+  }
+
+  void startListening() {
+    playerController.startPlayer();
   }
 }

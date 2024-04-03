@@ -843,4 +843,32 @@ class MockDishesService extends _i1.Mock implements _i17.DishesService {}
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserdataServiceService extends _i1.Mock
-    implements _i18.UserdataServiceService {}
+    implements _i18.UserdataServiceService {
+  @override
+  _i6.Future<List<_i16.UserModel>> fetchUsersDocuments() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchUsersDocuments,
+          [],
+        ),
+        returnValue: _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
+      ) as _i6.Future<List<_i16.UserModel>>);
+
+  @override
+  _i6.Future<bool> storeUserDetails(
+    Map<String, dynamic>? userModel,
+    String? uid,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #storeUserDetails,
+          [
+            userModel,
+            uid,
+          ],
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+}

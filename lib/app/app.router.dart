@@ -7,6 +7,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i25;
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart' as _i27;
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart'
+    as _i26;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i14;
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart'
     as _i20;
@@ -42,7 +45,7 @@ import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
     as _i6;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i26;
+import 'package:stacked_services/stacked_services.dart' as _i28;
 
 class Routes {
   static const startupView = '/startup-view';
@@ -288,8 +291,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i14.AddRecipeView: (data) {
+      final args = data.getArgs<AddRecipeViewArguments>(nullOk: false);
       return _i25.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i14.AddRecipeView(),
+        builder: (context) =>
+            _i14.AddRecipeView(args.ingredientsList, key: args.key),
         settings: data,
       );
     },
@@ -362,7 +367,34 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i26.NavigationService {
+class AddRecipeViewArguments {
+  const AddRecipeViewArguments({
+    required this.ingredientsList,
+    this.key,
+  });
+
+  final List<_i26.Ingredient>? ingredientsList;
+
+  final _i27.Key? key;
+
+  @override
+  String toString() {
+    return '{"ingredientsList": "$ingredientsList", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AddRecipeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.ingredientsList == ingredientsList && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return ingredientsList.hashCode ^ key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i28.NavigationService {
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -531,14 +563,18 @@ extension NavigatorStateExtension on _i26.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToAddRecipeView([
+  Future<dynamic> navigateToAddRecipeView({
+    required List<_i26.Ingredient>? ingredientsList,
+    _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.addRecipeView,
+        arguments:
+            AddRecipeViewArguments(ingredientsList: ingredientsList, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -853,14 +889,18 @@ extension NavigatorStateExtension on _i26.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithAddRecipeView([
+  Future<dynamic> replaceWithAddRecipeView({
+    required List<_i26.Ingredient>? ingredientsList,
+    _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.addRecipeView,
+        arguments:
+            AddRecipeViewArguments(ingredientsList: ingredientsList, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

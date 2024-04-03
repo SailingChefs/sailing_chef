@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors
 
-import 'package:geolocator/geolocator.dart';
-// import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -12,8 +9,6 @@ class ProfileViewModel extends BaseViewModel {
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
-  Position? location;
-  final _locationService = locator<LocationService>();
   List<Placemark>? placemarks;
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
@@ -32,14 +27,13 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   getUserLocation() async {
-    location = await _locationService.determinePosition();
     placemarks =
-        await placemarkFromCoordinates(location!.latitude, location!.longitude);
+        await placemarkFromCoordinates(userDetails!.location!['latitude'], userDetails!.location!['longitude']);
   }
 
   void goTogoToProfileEditView(String name) {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListView());
+        arguments: const FollowingListView());
   }
 
   // A function that navigates to the settings view.

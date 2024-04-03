@@ -21,9 +21,8 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void move_Back() {
+  void moveBack() {
     _navigationService.back();
-    notifyListeners();
     
   }
 

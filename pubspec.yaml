@@ -38,6 +38,12 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   
   geocoding: ^3.0.0
+  path_provider: ^2.1.2
+  record: ^5.0.5
+  just_audio: ^0.9.37
+  permission_handler: ^11.3.1
+  font_awesome_flutter: ^10.7.0
+  lottie: ^3.1.0
   
  
   
