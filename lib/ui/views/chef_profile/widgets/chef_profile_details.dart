@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
@@ -8,7 +7,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
   const ChefProfileDetails({super.key});
 
   @override
- Widget build(BuildContext context, ChefProfileViewModel viewModel) {
+  Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return FittedBox(
       child: Row(
         children: [

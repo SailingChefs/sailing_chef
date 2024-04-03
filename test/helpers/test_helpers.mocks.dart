@@ -20,6 +20,7 @@ import 'package:sailing_chefs/services/conversation_service.dart' as _i12;
 import 'package:sailing_chefs/services/dishes_service.dart' as _i17;
 import 'package:sailing_chefs/services/location_service.dart' as _i11;
 import 'package:sailing_chefs/services/recipe_service.dart' as _i8;
+import 'package:sailing_chefs/services/userdata_service_service.dart' as _i18;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -837,3 +838,9 @@ class MockChefService extends _i1.Mock implements _i15.ChefService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDishesService extends _i1.Mock implements _i17.DishesService {}
+
+/// A class which mocks [UserdataServiceService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserdataServiceService extends _i1.Mock
+    implements _i18.UserdataServiceService {}

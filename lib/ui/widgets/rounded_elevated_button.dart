@@ -24,7 +24,7 @@ class RoundedElevatedButton extends StatelessWidget {
     this.buttonColor,
     this.borderColor,
     this.borderWidth = 1.0,
-    this.textFontSize = 16, // Adjust the default font size
+    this.textFontSize = 16, 
     this.textColor = kcTextColor,
     this.textFontWeight = FontWeight.w400,
     required this.isEnabled,

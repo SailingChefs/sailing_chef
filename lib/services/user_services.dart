@@ -41,24 +41,22 @@ class UserServices {
     try {
       EasyLoading.show();
       CollectionReference usersCollection = firebasestore.collection('users');
-      DocumentSnapshot userDoc =
-          await usersCollection.doc(firebaseAuth.currentUser?.uid).get();
 
-      // QuerySnapshot userSnapshot = await usersCollection
-      //     .where('uid', isEqualTo: firebaseAuth.currentUser?.uid)
-      //     .get();
+      QuerySnapshot userSnapshot = await usersCollection
+          .where('uid', isEqualTo: firebaseAuth.currentUser?.uid)
+          .get();
 
-      // if (userSnapshot.docs.isNotEmpty) {
-      //   // User found in Firestore, return as User model
-      //   DocumentSnapshot userDoc = userSnapshot.docs.first;
-      EasyLoading.dismiss();
-      showToast(message: 'User Data fetched successfully');
-      return UserModel.fromSnapshot(userDoc);
-      // } else {
-      // User not found in Firestore
-      // EasyLoading.dismiss();
-      // throw Exception("User not found in Firestore");
-      // }
+      if (userSnapshot.docs.isNotEmpty) {
+        // User found in Firestore, return as User model
+        DocumentSnapshot userDoc = userSnapshot.docs.first;
+        EasyLoading.dismiss();
+        showToast(message: 'User Data fetched successfully');
+
+        return UserModel.fromSnapshot(userDoc);
+      } else {
+        EasyLoading.dismiss();
+        throw Exception("User not found in Firestore");
+      }
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());
@@ -77,8 +75,6 @@ class UserServices {
       DocumentSnapshot userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());
       if (userSnapshot.exists) {
-        // User not stored in Firestore, so add their data
-
         await usersCollection.doc(uid).update(userModel);
         EasyLoading.dismiss();
         showToast(message: 'User Data Uploaded successfully');

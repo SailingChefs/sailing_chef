@@ -110,10 +110,9 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void callIngredientsBottomSheet() async{
-   await _bottomSheetService.showCustomSheet(
+  void callIngredientsBottomSheet() async {
+    await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.addIngredients,
-      
     );
   }
 

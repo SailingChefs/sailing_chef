@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,17 +42,14 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   getUserLocation() async {
-    placemarks = await placemarkFromCoordinates(
-        userlocation!['latitude'], userlocation!['longitude']);
+    location = await _locationService.determinePosition();
+    placemarks =
+        await placemarkFromCoordinates(location!.latitude, location!.longitude);
     locationController.text =
         ' ${placemarks![0].street} - ${placemarks![0].locality},${placemarks![0].country}';
   }
 
   void getLocation() async {
-    EasyLoading.show(status: 'Loading...');
-    location = await _locationService.determinePosition();
-    await getUserLocation();
-    EasyLoading.dismiss();
     userlocation = {
       'latitude': location!.latitude,
       'longitude': location!.longitude,
@@ -66,6 +62,8 @@ class UserDetailsViewModel extends BaseViewModel {
       'speed': location!.speed,
       'speedAccuracy': location!.speedAccuracy,
     };
+    notifyListeners();
+    await getUserLocation();
     notifyListeners();
     rebuildUi();
   }
@@ -117,5 +115,9 @@ class UserDetailsViewModel extends BaseViewModel {
     userDetails = await _userService.getUserDetails();
     nameController.text = userDetails!.displayName ?? '';
     setBusy(false);
+  }
+
+  void skipToHome() {
+    _navigationService.navigateToIndexView();
   }
 }

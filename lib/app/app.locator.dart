@@ -18,6 +18,7 @@ import '../services/dishes_service.dart';
 import '../services/location_service.dart';
 import '../services/recipe_service.dart';
 import '../services/user_services.dart';
+import '../services/userdata_service_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -40,4 +41,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ConversationService());
   locator.registerLazySingleton(() => ChefService());
   locator.registerLazySingleton(() => DishesService());
+  locator.registerLazySingleton(() => UserdataServiceService());
 }

@@ -46,9 +46,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                       child: Padding(
                         padding: EdgeInsets.all(12.0.dg),
                         child: Text(
-                          viewModel.locationController.text.isNotEmpty
-                              ? viewModel.locationController.text
-                              : 'Location',
+                          viewModel.locationController.text,
+                          // ? viewModel.locationController.text
+                          // : 'Location',
                           style: globalTextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,

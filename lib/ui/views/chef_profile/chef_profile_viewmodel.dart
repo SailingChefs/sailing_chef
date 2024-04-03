@@ -1,8 +1,7 @@
-
 import '../../../core/imports/core_imports.dart';
 
 class ChefProfileViewModel extends BaseViewModel {
-   final _navigationService = locator<NavigationService>();
+  final _navigationService = locator<NavigationService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
@@ -13,7 +12,6 @@ class ChefProfileViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
-
 
   void savedSelected() {
     isSavedSelected = true;
@@ -27,6 +25,9 @@ class ChefProfileViewModel extends BaseViewModel {
     //     arguments: FollowingListView());
   }
 
+  void moveToChatScreen() {
+    _navigationService.navigateToChatView();
+  }
 
   void toSettings() {
     _navigationService.navigateToSettingsView();
@@ -35,7 +36,6 @@ class ChefProfileViewModel extends BaseViewModel {
   void moveBack() {
     _navigationService.back();
   }
-
 
   void handleTab(int index) {
     switch (index) {

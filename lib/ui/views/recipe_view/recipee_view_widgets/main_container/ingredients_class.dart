@@ -4,7 +4,9 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import '../../../../widgets/bottom_sheet_btn.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
-  const IngredientsClass({super.key,});
+  const IngredientsClass({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {

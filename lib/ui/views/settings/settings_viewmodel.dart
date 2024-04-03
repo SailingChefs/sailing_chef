@@ -12,6 +12,10 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToPinDropMapView();
   }
 
+  void getEditProfile() {
+    _navigationService.navigateToEditProfileView();
+  }
+
   void signoutUser() {
     AuthService.signout();
     _navigationService.navigateToLoginView();
