@@ -8,7 +8,9 @@
 import 'package:flutter/material.dart' as _i25;
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart' as _i27;
+
 import 'package:sailing_chefs/model/user_model.dart' as _i28;
+
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart'
     as _i26;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i14;
@@ -46,7 +48,11 @@ import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
     as _i6;
 import 'package:stacked/stacked.dart' as _i1;
+
+import 'package:stacked_services/stacked_services.dart' as _i28;
+
 import 'package:stacked_services/stacked_services.dart' as _i29;
+
 
 class Routes {
   static const startupView = '/startup-view';
@@ -397,6 +403,9 @@ class AddRecipeViewArguments {
   }
 }
 
+
+extension NavigatorStateExtension on _i28.NavigationService {
+
 class ChefProfileViewArguments {
   const ChefProfileViewArguments({
     required this.user,
@@ -425,6 +434,7 @@ class ChefProfileViewArguments {
 }
 
 extension NavigatorStateExtension on _i29.NavigationService {
+
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,

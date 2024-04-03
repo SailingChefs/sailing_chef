@@ -26,10 +26,11 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: BackArrowWidget(
-              onTap: () {
-                log('moveback');
-                viewModel.moveBack();
-              },
+
+              onTap: 
+                viewModel.moveBack,
+              
+
             ),
           ),
         ],

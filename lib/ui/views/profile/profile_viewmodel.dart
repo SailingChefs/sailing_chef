@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:sailing_chefs/core/global_uservariable.dart';
-// import 'package:sailing_chefs/core/global_uservariable.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
@@ -32,12 +31,13 @@ class ProfileViewModel extends BaseViewModel {
   getUserLocation() async {
 
     placemarks =
-        await placemarkFromCoordinates(userDetails!.location!['latitude'],userDetails!.location!['longitude']);
+        await placemarkFromCoordinates(userDetails!.location!['latitude'], userDetails!.location!['longitude']);
+
   }
 
   void goTogoToProfileEditView(String name) {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListView());
+        arguments: const FollowingListView());
   }
 
   // A function that navigates to the settings view.

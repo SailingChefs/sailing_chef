@@ -16,21 +16,26 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             child: Column(
               children: [
                 SemiRoundedTranpaentTextField(
+                  validator: (value) => viewModel.validateName(value),
                   controller: viewModel.nameController,
                   labelText: 'Name',
                 ),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
+                 validator: (value) => viewModel.validateBio(value),
                     controller: viewModel.bioController, labelText: 'Bio'),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
+                  validator: (value) => viewModel.validateLink(value),
                     controller: viewModel.linkController, labelText: 'Link'),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
+                    validator: (value) => viewModel.validateBoatName(value),
                     controller: viewModel.boatNameController,
                     labelText: 'Boat Name'),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
+                  validator: (value) => viewModel.validateSyjoy(value),
                     controller: viewModel.syjoyController,
                     labelText: 'Sy Joy '),
                 verticalSpaceMedium,
@@ -46,9 +51,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                       child: Padding(
                         padding: EdgeInsets.all(12.0.dg),
                         child: Text(
-                          viewModel.locationController.text,
-                          // ? viewModel.locationController.text
-                          // : 'Location',
+                          viewModel.locationController.text.isNotEmpty
+                          ? viewModel.locationController.text
+                          : 'Location',
                           style: globalTextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,

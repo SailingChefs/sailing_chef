@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredientssheet_topbar.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/two_textfields_inarow.dart';
@@ -81,5 +82,11 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
 
   @override
   AddIngredientsSheetModel viewModelBuilder(BuildContext context) =>
-      AddIngredientsSheetModel();
+      AddIngredientsSheetModel(completer);
+}
+
+class AddIngredientsSheetResponse{
+  final List<Ingredient> ingredientsList;
+  const AddIngredientsSheetResponse({required this.ingredientsList});
+  
 }
