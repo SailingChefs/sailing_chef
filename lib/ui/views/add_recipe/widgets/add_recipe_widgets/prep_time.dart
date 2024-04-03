@@ -49,11 +49,11 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
               ),
             ),
             Container(
-              height: 40.h,
-              width: MediaQuery.sizeOf(context).width * 0.3,
+              height: 45.h,
+              width: MediaQuery.sizeOf(context).width * 0.35,
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(30.0),
                 color: kcVeryLightGrey.withOpacity(0.2),
               ),
               child: Row(
@@ -75,8 +75,8 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                       },
                       items: viewModel.timeMethod.map((index) {
                         return DropdownMenuItem<String>(
-                          value: index.toString(), // Set the value here
-                          child: Text(index),
+                          value: index.toString(),
+                          child: Text(index,style: const TextStyle(fontSize: 14),),
                         );
                       }).toList(),
                     ),

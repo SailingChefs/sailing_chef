@@ -26,9 +26,9 @@ class AddIngredientsSheetModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
-  void onSaved() {
-    _navigationService.navigateToAddRecipeView();
-  }
+  // void onSaved() {
+  //   _navigationService.navigateToAddRecipeView();
+  // }
 
   void addIngredientToList() {
     if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {

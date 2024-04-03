@@ -23,6 +23,7 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void moveBack() {
     _navigationService.back();
+    
   }
 
   void handleTab(int index) {

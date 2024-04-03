@@ -87,6 +87,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               height: 400,
               child: ListView.builder(
                 itemCount: ingredients.length,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     height: 50.0,

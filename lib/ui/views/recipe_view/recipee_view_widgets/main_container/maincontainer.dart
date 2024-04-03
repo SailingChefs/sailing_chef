@@ -71,6 +71,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ),
                     ),
+                    verticalSpaceMedium,
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected

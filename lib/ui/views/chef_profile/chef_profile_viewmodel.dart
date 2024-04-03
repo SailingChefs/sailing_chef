@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+
 import '../../../core/imports/core_imports.dart';
 
 class ChefProfileViewModel extends BaseViewModel {
@@ -5,6 +10,7 @@ class ChefProfileViewModel extends BaseViewModel {
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
+   List<Placemark>? placemarks;
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -20,9 +26,22 @@ class ChefProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+   void onViewModelReady(UserModel user) async {
+    setBusy(true);
+    await getUserLocation(user);
+    setBusy(false);
+  }
+
   void goTogoToProfileEditView(String name) {
     // _navigationService.navigateTo(Routes.followingListView,
     //     arguments: FollowingListView());
+  }
+
+  getUserLocation(UserModel user) async {
+    log(user.displayName.toString());
+    placemarks =
+        await placemarkFromCoordinates(user.location!['latitude'],user.location!['longitude']);
+        log(placemarks.toString());
   }
 
   void moveToChatScreen() {

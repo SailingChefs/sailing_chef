@@ -21,14 +21,14 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void move_Back() {
+  void moveBack() {
     _navigationService.back();
     notifyListeners();
     
   }
 
   void moveToChefProfileView() {
-    _navigationService.navigateToChefProfileView();
+    // _navigationService.navigateToChefProfileView();
   }
 
   void handleTab(int index) {
