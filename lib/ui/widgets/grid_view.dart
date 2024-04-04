@@ -1,7 +1,7 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class PrimaryGridViewCard extends StatelessWidget {
+class PrimaryGridViewCard extends  StatelessWidget{
   final String foodImagePath;
   final String chefImagePath;
   final String dishName;
@@ -16,10 +16,11 @@ class PrimaryGridViewCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ) {
     return GestureDetector(
       onTap: () {
-        // Add your onTap logic here
+        final _navigationService = locator<NavigationService>();
+        _navigationService.navigateToSavedRecipeDetailsView();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -66,11 +67,11 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 40,
+              bottom: 50,
               left: 10,
               child: Container(
                 width: 70.w,
-                height: 30.h,
+                height: 25.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: kcBlackColor.withOpacity(0.7),
@@ -83,19 +84,19 @@ class PrimaryGridViewCard extends StatelessWidget {
                   children: [
                     Icon(
                       FlutterRemix.time_line,
-                      size: 15.dg,
+                      size: 12.dg,
                       color: kcWhiteColor,
                     ),
                     Text(
                       "$duration mins",
-                      style: globalTextStyle(fontSize: 12.sp),
+                      style: globalTextStyle(fontSize: 10.sp),
                     )
                   ],
                 ),
               ),
             ),
             Positioned(
-              bottom: 15,
+              bottom: 25,
               right: 10,
               child: Container(
                 width: 35.w,
@@ -119,14 +120,14 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 5,
+              bottom: 7,
               left: 10,
               child: Text(
                 capitalizeEachWord(dishName),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: globalTextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                   color: kcBlackColor.withOpacity(0.6),
                 ),

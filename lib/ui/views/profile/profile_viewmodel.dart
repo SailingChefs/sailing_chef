@@ -1,5 +1,6 @@
 
 import 'package:sailing_chefs/core/global_uservariable.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
@@ -9,6 +10,7 @@ class ProfileViewModel extends BaseViewModel {
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
+
   List<Placemark>? placemarks;
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
@@ -27,8 +29,10 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   getUserLocation() async {
+
     placemarks =
         await placemarkFromCoordinates(userDetails!.location!['latitude'], userDetails!.location!['longitude']);
+
   }
 
   void goTogoToProfileEditView(String name) {

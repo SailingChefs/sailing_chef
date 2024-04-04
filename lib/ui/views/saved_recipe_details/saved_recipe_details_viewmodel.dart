@@ -27,7 +27,7 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
   }
 
   void moveToChefProfileView() {
-    _navigationService.navigateToChefProfileView();
+    // _navigationService.navigateToChefProfileView();
   }
 
   void handleTab(int index) {

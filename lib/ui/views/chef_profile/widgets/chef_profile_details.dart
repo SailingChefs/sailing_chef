@@ -1,11 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
 import '../chef_profile_viewmodel.dart';
 
 class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
-  const ChefProfileDetails({super.key});
+  final UserModel user;
 
+  const ChefProfileDetails({required this.user, super.key});
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return FittedBox(
@@ -23,8 +25,8 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      'assets/images/icons/chef.jpg',
+                    child: Image.network(
+                      user.displayPicture ?? '',
                       fit: BoxFit.cover,
                       height: 87,
                       width: 87,
@@ -32,7 +34,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               ),
               verticalSpaceSmall,
               Text(
-                capitalizeEachWord('Danica Nel'),
+                capitalizeEachWord(user.displayName ?? 'Chef Name'),
                 style: globalTextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
@@ -43,7 +45,9 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              viewModel.showRecipeList();
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -75,7 +79,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '05',
+                  user.followers!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -102,7 +106,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '12',
+                  user.following!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

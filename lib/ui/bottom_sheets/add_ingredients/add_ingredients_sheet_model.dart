@@ -33,6 +33,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
+
   void onSaved() {
     print('Tapped');
 
@@ -40,6 +41,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
       completer!(SheetResponse(confirmed: true,data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
     }
   }
+
 
   void addIngredientToList() {
     if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {

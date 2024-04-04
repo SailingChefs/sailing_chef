@@ -25,6 +25,7 @@ class Methods extends StatelessWidget {
             height: 500,
             child: ListView.builder(
               itemCount: steps.length,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
                   padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
