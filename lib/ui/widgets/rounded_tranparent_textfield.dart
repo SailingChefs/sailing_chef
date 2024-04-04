@@ -9,6 +9,8 @@ class RoundedTransparentTextField extends StatelessWidget {
   final bool obscureText;
   final bool? suffixIcon;
   final bool? prefixIcon;
+  final Icon? suffixIconData;
+  final Icon? prefixIconData;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
@@ -37,6 +39,8 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.textColor,
     this.prefixIcon,
     this.onChanged,
+    this.suffixIconData,
+    this.prefixIconData,
   }) : super(key: key);
 
   @override
@@ -85,6 +89,8 @@ class RoundedTransparentTextField extends StatelessWidget {
           vertical: 10.0,
           horizontal: 20.0,
         ),
+        prefix: prefixIconData,
+        suffix: suffixIconData,
         suffixIcon: suffixIcon == false
             ? null
             : GestureDetector(

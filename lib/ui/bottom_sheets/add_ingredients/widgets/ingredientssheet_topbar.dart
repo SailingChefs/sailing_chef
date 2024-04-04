@@ -13,14 +13,14 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BackArrowWidget(
-            onTap: () {
-              viewModel.popBack();
-            },
+            onTap: 
+              viewModel.popBack
+            ,
           ),
           GestureDetector(
-            onTap: () {
-              viewModel.goToRecipePreview();
-            },
+            onTap: 
+              viewModel.onSaved,
+            
             child: Text(
               'Save',
               style: globalTextStyle(

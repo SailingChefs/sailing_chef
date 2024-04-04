@@ -9,7 +9,8 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String labelText;
   final bool? readOnly;
-  final IconData? prefixIcon;
+  final Icon? prefixIcon;
+  final Icon? postfixIcon;
 
   const SemiRoundedTranpaentTextField(
       {super.key,
@@ -19,13 +20,16 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.readOnly = false,
       this.controller,
       required this.labelText,
-      this.prefixIcon});
+      this.prefixIcon,
+      this.postfixIcon});
 
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
       readOnly: readOnly!,
       labelText: labelText,
+      prefixIconData: prefixIcon,
+      suffixIconData: postfixIcon,
       validator: validator,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,

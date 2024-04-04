@@ -13,7 +13,7 @@ class UserModel {
   final String? dob;
   final List<String>? followers;
   final List<String>? following;
-  final String? location;
+  final Map<String, dynamic>? location;
   final String? link;
   final String? phoneNumber;
   final List<String>? savedRecipes;
@@ -38,27 +38,6 @@ class UserModel {
     this.phoneNumber,
     this.savedRecipes,
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'display_name': displayName,
-      'email': email,
-      'user_role': userRole,
-      'uid': uid,
-      'bio': bio,
-      'boat_name': boatName,
-      'created_time': createdTime,
-      'display_picture': displayPicture,
-      'dob': dob,
-      'followers': followers,
-      'following': following,
-      'location': location,
-      'link': link,
-      'phone_number': phoneNumber,
-      'saved_recipes': savedRecipes,
-      'sy_joy': syJoy
-    };
-  }
 
   Map<String, dynamic> toJson() {
     return {

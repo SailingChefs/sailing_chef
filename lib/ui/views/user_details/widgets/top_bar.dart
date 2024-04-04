@@ -33,7 +33,9 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
               fontWeight: FontWeight.w700),
         ),
         CustomTextButton(
-          onPressed: () {},
+          onPressed: () {
+            viewModel.skipToHome();
+          },
           buttonText: 'Skip',
           textColor: Colors.black.withOpacity(0.6),
         ),

@@ -1,10 +1,11 @@
-import 'package:stacked/stacked.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
-  // final _navigationService = locator<NavigationService>();
+  final _navigationService = locator<NavigationService>();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
+  int serves = 1;
 
   void myIngredientsSelected() {
     isIngredientsSelected = true;
@@ -18,6 +19,11 @@ class RecipeViewViewModel extends BaseViewModel {
     isIngredientsSelected = false;
     notifyListeners();
     rebuildUi();
+  }
+
+  void moveBack() {
+    _navigationService.back();
+    
   }
 
   void handleTab(int index) {
@@ -34,5 +40,22 @@ class RecipeViewViewModel extends BaseViewModel {
     }
 
     rebuildUi();
+  }
+
+  void addServes() {
+    serves++;
+    rebuildUi();
+    notifyListeners();
+  }
+
+  void removeServes() {
+    if (serves == 0) {
+      serves = 0;
+    } else {
+      serves--;
+    }
+
+    rebuildUi();
+    notifyListeners();
   }
 }

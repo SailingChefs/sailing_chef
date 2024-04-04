@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -20,10 +22,12 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController syjoyController = TextEditingController();
   final _locationService = locator<LocationService>();
+  Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
   Position? location;
   File? selectedImageFile;
   String? selectedImagePath;
+  List<Placemark>? placemarks;
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -38,14 +42,107 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
+  getUserLocation( Position location) async {
+    
+    placemarks =
+        await placemarkFromCoordinates(location.latitude, location.longitude);
+    locationController.text =
+        ' ${placemarks![0].street} - ${placemarks![0].locality},${placemarks![0].country}';
+  }
+
   void getLocation() async {
+    EasyLoading.show();
     location = await _locationService.determinePosition();
-    locationController.text = location.toString();
+    userlocation = {
+      'latitude': location!.latitude,
+      'longitude': location!.longitude,
+      'timestamp': location!.timestamp.toString(),
+      'accuracy': location!.accuracy,
+      'altitude': location!.altitude,
+      'altitudeAccuracy': location!.altitudeAccuracy,
+      'heading': location!.heading,
+      'headingAccuracy': location!.headingAccuracy,
+      'speed': location!.speed,
+      'speedAccuracy': location!.speedAccuracy,
+    };
+    notifyListeners();
+    await getUserLocation(location!);
+    EasyLoading.dismiss();
     notifyListeners();
     rebuildUi();
   }
+ String? validateLink(String? value) {
+  // Check if the input is null or empty
+  if (value == null || value.isEmpty) {
+    return 'Please enter a link';
+  }
+
+  // Use a regular expression for basic URL validation without protocol
+  RegExp urlRegex = RegExp(
+    r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+  );
+
+  // Check if the input matches the URL pattern
+  return urlRegex.hasMatch(value)
+      ? null  // Return null if the link is valid
+      : 'Please enter a valid link';
+}
+
+
+String? validateBio(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a bio';
+  }
+
+  // You can add additional validation criteria for the bio here
+  // For example, checking if the bio length is within a certain range
+  
+  return null;
+}
+
+String? validateName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a name';
+  }
+
+  // You can add additional validation criteria for the name here
+  // For example, checking if the name contains only alphabetic characters
+  
+  return null;
+}
+String? validateBoatName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a name';
+  }
+
+  // You can add additional validation criteria for the name here
+  // For example, checking if the name contains only alphabetic characters
+  
+  return null;
+}
+
+String? validateSyjoy(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a valid syjoy';
+  }
+
+  // You can add specific validation criteria for "syjoy" here
+  // For example, checking if it matches a certain format or pattern
+  
+  return null;
+}
 
   void saveUserDetails() async {
+   if(formKey.currentState!.validate()){
+    if (selectedImageFile == null) {
+      showToast(message: 'Please select image to proceed');
+      return;
+    }
+      if(locationController.text.isEmpty){
+        showToast(message: 'Please select your location to proceed');
+        return;
+      }
+    
     final imageLink = await _userService.uploadImage(
       selectedImageFile as File,
       selectedImageFile!.path.split('/').last,
@@ -57,12 +154,13 @@ class UserDetailsViewModel extends BaseViewModel {
         'bio': bioController.text,
         'link': linkController.text,
         'boat_name': boatNameController.text,
-        'location': locationController.text,
+        'location': userlocation,
         'sy_joy': syjoyController.text,
         'display_picture': imageLink,
       },
       FirebaseAuth.instance.currentUser!.uid,
     );
+    
     if (userDetailsStatus) {
       userDetails = await _userService.getUserDetails();
       if (userDetails!.userRole == 'guest') {
@@ -73,6 +171,11 @@ class UserDetailsViewModel extends BaseViewModel {
     } else {
       _navigationService.replaceWithUserDetailsView();
     }
+   }
+   else{
+    showToast(message: 'Please fill all the fields');
+   }
+
   }
 
   Future<void> getImagefromCamera() async {
@@ -92,5 +195,9 @@ class UserDetailsViewModel extends BaseViewModel {
     userDetails = await _userService.getUserDetails();
     nameController.text = userDetails!.displayName ?? '';
     setBusy(false);
+  }
+
+  void skipToHome() {
+    _navigationService.navigateToIndexView();
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -36,15 +38,14 @@ class StartupViewModel extends BaseViewModel {
         } else {
           userDetails = await _userService.getUserDetails();
           if (userDetails!.userRole == 'guest') {
-
             // if (userDetails!.bio!.isNotEmpty) {
-              _navigationService.replaceWithBottomBarGuestView();
+            _navigationService.replaceWithBottomBarGuestView();
             // }
             // _navigationService.replaceWithUserDetailsView();
           } else {
             // if (userDetails!.bio!.isNotEmpty) {
-              print('bio: ${userDetails!.bio!}');
-              _navigationService.replaceWithBottomNavBarView();
+            log('bio: ${userDetails!.bio!}');
+            _navigationService.replaceWithBottomNavBarView();
             // }
             // _navigationService.replaceWithUserDetailsView();
           }

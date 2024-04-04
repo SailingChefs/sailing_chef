@@ -19,11 +19,14 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return const PrimaryGridViewCard(
-              foodImagePath: 'assets/images/background/onboarding.png',
-              dishName: "dish name",
-              duration: "30",
-              chefImagePath: 'assets/images/icons/chef.jpg');
+          return GestureDetector(
+            onTap: () {},
+            child: const PrimaryGridViewCard(
+                foodImagePath: 'assets/images/background/onboarding.png',
+                dishName: "dish name",
+                duration: "30",
+                chefImagePath: 'assets/images/icons/chef.jpg'),
+          );
         },
       ),
     );

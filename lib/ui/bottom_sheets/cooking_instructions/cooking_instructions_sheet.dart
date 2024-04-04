@@ -46,15 +46,7 @@ class CookingInstructionsSheet
             verticalSpaceMedium,
             const ListViewCookingInstructions(),
             const BottomCookingInstructions(),
-            if (request.description != null) ...[
-              verticalSpaceTiny,
-              Text(
-                request.description!,
-                style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-                maxLines: 3,
-                softWrap: true,
-              ),
-            ],
+          
           ],
         ),
       ),
@@ -63,5 +55,10 @@ class CookingInstructionsSheet
 
   @override
   CookingInstructionsSheetModel viewModelBuilder(BuildContext context) =>
-      CookingInstructionsSheetModel();
+      CookingInstructionsSheetModel(completer: completer);
+}
+class CookingInstructionsSheetResponse {
+   final  List<String> instructionsListResponse;
+  CookingInstructionsSheetResponse( {required this.instructionsListResponse});
+
 }

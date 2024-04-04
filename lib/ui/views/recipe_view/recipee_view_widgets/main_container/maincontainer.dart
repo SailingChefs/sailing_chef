@@ -1,5 +1,8 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
-import '../../../../../core/imports/core_imports.dart';
+import 'ingredients_class.dart';
+import 'methods.dart';
+import 'tab_bars_recipe.dart';
 
 class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
   const MainRecipeViewContainer({Key? key}) : super(key: key);
@@ -14,7 +17,6 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
               const SizedBox(height: 250),
               Container(
                 width: double.infinity,
-                height: 600,
                 decoration: const BoxDecoration(
                   color: kcwhitecolor,
                   borderRadius: BorderRadius.only(
@@ -40,23 +42,15 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                           ),
                         ),
                         Container(
-                          width: 95,
+                          width: 70,
                           height: 45,
                           padding: const EdgeInsets.all(10.0),
                           child: const Row(
                             children: [
-                              Icon(
-                                FlutterRemix.time_line,
-                                size: 12,
-                                color: kcBlackColor,
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
                               Text(
                                 '20 mins',
                                 style: TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 10.0,
                                   color: kcBlackColor,
                                 ),
                               )
@@ -77,6 +71,12 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ),
                     ),
+                    verticalSpaceMedium,
+                    const TabBarWidgets(),
+                    verticalSpaceTiny,
+                    viewModel.isIngredientsSelected
+                        ? const IngredientsClass()
+                        : const Methods(),
                   ],
                 ),
               ),

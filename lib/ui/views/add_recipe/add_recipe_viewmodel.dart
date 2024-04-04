@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,15 +7,22 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/widgets/recipes_list.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:path_provider/path_provider.dart' ;
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   late final RecorderController recorderController;
+  late final PlayerController playerController;
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
+  late Directory directory;
+  late String path;
   String selectedValue = 'Public';
   int selectedQuantity = 1;
   List<XFile?> selectedImages = [];
@@ -28,6 +35,12 @@ class AddRecipeViewModel extends BaseViewModel {
   List<String> timeMethod = ['secs', 'mins', 'hrs'];
   String selectedTimeMethod = 'secs';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List<Ingredient> ingredientsList = [];
+  List<String> methodsList = [];
+ 
+
+  List<double>? waveFormData;
+
 
   void onTimeMethodSelection(String value) {
     selectedTimeMethod = value;
@@ -51,29 +64,13 @@ class AddRecipeViewModel extends BaseViewModel {
         : 'Title must be at least 3 characters long';
   }
 
-  void onViewModelReady() {
+  void onViewModelReady() async{
     setBusy(true);
-    recorderController = RecorderController()
-      ..androidEncoder = AndroidEncoder.aac
-      ..androidOutputFormat = AndroidOutputFormat.mpeg4
-      ..iosEncoder = IosEncoder.kAudioFormatMPEG4AAC
-      ..sampleRate = 16000;
+    recorderController = RecorderController();
+    playerController = PlayerController();
+    directory  = await getApplicationDocumentsDirectory();
+    path = '${directory.path}/recording.m4a';
     setBusy(false);
-  }
-
-  void recordAudio() async {
-    final hasPermission = await recorderController
-        .checkPermission(); // Check mic permission (also called during record)
-    if (hasPermission) {
-      await recorderController.record(
-          path: 'path'); // Record (path is optional)
-      await recorderController.pause(); // Pause recording
-// Stop recording and get the path
-      recorderController.refresh(); // Refresh waveform to original position
-      recorderController.dispose();
-    } else {
-      log("Permission denied");
-    }
   }
 
   void showPreviousImage() {
@@ -110,20 +107,32 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void callIngredientsBottomSheet() {
-    _bottomSheetService.showCustomSheet(
+  void callIngredientsBottomSheet() async {
+    final result = await _bottomSheetService.showCustomSheet<dynamic,AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
+    // print(result!.data!.ingredientsList.first);
+    if(result == null) return;
+    ingredientsList = result.data.ingredientsList;
+    rebuildUi();
+    notifyListeners();
   }
 
   void popBack() {
     _navigationService.back();
   }
 
-  void callCookingInstructionBottomSheet() {
-    _bottomSheetService.showCustomSheet(
+  void callCookingInstructionBottomSheet() async {
+   
+ final method =  await  _bottomSheetService.showCustomSheet<dynamic,CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
+    print(method);
+
+  if(method == null) return;
+  methodsList = method.data;
+  rebuildUi();
+  notifyListeners();
   }
 
   void updateQuantity(int value) {
@@ -181,10 +190,8 @@ class AddRecipeViewModel extends BaseViewModel {
           chefNote: 'audioLink',
           coverImage: imageUrls,
           createdTime: Timestamp.now(),
-          ingredients: [
-            {'ingredients': 'ingredients'}
-          ],
-          methods: ['methods'],
+          ingredients: ingredientsList,
+          methods: methodsList,
           prepTime:
               mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
           servingSize: selectedQuantity,
@@ -199,4 +206,73 @@ class AddRecipeViewModel extends BaseViewModel {
       showToast(message: 'Please fill all fields');
     }
   }
+   void deleteMethod(int index) {
+    methodsList.removeAt(index);
+    rebuildUi();
+    notifyListeners();
+  }
+  void deleteIngredient(int index) {
+    ingredientsList.removeAt(index);
+    rebuildUi();
+  }
+  void draftRecipe() async {
+    if (titleController.text.trim().isNotEmpty &&
+        prepTimeController.text.trim().isNotEmpty) {
+      if (selectedImages.isEmpty) {
+        showToast(message: 'Please add at least one image');
+        return;
+      } else {
+        List<String> imageUrls =
+            await _recipeService.uploadImagesToFirebase(selectedImages);
+
+        await _recipeService.addRecipeToFirestore(RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'audioLink',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: ['methods'],
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'draft',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+        ));
+
+        _navigationService.navigateToRecipeListPageView();
+      }
+    } else {
+      showToast(message: 'Please fill all fields');
+    }
+  }
+
+  void goToRecipePreview() {
+    _navigationService.navigateToRecipeViewView();
+  }
+
+  void startRecording() async {
+    recorderController.reset();
+    await recorderController.record(path: path);
+    rebuildUi();
+  }
+
+  void pauseRecording() async {
+    await recorderController.pause();
+    waveFormData = await playerController.extractWaveformData(path: path);
+    await playerController.preparePlayer(path: path, volume: 1.0);
+    rebuildUi();
+  }
+
+  @override
+  void dispose() {
+    recorderController.dispose();
+    super.dispose();
+  }
+
+  void startListening() {
+    playerController.startPlayer();
+  }
+
+  void deleteInstruction(int index) {}
 }

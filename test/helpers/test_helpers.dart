@@ -4,6 +4,10 @@ import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/dishes_service.dart';
+import 'package:sailing_chefs/services/userdata_service_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +18,10 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<RecipeService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ConversationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ChefService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<DishesService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<UserdataServiceService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +30,10 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterRecipeService();
   getAndRegisterLocationService();
+  getAndRegisterConversationService();
+  getAndRegisterChefService();
+  getAndRegisterDishesService();
+  getAndRegisterUserdataServiceService();
 // @stacked-mock-register
 }
 
@@ -86,6 +98,34 @@ MockLocationService getAndRegisterLocationService() {
   _removeRegistrationIfExists<LocationService>();
   final service = MockLocationService();
   locator.registerSingleton<LocationService>(service);
+  return service;
+}
+
+MockConversationService getAndRegisterConversationService() {
+  _removeRegistrationIfExists<ConversationService>();
+  final service = MockConversationService();
+  locator.registerSingleton<ConversationService>(service);
+  return service;
+}
+
+MockChefService getAndRegisterChefService() {
+  _removeRegistrationIfExists<ChefService>();
+  final service = MockChefService();
+  locator.registerSingleton<ChefService>(service);
+  return service;
+}
+
+MockDishesService getAndRegisterDishesService() {
+  _removeRegistrationIfExists<DishesService>();
+  final service = MockDishesService();
+  locator.registerSingleton<DishesService>(service);
+  return service;
+}
+
+MockUserdataServiceService getAndRegisterUserdataServiceService() {
+  _removeRegistrationIfExists<UserdataServiceService>();
+  final service = MockUserdataServiceService();
+  locator.registerSingleton<UserdataServiceService>(service);
   return service;
 }
 // @stacked-mock-create

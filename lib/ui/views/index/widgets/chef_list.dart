@@ -29,51 +29,57 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           height: 250,
           width: double.maxFinite,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: viewModel.chefList!.length,
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Container(
-                width: 160,
-                decoration: BoxDecoration(
-                  color: kcwhitecolor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                margin: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+              final chef = viewModel.chefList![index];
+              return GestureDetector(
+                onTap: (){
+                  viewModel.toChefProfile(chef);
+                },
+                child: Container(
+                  width: 160,
+                  decoration: BoxDecoration(
+                    color: kcwhitecolor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: const Offset(0, 3),
                       ),
-                      child: Image.asset(
-                        'assets/images/icons/chef.jpg',
-                        fit: BoxFit.cover,
-                        height: 180,
-                        width: double.infinity,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        capitalizeEachWord('chef name'),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Image.network(
+                          chef.displayPicture!,
+                          fit: BoxFit.cover,
+                          height: 180,
+                          width: double.infinity,
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          capitalizeEachWord(chef.displayName!),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
