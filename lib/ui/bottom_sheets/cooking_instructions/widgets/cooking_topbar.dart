@@ -13,14 +13,12 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BackArrowWidget(
-            onTap: () {
-              viewModel.popBack();
-            },
+            onTap:
+              viewModel.popBack,
+            
           ),
           GestureDetector(
-            onTap: () {
-              viewModel.popBack();
-            },
+            onTap: viewModel.saveData,
             child: Text(
               'Save',
               style: globalTextStyle(

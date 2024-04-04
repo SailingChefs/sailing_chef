@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 
 class RecipeModel {
   final String chefNote;
   final List<String> coverImage;
   final Timestamp createdTime;
-  final List<Map<String, dynamic>> ingredients;
+  final List<Ingredient> ingredients;
   final List<String> methods;
   final String prepTime;
   final int servingSize;
@@ -51,7 +52,7 @@ class RecipeModel {
       chefNote: data['chef_note'] ?? '',
       coverImage: List<String>.from(data['cover_image'] ?? []),
       createdTime: data['created_time'] ?? Timestamp.now(),
-      ingredients: List<Map<String, dynamic>>.from(data['ingredients'] ?? []),
+      ingredients: List<Ingredient>.from(data['ingredients'] ?? []),  
       methods: List<String>.from(data['methods'] ?? []),
       prepTime: data['prep_time'] ?? Timestamp.now(),
       servingSize: data['serving_size'] ?? 0,

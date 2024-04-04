@@ -9,6 +9,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/widgets/recipes_list.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -35,6 +36,7 @@ class AddRecipeViewModel extends BaseViewModel {
   String selectedTimeMethod = 'secs';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
+  List<String> methodsList = [];
  
 
   List<double>? waveFormData;
@@ -109,8 +111,10 @@ class AddRecipeViewModel extends BaseViewModel {
     final result = await _bottomSheetService.showCustomSheet<dynamic,AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
+    // print(result!.data!.ingredientsList.first);
     if(result == null) return;
-    ingredientsList = result.data!.ingredientsList;
+    ingredientsList = result.data.ingredientsList;
+    rebuildUi();
     notifyListeners();
   }
 
@@ -118,10 +122,17 @@ class AddRecipeViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void callCookingInstructionBottomSheet() {
-    _bottomSheetService.showCustomSheet(
+  void callCookingInstructionBottomSheet() async {
+   
+ final method =  await  _bottomSheetService.showCustomSheet<dynamic,CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
+    print(method);
+
+  if(method == null) return;
+  methodsList = method.data;
+  rebuildUi();
+  notifyListeners();
   }
 
   void updateQuantity(int value) {
@@ -179,14 +190,52 @@ class AddRecipeViewModel extends BaseViewModel {
           chefNote: 'audioLink',
           coverImage: imageUrls,
           createdTime: Timestamp.now(),
-          ingredients: [
-            {'ingredients': 'ingredients'}
-          ],
-          methods: ['methods'],
+          ingredients: ingredientsList,
+          methods: methodsList,
           prepTime:
               mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
           servingSize: selectedQuantity,
           status: 'published',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+        ));
+
+        _navigationService.navigateToRecipeListPageView();
+      }
+    } else {
+      showToast(message: 'Please fill all fields');
+    }
+  }
+   void deleteMethod(int index) {
+    methodsList.removeAt(index);
+    rebuildUi();
+    notifyListeners();
+  }
+  void deleteIngredient(int index) {
+    ingredientsList.removeAt(index);
+    rebuildUi();
+  }
+  void draftRecipe() async {
+    if (titleController.text.trim().isNotEmpty &&
+        prepTimeController.text.trim().isNotEmpty) {
+      if (selectedImages.isEmpty) {
+        showToast(message: 'Please add at least one image');
+        return;
+      } else {
+        List<String> imageUrls =
+            await _recipeService.uploadImagesToFirebase(selectedImages);
+
+        await _recipeService.addRecipeToFirestore(RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'audioLink',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: ['methods'],
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'draft',
           title: titleController.text.trim(),
           uid: firebaseAuth.currentUser!.uid,
         ));
@@ -224,4 +273,6 @@ class AddRecipeViewModel extends BaseViewModel {
   void startListening() {
     playerController.startPlayer();
   }
+
+  void deleteInstruction(int index) {}
 }

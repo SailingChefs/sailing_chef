@@ -11,9 +11,9 @@ class TopBarAddRecipe extends ViewModelWidget<AddRecipeViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         BackArrowWidget(
-          onTap: () {
-            viewModel.popBack();
-          },
+          onTap: 
+            viewModel.popBack
+        ,
         ),
         Text(
           'Create Recipe',
@@ -23,7 +23,7 @@ class TopBarAddRecipe extends ViewModelWidget<AddRecipeViewModel> {
               fontWeight: FontWeight.w500),
         ),
         GestureDetector(
-          // onTap: () => viewModel.toSettings(),
+          onTap: viewModel.draftRecipe,
           child: Icon(
             Icons.file_copy,
             color: kcPrimaryColor,

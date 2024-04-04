@@ -27,7 +27,7 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         verticalSpaceSmall,
         const ServingQuantity(),
         verticalSpaceMedium,
-        Ingredients(ingredientsList),
+        const Ingredients(),
         verticalSpaceMedium,
         const CookingInstructions(),
         verticalSpaceMedium,
