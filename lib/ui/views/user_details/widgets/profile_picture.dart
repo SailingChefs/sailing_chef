@@ -32,9 +32,9 @@ class ProfilePictureUserDetailsScreen
                   child: Center(
                     child: Container(
                         height: MediaQuery.sizeOf(context).height *
-                            0.11, // Adjust height to account for the border
+                            0.11, 
                         width: MediaQuery.sizeOf(context).height * 0.11,
-                        // Adjust width to account for the border
+                        
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: kcWhiteColor, width: 4.0.w),

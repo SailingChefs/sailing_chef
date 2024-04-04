@@ -45,7 +45,9 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              viewModel.showRecipeList();
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -1,7 +1,7 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class PrimaryGridViewCard extends StatelessWidget {
+class PrimaryGridViewCard extends  StatelessWidget{
   final String foodImagePath;
   final String chefImagePath;
   final String dishName;
@@ -16,10 +16,11 @@ class PrimaryGridViewCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ) {
     return GestureDetector(
       onTap: () {
-        // Add your onTap logic here
+        final _navigationService = locator<NavigationService>();
+        _navigationService.navigateToSavedRecipeDetailsView();
       },
       child: Container(
         decoration: BoxDecoration(

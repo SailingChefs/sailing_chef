@@ -9,7 +9,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
     const double itemHeight =
-        7.4 / 9 * 140; // Assuming average item height is 200
+        7.4 / 9 * 140; 
     final int itemCount = viewModel.dishes.length;
     double totalHeight = itemHeight * itemCount;
     final List<DishModel> dishes = viewModel.dishes;
@@ -33,7 +33,6 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 dishName: dishes[index].dishName,
                 duration: dishes[index].dishPreparationTime,
                 chefImagePath: dishes[index].dishChefImage,
-                
               ),
           );
         },

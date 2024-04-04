@@ -15,7 +15,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
             color: kcLightGrey.withOpacity(0.1),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), 
           ),
         ],
       ),
@@ -32,6 +32,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
           ),
           Expanded(
             child: TextField(
+              controller: viewModel.messageController,
               textAlign: TextAlign.start,
               decoration: InputDecoration(
                 filled: true,
@@ -51,7 +52,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                   borderRadius: BorderRadius.circular(25.0.r),
                   borderSide: BorderSide(
                       color: kcWhiteColor
-                          .withOpacity(0.2)), // Unfocused border color
+                          .withOpacity(0.2)), 
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0.r),
@@ -79,9 +80,9 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
             },
           ),
           GestureDetector(
-            onTap: () {
-              viewModel.sendMessage(viewModel.textController.text);
-            },
+            onTap:
+              viewModel.sendMessage
+            ,
             child: Container(
               height: 40.0,
               width: 40.0,

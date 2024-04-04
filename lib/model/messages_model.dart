@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {
   final String content;
-  final String image;
+  final String? image;
   final String receiverId;
   final String senderId;
   final DateTime timestamp;
@@ -10,7 +10,7 @@ class MessageModel {
 
   MessageModel({
     required this.content,
-    required this.image,
+    this.image,
     required this.receiverId,
     required this.senderId,
     required this.timestamp,
