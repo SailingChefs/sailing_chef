@@ -83,7 +83,7 @@ class ChefProfileViewModel extends BaseViewModel {
 
 
   void toDishDetailsScreen() {
-    _navigationService.navigateTo(Routes.savedRecipeDetailsView);
+    _navigationService.navigateToSavedRecipeDetailsView();
   }
 
   void showRecipeList() {

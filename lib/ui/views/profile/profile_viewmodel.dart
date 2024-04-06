@@ -67,4 +67,8 @@ class ProfileViewModel extends BaseViewModel {
     await getUserLocation();
     setBusy(false);
   }
+
+  void toDishDetailsScreen() {
+    _navigationService.navigateToSavedRecipeDetailsView();
+  }
 }

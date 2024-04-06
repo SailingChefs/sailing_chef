@@ -14,7 +14,6 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -52,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk',
-    appId: '1:66812962587:android:d61fbb131d3f1469e655be',
+    appId: '1:66812962587:android:f03afe9f66caf284e655be',
     messagingSenderId: '66812962587',
     projectId: 'sailingchefs-3e3cb',
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
@@ -60,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBpzT46q83H88YZxaX32aLZyHECfdRfZdQ',
-    appId: '1:66812962587:ios:081137186962cd7fe655be',
+    appId: '1:66812962587:ios:c80fe67cca4e6825e655be',
     messagingSenderId: '66812962587',
     projectId: 'sailingchefs-3e3cb',
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
-    iosBundleId: 'com.example.sailingChefs',
+    iosBundleId: 'com.stackwise.sailingChefs',
   );
 }

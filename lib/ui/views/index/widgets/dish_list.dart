@@ -26,15 +26,13 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: (){viewModel.toDishDetailsScreen();},
-            child: PrimaryGridViewCard(
-                foodImagePath: dishes[index].dishImagePath,
-                dishName: dishes[index].dishName,
-                duration: dishes[index].dishPreparationTime,
-                chefImagePath: dishes[index].dishChefImage,
-              ),
-          );
+          return PrimaryGridViewCard(
+              onTap: viewModel.toDishDetailsScreen,
+              foodImagePath: dishes[index].dishImagePath,
+              dishName: dishes[index].dishName,
+              duration: dishes[index].dishPreparationTime,
+              chefImagePath: dishes[index].dishChefImage,
+            );
         },
       ),
     );

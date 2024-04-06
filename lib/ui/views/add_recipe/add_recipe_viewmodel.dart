@@ -127,7 +127,6 @@ class AddRecipeViewModel extends BaseViewModel {
  final method =  await  _bottomSheetService.showCustomSheet<dynamic,CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
-    print(method);
 
   if(method == null) return;
   methodsList = method.data;

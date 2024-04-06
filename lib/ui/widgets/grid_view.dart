@@ -6,22 +6,20 @@ class PrimaryGridViewCard extends  StatelessWidget{
   final String chefImagePath;
   final String dishName;
   final String duration;
+  final void Function() onTap;
 
   const PrimaryGridViewCard({
     Key? key,
     required this.foodImagePath,
     required this.dishName,
     required this.duration,
-    required this.chefImagePath,
+    required this.chefImagePath, required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, ) {
     return GestureDetector(
-      onTap: () {
-        final _navigationService = locator<NavigationService>();
-        _navigationService.navigateToSavedRecipeDetailsView();
-      },
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),

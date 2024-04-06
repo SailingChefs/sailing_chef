@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/grid_view.dart';
 
-class FollowingSavedRecipesScreen extends StatelessWidget {
+class FollowingSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {  
   const FollowingSavedRecipesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
     return SizedBox(
       height: 500.h,
       child: GridView.builder(
@@ -19,7 +20,9 @@ class FollowingSavedRecipesScreen extends StatelessWidget {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return const PrimaryGridViewCard(
+          return  PrimaryGridViewCard(
+            onTap: viewModel.toDishDetailsScreen,
+
               foodImagePath: 'assets/images/background/onboarding2.png',
               dishName: "dish name",
               duration: "30",

@@ -14,8 +14,6 @@ class CookingInstructionsSheetModel extends BaseViewModel {
   }
 
   void saveData() {
-    print('instructionsList: $instructionsList');
-    print('completer: $completer');
     if(completer != null){
       completer!(SheetResponse(confirmed: true,data: CookingInstructionsSheetResponse( instructionsListResponse: instructionsList)));
       

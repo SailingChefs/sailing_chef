@@ -27,6 +27,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridViewCard(
+            onTap: viewModel.toDishDetailsScreen,
               foodImagePath: dishes[index].dishImagePath,
               dishName: dishes[index].dishName,
               duration: dishes[index].dishPreparationTime,

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/chat/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/chat/widgets/input_field.dart';

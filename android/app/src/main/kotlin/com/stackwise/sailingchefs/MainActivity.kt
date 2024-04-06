@@ -1,4 +1,4 @@
-package com.example.sailing_chefs
+package com.stackwise.sailingChefs
 
 import io.flutter.embedding.android.FlutterActivity
 

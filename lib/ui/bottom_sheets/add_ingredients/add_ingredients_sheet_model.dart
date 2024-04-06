@@ -35,7 +35,6 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void onSaved() {
-    print('Tapped');
 
     if(completer != null) {
       completer!(SheetResponse(confirmed: true,data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));

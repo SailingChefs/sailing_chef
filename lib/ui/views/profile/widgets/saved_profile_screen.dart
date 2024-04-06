@@ -19,7 +19,8 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return const PrimaryGridViewCard(
+          return  PrimaryGridViewCard(
+            onTap: viewModel.toDishDetailsScreen,
               foodImagePath: 'assets/images/background/onboarding.png',
               dishName: "dish name",
               duration: "30",
