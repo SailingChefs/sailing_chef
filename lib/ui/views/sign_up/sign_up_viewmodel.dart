@@ -83,7 +83,6 @@ class SignUpViewModel extends BaseViewModel {
             link: '',
             phoneNumber: '',
             savedRecipes: [],
-            syJoy: '',
           ));
       if (userRegistered) {
         _navigationService.replaceWithUserDetailsView();

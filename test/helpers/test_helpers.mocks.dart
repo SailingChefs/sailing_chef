@@ -698,15 +698,15 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockRecipeService extends _i1.Mock implements _i8.RecipeService {
   @override
-  _i6.Future<void> addRecipeToFirestore(_i9.RecipeModel? recipe) =>
+  _i6.Future<bool> addRecipeToFirestore(_i9.RecipeModel? recipe) =>
       (super.noSuchMethod(
         Invocation.method(
           #addRecipeToFirestore,
           [recipe],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
 
   @override
   _i6.Future<List<String>> uploadImagesToFirebase(List<_i10.XFile?>? images) =>

@@ -25,9 +25,9 @@ class BottomCookingInstructions
           ),
         ),
         Save_Recipe_Button(
-          onPressed: () {
-            viewModel.addInstruction();
-          },
+          onPressed: 
+            viewModel.addInstruction
+          ,
           buttonText: 'Add step',
           prefix: Icons.add,
         ),

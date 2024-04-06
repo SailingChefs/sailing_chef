@@ -1,23 +1,20 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 import '../../../../widgets/bottom_sheet_btn.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
-  const IngredientsClass({
+  final RecipeModel recipe;
+  final List<XFile?> selectedImages ;
+  const IngredientsClass(this.recipe, this.selectedImages, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    List<String> ingredients = [
-      'Butter',
-      'Onion',
-      'Spinach',
-      'Corn',
-      'Herbs',
-      'Chilli flakes'
-    ];
+  
 
     return SingleChildScrollView(
       child: Container(
@@ -82,14 +79,14 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                 ),
               ],
             ),
-            const Text(
-              '6 items',
-              style: TextStyle(fontSize: 10.0),
+            Text(
+              '${recipe.ingredients.length} items ',
+              style: const TextStyle(fontSize: 10.0),
             ),
             SizedBox(
-              height: 500,
+              height: recipe.ingredients.length * 80.0,
               child: ListView.builder(
-                  itemCount: ingredients.length,
+                  itemCount: recipe.ingredients.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -105,11 +102,11 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            ingredients[index],
+                            recipe.ingredients[index].name,
                             style: const TextStyle(color: Colors.black),
                           ),
                           Text(
-                            '${index + 1} Tsp',
+                            '${recipe.ingredients[index].quantity}  ${recipe.ingredients[index].unit}',
                             style: const TextStyle(color: Colors.black),
                           ),
                         ],
@@ -119,7 +116,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
             ),
             verticalSpaceMedium,
             Save_Recipe_Button(
-              onPressed: () {},
+              onPressed: () =>viewModel.saveRecipe(recipe,selectedImages),
               buttonText: 'Submit Recipe',
             ),
             horizontalSpaceSmall,

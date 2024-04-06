@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,9 +12,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_s
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:sailing_chefs/ui/widgets/recipes_list.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:path_provider/path_provider.dart' ;
+import 'package:path_provider/path_provider.dart';
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
@@ -37,10 +37,8 @@ class AddRecipeViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<String> methodsList = [];
- 
 
   List<double>? waveFormData;
-
 
   void onTimeMethodSelection(String value) {
     selectedTimeMethod = value;
@@ -64,11 +62,11 @@ class AddRecipeViewModel extends BaseViewModel {
         : 'Title must be at least 3 characters long';
   }
 
-  void onViewModelReady() async{
+  void onViewModelReady() async {
     setBusy(true);
     recorderController = RecorderController();
     playerController = PlayerController();
-    directory  = await getApplicationDocumentsDirectory();
+    directory = await getApplicationDocumentsDirectory();
     path = '${directory.path}/recording.m4a';
     setBusy(false);
   }
@@ -108,11 +106,11 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void callIngredientsBottomSheet() async {
-    final result = await _bottomSheetService.showCustomSheet<dynamic,AddIngredientsSheetResponse>(
+    final result = await _bottomSheetService
+        .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
-    // print(result!.data!.ingredientsList.first);
-    if(result == null) return;
+    if (result == null) return;
     ingredientsList = result.data.ingredientsList;
     rebuildUi();
     notifyListeners();
@@ -123,15 +121,16 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void callCookingInstructionBottomSheet() async {
-   
- final method =  await  _bottomSheetService.showCustomSheet<dynamic,CookingInstructionsSheetResponse>(
+    final method = await _bottomSheetService
+        .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
+    log(method.runtimeType.toString());
 
-  if(method == null) return;
-  methodsList = method.data;
-  rebuildUi();
-  notifyListeners();
+    if (method == null) return;
+    methodsList = method.data.instructionsListResponse.toList();
+    rebuildUi();
+    notifyListeners();
   }
 
   void updateQuantity(int value) {
@@ -160,34 +159,41 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void addRecipe() {
-    const RecipeeItem(
-      image: 'assets/background/burger.png',
-      title: 'Shiitaki Mushroom',
-      description: '',
-      time: '',
-      chef: 'Danica Nel',
-    );
-  }
-
   String mergeStrings(String time, String method) {
     return '$time $method';
   }
 
   void saveRecipe() async {
     if (titleController.text.trim().isNotEmpty &&
-        prepTimeController.text.trim().isNotEmpty) {
+        prepTimeController.text.trim().isNotEmpty &&
+        methodsList.isNotEmpty &&
+        ingredientsList.isNotEmpty) {
       if (selectedImages.isEmpty) {
         showToast(message: 'Please add at least one image');
         return;
       } else {
-        List<String> imageUrls =
-            await _recipeService.uploadImagesToFirebase(selectedImages);
+        // List<String> imageUrls =
+        //     await _recipeService.uploadImagesToFirebase(selectedImages);
 
-        await _recipeService.addRecipeToFirestore(RecipeModel(
-          visibility: selectedValue,
-          chefNote: 'audioLink',
-          coverImage: imageUrls,
+        // await _recipeService.addRecipeToFirestore(RecipeModel(
+        //   visibility: selectedValue,
+        //   chefNote: 'recorderController',
+        //   coverImage: imageUrls,
+        //   createdTime: Timestamp.now(),
+        //   ingredients: ingredientsList,
+        //   methods: methodsList,
+        //   prepTime:
+        //       mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+        //   servingSize: selectedQuantity,
+        //   status: 'published',
+        //   title: titleController.text.trim(),
+        //   uid: firebaseAuth.currentUser!.uid,
+        // ));
+
+        _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
+           visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: [],
           createdTime: Timestamp.now(),
           ingredients: ingredientsList,
           methods: methodsList,
@@ -197,23 +203,25 @@ class AddRecipeViewModel extends BaseViewModel {
           status: 'published',
           title: titleController.text.trim(),
           uid: firebaseAuth.currentUser!.uid,
-        ));
-
-        _navigationService.navigateToRecipeListPageView();
+        ), selectedImages: selectedImages);
+        
       }
     } else {
       showToast(message: 'Please fill all fields');
     }
   }
-   void deleteMethod(int index) {
+
+  void deleteMethod(int index) {
     methodsList.removeAt(index);
     rebuildUi();
     notifyListeners();
   }
+
   void deleteIngredient(int index) {
     ingredientsList.removeAt(index);
     rebuildUi();
   }
+
   void draftRecipe() async {
     if (titleController.text.trim().isNotEmpty &&
         prepTimeController.text.trim().isNotEmpty) {
@@ -224,9 +232,9 @@ class AddRecipeViewModel extends BaseViewModel {
         List<String> imageUrls =
             await _recipeService.uploadImagesToFirebase(selectedImages);
 
-        await _recipeService.addRecipeToFirestore(RecipeModel(
+        final check = await _recipeService.addRecipeToFirestore(RecipeModel(
           visibility: selectedValue,
-          chefNote: 'audioLink',
+          chefNote: 'recorderController',
           coverImage: imageUrls,
           createdTime: Timestamp.now(),
           ingredients: ingredientsList,
@@ -238,17 +246,20 @@ class AddRecipeViewModel extends BaseViewModel {
           title: titleController.text.trim(),
           uid: firebaseAuth.currentUser!.uid,
         ));
-
-        _navigationService.navigateToRecipeListPageView();
+        if (check) {
+          _navigationService.navigateToRecipeListPageView();
+        } else {
+          showToast(message: 'Something went wrong');
+        }
       }
     } else {
       showToast(message: 'Please fill all fields');
     }
   }
 
-  void goToRecipePreview() {
-    _navigationService.navigateToRecipeViewView();
-  }
+  // void goToRecipePreview() {
+  //   _navigationService.navigateToRecipeViewView();
+  // }
 
   void startRecording() async {
     recorderController.reset();
@@ -266,6 +277,20 @@ class AddRecipeViewModel extends BaseViewModel {
   @override
   void dispose() {
     recorderController.dispose();
+    playerController.dispose();
+    titleController.dispose();
+    prepTimeController.dispose();
+    selectedImages = [];
+    ingredientsList = [];
+    methodsList = [];
+    selectedTimeMethod = '';
+    selectedQuantity = 0;
+    selectedValue = 'public';
+    count = 0;
+    path = '';
+    waveFormData = [];
+    recorderController = RecorderController();
+
     super.dispose();
   }
 

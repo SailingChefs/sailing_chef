@@ -38,16 +38,18 @@ class UserServices {
   }
 
   Future<UserModel> getUserDetails() async {
-    try {
+    print('getuser : ${firebaseAuth.currentUser?.uid}' );
+    // try {
       EasyLoading.show();
       CollectionReference usersCollection = firebasestore.collection('users');
 
       QuerySnapshot userSnapshot = await usersCollection
-          .where('uid', isEqualTo: firebaseAuth.currentUser?.uid)
+          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
           .get();
 
+          log(userSnapshot.docs.toString());
+
       if (userSnapshot.docs.isNotEmpty) {
-        // User found in Firestore, return as User model
         DocumentSnapshot userDoc = userSnapshot.docs.first;
         EasyLoading.dismiss();
         showToast(message: 'User Data fetched successfully');
@@ -57,12 +59,12 @@ class UserServices {
         EasyLoading.dismiss();
         throw Exception("User not found in Firestore");
       }
-    } catch (e) {
-      EasyLoading.dismiss();
-      showToast(message: e.toString());
-      // Handle errors as needed
-      throw Exception(e.toString());
-    }
+    // } catch (e) {
+    //   EasyLoading.dismiss();
+    //   showToast(message: e.toString());
+    //   // Handle errors as needed
+    //   throw Exception(e.toString());
+    // }
   }
 
   Future<bool> storeUserDetails(

@@ -13,7 +13,12 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
     final int itemCount = viewModel.dishes.length;
     double totalHeight = itemHeight * itemCount;
     final List<DishModel> dishes = viewModel.dishes;
-    return SizedBox(
+
+    return viewModel.dishes.isEmpty ? Text(
+          'No Dish Found',
+          style: Theme.of(context).textTheme.titleMedium,
+    ) :
+    SizedBox(
       height: totalHeight.h,
       child: GridView.builder(
         itemCount: dishes.length,

@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 
@@ -34,7 +35,7 @@ class RecipeModel {
       'chef_note': chefNote,
       'cover_image': coverImage,
       'created_time': createdTime,
-      'ingredients': ingredients,
+      'ingredients':ingredients.map((ingredient) => ingredient.toMap()).toList(),
       'methods': methods,
       'prep_time': prepTime,
       'serving_size': servingSize,

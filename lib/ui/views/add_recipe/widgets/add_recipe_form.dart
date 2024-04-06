@@ -40,7 +40,8 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         Save_Recipe_Button(
           onPressed: 
             // viewModel.navigteToRecipeListView();
-            viewModel.goToRecipePreview,
+            //viewModel.goToRecipePreview,
+            viewModel.saveRecipe,
           
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,

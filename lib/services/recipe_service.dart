@@ -9,7 +9,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService {
-  Future<void> addRecipeToFirestore(RecipeModel recipe) async {
+  Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
       DocumentReference docRef = await FirebaseFirestore.instance
@@ -25,9 +25,11 @@ class RecipeService {
       EasyLoading.dismiss();
 
       showToast(message: 'Recipe added successfully');
+      return true;
     } catch (error) {
       EasyLoading.dismiss();
       showToast(message: 'Error adding recipe to Firestore: $error');
+      return false;
     }
   }
 

@@ -8,7 +8,11 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    return Column(
+    return  viewModel.chefList!.isEmpty ? Text(
+          'No Chef Found',
+          style: Theme.of(context).textTheme.titleMedium,
+        ) :
+     Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,8 +29,9 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           ],
         ),
         verticalSpaceSmall,
+       
         SizedBox(
-          height: 250,
+          height: MediaQuery.sizeOf(context).height * 0.27,
           width: double.maxFinite,
           child: ListView.builder(
             itemCount: viewModel.chefList!.length,
