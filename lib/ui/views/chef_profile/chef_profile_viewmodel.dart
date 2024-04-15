@@ -1,14 +1,20 @@
-import 'dart:developer';
 
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:intl/intl.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/dish_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 
 import '../../../core/imports/core_imports.dart';
 
 class ChefProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
+  final _serviceConversations = locator<ConversationService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
@@ -53,10 +59,28 @@ class ChefProfileViewModel extends BaseViewModel {
         log(placemarks.toString());
   }
 
-  void moveToChatScreen() {
-    _navigationService.navigateToChatView();
+  Future<void> moveToChatScreen(UserModel chef,) async {
+    var conversationModel = ConversationModel(
+      isOnline: true,
+      name: chef.displayName!,
+      imageTitle: [
+        chef.displayPicture!,
+        userDetails!.displayPicture!,
+      ],
+      latestMessage: '',
+      users: [
+        chef.uid!,
+        FirebaseAuth.instance.currentUser!.uid, 
+      ],
+      latestMessageType: 'text',
+      latestMessageTime: DateFormat.jm().format(DateTime.now()),
+      lastActive: DateFormat.jm().format(DateTime.now()),
+      uid: "blahblah"
+    );
+    String conversationId = await _serviceConversations.createConversation(conversationModel);
+    _navigationService.navigateToChatView(user:chef, conversationId:conversationId);
   }
-
+  
   void toSettings() {
     _navigationService.navigateToSettingsView();
   }

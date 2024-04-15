@@ -25,7 +25,6 @@ class IndexViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     chefList = await _chefService.fetchChefDocuments();
-    
     setBusy(false);
   }
 
