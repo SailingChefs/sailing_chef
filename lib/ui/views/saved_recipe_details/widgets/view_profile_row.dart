@@ -10,45 +10,39 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(
-          height: 40.h,
-          width: 150.w,
-          child: Row(
-            children: [
-               CircleAvatar(
-                backgroundImage: NetworkImage(user.displayPicture!),
-              ),
-              horizontalSpaceSmall,
-              Text(
-                user.displayName!,
-                style: const TextStyle(
-                    color: kcBlackColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      SizedBox(
+        height: 40.h,
+        width: 150.w,
+        child: Row(
+          children: [
+             CircleAvatar(
+              backgroundImage: NetworkImage(user.displayPicture!),
+            ),
+            horizontalSpaceSmall,
+            Text(
+              user.displayName!,
+              style: const TextStyle(
+                  color: kcBlackColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+      OutlinedButton(
+        onPressed: () {
+          viewModel.moveToChefProfileView();
+        },
+        child: const Text(
+          'View',
+          style: TextStyle(
+            color: kcPrimaryColor,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        OutlinedButton(
-          onPressed: () {
-            viewModel.moveToChefProfileView();
-          },
-          child: const Padding(
-            padding: EdgeInsets.all(0.0),
-            child: Text(
-              'View',
-              style: TextStyle(
-                color: kcPrimaryColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        )
-      ]),
-    );
+      )
+    ]);
   }
 }

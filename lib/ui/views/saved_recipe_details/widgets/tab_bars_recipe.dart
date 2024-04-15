@@ -8,8 +8,7 @@ class TabBarWidgets extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Container(
-      height: screenHeight(context) * 0.05,
-      width: screenWidth(context) * 0.83,
+      height: screenHeight(context) * 0.05.h,
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.all(Radius.circular(10.dg)),
