@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';

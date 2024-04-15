@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 
 class RecipeModel {
@@ -14,6 +15,7 @@ class RecipeModel {
   final String title;
   final String uid;
   final String visibility;
+  UserModel? user;
 
   RecipeModel({
     required this.visibility,
@@ -27,6 +29,7 @@ class RecipeModel {
     required this.status,
     required this.title,
     required this.uid,
+    this.user,
   });
 
   Map<String, dynamic> toMap() {
@@ -53,7 +56,7 @@ class RecipeModel {
       chefNote: data['chef_note'] ?? '',
       coverImage: List<String>.from(data['cover_image'] ?? []),
       createdTime: data['created_time'] ?? Timestamp.now(),
-      ingredients: List<Ingredient>.from(data['ingredients'] ?? []),  
+     ingredients: (data['ingredients'] as List<dynamic>).map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>)).toList(),
       methods: List<String>.from(data['methods'] ?? []),
       prepTime: data['prep_time'] ?? Timestamp.now(),
       servingSize: data['serving_size'] ?? 0,

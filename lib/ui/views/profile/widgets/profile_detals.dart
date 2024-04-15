@@ -46,12 +46,12 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {},
+            onTap: viewModel.toDishesScreen,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '12',
+                  viewModel.myRecipes!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

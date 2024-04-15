@@ -38,7 +38,6 @@ class UserServices {
   }
 
   Future<UserModel> getUserDetails() async {
-    print('getuser : ${firebaseAuth.currentUser?.uid}' );
     // try {
       EasyLoading.show();
       CollectionReference usersCollection = firebasestore.collection('users');
@@ -115,6 +114,20 @@ class UserServices {
       EasyLoading.dismiss();
       showToast(message: 'Error uploading image: $e');
       return '';
+    }
+  }
+   Future<UserModel?> fetchUserByUID(String uid) async {
+    try {
+      DocumentSnapshot snapshot = await firebasestore.collection('users').doc(uid).get();
+      if (snapshot.exists) {
+        return UserModel.fromSnapshot(snapshot);
+      } else {
+      log('No user found with uid: $uid');
+        return null;
+      }
+    } catch (e) {
+      log('Error fetching user: $e');
+      return null;
     }
   }
 }

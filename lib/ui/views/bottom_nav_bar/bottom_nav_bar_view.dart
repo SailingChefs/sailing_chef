@@ -3,7 +3,6 @@ import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import 'bottom_nav_bar_viewmodel.dart';
 
@@ -95,7 +94,8 @@ class BottomNavBarView extends StatelessWidget {
       case 0:
         return const IndexView();
       case 1:
-        return const SavedRecipeDetailsView();
+        return const Text('Map to be shown');
+        //const SavedRecipeDetailsView();
       case 2:
         return const AddRecipeView([]);
       case 3:

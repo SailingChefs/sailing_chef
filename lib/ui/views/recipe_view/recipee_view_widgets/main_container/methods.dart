@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-
-import '../../../../widgets/bottom_sheet_btn.dart';
 
 class Methods extends StatelessWidget {
   final RecipeModel recipeModel;
@@ -22,14 +19,14 @@ class Methods extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           SizedBox(
-            // width: 400,
-            height: recipeModel.methods.length * 80,
+
+            height: recipeModel.methods.length * 100.h,
             child: ListView.builder(
               itemCount: recipeModel.methods.length,
               //physics: const,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
                   child: Row(
 
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +39,7 @@ class Methods extends StatelessWidget {
                           backgroundColor: Colors.blueGrey,
                           child: Text(
                             '${index + 1}',
-                            style: TextStyle(color: kcwhitecolor, fontSize: 12),
+                            style: const TextStyle(color: kcwhitecolor, fontSize: 12),
                           ),
                         ),
                       ),
@@ -87,7 +84,7 @@ class Methods extends StatelessWidget {
                     backgroundColor: kcPrimaryColor,
                   ),
                   onPressed: () {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.play_arrow,
                     color: kcwhitecolor,
                   ),
@@ -106,11 +103,11 @@ class Methods extends StatelessWidget {
             ),
           ),
           verticalSpaceLarge,
-          Save_Recipe_Button(
-            onPressed: () {},
-            buttonText: 'Submit Recipe',
-          ),
-          horizontalSpaceSmall,
+          // Save_Recipe_Button(
+          //   onPressed: () {},
+          //   buttonText: 'Submit Recipe',
+          // ),
+          // horizontalSpaceSmall,
         ],
       ),
     );

@@ -7,7 +7,8 @@ import 'package:stacked/stacked.dart';
 import '../../../../common/app_colors.dart';
 
 class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
-  const RecipeViewTabBars({super.key});
+ 
+  const RecipeViewTabBars( {super.key});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {

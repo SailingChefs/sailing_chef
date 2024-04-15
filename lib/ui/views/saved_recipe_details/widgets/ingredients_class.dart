@@ -1,21 +1,16 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
 
 class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  const IngredientsClass({super.key});
+  final RecipeModel recipeModel;
+  const IngredientsClass({super.key, required this.recipeModel});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    List<String> ingredients = [
-      'Butter',
-      'Onion',
-      'Spinach',
-      'Corn',
-      'Herbs',
-      'Chilli flakes'
-    ];
+    
 
     return SingleChildScrollView(
       child: Container(
@@ -26,67 +21,27 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Ingredients',
                   style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 15.0.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        viewModel.addServes();
-                      },
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(kcPrimaryColor),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.all(2)),
-                        minimumSize:
-                            MaterialStateProperty.all<Size>(const Size(5, 5)),
-                      ),
-                      child: const Icon(
-                        Icons.add,
-                        size: 10,
-                        color: kcwhitecolor,
-                      ),
-                    ),
-                    Text(
-                      'Serves ${viewModel.serves}',
-                      style: const TextStyle(color: Colors.black, fontSize: 10),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        viewModel.removeServes();
-                      },
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(kcPrimaryColor),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.all(2)),
-                        minimumSize:
-                            MaterialStateProperty.all<Size>(const Size(5, 5)),
-                      ),
-                      child: const Icon(
-                        Icons.remove,
-                        size: 10,
-                        color: kcwhitecolor,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Serves ${recipeModel.servingSize}',
+                  style: const TextStyle(color: Colors.black, fontSize: 10),
                 ),
               ],
             ),
-            const Text(
-              '6 items',
-              style: TextStyle(fontSize: 10.0),
+             Text(
+              '${recipeModel.ingredients.length} items',
+              style:  TextStyle(fontSize: 10.0.sp),
             ),
             SizedBox(
               height: 400,
               child: ListView.builder(
-                itemCount: ingredients.length,
+                itemCount: recipeModel.ingredients.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
@@ -102,7 +57,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          ingredients[index],
+                         recipeModel.ingredients[index].name,
                           style: const TextStyle(color: Colors.black),
                         ),
                         Text(

@@ -1,13 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
 
 class Methods extends StatelessWidget {
-  const Methods({super.key});
+  final RecipeModel recipe;
+  const Methods({super.key,required this.recipe});
 
   @override
   Widget build(BuildContext context) {
-    List<String> steps = ['1', '2', '3', '4', '5'];
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -19,10 +20,10 @@ class Methods extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           SizedBox(
-            width: 400,
-            height: 500,
+        
+            height: recipe.methods.length * 100.h,
             child: ListView.builder(
-              itemCount: steps.length,
+              itemCount: recipe.methods.length,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
@@ -38,7 +39,7 @@ class Methods extends StatelessWidget {
                           minRadius: double.minPositive + 13,
                           backgroundColor: Colors.blueGrey,
                           child: Text(
-                            steps[index],
+                          '${index + 1}',
                             style: const TextStyle(
                                 color: kcwhitecolor, fontSize: 12),
                           ),
@@ -50,7 +51,7 @@ class Methods extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              'Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your',
+                             recipe.methods[index],
                               style: globalTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,

@@ -1,22 +1,17 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/dish_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   TextEditingController searchController = TextEditingController();
   final _chefService = locator<ChefService>();
+  final _recipeService = locator<RecipeService>();
   List<UserModel>? chefList;
-  List<DishModel> dishes=[
-    DishModel(
-        
-         dishId: '1', dishName: 'Healthy Taco Salad', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '20', dishChefImage:'assets/images/icons/dp.jpg',),
-  DishModel(
-        
-         dishId: '2', dishName: 'Healthy Sandwich', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '30', dishChefImage:'assets/images/icons/dp.jpg',),
-  ];
+  List<RecipeModel>? dishes;
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
@@ -25,6 +20,7 @@ class IndexViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     chefList = await _chefService.fetchChefDocuments();
+    dishes = await _recipeService.fetchAllRecipes();
     
     setBusy(false);
   }
@@ -37,7 +33,7 @@ class IndexViewModel extends BaseViewModel {
     _navigationService.navigateToChefProfileView(user: chef);
   }
 
-  void toDishDetailsScreen() {
-    _navigationService.navigateTo(Routes.savedRecipeDetailsView);
+  void toDishDetailsScreen(index) {
+    _navigationService.navigateToSavedRecipeDetailsView(recipeModel: dishes![index]);
   }
 }

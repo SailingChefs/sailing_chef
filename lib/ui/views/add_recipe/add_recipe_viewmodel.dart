@@ -247,7 +247,20 @@ class AddRecipeViewModel extends BaseViewModel {
           uid: firebaseAuth.currentUser!.uid,
         ));
         if (check) {
-          _navigationService.navigateToRecipeListPageView();
+         _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
+           visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: [],
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: methodsList,
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'published',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+        ), selectedImages: selectedImages);
         } else {
           showToast(message: 'Something went wrong');
         }

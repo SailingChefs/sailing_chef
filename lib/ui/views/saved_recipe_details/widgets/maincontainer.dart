@@ -1,4 +1,6 @@
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tab_bars_recipe.dart';
@@ -7,7 +9,8 @@ import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  const MainRecipeViewContainer({Key? key}) : super(key: key);
+  final RecipeModel recipeModel;
+  const MainRecipeViewContainer({Key? key, required this.recipeModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
@@ -16,14 +19,14 @@ class MainRecipeViewContainer
         SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 250),
+             SizedBox(height: 250.h),
               Container(
                 width: double.infinity,
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   color: kcwhitecolor,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
+                    topLeft: Radius.circular(35.r),
+                    topRight: Radius.circular(35.r),
                   ),
                 ),
                 child: Column(
@@ -35,7 +38,7 @@ class MainRecipeViewContainer
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                            'Healthy Taco Salad',
+                          capitalizeEachWord  (recipeModel.title),
                             style: globalTextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -55,9 +58,9 @@ class MainRecipeViewContainer
                                 color: kcBlackColor.withOpacity(0.5),
                               ),
                               horizontalSpaceTiny,
-                              const Text(
-                                '20 mins',
-                                style: TextStyle(
+                               Text(
+                                recipeModel.prepTime,
+                                style: const TextStyle(
                                   fontSize: 10.0,
                                   color: kcBlackColor,
                                 ),
@@ -67,26 +70,29 @@ class MainRecipeViewContainer
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10.0, right: 10, top: 2),
-                      child: Text(
-                        'This Healthy Taco Salad is the universal delight of taco night',
-                        style: globalTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: kcBlackColor,
-                        ),
-                      ),
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsets.only(left: 10.0, right: 10, top: 2),
+                    //   child: Text(
+                    //     'This Healthy Taco Salad is the universal delight of taco night',
+                    //     style: globalTextStyle(
+                    //       fontSize: 16,
+                    //       fontWeight: FontWeight.w300,
+                    //       color: kcBlackColor,
+                    //     ),
+                    //   ),
+                    // ),
+                    // verticalSpaceSmall,
+                     ViewProfileRow(
+                      user: recipeModel.user!,
+
                     ),
-                    verticalSpaceSmall,
-                    const ViewProfileRow(),
-                    verticalSpaceLarge,
+                    verticalSpaceMedium,
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
-                        ? const IngredientsClass()
-                        : const Methods(),
+                        ?  IngredientsClass(recipeModel: recipeModel,)
+                        :   Methods(recipe: recipeModel,),
                     verticalSpaceSmall,
                   ],
                 ),

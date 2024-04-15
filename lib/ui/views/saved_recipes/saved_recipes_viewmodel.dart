@@ -40,6 +40,6 @@ class SavedRecipesViewModel extends BaseViewModel {
   }
 
   void toDishDetailsScreen() {
-    _navigationService.navigateToSavedRecipeDetailsView();
+    // _navigationService.navigateToSavedRecipeDetailsView();
   }
 }

@@ -718,6 +718,31 @@ class MockRecipeService extends _i1.Mock implements _i8.RecipeService {
         returnValue: _i6.Future<List<String>>.value(<String>[]),
         returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
       ) as _i6.Future<List<String>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchRecipesByUID(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchRecipesByUID,
+          [uid],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchAllRecipes() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchAllRecipes,
+          [],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
 }
 
 /// A class which mocks [LocationService].

@@ -31,7 +31,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
         verticalSpaceSmall,
        
         SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.27,
+          height: MediaQuery.sizeOf(context).height * 0.27.h,
           width: double.maxFinite,
           child: ListView.builder(
             itemCount: viewModel.chefList!.length,
@@ -44,7 +44,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   viewModel.toChefProfile(chef);
                 },
                 child: Container(
-                  width: 160,
+                  width: 160.w,
                   decoration: BoxDecoration(
                     color: kcwhitecolor,
                     boxShadow: [
@@ -62,23 +62,23 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
                         ),
                         child: Image.network(
                           chef.displayPicture!,
                           fit: BoxFit.cover,
-                          height: 180,
+                          height: 170.h,
                           width: double.infinity,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding:  EdgeInsets.all(8.0.dg),
                         child: Text(
                           capitalizeEachWord(chef.displayName!),
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style:  TextStyle(
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

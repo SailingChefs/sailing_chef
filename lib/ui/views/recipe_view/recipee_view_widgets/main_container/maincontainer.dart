@@ -3,6 +3,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'ingredients_class.dart';
 import 'methods.dart';
 import 'tab_bars_recipe.dart';
@@ -82,6 +83,11 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                     viewModel.isIngredientsSelected
                         ?  IngredientsClass(recipeModel, selectedImages)
                         :  Methods(recipeModel: recipeModel,),
+                        Save_Recipe_Button(
+              onPressed: () =>viewModel.saveRecipe(recipeModel,selectedImages),
+              buttonText: 'Submit Recipe',
+            ),
+            horizontalSpaceSmall,
                   ],
                 ),
               ),

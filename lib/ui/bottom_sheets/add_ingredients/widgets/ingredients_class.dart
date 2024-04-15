@@ -13,11 +13,11 @@ class Ingredient {
     };
   }
 
-  factory Ingredient.fromSnapshot(Map<String, dynamic> snapshot) {
+ factory Ingredient.fromMap(Map<String, dynamic> map) {
     return Ingredient(
-      name: snapshot['name'],
-      quantity: snapshot['quantity'],
-      unit: snapshot['unit'],
+      name: map['name'] ?? '',
+      quantity: map['quantity'] ?? '',
+      unit: map['unit'] ?? '',
     );
   }
 }

@@ -1,9 +1,12 @@
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 import '../saved_recipe_details_viewmodel.dart';
 
 class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  const ViewProfileRow({super.key});
+  final UserModel user;
+  const ViewProfileRow({super.key, required this.user});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
@@ -11,17 +14,17 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       padding: const EdgeInsets.all(10.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         SizedBox(
-          height: 40,
-          width: 150,
+          height: 40.h,
+          width: 150.w,
           child: Row(
             children: [
-              const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/icons/chef.jpg'),
+               CircleAvatar(
+                backgroundImage: NetworkImage(user.displayPicture!),
               ),
               horizontalSpaceSmall,
-              const Text(
-                'Danica Nel',
-                style: TextStyle(
+              Text(
+                user.displayName!,
+                style: const TextStyle(
                     color: kcBlackColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w600),

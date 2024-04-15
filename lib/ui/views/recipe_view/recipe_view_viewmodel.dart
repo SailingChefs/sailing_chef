@@ -49,7 +49,9 @@ class RecipeViewViewModel extends BaseViewModel {
           uid: recipe.uid,
         ));
         if(check){
-          _navigationService.navigateToRecipeListPageView();
+          _navigationService.replaceWithRecipeListPageView(isFromProfileView: false
+
+          );
         }
         else{
           showToast( message: 'Something went wrong');
@@ -73,17 +75,19 @@ class RecipeViewViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void addServes() {
-    serves++;
+  void addServes(value) {
+    value++;
     rebuildUi();
     notifyListeners();
   }
 
-  void removeServes() {
-    if (serves == 0) {
-      serves = 0;
+  void removeServes(value) {
+    if (value == 0) {
+      value = 0;
+      rebuildUi();
     } else {
-      serves--;
+      value--;
+      rebuildUi();
     }
 
     rebuildUi();
