@@ -12,7 +12,8 @@ import 'package:image_picker/image_picker.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
 import 'package:sailing_chefs/model/conversation_model.dart' as _i13;
-import 'package:sailing_chefs/model/messages_model.dart' as _i14;
+import 'package:sailing_chefs/model/dish_model.dart' as _i18;
+import 'package:sailing_chefs/model/message_model.dart' as _i14;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i9;
 import 'package:sailing_chefs/model/user_model.dart' as _i16;
 import 'package:sailing_chefs/services/chef_service.dart' as _i15;
@@ -20,7 +21,7 @@ import 'package:sailing_chefs/services/conversation_service.dart' as _i12;
 import 'package:sailing_chefs/services/dishes_service.dart' as _i17;
 import 'package:sailing_chefs/services/location_service.dart' as _i11;
 import 'package:sailing_chefs/services/recipe_service.dart' as _i8;
-import 'package:sailing_chefs/services/userdata_service_service.dart' as _i18;
+import 'package:sailing_chefs/services/userdata_service_service.dart' as _i19;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -698,15 +699,15 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockRecipeService extends _i1.Mock implements _i8.RecipeService {
   @override
-  _i6.Future<void> addRecipeToFirestore(_i9.RecipeModel? recipe) =>
+  _i6.Future<bool> addRecipeToFirestore(_i9.RecipeModel? recipe) =>
       (super.noSuchMethod(
         Invocation.method(
           #addRecipeToFirestore,
           [recipe],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
 
   @override
   _i6.Future<List<String>> uploadImagesToFirebase(List<_i10.XFile?>? images) =>
@@ -718,6 +719,31 @@ class MockRecipeService extends _i1.Mock implements _i8.RecipeService {
         returnValue: _i6.Future<List<String>>.value(<String>[]),
         returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
       ) as _i6.Future<List<String>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchRecipesByUID(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchRecipesByUID,
+          [uid],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchAllRecipes() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchAllRecipes,
+          [],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
 }
 
 /// A class which mocks [LocationService].
@@ -754,29 +780,40 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
 class MockConversationService extends _i1.Mock
     implements _i12.ConversationService {
   @override
-  _i6.Future<void> createConversation(_i13.ConversationModel? conversation) =>
+  _i6.Future<String> createConversation(_i13.ConversationModel? conversation) =>
       (super.noSuchMethod(
         Invocation.method(
           #createConversation,
           [conversation],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #createConversation,
+            [conversation],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #createConversation,
+            [conversation],
+          ),
+        )),
+      ) as _i6.Future<String>);
 
   @override
-  _i6.Future<List<_i13.ConversationModel>> fetchConversations(String? userId) =>
+  _i6.Stream<List<_i13.ConversationModel>> getConversations() =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchConversations,
-          [userId],
+          #getConversations,
+          [],
         ),
-        returnValue: _i6.Future<List<_i13.ConversationModel>>.value(
-            <_i13.ConversationModel>[]),
+        returnValue: _i6.Stream<List<_i13.ConversationModel>>.empty(),
         returnValueForMissingStub:
-            _i6.Future<List<_i13.ConversationModel>>.value(
-                <_i13.ConversationModel>[]),
-      ) as _i6.Future<List<_i13.ConversationModel>>);
+            _i6.Stream<List<_i13.ConversationModel>>.empty(),
+      ) as _i6.Stream<List<_i13.ConversationModel>>);
 
   @override
   _i6.Future<String?> checkConversationExistence(List<String>? userIds) =>
@@ -791,15 +828,15 @@ class MockConversationService extends _i1.Mock
 
   @override
   _i6.Future<void> sendMessage(
-    String? conversationId,
     _i14.MessageModel? message,
+    String? conversationId,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendMessage,
           [
-            conversationId,
             message,
+            conversationId,
           ],
         ),
         returnValue: _i6.Future<void>.value(),
@@ -837,13 +874,40 @@ class MockChefService extends _i1.Mock implements _i15.ChefService {
 /// A class which mocks [DishesService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDishesService extends _i1.Mock implements _i17.DishesService {}
+class MockDishesService extends _i1.Mock implements _i17.DishesService {
+  @override
+  List<_i18.DishModel> get dishes => (super.noSuchMethod(
+        Invocation.getter(#dishes),
+        returnValue: <_i18.DishModel>[],
+        returnValueForMissingStub: <_i18.DishModel>[],
+      ) as List<_i18.DishModel>);
+
+  @override
+  set dishes(List<_i18.DishModel>? _dishes) => super.noSuchMethod(
+        Invocation.setter(
+          #dishes,
+          _dishes,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i6.Future<List<_i18.DishModel>> fetchDishes() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchDishes,
+          [],
+        ),
+        returnValue: _i6.Future<List<_i18.DishModel>>.value(<_i18.DishModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i18.DishModel>>.value(<_i18.DishModel>[]),
+      ) as _i6.Future<List<_i18.DishModel>>);
+}
 
 /// A class which mocks [UserdataServiceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserdataServiceService extends _i1.Mock
-    implements _i18.UserdataServiceService {
+    implements _i19.UserdataServiceService {
   @override
   _i6.Future<List<_i16.UserModel>> fetchUsersDocuments() => (super.noSuchMethod(
         Invocation.method(

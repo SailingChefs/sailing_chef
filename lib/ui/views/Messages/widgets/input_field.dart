@@ -1,10 +1,12 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/chat/chat_viewmodel.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 
 class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
-  const BuildInputFieldChatScreen({super.key});
-
+  const BuildInputFieldChatScreen({super.key, required this.user, required this.conversationId});
+  final UserModel user;
+  final String conversationId;
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
     return Container(
@@ -27,7 +29,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
               Icons.camera_alt_outlined,
             ),
             onPressed: () {
-              viewModel.getImage(ImageSource.camera);
+              viewModel.getImage(ImageSource.camera, user.uid!, conversationId);
             },
           ),
           Expanded(
@@ -76,13 +78,13 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
           IconButton(
             icon: const Icon(FlutterRemix.attachment_2),
             onPressed: () {
-              viewModel.getImage(ImageSource.gallery);
+              viewModel.getImage(ImageSource.gallery, user.uid!, conversationId);
             },
           ),
           GestureDetector(
-            onTap:
-              viewModel.sendMessage
-            ,
+            onTap:(){
+              viewModel.sendMessage(user.uid!, conversationId);
+            },
             child: Container(
               height: 40.0,
               width: 40.0,

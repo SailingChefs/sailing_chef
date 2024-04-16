@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
-import '../../../../widgets/bottom_sheet_btn.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 
 class Methods extends StatelessWidget {
-  const Methods({super.key});
+  final RecipeModel recipeModel;
+  const Methods({super.key, required this.recipeModel});
 
   @override
   Widget build(BuildContext context) {
-    List<String> steps = ['1', '2', '3', '4', '5'];
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -21,15 +19,16 @@ class Methods extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           SizedBox(
-            width: 400,
-            height: 500,
+
+            height: recipeModel.methods.length * 100.h,
             child: ListView.builder(
-              itemCount: steps.length,
-              physics: const NeverScrollableScrollPhysics(),
+              itemCount: recipeModel.methods.length,
+              //physics: const,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
                   child: Row(
+
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -39,8 +38,8 @@ class Methods extends StatelessWidget {
                           minRadius: double.minPositive + 13,
                           backgroundColor: Colors.blueGrey,
                           child: Text(
-                            steps[index],
-                            style: TextStyle(color: kcwhitecolor, fontSize: 12),
+                            '${index + 1}',
+                            style: const TextStyle(color: kcwhitecolor, fontSize: 12),
                           ),
                         ),
                       ),
@@ -50,7 +49,7 @@ class Methods extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              'Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your',
+                              recipeModel.methods[index],
                               style: globalTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -85,7 +84,7 @@ class Methods extends StatelessWidget {
                     backgroundColor: kcPrimaryColor,
                   ),
                   onPressed: () {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.play_arrow,
                     color: kcwhitecolor,
                   ),
@@ -104,11 +103,11 @@ class Methods extends StatelessWidget {
             ),
           ),
           verticalSpaceLarge,
-          Save_Recipe_Button(
-            onPressed: () {},
-            buttonText: 'Submit Recipe',
-          ),
-          horizontalSpaceSmall,
+          // Save_Recipe_Button(
+          //   onPressed: () {},
+          //   buttonText: 'Submit Recipe',
+          // ),
+          // horizontalSpaceSmall,
         ],
       ),
     );

@@ -1,10 +1,14 @@
 
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
-  const TopBarRecipeView({super.key});
+ final List<XFile?> selectedImages;
+  const TopBarRecipeView(this.selectedImages, {super.key,});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
@@ -12,15 +16,14 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
       padding: const EdgeInsets.only(top: 25.0),
       child: Stack(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             height: 250,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background/burger.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
+            child: Image.file(
+              File(selectedImages[0]!.path),
+              fit: BoxFit.fill,
+
+            )
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),

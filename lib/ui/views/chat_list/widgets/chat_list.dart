@@ -1,27 +1,73 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
 
 class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
   const ChatListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, ChatListViewModel viewModel) {
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(children: [
-            GestureDetector(
-              onTap: viewModel.toChatScreen,
-              child: const ListTile(
-                title: Text("title"),
-                subtitle: Text("subtitle"),
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/icons/chef.jpg'),
-                ),
-              ),
+  Widget build(BuildContext context, viewModel) {
+    return StreamBuilder<List<ConversationModel>>(
+      stream: viewModel.getConversation(),
+      builder: (context, snapshot) {
+        log(snapshot.data.toString());
+        if (snapshot.hasData) {
+          return SizedBox(
+            width: double.infinity,
+            height: 400.h,
+            child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                ConversationModel conversation = snapshot.data![index];
+                DateTime dateTime =
+                    DateTime.parse(conversation.latestMessageTime);
+                int hour = dateTime.hour;
+                int minute = dateTime.minute;
+
+                String period = (hour < 12) ? 'AM' : 'PM';
+
+                int hour12 = (hour > 12) ? (hour - 12) : hour;
+                if (hour12 == 0) {
+                  hour12 = 12; 
+                }
+                String twoDigits(int n) {
+                  if (n >= 10) {
+                    return '$n';
+                  } else {
+                    return '0$n';
+                  }
+                }
+
+                return Column(
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.toChatScreen(conversation);
+                        },
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.all(5),
+                          title: Text(conversation.name),
+                          subtitle: Text(conversation.latestMessage),
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundImage:
+                                NetworkImage(conversation.imageTitle[0]),
+                          ),
+                          trailing: Text(
+                              '${twoDigits(hour12)}:${twoDigits(minute)} $period'),
+                        )),
+                  ],
+                );
+              },
             ),
-            const Divider(),
-          ]);
-        });
+          );
+        } else {
+          return const Text('No Data');
+        }
+      },
+    );
   }
 }

@@ -5,7 +5,9 @@ import 'package:stacked/stacked.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  const TopBarDetailsScreen({
+  final String image;
+  const TopBarDetailsScreen( {
+    required this.image,
     super.key,
   });
   @override
@@ -17,9 +19,9 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           Container(
             width: double.infinity,
             height: 250,
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background/burger.png'),
+                image: NetworkImage(image),
                 fit: BoxFit.fill,
               ),
             ),

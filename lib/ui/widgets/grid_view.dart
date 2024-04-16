@@ -22,7 +22,7 @@ class PrimaryGridViewCard extends  StatelessWidget{
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(15.0.r),
           color: kcWhiteColor,
           boxShadow: [
             BoxShadow(
@@ -36,20 +36,21 @@ class PrimaryGridViewCard extends  StatelessWidget{
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15.0),
-                topRight: Radius.circular(15.0),
+              borderRadius:
+              BorderRadius.only(
+                topLeft: Radius.circular(15.0.r),
+                topRight: Radius.circular(15.0.r),
               ),
-              child: Image.asset(
+              child: Image.network(
                 foodImagePath,
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.19.h,
                 fit: BoxFit.cover,
               ),
             ),
             Positioned(
-              top: 5,
-              right: 10,
+              top: 5.dg,
+              right: 10.dg,
               child: Container(
                 width: 30.w,
                 height: 30.h,
@@ -65,16 +66,16 @@ class PrimaryGridViewCard extends  StatelessWidget{
               ),
             ),
             Positioned(
-              bottom: 50,
-              left: 10,
+              bottom: 35.dg,
+              left: 10.dg,
               child: Container(
                 width: 70.w,
                 height: 25.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: kcBlackColor.withOpacity(0.7),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+                  borderRadius:  BorderRadius.all(
+                    Radius.circular(20.r),
                   ),
                 ),
                 child: Row(
@@ -86,7 +87,7 @@ class PrimaryGridViewCard extends  StatelessWidget{
                       color: kcWhiteColor,
                     ),
                     Text(
-                      "$duration mins",
+                      duration,
                       style: globalTextStyle(fontSize: 10.sp),
                     )
                   ],
@@ -94,8 +95,8 @@ class PrimaryGridViewCard extends  StatelessWidget{
               ),
             ),
             Positioned(
-              bottom: 25,
-              right: 10,
+              bottom: 18.dg,
+              right: 10.dg,
               child: Container(
                 width: 35.w,
                 height: 35.h,
@@ -107,8 +108,8 @@ class PrimaryGridViewCard extends  StatelessWidget{
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Image.asset(
+                  borderRadius: BorderRadius.circular(30.0.r),
+                  child: Image.network(
                     chefImagePath,
                     width: 35.w,
                     height: 35.h,
@@ -118,8 +119,8 @@ class PrimaryGridViewCard extends  StatelessWidget{
               ),
             ),
             Positioned(
-              bottom: 7,
-              left: 10,
+              bottom: 6.dg,
+              left: 8.dg,
               child: Text(
                 capitalizeEachWord(dishName),
                 maxLines: 1,

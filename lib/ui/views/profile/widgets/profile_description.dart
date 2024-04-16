@@ -15,16 +15,17 @@ class ProfileDescriptionProfileScreen
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        viewModel.placemarks == null || viewModel.placemarks!.isEmpty  ? Container() :
         Text(
           viewModel.placemarks![0].country!.isEmpty &&
-                  userDetails!.syJoy!.isEmpty
+                  userDetails!.boatName!.isEmpty
               ? ' '
               : viewModel.placemarks![0].country!.isEmpty
-                  ? capitalizeEachWord(userDetails!.syJoy!)
-                  : userDetails!.syJoy!.isEmpty
+                  ? capitalizeEachWord(userDetails!.boatName!)
+                  : userDetails!.boatName!.isEmpty
                       ? capitalizeEachWord(viewModel.placemarks!.first.country!)
                       : capitalizeEachWord(
-                          '${userDetails!.syJoy!}, ${viewModel.placemarks!.first.country!}'),
+                          '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
           style: globalTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -43,6 +44,7 @@ class ProfileDescriptionProfileScreen
           maxLines: 3,
         ),
         verticalSpaceTiny,
+        userDetails!.link == '' ? Container() :
         Row(
           children: [
             const Icon(

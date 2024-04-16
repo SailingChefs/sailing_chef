@@ -1,11 +1,17 @@
+import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'ingredients_class.dart';
 import 'methods.dart';
 import 'tab_bars_recipe.dart';
 
 class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
-  const MainRecipeViewContainer({Key? key}) : super(key: key);
+  final RecipeModel recipeModel;
+  final List<XFile?> selectedImages;
+  const MainRecipeViewContainer(this.recipeModel, this.selectedImages, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
@@ -33,7 +39,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                            'Healthy Taco Salad',
+                           capitalizeEachWord (recipeModel.title),
                             style: globalTextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -45,11 +51,11 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                           width: 70,
                           height: 45,
                           padding: const EdgeInsets.all(10.0),
-                          child: const Row(
+                          child:  Row(
                             children: [
                               Text(
-                                '20 mins',
-                                style: TextStyle(
+                                recipeModel.prepTime,
+                                style: const TextStyle(
                                   fontSize: 10.0,
                                   color: kcBlackColor,
                                 ),
@@ -75,8 +81,13 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
-                        ? const IngredientsClass()
-                        : const Methods(),
+                        ?  IngredientsClass(recipeModel, selectedImages)
+                        :  Methods(recipeModel: recipeModel,),
+                        Save_Recipe_Button(
+              onPressed: () =>viewModel.saveRecipe(recipeModel,selectedImages),
+              buttonText: 'Submit Recipe',
+            ),
+            horizontalSpaceSmall,
                   ],
                 ),
               ),

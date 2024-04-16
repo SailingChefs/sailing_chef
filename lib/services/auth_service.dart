@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable
 
+
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -64,6 +66,11 @@ class AuthService {
         password: password,
       );
       userModel.uid = userCredential.user!.uid;
+      userDetails?.displayName = userModel.displayName;
+      // Store user details in Firestore
+      bool userStored = await UserServices.storeUserRoleAndName(
+        userModel: userModel,
+      );
 
       // Update user profile display name
       await userCredential.user!.updateDisplayName(userModel.displayName);

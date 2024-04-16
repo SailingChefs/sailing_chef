@@ -25,7 +25,7 @@ class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
           ),
         ),
         GestureDetector(
-          onTap: () => viewModel.toSettings(),
+          onTap: viewModel.toSettings,
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 2.0.dg),
