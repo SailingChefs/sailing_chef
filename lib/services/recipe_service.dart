@@ -61,7 +61,7 @@ class RecipeService {
       showToast(message: 'Error uploading images to Firebase Storage: $error');
       return [];
     }
-  }
+
     Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
     try {
       EasyLoading.show();
@@ -130,4 +130,5 @@ Future<List<RecipeModel>> fetchAllRecipes() async {
     return []; // Return an empty list on error
   }
 }
+
 }

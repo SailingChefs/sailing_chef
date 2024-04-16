@@ -32,7 +32,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             verticalSpaceSmall,
             ChefProfileDetailsDesc(user: user,),
             verticalSpaceMedium,
-            const Follow_Message_Btns(),
+            Follow_Message_Btns(user: user),
             const DishListScreen(),
           ],
         ),

@@ -13,6 +13,7 @@ class ProfileViewModel extends BaseViewModel {
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
+
   List<RecipeModel>? myRecipes ;
   List<RecipeModel> savedRecipes = [];
 

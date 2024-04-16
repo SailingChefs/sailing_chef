@@ -3,7 +3,6 @@ import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/chat_list.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/top_bar.dart';
 import 'package:stacked/stacked.dart';
-
 import 'chat_list_viewmodel.dart';
 
 class ChatListView extends StackedView<ChatListViewModel> {
@@ -24,13 +23,18 @@ class ChatListView extends StackedView<ChatListViewModel> {
               children: [
                 const TopBarChatListScreen(),
                 verticalSpaceMedium,
-                const Expanded(child: ChatListScreen()),
+                const ChatListScreen(),
               ],
             ),
           )),
     );
   }
 
+  @override
+  void onViewModelReady(ChatListViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
   @override
   ChatListViewModel viewModelBuilder(
     BuildContext context,
