@@ -33,11 +33,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                   controller: viewModel.boatNameController,
                   labelText: 'Boat Name'),
               verticalSpaceMedium,
-              SemiRoundedTranpaentTextField(
-                validator: (value) => viewModel.validateSyjoy(value),
-                  controller: viewModel.syjoyController,
-                  labelText: 'Sy Joy '),
-              verticalSpaceMedium,
               GestureDetector(
                   onTap: viewModel.getLocation,
                   child: Container(

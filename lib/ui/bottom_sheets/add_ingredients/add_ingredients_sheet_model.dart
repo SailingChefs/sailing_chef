@@ -61,9 +61,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void goToRecipePreview() {
-    _navigationService.navigateToRecipeViewView();
-  }
+
 
   void addIngredients(String name, String quantity, int index) {
     ingredientsList.insert(

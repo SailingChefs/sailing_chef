@@ -1,9 +1,12 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'recipe_list_page_viewmodel.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
-  const RecipeListPageView({Key? key}) : super(key: key);
+ final bool isFromProfileView;
+  const RecipeListPageView( {Key? key,required this.isFromProfileView,}) : super(key: key);
 
   @override
   Widget builder(
@@ -17,9 +20,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
           leading: Padding(
             padding: const EdgeInsets.all(10.0),
             child: BackArrowWidget(
-              onTap: () {
-                viewModel.popBack();
-              },
+              onTap: () =>viewModel.toHomeView(isFromProfileView),
             ),
           ),
           title: Text(
@@ -31,11 +32,16 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
           ),
           centerTitle: true,
         ),
-        body: ListView.builder(
+        body: viewModel.isBusy ? const Center(child: CircularProgressIndicator(
+          color: kcWhiteColor,
+        )) :
+         ListView.builder(
+          itemCount: viewModel.recipes!.length,
           itemBuilder: (BuildContext context, int index) {
+            final RecipeModel recipe = viewModel.recipes![index];
             return Container(
               width: double.infinity,
-              height: 335,
+              height: 335.h,
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
@@ -43,40 +49,40 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 225.0,
+                        height: 225.0.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                                'assets/images/background/burger.png'),
+                          image:  DecorationImage(
+                            image: NetworkImage(
+                               recipe.coverImage[0], ),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Positioned(
-                        bottom: 10,
-                        left: 10,
+                        bottom: 10.dg,
+                        left: 10.dg,
                         child: Container(
-                            width: 95,
-                            height: 45,
+                            width: 95.w,
+                            height: 45.h,
                             decoration: BoxDecoration(
                               color: Colors.black54.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(30.0.r),
                             ),
                             padding: const EdgeInsets.all(10.0),
-                            child: const Row(
+                            child:  Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   FlutterRemix.time_line,
                                   size: 16,
                                   color: kcWhiteColor,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text(
-                                  '20 mins',
-                                  style: TextStyle(
+                                  recipe.prepTime,
+                                  style: const TextStyle(
                                       fontSize: 12.0, color: kcWhiteColor),
                                 )
                               ],
@@ -91,7 +97,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                       children: [
                         verticalSpaceSmall,
                         Text(
-                          'Shiitaki Mushroom',
+                          recipe.title,
                           style: TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.normal,
@@ -108,10 +114,10 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                 bottomLeft: Radius.circular(50.0),
                                 bottomRight: Radius.circular(50.0),
                               ),
-                              child: Image.asset(
-                                'assets/images/icons/chef.jpg',
-                                width: 35,
-                                height: 35,
+                              child: Image.network(
+                                userDetails!.displayPicture!,
+                                width: 35.w,
+                                height: 35.h,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -119,9 +125,9 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                               width: 10,
                             ),
                             Text(
-                              'Danica Nel',
+                              userDetails!.displayName!,
                               style: TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 15.0.sp,
                                   color: kcBlackColor.withOpacity(0.5)),
                             ),
                           ],
@@ -133,8 +139,14 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
               ),
             );
           },
-          itemCount: 3,
+      
         ));
+  }
+
+  @override
+  void onViewModelReady(RecipeListPageViewModel viewModel){
+      viewModel.onViewModelReady();
+      super.onViewModelReady(viewModel);
   }
 
   @override

@@ -28,7 +28,7 @@ dependencies:
   syncfusion_flutter_sliders: ^24.2.9
   syncfusion_flutter_core: ^24.2.9
   dotted_border: ^2.1.0
-  carousel_slider: ^4.2.1
+  another_carousel_pro: ^1.0.2
   country_currency_pickers: ^3.0.0
   firebase_storage: ^11.6.11
   audioplayers: ^6.0.0

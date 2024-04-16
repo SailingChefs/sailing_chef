@@ -15,30 +15,31 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
       child: viewModel.selectedImages.isEmpty
           ? DottedBorder(
               borderType: BorderType.RRect,
-              radius: const Radius.circular(20.0),
+              radius:Radius.circular(20.0.r),
               strokeWidth: 2.0,
               dashPattern: const [8, 4],
               color: kcBlackColor.withOpacity(0.3),
               child: Container(
                 padding: EdgeInsets.only(
-                    left: 99.dg, right: 99.dg, top: 10, bottom: 10),
+                    left: 99.dg, right: 99.dg, top: 10.dg, bottom: 10.dg),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/images/misc/Image.png',
-                        height: 100.0, width: 100.0),
-                    const Text(
+                        height: 100.0.h, width: 100.0.w),
+                     Text(
                       'Add Cover Photo',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 16.0.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     verticalSpaceTiny,
-                    const Text(
+                     Text(
                       '(upto 12 Mb)',
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 14.0.sp,
                         color: Colors.grey,
                       ),
                     ),
@@ -49,7 +50,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
           : Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.18,
+                  height: MediaQuery.of(context).size.height * 0.18.h,
                   child: Stack(
                     children: [
                       PageView.builder(
@@ -109,7 +110,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: Container(
-                        // width: MediaQuery.of(context).size.width * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.9.w,
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,

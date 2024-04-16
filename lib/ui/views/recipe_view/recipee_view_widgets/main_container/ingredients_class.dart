@@ -1,27 +1,23 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
-import '../../../../widgets/bottom_sheet_btn.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
-  const IngredientsClass({
+  final RecipeModel recipe;
+  final List<XFile?> selectedImages ;
+  const IngredientsClass(this.recipe, this.selectedImages, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    List<String> ingredients = [
-      'Butter',
-      'Onion',
-      'Spinach',
-      'Corn',
-      'Herbs',
-      'Chilli flakes'
-    ];
+  
 
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+        padding: EdgeInsets.symmetric(vertical: 5.dg, horizontal: 25.dg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,10 +25,10 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                 Text(
                   'Ingredients',
                   style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 15.0.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -40,7 +36,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        viewModel.addServes();
+                        viewModel.addServes(recipe.servingSize);
                       },
                       style: ButtonStyle(
                         backgroundColor:
@@ -50,19 +46,19 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                         minimumSize:
                             MaterialStateProperty.all<Size>(const Size(5, 5)),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.add,
-                        size: 10,
+                        size: 10.sp,
                         color: kcwhitecolor,
                       ),
                     ),
                     Text(
-                      'Serves ${viewModel.serves}',
-                      style: const TextStyle(color: Colors.black, fontSize: 10),
+                      'Serves ${recipe.servingSize}',
+                      style:  TextStyle(color: Colors.black, fontSize: 10.sp),
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        viewModel.removeServes();
+                        viewModel.removeServes(recipe.servingSize);
                       },
                       style: ButtonStyle(
                         backgroundColor:
@@ -72,9 +68,9 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                         minimumSize:
                             MaterialStateProperty.all<Size>(const Size(5, 5)),
                       ),
-                      child: const Icon(
+                      child:  Icon(
                         Icons.remove,
-                        size: 10,
+                        size: 10.dg,
                         color: kcwhitecolor,
                       ),
                     ),
@@ -82,34 +78,34 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                 ),
               ],
             ),
-            const Text(
-              '6 items',
-              style: TextStyle(fontSize: 10.0),
+            Text(
+              '${recipe.ingredients.length} items ',
+              style:  TextStyle(fontSize: 10.0.sp),
             ),
             SizedBox(
-              height: 500,
+              height: recipe.ingredients.length * 100.h,
               child: ListView.builder(
-                  itemCount: ingredients.length,
+                  itemCount: recipe.ingredients.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      height: 50.0,
-                      width: 330.0,
+                      height: 50.0.h,
+                      width: 330.0.w,
                       decoration: BoxDecoration(
                         color: const Color(0xFFF3F3F3),
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(15.0.r),
                       ),
-                      padding: const EdgeInsets.all(10.0),
-                      margin: const EdgeInsets.symmetric(vertical: 5.0),
+                      padding:  EdgeInsets.all(10.0.dg),
+                      margin: EdgeInsets.symmetric(vertical: 5.0.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            ingredients[index],
+                            recipe.ingredients[index].name,
                             style: const TextStyle(color: Colors.black),
                           ),
                           Text(
-                            '${index + 1} Tsp',
+                            '${recipe.ingredients[index].quantity}  ${recipe.ingredients[index].unit}',
                             style: const TextStyle(color: Colors.black),
                           ),
                         ],
@@ -118,11 +114,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                   }),
             ),
             verticalSpaceMedium,
-            Save_Recipe_Button(
-              onPressed: () {},
-              buttonText: 'Submit Recipe',
-            ),
-            horizontalSpaceSmall,
+            
           ],
         ),
       ),

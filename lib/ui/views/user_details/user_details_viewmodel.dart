@@ -6,6 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -20,7 +21,6 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  final TextEditingController syjoyController = TextEditingController();
   final _locationService = locator<LocationService>();
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
@@ -121,16 +121,7 @@ String? validateBoatName(String? value) {
   return null;
 }
 
-String? validateSyjoy(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter a valid syjoy';
-  }
 
-  // You can add specific validation criteria for "syjoy" here
-  // For example, checking if it matches a certain format or pattern
-  
-  return null;
-}
 
   void saveUserDetails() async {
    if(formKey.currentState!.validate()){
@@ -155,7 +146,6 @@ String? validateSyjoy(String? value) {
         'link': linkController.text,
         'boat_name': boatNameController.text,
         'location': userlocation,
-        'sy_joy': syjoyController.text,
         'display_picture': imageLink,
       },
       FirebaseAuth.instance.currentUser!.uid,
@@ -192,8 +182,7 @@ String? validateSyjoy(String? value) {
 
   onViewModelReady() async {
     setBusy(true);
-    userDetails = await _userService.getUserDetails();
-    nameController.text = userDetails!.displayName ?? '';
+    nameController.text = capitalizeEachWord(userDetails!.displayName!);
     setBusy(false);
   }
 

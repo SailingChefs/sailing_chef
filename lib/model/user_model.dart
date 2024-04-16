@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String? displayName;
+   String? displayName;
   final String? email;
   final String? userRole;
   String? userDocId;
@@ -17,10 +17,8 @@ class UserModel {
   final String? link;
   final String? phoneNumber;
   final List<String>? savedRecipes;
-  final String? syJoy;
 
   UserModel({
-    this.syJoy,
     this.displayName,
     this.email,
     this.userRole,
@@ -56,7 +54,6 @@ class UserModel {
       'link': link,
       'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
-      'sy_joy': syJoy
     };
   }
 
@@ -79,7 +76,6 @@ class UserModel {
       link: data['link'],
       phoneNumber: data['phone_number'],
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
-      syJoy: data['sy_joy'],
     );
   }
 }

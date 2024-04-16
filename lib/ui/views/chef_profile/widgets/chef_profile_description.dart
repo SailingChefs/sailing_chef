@@ -15,7 +15,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-          "${capitalizeEachWord(user.syJoy!)}, ${viewModel.placemarks!.first.country!}",
+          "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
             style: globalTextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
