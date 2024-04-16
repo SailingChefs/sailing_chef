@@ -15,6 +15,7 @@ class ProfileDescriptionProfileScreen
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        viewModel.placemarks == null || viewModel.placemarks!.isEmpty  ? Container() :
         Text(
           viewModel.placemarks![0].country!.isEmpty &&
                   userDetails!.boatName!.isEmpty
@@ -43,6 +44,7 @@ class ProfileDescriptionProfileScreen
           maxLines: 3,
         ),
         verticalSpaceTiny,
+        userDetails!.link == '' ? Container() :
         Row(
           children: [
             const Icon(

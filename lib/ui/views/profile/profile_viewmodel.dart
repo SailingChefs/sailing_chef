@@ -35,6 +35,9 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   getUserLocation() async {
+    if (userDetails?.location?['latitude'] == null) {
+      return '';
+    }
 
     placemarks =
         await placemarkFromCoordinates(userDetails!.location!['latitude'], userDetails!.location!['longitude']);

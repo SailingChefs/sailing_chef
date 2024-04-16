@@ -22,9 +22,9 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             horizontalSpaceSmall,
             Text(
               user.displayName!,
-              style: const TextStyle(
+              style:  TextStyle(
                   color: kcBlackColor,
-                  fontSize: 18,
+                  fontSize: getResponsiveFontSize(context,fontSize: 30.sp,max:40),
                   fontWeight: FontWeight.w600),
             ),
           ],

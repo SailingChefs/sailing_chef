@@ -22,10 +22,10 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
           return  PrimaryGridViewCard(
             onTap: (){},
           //  viewModel.toDishDetailsScreen,
-              foodImagePath: 'assets/images/background/onboarding.png',
+              foodImagePath: 'https://th.bing.com/th/id/OIG3.5u5ZBGkvLQn1ELp4UqXH',
               dishName: "dish name",
               duration: "30",
-              chefImagePath: 'assets/images/icons/chef.jpg');
+              chefImagePath: 'https://images.app.goo.gl/4iwFcv1jzruDgVuJA');
         },
       ),
     );

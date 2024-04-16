@@ -1,12 +1,16 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
 
 import 'pin_drop_map_viewmodel.dart';
 
-const LatLng currentPosition = LatLng(25.1193, 55.3773);
+ LatLng currentPosition = userDetails!.location!['longitude'] != null
+    ? LatLng(
+        userDetails!.location!['latitude'] as double,
+        userDetails!.location!['longitude'] as double,
+      )
+    : const LatLng(0, 0);
 
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
   const PinDropMapView({Key? key}) : super(key: key);
@@ -18,17 +22,11 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        height: 800,
-        color: Colors.amberAccent,
-        child: Column(
-          children: [
-            verticalSpaceMedium,
-            const SearchBarIndexView(),
-            verticalSpaceMedium,
-            GoogleMap(
+      body: Column(
+        children: [
+         
+          Flexible(
+            child: GoogleMap(
               initialCameraPosition:
                   CameraPosition(target: currentPosition, zoom: 14),
               onMapCreated: (controller) {
@@ -37,8 +35,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
               },
               markers: viewModel.markers.values.toSet(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

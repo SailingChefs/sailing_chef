@@ -9,7 +9,8 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-    return Expanded(
+    
+    return viewModel.myRecipes!.isEmpty ? const Center(child: Text('No recipes yet')): Expanded(
       flex: 1,
       child: GridView.builder(
         itemCount: viewModel.myRecipes!.length,

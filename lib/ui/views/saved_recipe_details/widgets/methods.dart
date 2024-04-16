@@ -1,7 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
 
 class Methods extends StatelessWidget {
   final RecipeModel recipe;
