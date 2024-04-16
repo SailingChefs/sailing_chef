@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -16,98 +13,94 @@ class ChatView extends StackedView<ChatViewModel> {
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
-    return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: kcBackgroundColor,
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 25),
-                  child: BackArrowWidget(
-                    onTap: () {
-                      viewModel.moveBack();
-                    },
-                  ),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: kcBackgroundColor,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: BackArrowWidget(
+                  onTap: viewModel.moveBack,
                 ),
-                StreamBuilder<List<ConversationModel>>(
-                  stream: viewModel.getConversation(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final firstConversation = snapshot.data!.firstOrNull;
-                      if (firstConversation != null) {
-                        final imageUrl = firstConversation.imageTitle.isNotEmpty
-                            ? firstConversation.imageTitle
-                                .first 
-                            : 'assets/images/icons/chef.jpg'; 
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    StreamBuilder<List<ConversationModel>>(
+                      stream: viewModel.getConversation(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final firstConversation = snapshot.data!.firstOrNull;
+                          if (firstConversation != null) {
+                            final imageUrl =
+                                firstConversation.imageTitle.isNotEmpty
+                                    ? firstConversation.imageTitle.first
+                                    : 'assets/images/icons/chef.jpg';
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            verticalSpaceLarge,
-                            Container(
-                              width: 90.w,
-                              height: 90.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(imageUrl),
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                verticalSpaceLarge,
+                                Center(
+                                  child: Container(
+                                    width: 90.w,
+                                    height: 90.h,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(imageUrl),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            verticalSpaceTiny,
-                            Text(
-                              firstConversation.name,
-                              style: globalTextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                color: kcBlackColor,
-                              ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return const Text('No conversation data');
-                      }
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
-                ),
-              Expanded(
-                child: ListView.builder(
-                      itemCount: viewModel.messages.length,
-                      controller: viewModel.scrollController,
-                      itemBuilder: (context, index) {
-                        return ChatMessage(viewModel.messages[index]);
+                                verticalSpaceTiny,
+                                Text(
+                                  firstConversation.name,
+                                  style: globalTextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                    color: kcBlackColor,
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return const Center(
+                                child: Text('No conversation data'));
+                          }
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
                       },
                     ),
-                // child: StreamBuilder<List<MessageModel>>(
-                //   stream: ,
-                //   builder: (context, snapshot) {
-                //     log("data is message "+snapshot.data.toString());
-                //     if (snapshot.connectionState == ConnectionState.waiting) {
-                //       return CircularProgressIndicator();
-                //     }else if(!snapshot.hasData){
-                //       return const Text('No conversation data');
-                //     }else if(snapshot.hasError){
-                //       return Text(snapshot.error.toString());
-                //     }
-                //     return ;
-                //   },
-                // ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.59.h,
+                      child: ListView.builder(
+                        itemCount: viewModel.messages.length,
+                        controller: viewModel.scrollController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ChatMessage(viewModel.messages[index]);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-                BuildInputFieldChatScreen(
-                    user: user, conversationId: conversationId),
-              ],
-            ),
+              BuildInputFieldChatScreen(
+                  user: user, conversationId: conversationId),
+            ],
           ),
-        );
-      
+        ),
+      ),
+    );
   }
-  @override
 
   @override
   ChatViewModel viewModelBuilder(

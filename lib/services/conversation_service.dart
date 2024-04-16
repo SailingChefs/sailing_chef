@@ -6,21 +6,48 @@ import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 
 class ConversationService {
-  Future<String> createConversation(ConversationModel conversation) async {
-    try {
-      final CollectionReference conversationsCollection =
-          FirebaseFirestore.instance.collection('conversations');
+ 
+Future<String> createOrUpdateConversation(ConversationModel conversation) async {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final CollectionReference conversationsCollection = db.collection('conversations');
 
-      DocumentReference docRef =
-          await conversationsCollection.add(conversation.toJson());
+  String conversationId = '';  // Initialize with a default value
 
-      return docRef.id;
-    } catch (error) {
-      log('Error creating conversation: $error');
-      // Handle error appropriately
-      return ''; // or throw an error
+  try {
+    // Sort users to ensure consistent order for comparison
+    var sortedUsers = List<String>.from(conversation.users)..sort();
+    var participantsFilter = sortedUsers.join(",");
+
+    // Check for existing conversation
+    QuerySnapshot existingConversations = await conversationsCollection
+        .where('sortedParticipants', isEqualTo: participantsFilter)
+        .limit(1)
+        .get();
+
+    if (existingConversations.docs.isNotEmpty) {
+      // Conversation already exists
+      conversationId = existingConversations.docs.first.id;
+      log('Existing conversation ID: $conversationId');
+    } else {
+      // No existing conversation found, create a new one
+      DocumentReference docRef = await conversationsCollection.add(conversation.toJson()
+        ..['sortedParticipants'] = participantsFilter);  // Include sorted list as a string for easier matching
+      conversationId = docRef.id;
+
+      // Optionally, update the conversation to include its own ID if needed
+      await docRef.update({'uid': conversationId});
+      log('New conversation created with ID: $conversationId');
     }
+
+    return conversationId;
+  } catch (error) {
+    log('Error managing conversation: $error');
+    return conversationId; // Return the initialized but possibly still empty ID
   }
+}
+
+
+
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String currentUserUid = firebaseAuth.currentUser!.uid;
@@ -109,17 +136,40 @@ Stream<Future<List<ConversationModel>>> setConversations(){
       return null;
     }
   }
-
   Future<void> sendMessage(MessageModel message, String conversationId) async {
-    // String conversationId = await getConversationId(message);
-    try {
-      final CollectionReference messagesCollection =
-          _conversationsCollection.doc(conversationId).collection('messages');
-      await messagesCollection.add((message.toMap()));
-    } catch (error) {
-      log('Error sending message: $error');
-    }
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final CollectionReference conversationsCollection = db.collection('conversations');
+  final CollectionReference messagesCollection = conversationsCollection.doc(conversationId).collection('messages');
+
+message.type = message.content.runtimeType.toString();
+  try {
+    // Add the message to the messages subcollection
+    await messagesCollection.add(message.toMap());
+
+    // Update the parent conversation document with the latest message info
+    await conversationsCollection.doc(conversationId).update({
+      'latestMessage': message.content, // Assuming 'text' field in your MessageModel
+      'latestMessageTime': FieldValue.serverTimestamp(), // Use server timestamp for consistency
+      'latestMessageType': message.type, // Assuming 'type' field in your MessageModel
+    });
+  } catch (error) {
+    log('Error sending message: $error');
   }
+}
+
+
+  // Future<void> sendMessage(MessageModel message, String conversationId) async {
+  //   // String conversationId = await getConversationId(message);
+  //   try {
+  //     final CollectionReference messagesCollection =
+  //         _conversationsCollection.doc(conversationId).collection('messages');
+
+
+  //     await messagesCollection.add((message.toMap()));
+  //   } catch (error) {
+  //     log('Error sending message: $error');
+  //   }
+  // }
 
   Stream<List<MessageModel>> getMessages(String conversationId)async*  {
     try {

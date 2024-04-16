@@ -20,21 +20,27 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     ChefProfileViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body:viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
-        child: Column(
-          children: [
-            const ChefProfileTopBar(),
-            verticalSpaceSmall,
-            ChefProfileDetails(user: user,),
-            verticalSpaceSmall,
-            ChefProfileDetailsDesc(user: user,),
-            verticalSpaceMedium,
-            Follow_Message_Btns(user: user),
-            const DishListScreen(),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body:viewModel.isBusy ? const Center(child: CircularProgressIndicator(
+          color: kcBackgroundColor,
+        )) : Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const ChefProfileTopBar(),
+                verticalSpaceSmall,
+                ChefProfileDetails(user: user,),
+                verticalSpaceSmall,
+                ChefProfileDetailsDesc(user: user,),
+                verticalSpaceMedium,
+                Follow_Message_Btns(user: user),
+                 DishListScreen(user:user),
+              ],
+            ),
+          ),
         ),
       ),
     );
