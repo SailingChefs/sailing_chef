@@ -13,6 +13,8 @@ class RoundedElevatedButton extends StatelessWidget {
   final Color textColor;
   final FontWeight textFontWeight;
   final bool isEnabled;
+  final double? radius;
+  final String? font;
 
   const RoundedElevatedButton({
     Key? key,
@@ -24,10 +26,10 @@ class RoundedElevatedButton extends StatelessWidget {
     this.buttonColor,
     this.borderColor,
     this.borderWidth = 1.0,
-    this.textFontSize = 16, 
+    this.textFontSize = 14, 
     this.textColor = kcTextColor,
     this.textFontWeight = FontWeight.w400,
-    required this.isEnabled,
+    required this.isEnabled, this.radius, this.font,
   }) : super(key: key);
 
   @override
@@ -55,6 +57,7 @@ class RoundedElevatedButton extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: globalTextStyle(
               fontSize: textFontSize.sp,
+              
               color: isEnabled ? textColor : kcPrimaryColor.withOpacity(0.5),
               fontWeight: textFontWeight,
             ),

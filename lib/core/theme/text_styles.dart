@@ -5,6 +5,7 @@ TextStyle globalTextStyle(
         {required double fontSize,
         Color? color,
         double? letterSpacing,
+        
         FontWeight? fontWeight,
         TextDecoration? decoration}) =>
     TextStyle(

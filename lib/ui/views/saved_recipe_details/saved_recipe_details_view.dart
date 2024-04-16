@@ -34,7 +34,6 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
       ]),
     );
   }
-
   @override
   SavedRecipeDetailsViewModel viewModelBuilder(
     BuildContext context,

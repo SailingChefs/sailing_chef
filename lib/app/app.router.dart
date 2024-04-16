@@ -7,14 +7,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i25;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart' as _i29;
+import 'package:image_picker/image_picker.dart' as _i30;
 import 'package:sailing_chefs/core/imports/core_imports.dart' as _i27;
-
+import 'package:sailing_chefs/model/recipe_model.dart' as _i29;
 import 'package:sailing_chefs/model/user_model.dart' as _i26;
-
-import 'package:sailing_chefs/model/recipe_model.dart' as _i28;
-import 'package:sailing_chefs/model/user_model.dart' as _i30;
-
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart'
     as _i28;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i14;
@@ -480,9 +476,9 @@ class RecipeViewViewArguments {
     this.key,
   });
 
-  final _i28.RecipeModel recipeModel;
+  final _i29.RecipeModel recipeModel;
 
-  final List<_i29.XFile?> selectedImages;
+  final List<_i30.XFile?> selectedImages;
 
   final _i27.Key? key;
 
@@ -513,7 +509,7 @@ class SavedRecipeDetailsViewArguments {
 
   final _i27.Key? key;
 
-  final _i28.RecipeModel recipeModel;
+  final _i29.RecipeModel recipeModel;
 
   @override
   String toString() {
@@ -538,11 +534,7 @@ class ChefProfileViewArguments {
     this.key,
   });
 
-
   final _i26.UserModel user;
-
-  final _i30.UserModel user;
-
 
   final _i27.Key? key;
 
@@ -816,8 +808,8 @@ extension NavigatorStateExtension on _i31.NavigationService {
   }
 
   Future<dynamic> navigateToRecipeViewView({
-    required _i28.RecipeModel recipeModel,
-    required List<_i29.XFile?> selectedImages,
+    required _i29.RecipeModel recipeModel,
+    required List<_i30.XFile?> selectedImages,
     _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -850,7 +842,7 @@ extension NavigatorStateExtension on _i31.NavigationService {
 
   Future<dynamic> navigateToSavedRecipeDetailsView({
     _i27.Key? key,
-    required _i28.RecipeModel recipeModel,
+    required _i29.RecipeModel recipeModel,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -867,9 +859,7 @@ extension NavigatorStateExtension on _i31.NavigationService {
   }
 
   Future<dynamic> navigateToChefProfileView({
-
     required _i26.UserModel user,
-
     _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -1165,8 +1155,8 @@ extension NavigatorStateExtension on _i31.NavigationService {
   }
 
   Future<dynamic> replaceWithRecipeViewView({
-    required _i28.RecipeModel recipeModel,
-    required List<_i29.XFile?> selectedImages,
+    required _i29.RecipeModel recipeModel,
+    required List<_i30.XFile?> selectedImages,
     _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -1199,7 +1189,7 @@ extension NavigatorStateExtension on _i31.NavigationService {
 
   Future<dynamic> replaceWithSavedRecipeDetailsView({
     _i27.Key? key,
-    required _i28.RecipeModel recipeModel,
+    required _i29.RecipeModel recipeModel,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1216,10 +1206,7 @@ extension NavigatorStateExtension on _i31.NavigationService {
   }
 
   Future<dynamic> replaceWithChefProfileView({
-
-
-    required _i30.UserModel user,
-
+    required _i26.UserModel user,
     _i27.Key? key,
     int? routerId,
     bool preventDuplicates = true,

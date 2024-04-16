@@ -10,17 +10,23 @@ class TopBarOnboardingScreen extends ViewModelWidget<OnboardingViewModel> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset(
-          'assets/images/logo/SAILING CHEFS.png',
-          width: 130.w,
-          height: 70.h,
+        
+        SizedBox(
+           width: 150.w,
+            height: 80.h,
+          child: Image.asset(
+            'assets/images/logo/SAILING CHEFS.png',
+           
+          ),
         ),
         RoundedElevatedButton(
           onPressed: viewModel.toLogin,
-          buttonText: 'Login',
-          width: 80.dg,
-          height: getResponsiveMediumFontSize(context),
-          textFontSize: 10.sp,
+          buttonText: 'login',
+          textColor: kclightgreencolor,
+          width: 81.dg,
+                        height: 34,
+          textFontSize: 14.sp,
+          textFontWeight: FontWeight.w600,
           isEnabled: true,
         ),
       ],

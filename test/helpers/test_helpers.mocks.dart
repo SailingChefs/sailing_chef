@@ -780,6 +780,19 @@ class MockLocationService extends _i1.Mock implements _i11.LocationService {
 class MockConversationService extends _i1.Mock
     implements _i12.ConversationService {
   @override
+  String get currentUserUid => (super.noSuchMethod(
+        Invocation.getter(#currentUserUid),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#currentUserUid),
+        ),
+        returnValueForMissingStub: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#currentUserUid),
+        ),
+      ) as String);
+
+  @override
   _i6.Future<String> createConversation(_i13.ConversationModel? conversation) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -814,6 +827,19 @@ class MockConversationService extends _i1.Mock
         returnValueForMissingStub:
             _i6.Stream<List<_i13.ConversationModel>>.empty(),
       ) as _i6.Stream<List<_i13.ConversationModel>>);
+
+  @override
+  _i6.Stream<_i6.Future<List<_i13.ConversationModel>>> setConversations() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setConversations,
+          [],
+        ),
+        returnValue:
+            _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>.empty(),
+        returnValueForMissingStub:
+            _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>.empty(),
+      ) as _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>);
 
   @override
   _i6.Future<String?> checkConversationExistence(List<String>? userIds) =>

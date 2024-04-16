@@ -23,7 +23,6 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
             onPageChanged: (value) => viewModel.setCurrentIndex(value),
             itemBuilder: (context, index) {
               return Stack(
-                // alignment: Alignment.bottomCenter,
                 children: [
                   Image.asset(
                     viewModel.pages[index].image,
@@ -33,6 +32,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                   ),
                   Positioned.fill(
                     child: Container(
+                     
                       height: screenHeight(context),
                       width: double.infinity,
                       decoration: const BoxDecoration(

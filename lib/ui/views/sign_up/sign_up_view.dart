@@ -45,21 +45,23 @@ class SignUpView extends StackedView<SignUpViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING CHEFS.png',
-                        width: 130.w,
-                        height: 70.h,
+                      SizedBox(
+                        width: 150.w,
+                        height: 80.h,
+                        child: Image.asset(
+                          'assets/images/logo/SAILING CHEFS.png',
+                        ),
                       ),
                       RoundedElevatedButton(
-                        width: 80.w,
-                        height: 14.h,
-
+                        width: 81.dg,
+                        height: 34,
+                        textFontSize: 14.sp,
+                        textFontWeight: FontWeight.w600,
                         onPressed: () {
                           viewModel.toLogin();
                         },
-                        buttonText: 'Login',
+                        buttonText: 'login',
                         isEnabled: true,
-                        // other optional parameters can be provided here
                       ),
                     ],
                   ),
@@ -68,11 +70,11 @@ class SignUpView extends StackedView<SignUpViewModel> {
                   Text(
                     'Let\'s Create Your Account ',
                     style: globalTextStyle(
-                        fontSize: 20.sp, fontWeight: FontWeight.w700),
+                        fontSize: 20.sp, fontWeight: FontWeight.w600),
                   ),
                   verticalSpaceSmall,
                   Text(
-                    'Sign up as',
+                    'sign up as',
                     style: globalTextStyle(
                         fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
@@ -122,7 +124,6 @@ class SignUpView extends StackedView<SignUpViewModel> {
                             viewModel.signup();
                           },
                           buttonText: 'Create Account',
-                          // other optional parameters can be provided here
                         ),
                       ],
                     ),

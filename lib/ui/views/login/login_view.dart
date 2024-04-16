@@ -46,19 +46,24 @@ class LoginView extends StackedView<LoginViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING CHEFS.png',
-                        width: 130.w,
-                        height: 70.h,
+                      SizedBox(
+                        width: 150.w,
+                        height: 80.h,
+                        child: Image.asset(
+                          'assets/images/logo/SAILING CHEFS.png',
+                        ),
                       ),
                       RoundedElevatedButton(
                         onPressed: viewModel.toSignUp,
-                        buttonText: 'Sign up',
-                        width: 80.dg,
-                        height: 14.dg,
-                        textFontSize: getResponsiveLargeFontSize(context),
+                        buttonText: 'sign up',
+                        textColor: kclightgreencolor,
+                        buttonColor: kcWhiteColor,
+                        width: 81.dg,
+                        height: 34,
+                        textFontSize: 16.sp,
+                        textFontWeight: FontWeight.w600,
                         isEnabled: true,
-                      )
+                      ),
                     ],
                   ),
                   verticalSpaceLarge,

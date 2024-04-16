@@ -10,24 +10,24 @@ class OrDesign extends StatelessWidget {
       children: [
         Expanded(
           child: Divider(
-            indent: 40.dg,
+            indent: 60.dg,
             endIndent: 20,
-            color: kcWhiteColor.withOpacity(0.5),
+            color: kclightgreencolor,
             thickness: 1,
           ),
         ),
         Text(
           'or',
           style: globalTextStyle(
-              fontSize: 15.sp,
+              fontSize: 16.sp,
               color: kcWhiteColor,
               fontWeight: FontWeight.w400),
         ),
         Expanded(
           child: Divider(
             indent: 20,
-            endIndent: 40.dg,
-            color: kcWhiteColor.withOpacity(0.5),
+            endIndent: 60.dg,
+            color: kclightgreencolor,
             thickness: 1,
           ),
         ),
