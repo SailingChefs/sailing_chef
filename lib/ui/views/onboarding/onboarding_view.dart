@@ -3,8 +3,7 @@ import '../../../core/imports/core_imports.dart';
 import 'onboarding_viewmodel.dart';
 
 class OnboardingView extends StackedView<OnboardingViewModel> {
-  const OnboardingView({Key? key}) : super(key: key);
-
+  const OnboardingView( {Key? key}) : super(key: key);
   @override
   Widget builder(
     BuildContext context,
@@ -23,7 +22,6 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
             onPageChanged: (value) => viewModel.setCurrentIndex(value),
             itemBuilder: (context, index) {
               return Stack(
-                // alignment: Alignment.bottomCenter,
                 children: [
                   Image.asset(
                     viewModel.pages[index].image,
@@ -33,6 +31,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                   ),
                   Positioned.fill(
                     child: Container(
+                     
                       height: screenHeight(context),
                       width: double.infinity,
                       decoration: const BoxDecoration(
@@ -61,16 +60,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                               ),
                             ),
                             SizedBox(height: 12.h),
-                            Text(
-                              viewModel
-                                  .pages[viewModel.currentPage].description,
-                              textAlign: TextAlign.center,
-                              style: globalTextStyle(
-                                fontSize: 16.sp,
-                                color: kcWhiteColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                            viewModel.getFormattedDescription(index),
                             verticalSpaceLarge,
                           ],
                         ),

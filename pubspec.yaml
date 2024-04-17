@@ -44,7 +44,8 @@ dependencies:
   permission_handler: ^11.3.1
   font_awesome_flutter: ^10.7.0
   lottie: ^3.1.0
-  intl: ^0.19.0
+  # intl: ^0.19.0
+  device_preview: ^1.1.0
   
  
   
@@ -74,4 +75,10 @@ fonts:
         - asset: assets/fonts/Inter-Medium.ttf
         - asset: assets/fonts/Inter-Regular.ttf
         - asset: assets/fonts/Inter-Bold.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/CaviarDreams.ttf
+        - asset: assets/fonts/CaviarDreams_Bold.ttf
+        - asset: assets/fonts/CaviarDreams_BoldItalic.ttf
+        - asset: assets/fonts/CaviarDreams_Italic.ttf
 

@@ -10,11 +10,15 @@ const Color kcMediumGrey = Color(0xFF85A09F);
 Color kcLightGrey = const Color(0xFF80B5A0).withOpacity(0.8);
 const Color kcVeryLightGrey = Color(0xFFE3E3E3);
 const Color kcVerybg = Color(0xFFF2F3F5);
-
+const Color kclightgreycolor = Color(0xFFD0DBEA);
+const Color kclightgreencolor = Color(0xFF61A389);
+const Color kcsgreycolor = Color(0xFFF0F4EF);
+//F0F4EF
 const Color kcBackgroundColor = Color.fromARGB(1, 108, 144, 141);
 const Color kcErrorColor = Color.fromARGB(255, 253, 0, 0);
 const Color ontop = Color.fromARGB(30, 93, 109, 1);
 const Color kcwhitecolor = Color(0xFFFFFFFF);
+
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,
   <int, Color>{

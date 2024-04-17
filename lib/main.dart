@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,8 @@ import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'core/theme/text_styles.dart';
+import 'package:device_preview/device_preview.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +38,11 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
-  runApp(const MainApp());
+  runApp(
+  DevicePreview(
+    enabled: kDebugMode,
+    builder: (context) => const MainApp(), 
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -56,11 +63,14 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
+                  locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(
               primaryColor: kcPrimaryColor,
               primarySwatch: primarySwatch,
+              
               fontFamily: 'Inter',
               appBarTheme: AppBarTheme(
                 color: Colors.white,
@@ -73,7 +83,7 @@ class MainApp extends StatelessWidget {
             navigatorObservers: [
               StackedService.routeObserver,
             ],
-            builder: EasyLoading.init(),
+            // builder: EasyLoading.init(),
           ),
         ),
       ),

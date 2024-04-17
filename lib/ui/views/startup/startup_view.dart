@@ -17,7 +17,6 @@ class StartupView extends StackedView<StartupViewModel> {
       home: Scaffold(
         body: Stack(
           children: [
-            // Background Image
             Positioned.fill(
               child: Image.asset(
                 'assets/images/background/background.png',
@@ -27,7 +26,7 @@ class StartupView extends StackedView<StartupViewModel> {
                 width: double.infinity,
               ),
             ),
-            // Centered Left Text
+            
             Positioned(
               top: 200,
               left: 35,

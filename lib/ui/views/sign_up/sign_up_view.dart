@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/or_design.dart';
@@ -45,40 +47,42 @@ class SignUpView extends StackedView<SignUpViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING CHEFS.png',
-                        width: 130.w,
-                        height: 70.h,
+                      SizedBox(
+                        width: 150.w,
+                        height: 80.h,
+                        child: Image.asset(
+                          'assets/images/logo/SAILING CHEFS.png',
+                        ),
                       ),
                       RoundedElevatedButton(
-                        width: 80.w,
-                        height: 14.h,
-
+                        width: 103.dg,
+                        height: 34,
+                        textFontSize: 14.sp,
+                        textFontWeight: FontWeight.w600,
+                        textColor: kclightgreencolor,
                         onPressed: () {
                           viewModel.toLogin();
                         },
-                        buttonText: 'Login',
+                        buttonText: 'login',
                         isEnabled: true,
-                        // other optional parameters can be provided here
                       ),
                     ],
                   ),
-                  verticalSpaceMedium,
-                  verticalSpaceSmall,
+                  verticalSpace(MediaQuery.of(context).size.height*0.05),
                   Text(
-                    'Let\'s Create Your Account ',
+                    'Lets create your account',
                     style: globalTextStyle(
-                        fontSize: 20.sp, fontWeight: FontWeight.w700),
+                        fontSize: 20.sp, fontWeight: FontWeight.w600),
                   ),
-                  verticalSpaceSmall,
+                 verticalSpace(MediaQuery.of(context).size.height*0.010),
                   Text(
-                    'Sign up as',
+                    'sign up as',
                     style: globalTextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.w400),
+                        fontSize: 16.sp, fontWeight: FontWeight.w400),
                   ),
-                  verticalSpaceMedium,
+                  verticalSpace(MediaQuery.of(context).size.height*0.028),
                   RoleSelector(viewModel: viewModel),
-                  verticalSpaceLarge,
+                  verticalSpace(MediaQuery.of(context).size.height*0.05),
                   Form(
                     key: viewModel.formKey,
                     child: Column(
@@ -89,16 +93,14 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           validator: viewModel.validateName,
                           keyboardType: TextInputType.name,
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
+                        verticalSpace(MediaQuery.of(context).size.height*0.020),
                         RoundedTransparentTextField(
                           controller: viewModel.emailController,
                           labelText: 'Email',
                           validator: viewModel.validateEmail,
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
+                        verticalSpace(MediaQuery.of(context).size.height*0.020),
                         RoundedTransparentTextField(
                           controller: viewModel.passwordController,
                           labelText: 'Password',
@@ -110,27 +112,53 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           },
                           validator: viewModel.validatePassword,
                         ),
-                        verticalSpaceMedium,
-                        verticalSpaceSmall,
+                        verticalSpace(MediaQuery.of(context).size.height*0.040),
                         RoundedElevatedButton(
                           textFontSize: 12.sp,
                           width: 240.w,
-                          height: 40.h,
+                          height: 34.h,
                           borderRadius: 30,
+                          textColor: kclightgreencolor,
                           isEnabled: viewModel.isSignupButtonEnabled(),
                           onPressed: () {
                             viewModel.signup();
                           },
-                          buttonText: 'Create Account',
-                          // other optional parameters can be provided here
+                          buttonText: 'create account',
                         ),
                       ],
                     ),
                   ),
-                  verticalSpaceLarge,
+                  verticalSpace(MediaQuery.of(context).size.height*0.030),
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: OrDesign(),
+                  ),
+                  verticalSpace(MediaQuery.of(context).size.height*0.070),
+                  GestureDetector(
+                    onTap: viewModel.toLogin,
+                    child: RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          
+                          TextSpan(
+                            text: 'login',
+                            style: globalTextStyle(
+                              color: kcwhitecolor,
+                              fontWeight: FontWeight.w600, fontSize: 16.sp,
+                            ),
+                          ),
+                          
+                          TextSpan(
+                            text: ' to existing account',
+                            style: globalTextStyle(
+                              color: kcwhitecolor,
+                              fontWeight: FontWeight.w400, fontSize: 16.sp,
+                            ),
+                          ),
+                          
+                        ],
+                      ),
+                    ),
                   ),
                 ]),
               ),

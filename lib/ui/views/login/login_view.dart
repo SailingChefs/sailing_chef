@@ -46,53 +46,57 @@ class LoginView extends StackedView<LoginViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING CHEFS.png',
-                        width: 130.w,
-                        height: 70.h,
+                      SizedBox(
+                        width: 150.w,
+                        height: 80.h,
+                        child: Image.asset(
+                          'assets/images/logo/SAILING CHEFS.png',
+                        ),
                       ),
                       RoundedElevatedButton(
                         onPressed: viewModel.toSignUp,
-                        buttonText: 'Sign up',
-                        width: 80.dg,
-                        height: 14.dg,
-                        textFontSize: getResponsiveLargeFontSize(context),
+                        buttonText: 'sign up',
+                        textColor: kclightgreencolor,
+                        buttonColor: kcWhiteColor,
+                        width: 103.dg,
+                        height: 34,
+                        textFontSize: 14.sp,
+                        textFontWeight: FontWeight.w600,
                         isEnabled: true,
-                      )
+                      ),
                     ],
                   ),
-                  verticalSpaceLarge,
+                 verticalSpace(MediaQuery.of(context).size.height*0.088),
                   Text(
-                    'Welcome Back ',
+                    'welcome back ',
                     style: globalTextStyle(
                         fontSize: 20.sp,
                         color: kcWhiteColor,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w600),
                   ),
-                  verticalSpaceSmall,
+                  verticalSpace(MediaQuery.of(context).size.height*0.015),
                   Text(
-                    'Login Here',
+                    'login here',
                     style: globalTextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         color: kcWhiteColor,
                         fontWeight: FontWeight.w400),
                   ),
-                  verticalSpaceLarge,
+                  verticalSpace(MediaQuery.of(context).size.height*0.060),
                   Form(
                     key: viewModel.formKey,
                     child: Column(
                       children: [
                         RoundedTransparentTextField(
                           controller: viewModel.emailController,
-                          labelText: 'Email',
+                          labelText: 'email',
                           validator: viewModel.validateEmail,
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
+                        verticalSpace(MediaQuery.of(context).size.height*0.027),
                         RoundedTransparentTextField(
                           controller: viewModel.passwordController,
-                          labelText: 'Password',
+                          labelText: 'password',
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: !viewModel.showPassword,
                           suffixIcon: true,
@@ -101,18 +105,19 @@ class LoginView extends StackedView<LoginViewModel> {
                             viewModel.passwordVisibility();
                           },
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
+                        verticalSpace(MediaQuery.of(context).size.height*0.014),
                         CustomTextButton(
                           onPressed: () {},
-                          buttonText: 'Forget Password?',
-                          // other optional parameters can be provided here
+                          buttonText: 'forget password?',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          textColor: kcWhiteColor,
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
+                        verticalSpace(MediaQuery.of(context).size.height*0.045),
                         RoundedElevatedButton(
                           onPressed: viewModel.login,
-                          buttonText: 'Login',
+                          textColor:  kclightgreencolor,
+                          buttonText: 'login',
                           width: 144.dg,
                           height: 40.dg,
                           textFontSize: 18.sp,

@@ -1,3 +1,6 @@
+
+
+import 'dart:core';
 import 'dart:developer';
 import 'dart:io';
 
@@ -122,17 +125,16 @@ Future<List<RecipeModel>> fetchAllRecipes() async {
 
   try {
     EasyLoading.show();
-    // Fetches all documents from the 'recipes' collection
+    
     QuerySnapshot snapshot = await firebasestore
       .collection('recipes')
-      .where('uid', isNotEqualTo: '123456') // Exclude documents where 'uid' equals '123456'
+      .where('uid', isNotEqualTo: '123456') 
       .get();
 
-    // Maps each DocumentSnapshot to a RecipeModel
     List<RecipeModel> recipes = [];
     for (var doc in snapshot.docs) {
       RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-      // Fetch user details by UID and assign it to the recipe
+      
       UserModel? user = await _userService.fetchUserByUID(recipe.uid);
       recipe.user = user;
       recipes.add(recipe);
@@ -144,7 +146,7 @@ Future<List<RecipeModel>> fetchAllRecipes() async {
   } catch (e) {
     EasyLoading.dismiss();
     log("Error fetching recipes: $e");
-    return []; // Return an empty list on error
+    return []; 
   }
 }
 
