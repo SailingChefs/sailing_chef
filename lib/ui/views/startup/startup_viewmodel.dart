@@ -29,7 +29,7 @@ class StartupViewModel extends BaseViewModel {
     await Future.delayed(const Duration(seconds: 3));
 
     checkFirstTime().then((isFirstTime) async {
-      if (!isFirstTime) {
+      if (isFirstTime) {
         _navigationService.replaceWithOnboardingView();
       } else {
         if (firebaseAuth.currentUser == null) {

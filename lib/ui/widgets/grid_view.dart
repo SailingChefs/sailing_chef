@@ -41,7 +41,7 @@ class PrimaryGridViewCard extends  StatelessWidget{
           children: [
                SizedBox(
               height: screenHeight <= 690 ? MediaQuery.sizeOf(context).height * 0.3.h :
-              MediaQuery.sizeOf(context).height * 0.2.h,
+              MediaQuery.sizeOf(context).height * 0.21.h,
               child: Positioned.fill(
                 
                 child: ClipRRect(

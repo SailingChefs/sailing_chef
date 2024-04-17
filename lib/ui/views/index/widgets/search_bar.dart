@@ -11,7 +11,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
       child: Row(
         children: [
           SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.7,
+            width: MediaQuery.sizeOf(context).width * 0.74,
             height: 42.dg,
             child: GestureDetector(
               onTap: () {
