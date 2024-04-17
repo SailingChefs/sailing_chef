@@ -2,12 +2,12 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:intl/intl.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
-import 'package:sailing_chefs/model/dish_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -15,17 +15,12 @@ import '../../../core/imports/core_imports.dart';
 class ChefProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
+  final _recipeService = locator<RecipeService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
-  
-  List<DishModel> dishes=[
-    DishModel(
-         dishId: '1', dishName: 'Healthy Taco Salad', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '20', dishChefImage:'assets/images/icons/dp.jpg',),
-    DishModel(
-         dishId: '2', dishName: 'Healthy Sandwich', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '30', dishChefImage:'assets/images/icons/dp.jpg',),
-  ];
+  List<RecipeModel>? chefRecipes;
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -44,6 +39,7 @@ class ChefProfileViewModel extends BaseViewModel {
    void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
+    chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
     setBusy(false);
   }
 
@@ -69,15 +65,17 @@ class ChefProfileViewModel extends BaseViewModel {
       ],
       latestMessage: '',
       users: [
-        chef.uid!,
         FirebaseAuth.instance.currentUser!.uid, 
+        chef.uid!,
+        
       ],
       latestMessageType: 'text',
-      latestMessageTime: DateFormat.jm().format(DateTime.now()),
-      lastActive: DateFormat.jm().format(DateTime.now()),
-      uid: "blahblah"
+      latestMessageTime: DateTime.now(),
+      lastActive: DateTime.now(),
+      uid: "",
     );
-    String conversationId = await _serviceConversations.createConversation(conversationModel);
+    String conversationId = await _serviceConversations.createOrUpdateConversation(conversationModel);
+    log('conversationId: $conversationId');
     _navigationService.navigateToChatView(user:chef, conversationId:conversationId);
   }
   
@@ -106,8 +104,11 @@ class ChefProfileViewModel extends BaseViewModel {
   }
 
 
-  void toDishDetailsScreen() {
-   // _navigationService.navigateToSavedRecipeDetailsView();
+  void toDishDetailsScreen(index) {
+   _navigationService.navigateToSavedRecipeDetailsView(
+    recipeModel: chefRecipes![index]
+
+   );
   }
 
   void showRecipeList() {

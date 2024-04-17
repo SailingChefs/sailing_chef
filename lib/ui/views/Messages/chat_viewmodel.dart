@@ -40,7 +40,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
             timestamp: DateTime.now(),
-            type: 'image',
           ),
           conversationId);
 
@@ -62,7 +61,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
             timestamp: DateTime.now(),
-            type: 'text',
           ),
           conversationId);
       scrollController.animateTo(
@@ -82,7 +80,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   void moveBack() {
-    _navigationLoactor.back();
+    _navigationLoactor.navigateToChatListView();
   }
 
   @override

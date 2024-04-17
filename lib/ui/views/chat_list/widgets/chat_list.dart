@@ -23,7 +23,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
               itemBuilder: (BuildContext context, int index) {
                 ConversationModel conversation = snapshot.data![index];
                 DateTime dateTime =
-                    DateTime.parse(conversation.latestMessageTime);
+                    DateTime.parse(conversation.latestMessageTime.toString());
                 int hour = dateTime.hour;
                 int minute = dateTime.minute;
 
@@ -50,7 +50,20 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(5),
                           title: Text(conversation.name),
-                          subtitle: Text(conversation.latestMessage),
+                          subtitle: conversation.latestMessageType == 'String' ?
+                           Text(conversation.latestMessage ,
+                           
+                            style: TextStyle(
+                              color: kcPrimaryColor.withOpacity(0.5),
+                              fontSize: 12.sp
+                            ),
+                          ):
+                           Text('Sent an attachement',
+                            style: TextStyle(
+                              color: kcPrimaryColor.withOpacity(0.5),
+                              fontSize: 12.sp
+                            ),
+                          ),
                           leading: CircleAvatar(
                             radius: 30,
                             backgroundImage:
@@ -59,6 +72,10 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                           trailing: Text(
                               '${twoDigits(hour12)}:${twoDigits(minute)} $period'),
                         )),
+                    const Divider(
+                      color: kcVeryLightGrey,
+                      thickness: 0.5,
+                    ),
                   ],
                 );
               },

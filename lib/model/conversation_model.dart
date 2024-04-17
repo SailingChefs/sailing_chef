@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 
 class ConversationModel {
   String name;
   List<String> imageTitle; 
   bool isOnline;
-  String lastActive;
+  DateTime lastActive;
   String latestMessage;
-  String latestMessageTime;
+  DateTime latestMessageTime;
   String latestMessageType;
   String uid;
   List<String> users;
@@ -26,18 +25,17 @@ class ConversationModel {
 
   factory ConversationModel.fromDocument(DocumentSnapshot doc) {
     return ConversationModel(
-      name: doc['Name'],
-      imageTitle: List<String>.from(doc['imageTitle']),
-      isOnline: doc['isOnline'],
-      lastActive: doc['lastActive'],
-      latestMessage: doc['latestMessage'],
-      latestMessageTime: doc['latestMessageTime'],
-      latestMessageType: doc['latestMessageType'],
+      name: doc.get('Name'),
+      imageTitle: List<String>.from(doc.get('imageTitle')),
+      isOnline: doc.get('isOnline'),
+      lastActive: (doc.get('lastActive') as Timestamp).toDate(),
+      latestMessage: doc.get('latestMessage'),
+      latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
+      latestMessageType: doc.get('latestMessageType'),
       uid: doc.id,
-      users: List<String>.from(doc['users']),
+      users: List<String>.from(doc.get('users')),
     );
   }
-
   Map<String, dynamic> toJson() {
     return {
       'Name': name,
@@ -45,7 +43,7 @@ class ConversationModel {
       'isOnline': isOnline,
       'lastActive': lastActive,
       'latestMessage': latestMessage,
-      'latestMessageTime': DateFormat.jm().format(latestMessageTime as DateTime).toString(),
+      'latestMessageTime': latestMessageTime,
       'latestMessageType': latestMessageType,
       'uid': uid,
       'users': List<dynamic>.from(users),

@@ -15,7 +15,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
         children: [
           Column(
             children: [
-              verticalSpaceLarge,
+          
               Container(
                 height: 94.h,
                 width: 94.w,
@@ -52,7 +52,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '12',
+                  viewModel.chefRecipes!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

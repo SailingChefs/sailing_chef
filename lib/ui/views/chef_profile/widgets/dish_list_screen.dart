@@ -1,22 +1,24 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/dish_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/grid_view.dart';
 
 class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
-  const DishListScreen({super.key});
+  final UserModel user;
+  const DishListScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
    const double itemHeight =
         7.4 / 9 * 140; 
-    final int itemCount = viewModel.dishes.length;
+    final int itemCount = viewModel.chefRecipes!.length;
     double totalHeight = itemHeight * itemCount;
-    final List<DishModel> dishes = viewModel.dishes;
-    return SizedBox(
+    final List<RecipeModel> recipes = viewModel.chefRecipes!;
+    return viewModel.chefRecipes!.isEmpty ? const Center(child: Text('No Recipe Found')) : SizedBox(
       height: totalHeight.h,
       child: GridView.builder(
-        itemCount: dishes.length,
+        itemCount: recipes.length,
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -27,11 +29,11 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridViewCard(
-            onTap: viewModel.toDishDetailsScreen,
-              foodImagePath: dishes[index].dishImagePath,
-              dishName: dishes[index].dishName,
-              duration: dishes[index].dishPreparationTime,
-              chefImagePath: dishes[index].dishChefImage,
+            onTap:() => viewModel.toDishDetailsScreen(index),
+              foodImagePath: recipes[index].coverImage.first,
+              dishName: recipes[index].title,
+              duration: recipes[index].prepTime,
+              chefImagePath: user.displayPicture!,
             );
         },
       ),

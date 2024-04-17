@@ -37,12 +37,12 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
           //           : const SizedBox(),
           //     ),
           //   ],
-          if (message.senderId != userDetails!.uid) ...[
+          if (message.senderId == userDetails!.uid) ...[
             Expanded(
               child: Column(
-                crossAxisAlignment: message.senderId != userDetails!.uid
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
+                crossAxisAlignment: message.senderId == userDetails!.uid
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: <Widget>[
                   if (message.content.isNotEmpty)
                     Row(
