@@ -106,8 +106,6 @@ Stream<Future<List<ConversationModel>>> setConversations(){
   });
 }
 
-  final CollectionReference _conversationsCollection =
-      FirebaseFirestore.instance.collection('conversations');
 
   Future<String?> checkConversationExistence(List<String> userIds) async {
     try {

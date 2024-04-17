@@ -45,7 +45,8 @@ dependencies:
   permission_handler: ^11.3.1
   font_awesome_flutter: ^10.7.0
   lottie: ^3.1.0
-  intl: ^0.19.0
+  # intl: ^0.19.0
+  device_preview: ^1.1.0
   
  
   

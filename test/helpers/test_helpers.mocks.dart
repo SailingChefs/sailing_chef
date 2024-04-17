@@ -719,6 +719,31 @@ class MockRecipeService extends _i1.Mock implements _i8.RecipeService {
         returnValue: _i6.Future<List<String>>.value(<String>[]),
         returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
       ) as _i6.Future<List<String>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchRecipesByUID(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchRecipesByUID,
+          [uid],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
+
+  @override
+  _i6.Future<List<_i9.RecipeModel>> fetchAllRecipes() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchAllRecipes,
+          [],
+        ),
+        returnValue:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.RecipeModel>>.value(<_i9.RecipeModel>[]),
+      ) as _i6.Future<List<_i9.RecipeModel>>);
 }
 
 /// A class which mocks [LocationService].
@@ -767,16 +792,18 @@ class MockConversationService extends _i1.Mock
         ),
       ) as String);
 
-  _i6.Future<String> createConversation(_i13.ConversationModel? conversation) =>
+  @override
+  _i6.Future<String> createOrUpdateConversation(
+          _i13.ConversationModel? conversation) =>
       (super.noSuchMethod(
         Invocation.method(
-          #createConversation,
+          #createOrUpdateConversation,
           [conversation],
         ),
         returnValue: _i6.Future<String>.value(_i4.dummyValue<String>(
           this,
           Invocation.method(
-            #createConversation,
+            #createOrUpdateConversation,
             [conversation],
           ),
         )),
@@ -784,7 +811,7 @@ class MockConversationService extends _i1.Mock
             _i6.Future<String>.value(_i4.dummyValue<String>(
           this,
           Invocation.method(
-            #createConversation,
+            #createOrUpdateConversation,
             [conversation],
           ),
         )),
@@ -801,6 +828,19 @@ class MockConversationService extends _i1.Mock
         returnValueForMissingStub:
             _i6.Stream<List<_i13.ConversationModel>>.empty(),
       ) as _i6.Stream<List<_i13.ConversationModel>>);
+
+  @override
+  _i6.Stream<_i6.Future<List<_i13.ConversationModel>>> setConversations() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setConversations,
+          [],
+        ),
+        returnValue:
+            _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>.empty(),
+        returnValueForMissingStub:
+            _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>.empty(),
+      ) as _i6.Stream<_i6.Future<List<_i13.ConversationModel>>>);
 
   @override
   _i6.Future<String?> checkConversationExistence(List<String>? userIds) =>

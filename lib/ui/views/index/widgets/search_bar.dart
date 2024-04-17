@@ -6,52 +6,55 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    return Row(
-      children: [
-        SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.75,
-          height: 35.dg,
-          child: GestureDetector(
-            onTap: () {
-              viewModel.goToSearchView();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: kcPrimaryColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.search_rounded,
-                    color: kcPrimaryColor,
-                    size: 22.dg,
-                  ),
-                  horizontalSpaceSmall,
-                  Text(
-                    'Search',
-                    style: globalTextStyle(
-                      fontSize: 16.sp,
-                      color: kcPrimaryColor,
-                      fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.only(left:5.0),
+      child: Row(
+        children: [
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.7,
+            height: 42.dg,
+            child: GestureDetector(
+              onTap: () {
+                viewModel.goToSearchView();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kcsgreycolor,
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      FlutterRemix.search_line,
+                      color: kcBlackColor.withOpacity(0.6),
+                      size: 20.dg,
                     ),
-                  ),
-                ],
+                    horizontalSpaceSmall,
+                    Text(
+                      'Search',
+                      style: globalTextStyle(
+                        fontSize: 16.sp,
+                        color: kcBlackColor.withOpacity(0.6),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        horizontalSpaceSmall,
-        IconButton(
-          onPressed: () {
-            viewModel.goToFilterView();
-          },
-          icon: const Icon(FlutterRemix.equalizer_line),
-          color: kcPrimaryColor,
-          iconSize: 30.dg,
-        ),
-      ],
+          horizontalSpaceSmall,
+          IconButton(
+            onPressed: () {
+              viewModel.goToFilterView();
+            },
+            icon: const Icon(FlutterRemix.equalizer_line),
+            color: kcPrimaryColor,
+            iconSize: 30.dg,
+          ),
+        ],
+      ),
     );
   }
 }

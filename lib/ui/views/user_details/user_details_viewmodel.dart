@@ -189,4 +189,8 @@ String? validateBoatName(String? value) {
   void skipToHome() {
     _navigationService.navigateToIndexView();
   }
+
+    void moveBack() {
+    _navigationService.back();
+  }
 }

@@ -11,6 +11,7 @@ class ProfilePictureUserDetailsScreen
     return Center(
       child: Stack(
         children: [
+          
           viewModel.selectedImagePath == null
               ? Container(
                   height: MediaQuery.sizeOf(context).height * 0.12,
@@ -71,10 +72,10 @@ class ProfilePictureUserDetailsScreen
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: kcWhiteColor),
               child: IconButton(
-                icon: const Icon(
+                icon:  Icon(
                   FlutterRemix.camera_fill,
                   size: 20,
-                  color: kcMediumGrey,
+                  color: kcBlackColor.withOpacity(0.6),
                 ),
                 onPressed: () {
                   showModalBottomSheet(

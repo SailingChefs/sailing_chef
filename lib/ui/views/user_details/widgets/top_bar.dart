@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
@@ -10,19 +11,22 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.only(left: 8.0.dg),
-          height: 36.h,
-          width: 36.w,
-          decoration: const BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: kcPrimaryColor,
-            size: 20.sp,
+        GestureDetector(
+          onTap: () => viewModel.moveBack(),
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 8.0.dg),
+            height: 36.h,
+            width: 36.w,
+            decoration: const BoxDecoration(
+              color: kcVeryLightGrey,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: kcPrimaryColor,
+              size: 20.sp,
+            ),
           ),
         ),
         Text(
@@ -34,9 +38,9 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
         ),
         CustomTextButton(
           onPressed: () {
-            viewModel.skipToHome();
+            // viewModel.skipToHome();
           },
-          buttonText: 'Skip',
+          buttonText: '',
           textColor: Colors.black.withOpacity(0.6),
         ),
       ],

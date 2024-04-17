@@ -11,34 +11,30 @@ class OnboardingViewModel extends BaseViewModel {
 
   OnboardingViewModel() : pages = _initializeOnboardPages();
   static List<String> descriptions = [
-    'Follow your favorite chefs, save recipes and connect with those that inspire you.',
-    'Upload and share your recipes. Connect with crew, guests and provisioners. Showcase your creations and make it what you want.',
-    'Seeking inspiration for your next meal or looking to recruit the best chefs.',
-    'Seeking inspiration for your next meal or looking to recruit the best chefs.',
+    '@Follow@ your favorite chefs, @save@ recipes and @connect@ with those that inspire you.',
+    '@Upload@ and share your recipes. @Connect@ with @crew@, @guests and provisioners@. Showcase your creations and @make it what you want@.',
+    '@Promote@ your courses and recruit new \nstudents. ',
+    'Seeking @inspiration@ for your next meal or looking to @recruit@ the best chefs.',
   ];
 
   static List<OnboardModel> _initializeOnboardPages() {
     List<OnboardModel> pages = [
       OnboardModel(
-        image: 'assets/images/background/onboarding1.png',
-        title: 'Discovering seagoing chefs and their best recipes.',
-        description: descriptions[0]
-      ),
+          image: 'assets/images/background/onboarding1.png',
+          title: 'Discovering seagoing chefs and their best recipes.',
+          description: descriptions[0]),
       OnboardModel(
-        image: 'assets/images/background/onboarding2.png',
-        title: 'Join as a chef',
-        description:  descriptions[1]
-      ),
+          image: 'assets/images/background/onboarding2.png',
+          title: 'Join as a chef',
+          description: descriptions[1]),
       OnboardModel(
-        image: 'assets/images/background/onboarding3.png',
-        title: 'Join as a culinary school',
-         description:  descriptions[2]
-      ),
+          image: 'assets/images/background/onboarding.png',
+          title: 'Join as a culinary school',
+          description: descriptions[2]),
       OnboardModel(
-        image: 'assets/images/background/onboarding4.png',
-        title: 'Join as a guest',
-         description:  descriptions[3]
-      ),
+          image: 'assets/images/background/onboarding4.png',
+          title: 'Join as a guest',
+          description: descriptions[3]),
     ];
 
     for (var model in pages) {
@@ -46,6 +42,11 @@ class OnboardingViewModel extends BaseViewModel {
     }
 
     return pages;
+  }
+
+  Widget getFormattedDescription(int index) {
+    
+    return pages[index].getFormattedDescription();
   }
 
   void setCurrentIndex(int index) {

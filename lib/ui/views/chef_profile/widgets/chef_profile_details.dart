@@ -27,7 +27,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     child: Image.network(
                       user.displayPicture ?? '',
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                       height: 87,
                       width: 87,
                     )),
