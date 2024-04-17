@@ -71,12 +71,7 @@ class AddRecipeViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void showPreviousImage() {
-    if (pageController.page! > 0) {
-      pageController.previousPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    }
-  }
+ 
 
   void deleteCurrentImage() {
     selectedImages.removeAt(pageController.page!.round());
@@ -84,6 +79,12 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+ void showPreviousImage() {
+    if (pageController.page! > 0) {
+      pageController.previousPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
+  }
   // Function to handle swipe to the left (show next image)
   void showNextImage() {
     if (pageController.page! < selectedImages.length - 1) {

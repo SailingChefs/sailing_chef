@@ -9,7 +9,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
    double itemHeight =
-        7.4 / 9 * 140.h; 
+        7.4 / 9 * MediaQuery.sizeOf(context).width * 0.42.w; 
     final int itemCount = viewModel.dishes!.length;
     double totalHeight = itemHeight * itemCount;
     final List<RecipeModel> dishes = viewModel.dishes!;

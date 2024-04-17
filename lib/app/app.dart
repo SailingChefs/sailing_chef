@@ -2,6 +2,7 @@ import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -78,6 +79,7 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     LazySingleton(classType: ChefService),
     LazySingleton(classType: DishesService),
     LazySingleton(classType: UserdataServiceService),
+    LazySingleton(classType: BottomNavBarViewModel)
 // @stacked-service
   ],
   bottomsheets: [

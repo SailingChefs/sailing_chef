@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 class ConversationModel {
-  String name;
-  List<String> imageTitle; 
-  bool isOnline;
+  
   DateTime lastActive;
   String latestMessage;
   DateTime latestMessageTime;
   String latestMessageType;
   String uid;
   List<String> users;
+  UserModel? user;
 
   ConversationModel({
-    required this.name,
-    required this.imageTitle,
-    required this.isOnline,
+   
+    this.user,
     required this.lastActive,
     required this.latestMessage,
     required this.latestMessageTime,
@@ -22,25 +21,32 @@ class ConversationModel {
     required this.uid,
     required this.users,
   });
-
-  factory ConversationModel.fromDocument(DocumentSnapshot doc) {
+  factory ConversationModel.fromDocument(DocumentSnapshot doc, UserModel? otherUser) {
     return ConversationModel(
-      name: doc.get('Name'),
-      imageTitle: List<String>.from(doc.get('imageTitle')),
-      isOnline: doc.get('isOnline'),
       lastActive: (doc.get('lastActive') as Timestamp).toDate(),
       latestMessage: doc.get('latestMessage'),
       latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
       latestMessageType: doc.get('latestMessageType'),
       uid: doc.id,
       users: List<String>.from(doc.get('users')),
+      user: otherUser,
     );
   }
+  // factory ConversationModel.fromDocument(DocumentSnapshot doc) {
+  //   return ConversationModel(
+    
+     
+  //     lastActive: (doc.get('lastActive') as Timestamp).toDate(),
+  //     latestMessage: doc.get('latestMessage'),
+  //     latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
+  //     latestMessageType: doc.get('latestMessageType'),
+  //     uid: doc.id,
+  //     users: List<String>.from(doc.get('users')),
+  //   );
+  // }
   Map<String, dynamic> toJson() {
     return {
-      'Name': name,
-      'imageTitle': List<dynamic>.from(imageTitle),
-      'isOnline': isOnline,
+      
       'lastActive': lastActive,
       'latestMessage': latestMessage,
       'latestMessageTime': latestMessageTime,

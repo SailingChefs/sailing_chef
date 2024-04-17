@@ -1,7 +1,7 @@
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
@@ -80,12 +80,12 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   void moveBack() {
-    _navigationLoactor.navigateToChatListView();
+    _navigationLoactor.back();
+   
   }
 
   @override
   void onData(data) {
-    log('data is here on data');
     if(data == null) return;
     messages = data;
     textController.clear();

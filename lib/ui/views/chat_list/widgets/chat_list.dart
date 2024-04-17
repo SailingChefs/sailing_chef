@@ -49,25 +49,20 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                         },
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(5),
-                          title: Text(conversation.name),
+                          title: Text(conversation.user!.displayName!,),
                           subtitle: conversation.latestMessageType == 'String' ?
-                           Text(conversation.latestMessage ,
-                           
-                            style: TextStyle(
-                              color: kcPrimaryColor.withOpacity(0.5),
-                              fontSize: 12.sp
-                            ),
+                           Text(conversation.latestMessage.toString(),
+                           overflow: TextOverflow.ellipsis,
+                           maxLines: 1,
+                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
                           ):
                            Text('Sent an attachement',
-                            style: TextStyle(
-                              color: kcPrimaryColor.withOpacity(0.5),
-                              fontSize: 12.sp
-                            ),
+                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
                           ),
                           leading: CircleAvatar(
-                            radius: 30,
+                            radius: 30.r,
                             backgroundImage:
-                                NetworkImage(conversation.imageTitle[0]),
+                                NetworkImage(conversation.user!.displayPicture!),
                           ),
                           trailing: Text(
                               '${twoDigits(hour12)}:${twoDigits(minute)} $period'),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -8,6 +9,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
+  
+     double screenHeight = MediaQuery.sizeOf(context).height;
     return  viewModel.chefList!.isEmpty ? Text(
           'No Chef Found',
           style: Theme.of(context).textTheme.titleMedium,
@@ -19,7 +22,12 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           children: [
             Text(
               'Meet your Chef',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: globalTextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
+              ),
+
             ),
             CustomTextButton(
               onPressed: () {},
@@ -31,7 +39,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
         verticalSpaceSmall,
        
         SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.28.h,
+          height: screenHeight  <= 690.0 ? MediaQuery.sizeOf(context).height * 0.4.h :
+          MediaQuery.sizeOf(context).height * 0.3.h,
           width: double.maxFinite,
           child: ListView.builder(
             itemCount: viewModel.chefList!.length,
@@ -45,6 +54,9 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 },
                 child: Container(
                   width: 160.w,
+
+                  // height: containerHeight.h,
+
                   decoration: BoxDecoration(
                     color: kcwhitecolor,
                     boxShadow: [
@@ -61,18 +73,25 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.r),
-                          topRight: Radius.circular(20.r),
-                        ),
-                        child: Image.network(
-                          chef.displayPicture!,
-                          fit: BoxFit.cover,
-                          height: 170.h,
-                          width: double.infinity,
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.r),
+                              topRight: Radius.circular(20.r),
+                            ),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                chef.displayPicture!,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        
+                        
                         ),
                       ),
+                     
                       Padding(
                         padding:  EdgeInsets.all(8.0.dg),
                         child: Text(

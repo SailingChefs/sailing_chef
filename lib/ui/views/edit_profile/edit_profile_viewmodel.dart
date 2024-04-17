@@ -70,6 +70,8 @@ class EditProfileViewModel extends BaseViewModel {
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
+
+    _navigationService.popUntil((route) => route.settings.name==Routes.bottomNavBarView);
     }
   }
 }
