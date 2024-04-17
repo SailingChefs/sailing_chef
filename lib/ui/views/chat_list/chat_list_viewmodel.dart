@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
@@ -27,12 +28,11 @@ class ChatListViewModel extends BaseViewModel {
         log('cheflist: ${selectedConversation.users[0]}');
         log('cheflist: ${selectedConversation.users[1]}');
          log('cheflist: ${chef.uid}');
-        if (chef.uid == selectedConversation.users[0]) {
-          
-          _navigationService.navigateToChatView(user: chef, conversationId:selectedConversation.uid);
+        if (chef.uid == selectedConversation.users[0] && firebaseAuth.currentUser!.uid != chef.uid) {
+          _navigationService.navigateToChatView(receiver: chef, conversationId:selectedConversation.uid);
         }
-        if (chef.uid == selectedConversation.users[1]) {
-          _navigationService.navigateToChatView(user: chef, conversationId:selectedConversation.uid);
+        if (chef.uid == selectedConversation.users[1] && firebaseAuth.currentUser!.uid != chef.uid) {
+          _navigationService.navigateToChatView(receiver: chef, conversationId:selectedConversation.uid);
         }
       }
     } catch (e) {

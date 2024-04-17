@@ -2,7 +2,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -57,12 +56,6 @@ class ChefProfileViewModel extends BaseViewModel {
 
   Future<void> moveToChatScreen(UserModel chef,) async {
     var conversationModel = ConversationModel(
-      isOnline: true,
-      name: chef.displayName!,
-      imageTitle: [
-        chef.displayPicture!,
-        userDetails!.displayPicture!,
-      ],
       latestMessage: '',
       users: [
         FirebaseAuth.instance.currentUser!.uid, 
@@ -76,7 +69,7 @@ class ChefProfileViewModel extends BaseViewModel {
     );
     String conversationId = await _serviceConversations.createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
-    _navigationService.navigateToChatView(user:chef, conversationId:conversationId);
+    _navigationService.navigateToChatView(receiver:chef, conversationId:conversationId);
   }
   
   void toSettings() {

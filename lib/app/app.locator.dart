@@ -19,6 +19,7 @@ import '../services/location_service.dart';
 import '../services/recipe_service.dart';
 import '../services/user_services.dart';
 import '../services/userdata_service_service.dart';
+import '../ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 
@@ -42,4 +43,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ChefService());
   locator.registerLazySingleton(() => DishesService());
   locator.registerLazySingleton(() => UserdataServiceService());
+  locator.registerLazySingleton(() => BottomNavBarViewModel());
 }

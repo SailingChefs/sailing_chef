@@ -1,13 +1,18 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class ConversationService {
+  final _userService = locator<UserServices>();
  
 Future<String> createOrUpdateConversation(ConversationModel conversation) async {
+
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final CollectionReference conversationsCollection = db.collection('conversations');
 
@@ -51,63 +56,82 @@ Future<String> createOrUpdateConversation(ConversationModel conversation) async 
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String currentUserUid = firebaseAuth.currentUser!.uid;
-
   Stream<List<ConversationModel>> getConversations() {
-    log(currentUserUid);
-    return _firestore
-        .collection('conversations')
-        .where('users', arrayContains: currentUserUid)
-        .snapshots()
-        .map((QuerySnapshot querySnapshot) {
-      List<ConversationModel> conversations = [];
-      for (var doc in querySnapshot.docs) {
-        conversations.add(ConversationModel.fromDocument(doc));
-      }
-      // log('Conversations for user $currentUserUid: $conversations');
-      return conversations;
-    }).handleError((error) {
-      log('Error getting conversations for user $currentUserUid: $error');
-      return [];
-    });
-  }
-
-Stream<Future<List<ConversationModel>>> setConversations(){
-  return  FirebaseFirestore.instance
+    
+  return _firestore
       .collection('conversations')
       .where('users', arrayContains: currentUserUid)
       .snapshots()
-      .map((QuerySnapshot querySnapshot) async {
+      .asyncMap((QuerySnapshot querySnapshot) async {
     List<ConversationModel> conversations = [];
-
     for (var doc in querySnapshot.docs) {
-      ConversationModel conversation = ConversationModel.fromDocument(doc);
-
-      QuerySnapshot messageSnapshot = await doc.reference
-          .collection('messages')
-          .orderBy('timestamp', descending: true)
-          .limit(1)
-          .get();
-
-      if (messageSnapshot.docs.isNotEmpty) {
-        DocumentSnapshot latestMessageDoc = messageSnapshot.docs.first;
-        MessageModel latestMessage = MessageModel.fromSnapshot(latestMessageDoc);
-        conversation.latestMessage = latestMessage.content;
-      } else {
-        conversation.latestMessage = ''; 
-      }
-
-      conversations.add(conversation);
+      List<String> users = List<String>.from(doc.get('users'));
+      String otherUserId = users.firstWhere((id) => id != currentUserUid);
+      UserModel? otherUser = await _userService.fetchUserByUID(otherUserId);
+      conversations.add(ConversationModel.fromDocument(doc, otherUser));
     }
-
     return conversations;
   }).handleError((error) {
     log('Error getting conversations for user $currentUserUid: $error');
-    return []; 
+    return [];
   });
 }
 
-  final CollectionReference _conversationsCollection =
-      FirebaseFirestore.instance.collection('conversations');
+  // Stream<List<ConversationModel>> getConversations() {
+  //   log(currentUserUid);
+  //   return _firestore
+  //       .collection('conversations')
+  //       .where('users', arrayContains: currentUserUid)
+  //       .snapshots()
+  //       .map((QuerySnapshot querySnapshot) {
+  //     List<ConversationModel> conversations = [];
+  //     for (var doc in querySnapshot.docs) {
+  //       conversations.add(ConversationModel.fromDocument(doc));
+  //     }
+  //     // log('Conversations for user $currentUserUid: $conversations');
+  //     return conversations;
+  //   }).handleError((error) {
+  //     log('Error getting conversations for user $currentUserUid: $error');
+  //     return [];
+  //   });
+  // }
+
+// Stream<Future<List<ConversationModel>>> setConversations(){
+//   return  FirebaseFirestore.instance
+//       .collection('conversations')
+//       .where('users', arrayContains: currentUserUid)
+//       .snapshots()
+//       .map((QuerySnapshot querySnapshot) async {
+//     List<ConversationModel> conversations = [];
+
+//     for (var doc in querySnapshot.docs) {
+//       ConversationModel conversation = ConversationModel.fromDocument(doc);
+
+//       QuerySnapshot messageSnapshot = await doc.reference
+//           .collection('messages')
+//           .orderBy('timestamp', descending: true)
+//           .limit(1)
+//           .get();
+
+//       if (messageSnapshot.docs.isNotEmpty) {
+//         DocumentSnapshot latestMessageDoc = messageSnapshot.docs.first;
+//         MessageModel latestMessage = MessageModel.fromSnapshot(latestMessageDoc);
+//         conversation.latestMessage = latestMessage.content;
+//       } else {
+//         conversation.latestMessage = ''; 
+//       }
+
+//       conversations.add(conversation);
+//     }
+
+//     return conversations;
+//   }).handleError((error) {
+//     log('Error getting conversations for user $currentUserUid: $error');
+//     return []; 
+//   });
+// }
+
+
 
   Future<String?> checkConversationExistence(List<String> userIds) async {
     try {

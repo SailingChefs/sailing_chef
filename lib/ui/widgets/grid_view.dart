@@ -1,3 +1,4 @@
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -18,9 +19,12 @@ class PrimaryGridViewCard extends  StatelessWidget{
 
   @override
   Widget build(BuildContext context, ) {
+      double screenHeight = MediaQuery.sizeOf(context).height;
+      print(screenHeight);
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        //  height: containerHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0.r),
           color: kcWhiteColor,
@@ -35,19 +39,27 @@ class PrimaryGridViewCard extends  StatelessWidget{
         ),
         child: Stack(
           children: [
-            ClipRRect(
-              borderRadius:
-              BorderRadius.only(
-                topLeft: Radius.circular(15.0.r),
-                topRight: Radius.circular(15.0.r),
-              ),
-              child: Image.network(
-                foodImagePath,
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.19.h,
-                fit: BoxFit.cover,
+               SizedBox(
+              height: screenHeight <= 690 ? MediaQuery.sizeOf(context).height * 0.3.h :
+              MediaQuery.sizeOf(context).height * 0.2.h,
+              child: Positioned.fill(
+                
+                child: ClipRRect(
+                  borderRadius:
+                  BorderRadius.only(
+                    topLeft: Radius.circular(15.0.r),
+                    topRight: Radius.circular(15.0.r),
+                  ),
+                  child: Image.network(
+                
+                    foodImagePath,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
+            
             Positioned(
               top: 5.dg,
               right: 10.dg,
@@ -56,7 +68,7 @@ class PrimaryGridViewCard extends  StatelessWidget{
                 height: 30.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kcBlackColor.withOpacity(0.7),
+                  color: kcBlackColor.withOpacity(0.5),
                 ),
                 child: Icon(
                   Icons.bookmark_border_outlined,
@@ -66,40 +78,57 @@ class PrimaryGridViewCard extends  StatelessWidget{
               ),
             ),
             Positioned(
-              bottom: 35.dg,
-              left: 10.dg,
-              child: Container(
-                width: 70.w,
-                height: 25.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: kcBlackColor.withOpacity(0.7),
-                  borderRadius:  BorderRadius.all(
-                    Radius.circular(20.r),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      FlutterRemix.time_line,
-                      size: 12.dg,
-                      color: kcWhiteColor,
+              left: 5.dg,
+              bottom: 10.dg,
+              // bottom: MediaQuery.of(context).size.height * 0.9 ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 70.w,
+                    height: 25.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: kcBlackColor.withOpacity(0.5),
+                      borderRadius:  BorderRadius.all(
+                        Radius.circular(20.r),
+                      ),
                     ),
-                    Text(
-                      duration,
-                      style: globalTextStyle(fontSize: 10.sp),
-                    )
-                  ],
-                ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          FlutterRemix.time_line,
+                          size: 12.dg,
+                          color: kcWhiteColor,
+                        ),
+                        Text(
+                          duration,
+                          style: globalTextStyle(fontSize: 10.sp),
+                        )
+                      ],
+                    ),
+                  ),
+                  verticalSpaceMedium, 
+                   Text(
+                     capitalizeEachWord(dishName),
+                     maxLines: 1,
+                     overflow: TextOverflow.ellipsis,
+                     style: globalTextStyle(
+                       fontSize: 13.sp,
+                       fontWeight: FontWeight.w500,
+                       color: kcBlackColor.withOpacity(0.6),
+                     ),
+                   ),
+                ],
               ),
             ),
             Positioned(
               bottom: 18.dg,
               right: 10.dg,
               child: Container(
-                width: 35.w,
-                height: 35.h,
+                height: 32.h,
+                width: 32.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: kcWhiteColor,
@@ -111,27 +140,15 @@ class PrimaryGridViewCard extends  StatelessWidget{
                   borderRadius: BorderRadius.circular(30.0.r),
                   child: Image.network(
                     chefImagePath,
-                    width: 35.w,
-                    height: 35.h,
+                    height: 32.h,
+                    width: 32.w,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-            Positioned(
-              bottom: 6.dg,
-              left: 8.dg,
-              child: Text(
-                capitalizeEachWord(dishName),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: globalTextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w500,
-                  color: kcBlackColor.withOpacity(0.6),
-                ),
-              ),
-            ),
+         
+           
           ],
         ),
       ),

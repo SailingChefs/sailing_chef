@@ -8,8 +8,9 @@ import 'chat_viewmodel.dart';
 
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
-  final UserModel user;
-  const ChatView({required this.user, required this.conversationId, super.key});
+  final UserModel receiver;
+
+  const ChatView( {required this.receiver, required this.conversationId,super.key});
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
@@ -35,46 +36,40 @@ class ChatView extends StackedView<ChatViewModel> {
                       stream: viewModel.getConversation(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          final firstConversation = snapshot.data!.firstOrNull;
-                          if (firstConversation != null) {
-                            final imageUrl =
-                                firstConversation.imageTitle.isNotEmpty
-                                    ? firstConversation.imageTitle.first
-                                    : 'assets/images/icons/chef.jpg';
+                          final message = snapshot.data!;
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                verticalSpaceLarge,
-                                Center(
-                                  child: Container(
-                                    width: 90.w,
-                                    height: 90.h,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(imageUrl),
-                                      ),
+                          final imageUrl =
+                              receiver.displayPicture ?? 'assets/images/icons/chef.jpg';
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              verticalSpaceLarge,
+                              Center(
+                                child: Container(
+                                  width: 90.w,
+                                  height: 90.h,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(imageUrl),
                                     ),
                                   ),
                                 ),
-                                verticalSpaceTiny,
-                                Text(
-                                  firstConversation.name,
-                                  style: globalTextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    color: kcBlackColor,
-                                  ),
+                              ),
+                              verticalSpaceTiny,
+                              Text(
+                                receiver.displayName ?? 'Chef Name',
+                                style: globalTextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                  color: kcBlackColor,
                                 ),
-                              ],
-                            );
-                          } else {
-                            return const Center(
-                                child: Text('No conversation data'));
-                          }
-                        } else {
+                              ),
+                            ],
+                          );
+                                                } else {
                           return const CircularProgressIndicator();
                         }
                       },
@@ -94,7 +89,7 @@ class ChatView extends StackedView<ChatViewModel> {
                 ),
               ),
               BuildInputFieldChatScreen(
-                  user: user, conversationId: conversationId),
+                  user: receiver, conversationId: conversationId),
             ],
           ),
         ),
