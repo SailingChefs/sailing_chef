@@ -19,6 +19,7 @@ class PrimaryGridViewCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+
   Widget build(
     BuildContext context,
   ) {
@@ -54,6 +55,7 @@ class PrimaryGridViewCard extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
+
                   ),
                 ),
                 verticalSpaceTiny,

@@ -27,11 +27,11 @@ class IndexView extends StackedView<IndexViewModel> {
                 child: Column(
                   children: [
                     const TopBarIndexScreen(),
-                    verticalSpaceSmall,
+                    verticalSpace(10),
                     const ChefListIndexScreen(),
-                    verticalSpaceMedium,
+                    verticalSpace(10),
                     const SearchBarIndexView(),
-                    verticalSpaceMedium,
+                    
                     const DishListIndexScreen(),
                     verticalSpaceMedium,
                   ],

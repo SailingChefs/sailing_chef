@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -32,7 +31,10 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
             CustomTextButton(
               onPressed: () {},
               buttonText: 'View all',
-              textColor: kcTextColor,
+              textColor: kclightgreencolor,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class SavedRecipesViewModel extends BaseViewModel {
@@ -36,6 +38,7 @@ class SavedRecipesViewModel extends BaseViewModel {
   }
 
   void goBack() {
+    log('tapped');
     _navigationService.back();
   }
 
