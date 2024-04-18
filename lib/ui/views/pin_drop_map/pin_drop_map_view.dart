@@ -24,7 +24,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     return Scaffold(
       body: Column(
         children: [
-         
+          
           Flexible(
             child: GoogleMap(
               initialCameraPosition:

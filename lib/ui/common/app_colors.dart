@@ -13,11 +13,13 @@ const Color kcVerybg = Color(0xFFF2F3F5);
 const Color kclightgreycolor = Color(0xFFD0DBEA);
 const Color kclightgreencolor = Color(0xFF61A389);
 const Color kcsgreycolor = Color(0xFFF0F4EF);
+const Color kcsgreylinecolor = Color(0xFFD0DBEA);
 //F0F4EF
 const Color kcBackgroundColor = Color.fromARGB(1, 108, 144, 141);
 const Color kcErrorColor = Color.fromARGB(255, 253, 0, 0);
 const Color ontop = Color.fromARGB(30, 93, 109, 1);
 const Color kcwhitecolor = Color(0xFFFFFFFF);
+const Color kcchatboxecolor = Color(0xFFC2D2BE);
 
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,

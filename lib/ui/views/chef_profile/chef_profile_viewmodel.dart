@@ -42,7 +42,7 @@ class ChefProfileViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void goTogoToProfileEditView(String name) {
+  void goToFollowingList(String name) {
     _navigationService.navigateTo(Routes.followingListView,
         arguments: const FollowingListView());
   }

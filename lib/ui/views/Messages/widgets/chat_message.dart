@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/message_model.dart';
@@ -11,105 +9,74 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
 
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
-    
+    final isCurrentUser = message.senderId == userDetails!.uid;
+    final messageIndex = viewModel.messages.indexOf(message);
+    final nextMessageIsDifferentUser = messageIndex + 1 < viewModel.messages.length && viewModel.messages[messageIndex + 1].senderId == message.senderId;
+
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
       child: Row(
+        mainAxisAlignment: isCurrentUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: message.senderId != userDetails!.uid
-            ? MainAxisAlignment.start
-            : MainAxisAlignment.end,
         children: <Widget>[
-          //   if (message.senderId != userDetails!.uid) ...[
-          //     Container(
-          //       color: Colors.amber,
-          //       width: 120,
-          //       height: 180,
-          //       child: message.type == 'image'
-          //           ? ClipRRect(
-          //               child: Image.file(
-          //                 File(message.content),
-          //                 width: 50.0,
-          //                 height: 50.0,
-          //                 fit: BoxFit.cover,
-          //               ),
-          //             )
-          //           : const SizedBox(),
-          //     ),
-          //   ],
-          if (message.senderId == userDetails!.uid) ...[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: message.senderId == userDetails!.uid
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.end,
-                children: <Widget>[
-                  if (message.content.isNotEmpty)
-                    Row(
-                      children: [
-                        CircleAvatar(
-                            child: userDetails!.displayPicture!.isNotEmpty
-                                ? ClipOval(
-                                    child: Image.network(
-                                      (userDetails!.displayPicture!),
-                                      width: 40.0,
-                                      height: 40.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : const SizedBox()),
-                        horizontalSpaceSmall,
-                        Flexible(
-                          child: Container(
-                            width: 250,
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: message.senderId != userDetails!.uid
-                                  ? kcPrimaryColor.withOpacity(0.2)
-                                  : kcLightGrey.withOpacity(0.08),
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  topRight: Radius.circular(30),
-                                  bottomRight: Radius.circular(30),
-                                  bottomLeft: Radius.circular(30)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (message.content.isNotEmpty)
-                                  Text(
-                                    message.content,
-                                    style: const TextStyle(color: kcBlackColor),
-                                  ),
-                                if (message.content.isNotEmpty)
-                                  const SizedBox(height: 5.0),
-                                if (message.type == 'image')
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          topLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20)),
-                                      child: Image.file(
-                                        File(message.content),
-                                        width: 1550.0,
-                                        height: 175.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 0.7,
+            ),
+            padding: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+              color: isCurrentUser
+                  ? kcchatboxecolor
+                  : kcPrimaryColor.withOpacity(0.2),
+              borderRadius: BorderRadius.only(
+                topLeft: isCurrentUser
+                    ? const Radius.circular(30)
+                    : const Radius.circular(0),
+                topRight: isCurrentUser
+                    ? const Radius.circular(30)
+                    : const Radius.circular(30),
+                bottomRight: const Radius.circular(0),
+                bottomLeft: const Radius.circular(30),
               ),
             ),
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (message.type == 'String')
+                  Text(
+                    message.content,
+                    style: const TextStyle(color: kcBlackColor),
+                  ),
+                if (message.type == 'image')
+                  GestureDetector(
+                    onTap: () {},
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        message.content,
+                        width: 150.0,
+                        height: 150.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          if(!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
+            const SizedBox(width: 3.0),
+          if (!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
+            CircleAvatar(
+              radius: 20.0,
+              backgroundImage: userDetails!.displayPicture!.isNotEmpty
+                  ? NetworkImage(userDetails!.displayPicture!)
+                  : null,
+              child: userDetails!.displayPicture!.isNotEmpty
+                  ? null
+                  : const Icon(Icons.person),
+            ),
         ],
       ),
     );

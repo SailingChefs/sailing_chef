@@ -31,9 +31,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             child: Column(
               children: [
                 const ChefProfileTopBar(),
-                verticalSpaceSmall,
-                ChefProfileDetails(user: user,),
-                verticalSpaceSmall,
+                verticalSpace(35),
                 ChefProfileDetailsDesc(user: user,),
                 verticalSpaceMedium,
                 Follow_Message_Btns(user: user),

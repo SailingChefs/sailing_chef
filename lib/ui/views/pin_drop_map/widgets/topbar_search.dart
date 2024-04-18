@@ -1,17 +1,17 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 
-class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
-  const SearchBarIndexView({super.key});
+class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
+  const SearchBarPinDrop({super.key});
 
   @override
-  Widget build(BuildContext context, IndexViewModel viewModel) {
+  Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return Row(
       children: [
         Expanded(
           child: GestureDetector(
             onTap: () {
-              viewModel.goToSearchView();
+              // viewModel.goToSearchView();
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -44,7 +44,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
         horizontalSpaceSmall,
         IconButton(
           onPressed: () {
-            viewModel.goToFilterView();
+            // viewModel.goToFilterView();
           },
           icon: const Icon(FlutterRemix.equalizer_line),
           color: kcPrimaryColor,

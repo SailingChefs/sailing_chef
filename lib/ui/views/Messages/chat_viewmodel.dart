@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -20,25 +22,26 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     Stream<List<ConversationModel>> conversations =
         _conversationService.getConversations();
 
-    // log('conversations from chat_list_viewmodel: $conversations');
     return conversations;
   }
 
 
   final messageController = TextEditingController();
   Future<void> getImage(
-      ImageSource source, String receiverId, conversationId) async {
+    ImageSource source, String receiverId, conversationId) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
-
+    
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
+      String imageUrl = await _conversationService.uploadImage(File(selectedImageFile!.path), '${selectedImageFile!.name}');
 
       addMessage(
           MessageModel(
-            content: selectedImageFile?.path ?? '',
+            content: imageUrl ,
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
-            timestamp: DateTime.now(),
+            timestamp: DateTime.now(), 
+            type: 'image',
           ),
           conversationId);
 
@@ -60,6 +63,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
             timestamp: DateTime.now(),
+            type: 'String',
           ),
           conversationId);
       scrollController.animateTo(

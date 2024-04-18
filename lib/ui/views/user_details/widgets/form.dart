@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
@@ -8,6 +10,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, UserDetailsViewModel viewModel) {
+    bool islocationempty = false;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -41,9 +44,15 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                     child: Container(
                       height: 45.h,
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration:   islocationempty == false? BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(color: Colors.red,),
                         color: Colors.grey.withOpacity(0.2),
+
+                      ) : BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.grey.withOpacity(0.2),
+
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(12.0.dg),
@@ -64,7 +73,17 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
         ),
         verticalSpaceMassive,
         PrimaryColorRoundedElevatedButton(
-          onPressed: viewModel.saveUserDetails,
+          onPressed: (){
+            if(viewModel.formKey.currentState!.validate()){
+              if(viewModel.locationController.text.isEmpty){
+                log('location empty');
+                islocationempty = false;
+              }else{
+                islocationempty = true;
+              }
+              viewModel.saveUserDetails();
+            }
+          },
           buttonText: 'SAVE',
         ),
       ],

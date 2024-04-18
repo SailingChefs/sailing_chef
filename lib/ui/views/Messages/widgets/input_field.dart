@@ -23,7 +23,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
             ),
           ],
         ),
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left:8.0,right: 8,top: 8),
         child: Row(
           children: <Widget>[
             IconButton(

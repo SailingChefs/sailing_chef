@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_details.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
 class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
-  const ChefProfileDetailsDesc( {required this.user,super.key});
-   final UserModel user;
+  const ChefProfileDetailsDesc({required this.user, super.key});
+  final UserModel user;
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Container(
@@ -14,8 +17,39 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            
+            children: [
+              Container(
+                height: 90.h,
+                width: 90.w,
+                decoration: const BoxDecoration(
+                  color: kcVeryLightGrey,
+                  shape: BoxShape.circle,
+                ),
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    child: user.displayPicture == null ? Image.asset('assets/images/misc/blank_image.png',fit: BoxFit.cover,)
+                    :Image.network(
+                      user.displayPicture!,
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              ChefProfileDetails(user: user,),
+            ],
+          ),
+          verticalSpaceSmall,
           Text(
-          "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
+            user.displayName == null ? '' : capitalizeEachWord(user.displayName!),
+            style: globalTextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w700,
+                color: kcBlackColor),
+          ),
+          Text(
+            user.boatName == null && viewModel.placemarks!.first.country == null ? '' :
+            "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}" ,
             style: globalTextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -24,7 +58,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
           ),
           verticalSpaceSmall,
           Text(
-            user.bio!,
+            user.bio == null ? '' : user.bio!,
             style: globalTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -43,7 +77,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               ),
               horizontalSpaceSmall,
               Text(
-                user.link!,
+                user.link == null ? '' : user.link!,
                 style: globalTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

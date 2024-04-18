@@ -12,59 +12,72 @@ class ProfileDescriptionProfileScreen
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        viewModel.placemarks == null || viewModel.placemarks!.isEmpty  ? Container() :
-        Text(
-          viewModel.placemarks![0].country!.isEmpty &&
-                  userDetails!.boatName!.isEmpty
-              ? ' '
-              : viewModel.placemarks![0].country!.isEmpty
-                  ? capitalizeEachWord(userDetails!.boatName!)
-                  : userDetails!.boatName!.isEmpty
-                      ? capitalizeEachWord(viewModel.placemarks!.first.country!)
-                      : capitalizeEachWord(
-                          '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
-          style: globalTextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: kcBlackColor,
-          ),
-        ),
-        verticalSpaceSmall,
-        Text(
-          userDetails!.bio == '' ? ' ' : userDetails!.bio!,
-          style: globalTextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: kcBlackColor,
-          ),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 3,
-        ),
-        verticalSpaceTiny,
-        userDetails!.link == '' ? Container() :
-        Row(
-          children: [
-            const Icon(
-              Icons.link_outlined,
-              color: kcPrimaryColor,
-              size: 20,
-            ),
-            horizontalSpaceSmall,
+    return Padding(
+      padding: const EdgeInsets.only(left:10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+         verticalSpaceSmall,
             Text(
-              userDetails!.link == '' ? ' ' : userDetails!.link!,
+              userDetails!.displayName!.isEmpty
+                  ? ''
+                  : capitalizeEachWord(userDetails!.displayName!),
               style: globalTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: kcPrimaryColor,
-                decoration: TextDecoration.underline,
-              ),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                  color: kcBlackColor),
             ),
-          ],
-        )
-      ],
+          viewModel.placemarks!.isEmpty  ? Container() :
+          Text(
+            viewModel.placemarks![0].country!.isEmpty &&
+                    userDetails!.boatName!.isEmpty
+                ? ' '
+                : viewModel.placemarks![0].country!.isEmpty
+                    ? capitalizeEachWord(userDetails!.boatName!)
+                    : userDetails!.boatName!.isEmpty
+                        ? capitalizeEachWord(viewModel.placemarks!.first.country!)
+                        : capitalizeEachWord(
+                            '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
+            style: globalTextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: kcBlackColor,
+            ),
+          ),
+          verticalSpaceSmall,
+          Text(
+            userDetails!.bio!.isEmpty ? '' : userDetails!.bio!,
+            style: globalTextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: kcBlackColor,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+          ),
+          verticalSpaceTiny,
+          userDetails!.link!.isEmpty ? Container() :
+          Row(
+            children: [
+              const Icon(
+                Icons.link_outlined,
+                color: kcPrimaryColor,
+                size: 20,
+              ),
+              horizontalSpaceSmall,
+              Text(
+                userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
+                style: globalTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: kcPrimaryColor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
