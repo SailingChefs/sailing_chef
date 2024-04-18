@@ -20,11 +20,9 @@ class PrimaryGridViewCard extends  StatelessWidget{
   @override
   Widget build(BuildContext context, ) {
       double screenHeight = MediaQuery.sizeOf(context).height;
-      print(screenHeight);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        //  height: containerHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0.r),
           color: kcWhiteColor,

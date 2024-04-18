@@ -36,7 +36,6 @@ class ChatView extends StackedView<ChatViewModel> {
                       stream: viewModel.getConversation(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          final message = snapshot.data!;
 
                           final imageUrl =
                               receiver.displayPicture ?? 'assets/images/icons/chef.jpg';

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
+
 import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/or_design.dart';

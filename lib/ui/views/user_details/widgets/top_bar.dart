@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
