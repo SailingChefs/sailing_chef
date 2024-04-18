@@ -14,7 +14,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Chef\'s Note',
           style: globalTextStyle(
-              fontSize: 16, fontWeight: FontWeight.w600, color: kcBlackColor),
+              fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
         ),
         verticalSpaceTiny,
         Container(

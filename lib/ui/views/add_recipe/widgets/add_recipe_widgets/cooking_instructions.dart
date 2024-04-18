@@ -14,7 +14,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Cooking Instructions(Method)',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
@@ -22,7 +22,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcErrorColor),
             ),
@@ -62,9 +62,9 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                         child: Text(
                           instruction,
                           style: globalTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: kcBlackColor.withOpacity(0.5)),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff2E3E5C)),
                         ),
                       ),
                     ),
@@ -74,7 +74,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.deleteMethod(index);
                     },
                     icon: const Icon(
-                      Icons.delete_outline_sharp,
+                      FlutterRemix.delete_bin_6_line,
                     ),
                   ),
                 ],

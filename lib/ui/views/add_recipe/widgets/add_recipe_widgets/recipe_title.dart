@@ -15,7 +15,7 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Recipe Title',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
@@ -23,7 +23,7 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcErrorColor),
             ),

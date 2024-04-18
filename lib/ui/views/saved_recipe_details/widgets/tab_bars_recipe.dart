@@ -9,6 +9,7 @@ class TabBarWidgets extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Container(
       height: screenHeight(context) * 0.05.h,
+      // margin: EdgeInsets.symmetric(horizontal: 10.dg),
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.all(Radius.circular(10.dg)),
@@ -40,7 +41,7 @@ class TabBarWidgets extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Ingredients'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor,
                       ),
                     ),
                   ],
@@ -72,7 +73,7 @@ class TabBarWidgets extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Method'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor,
                       ),
                     ),
                   ],

@@ -8,7 +8,7 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
   @override
   Widget build(BuildContext context, CookingInstructionsSheetModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(15.0.dg),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,7 +24,7 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
               style: globalTextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: kcPrimaryColor.withOpacity(0.5)),
+                  color: kcPrimaryColor.withOpacity(0.9)),
             ),
           ),
         ],

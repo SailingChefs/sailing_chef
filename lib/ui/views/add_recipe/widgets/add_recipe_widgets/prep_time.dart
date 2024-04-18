@@ -17,21 +17,21 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Prep Time',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
-            CustomTextButton(
-                onPressed: () {},
-                buttonText: 'Set time',
-                textColor: kcPrimaryColor),
+            // CustomTextButton(
+            //     onPressed: () {},
+            //     buttonText: 'Set time',
+            //     textColor: kcPrimaryColor),
           ],
         ),
         Text(
           'How long does it take to cook this recipe?',
           style: globalTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
               color: kcBlackColor.withOpacity(0.5)),
         ),
         verticalSpaceSmall,

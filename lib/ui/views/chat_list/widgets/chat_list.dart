@@ -9,77 +9,83 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
 
   @override
   Widget build(BuildContext context, viewModel) {
-    return StreamBuilder<List<ConversationModel>>(
-      stream: viewModel.getConversation(),
-      builder: (context, snapshot) {
-        log(snapshot.data.toString());
-        if (snapshot.hasData) {
-          return SizedBox(
-            width: double.infinity,
-            height: 400.h,
-            child: ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                ConversationModel conversation = snapshot.data![index];
-                DateTime dateTime =
-                    DateTime.parse(conversation.latestMessageTime.toString());
-                int hour = dateTime.hour;
-                int minute = dateTime.minute;
+    return viewModel.isBusy
+        ? const Center(child: CircularProgressIndicator())
+        : StreamBuilder<List<ConversationModel>>(
+            stream: viewModel.getConversation(),
+            builder: (context, snapshot) {
+              log(snapshot.data.toString());
 
-                String period = (hour < 12) ? 'AM' : 'PM';
+              return snapshot.hasData
+                  ? SizedBox(
+                      width: double.infinity,
+                      height: 400.h,
+                      child: ListView.builder(
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          ConversationModel conversation =
+                              snapshot.data![index];
 
-                int hour12 = (hour > 12) ? (hour - 12) : hour;
-                if (hour12 == 0) {
-                  hour12 = 12; 
-                }
-                String twoDigits(int n) {
-                  if (n >= 10) {
-                    return '$n';
-                  } else {
-                    return '0$n';
-                  }
-                }
+                          DateTime dateTime = DateTime.parse(
+                              conversation.latestMessageTime.toString());
+                          int hour = dateTime.hour;
+                          int minute = dateTime.minute;
 
-                return Column(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.toChatScreen(conversation);
+                          String period = (hour < 12) ? 'AM' : 'PM';
+
+                          int hour12 = (hour > 12) ? (hour - 12) : hour;
+                          if (hour12 == 0) {
+                            hour12 = 12;
+                          }
+
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    viewModel.toChatScreen(conversation);
+                                  },
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(5),
+                                    title: Text(
+                                      conversation.user!.displayName!,
+                                    ),
+                                    subtitle: conversation.latestMessageType ==
+                                            'String'
+                                        ? Text(
+                                            conversation.latestMessage
+                                                .toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                color: kcPrimaryColor
+                                                    .withOpacity(0.5)),
+                                          )
+                                        : Text(
+                                            'Sent an attachement',
+                                            style: TextStyle(
+                                                color: kcPrimaryColor
+                                                    .withOpacity(0.5)),
+                                          ),
+                                    leading: CircleAvatar(
+                                      radius: 30.r,
+                                      backgroundImage: NetworkImage(
+                                          conversation.user!.displayPicture!),
+                                    ),
+                                    trailing: Text(
+                                        '${viewModel.twoDigits(hour12)}:${viewModel.twoDigits(minute)} $period'),
+                                  )),
+                              const Divider(
+                                color: kcVeryLightGrey,
+                                thickness: 0.5,
+                              ),
+                            ],
+                          );
                         },
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(5),
-                          title: Text(conversation.user!.displayName!,),
-                          subtitle: conversation.latestMessageType == 'String' ?
-                           Text(conversation.latestMessage.toString(),
-                           overflow: TextOverflow.ellipsis,
-                           maxLines: 1,
-                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
-                          ):
-                           Text('Sent an attachement',
-                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
-                          ),
-                          leading: CircleAvatar(
-                            radius: 30.r,
-                            backgroundImage:
-                                NetworkImage(conversation.user!.displayPicture!),
-                          ),
-                          trailing: Text(
-                              '${twoDigits(hour12)}:${twoDigits(minute)} $period'),
-                        )),
-                    const Divider(
-                      color: kcVeryLightGrey,
-                      thickness: 0.5,
-                    ),
-                  ],
-                );
-              },
-            ),
+                      ),
+                    )
+                  : const Text('No Data');
+            },
           );
-        } else {
-          return const Text('No Data');
-        }
-      },
-    );
   }
 }

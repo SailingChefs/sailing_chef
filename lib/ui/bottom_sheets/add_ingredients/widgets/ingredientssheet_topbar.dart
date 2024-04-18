@@ -8,7 +8,7 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
   @override
   Widget build(BuildContext context, AddIngredientsSheetModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding:  EdgeInsets.all(13.0.dg),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

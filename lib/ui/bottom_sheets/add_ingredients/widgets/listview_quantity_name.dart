@@ -7,7 +7,7 @@ class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {
 
   @override
   Widget build(BuildContext context, AddIngredientsSheetModel viewModel) {
-    return SingleChildScrollView(
+    return Flexible(
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: viewModel.ingredientsList.length,

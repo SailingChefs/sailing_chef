@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -11,7 +13,8 @@ class RecipeViewViewModel extends BaseViewModel {
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
-  int serves = 1;
+  final PageController pageController = PageController();
+  Timer? _timer;
 
   void myIngredientsSelected() {
     isIngredientsSelected = true;
@@ -92,5 +95,52 @@ class RecipeViewViewModel extends BaseViewModel {
 
     rebuildUi();
     notifyListeners();
+  }
+   
+
+  void startAutoScroll(int length) {
+    const duration = Duration(seconds: 3); // Change the interval as needed
+    _timer = Timer.periodic(duration, (Timer timer) {
+      if (pageController.hasClients) {
+        int nextPage = pageController.page!.toInt() + 1;
+        if (nextPage >= length) {
+          nextPage = 0;  // Loop back to the first image
+        }
+        pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  void stopAutoScroll() {
+    _timer?.cancel();
+  }
+
+  void showNextImage(int length) {
+    if (pageController.hasClients) {
+      int nextPage = (pageController.page!.toInt() + 1) % length;
+      pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void showPreviousImage(int length) {
+    if (pageController.hasClients) {
+      int previousPage = pageController.page!.toInt() - 1;
+      if (previousPage < 0) {
+        previousPage = length - 1; // Loop to last image
+      }
+      pageController.animateToPage(
+        previousPage,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }

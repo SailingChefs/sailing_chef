@@ -8,7 +8,6 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
-  int serves = 1;
    final PageController pageController = PageController();
   Timer? _timer;
 
@@ -111,22 +110,22 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void addServes() {
-    serves++;
-    rebuildUi();
-    notifyListeners();
-  }
+  // void addServes() {
+  //   serves++;
+  //   rebuildUi();
+  //   notifyListeners();
+  // }
 
-  void removeServes() {
-    if (serves == 0) {
-      serves = 0;
-    } else {
-      serves--;
-    }
+  // void removeServes() {
+  //   if (serves == 0) {
+  //     serves = 0;
+  //   } else {
+  //     serves--;
+  //   }
 
-    rebuildUi();
-    notifyListeners();
-  }
+  //   rebuildUi();
+  //   notifyListeners();
+  // }
   void onViewModelReady(int length) {
     setBusy(true);
     startAutoScroll(length);

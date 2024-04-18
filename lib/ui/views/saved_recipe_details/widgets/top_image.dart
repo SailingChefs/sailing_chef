@@ -1,4 +1,8 @@
 
+
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
@@ -16,25 +20,32 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       padding: const EdgeInsets.only(top: 25.0),
       child: Stack(
         children: [
-          PageView.builder(
-            itemCount: image.length,
-            controller: viewModel.pageController,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onHorizontalDragEnd: (details) {
-                  if (details.primaryVelocity! > 0) {
-                    viewModel.showPreviousImage(image.length);
-                  } else if (details.primaryVelocity! < 0) {
-                    viewModel.showNextImage(image.length);
-                  }
+          Align(
+            alignment: Alignment.topLeft,
+            child: 
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: PageView.builder(
+                itemCount: image.length,
+                controller: viewModel.pageController,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onHorizontalDragEnd: (details) {
+                      if (details.primaryVelocity! > 0) {
+                        viewModel.showPreviousImage(image.length);
+                      } else if (details.primaryVelocity! < 0) {
+                        viewModel.showNextImage(image.length);
+                      }
+                    },
+                    child: Image.network(
+                      image[index],
+                      fit: BoxFit.fitWidth,
+                      width: double.infinity,
+                    ),
+                  );
                 },
-                child: Image.network(
-                  image[index],
-                  fit: BoxFit.fitWidth,
-                  width: double.infinity,
-                ),
-              );
-            },
+              ),
+            ),
           ),
        
 
@@ -51,12 +62,17 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           // ),
         
 
-          Padding(
-            padding: const EdgeInsets.all(20.0),
+          Positioned(
+            top: 10,
+            left: 10,
             child: BackArrowWidget(
-              onTap: () {
-                viewModel.moveBack();
-              },
+              onTap: ()
+            
+              { 
+                log('back arrow pressed');
+                 viewModel.moveBack();
+                 }
+              
             ),
           ),
         ],

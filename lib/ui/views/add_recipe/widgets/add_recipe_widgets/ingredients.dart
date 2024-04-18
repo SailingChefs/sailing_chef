@@ -15,7 +15,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Ingredients',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
@@ -23,7 +23,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 16,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcErrorColor),
             ),
@@ -58,10 +58,11 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                             child: Text(
                               ingredient.name,
                               overflow: TextOverflow.ellipsis,
-                              style: globalTextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor.withOpacity(0.5)),
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Poppins',
+                                  color: kcBlackColor),
                             ),
                           ),
                         ),
@@ -69,7 +70,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 30.0),
                             child: Text(
-                              '${ingredient.quantity} - ${ingredient.unit}',
+                              '${ingredient.quantity} ${ingredient.unit}',
                               overflow: TextOverflow.ellipsis,
                               style: globalTextStyle(
                                   fontSize: 14,
@@ -126,7 +127,6 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
             ),
           ),
         ),
-        verticalSpaceMedium,
       ],
     );
   }

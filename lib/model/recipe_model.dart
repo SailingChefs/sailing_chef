@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredien
 
 class RecipeModel {
   final String chefNote;
-  final List<String> coverImage;
+ List<String> coverImage;
   final Timestamp createdTime;
   final List<Ingredient> ingredients;
   final List<String> methods;

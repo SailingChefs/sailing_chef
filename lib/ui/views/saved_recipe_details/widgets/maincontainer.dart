@@ -44,7 +44,7 @@ class MainRecipeViewContainer
                           Text(
                             capitalizeEachWord(recipeModel.title),
                             style: globalTextStyle(
-                              fontSize: 24,
+                              fontSize: 26.45.sp,
                               fontWeight: FontWeight.w500,
                               color: kcBlackColor,
                             ),
@@ -68,26 +68,14 @@ class MainRecipeViewContainer
                           ),
                         ],
                       ),
-                      // Padding(
-                      //   padding:
-                      //       const EdgeInsets.only(left: 10.0, right: 10, top: 2),
-                      //   child: Text(
-                      //     'This Healthy Taco Salad is the universal delight of taco night',
-                      //     style: globalTextStyle(
-                      //       fontSize: 16,
-                      //       fontWeight: FontWeight.w300,
-                      //       color: kcBlackColor,
-                      //     ),
-                      //   ),
-                      // ),
-                      verticalSpaceMedium,
+                      verticalSpaceSmall,
 
                       ViewProfileRow(
                         user: recipeModel.user!,
                       ),
                       verticalSpaceMedium,
                       const TabBarWidgets(),
-                      verticalSpaceTiny,
+                      verticalSpaceSmall,
                       viewModel.isIngredientsSelected
                           ? IngredientsClass(
                               recipeModel: recipeModel,

@@ -17,9 +17,10 @@ class IndexView extends StackedView<IndexViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator(
-            color: kcBackgroundColor,
-          ))
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kcBackgroundColor,
+            ))
           : Scaffold(
               backgroundColor: kcBackgroundColor,
               body: SingleChildScrollView(
@@ -31,7 +32,7 @@ class IndexView extends StackedView<IndexViewModel> {
                     const ChefListIndexScreen(),
                     verticalSpace(10),
                     const SearchBarIndexView(),
-                    
+                    verticalSpace(10),
                     const DishListIndexScreen(),
                     verticalSpaceMedium,
                   ],

@@ -19,11 +19,12 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
               strokeWidth: 2.0,
               dashPattern: const [8, 4],
               color: kcBlackColor.withOpacity(0.3),
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: 99.dg, right: 99.dg, top: 10.dg, bottom: 10.dg),
+              child: SizedBox(
+                width: double.infinity,
+                
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+
                   children: [
                     Image.asset('assets/images/misc/Image.png',
                         height: 100.0.h, width: 100.0.w),
@@ -43,6 +44,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         color: Colors.grey,
                       ),
                     ),
+                     verticalSpaceSmall,
                   ],
                 ),
               ),

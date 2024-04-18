@@ -39,10 +39,7 @@ Future<void> main() async {
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
   runApp(
-  DevicePreview(
-    enabled: kDebugMode,
-    builder: (context) => const MainApp(), 
-  ));
+  const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -64,7 +61,7 @@ class MainApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
                   locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
+            // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(
@@ -83,7 +80,7 @@ class MainApp extends StatelessWidget {
             navigatorObservers: [
               StackedService.routeObserver,
             ],
-            // builder: EasyLoading.init(),
+            builder: EasyLoading.init(),
           ),
         ),
       ),

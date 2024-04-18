@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -21,6 +22,7 @@ class AddRecipeViewModel extends BaseViewModel {
   late final PlayerController playerController;
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
   late Directory directory;
   late String path;
   String selectedValue = 'Public';
@@ -104,6 +106,27 @@ class AddRecipeViewModel extends BaseViewModel {
       notifyListeners();
       rebuildUi();
     }
+  }
+  void showDraftDialog() {
+    _dialogService.showCustomDialog(
+      variant: DialogType.saveDraftAlertbox,
+      data: {'model':RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: [],
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: ['methods'],
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'draft',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+        ),
+        'images' : selectedImages,
+        }
+    );
   }
 
   void callIngredientsBottomSheet() async {
@@ -224,19 +247,20 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void draftRecipe() async {
-    if (titleController.text.trim().isNotEmpty &&
-        prepTimeController.text.trim().isNotEmpty) {
-      if (selectedImages.isEmpty) {
-        showToast(message: 'Please add at least one image');
-        return;
-      } else {
-        List<String> imageUrls =
-            await _recipeService.uploadImagesToFirebase(selectedImages);
+    if (titleController.text.trim().isNotEmpty ) {
+          List<String> imageUrls ;
+     
+    
+         imageUrls =  selectedImages.isNotEmpty? await _recipeService.uploadImagesToFirebase(selectedImages): [];
 
-        final check = await _recipeService.addRecipeToFirestore(RecipeModel(
+        
+      
+      
+        
+         await _recipeService.addRecipeToFirestore(RecipeModel(
           visibility: selectedValue,
           chefNote: 'recorderController',
-          coverImage: imageUrls,
+          coverImage: imageUrls.isNotEmpty ? imageUrls : [],
           createdTime: Timestamp.now(),
           ingredients: ingredientsList,
           methods: ['methods'],
@@ -247,29 +271,9 @@ class AddRecipeViewModel extends BaseViewModel {
           title: titleController.text.trim(),
           uid: firebaseAuth.currentUser!.uid,
         ));
-        if (check) {
-         _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
-           visibility: selectedValue,
-          chefNote: 'recorderController',
-          coverImage: [],
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          methods: methodsList,
-          prepTime:
-              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-          servingSize: selectedQuantity,
-          status: 'published',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-        ), selectedImages: selectedImages);
-        } else {
-          showToast(message: 'Something went wrong');
-        }
+        
       }
-    } else {
-      showToast(message: 'Please fill all fields');
     }
-  }
 
   // void goToRecipePreview() {
   //   _navigationService.navigateToRecipeViewView();

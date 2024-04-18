@@ -12,7 +12,7 @@ class VisibiltyDropDown extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Visibility',
           style: globalTextStyle(
-              fontSize: 16, fontWeight: FontWeight.w600, color: kcBlackColor),
+              fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
         ),
         verticalSpaceSmall,
         Container(

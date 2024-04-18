@@ -1,15 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'save_draft_alertbox_dialog_model.dart';
-
-// ignore: unused_element
-const double _graphicSize = 60;
 
 class SaveDraftAlertboxDialog
     extends StackedView<SaveDraftAlertboxDialogModel> {
@@ -28,6 +26,8 @@ class SaveDraftAlertboxDialog
     SaveDraftAlertboxDialogModel viewModel,
     Widget? child,
   ) {
+    final RecipeModel recipe = request!.data['recipe'] ;
+    final images = request!.data['images'] ;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
@@ -57,7 +57,9 @@ class SaveDraftAlertboxDialog
                         children: [
                           TextButton(
                             onPressed: () {
-                              viewModel.yesButton();
+                              viewModel.yesButton(
+                                 recipe,images
+                              );
                             },
                             child: const Text(
                               'Yes',
@@ -69,7 +71,7 @@ class SaveDraftAlertboxDialog
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: viewModel.noButton,
                             child: Text(
                               'No',
                               style: const TextStyle(
