@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -23,7 +22,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     // log('conversations from chat_list_viewmodel: $conversations');
     return conversations;
   }
-
 
   final messageController = TextEditingController();
   Future<void> getImage(
@@ -80,19 +78,18 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   void moveBack() {
     _navigationLoactor.back();
-   
   }
 
   @override
   void onData(data) {
-    if(data == null) return;
+    if (data == null) return;
     messages = data;
     textController.clear();
     rebuildUi();
     super.onData(data);
   }
-  
+
   @override
-  Stream<List<MessageModel>> get stream => _conversationService.getMessages(convoId);
-  
+  Stream<List<MessageModel>> get stream =>
+      _conversationService.getMessages(convoId);
 }

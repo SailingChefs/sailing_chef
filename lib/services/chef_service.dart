@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -70,7 +67,6 @@ class ChefService {
 //          data['location'] != null && data['location'].isNotEmpty;
 // }
 
-
   Future<List<UserModel>> fetchChefDocuments() async {
     List<UserModel> users = [];
 
@@ -78,7 +74,8 @@ class ChefService {
       EasyLoading.show();
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('user_role', isEqualTo: 'chef' ,isNotEqualTo: firebaseAuth.currentUser?.uid)
+          .where('user_role',
+              isEqualTo: 'chef', isNotEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
       for (var doc in querySnapshot.docs) {

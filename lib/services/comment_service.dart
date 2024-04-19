@@ -1,0 +1,97 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
+
+import '../ui/common/show_toast.dart';
+
+class CommentService with ListenableServiceMixin {
+  final UserServices userService = UserServices();
+  List<CommentModel> comments = [];
+  Future<bool> addComment(CommentModel comment) async {
+    bool uploaded = await addCommentToFirestore(comment);
+    if (!uploaded) {
+      return false;
+    }
+
+    comments.add(comment);
+
+    notifyListeners();
+    return true;
+  }
+
+  Future<bool> addCommentToFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
+      DocumentReference docRef =
+          await firebasestore.collection('comments').add(comment.toJson());
+
+      // Get the document ID assigned by Firestore
+      String docId = docRef.id;
+
+      // Update the document with the document ID
+      await docRef.update({'doc_id': docId});
+
+      EasyLoading.dismiss();
+      showToast(message: 'Comment added successfully');
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error adding comment to Firestore: $error');
+      return false;
+    }
+  }
+  
+
+
+  Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+    try {
+      QuerySnapshot querySnapshot = await firebasestore
+          .collection('comments')
+          .where('recipeId', isEqualTo: recipeId)
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      List<CommentModel> comments = querySnapshot.docs
+          .map((doc) => CommentModel.fromSnapshot(doc))
+          .toList();
+
+      return comments;
+    } catch (e) {
+      log('Error fetching comments: $e');
+      return [];
+    }
+  }
+
+  Future<List<String>> uploadImagesToFirebase(List<File> images) async {
+    List<String> imageUrls = [];
+
+    try {
+      EasyLoading.show();
+      for (var image in images) {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        Reference ref =
+            firebaseStorage.ref().child('images/comments/$fileName');
+        UploadTask uploadTask = ref.putFile(File(image.path));
+        TaskSnapshot taskSnapshot = await uploadTask;
+        String imageUrl = await taskSnapshot.ref.getDownloadURL();
+        imageUrls.add(imageUrl);
+      }
+
+      EasyLoading.dismiss();
+      showToast(message: 'Images uploaded successfully');
+
+      return imageUrls;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error uploading images to Firebase Storage: $error');
+      return [];
+    }
+  }
+}

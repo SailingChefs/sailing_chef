@@ -12,7 +12,9 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Serving',
           style: globalTextStyle(
-              fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: kcBlackColor),
         ),
         verticalSpaceSmall,
         Container(

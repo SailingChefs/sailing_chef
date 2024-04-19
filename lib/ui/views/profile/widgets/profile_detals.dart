@@ -23,7 +23,10 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     child: userDetails!.displayPicture == ''
-                        ? Image.asset('assets/images/misc/blank_image.png',fit: BoxFit.cover,)
+                        ? Image.asset(
+                            'assets/images/misc/blank_image.png',
+                            fit: BoxFit.cover,
+                          )
                         : Image.network(
                             userDetails!.displayPicture!,
                             fit: BoxFit.cover,

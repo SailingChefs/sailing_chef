@@ -1,6 +1,3 @@
-
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
@@ -17,18 +14,17 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         width: 150.w,
         child: Row(
           children: [
-             CircleAvatar(
+            CircleAvatar(
               radius: 19.62.dg,
               backgroundImage: NetworkImage(
                 user.displayPicture!,
-               
               ),
             ),
             horizontalSpaceSmall,
             Flexible(
               child: Text(
                 user.displayName!,
-                style:  TextStyle(
+                style: TextStyle(
                     color: kcBlackColor,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600),
@@ -38,10 +34,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         ),
       ),
       OutlinedButton(
-        
-        onPressed:
-          viewModel.moveToChefProfileView,
-        
+        onPressed: viewModel.moveToChefProfileView,
         child: const Text(
           'View',
           style: TextStyle(

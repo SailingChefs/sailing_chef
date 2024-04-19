@@ -11,7 +11,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
 
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
-    
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
       child: Row(

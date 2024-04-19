@@ -10,7 +10,6 @@ import 'widgets/chef_profile_description.dart';
 
 // ignore: must_be_immutable
 class ChefProfileView extends StackedView<ChefProfileViewModel> {
-  
   final UserModel user;
   const ChefProfileView({required this.user, super.key});
 
@@ -23,25 +22,33 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body:viewModel.isBusy ? const Center(child: CircularProgressIndicator(
-          color: kcBackgroundColor,
-        )) : Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const ChefProfileTopBar(),
-                verticalSpaceSmall,
-                ChefProfileDetails(user: user,),
-                verticalSpaceSmall,
-                ChefProfileDetailsDesc(user: user,),
-                verticalSpaceMedium,
-                Follow_Message_Btns(user: user),
-                 DishListScreen(user:user),
-              ],
-            ),
-          ),
-        ),
+        body: viewModel.isBusy
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: kcBackgroundColor,
+              ))
+            : Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const ChefProfileTopBar(),
+                      verticalSpaceSmall,
+                      ChefProfileDetails(
+                        user: user,
+                      ),
+                      verticalSpaceSmall,
+                      ChefProfileDetailsDesc(
+                        user: user,
+                      ),
+                      verticalSpaceMedium,
+                      Follow_Message_Btns(user: user),
+                      DishListScreen(user: user),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }

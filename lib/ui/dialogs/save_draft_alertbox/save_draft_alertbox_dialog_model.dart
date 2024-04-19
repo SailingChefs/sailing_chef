@@ -15,6 +15,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     await _recipeService.addRecipeToFirestore(recipe);
     _navigatorlocator.back();
   }
+
   void noButton() {
     _navigatorlocator.back();
   }

@@ -30,10 +30,8 @@ class OnboardModel {
 
     return RichText(
       textAlign: TextAlign.center,
-      
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      
       text: TextSpan(
         children: formattedSpans,
       ),

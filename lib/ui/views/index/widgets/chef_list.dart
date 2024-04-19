@@ -75,23 +75,21 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           children: [
                             Expanded(
                                 child: ClipRRect(
-                                       borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20.r),
-                              topRight: Radius.circular(20.r),
-                            ),
-
-                                      child: chef.displayPicture == ''
-                                          ? Image.asset(
-                                              'assets/images/misc/blank_image.png',
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Image.network(
-                                              chef.displayPicture!,
-                                              fit: BoxFit.cover,
-                                              width: double.infinity,
-                                             
-                                            ),
-                                    )),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r),
+                              ),
+                              child: chef.displayPicture == ''
+                                  ? Image.asset(
+                                      'assets/images/misc/blank_image.png',
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      chef.displayPicture!,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                    ),
+                            )),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(

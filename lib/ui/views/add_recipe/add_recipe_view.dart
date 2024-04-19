@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/widgets/top_bar.dart';
 import 'add_recipe_viewmodel.dart';
 
 class AddRecipeView extends StackedView<AddRecipeViewModel> {
-  final List<Ingredient> ? ingredientsList;
+  final List<Ingredient>? ingredientsList;
   const AddRecipeView(this.ingredientsList, {Key? key}) : super(key: key);
 
   @override
@@ -33,7 +33,9 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                         children: [
                           const TopBarAddRecipe(),
                           verticalSpaceMedium,
-                         Expanded(child: AddRecipeFormAddRecipeScreen(ingredientsList)),
+                          Expanded(
+                              child: AddRecipeFormAddRecipeScreen(
+                                  ingredientsList)),
                         ],
                       ),
                     ),

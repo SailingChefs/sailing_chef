@@ -26,8 +26,8 @@ class SaveDraftAlertboxDialog
     SaveDraftAlertboxDialogModel viewModel,
     Widget? child,
   ) {
-    final RecipeModel recipe = request!.data['recipe'] ;
-    final images = request!.data['images'] ;
+    final RecipeModel recipe = request!.data['recipe'];
+    final images = request!.data['images'];
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
@@ -57,9 +57,7 @@ class SaveDraftAlertboxDialog
                         children: [
                           TextButton(
                             onPressed: () {
-                              viewModel.yesButton(
-                                 recipe,images
-                              );
+                              viewModel.yesButton(recipe, images);
                             },
                             child: const Text(
                               'Yes',

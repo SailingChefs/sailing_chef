@@ -11,9 +11,7 @@ class TopBarAddRecipe extends ViewModelWidget<AddRecipeViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         BackArrowWidget(
-          onTap: 
-            viewModel.popBack
-        ,
+          onTap: viewModel.popBack,
         ),
         Text(
           'Create Recipe',

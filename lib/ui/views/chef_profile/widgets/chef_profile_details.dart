@@ -15,7 +15,6 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
         children: [
           Column(
             children: [
-          
               Container(
                 height: 94.h,
                 width: 94.w,

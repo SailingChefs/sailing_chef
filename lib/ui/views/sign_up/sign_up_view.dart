@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:sailing_chefs/ui/widgets/or_design.dart';
@@ -67,21 +66,21 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       ),
                     ],
                   ),
-                  verticalSpace(MediaQuery.of(context).size.height*0.05),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.05),
                   Text(
                     'Lets create your account',
                     style: globalTextStyle(
                         fontSize: 20.sp, fontWeight: FontWeight.w600),
                   ),
-                 verticalSpace(MediaQuery.of(context).size.height*0.010),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.010),
                   Text(
                     'sign up as',
                     style: globalTextStyle(
                         fontSize: 16.sp, fontWeight: FontWeight.w400),
                   ),
-                  verticalSpace(MediaQuery.of(context).size.height*0.028),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.028),
                   RoleSelector(viewModel: viewModel),
-                  verticalSpace(MediaQuery.of(context).size.height*0.05),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.05),
                   Form(
                     key: viewModel.formKey,
                     child: Column(
@@ -92,14 +91,16 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           validator: viewModel.validateName,
                           keyboardType: TextInputType.name,
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height*0.020),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.020),
                         RoundedTransparentTextField(
                           controller: viewModel.emailController,
                           labelText: 'Email',
                           validator: viewModel.validateEmail,
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height*0.020),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.020),
                         RoundedTransparentTextField(
                           controller: viewModel.passwordController,
                           labelText: 'Password',
@@ -111,7 +112,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           },
                           validator: viewModel.validatePassword,
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height*0.040),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.040),
                         RoundedElevatedButton(
                           textFontSize: 12.sp,
                           width: 240.w,
@@ -127,34 +129,33 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       ],
                     ),
                   ),
-                  verticalSpace(MediaQuery.of(context).size.height*0.030),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.030),
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: OrDesign(),
                   ),
-                  verticalSpace(MediaQuery.of(context).size.height*0.070),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.070),
                   GestureDetector(
                     onTap: viewModel.toLogin,
                     child: RichText(
                       text: TextSpan(
                         children: <TextSpan>[
-                          
                           TextSpan(
                             text: 'login',
                             style: globalTextStyle(
                               color: kcwhitecolor,
-                              fontWeight: FontWeight.w600, fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.sp,
                             ),
                           ),
-                          
                           TextSpan(
                             text: ' to existing account',
                             style: globalTextStyle(
                               color: kcwhitecolor,
-                              fontWeight: FontWeight.w400, fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.sp,
                             ),
                           ),
-                          
                         ],
                       ),
                     ),

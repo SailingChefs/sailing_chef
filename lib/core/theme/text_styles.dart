@@ -6,11 +6,10 @@ TextStyle globalTextStyle(
         {required double fontSize,
         Color? color,
         double? letterSpacing,
-        
         FontWeight? fontWeight,
         TextDecoration? decoration}) =>
-   GoogleFonts.inter( 
-    textStyle: TextStyle(
+    GoogleFonts.inter(
+        textStyle: TextStyle(
       color: color ?? kcWhiteColor,
       fontSize: fontSize,
       letterSpacing: letterSpacing ?? 0.5,

@@ -38,6 +38,7 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/services/comment_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -79,7 +80,8 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     LazySingleton(classType: ChefService),
     LazySingleton(classType: DishesService),
     LazySingleton(classType: UserdataServiceService),
-    LazySingleton(classType: BottomNavBarViewModel)
+    LazySingleton(classType: BottomNavBarViewModel),
+    LazySingleton(classType: CommentService),
 // @stacked-service
   ],
   bottomsheets: [

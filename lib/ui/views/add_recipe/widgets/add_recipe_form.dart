@@ -12,7 +12,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/vis
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
-  final List<Ingredient> ? ingredientsList;
+  final List<Ingredient>? ingredientsList;
   const AddRecipeFormAddRecipeScreen(this.ingredientsList, {super.key});
 
   @override
@@ -38,11 +38,10 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         const VisibiltyDropDown(),
         verticalSpaceMedium,
         Save_Recipe_Button(
-          onPressed: 
-            // viewModel.navigteToRecipeListView();
-            //viewModel.goToRecipePreview,
-            viewModel.saveRecipe,
-          
+          onPressed:
+              // viewModel.navigteToRecipeListView();
+              //viewModel.goToRecipePreview,
+              viewModel.saveRecipe,
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,
         ),

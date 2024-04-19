@@ -73,20 +73,19 @@ class AddRecipeViewModel extends BaseViewModel {
     setBusy(false);
   }
 
- 
-
   void deleteCurrentImage() {
     selectedImages.removeAt(pageController.page!.round());
     notifyListeners();
     rebuildUi();
   }
 
- void showPreviousImage() {
+  void showPreviousImage() {
     if (pageController.page! > 0) {
       pageController.previousPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
+
   // Function to handle swipe to the left (show next image)
   void showNextImage() {
     if (pageController.page! < selectedImages.length - 1) {
@@ -107,26 +106,26 @@ class AddRecipeViewModel extends BaseViewModel {
       rebuildUi();
     }
   }
+
   void showDraftDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.saveDraftAlertbox,
-      data: {'model':RecipeModel(
-          visibility: selectedValue,
-          chefNote: 'recorderController',
-          coverImage: [],
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          methods: ['methods'],
-          prepTime:
-              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-          servingSize: selectedQuantity,
-          status: 'draft',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-        ),
-        'images' : selectedImages,
-        }
-    );
+    _dialogService
+        .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+      'model': RecipeModel(
+        visibility: selectedValue,
+        chefNote: 'recorderController',
+        coverImage: [],
+        createdTime: Timestamp.now(),
+        ingredients: ingredientsList,
+        methods: ['methods'],
+        prepTime:
+            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+        servingSize: selectedQuantity,
+        status: 'draft',
+        title: titleController.text.trim(),
+        uid: firebaseAuth.currentUser!.uid,
+      ),
+      'images': selectedImages,
+    });
   }
 
   void callIngredientsBottomSheet() async {
@@ -214,21 +213,22 @@ class AddRecipeViewModel extends BaseViewModel {
         //   uid: firebaseAuth.currentUser!.uid,
         // ));
 
-        _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
-           visibility: selectedValue,
-          chefNote: 'recorderController',
-          coverImage: [],
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          methods: methodsList,
-          prepTime:
-              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-          servingSize: selectedQuantity,
-          status: 'published',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-        ), selectedImages: selectedImages);
-        
+        _navigationService.navigateToRecipeViewView(
+            recipeModel: RecipeModel(
+              visibility: selectedValue,
+              chefNote: 'recorderController',
+              coverImage: [],
+              createdTime: Timestamp.now(),
+              ingredients: ingredientsList,
+              methods: methodsList,
+              prepTime: mergeStrings(
+                  prepTimeController.text.trim(), selectedTimeMethod),
+              servingSize: selectedQuantity,
+              status: 'published',
+              title: titleController.text.trim(),
+              uid: firebaseAuth.currentUser!.uid,
+            ),
+            selectedImages: selectedImages);
       }
     } else {
       showToast(message: 'Please fill all fields');
@@ -247,33 +247,29 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void draftRecipe() async {
-    if (titleController.text.trim().isNotEmpty ) {
-          List<String> imageUrls ;
-     
-    
-         imageUrls =  selectedImages.isNotEmpty? await _recipeService.uploadImagesToFirebase(selectedImages): [];
+    if (titleController.text.trim().isNotEmpty) {
+      List<String> imageUrls;
 
-        
-      
-      
-        
-         await _recipeService.addRecipeToFirestore(RecipeModel(
-          visibility: selectedValue,
-          chefNote: 'recorderController',
-          coverImage: imageUrls.isNotEmpty ? imageUrls : [],
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          methods: ['methods'],
-          prepTime:
-              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-          servingSize: selectedQuantity,
-          status: 'draft',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-        ));
-        
-      }
+      imageUrls = selectedImages.isNotEmpty
+          ? await _recipeService.uploadImagesToFirebase(selectedImages)
+          : [];
+
+      await _recipeService.addRecipeToFirestore(RecipeModel(
+        visibility: selectedValue,
+        chefNote: 'recorderController',
+        coverImage: imageUrls.isNotEmpty ? imageUrls : [],
+        createdTime: Timestamp.now(),
+        ingredients: ingredientsList,
+        methods: ['methods'],
+        prepTime:
+            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+        servingSize: selectedQuantity,
+        status: 'draft',
+        title: titleController.text.trim(),
+        uid: firebaseAuth.currentUser!.uid,
+      ));
     }
+  }
 
   // void goToRecipePreview() {
   //   _navigationService.navigateToRecipeViewView();

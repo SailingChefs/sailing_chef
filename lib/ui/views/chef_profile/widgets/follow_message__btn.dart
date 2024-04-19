@@ -7,7 +7,7 @@ import '../chef_profile_viewmodel.dart';
 
 // ignore: camel_case_types
 class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
-  const Follow_Message_Btns({super.key,required this.user});
+  const Follow_Message_Btns({super.key, required this.user});
   final UserModel user;
 
   @override

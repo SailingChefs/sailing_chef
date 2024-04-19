@@ -1,5 +1,3 @@
-
-
 import 'dart:core';
 import 'dart:developer';
 import 'dart:io';
@@ -48,7 +46,7 @@ class RecipeService {
       EasyLoading.show();
       for (var image in images) {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-        Reference ref = firebaseStorage.ref().child('images/$fileName');
+        Reference ref = firebaseStorage.ref().child('images/recipes/$fileName');
         UploadTask uploadTask = ref.putFile(File(image!.path));
         TaskSnapshot taskSnapshot = await uploadTask;
         String imageUrl = await taskSnapshot.ref.getDownloadURL();
@@ -65,89 +63,95 @@ class RecipeService {
       return [];
     }
   }
+
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
-  EasyLoading.show();
-  try {
-    // Fetch recipes
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('recipes')
-        .where('uid', isEqualTo: uid)
-        .get();
+    EasyLoading.show();
+    try {
+      // Fetch recipes
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('recipes')
+          .where('uid', isEqualTo: uid)
+          .get();
 
-    // Fetch user details by UID only once
-    UserModel? user = await _userService.fetchUserByUID(uid);
+      // Fetch user details by UID only once
+      UserModel? user = await _userService.fetchUserByUID(uid);
 
-    // Map each document to a RecipeModel and include user data
-    List<RecipeModel> recipes = snapshot.docs.map((doc) {
-      RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-      recipe.user = user; // Assuming RecipeModel has a field for UserModel
-      return recipe;
-    }).toList();
+      // Map each document to a RecipeModel and include user data
+      List<RecipeModel> recipes = snapshot.docs.map((doc) {
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        recipe.user = user; // Assuming RecipeModel has a field for UserModel
+        return recipe;
+      }).toList();
 
-    EasyLoading.dismiss();
-    return recipes;
-  } catch (e) {
-    EasyLoading.dismiss();
-    log('Error fetching recipes: $e');
-    return [];
+      EasyLoading.dismiss();
+      return recipes;
+    } catch (e) {
+      EasyLoading.dismiss();
+      log('Error fetching recipes: $e');
+      return [];
+    }
   }
-}
 
-  //   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
-  //   try {
-  //     EasyLoading.show();
-  //     QuerySnapshot snapshot = await firebasestore
-  //         .collection('recipes')
-  //         .where('uid', isEqualTo: uid)
-  //         .get();
+  Future<List<RecipeModel>> fetchAllRecipes() async {
+    try {
+      EasyLoading.show();
 
-   
-    
-  //     // Fetch user details by UID and assign it to the recipe
-  //     UserModel? user = await _userService.fetchUserByUID(uid);
-  //     user = user;
-    
-  //   }
-  //     EasyLoading.dismiss();
+      QuerySnapshot snapshot = await firebasestore
+          .collection('recipes')
+          .where('uid', isNotEqualTo: '123456')
+          .get();
 
-  //     return snapshot.docs
-  //         .map((doc) => RecipeModel.fromSnapshot(doc))
-  //         .toList();
-  //   } catch (e) {
-  //     EasyLoading.dismiss();
-  //     log('Error fetching recipes: $e');
-  //     return [];
-  //   }
-  // }
+      List<RecipeModel> recipes = [];
+      for (var doc in snapshot.docs) {
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
 
-Future<List<RecipeModel>> fetchAllRecipes() async {
- 
+        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+        recipe.user = user;
+        recipes.add(recipe);
+      }
 
+      EasyLoading.dismiss();
+
+      return recipes;
+    } catch (e) {
+      EasyLoading.dismiss();
+      log("Error fetching recipes: $e");
+      return [];
+    }
+  }
+  Future<List<RecipeModel>> fetchRandomRecipes(int count) async {
   try {
     EasyLoading.show();
-    
-    QuerySnapshot snapshot = await firebasestore
-      .collection('recipes')
-      .where('uid', isNotEqualTo: '123456') 
-      .get();
 
-    List<RecipeModel> recipes = [];
+    // Attempt to fetch more than you need to improve randomness
+    QuerySnapshot snapshot = await firebasestore
+        .collection('recipes')
+        .where('uid', isNotEqualTo: '123456')
+        .limit(10) // Adjust number based on expected collection size
+        .get();
+
+    List<RecipeModel> allRecipes = [];
     for (var doc in snapshot.docs) {
-      RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-      
+      allRecipes.add(RecipeModel.fromSnapshot(doc));
+    }
+
+    // Shuffle the list to randomize and then take the first 5
+    allRecipes.shuffle();
+    List<RecipeModel> randomRecipes = allRecipes.take(count).toList();
+
+    // Optionally fetch associated user data if needed
+    for (RecipeModel recipe in randomRecipes) {
       UserModel? user = await _userService.fetchUserByUID(recipe.uid);
       recipe.user = user;
-      recipes.add(recipe);
     }
 
     EasyLoading.dismiss();
 
-    return recipes;
+    return randomRecipes;
   } catch (e) {
     EasyLoading.dismiss();
-    log("Error fetching recipes: $e");
-    return []; 
+    log("Error fetching random recipes: $e");
+    return [];
   }
 }
-
 }

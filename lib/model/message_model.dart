@@ -6,7 +6,7 @@ class MessageModel {
   final String receiverId;
   final String senderId;
   final DateTime timestamp;
-   String? type;
+  String? type;
 
   MessageModel({
     required this.content,
@@ -14,7 +14,7 @@ class MessageModel {
     required this.receiverId,
     required this.senderId,
     required this.timestamp,
-   this.type,
+    this.type,
   });
 
   factory MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -25,7 +25,7 @@ class MessageModel {
       // image: data['image'] ?? '',
       receiverId: data['receiverId'] ?? '',
       senderId: data['senderId'] ?? '',
-      timestamp:  (data['timestamp'] as Timestamp).toDate(),
+      timestamp: (data['timestamp'] as Timestamp).toDate(),
       type: data['type'] ?? '',
     );
   }
@@ -39,7 +39,6 @@ class MessageModel {
       type: map['type'] ?? '',
     );
   }
-
 
   Map<String, dynamic> toMap() {
     return {

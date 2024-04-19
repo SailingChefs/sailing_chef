@@ -17,15 +17,16 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
             style: Theme.of(context).textTheme.titleMedium,
           )
         : Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
                 axisDirection: AxisDirection.down,
                 slivers: [
                   SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
@@ -47,6 +48,6 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 ],
               );
             }),
-        );
+          );
   }
 }

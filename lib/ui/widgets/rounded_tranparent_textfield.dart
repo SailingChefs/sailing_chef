@@ -21,6 +21,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool? readOnly;
   final List<TextInputFormatter>? inputFormatters;
+  final Color? borderColor;
 
   const RoundedTransparentTextField({
     Key? key,
@@ -40,7 +41,8 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.prefixIcon,
     this.onChanged,
     this.suffixIconData,
-    this.prefixIconData,
+    this.prefixIconData, this.borderColor,
+
   }) : super(key: key);
 
   @override
@@ -62,16 +64,17 @@ class RoundedTransparentTextField extends StatelessWidget {
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor?? kcWhiteColor.withOpacity(0.2)),
+
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color:  borderColor?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
           borderSide: BorderSide(
-              color: kcWhiteColor.withOpacity(0.2)), // Unfocused border color
+              color:  borderColor?? kcWhiteColor.withOpacity(0.2)), // Unfocused border color
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

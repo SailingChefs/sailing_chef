@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
@@ -76,7 +75,10 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                       items: viewModel.timeMethod.map((index) {
                         return DropdownMenuItem<String>(
                           value: index.toString(),
-                          child: Text(index,style: const TextStyle(fontSize: 14),),
+                          child: Text(
+                            index,
+                            style: const TextStyle(fontSize: 14),
+                          ),
                         );
                       }).toList(),
                     ),

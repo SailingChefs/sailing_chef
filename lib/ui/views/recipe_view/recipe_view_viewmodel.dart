@@ -32,34 +32,31 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void moveBack() {
     _navigationService.back();
-    
   }
-  void saveRecipe(RecipeModel recipe,List<XFile?> selectedImages) async{
-     List<String> imageUrls =
-            await _recipeService.uploadImagesToFirebase(selectedImages);
 
-       final check =  await _recipeService.addRecipeToFirestore(RecipeModel(
-          visibility: recipe.visibility,
-          chefNote: 'recorderController',
-          coverImage: imageUrls,
-          createdTime: Timestamp.now(),
-          ingredients: recipe.ingredients,
-          methods: recipe.methods,
-          prepTime: recipe.prepTime,
-          servingSize: recipe.servingSize,
-          status: 'published',
-          title: recipe.title,
-          uid: recipe.uid,
-        ));
-        if(check){
-          _navigationService.replaceWithRecipeListPageView(isFromProfileView: false
+  void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
+    List<String> imageUrls =
+        await _recipeService.uploadImagesToFirebase(selectedImages);
 
-          );
-        }
-        else{
-          showToast( message: 'Something went wrong');
-        }
-
+    final check = await _recipeService.addRecipeToFirestore(RecipeModel(
+      visibility: recipe.visibility,
+      chefNote: 'recorderController',
+      coverImage: imageUrls,
+      createdTime: Timestamp.now(),
+      ingredients: recipe.ingredients,
+      methods: recipe.methods,
+      prepTime: recipe.prepTime,
+      servingSize: recipe.servingSize,
+      status: 'published',
+      title: recipe.title,
+      uid: recipe.uid,
+    ));
+    if (check) {
+      _navigationService.replaceWithRecipeListPageView(
+          isFromProfileView: false);
+    } else {
+      showToast(message: 'Something went wrong');
+    }
   }
 
   void handleTab(int index) {
@@ -96,7 +93,6 @@ class RecipeViewViewModel extends BaseViewModel {
     rebuildUi();
     notifyListeners();
   }
-   
 
   void startAutoScroll(int length) {
     const duration = Duration(seconds: 3); // Change the interval as needed
@@ -104,7 +100,7 @@ class RecipeViewViewModel extends BaseViewModel {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0;  // Loop back to the first image
+          nextPage = 0; // Loop back to the first image
         }
         pageController.animateToPage(
           nextPage,

@@ -38,14 +38,15 @@ class CookingInstructionsSheet
           Center(
             child: Text(
               request.title ?? 'Cooking Instructions',
-              style:
-                  globalTextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600,color: kcBlackColor),
+              style: globalTextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: kcBlackColor),
             ),
           ),
           verticalSpaceMedium,
           const ListViewCookingInstructions(),
           const BottomCookingInstructions(),
-        
         ],
       ),
     );
@@ -55,8 +56,8 @@ class CookingInstructionsSheet
   CookingInstructionsSheetModel viewModelBuilder(BuildContext context) =>
       CookingInstructionsSheetModel(completer: completer);
 }
-class CookingInstructionsSheetResponse {
-   final  List<String> instructionsListResponse;
-  CookingInstructionsSheetResponse( {required this.instructionsListResponse});
 
+class CookingInstructionsSheetResponse {
+  final List<String> instructionsListResponse;
+  CookingInstructionsSheetResponse({required this.instructionsListResponse});
 }

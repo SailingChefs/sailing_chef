@@ -5,8 +5,8 @@ import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart'
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
 class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
-  const ChefProfileDetailsDesc( {required this.user,super.key});
-   final UserModel user;
+  const ChefProfileDetailsDesc({required this.user, super.key});
+  final UserModel user;
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Container(
@@ -15,7 +15,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-          "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
+            "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
             style: globalTextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

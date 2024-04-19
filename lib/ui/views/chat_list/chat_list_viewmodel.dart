@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -15,11 +14,10 @@ class ChatListViewModel extends BaseViewModel {
   List<UserModel>? chatUsers = [];
 
   Stream<List<ConversationModel>> getConversation() {
- ;
     Stream<List<ConversationModel>> conversations =
         _convoService.getConversations();
     log('conversations from chat_list_viewmodel: $conversations');
- 
+
     return conversations;
   }
 

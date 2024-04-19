@@ -20,7 +20,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridViewCard(
-            onTap: viewModel.toDishDetailsScreen,
+              onTap: viewModel.toDishDetailsScreen,
               foodImagePath: 'assets/images/background/onboarding.png',
               dishName: "dish name",
               duration: "30",

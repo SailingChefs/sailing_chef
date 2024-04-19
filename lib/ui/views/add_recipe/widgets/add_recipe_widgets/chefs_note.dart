@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -14,12 +13,13 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Chef\'s Note',
           style: globalTextStyle(
-              fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: kcBlackColor),
         ),
         verticalSpaceTiny,
         Container(
           height: 50.h,
-          
           padding: EdgeInsets.only(
             left: 20.dg,
           ),
@@ -47,13 +47,13 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                 0 &&
                             !viewModel.recorderController.isRecording
                         ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              onPressed: viewModel.startListening,
-                            icon: const Icon(Icons.play_arrow),
-                            ),
-                            AudioFileWaveforms(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: viewModel.startListening,
+                                icon: const Icon(Icons.play_arrow),
+                              ),
+                              AudioFileWaveforms(
                                 size: const Size(double.maxFinite, 100.0),
                                 playerController: viewModel.playerController,
                                 waveformData: viewModel.waveFormData!,
@@ -63,8 +63,8 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                   spacing: 6,
                                 ),
                               ),
-                          ],
-                        )
+                            ],
+                          )
                         : AudioWaveforms(
                             size: const Size(double.maxFinite, 50),
                             recorderController: viewModel.recorderController,
@@ -76,7 +76,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                               showBottom: false,
                               extendWaveform: true,
                               showMiddleLine: false,
-        
+
                               //   gradient: LinearGradient(
                               //     colors: [Colors.red, Colors.green],
                               // ),

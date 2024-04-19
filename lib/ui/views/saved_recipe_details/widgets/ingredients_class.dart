@@ -1,4 +1,3 @@
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -14,7 +13,6 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       for (var ingredient in recipeModel.ingredients)
         Container(
           height: 50.0,
-      
           decoration: BoxDecoration(
             color: const Color(0xFFF3F3F3),
             borderRadius: BorderRadius.circular(15.0),
@@ -27,18 +25,18 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               Text(capitalizeEachWord(ingredient.name),
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins'),
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   )),
               Text('${ingredient.quantity} ${ingredient.unit}',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: 'Poppins'),
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w300,
+                    ),
                   )),
             ],
           ),
@@ -65,13 +63,21 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 )),
             Text(
               'Serves ${recipeModel.servingSize}',
-              style: const TextStyle(color: Colors.black, fontSize: 10),
+              style: globalTextStyle(
+                  fontSize: 10.02.sp,
+                  fontWeight: FontWeight.w400,
+                  color: kcBlackColor.withOpacity(0.87)),
             ),
           ],
         ),
         Text(
           '${recipeModel.ingredients.length} items',
-          style: TextStyle(fontSize: 10.0.sp),
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              fontSize: 10.0.sp,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ),
         ...allIngredients
       ],

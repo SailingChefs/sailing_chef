@@ -3,18 +3,17 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
-
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipe;
-  final List<XFile?> selectedImages ;
-  const IngredientsClass(this.recipe, this.selectedImages, {
+  final List<XFile?> selectedImages;
+  const IngredientsClass(
+    this.recipe,
+    this.selectedImages, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-  
-
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5.dg, horizontal: 25.dg),
@@ -25,7 +24,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'Ingredients',
                   style: TextStyle(
                     fontSize: 15.0.sp,
@@ -54,7 +53,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                     ),
                     Text(
                       'Serves ${recipe.servingSize}',
-                      style:  TextStyle(color: Colors.black, fontSize: 10.sp),
+                      style: TextStyle(color: Colors.black, fontSize: 10.sp),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -68,7 +67,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                         minimumSize:
                             MaterialStateProperty.all<Size>(const Size(5, 5)),
                       ),
-                      child:  Icon(
+                      child: Icon(
                         Icons.remove,
                         size: 10.dg,
                         color: kcwhitecolor,
@@ -80,7 +79,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
             ),
             Text(
               '${recipe.ingredients.length} items ',
-              style:  TextStyle(fontSize: 10.0.sp),
+              style: TextStyle(fontSize: 10.0.sp),
             ),
             SizedBox(
               height: recipe.ingredients.length * 100.h,
@@ -95,7 +94,7 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                         color: const Color(0xFFF3F3F3),
                         borderRadius: BorderRadius.circular(15.0.r),
                       ),
-                      padding:  EdgeInsets.all(10.0.dg),
+                      padding: EdgeInsets.all(10.0.dg),
                       margin: EdgeInsets.symmetric(vertical: 5.0.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +113,6 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                   }),
             ),
             verticalSpaceMedium,
-            
           ],
         ),
       ),

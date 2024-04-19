@@ -4,7 +4,8 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 
 class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
-  const BuildInputFieldChatScreen({super.key, required this.user, required this.conversationId});
+  const BuildInputFieldChatScreen(
+      {super.key, required this.user, required this.conversationId});
   final UserModel user;
   final String conversationId;
   @override
@@ -19,7 +20,7 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
               color: kcLightGrey.withOpacity(0.1),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), 
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -31,7 +32,8 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                 Icons.camera_alt_outlined,
               ),
               onPressed: () {
-                viewModel.getImage(ImageSource.camera, user.uid!, conversationId);
+                viewModel.getImage(
+                    ImageSource.camera, user.uid!, conversationId);
               },
             ),
             Expanded(
@@ -46,17 +48,18 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                       fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0.r),
-                    borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    borderSide:
+                        BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0.r),
-                    borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    borderSide:
+                        BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0.r),
-                    borderSide: BorderSide(
-                        color: kcWhiteColor
-                            .withOpacity(0.2)), 
+                    borderSide:
+                        BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0.r),
@@ -80,19 +83,24 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
             IconButton(
               icon: const Icon(FlutterRemix.attachment_2),
               onPressed: () {
-                viewModel.getImage(ImageSource.gallery, user.uid!, conversationId);
+                viewModel.getImage(
+                    ImageSource.gallery, user.uid!, conversationId);
               },
             ),
             GestureDetector(
-              onTap:viewModel.messageController.text.isEmpty ? null : (){
-                viewModel.sendMessage(user.uid!, conversationId);
-              },
+              onTap: viewModel.messageController.text.isEmpty
+                  ? null
+                  : () {
+                      viewModel.sendMessage(user.uid!, conversationId);
+                    },
               child: Container(
                 height: 40.0,
                 width: 40.0,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: viewModel.messageController.text.isEmpty ? kcLightGrey : kcPrimaryColor,
+                  color: viewModel.messageController.text.isEmpty
+                      ? kcLightGrey
+                      : kcPrimaryColor,
                 ),
                 child: const Icon(
                   FlutterRemix.send_plane_fill,

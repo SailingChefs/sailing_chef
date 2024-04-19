@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DishModel {
@@ -21,7 +20,9 @@ class DishModel {
     return DishModel(
       dishId: snapshot.id,
       dishName: snapshot['title'],
-      dishImagePath: snapshot['cover_image'] is List ? snapshot['cover_image'].first.toString() : snapshot['cover_image'],
+      dishImagePath: snapshot['cover_image'] is List
+          ? snapshot['cover_image'].first.toString()
+          : snapshot['cover_image'],
       dishPreparationTime: snapshot['prep_time'],
       dishChefImage: snapshot['cover_image'],
     );

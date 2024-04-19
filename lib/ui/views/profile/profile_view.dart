@@ -19,9 +19,10 @@ class ProfileView extends StackedView<ProfileViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator(
-            color: kcWhiteColor,
-          ))
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kcWhiteColor,
+            ))
           : Scaffold(
               backgroundColor: kcBackgroundColor,
               body: Padding(

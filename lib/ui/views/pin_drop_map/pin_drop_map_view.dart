@@ -1,11 +1,10 @@
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import 'pin_drop_map_viewmodel.dart';
 
- LatLng currentPosition = userDetails!.location!['longitude'] != null
+LatLng currentPosition = userDetails!.location!['longitude'] != null
     ? LatLng(
         userDetails!.location!['latitude'] as double,
         userDetails!.location!['longitude'] as double,
@@ -24,7 +23,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     return Scaffold(
       body: Column(
         children: [
-         
           Flexible(
             child: GoogleMap(
               initialCameraPosition:

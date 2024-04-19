@@ -1,15 +1,45 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/comment_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../../../core/imports/core_imports.dart';
 
 class SavedRecipeDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   // final PageController pageController = PageController();
+  final CommentService commentService = CommentService();
+  final RecipeService recipeService = RecipeService();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
+  final TextEditingController commentController = TextEditingController();
   bool isMethodsSelected = false;
-   final PageController pageController = PageController();
+  final PageController pageController = PageController();
   Timer? _timer;
+  final ImagePicker _picker = ImagePicker();
+  List<File> images = [];
+  double rating = 3.0;
+  List<CommentModel> commentsList = [];
+  List<RecipeModel> recipeList = [];
+
+  void pickImage() async {
+    final List<XFile> selectedImages = await _picker.pickMultiImage();
+
+    images.addAll(selectedImages.map((xFile) => File(xFile.path)));
+    rebuildUi();
+  }
+
+  void removeImage(int index) {
+    images.removeAt(index);
+    rebuildUi();
+  }
 
   void startAutoScroll(int length) {
     const duration = Duration(seconds: 3); // Change the interval as needed
@@ -17,7 +47,7 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0;  // Loop back to the first image
+          nextPage = 0; // Loop back to the first image
         }
         pageController.animateToPage(
           nextPage,
@@ -57,26 +87,46 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     }
   }
 
+  void addRating(double rating) {
+    this.rating = rating;
+    rebuildUi();
+  }
+
   void myIngredientsSelected() {
     isIngredientsSelected = true;
     isMethodsSelected = false;
     notifyListeners();
     rebuildUi();
-    
   }
-  // void showPreviousImage() {
-  //   if (pageController.page! > 0) {
-  //     pageController.previousPage(
-  //         duration: const Duration(milliseconds: 300), curve: Curves.ease);
-  //   }
-  // }
-  // // Function to handle swipe to the left (show next image)
-  // void showNextImage(int length) {
-  //   if (pageController.page! < length - 1) {
-  //     pageController.nextPage(
-  //         duration: const Duration(milliseconds: 300), curve: Curves.ease);
-  //   }
-  // }
+
+  void addComment(String recipeId) async {
+    bool uploaded;
+    List<String>? imageUrls;
+    if (images != []) {
+      imageUrls = await commentService.uploadImagesToFirebase(images);
+    }
+    uploaded = await commentService.addComment(CommentModel(
+        userId: userDetails!.uid!,
+        recipeId: recipeId,
+        content: commentController.text,
+        timestamp: Timestamp.now(),
+        rating: rating,
+        userName: userDetails!.displayName!,
+        userImageUrl: userDetails!.displayPicture!,
+        imageUrl: imageUrls));
+
+    if (uploaded) {
+      commentController.clear();
+      images.clear();
+      rating = rating;
+      rebuildUi();
+      showToast(message: 'Comment Added');
+    }
+  }
+
+  fetchComments(String recipeId) async {
+    commentsList = await commentService.fetchCommentsByRecipeId(recipeId);
+  }
 
   void methodsSelected() {
     isMethodsSelected = true;
@@ -87,7 +137,6 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
 
   void moveBack() {
     _navigationService.back();
-    
   }
 
   void moveToChefProfileView() {
@@ -110,27 +159,15 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  // void addServes() {
-  //   serves++;
-  //   rebuildUi();
-  //   notifyListeners();
-  // }
-
-  // void removeServes() {
-  //   if (serves == 0) {
-  //     serves = 0;
-  //   } else {
-  //     serves--;
-  //   }
-
-  //   rebuildUi();
-  //   notifyListeners();
-  // }
-  void onViewModelReady(int length) {
+ 
+  void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
     startAutoScroll(length);
+    await fetchComments(recipeId);
+    recipeList = await recipeService.fetchRandomRecipes(5);
     setBusy(false);
   }
+
   @override
   void dispose() {
     stopAutoScroll();

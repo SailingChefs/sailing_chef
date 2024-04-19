@@ -15,20 +15,18 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
       child: viewModel.selectedImages.isEmpty
           ? DottedBorder(
               borderType: BorderType.RRect,
-              radius:Radius.circular(20.0.r),
+              radius: Radius.circular(20.0.r),
               strokeWidth: 2.0,
               dashPattern: const [8, 4],
               color: kcBlackColor.withOpacity(0.3),
               child: SizedBox(
                 width: double.infinity,
-                
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-
                   children: [
                     Image.asset('assets/images/misc/Image.png',
                         height: 100.0.h, width: 100.0.w),
-                     Text(
+                    Text(
                       'Add Cover Photo',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -37,14 +35,14 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                       ),
                     ),
                     verticalSpaceTiny,
-                     Text(
+                    Text(
                       '(upto 12 Mb)',
                       style: TextStyle(
                         fontSize: 14.0.sp,
                         color: Colors.grey,
                       ),
                     ),
-                     verticalSpaceSmall,
+                    verticalSpaceSmall,
                   ],
                 ),
               ),

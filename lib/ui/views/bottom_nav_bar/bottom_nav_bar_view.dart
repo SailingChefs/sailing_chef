@@ -109,6 +109,4 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         return const Text('On Index Number  4');
     }
   }
-
-
 }

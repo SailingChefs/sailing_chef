@@ -1,6 +1,9 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
@@ -33,7 +36,7 @@ class MainRecipeViewContainer
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:  EdgeInsets.all(20.0.dg),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -59,7 +62,7 @@ class MainRecipeViewContainer
                               horizontalSpaceTiny,
                               Text(
                                 recipeModel.prepTime,
-                                style: const TextStyle(
+                                style: globalTextStyle(
                                   fontSize: 10.0,
                                   color: kcBlackColor,
                                 ),
@@ -69,7 +72,6 @@ class MainRecipeViewContainer
                         ],
                       ),
                       verticalSpaceSmall,
-
                       ViewProfileRow(
                         user: recipeModel.user!,
                       ),
@@ -83,49 +85,12 @@ class MainRecipeViewContainer
                           : Methods(
                               recipe: recipeModel,
                             ),
-                      verticalSpaceSmall,
-                      verticalSpaceMedium,
-                      const Text("Chef Notes",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500)),
-                      verticalSpaceMedium,
-                      Container(
-                        height: 48,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: kcMediumGrey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                shape: const CircleBorder(),
-                                backgroundColor: kcPrimaryColor,
-                              ),
-                              onPressed: () {},
-                              child: const Icon(
-                                Icons.play_arrow,
-                                color: kcwhitecolor,
-                              ),
-                            ),
-                            horizontalSpaceTiny,
-                            const Icon(Icons.multitrack_audio, opticalSize: 25),
-                            const Spacer(),
-                            const Text("0:05",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400)),
-                            horizontalSpaceTiny,
-                            Icon(Icons.volume_up,
-                                size: 24, color: Colors.black.withOpacity(0.5)),
-                            horizontalSpaceSmall,
-                          ],
-                        ),
+                      const CommentsDetailsScreen(
+                        
                       ),
-                      const CommentsDetailsScreen(),
-                      const LeaveComment(),
+                      LeaveComment(recipeId: recipeModel.uid,),
                       horizontalSpaceSmall,
+                       const BottomSlider(),
                     ],
                   ),
                 ),

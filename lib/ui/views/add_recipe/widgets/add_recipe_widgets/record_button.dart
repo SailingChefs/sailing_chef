@@ -55,19 +55,14 @@ class _RecordButtonState extends State<RecordButton> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    timerWidth =
-        MediaQuery.of(context).size.width - 2 * 16 - 4;
-    timerAnimation =
-        Tween<double>(begin: timerWidth + 16, end: 0)
-            .animate(
+    timerWidth = MediaQuery.of(context).size.width - 2 * 16 - 4;
+    timerAnimation = Tween<double>(begin: timerWidth + 16, end: 0).animate(
       CurvedAnimation(
         parent: widget.controller,
         curve: const Interval(0.2, 1, curve: Curves.easeIn),
       ),
     );
-    lockerAnimation =
-        Tween<double>(begin: lockerHeight + 16, end: 0)
-            .animate(
+    lockerAnimation = Tween<double>(begin: lockerHeight + 16, end: 0).animate(
       CurvedAnimation(
         parent: widget.controller,
         curve: const Interval(0.2, 1, curve: Curves.easeIn),
@@ -238,8 +233,6 @@ class _RecordButtonState extends State<RecordButton> {
         debugPrint("onLongPressEnd");
 
         if (isCancelled(details.localPosition, context)) {
-        
-
           timer?.cancel();
           timer = null;
           startTime = null;
@@ -269,7 +262,6 @@ class _RecordButtonState extends State<RecordButton> {
         } else {
           widget.controller.reverse();
 
-
           timer?.cancel();
           timer = null;
           startTime = null;
@@ -289,10 +281,7 @@ class _RecordButtonState extends State<RecordButton> {
       onLongPress: () async {
         debugPrint("onLongPress");
         if (await recorder.hasPermission()) {
-          await recorder.start(
-            const RecordConfig(),
-            path: ''
-          );
+          await recorder.start(const RecordConfig(), path: '');
           startTime = DateTime.now();
           timer = Timer.periodic(const Duration(seconds: 1), (_) {
             final minDur = DateTime.now().difference(startTime!).inMinutes;
