@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors
 
-
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
@@ -81,7 +78,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 backgroundColor: Theme.of(context).primaryColor,
               ),
               onPressed:() => viewModel.addComment(recipeId),
-              child: Icon(
+              child: const Icon(
                 FlutterRemix.send_plane_line,
                 color: kcwhitecolor,
                 size: 18,

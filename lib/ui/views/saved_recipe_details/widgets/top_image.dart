@@ -20,7 +20,7 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             alignment: Alignment.topLeft,
             child: GestureDetector(
               onHorizontalDragEnd: (details) {
-                print('testingse');
+              
                 if (details.primaryVelocity! > 0) {
                   viewModel.showPreviousImage(image.length);
                 } else if (details.primaryVelocity! < 0) {

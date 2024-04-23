@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/maincontainer.dart';
 import 'package:stacked/stacked.dart';
 import 'widgets/top_image.dart';
