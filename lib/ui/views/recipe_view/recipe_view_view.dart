@@ -11,8 +11,9 @@ import 'recipe_view_viewmodel.dart';
 
 class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
- final List<XFile?> selectedImages;
-  const RecipeViewView(this.recipeModel, this.selectedImages, {Key? key}) : super(key: key);
+  final List<XFile?> selectedImages;
+  const RecipeViewView(this.recipeModel, this.selectedImages, {Key? key})
+      : super(key: key);
 
   @override
   Widget builder(

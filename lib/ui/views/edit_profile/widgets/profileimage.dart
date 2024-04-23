@@ -8,7 +8,6 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
 
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
-    
     return Stack(
       children: [
         UserdataServiceService.user.displayPicture == null
@@ -59,8 +58,7 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                 children: [
                   CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage(
-                        UserdataServiceService
+                      backgroundImage: NetworkImage(UserdataServiceService
                           .user.displayPicture!
                           .toString())),
                   const GestureDetectorEdit(75, 75),

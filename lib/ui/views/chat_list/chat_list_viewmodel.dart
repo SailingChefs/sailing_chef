@@ -21,18 +21,21 @@ class ChatListViewModel extends BaseViewModel {
   }
 
   void toChatScreen(ConversationModel selectedConversation) {
-   
     log('cheflist: fuction ${chefList!.length} ${selectedConversation.users.length}');
     try {
       for (var chef in chefList!) {
         log('cheflist: ${selectedConversation.users[0]}');
         log('cheflist: ${selectedConversation.users[1]}');
-         log('cheflist: ${chef.uid}');
-        if (chef.uid == selectedConversation.users[0] && firebaseAuth.currentUser!.uid != chef.uid) {
-          _navigationService.navigateToChatView(receiver: chef, conversationId:selectedConversation.uid);
+        log('cheflist: ${chef.uid}');
+        if (chef.uid == selectedConversation.users[0] &&
+            firebaseAuth.currentUser!.uid != chef.uid) {
+          _navigationService.navigateToChatView(
+              receiver: chef, conversationId: selectedConversation.uid);
         }
-        if (chef.uid == selectedConversation.users[1] && firebaseAuth.currentUser!.uid != chef.uid) {
-          _navigationService.navigateToChatView(receiver: chef, conversationId:selectedConversation.uid);
+        if (chef.uid == selectedConversation.users[1] &&
+            firebaseAuth.currentUser!.uid != chef.uid) {
+          _navigationService.navigateToChatView(
+              receiver: chef, conversationId: selectedConversation.uid);
         }
       }
     } catch (e) {

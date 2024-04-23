@@ -46,7 +46,6 @@ class CookingInstructionsSheet
             verticalSpaceMedium,
             const ListViewCookingInstructions(),
             const BottomCookingInstructions(),
-          
           ],
         ),
       ),
@@ -57,8 +56,8 @@ class CookingInstructionsSheet
   CookingInstructionsSheetModel viewModelBuilder(BuildContext context) =>
       CookingInstructionsSheetModel(completer: completer);
 }
-class CookingInstructionsSheetResponse {
-   final  List<String> instructionsListResponse;
-  CookingInstructionsSheetResponse( {required this.instructionsListResponse});
 
+class CookingInstructionsSheetResponse {
+  final List<String> instructionsListResponse;
+  CookingInstructionsSheetResponse({required this.instructionsListResponse});
 }

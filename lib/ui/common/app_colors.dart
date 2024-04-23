@@ -20,6 +20,7 @@ const Color kcErrorColor = Color.fromARGB(255, 253, 0, 0);
 const Color ontop = Color.fromARGB(30, 93, 109, 1);
 const Color kcwhitecolor = Color(0xFFFFFFFF);
 const Color kcchatboxecolor = Color(0xFFC2D2BE);
+const Color kcbuttoncolor = Color(0xFF427536);
 
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,

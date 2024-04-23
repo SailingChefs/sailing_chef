@@ -45,7 +45,6 @@ class OnboardingViewModel extends BaseViewModel {
   }
 
   Widget getFormattedDescription(int index) {
-    
     return pages[index].getFormattedDescription();
   }
 

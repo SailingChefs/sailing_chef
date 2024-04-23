@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
@@ -16,15 +15,16 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         width: 150.w,
         child: Row(
           children: [
-             CircleAvatar(
+            CircleAvatar(
               backgroundImage: NetworkImage(user.displayPicture!),
             ),
             horizontalSpaceSmall,
             Text(
               user.displayName!,
-              style:  TextStyle(
+              style: TextStyle(
                   color: kcBlackColor,
-                  fontSize: getResponsiveFontSize(context,fontSize: 30.sp,max:40),
+                  fontSize:
+                      getResponsiveFontSize(context, fontSize: 30.sp, max: 40),
                   fontWeight: FontWeight.w600),
             ),
           ],

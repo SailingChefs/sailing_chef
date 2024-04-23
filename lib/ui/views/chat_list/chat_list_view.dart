@@ -35,6 +35,7 @@ class ChatListView extends StackedView<ChatListViewModel> {
     viewModel.onViewModelReady();
     super.onViewModelReady(viewModel);
   }
+
   @override
   ChatListViewModel viewModelBuilder(
     BuildContext context,

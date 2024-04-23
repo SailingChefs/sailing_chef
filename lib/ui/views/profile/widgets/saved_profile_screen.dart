@@ -19,10 +19,11 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return  PrimaryGridViewCard(
-            onTap: (){},
-          //  viewModel.toDishDetailsScreen,
-              foodImagePath: 'https://th.bing.com/th/id/OIG3.5u5ZBGkvLQn1ELp4UqXH',
+          return PrimaryGridViewCard(
+              onTap: () {},
+              //  viewModel.toDishDetailsScreen,
+              foodImagePath:
+                  'https://th.bing.com/th/id/OIG3.5u5ZBGkvLQn1ELp4UqXH',
               dishName: "dish name",
               duration: "30",
               chefImagePath: 'https://images.app.goo.gl/4iwFcv1jzruDgVuJA');

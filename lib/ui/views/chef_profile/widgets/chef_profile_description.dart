@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
@@ -19,7 +17,6 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            
             children: [
               Container(
                 height: 90.h,
@@ -30,26 +27,35 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: user.displayPicture == null ? Image.asset('assets/images/misc/blank_image.png',fit: BoxFit.cover,)
-                    :Image.network(
-                      user.displayPicture!,
-                      fit: BoxFit.cover,
-                    )),
+                    child: user.displayPicture == null
+                        ? Image.asset(
+                            'assets/images/misc/blank_image.png',
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            user.displayPicture!,
+                            fit: BoxFit.cover,
+                          )),
               ),
-              ChefProfileDetails(user: user,),
+              ChefProfileDetails(
+                user: user,
+              ),
             ],
           ),
           verticalSpaceSmall,
           Text(
-            user.displayName == null ? '' : capitalizeEachWord(user.displayName!),
+            user.displayName == null
+                ? ''
+                : capitalizeEachWord(user.displayName!),
             style: globalTextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w700,
                 color: kcBlackColor),
           ),
           Text(
-            user.boatName == null && viewModel.placemarks!.first.country == null ? '' :
-            "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}" ,
+            user.boatName == null && viewModel.placemarks!.first.country == null
+                ? ''
+                : "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
             style: globalTextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

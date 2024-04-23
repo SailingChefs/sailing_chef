@@ -1,9 +1,9 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/grid_view.dart';
 
-class FollowingSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {  
+class FollowingSavedRecipesScreen
+    extends ViewModelWidget<SavedRecipesViewModel> {
   const FollowingSavedRecipesScreen({super.key});
 
   @override
@@ -20,9 +20,8 @@ class FollowingSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel>
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return  PrimaryGridViewCard(
-            onTap: viewModel.toDishDetailsScreen,
-
+          return PrimaryGridViewCard(
+              onTap: viewModel.toDishDetailsScreen,
               foodImagePath: 'assets/images/background/onboarding2.png',
               dishName: "dish name",
               duration: "30",

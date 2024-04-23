@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -67,7 +66,7 @@ class ChatView extends StackedView<ChatViewModel> {
                         ],
                       );
                     } else {
-                      return const Center(child:  CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                   },
                 ),
@@ -76,7 +75,7 @@ class ChatView extends StackedView<ChatViewModel> {
                   child: ListView.builder(
                     itemCount: viewModel.messages.length,
                     controller: viewModel.scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(), 
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return ChatMessage(viewModel.messages[index]);
                     },

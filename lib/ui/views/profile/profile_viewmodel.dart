@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -14,9 +13,8 @@ class ProfileViewModel extends BaseViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<RecipeModel>? myRecipes ;
+  List<RecipeModel>? myRecipes;
   List<RecipeModel> savedRecipes = [];
-
 
   List<Placemark>? placemarks;
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
@@ -40,9 +38,9 @@ class ProfileViewModel extends BaseViewModel {
       return '';
     }
 
-    placemarks =
-        await placemarkFromCoordinates(userDetails!.location!['latitude'], userDetails!.location!['longitude']);
-
+    placemarks = await placemarkFromCoordinates(
+        userDetails!.location!['latitude'],
+        userDetails!.location!['longitude']);
   }
 
   void goTogoToProfileEditView(String name) {
@@ -75,12 +73,13 @@ class ProfileViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();
-   myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+    myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
     setBusy(false);
   }
-  void toDishesScreen(){
+
+  void toDishesScreen() {
     _navigationService.navigateToRecipeListPageView(
-       isFromProfileView: true,
+      isFromProfileView: true,
     );
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -19,7 +18,6 @@ class PrimaryGridViewCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-
   Widget build(
     BuildContext context,
   ) {
@@ -39,9 +37,8 @@ class PrimaryGridViewCard extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
-            children: [
-              Column(
+          child: Stack(children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
@@ -55,7 +52,6 @@ class PrimaryGridViewCard extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-
                   ),
                 ),
                 verticalSpaceTiny,
@@ -71,76 +67,77 @@ class PrimaryGridViewCard extends StatelessWidget {
                 ),
               ],
             ),
-               Positioned(
-                  top: 5.dg,
-                  right: 10.dg,
-                  child: Container(
-                    width: 30.w,
-                    height: 30.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: kcBlackColor.withOpacity(0.5),
-                    ),
-                    child: Icon(
-                      Icons.bookmark_border_outlined,
-                      size: 18.dg,
-                      color: kcWhiteColor,
-                    ),
+            Positioned(
+              top: 5.dg,
+              right: 10.dg,
+              child: Container(
+                width: 30.w,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: kcBlackColor.withOpacity(0.5),
+                ),
+                child: Icon(
+                  Icons.bookmark_border_outlined,
+                  size: 18.dg,
+                  color: kcWhiteColor,
+                ),
+              ),
+            ),
+            Positioned(
+              left: 5.dg,
+              bottom: 30.dg + 5.dg,
+              child: Container(
+                width: 70.w,
+                height: 25.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: kcBlackColor.withOpacity(0.5),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.r),
                   ),
                 ),
-                Positioned(
-                  left: 5.dg,
-                  bottom: 30.dg + 5.dg,
-                  child: Container(
-                    width: 70.w,
-                    height: 25.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: kcBlackColor.withOpacity(0.5),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.r),
-                      ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      FlutterRemix.time_line,
+                      size: 12.dg,
+                      color: kcWhiteColor,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          FlutterRemix.time_line,
-                          size: 12.dg,
-                          color: kcWhiteColor,
-                        ),
-                        Text(
-                          duration,
-                          style: globalTextStyle(fontSize: 10.sp),
-                        )
-                      ],
-                    ),
+                    Text(
+                      duration,
+                      style: globalTextStyle(fontSize: 10.sp),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10.dg,
+              right: 10.dg,
+              child: Container(
+                height: 35.h,
+                width: 30.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: kcWhiteColor,
+                  border: Border.all(
+                    color: kcWhiteColor,
                   ),
                 ),
-                Positioned(
-                  bottom: 10.dg,
-                  right: 10.dg,
-                  child: Container(
-                    height: 35.h,
-                    width: 30.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: kcWhiteColor,
-                      border: Border.all(
-                        color: kcWhiteColor,
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0.r),
-                      child: Image.network(
-                        chefImagePath,
-                        height: 32.h,
-                        width: 32.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30.0.r),
+                  child: Image.network(
+                    chefImagePath,
+                    height: 32.h,
+                    width: 32.w,
+                    fit: BoxFit.cover,
                   ),
-        )]),
+                ),
+              ),
+            )
+          ]),
 
           // child: Container(
           //   decoration: BoxDecoration(

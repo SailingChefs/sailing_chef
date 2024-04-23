@@ -16,6 +16,7 @@ import '../services/chef_service.dart';
 import '../services/conversation_service.dart';
 import '../services/dishes_service.dart';
 import '../services/location_service.dart';
+import '../services/pin_drop_service.dart';
 import '../services/recipe_service.dart';
 import '../services/user_services.dart';
 import '../services/userdata_service_service.dart';
@@ -44,4 +45,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DishesService());
   locator.registerLazySingleton(() => UserdataServiceService());
   locator.registerLazySingleton(() => BottomNavBarViewModel());
+  locator.registerLazySingleton(() => PinDropService());
 }

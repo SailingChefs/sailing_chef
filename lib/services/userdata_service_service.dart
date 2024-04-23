@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+
 class UserdataServiceService {
   static UserModel user = UserModel();
   Future<List<UserModel>> fetchUsersDocuments() async {
@@ -31,9 +32,8 @@ class UserdataServiceService {
     }
   }
 
-
-    Future<bool> storeUserDetails(
-    Map<String, dynamic> userModel, String uid) async {
+  Future<bool> storeUserDetails(
+      Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
       CollectionReference usersCollection =

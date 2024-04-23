@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
@@ -36,7 +35,6 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               );
             },
           ),
-       
 
           //      CarouselSlider(
           //   options: CarouselOptions(
@@ -49,7 +47,6 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           //             Image.network(item, fit: BoxFit.cover, width: double.infinity)))
           //     .toList(),
           // ),
-        
 
           Padding(
             padding: const EdgeInsets.all(20.0),

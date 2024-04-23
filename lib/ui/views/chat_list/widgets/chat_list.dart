@@ -31,7 +31,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
 
                 int hour12 = (hour > 12) ? (hour - 12) : hour;
                 if (hour12 == 0) {
-                  hour12 = 12; 
+                  hour12 = 12;
                 }
                 String twoDigits(int n) {
                   if (n >= 10) {
@@ -49,20 +49,26 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                         },
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(5),
-                          title: Text(conversation.user!.displayName!,),
-                          subtitle: conversation.latestMessageType == 'String' ?
-                           Text(conversation.latestMessage.toString(),
-                           overflow: TextOverflow.ellipsis,
-                           maxLines: 1,
-                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
-                          ):
-                           Text('Sent an attachement',
-                            style: TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
+                          title: Text(
+                            conversation.user!.displayName!,
                           ),
+                          subtitle: conversation.latestMessageType == 'String'
+                              ? Text(
+                                  conversation.latestMessage.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      color: kcPrimaryColor.withOpacity(0.5)),
+                                )
+                              : Text(
+                                  'Sent an attachement',
+                                  style: TextStyle(
+                                      color: kcPrimaryColor.withOpacity(0.5)),
+                                ),
                           leading: CircleAvatar(
                             radius: 30.r,
-                            backgroundImage:
-                                NetworkImage(conversation.user!.displayPicture!),
+                            backgroundImage: NetworkImage(
+                                conversation.user!.displayPicture!),
                           ),
                           trailing: Text(
                               '${twoDigits(hour12)}:${twoDigits(minute)} $period'),

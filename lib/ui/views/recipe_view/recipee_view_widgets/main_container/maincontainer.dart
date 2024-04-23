@@ -11,7 +11,9 @@ import 'tab_bars_recipe.dart';
 class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
   final List<XFile?> selectedImages;
-  const MainRecipeViewContainer(this.recipeModel, this.selectedImages, {Key? key}) : super(key: key);
+  const MainRecipeViewContainer(this.recipeModel, this.selectedImages,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
@@ -39,7 +41,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                           capitalizeEachWord (recipeModel.title),
+                            capitalizeEachWord(recipeModel.title),
                             style: globalTextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -51,7 +53,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                           width: 70,
                           height: 45,
                           padding: const EdgeInsets.all(10.0),
-                          child:  Row(
+                          child: Row(
                             children: [
                               Text(
                                 recipeModel.prepTime,
@@ -81,13 +83,16 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
-                        ?  IngredientsClass(recipeModel, selectedImages)
-                        :  Methods(recipeModel: recipeModel,),
-                        Save_Recipe_Button(
-              onPressed: () =>viewModel.saveRecipe(recipeModel,selectedImages),
-              buttonText: 'Submit Recipe',
-            ),
-            horizontalSpaceSmall,
+                        ? IngredientsClass(recipeModel, selectedImages)
+                        : Methods(
+                            recipeModel: recipeModel,
+                          ),
+                    Save_Recipe_Button(
+                      onPressed: () =>
+                          viewModel.saveRecipe(recipeModel, selectedImages),
+                      buttonText: 'Submit Recipe',
+                    ),
+                    horizontalSpaceSmall,
                   ],
                 ),
               ),

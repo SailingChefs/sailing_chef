@@ -39,25 +39,25 @@ class UserServices {
 
   Future<UserModel> getUserDetails() async {
     // try {
-      EasyLoading.show();
-      CollectionReference usersCollection = firebasestore.collection('users');
+    EasyLoading.show();
+    CollectionReference usersCollection = firebasestore.collection('users');
 
-      QuerySnapshot userSnapshot = await usersCollection
-          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
-          .get();
+    QuerySnapshot userSnapshot = await usersCollection
+        .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+        .get();
 
-          log(userSnapshot.docs.toString());
+    log(userSnapshot.docs.toString());
 
-      if (userSnapshot.docs.isNotEmpty) {
-        DocumentSnapshot userDoc = userSnapshot.docs.first;
-        EasyLoading.dismiss();
-        showToast(message: 'User Data fetched successfully');
+    if (userSnapshot.docs.isNotEmpty) {
+      DocumentSnapshot userDoc = userSnapshot.docs.first;
+      EasyLoading.dismiss();
+      showToast(message: 'User Data fetched successfully');
 
-        return UserModel.fromSnapshot(userDoc);
-      } else {
-        EasyLoading.dismiss();
-        throw Exception("User not found in Firestore");
-      }
+      return UserModel.fromSnapshot(userDoc);
+    } else {
+      EasyLoading.dismiss();
+      throw Exception("User not found in Firestore");
+    }
     // } catch (e) {
     //   EasyLoading.dismiss();
     //   showToast(message: e.toString());
@@ -116,13 +116,15 @@ class UserServices {
       return '';
     }
   }
-   Future<UserModel?> fetchUserByUID(String uid) async {
+
+  Future<UserModel?> fetchUserByUID(String uid) async {
     try {
-      DocumentSnapshot snapshot = await firebasestore.collection('users').doc(uid).get();
+      DocumentSnapshot snapshot =
+          await firebasestore.collection('users').doc(uid).get();
       if (snapshot.exists) {
         return UserModel.fromSnapshot(snapshot);
       } else {
-      log('No user found with uid: $uid');
+        log('No user found with uid: $uid');
         return null;
       }
     } catch (e) {

@@ -8,6 +8,7 @@ import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -22,6 +23,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ChefService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DishesService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserdataServiceService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<PinDropService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -34,6 +36,7 @@ void registerServices() {
   getAndRegisterChefService();
   getAndRegisterDishesService();
   getAndRegisterUserdataServiceService();
+  getAndRegisterPinDropService();
 // @stacked-mock-register
 }
 
@@ -126,6 +129,13 @@ MockUserdataServiceService getAndRegisterUserdataServiceService() {
   _removeRegistrationIfExists<UserdataServiceService>();
   final service = MockUserdataServiceService();
   locator.registerSingleton<UserdataServiceService>(service);
+  return service;
+}
+
+MockPinDropService getAndRegisterPinDropService() {
+  _removeRegistrationIfExists<PinDropService>();
+  final service = MockPinDropService();
+  locator.registerSingleton<PinDropService>(service);
   return service;
 }
 // @stacked-mock-create

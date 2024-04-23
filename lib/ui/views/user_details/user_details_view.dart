@@ -17,7 +17,6 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          
           extendBodyBehindAppBar: true,
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Padding(

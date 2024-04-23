@@ -6,17 +6,18 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 class RecipeListPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final RecipeService _recipeService = locator<RecipeService>();
-  List<RecipeModel> ? recipes ;
+  List<RecipeModel>? recipes;
   void onViewModelReady() async {
     setBusy(true);
-    recipes = await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
+    recipes =
+        await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
     notifyListeners();
     setBusy(false);
   }
 
-  
   void toHomeView(bool isFromProfileView) {
-    isFromProfileView ? _navigationService.back() :
-    _navigationService.replaceWithBottomNavBarView();
+    isFromProfileView
+        ? _navigationService.back()
+        : _navigationService.replaceWithBottomNavBarView();
   }
 }

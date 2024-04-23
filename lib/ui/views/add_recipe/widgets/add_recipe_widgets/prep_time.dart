@@ -76,7 +76,10 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                       items: viewModel.timeMethod.map((index) {
                         return DropdownMenuItem<String>(
                           value: index.toString(),
-                          child: Text(index,style: const TextStyle(fontSize: 14),),
+                          child: Text(
+                            index,
+                            style: const TextStyle(fontSize: 14),
+                          ),
                         );
                       }).toList(),
                     ),

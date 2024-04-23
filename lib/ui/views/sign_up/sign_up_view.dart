@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
@@ -69,22 +68,24 @@ class SignUpView extends StackedView<SignUpViewModel> {
                   verticalSpace(MediaQuery.of(context).size.height * 0.05),
                   SingleChildScrollView(
                     child: Column(
-                      
                       children: [
                         Text(
                           'Lets create your account',
                           style: globalTextStyle(
                               fontSize: 20.sp, fontWeight: FontWeight.w600),
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.010),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.010),
                         Text(
                           'sign up as',
                           style: globalTextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.w400),
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.028),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.028),
                         RoleSelector(viewModel: viewModel),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.05),
                         Form(
                           key: viewModel.formKey,
                           child: Column(

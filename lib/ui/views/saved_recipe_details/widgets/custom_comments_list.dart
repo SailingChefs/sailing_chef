@@ -25,7 +25,7 @@ class CustomListTileComments extends StatelessWidget {
             width: 350,
             height: 270,
             child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext contex, int index) {
                   return Column(
                     children: [

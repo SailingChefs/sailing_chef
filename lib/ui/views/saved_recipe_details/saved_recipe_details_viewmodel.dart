@@ -9,7 +9,7 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
   int serves = 1;
-   final PageController pageController = PageController();
+  final PageController pageController = PageController();
   Timer? _timer;
 
   void startAutoScroll(int length) {
@@ -18,7 +18,7 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0;  // Loop back to the first image
+          nextPage = 0; // Loop back to the first image
         }
         pageController.animateToPage(
           nextPage,
@@ -63,7 +63,6 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     isMethodsSelected = false;
     notifyListeners();
     rebuildUi();
-    
   }
   // void showPreviousImage() {
   //   if (pageController.page! > 0) {
@@ -88,7 +87,6 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
 
   void moveBack() {
     _navigationService.back();
-    
   }
 
   void moveToChefProfileView() {
@@ -127,11 +125,13 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
     notifyListeners();
   }
+
   void onViewModelReady(int length) {
     setBusy(true);
     startAutoScroll(length);
     setBusy(false);
   }
+
   @override
   void dispose() {
     stopAutoScroll();

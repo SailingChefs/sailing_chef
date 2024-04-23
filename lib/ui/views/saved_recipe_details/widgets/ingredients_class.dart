@@ -8,8 +8,6 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +28,9 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ),
             ],
           ),
-           Text(
+          Text(
             '${recipeModel.ingredients.length} items',
-            style:  TextStyle(fontSize: 10.0.sp),
+            style: TextStyle(fontSize: 10.0.sp),
           ),
           SizedBox(
             height: recipeModel.ingredients.length * 80.0.h,
@@ -53,7 +51,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                       recipeModel.ingredients[index].name,
+                        recipeModel.ingredients[index].name,
                         style: const TextStyle(color: Colors.black),
                       ),
                       Text(

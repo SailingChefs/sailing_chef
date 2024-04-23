@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
@@ -35,7 +34,7 @@ class ChefProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-   void onViewModelReady(UserModel user) async {
+  void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
@@ -49,29 +48,32 @@ class ChefProfileViewModel extends BaseViewModel {
 
   getUserLocation(UserModel user) async {
     log(user.displayName.toString());
-    placemarks =
-        await placemarkFromCoordinates(user.location!['latitude'],user.location!['longitude']);
-        log(placemarks.toString());
+    placemarks = await placemarkFromCoordinates(
+        user.location!['latitude'], user.location!['longitude']);
+    log(placemarks.toString());
   }
 
-  Future<void> moveToChatScreen(UserModel chef,) async {
+  Future<void> moveToChatScreen(
+    UserModel chef,
+  ) async {
     var conversationModel = ConversationModel(
       latestMessage: '',
       users: [
-        FirebaseAuth.instance.currentUser!.uid, 
+        FirebaseAuth.instance.currentUser!.uid,
         chef.uid!,
-        
       ],
       latestMessageType: 'text',
       latestMessageTime: DateTime.now(),
       lastActive: DateTime.now(),
       uid: "",
     );
-    String conversationId = await _serviceConversations.createOrUpdateConversation(conversationModel);
+    String conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
-    _navigationService.navigateToChatView(receiver:chef, conversationId:conversationId);
+    _navigationService.navigateToChatView(
+        receiver: chef, conversationId: conversationId);
   }
-  
+
   void toSettings() {
     _navigationService.navigateToSettingsView();
   }
@@ -96,12 +98,9 @@ class ChefProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-
   void toDishDetailsScreen(index) {
-   _navigationService.navigateToSavedRecipeDetailsView(
-    recipeModel: chefRecipes![index]
-
-   );
+    _navigationService.navigateToSavedRecipeDetailsView(
+        recipeModel: chefRecipes![index]);
   }
 
   void showRecipeList() {
@@ -109,5 +108,4 @@ class ChefProfileViewModel extends BaseViewModel {
       isFromProfileView: true,
     );
   }
-
 }

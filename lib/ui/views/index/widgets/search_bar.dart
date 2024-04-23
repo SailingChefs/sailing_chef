@@ -14,7 +14,8 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               viewModel.goToSearchView();
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: kcsgreycolor,
                 borderRadius: BorderRadius.circular(30.0),

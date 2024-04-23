@@ -11,7 +11,6 @@ class ProfilePictureUserDetailsScreen
     return Center(
       child: Stack(
         children: [
-          
           viewModel.selectedImagePath == null
               ? Container(
                   height: MediaQuery.sizeOf(context).height * 0.12,
@@ -32,10 +31,8 @@ class ProfilePictureUserDetailsScreen
                   ),
                   child: Center(
                     child: Container(
-                        height: MediaQuery.sizeOf(context).height *
-                            0.11, 
+                        height: MediaQuery.sizeOf(context).height * 0.11,
                         width: MediaQuery.sizeOf(context).height * 0.11,
-                        
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: kcWhiteColor, width: 4.0.w),
@@ -72,7 +69,7 @@ class ProfilePictureUserDetailsScreen
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: kcWhiteColor),
               child: IconButton(
-                icon:  Icon(
+                icon: Icon(
                   FlutterRemix.camera_fill,
                   size: 20,
                   color: kcBlackColor.withOpacity(0.6),

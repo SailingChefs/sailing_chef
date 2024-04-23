@@ -14,7 +14,8 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               // viewModel.goToSearchView();
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: kcsgreycolor,
                 borderRadius: BorderRadius.circular(30.0),
@@ -44,7 +45,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
         horizontalSpaceSmall,
         IconButton(
           onPressed: () {
-            // viewModel.goToFilterView();
+            viewModel.goToFilterView();
           },
           icon: const Icon(FlutterRemix.equalizer_line),
           color: kcPrimaryColor,

@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
+import 'dart:io' as _i15;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i5;
@@ -12,16 +13,18 @@ import 'package:image_picker/image_picker.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
 import 'package:sailing_chefs/model/conversation_model.dart' as _i13;
-import 'package:sailing_chefs/model/dish_model.dart' as _i18;
+import 'package:sailing_chefs/model/dish_model.dart' as _i19;
 import 'package:sailing_chefs/model/message_model.dart' as _i14;
+import 'package:sailing_chefs/model/pin_model.dart' as _i22;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i9;
-import 'package:sailing_chefs/model/user_model.dart' as _i16;
-import 'package:sailing_chefs/services/chef_service.dart' as _i15;
+import 'package:sailing_chefs/model/user_model.dart' as _i17;
+import 'package:sailing_chefs/services/chef_service.dart' as _i16;
 import 'package:sailing_chefs/services/conversation_service.dart' as _i12;
-import 'package:sailing_chefs/services/dishes_service.dart' as _i17;
+import 'package:sailing_chefs/services/dishes_service.dart' as _i18;
 import 'package:sailing_chefs/services/location_service.dart' as _i11;
+import 'package:sailing_chefs/services/pin_drop_service.dart' as _i21;
 import 'package:sailing_chefs/services/recipe_service.dart' as _i8;
-import 'package:sailing_chefs/services/userdata_service_service.dart' as _i19;
+import 'package:sailing_chefs/services/userdata_service_service.dart' as _i20;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -843,8 +846,9 @@ class MockConversationService extends _i1.Mock
   @override
   _i6.Future<void> sendMessage(
     _i14.MessageModel? message,
-    String? conversationId,
-  ) =>
+    String? conversationId, {
+    String? imageUrl,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendMessage,
@@ -852,10 +856,47 @@ class MockConversationService extends _i1.Mock
             message,
             conversationId,
           ],
+          {#imageUrl: imageUrl},
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<String> uploadImage(
+    _i15.File? imageFile,
+    String? fileName,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadImage,
+          [
+            imageFile,
+            fileName,
+          ],
+        ),
+        returnValue: _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              imageFile,
+              fileName,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              imageFile,
+              fileName,
+            ],
+          ),
+        )),
+      ) as _i6.Future<String>);
 
   @override
   _i6.Stream<List<_i14.MessageModel>> getMessages(String? conversationId) =>
@@ -872,32 +913,32 @@ class MockConversationService extends _i1.Mock
 /// A class which mocks [ChefService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockChefService extends _i1.Mock implements _i15.ChefService {
+class MockChefService extends _i1.Mock implements _i16.ChefService {
   @override
-  _i6.Future<List<_i16.UserModel>> fetchChefDocuments() => (super.noSuchMethod(
+  _i6.Future<List<_i17.UserModel>> fetchChefDocuments() => (super.noSuchMethod(
         Invocation.method(
           #fetchChefDocuments,
           [],
         ),
-        returnValue: _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
+        returnValue: _i6.Future<List<_i17.UserModel>>.value(<_i17.UserModel>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
-      ) as _i6.Future<List<_i16.UserModel>>);
+            _i6.Future<List<_i17.UserModel>>.value(<_i17.UserModel>[]),
+      ) as _i6.Future<List<_i17.UserModel>>);
 }
 
 /// A class which mocks [DishesService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDishesService extends _i1.Mock implements _i17.DishesService {
+class MockDishesService extends _i1.Mock implements _i18.DishesService {
   @override
-  List<_i18.DishModel> get dishes => (super.noSuchMethod(
+  List<_i19.DishModel> get dishes => (super.noSuchMethod(
         Invocation.getter(#dishes),
-        returnValue: <_i18.DishModel>[],
-        returnValueForMissingStub: <_i18.DishModel>[],
-      ) as List<_i18.DishModel>);
+        returnValue: <_i19.DishModel>[],
+        returnValueForMissingStub: <_i19.DishModel>[],
+      ) as List<_i19.DishModel>);
 
   @override
-  set dishes(List<_i18.DishModel>? _dishes) => super.noSuchMethod(
+  set dishes(List<_i19.DishModel>? _dishes) => super.noSuchMethod(
         Invocation.setter(
           #dishes,
           _dishes,
@@ -906,32 +947,32 @@ class MockDishesService extends _i1.Mock implements _i17.DishesService {
       );
 
   @override
-  _i6.Future<List<_i18.DishModel>> fetchDishes() => (super.noSuchMethod(
+  _i6.Future<List<_i19.DishModel>> fetchDishes() => (super.noSuchMethod(
         Invocation.method(
           #fetchDishes,
           [],
         ),
-        returnValue: _i6.Future<List<_i18.DishModel>>.value(<_i18.DishModel>[]),
+        returnValue: _i6.Future<List<_i19.DishModel>>.value(<_i19.DishModel>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i18.DishModel>>.value(<_i18.DishModel>[]),
-      ) as _i6.Future<List<_i18.DishModel>>);
+            _i6.Future<List<_i19.DishModel>>.value(<_i19.DishModel>[]),
+      ) as _i6.Future<List<_i19.DishModel>>);
 }
 
 /// A class which mocks [UserdataServiceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserdataServiceService extends _i1.Mock
-    implements _i19.UserdataServiceService {
+    implements _i20.UserdataServiceService {
   @override
-  _i6.Future<List<_i16.UserModel>> fetchUsersDocuments() => (super.noSuchMethod(
+  _i6.Future<List<_i17.UserModel>> fetchUsersDocuments() => (super.noSuchMethod(
         Invocation.method(
           #fetchUsersDocuments,
           [],
         ),
-        returnValue: _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
+        returnValue: _i6.Future<List<_i17.UserModel>>.value(<_i17.UserModel>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i16.UserModel>>.value(<_i16.UserModel>[]),
-      ) as _i6.Future<List<_i16.UserModel>>);
+            _i6.Future<List<_i17.UserModel>>.value(<_i17.UserModel>[]),
+      ) as _i6.Future<List<_i17.UserModel>>);
 
   @override
   _i6.Future<bool> storeUserDetails(
@@ -949,4 +990,56 @@ class MockUserdataServiceService extends _i1.Mock
         returnValue: _i6.Future<bool>.value(false),
         returnValueForMissingStub: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
+}
+
+/// A class which mocks [PinDropService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPinDropService extends _i1.Mock implements _i21.PinDropService {
+  @override
+  _i6.Future<void> savePinnedLocation(_i22.PinnedLocation? pinnedLocation) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #savePinnedLocation,
+          [pinnedLocation],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<String> uploadImage(
+    _i15.File? imageFile,
+    String? fileName,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadImage,
+          [
+            imageFile,
+            fileName,
+          ],
+        ),
+        returnValue: _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              imageFile,
+              fileName,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              imageFile,
+              fileName,
+            ],
+          ),
+        )),
+      ) as _i6.Future<String>);
 }

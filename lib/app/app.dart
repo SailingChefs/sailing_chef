@@ -38,6 +38,8 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -79,14 +81,16 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     LazySingleton(classType: ChefService),
     LazySingleton(classType: DishesService),
     LazySingleton(classType: UserdataServiceService),
-    LazySingleton(classType: BottomNavBarViewModel)
-// @stacked-service
+    LazySingleton(classType: BottomNavBarViewModel),
+    LazySingleton(classType: PinDropService),
+
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
     StackedBottomsheet(classType: AddIngredientsSheet),
     StackedBottomsheet(classType: CookingInstructionsSheet),
     StackedBottomsheet(classType: DropPinSheetSheet),
+    StackedBottomsheet(classType: DropPinButtonsSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

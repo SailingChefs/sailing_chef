@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -35,6 +34,7 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toDishDetailsScreen(index) {
-    _navigationService.navigateToSavedRecipeDetailsView(recipeModel: dishes![index]);
+    _navigationService.navigateToSavedRecipeDetailsView(
+        recipeModel: dishes![index]);
   }
 }

@@ -42,8 +42,7 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  getUserLocation( Position location) async {
-    
+  getUserLocation(Position location) async {
     placemarks =
         await placemarkFromCoordinates(location.latitude, location.longitude);
     locationController.text =
@@ -71,101 +70,98 @@ class UserDetailsViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
- String? validateLink(String? value) {
-  // Check if the input is null or empty
-  if (value == null || value.isEmpty) {
-    return 'Please enter a link';
+
+  String? validateLink(String? value) {
+    // Check if the input is null or empty
+    if (value == null || value.isEmpty) {
+      return 'Please enter a link';
+    }
+
+    // Use a regular expression for basic URL validation without protocol
+    RegExp urlRegex = RegExp(
+      r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+    );
+
+    // Check if the input matches the URL pattern
+    return urlRegex.hasMatch(value)
+        ? null // Return null if the link is valid
+        : 'Please enter a valid link';
   }
 
-  // Use a regular expression for basic URL validation without protocol
-  RegExp urlRegex = RegExp(
-    r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
-  );
+  String? validateBio(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a bio';
+    }
 
-  // Check if the input matches the URL pattern
-  return urlRegex.hasMatch(value)
-      ? null  // Return null if the link is valid
-      : 'Please enter a valid link';
-}
+    // You can add additional validation criteria for the bio here
+    // For example, checking if the bio length is within a certain range
 
-
-String? validateBio(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter a bio';
+    return null;
   }
 
-  // You can add additional validation criteria for the bio here
-  // For example, checking if the bio length is within a certain range
-  
-  return null;
-}
+  String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a name';
+    }
 
-String? validateName(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter a name';
+    // You can add additional validation criteria for the name here
+    // For example, checking if the name contains only alphabetic characters
+
+    return null;
   }
 
-  // You can add additional validation criteria for the name here
-  // For example, checking if the name contains only alphabetic characters
-  
-  return null;
-}
-String? validateBoatName(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter a name';
+  String? validateBoatName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a name';
+    }
+
+    // You can add additional validation criteria for the name here
+    // For example, checking if the name contains only alphabetic characters
+
+    return null;
   }
-
-  // You can add additional validation criteria for the name here
-  // For example, checking if the name contains only alphabetic characters
-  
-  return null;
-}
-
-
 
   void saveUserDetails() async {
-   if(formKey.currentState!.validate()){
-    if (selectedImageFile == null) {
-      showToast(message: 'Please select image to proceed');
-      return;
-    }
-      if(locationController.text.isEmpty){
+    if (formKey.currentState!.validate()) {
+      if (selectedImageFile == null) {
+        showToast(message: 'Please select image to proceed');
+        return;
+      }
+      if (locationController.text.isEmpty) {
         showToast(message: 'Please select your location to proceed');
         return;
       }
-    
-    final imageLink = await _userService.uploadImage(
-      selectedImageFile as File,
-      selectedImageFile!.path.split('/').last,
-    );
 
-    bool userDetailsStatus = await _userService.storeUserDetails(
-      {
-        'display_name': nameController.text,
-        'bio': bioController.text,
-        'link': linkController.text,
-        'boat_name': boatNameController.text,
-        'location': userlocation,
-        'display_picture': imageLink,
-      },
-      FirebaseAuth.instance.currentUser!.uid,
-    );
-    
-    if (userDetailsStatus) {
-      userDetails = await _userService.getUserDetails();
-      if (userDetails!.userRole == 'guest') {
-        _navigationService.replaceWithBottomBarGuestView();
+      final imageLink = await _userService.uploadImage(
+        selectedImageFile as File,
+        selectedImageFile!.path.split('/').last,
+      );
+
+      bool userDetailsStatus = await _userService.storeUserDetails(
+        {
+          'display_name': nameController.text,
+          'bio': bioController.text,
+          'link': linkController.text,
+          'boat_name': boatNameController.text,
+          'location': userlocation,
+          'display_picture': imageLink,
+        },
+        FirebaseAuth.instance.currentUser!.uid,
+      );
+
+      if (userDetailsStatus) {
+        userDetails = await _userService.getUserDetails();
+        if (userDetails!.userRole == 'guest') {
+          _navigationService.replaceWithBottomBarGuestView();
+        } else {
+          _navigationService.replaceWithBottomNavBarView();
+        }
       } else {
-        _navigationService.replaceWithBottomNavBarView();
+        _navigationService.replaceWithUserDetailsView();
       }
     } else {
-      _navigationService.replaceWithUserDetailsView();
+      showToast(message: 'Please fill all the fields');
     }
-   }
-   else{
-    showToast(message: 'Please fill all the fields');
-   }
-
   }
 
   Future<void> getImagefromCamera() async {
@@ -190,7 +186,7 @@ String? validateBoatName(String? value) {
     _navigationService.navigateToIndexView();
   }
 
-    void moveBack() {
+  void moveBack() {
     _navigationService.back();
   }
 }

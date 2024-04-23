@@ -3,11 +3,10 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 
 class Methods extends StatelessWidget {
   final RecipeModel recipe;
-  const Methods({super.key,required this.recipe});
+  const Methods({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -16,7 +15,6 @@ class Methods extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
         SizedBox(
-      
           height: recipe.methods.length * 70.h,
           child: ListView.builder(
             itemCount: recipe.methods.length,
@@ -32,9 +30,9 @@ class Methods extends StatelessWidget {
                       minRadius: double.minPositive + 13,
                       backgroundColor: Colors.blueGrey,
                       child: Text(
-                      '${index + 1}',
-                        style: const TextStyle(
-                            color: kcwhitecolor, fontSize: 12),
+                        '${index + 1}',
+                        style:
+                            const TextStyle(color: kcwhitecolor, fontSize: 12),
                       ),
                     ),
                   ),
@@ -42,7 +40,7 @@ class Methods extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(15.dg),
                       child: Text(
-                       recipe.methods[index],
+                        recipe.methods[index],
                         style: globalTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -55,7 +53,6 @@ class Methods extends StatelessWidget {
             },
           ),
         ),
-       
       ],
     );
   }

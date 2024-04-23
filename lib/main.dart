@@ -14,7 +14,6 @@ import 'package:stacked_services/stacked_services.dart';
 import 'core/theme/text_styles.dart';
 import 'package:device_preview/device_preview.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -38,10 +37,9 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
-  runApp(
-  DevicePreview(
+  runApp(DevicePreview(
     enabled: kDebugMode,
-    builder: (context) => const MainApp(), 
+    builder: (context) => const MainApp(),
   ));
 }
 
@@ -63,14 +61,13 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
-                  locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
+            locale: DevicePreview.locale(context),
+            // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(
               primaryColor: kcPrimaryColor,
               primarySwatch: primarySwatch,
-              
               fontFamily: 'Inter',
               appBarTheme: AppBarTheme(
                 color: Colors.white,
@@ -83,7 +80,7 @@ class MainApp extends StatelessWidget {
             navigatorObservers: [
               StackedService.routeObserver,
             ],
-            // builder: EasyLoading.init(),
+            builder: EasyLoading.init(),
           ),
         ),
       ),

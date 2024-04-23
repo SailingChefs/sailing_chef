@@ -27,12 +27,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                 ),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
-                 validator: (value) => viewModel.validateBio(value),
-                    controller: viewModel.bioController, labelText: 'Bio'),
+                    validator: (value) => viewModel.validateBio(value),
+                    controller: viewModel.bioController,
+                    labelText: 'Bio'),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
-                  validator: (value) => viewModel.validateLink(value),
-                    controller: viewModel.linkController, labelText: 'Link'),
+                    validator: (value) => viewModel.validateLink(value),
+                    controller: viewModel.linkController,
+                    labelText: 'Link'),
                 verticalSpaceMedium,
                 SemiRoundedTranpaentTextField(
                     validator: (value) => viewModel.validateBoatName(value),
@@ -44,22 +46,24 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                     child: Container(
                       height: 45.h,
                       width: double.infinity,
-                      decoration:   islocationempty == false? BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(color: Colors.red,),
-                        color: Colors.grey.withOpacity(0.2),
-
-                      ) : BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                        color: Colors.grey.withOpacity(0.2),
-
-                      ),
+                      decoration: islocationempty == false
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              border: Border.all(
+                                color: Colors.red,
+                              ),
+                              color: Colors.grey.withOpacity(0.2),
+                            )
+                          : BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: Colors.grey.withOpacity(0.2),
+                            ),
                       child: Padding(
                         padding: EdgeInsets.all(12.0.dg),
                         child: Text(
                           viewModel.locationController.text.isNotEmpty
-                          ? viewModel.locationController.text
-                          : 'Location',
+                              ? viewModel.locationController.text
+                              : 'Location',
                           style: globalTextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -73,12 +77,12 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
         ),
         verticalSpaceMassive,
         PrimaryColorRoundedElevatedButton(
-          onPressed: (){
-            if(viewModel.formKey.currentState!.validate()){
-              if(viewModel.locationController.text.isEmpty){
+          onPressed: () {
+            if (viewModel.formKey.currentState!.validate()) {
+              if (viewModel.locationController.text.isEmpty) {
                 log('location empty');
                 islocationempty = false;
-              }else{
+              } else {
                 islocationempty = true;
               }
               viewModel.saveUserDetails();

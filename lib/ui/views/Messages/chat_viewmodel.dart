@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,22 +24,22 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     return conversations;
   }
 
-
   final messageController = TextEditingController();
   Future<void> getImage(
-    ImageSource source, String receiverId, conversationId) async {
+      ImageSource source, String receiverId, conversationId) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
-    
+
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      String imageUrl = await _conversationService.uploadImage(File(selectedImageFile!.path), '${selectedImageFile!.name}');
+      String imageUrl = await _conversationService.uploadImage(
+          File(selectedImageFile!.path), selectedImageFile!.name);
 
       addMessage(
           MessageModel(
-            content: imageUrl ,
+            content: imageUrl,
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
-            timestamp: DateTime.now(), 
+            timestamp: DateTime.now(),
             type: 'image',
           ),
           conversationId);
@@ -84,19 +83,18 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   void moveBack() {
     _navigationLoactor.back();
-   
   }
 
   @override
   void onData(data) {
-    if(data == null) return;
+    if (data == null) return;
     messages = data;
     textController.clear();
     rebuildUi();
     super.onData(data);
   }
-  
+
   @override
-  Stream<List<MessageModel>> get stream => _conversationService.getMessages(convoId);
-  
+  Stream<List<MessageModel>> get stream =>
+      _conversationService.getMessages(convoId);
 }

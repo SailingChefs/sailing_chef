@@ -26,7 +26,6 @@ class StartupView extends StackedView<StartupViewModel> {
                 width: double.infinity,
               ),
             ),
-            
             Positioned(
               top: 200,
               left: 35,
