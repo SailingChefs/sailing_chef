@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
-import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_details.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_topbar.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/dish_list_screen.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/follow_message__btn.dart';
@@ -34,11 +33,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   child: Column(
                     children: [
                       const ChefProfileTopBar(),
-                      verticalSpaceSmall,
-                      ChefProfileDetails(
-                        user: user,
-                      ),
-                      verticalSpaceSmall,
+                      verticalSpace(35),
                       ChefProfileDetailsDesc(
                         user: user,
                       ),

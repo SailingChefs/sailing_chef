@@ -30,7 +30,7 @@ class ChatListViewModel extends BaseViewModel {
   }
 
   void toChatScreen(ConversationModel selectedConversation) {
-    log('cheflist: fuction ${chatUsers!.length} ${selectedConversation.users.length}');
+    // log('cheflist: fuction ${chefList!.length} ${selectedConversation.users.length}');
     try {
       for (var chef in chatUsers!) {
         log('cheflist: ${selectedConversation.users[0]}');

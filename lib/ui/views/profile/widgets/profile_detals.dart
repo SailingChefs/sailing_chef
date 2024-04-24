@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
-import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
@@ -11,40 +10,26 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
     return FittedBox(
       child: Row(
         children: [
-          Column(
-            children: [
-              Container(
-                height: 94.h,
-                width: 94.w,
-                decoration: const BoxDecoration(
-                  color: kcVeryLightGrey,
-                  shape: BoxShape.circle,
-                ),
-                child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: userDetails!.displayPicture == ''
-                        ? Image.asset(
-                            'assets/images/misc/blank_image.png',
-                            fit: BoxFit.cover,
-                          )
-                        : Image.network(
-                            userDetails!.displayPicture!,
-                            fit: BoxFit.cover,
-                            height: 90,
-                            width: 90,
-                          )),
-              ),
-              verticalSpaceSmall,
-              Text(
-                userDetails!.displayName == ''
-                    ? ''
-                    : capitalizeEachWord(userDetails!.displayName!),
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kcBlackColor),
-              ),
-            ],
+          Container(
+            height: 90.h,
+            width: 90.w,
+            decoration: const BoxDecoration(
+              color: kcVeryLightGrey,
+              shape: BoxShape.circle,
+            ),
+            child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                child: userDetails!.displayPicture == ''
+                    ? Image.asset(
+                        'assets/images/misc/blank_image.png',
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        userDetails!.displayPicture!,
+                        fit: BoxFit.cover,
+                        height: 90,
+                        width: 90,
+                      )),
           ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,

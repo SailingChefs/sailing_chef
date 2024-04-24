@@ -33,6 +33,11 @@ class OnboardModel {
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
+        style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+            color: kcWhiteColor,
+            fontFamily: 'Inter'),
         children: formattedSpans,
       ),
     );

@@ -1,12 +1,16 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class ConversationService {
   final _userService = locator<UserServices>();
@@ -158,43 +162,54 @@ class ConversationService {
     }
   }
 
-  Future<void> sendMessage(MessageModel message, String conversationId) async {
+  Future<void> sendMessage(MessageModel message, String conversationId,
+      {String? imageUrl}) async {
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final CollectionReference conversationsCollection =
         db.collection('conversations');
     final CollectionReference messagesCollection =
         conversationsCollection.doc(conversationId).collection('messages');
 
-    message.type = message.content.runtimeType.toString();
+    // message.type = message.content.runtimeType.toString();
+
+    if (imageUrl != null) {
+      message.content = imageUrl;
+    }
+
     try {
       // Add the message to the messages subcollection
       await messagesCollection.add(message.toMap());
 
       // Update the parent conversation document with the latest message info
       await conversationsCollection.doc(conversationId).update({
-        'latestMessage':
-            message.content, // Assuming 'text' field in your MessageModel
-        'latestMessageTime': FieldValue
-            .serverTimestamp(), // Use server timestamp for consistency
-        'latestMessageType':
-            message.type, // Assuming 'type' field in your MessageModel
+        'latestMessage': message.content,
+        'latestMessageTime': FieldValue.serverTimestamp(),
+        'latestMessageType': message.type,
       });
     } catch (error) {
       log('Error sending message: $error');
     }
   }
 
-  // Future<void> sendMessage(MessageModel message, String conversationId) async {
-  //   // String conversationId = await getConversationId(message);
-  //   try {
-  //     final CollectionReference messagesCollection =
-  //         _conversationsCollection.doc(conversationId).collection('messages');
+  Future<String> uploadImage(File imageFile, String fileName) async {
+    try {
+      EasyLoading.show();
+      Reference ref =
+          firebaseStorage.ref().child('conversationImages/$fileName');
 
-  //     await messagesCollection.add((message.toMap()));
-  //   } catch (error) {
-  //     log('Error sending message: $error');
-  //   }
-  // }
+      UploadTask uploadTask = ref.putFile(imageFile);
+
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      EasyLoading.dismiss();
+      return downloadUrl;
+    } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error uploading image: $e');
+      return '';
+    }
+  }
 
   Stream<List<MessageModel>> getMessages(String conversationId) async* {
     try {

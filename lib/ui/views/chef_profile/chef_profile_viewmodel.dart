@@ -41,7 +41,7 @@ class ChefProfileViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void goTogoToProfileEditView(String name) {
+  void goToFollowingList(String name) {
     _navigationService.navigateTo(Routes.followingListView,
         arguments: const FollowingListView());
   }
@@ -68,6 +68,7 @@ class ChefProfileViewModel extends BaseViewModel {
       uid: "",
     );
     String conversationId = await _serviceConversations
+        
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
@@ -100,8 +101,7 @@ class ChefProfileViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: chefRecipes![index],
-    );
+        recipeModel: chefRecipes![index]);
   }
 
   void showRecipeList() {

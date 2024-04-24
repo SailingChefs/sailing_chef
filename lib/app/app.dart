@@ -38,6 +38,8 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 // @stacked-import
@@ -91,11 +93,13 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
     StackedBottomsheet(classType: AddIngredientsSheet),
     StackedBottomsheet(classType: CookingInstructionsSheet),
     StackedBottomsheet(classType: DropPinSheetSheet),
+    StackedBottomsheet(classType: DropPinButtonsSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: SaveDraftAlertboxDialog),
+    StackedDialog(classType: PindropDialogueboxDialog),
 // @stacked-dialog
   ],
 )

@@ -45,7 +45,7 @@ class BottomDetailsOnboardingScreen
                   height: 0.3,
                   padding: const EdgeInsets.all(0),
                   width: _getTextWidth('sign up', const TextStyle()),
-                  color: kclightgreycolor,
+                  color: kcsgreylinecolor,
                 ),
                 verticalSpaceSmall,
               ],

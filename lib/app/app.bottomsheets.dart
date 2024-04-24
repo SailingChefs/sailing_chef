@@ -9,6 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'app.locator.dart';
 import '../ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import '../ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
+import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
 import '../ui/bottom_sheets/notice/notice_sheet.dart';
 
@@ -17,6 +18,7 @@ enum BottomSheetType {
   addIngredients,
   cookingInstructions,
   dropPinSheet,
+  dropPinButtons,
 }
 
 void setupBottomSheetUi() {
@@ -31,6 +33,8 @@ void setupBottomSheetUi() {
         CookingInstructionsSheet(request: request, completer: completer),
     BottomSheetType.dropPinSheet: (context, request, completer) =>
         DropPinSheetSheet(request: request, completer: completer),
+    BottomSheetType.dropPinButtons: (context, request, completer) =>
+        DropPinButtonsSheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

@@ -17,108 +17,110 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               fontWeight: FontWeight.w500),
         ),
         verticalSpaceSmall,
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                viewModel.handleTabMainCourse(0);
-                viewModel.breakfastSelected();
-              },
-              child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.dg),
-                  ),
-                  color: viewModel.selectedTabMainCourse == 'breakfast'
-                      ? kcPrimaryColorDark
-                      : kcVeryLightGrey.withOpacity(0.4),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Breakfast',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTabMainCourse == 'breakfast'
-                            ? kcVeryLightGrey
-                            : kcBlackColor.withOpacity(0.6),
-                      ),
+        Flexible(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  viewModel.handleTabMainCourse(0);
+                  viewModel.breakfastSelected();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.dg),
                     ),
-                  ],
+                    color: viewModel.selectedTabMainCourse == 'breakfast'
+                        ? kcPrimaryColorDark
+                        : kcVeryLightGrey.withOpacity(0.4),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Breakfast',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTabMainCourse == 'breakfast'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            horizontalSpaceSmall,
-            GestureDetector(
-              onTap: () {
-                viewModel.handleTabMainCourse(1);
-                viewModel.lunchSelected();
-              },
-              child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.dg),
-                  ),
-                  color: viewModel.selectedTabMainCourse == 'lunch'
-                      ? kcPrimaryColorDark
-                      : kcVeryLightGrey.withOpacity(0.4),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Lunch',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTabMainCourse == 'lunch'
-                            ? kcVeryLightGrey
-                            : kcBlackColor.withOpacity(0.6),
-                      ),
+              horizontalSpaceSmall,
+              GestureDetector(
+                onTap: () {
+                  viewModel.handleTabMainCourse(1);
+                  viewModel.lunchSelected();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.dg),
                     ),
-                  ],
+                    color: viewModel.selectedTabMainCourse == 'lunch'
+                        ? kcPrimaryColorDark
+                        : kcVeryLightGrey.withOpacity(0.4),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Lunch',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTabMainCourse == 'lunch'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            horizontalSpaceSmall,
-            GestureDetector(
-              onTap: () {
-                viewModel.handleTabMainCourse(2);
-                viewModel.lunchSelected();
-              },
-              child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.dg),
-                  ),
-                  color: viewModel.selectedTabMainCourse == 'dinner'
-                      ? kcPrimaryColorDark
-                      : kcVeryLightGrey.withOpacity(0.4),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Dinner',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTabMainCourse == 'dinner'
-                            ? kcVeryLightGrey
-                            : kcBlackColor.withOpacity(0.6),
-                      ),
+              horizontalSpaceSmall,
+              GestureDetector(
+                onTap: () {
+                  viewModel.handleTabMainCourse(2);
+                  viewModel.lunchSelected();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.dg),
                     ),
-                  ],
+                    color: viewModel.selectedTabMainCourse == 'dinner'
+                        ? kcPrimaryColorDark
+                        : kcVeryLightGrey.withOpacity(0.4),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Dinner',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTabMainCourse == 'dinner'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         verticalSpaceSmall,
         FittedBox(

@@ -12,6 +12,7 @@ dependencies:
   stacked: ^3.4.0
   stacked_services: ^1.1.0
   google_maps_flutter: ^2.6.0
+  uuid: ^4.4.0
   flutter_easyloading: ^3.0.5
   flutter_remix: ^0.0.3
   flutter_screenutil: ^5.9.0
@@ -44,6 +45,8 @@ dependencies:
   lottie: ^3.1.0
   # intl: ^0.19.0
   device_preview: ^1.1.0
+  dart_geohash: ^2.1.0
+  geoflutterfire_plus: ^0.0.21
   
  
   

@@ -31,6 +31,7 @@ class ConversationModel {
       user: otherUser,
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'lastActive': lastActive,

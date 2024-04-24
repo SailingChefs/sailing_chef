@@ -1,7 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import 'package:sailing_chefs/ui/widgets/or_design.dart';
 import '../../widgets/custom_textbtn.dart';
 import 'login_viewmodel.dart';
 
@@ -129,11 +128,11 @@ class LoginView extends StackedView<LoginViewModel> {
                       ],
                     ),
                   ),
-                  verticalSpaceLarge,
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: OrDesign(),
-                  ),
+                  // verticalSpaceLarge,
+                  // const Padding(
+                  //   padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                  //   child: OrDesign(),
+                  // ),
                 ]),
               ),
             )),
