@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -14,11 +16,13 @@ class ChefProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
   final _recipeService = locator<RecipeService>();
+  final _savedRecipeService = locator<SavedRecipeService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
   List<RecipeModel>? chefRecipes;
+  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -38,6 +42,7 @@ class ChefProfileViewModel extends BaseViewModel {
     setBusy(true);
     await getUserLocation(user);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+    await _savedRecipeService.init();
     setBusy(false);
   }
 
@@ -68,7 +73,6 @@ class ChefProfileViewModel extends BaseViewModel {
       uid: "",
     );
     String conversationId = await _serviceConversations
-        
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(

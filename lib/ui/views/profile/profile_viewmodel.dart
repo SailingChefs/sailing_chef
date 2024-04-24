@@ -2,20 +2,30 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
 
-class ProfileViewModel extends BaseViewModel {
+class ProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final RecipeService _recipeService = locator<RecipeService>();
-  
+  final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
+
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
+  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
   List<RecipeModel>? myRecipes;
-  List<RecipeModel> savedRecipes = [];
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
+
+  // List<SavedRecipeModel> get fetchSavedRecipesList {
+  //   return _savedRecipeService.savedRecipes;
+  // }
 
   List<Placemark>? placemarks;
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
@@ -74,6 +84,7 @@ class ProfileViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();
+    await _savedRecipeService.init();
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
     setBusy(false);
   }
@@ -89,5 +100,4 @@ class ProfileViewModel extends BaseViewModel {
       recipeModel: myRecipes![index],
     );
   }
-  
 }

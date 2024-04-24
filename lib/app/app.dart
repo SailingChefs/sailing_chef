@@ -42,6 +42,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -69,6 +70,7 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
     MaterialRoute(page: ChefProfileView),
     MaterialRoute(page: ChatListView),
     MaterialRoute(page: EditProfileView),
+    MaterialRoute(page: AllChefsView),
 // @stacked-route
   ],
   dependencies: [

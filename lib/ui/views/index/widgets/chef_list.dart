@@ -28,7 +28,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     ),
                   ),
                   CustomTextButton(
-                    onPressed: () {},
+                    onPressed: viewModel.toAllChefsView,
                     buttonText: 'View all',
                     textColor: kclightgreencolor,
                     fontSize: 14,

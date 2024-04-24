@@ -7,10 +7,11 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
+    final savedRecipes = viewModel.savedRecipes;
     return Expanded(
       flex: 1,
       child: GridView.builder(
-        itemCount: 10,
+        itemCount: savedRecipes!.length,
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -20,14 +21,14 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridTile(
-              recipeId: 'recipe id',
+              recipeId: savedRecipes[index].recipeId,
+              savedRecipeList: viewModel.savedRecipes,
               onTap: () {},
               //  viewModel.toDishDetailsScreen,
-              foodImagePath:
-                  'https://th.bing.com/th/id/OIG3.5u5ZBGkvLQn1ELp4UqXH',
-              dishName: "dish name",
-              duration: "30",
-              chefImagePath: 'https://images.app.goo.gl/4iwFcv1jzruDgVuJA');
+              foodImagePath: savedRecipes[index].recipeModel!.coverImage.first,
+              dishName: savedRecipes[index].recipeModel!.title,
+              duration: savedRecipes[index].recipeModel!.prepTime,
+              chefImagePath: 'https://picsum.photos/200');
         },
       ),
     );

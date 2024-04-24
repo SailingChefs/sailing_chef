@@ -6,9 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
@@ -19,6 +21,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   // final PageController pageController = PageController();
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
+  final SavedRecipeService _savedRecipeService = SavedRecipeService();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   final TextEditingController commentController = TextEditingController();
@@ -29,10 +32,20 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
+  List<SavedRecipeModel> get savedRecipeList =>
+      _savedRecipeService.savedRecipes;
+
+  void addToSaveList(RecipeModel recipe) {
+    _savedRecipeService.addSavedRecipe(SavedRecipeModel(
+      recipeId: recipe.docId,
+      userId: userDetails!.uid!,
+    ));
+  }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
+        _savedRecipeService,
       ];
 
   List<CommentModel> get fetchComment {
@@ -176,6 +189,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(true);
     startAutoScroll(length);
     await commentService.clearComments();
+    await _savedRecipeService.init();
     await commentService.getComments(recipeId);
     recipeList = await recipeService.fetchRandomRecipes(5);
     setBusy(false);

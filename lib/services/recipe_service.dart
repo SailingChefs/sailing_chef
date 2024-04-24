@@ -64,9 +64,7 @@ class RecipeService {
     }
   }
 
-
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
-  
     EasyLoading.show();
     try {
       // Fetch recipes
@@ -77,7 +75,6 @@ class RecipeService {
 
       // Fetch user details by UID only once
       UserModel? user = await _userService.fetchUserByUID(uid);
-    
 
       // Map each document to a RecipeModel and include user data
       List<RecipeModel> recipes = snapshot.docs.map((doc) {
@@ -86,7 +83,6 @@ class RecipeService {
         return recipe;
       }).toList();
       // Map each document to a RecipeModel and include user data
-     
 
       EasyLoading.dismiss();
       return recipes;
@@ -96,7 +92,6 @@ class RecipeService {
       return [];
     }
   }
-    
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
@@ -115,7 +110,7 @@ class RecipeService {
         recipe.user = user;
         recipes.add(recipe);
       }
-      
+
       EasyLoading.dismiss();
 
       return recipes;
@@ -161,5 +156,4 @@ class RecipeService {
       return [];
     }
   }
-
 }

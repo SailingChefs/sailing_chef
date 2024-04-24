@@ -1,82 +1,95 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class SavedRecipeService with ListenableServiceMixin{
+class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
-
-  addSavedRecipeLocally(SavedRecipeModel savedRecipe) async {
-    bool check = await addSavedRecipe(savedRecipe);
-    if (check) {
-      savedRecipes.add(savedRecipe);
-    }
+  bool isInitialised = false;
+  Future<void> init() async {
+    // if (isInitialised) return;
+    savedRecipes = await _getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
     notifyListeners();
+    isInitialised = true;
   }
 
-  deleteSavedRecipeLocally(SavedRecipeModel savedRecipe) async {
-    bool check = await deleteSavedRecipe(savedRecipe.docId);
-    if (check) {
-      savedRecipes.remove(savedRecipe);
-    }
-     notifyListeners();
+  // getAllSavedRecipes() async {
+  //   savedRecipes = await getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
+  //   notifyListeners();
+  // }
+  // deletelocalSavedRecipe( index) {
+  //   if (index >= 0 && index < savedRecipes.length) {
+  //     savedRecipes.removeAt(index);
+  //     notifyListeners();
+  //   }
+  // }
+
+  // clearSavedRecipes() {
+  //   savedRecipes.clear();
+  //   notifyListeners();
+  // }
+
+  Future<bool> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
+    DocumentReference newRecipeRef =
+        await firebasestore.collection('savedRecipes').add(savedRecipe.toMap());
+    await newRecipeRef.update({'docId': newRecipeRef.id});
+    savedRecipe.docId = newRecipeRef.id;
+    savedRecipes.add(savedRecipe);
+    showToast(message: 'Recipe saved successfully');
+    notifyListeners();
+    return true;
   }
 
-  getAllSavedRecipes() async {
-    savedRecipes = await getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
-  }
-
-  clearSavedRecipes() {
-    savedRecipes.clear();
-  }
-
- Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
-  try {
-    EasyLoading.show(); // Show loading indicator
-    // Query Firestore to check if a recipe with the same ID exists
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+  Future<bool> _removeSavedRecipe(SavedRecipeModel savedRecipe) async {
+    // savedRecipes.removeWhere((element) => element.docId == savedRecipe.docId);
+    savedRecipes
+        .removeWhere((recipe) => recipe.recipeId == savedRecipe.recipeId);
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('savedRecipes')
         .where('recipeId', isEqualTo: savedRecipe.recipeId)
         .get();
 
-    // If a recipe with the same ID exists, delete it before adding the new one
     if (querySnapshot.docs.isNotEmpty) {
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        await doc.reference.delete();
-      }
+      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
+      await docSnapshot.reference.delete();
+      showToast(message: 'Recipe deleted successfully');
     }
-
-    // Add the new saved recipe
-    DocumentReference docRef = await FirebaseFirestore.instance
-        .collection('savedRecipes')
-        .add(savedRecipe.toMap());
-
-    // Update the document with the newly generated document ID
-    await docRef.update({'docId': docRef.id});
-
-    EasyLoading.dismiss(); // Dismiss loading indicator
-    showToast(message: 'Recipe saved successfully'); // Show success message
+    notifyListeners();
     return true;
-  } catch (error) {
-    EasyLoading.dismiss(); // Dismiss loading indicator
-    showToast(message: 'Error saving recipe: $error'); // Show error message
-    return false;
   }
-}
-  // Function to delete a saved recipe from Firestore
-  Future<bool> deleteSavedRecipe(String recipeId) async {
+
+  Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
+    log('savedRecipe: ${savedRecipe.docId}');
+    log('saved: ${savedRecipes.map((e) => e.docId)}');
     try {
-      await firebasestore.collection('savedRecipes').doc(recipeId).delete();
+      EasyLoading.show(); // Show loading indicator
+      if (!isInitialised) {
+        throw "Service not initialised";
+      }
+
+      if (savedRecipes.map((e) => e.recipeId).contains(savedRecipe.recipeId)) {
+        _removeSavedRecipe(savedRecipe);
+      } else {
+        _addSavedRecipe(savedRecipe);
+      }
+      notifyListeners();
+
+      EasyLoading.dismiss(); // Dismiss loading indicator
+      // Show success message
       return true;
     } catch (error) {
+      EasyLoading.dismiss(); // Dismiss loading indicator
+      showToast(message: 'Error saving recipe: $error'); // Show error message
       return false;
     }
   }
 
-  // Function to fetch all saved recipes for a specific user from Firestore
-  Future<List<SavedRecipeModel>> getSavedRecipesForUser(String userId) async {
+  Future<List<SavedRecipeModel>> _getSavedRecipesForUser(String userId) async {
     List<SavedRecipeModel> savedRecipes = [];
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -85,12 +98,35 @@ class SavedRecipeService with ListenableServiceMixin{
           .get();
 
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        savedRecipes.add(SavedRecipeModel.fromSnapshot(doc));
+        SavedRecipeModel savedRecipe = SavedRecipeModel.fromSnapshot(doc);
+        // Fetch recipe details using recipeId
+        RecipeModel? recipeModel =
+            await fetchRecipeDetails(savedRecipe.recipeId);
+        // Update the recipeModel property
+        savedRecipe.recipeModel = recipeModel;
+        savedRecipes.add(savedRecipe);
       }
 
       return savedRecipes;
     } catch (error) {
       return [];
+    }
+  }
+
+  Future<RecipeModel?> fetchRecipeDetails(String recipeId) async {
+    try {
+      DocumentSnapshot recipeSnapshot = await FirebaseFirestore.instance
+          .collection('recipes')
+          .doc(recipeId)
+          .get();
+
+      if (recipeSnapshot.exists) {
+        return RecipeModel.fromSnapshot(recipeSnapshot);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
     }
   }
 }

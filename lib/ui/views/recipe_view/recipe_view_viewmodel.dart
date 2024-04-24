@@ -32,7 +32,6 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void moveBack() {
     _navigationService.back();
-    
   }
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {

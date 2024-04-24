@@ -2,7 +2,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
-
 class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
   const AllSavedRecipesScreen({super.key});
 
@@ -21,6 +20,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridTile(
+              savedRecipeList: viewModel.savedRecipes!,
               recipeId: 'recipe id',
               onTap: viewModel.toDishDetailsScreen,
               foodImagePath: 'assets/images/background/onboarding.png',

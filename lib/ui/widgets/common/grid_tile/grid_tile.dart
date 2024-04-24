@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -6,19 +5,23 @@ import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'grid_tile_model.dart';
 
 class PrimaryGridTile extends StackedView<GridTileModel> {
-   final String foodImagePath;
+  final String foodImagePath;
   final String chefImagePath;
   final String dishName;
   final String duration;
   final void Function() onTap;
   final String recipeId;
-  const PrimaryGridTile({super.key,
+  final List<SavedRecipeModel> savedRecipeList;
+  const PrimaryGridTile({
+    super.key,
     required this.foodImagePath,
+    required this.savedRecipeList,
     required this.chefImagePath,
     required this.dishName,
     required this.duration,
     required this.onTap,
-    required this.recipeId,});
+    required this.recipeId,
+  });
 
   @override
   Widget builder(
@@ -26,7 +29,13 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
-    final List<SavedRecipeModel> savedRecipeList = viewModel.fetchSavedRecipesList;
+    bool isRecipeSaved = false;
+    for (SavedRecipeModel savedRecipe in savedRecipeList) {
+      if (savedRecipe.recipeId == recipeId) {
+        isRecipeSaved = !isRecipeSaved;
+        break;
+      }
+    }
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -80,7 +89,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               top: 5.dg,
               right: 10.dg,
               child: GestureDetector(
-                   onTap:() => viewModel.onBookmarkTap(recipeId),
+                onTap: () => viewModel.onBookmarkTap(recipeId),
                 child: Container(
                   width: 30.w,
                   height: 30.h,
@@ -88,16 +97,17 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     shape: BoxShape.circle,
                     color: kcBlackColor.withOpacity(0.5),
                   ),
-                  child:  savedRecipeList.every((element) => element.recipeId == recipeId) ? Icon(
-                    Icons.bookmark_outline,
-                    size: 18.dg,
-                    color: kcWhiteColor,
-                  ):
-                  Icon(
-                    Icons.bookmark_border,
-                    size: 18.dg,
-                    color: kcWhiteColor,
-                  ),
+                  child: isRecipeSaved
+                      ? Icon(
+                          Icons.bookmark,
+                          size: 18.dg,
+                          color: kcWhiteColor,
+                        )
+                      : Icon(
+                          Icons.bookmark_outline,
+                          size: 18.dg,
+                          color: kcWhiteColor,
+                        ),
                 ),
               ),
             ),

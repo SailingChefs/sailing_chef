@@ -98,7 +98,6 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         return const IndexView();
       case 1:
         return const PinDropMapView();
-      //const SavedRecipeDetailsView();
       case 2:
         return const AddRecipeView([]);
       case 3:
