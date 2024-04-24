@@ -2,8 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 
 class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
-   final Function(SheetResponse response)? completer;
-  const ButtonsPindrop({super.key,required this.completer});
+  final Function(SheetResponse response)? completer;
+  const ButtonsPindrop({super.key, required this.completer});
 
   @override
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {

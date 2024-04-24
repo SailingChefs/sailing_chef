@@ -53,7 +53,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
         name: name.text,
         picture: image!,
         tags: selectedTabSelections,
-        location: GeoPoint(location.latitude, location.longitude), 
+        location: GeoPoint(location.latitude, location.longitude),
         rating: ratings,
       );
       await _navigationpinService.savePinnedLocation(pinnedLocation);
@@ -125,7 +125,6 @@ class DropPinSheetSheetModel extends BaseViewModel {
     } catch (e) {
       return false;
     }
-
     return true;
   }
 
@@ -136,7 +135,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   void setRating(double value) {
     ratings = value;
-  
-  notifyListeners();
+
+    notifyListeners();
   }
 }

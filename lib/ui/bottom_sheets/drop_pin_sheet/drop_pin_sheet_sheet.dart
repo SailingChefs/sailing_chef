@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/pindrop_review.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/buttons.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/link_textfield.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/pindroptag.dart';
@@ -33,7 +30,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
         horizontal: 5,
       ),
       decoration: const BoxDecoration(
-        color:kcwhitecolor,
+        color: kcwhitecolor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
           topRight: Radius.circular(50),
@@ -139,8 +136,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 ],
               ),
               verticalSpaceLarge,
-              ButtonsPindrop(completer: completer
-              ),
+              ButtonsPindrop(completer: completer),
               verticalSpaceSmall,
             ],
           ),

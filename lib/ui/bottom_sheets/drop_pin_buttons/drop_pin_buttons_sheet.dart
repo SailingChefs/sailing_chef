@@ -37,7 +37,9 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
                     borderRadius: BorderRadius.circular(30),
                     color: kcbuttoncolor.withOpacity(0.1)),
                 child: TextButton(
-                  onPressed:()=>completer==null?Navigator.pop(context): completer!(SheetResponse(data: false)),
+                  onPressed: () => completer == null
+                      ? Navigator.pop(context)
+                      : completer!(SheetResponse(data: false)),
                   child: Text(
                     'Cancel',
                     style: globalTextStyle(
@@ -57,7 +59,9 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
                     borderRadius: BorderRadius.circular(30),
                     color: kcPrimaryColor),
                 child: TextButton(
-                  onPressed:()=>completer==null?Navigator.pop(context): completer!(SheetResponse(data: true)),
+                  onPressed: () => completer == null
+                      ? Navigator.pop(context)
+                      : completer!(SheetResponse(data: true)),
                   child: Text(
                     'Drop Pin',
                     style: globalTextStyle(

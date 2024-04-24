@@ -40,6 +40,7 @@ import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -83,7 +84,6 @@ import 'package:sailing_chefs/services/pin_drop_service.dart';
     LazySingleton(classType: UserdataServiceService),
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: PinDropService),
-
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
@@ -96,6 +96,7 @@ import 'package:sailing_chefs/services/pin_drop_service.dart';
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: SaveDraftAlertboxDialog),
+    StackedDialog(classType: PindropDialogueboxDialog),
 // @stacked-dialog
   ],
 )

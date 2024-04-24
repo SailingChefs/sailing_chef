@@ -9,6 +9,7 @@ import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i5;
 import 'package:geolocator/geolocator.dart' as _i2;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as _i24;
 import 'package:image_picker/image_picker.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
@@ -16,6 +17,7 @@ import 'package:sailing_chefs/model/conversation_model.dart' as _i13;
 import 'package:sailing_chefs/model/dish_model.dart' as _i19;
 import 'package:sailing_chefs/model/message_model.dart' as _i14;
 import 'package:sailing_chefs/model/pin_model.dart' as _i22;
+import 'package:sailing_chefs/model/pindrop_review.dart' as _i23;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i9;
 import 'package:sailing_chefs/model/user_model.dart' as _i17;
 import 'package:sailing_chefs/services/chef_service.dart' as _i16;
@@ -1042,4 +1044,35 @@ class MockPinDropService extends _i1.Mock implements _i21.PinDropService {
           ),
         )),
       ) as _i6.Future<String>);
+
+  @override
+  _i6.Future<void> addReview(
+    String? pinId,
+    _i23.Review? review,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addReview,
+          [
+            pinId,
+            review,
+          ],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<List<_i22.PinnedLocation>> getPinsNearUserLocation(
+          _i24.LatLng? userLocation) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPinsNearUserLocation,
+          [userLocation],
+        ),
+        returnValue: _i6.Future<List<_i22.PinnedLocation>>.value(
+            <_i22.PinnedLocation>[]),
+        returnValueForMissingStub: _i6.Future<List<_i22.PinnedLocation>>.value(
+            <_i22.PinnedLocation>[]),
+      ) as _i6.Future<List<_i22.PinnedLocation>>);
 }

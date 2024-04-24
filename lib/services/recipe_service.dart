@@ -92,7 +92,6 @@ class RecipeService {
     }
   }
 
-
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
       EasyLoading.show();

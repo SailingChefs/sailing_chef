@@ -31,17 +31,7 @@ class ConversationModel {
       user: otherUser,
     );
   }
-  // factory ConversationModel.fromDocument(DocumentSnapshot doc) {
-  //   return ConversationModel(
 
-  //     lastActive: (doc.get('lastActive') as Timestamp).toDate(),
-  //     latestMessage: doc.get('latestMessage'),
-  //     latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
-  //     latestMessageType: doc.get('latestMessageType'),
-  //     uid: doc.id,
-  //     users: List<String>.from(doc.get('users')),
-  //   );
-  // }
   Map<String, dynamic> toJson() {
     return {
       'lastActive': lastActive,

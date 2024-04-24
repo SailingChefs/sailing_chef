@@ -61,7 +61,7 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
-            locale: DevicePreview.locale(context),
+            // locale: DevicePreview.locale(context),
             // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
