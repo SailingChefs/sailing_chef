@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
@@ -8,7 +7,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   const LeaveComment({super.key, required this.recipeId});
 
- Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
+  Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
@@ -28,8 +27,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.cancel, color: kcLightGrey
-              ),
+              icon: Icon(Icons.cancel, color: kcLightGrey),
               onPressed: () => viewModel.removeImage(index),
             )
           ],
@@ -37,12 +35,12 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       }),
     );
   }
+
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-      return Column(
+    return Column(
       children: [
         verticalSpaceSmall,
-
         if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
         verticalSpaceSmall,
         Row(
@@ -68,7 +66,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 fillColor: Colors.transparent,
                 labelText: 'Leave a comment',
                 textColor: Colors.black.withOpacity(0.5),
-                controller: viewModel.commentController,  
+                controller: viewModel.commentController,
               ),
             ),
             ElevatedButton(
@@ -77,7 +75,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 shape: const CircleBorder(),
                 backgroundColor: Theme.of(context).primaryColor,
               ),
-              onPressed:() => viewModel.addComment(recipeId),
+              onPressed: () => viewModel.addComment(recipeId),
               child: const Icon(
                 FlutterRemix.send_plane_line,
                 color: kcwhitecolor,

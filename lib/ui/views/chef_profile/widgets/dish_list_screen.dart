@@ -2,7 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/grid_view.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
   final UserModel user;
@@ -29,7 +29,8 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                 childAspectRatio: 7.4 / 9,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return PrimaryGridViewCard(
+                return PrimaryGridTile(
+                  recipeId: recipes[index].docId,
                   onTap: () => viewModel.toDishDetailsScreen(index),
                   foodImagePath: recipes[index].coverImage.first,
                   dishName: recipes[index].title,

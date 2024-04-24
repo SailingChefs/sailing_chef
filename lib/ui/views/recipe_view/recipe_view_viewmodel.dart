@@ -50,6 +50,7 @@ class RecipeViewViewModel extends BaseViewModel {
       status: 'published',
       title: recipe.title,
       uid: recipe.uid,
+      docId: '',
     ));
     if (check) {
       _navigationService.replaceWithRecipeListPageView(

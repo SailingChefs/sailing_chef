@@ -6,13 +6,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import '../../../core/imports/core_imports.dart';
 
-class SavedRecipeDetailsViewModel extends BaseViewModel {
+class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   // final PageController pageController = PageController();
   final CommentService commentService = CommentService();
@@ -26,8 +28,16 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
   final ImagePicker _picker = ImagePicker();
   List<File> images = [];
   double rating = 3.0;
-  List<CommentModel> commentsList = [];
   List<RecipeModel> recipeList = [];
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [
+        commentService,
+      ];
+
+  List<CommentModel> get fetchComment {
+    return commentService.comments;
+  }
 
   void pickImage() async {
     final List<XFile> selectedImages = await _picker.pickMultiImage();
@@ -124,8 +134,11 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     }
   }
 
-  fetchComments(String recipeId) async {
-    commentsList = await commentService.fetchCommentsByRecipeId(recipeId);
+  void toRecipeDetails(RecipeModel recipe) {
+    _navigationService.replaceWithTransition(
+        SavedRecipeDetailsView(recipeModel: recipe),
+        transitionStyle: Transition.fade,
+        preventDuplicates: false);
   }
 
   void methodsSelected() {
@@ -139,8 +152,8 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void moveToChefProfileView() {
-    // _navigationService.navigateToChefProfileView();
+  void moveToChefProfileView(UserModel user) {
+    _navigationService.navigateToChefProfileView(user: user);
   }
 
   void handleTab(int index) {
@@ -159,11 +172,11 @@ class SavedRecipeDetailsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
- 
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
     startAutoScroll(length);
-    await fetchComments(recipeId);
+    await commentService.clearComments();
+    await commentService.getComments(recipeId);
     recipeList = await recipeService.fetchRandomRecipes(5);
     setBusy(false);
   }

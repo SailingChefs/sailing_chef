@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class CommentModel {
   String id;
-  String userId; 
+  String userId;
   String userName;
   String userImageUrl; // Storing only user ID
   String recipeId;
@@ -31,25 +32,26 @@ class CommentModel {
       content: data['content'] ?? '',
       userName: data['userName'] ?? '',
       userImageUrl: data['userImageUrl'] ?? '',
-      timestamp:  data['created_time'] ?? Timestamp.now(),
+      timestamp: data['created_time'] ?? Timestamp.now(),
       imageUrl: List<String>.from(data['imageUrl'] ?? []),
-      rating: (data['rating'] != null) ? double.tryParse(data['rating'].toString()) ?? 0.0 : 0.0,
+      rating: (data['rating'] != null)
+          ? double.tryParse(data['rating'].toString()) ?? 0.0
+          : 0.0,
     );
   }
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'userId': userId,
       'recipeId': recipeId,
       'content': content,
       'userName': userName,
-      'userImageUrl': userImageUrl, 
+      'userImageUrl': userImageUrl,
       'timestamp': timestamp,
       'imageUrl': imageUrl,
       'rating': rating,
     };
   }
 }
-
 
 // class CommentModel {
 //   String id;

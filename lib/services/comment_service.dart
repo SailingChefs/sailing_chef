@@ -14,6 +14,16 @@ import '../ui/common/show_toast.dart';
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<CommentModel> comments = [];
+  getComments(String recipeId) async {
+    comments = await fetchCommentsByRecipeId(recipeId);
+
+    notifyListeners();
+  }
+
+  clearComments() {
+    comments.clear();
+  }
+
   Future<bool> addComment(CommentModel comment) async {
     bool uploaded = await addCommentToFirestore(comment);
     if (!uploaded) {
@@ -47,10 +57,9 @@ class CommentService with ListenableServiceMixin {
       return false;
     }
   }
-  
-
 
   Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+    log('recipeId:$recipeId');
     try {
       QuerySnapshot querySnapshot = await firebasestore
           .collection('comments')

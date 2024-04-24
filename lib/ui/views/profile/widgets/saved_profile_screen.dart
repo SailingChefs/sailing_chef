@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/grid_view.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   const SavedProfileScreen({super.key});
@@ -19,7 +19,8 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
           childAspectRatio: 7.4 / 9,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return PrimaryGridViewCard(
+          return PrimaryGridTile(
+              recipeId: 'recipe id',
               onTap: () {},
               //  viewModel.toDishDetailsScreen,
               foodImagePath:

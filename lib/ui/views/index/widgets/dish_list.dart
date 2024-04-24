@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/grid_view.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const DishListIndexScreen({super.key});
@@ -34,7 +34,8 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        return PrimaryGridViewCard(
+                        return PrimaryGridTile(
+                          recipeId: dishes[index].docId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: dishes[index].coverImage.first,
                           dishName: dishes[index].title,

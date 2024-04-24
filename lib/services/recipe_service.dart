@@ -119,39 +119,40 @@ class RecipeService {
       return [];
     }
   }
+
   Future<List<RecipeModel>> fetchRandomRecipes(int count) async {
-  try {
-    EasyLoading.show();
+    try {
+      EasyLoading.show();
 
-    // Attempt to fetch more than you need to improve randomness
-    QuerySnapshot snapshot = await firebasestore
-        .collection('recipes')
-        .where('uid', isNotEqualTo: '123456')
-        .limit(10) // Adjust number based on expected collection size
-        .get();
+      // Attempt to fetch more than you need to improve randomness
+      QuerySnapshot snapshot = await firebasestore
+          .collection('recipes')
+          .where('uid', isNotEqualTo: '123456')
+          .limit(10) // Adjust number based on expected collection size
+          .get();
 
-    List<RecipeModel> allRecipes = [];
-    for (var doc in snapshot.docs) {
-      allRecipes.add(RecipeModel.fromSnapshot(doc));
+      List<RecipeModel> allRecipes = [];
+      for (var doc in snapshot.docs) {
+        allRecipes.add(RecipeModel.fromSnapshot(doc));
+      }
+
+      // Shuffle the list to randomize and then take the first 5
+      allRecipes.shuffle();
+      List<RecipeModel> randomRecipes = allRecipes.take(count).toList();
+
+      // Optionally fetch associated user data if needed
+      for (RecipeModel recipe in randomRecipes) {
+        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+        recipe.user = user;
+      }
+
+      EasyLoading.dismiss();
+
+      return randomRecipes;
+    } catch (e) {
+      EasyLoading.dismiss();
+      log("Error fetching random recipes: $e");
+      return [];
     }
-
-    // Shuffle the list to randomize and then take the first 5
-    allRecipes.shuffle();
-    List<RecipeModel> randomRecipes = allRecipes.take(count).toList();
-
-    // Optionally fetch associated user data if needed
-    for (RecipeModel recipe in randomRecipes) {
-      UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-      recipe.user = user;
-    }
-
-    EasyLoading.dismiss();
-
-    return randomRecipes;
-  } catch (e) {
-    EasyLoading.dismiss();
-    log("Error fetching random recipes: $e");
-    return [];
   }
-}
 }

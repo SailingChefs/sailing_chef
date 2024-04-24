@@ -2,7 +2,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/grid_view.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   const MyRecipesProfileScreen({super.key});
@@ -24,7 +24,9 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
               ),
               itemBuilder: (BuildContext context, int index) {
                 final RecipeModel recipe = viewModel.myRecipes![index];
-                return PrimaryGridViewCard(
+                return PrimaryGridTile(
+                  recipeId: recipe.docId,
+                  
                     onTap: () => viewModel.toDishDetailsScreen(index),
                     foodImagePath: recipe.coverImage.first,
                     dishName: recipe.title,

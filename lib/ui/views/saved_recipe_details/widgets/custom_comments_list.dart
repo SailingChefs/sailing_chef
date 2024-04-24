@@ -69,7 +69,6 @@ class CustomListTileComments extends StatelessWidget {
                     ),
                     horizontalSpaceMedium,
                     Column(
-
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(

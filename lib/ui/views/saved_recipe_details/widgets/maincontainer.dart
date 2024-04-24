@@ -18,85 +18,81 @@ class MainRecipeViewContainer
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 250.h),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: kcwhitecolor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35.r),
-                    topRight: Radius.circular(35.r),
-                  ),
-                ),
-                child: Padding(
-                  padding:  EdgeInsets.all(20.0.dg),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 250.h),
+          Container(
+            // width: double.infinity,
+            decoration: BoxDecoration(
+              color: kcwhitecolor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35.r),
+                topRight: Radius.circular(35.r),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20.0.dg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpaceMedium,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      verticalSpaceMedium,
+                      Text(
+                        capitalizeEachWord(recipeModel.title),
+                        style: globalTextStyle(
+                          fontSize: 26.45.sp,
+                          fontWeight: FontWeight.w500,
+                          color: kcBlackColor,
+                        ),
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Icon(
+                            FlutterRemix.time_line,
+                            size: 12,
+                            color: kcBlackColor.withOpacity(0.5),
+                          ),
+                          horizontalSpaceTiny,
                           Text(
-                            capitalizeEachWord(recipeModel.title),
+                            recipeModel.prepTime,
                             style: globalTextStyle(
-                              fontSize: 26.45.sp,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 10.0,
                               color: kcBlackColor,
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                FlutterRemix.time_line,
-                                size: 12,
-                                color: kcBlackColor.withOpacity(0.5),
-                              ),
-                              horizontalSpaceTiny,
-                              Text(
-                                recipeModel.prepTime,
-                                style: globalTextStyle(
-                                  fontSize: 10.0,
-                                  color: kcBlackColor,
-                                ),
-                              )
-                            ],
-                          ),
+                          )
                         ],
                       ),
-                      verticalSpaceSmall,
-                      ViewProfileRow(
-                        user: recipeModel.user!,
-                      ),
-                      verticalSpaceMedium,
-                      const TabBarWidgets(),
-                      verticalSpaceSmall,
-                      viewModel.isIngredientsSelected
-                          ? IngredientsClass(
-                              recipeModel: recipeModel,
-                            )
-                          : Methods(
-                              recipe: recipeModel,
-                            ),
-                      const CommentsDetailsScreen(
-                        
-                      ),
-                      LeaveComment(recipeId: recipeModel.uid,),
-                      horizontalSpaceSmall,
-                       const BottomSlider(),
                     ],
                   ),
-                ),
+                  verticalSpaceSmall,
+                  ViewProfileRow(
+                    user: recipeModel.user!,
+                  ),
+                  verticalSpaceMedium,
+                  const TabBarWidgets(),
+                  verticalSpaceSmall,
+                  viewModel.isIngredientsSelected
+                      ? IngredientsClass(
+                          recipeModel: recipeModel,
+                        )
+                      : Methods(
+                          recipe: recipeModel,
+                        ),
+                  const CommentsDetailsScreen(),
+                  LeaveComment(
+                    recipeId: recipeModel.docId,
+                  ),
+                  const BottomSlider(),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

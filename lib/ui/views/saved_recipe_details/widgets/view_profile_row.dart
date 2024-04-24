@@ -34,7 +34,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         ),
       ),
       OutlinedButton(
-        onPressed: viewModel.moveToChefProfileView,
+        onPressed: () => viewModel.moveToChefProfileView(user),
         child: const Text(
           'View',
           style: TextStyle(

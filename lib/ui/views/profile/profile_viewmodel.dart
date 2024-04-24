@@ -9,6 +9,7 @@ import 'package:geocoding/geocoding.dart';
 class ProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final RecipeService _recipeService = locator<RecipeService>();
+  
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
@@ -86,8 +87,7 @@ class ProfileViewModel extends BaseViewModel {
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: myRecipes![index],
-     
-     
     );
   }
+  
 }

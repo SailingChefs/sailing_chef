@@ -123,6 +123,7 @@ class AddRecipeViewModel extends BaseViewModel {
         status: 'draft',
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
+        docId: '',
       ),
       'images': selectedImages,
     });
@@ -227,6 +228,7 @@ class AddRecipeViewModel extends BaseViewModel {
               status: 'published',
               title: titleController.text.trim(),
               uid: firebaseAuth.currentUser!.uid,
+              docId: '',
             ),
             selectedImages: selectedImages);
       }
@@ -267,6 +269,7 @@ class AddRecipeViewModel extends BaseViewModel {
         status: 'draft',
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
+        docId: '',
       ));
     }
   }

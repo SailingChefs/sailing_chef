@@ -14,11 +14,13 @@ class RecipeModel {
   final String title;
   final String uid;
   final String visibility;
+  final String docId;
   UserModel? user;
 
   RecipeModel({
     required this.visibility,
     required this.chefNote,
+    required this.docId,
     required this.coverImage,
     required this.createdTime,
     required this.ingredients,
@@ -45,6 +47,7 @@ class RecipeModel {
       'status': status,
       'title': title,
       'uid': uid,
+      'doc_id': docId,
     };
   }
 
@@ -53,6 +56,7 @@ class RecipeModel {
 
     return RecipeModel(
       visibility: data['visibility'] ?? '',
+      docId: data['doc_id'] ?? '',
       chefNote: data['chef_note'] ?? '',
       coverImage: List<String>.from(data['cover_image'] ?? []),
       createdTime: data['created_time'] ?? Timestamp.now(),

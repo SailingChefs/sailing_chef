@@ -35,9 +35,7 @@ class IndexViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
-        recipeModel: dishes![index],
-        
-        );
-       
+      recipeModel: dishes![index],
+    );
   }
 }

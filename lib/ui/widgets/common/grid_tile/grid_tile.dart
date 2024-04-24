@@ -1,26 +1,32 @@
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 
-class PrimaryGridViewCard extends StatelessWidget {
-  final String foodImagePath;
+import 'grid_tile_model.dart';
+
+class PrimaryGridTile extends StackedView<GridTileModel> {
+   final String foodImagePath;
   final String chefImagePath;
   final String dishName;
   final String duration;
   final void Function() onTap;
-
-  const PrimaryGridViewCard({
-    Key? key,
+  final String recipeId;
+  const PrimaryGridTile({super.key,
     required this.foodImagePath,
+    required this.chefImagePath,
     required this.dishName,
     required this.duration,
-    required this.chefImagePath,
     required this.onTap,
-  }) : super(key: key);
+    required this.recipeId,});
 
   @override
-  Widget build(
+  Widget builder(
     BuildContext context,
+    GridTileModel viewModel,
+    Widget? child,
   ) {
+    final List<SavedRecipeModel> savedRecipeList = viewModel.fetchSavedRecipesList;
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -73,17 +79,25 @@ class PrimaryGridViewCard extends StatelessWidget {
             Positioned(
               top: 5.dg,
               right: 10.dg,
-              child: Container(
-                width: 30.w,
-                height: 30.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kcBlackColor.withOpacity(0.5),
-                ),
-                child: Icon(
-                  Icons.bookmark_border_outlined,
-                  size: 18.dg,
-                  color: kcWhiteColor,
+              child: GestureDetector(
+                   onTap:() => viewModel.onBookmarkTap(recipeId),
+                child: Container(
+                  width: 30.w,
+                  height: 30.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: kcBlackColor.withOpacity(0.5),
+                  ),
+                  child:  savedRecipeList.every((element) => element.recipeId == recipeId) ? Icon(
+                    Icons.bookmark_outline,
+                    size: 18.dg,
+                    color: kcWhiteColor,
+                  ):
+                  Icon(
+                    Icons.bookmark_border,
+                    size: 18.dg,
+                    color: kcWhiteColor,
+                  ),
                 ),
               ),
             ),
@@ -143,4 +157,10 @@ class PrimaryGridViewCard extends StatelessWidget {
           ]),
         ));
   }
+
+  @override
+  GridTileModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      GridTileModel();
 }

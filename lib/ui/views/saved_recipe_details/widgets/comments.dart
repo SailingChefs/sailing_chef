@@ -1,23 +1,23 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comments_list.dart';
 
 class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  
-  const CommentsDetailsScreen({super.key });
-  List<Widget> createCommentWidgets( SavedRecipeDetailsViewModel viewModel) {
+  const CommentsDetailsScreen({super.key});
+  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+    List<CommentModel> comment = viewModel.fetchComment;
     return [
-      for (var comment in viewModel.commentsList)
+      for (var comment in comment)
         CustomListTileComments(
           name: comment.userName,
           date: comment.timestamp,
           description: comment.content,
-          image: comment.userImageUrl, 
+          image: comment.userImageUrl,
           ratingImages: comment.imageUrl!,
           rating: comment.rating!,
-          
         ),
     ];
   }
@@ -27,7 +27,7 @@ class CommentsDetailsScreen
     return Column(
       children: [
         verticalSpaceMedium,
-         Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -49,7 +49,7 @@ class CommentsDetailsScreen
           ],
         ),
         verticalSpaceSmall,
-       viewModel. commentsList.isEmpty
+        viewModel.fetchComment.isEmpty
             ? Text('No comments yet',
                 style: globalTextStyle(
                     fontSize: 14.0.sp,
@@ -79,11 +79,10 @@ class CommentsDetailsScreen
               itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
-                color:Color(0xFF2E3E5C) ,
+                color: Color(0xFF2E3E5C),
               ),
               onRatingUpdate: (rating) {
                 viewModel.addRating(rating);
-                
               },
             ),
           ],
