@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -21,16 +20,22 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            elevation: 0,
-            title: Text('All Chefs',style: globalTextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: kcBlackColor),),
-            centerTitle: true,
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BackArrowWidget(onTap: viewModel.toHomeView,),
-            )
-
-          ),
+              backgroundColor: Theme.of(context).colorScheme.background,
+              elevation: 0,
+              title: Text(
+                'All Chefs',
+                style: globalTextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor),
+              ),
+              centerTitle: true,
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: BackArrowWidget(
+                  onTap: viewModel.toHomeView,
+                ),
+              )),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -38,7 +43,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
               return CustomScrollView(
                 slivers: [
                   SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
@@ -52,9 +58,9 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                           },
                           child: Container(
                             width: 160.w,
-      
+
                             // height: containerHeight.h,
-      
+
                             decoration: BoxDecoration(
                               color: kcwhitecolor,
                               boxShadow: [

@@ -64,51 +64,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void startAutoScroll(int length) {
-    const duration = Duration(seconds: 3); // Change the interval as needed
-    _timer = Timer.periodic(duration, (Timer timer) {
-      if (pageController.hasClients) {
-        int nextPage = pageController.page!.toInt() + 1;
-        if (nextPage >= length) {
-          nextPage = 0; // Loop back to the first image
-        }
-        pageController.animateToPage(
-          nextPage,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
 
-  void stopAutoScroll() {
-    _timer?.cancel();
-  }
 
-  void showNextImage(int length) {
-    if (pageController.hasClients) {
-      int nextPage = (pageController.page!.toInt() + 1) % length;
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
-
-  void showPreviousImage(int length) {
-    if (pageController.hasClients) {
-      int previousPage = pageController.page!.toInt() - 1;
-      if (previousPage < 0) {
-        previousPage = length - 1; // Loop to last image
-      }
-      pageController.animateToPage(
-        previousPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
 
   void addRating(double rating) {
     this.rating = rating;
@@ -187,7 +144,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
-    startAutoScroll(length);
     await commentService.clearComments();
     await _savedRecipeService.init();
     await commentService.getComments(recipeId);
@@ -197,7 +153,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   @override
   void dispose() {
-    stopAutoScroll();
     pageController.dispose();
     super.dispose();
   }

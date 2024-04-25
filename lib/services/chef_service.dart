@@ -74,8 +74,11 @@ class ChefService {
       EasyLoading.show();
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('user_role',
-              isEqualTo: 'chef', isNotEqualTo: firebaseAuth.currentUser?.uid)
+          .where(
+            'user_role',
+            isEqualTo: 'chef',
+          )
+          .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
       for (var doc in querySnapshot.docs) {

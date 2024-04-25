@@ -1,4 +1,6 @@
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/search_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -43,6 +45,7 @@ import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -88,6 +91,8 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),
     LazySingleton(classType: SavedRecipeService),
+    LazySingleton(classType: FollowService),
+    LazySingleton(classType: SearchService),
 // @stacked-service
   ],
   bottomsheets: [
@@ -96,6 +101,7 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
     StackedBottomsheet(classType: CookingInstructionsSheet),
     StackedBottomsheet(classType: DropPinSheetSheet),
     StackedBottomsheet(classType: DropPinButtonsSheet),
+    StackedBottomsheet(classType: OtherChefProfileSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

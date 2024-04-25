@@ -7,4 +7,5 @@ export 'package:sailing_chefs/ui/common/ui_helpers.dart';
 export 'package:stacked/stacked.dart';
 export '../../../app/app.locator.dart';
 export 'package:stacked_services/stacked_services.dart';
-export 'package:sailing_chefs/app/app.router.dart';
+export '../../../app/app.dart';
+export '../../../app/app.router.dart';

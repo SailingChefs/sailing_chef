@@ -12,27 +12,10 @@ class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
   bool isInitialised = false;
   Future<void> init() async {
-    // if (isInitialised) return;
     savedRecipes = await _getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
     notifyListeners();
     isInitialised = true;
   }
-
-  // getAllSavedRecipes() async {
-  //   savedRecipes = await getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
-  //   notifyListeners();
-  // }
-  // deletelocalSavedRecipe( index) {
-  //   if (index >= 0 && index < savedRecipes.length) {
-  //     savedRecipes.removeAt(index);
-  //     notifyListeners();
-  //   }
-  // }
-
-  // clearSavedRecipes() {
-  //   savedRecipes.clear();
-  //   notifyListeners();
-  // }
 
   Future<bool> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
     DocumentReference newRecipeRef =

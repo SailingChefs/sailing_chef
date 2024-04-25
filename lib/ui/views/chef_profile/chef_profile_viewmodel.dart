@@ -6,23 +6,30 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 
 import '../../../core/imports/core_imports.dart';
 
-class ChefProfileViewModel extends BaseViewModel {
+class ChefProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
+  final FollowService _followService = locator<FollowService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
   List<RecipeModel>? chefRecipes;
+  List<String> get followers => _followService.followers;
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  bool isFollowing = false;
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_followService];
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -41,9 +48,17 @@ class ChefProfileViewModel extends BaseViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
+    await _followService.init(user.uid!,false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
     await _savedRecipeService.init();
     setBusy(false);
+  }
+
+  void onFollow(UserModel user) async {
+    bool check = await _followService.addFollower(user);
+    if (check) {
+      isFollowing = true;
+    }
   }
 
   void goToFollowingList(String name) {
@@ -53,6 +68,10 @@ class ChefProfileViewModel extends BaseViewModel {
 
   getUserLocation(UserModel user) async {
     log(user.displayName.toString());
+    if (user.location == null) {
+      // ignore: prefer_const_constructors
+      return placemarks = null;
+    }
     placemarks = await placemarkFromCoordinates(
         user.location!['latitude'], user.location!['longitude']);
     log(placemarks.toString());

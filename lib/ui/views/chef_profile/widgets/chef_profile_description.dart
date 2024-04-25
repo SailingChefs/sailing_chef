@@ -27,7 +27,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                 ),
                 child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: user.displayPicture == null
+                    child: user.displayPicture!.isEmpty
                         ? Image.asset(
                             'assets/images/misc/blank_image.png',
                             fit: BoxFit.cover,
@@ -42,57 +42,72 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               ),
             ],
           ),
-          verticalSpaceSmall,
-          Text(
-            user.displayName == null
-                ? ''
-                : capitalizeEachWord(user.displayName!),
-            style: globalTextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-                color: kcBlackColor),
-          ),
-          Text(
-            user.boatName == null && viewModel.placemarks!.first.country == null
-                ? ''
-                : "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
-            style: globalTextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: kcBlackColor,
-            ),
-          ),
-          verticalSpaceSmall,
-          Text(
-            user.bio == null ? '' : user.bio!,
-            style: globalTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: kcBlackColor,
-            ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 3,
-          ),
-          verticalSpaceTiny,
-          Row(
-            children: [
-              const Icon(
-                Icons.link_outlined,
-                color: kcPrimaryColor,
-                size: 20,
-              ),
-              horizontalSpaceSmall,
-              Text(
-                user.link == null ? '' : user.link!,
-                style: globalTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: kcPrimaryColor,
-                  decoration: TextDecoration.underline,
+          user.displayName!.isEmpty
+              ? const SizedBox()
+              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  verticalSpaceSmall,
+                  Text(
+                    capitalizeEachWord(user.displayName!),
+                    style: globalTextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        color: kcBlackColor),
+                  ),
+                ]),
+          user.boatName!.isEmpty && viewModel.placemarks == null
+              ? const SizedBox()
+              : Column(
+                  children: [
+                    verticalSpaceSmall,
+                    Text(
+                      "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
+                      style: globalTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          )
+          user.bio!.isEmpty
+              ? const SizedBox()
+              : Column(
+                  children: [
+                    verticalSpaceSmall,
+                    Text(
+                      user.bio!,
+                      style: globalTextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                  ],
+                ),
+          verticalSpaceTiny,
+          user.link!.isEmpty
+              ? const SizedBox()
+              : Row(
+                  children: [
+                    const Icon(
+                      Icons.link_outlined,
+                      color: kcPrimaryColor,
+                      size: 20,
+                    ),
+                    horizontalSpaceSmall,
+                    Text(
+                      user.link!,
+                      style: globalTextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: kcPrimaryColor,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
+                )
         ],
       ),
     );

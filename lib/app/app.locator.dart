@@ -16,9 +16,11 @@ import '../services/chef_service.dart';
 import '../services/comment_service.dart';
 import '../services/conversation_service.dart';
 import '../services/dishes_service.dart';
+import '../services/follow_service.dart';
 import '../services/location_service.dart';
 import '../services/recipe_service.dart';
 import '../services/saved_recipe_service.dart';
+import '../services/search_service.dart';
 import '../services/user_services.dart';
 import '../services/userdata_service_service.dart';
 import '../ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
@@ -48,4 +50,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BottomNavBarViewModel());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => SavedRecipeService());
+  locator.registerLazySingleton(() => FollowService());
+  locator.registerLazySingleton(() => SearchService());
 }

@@ -12,6 +12,7 @@ import '../ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart
 import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
 import '../ui/bottom_sheets/notice/notice_sheet.dart';
+import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
 
 enum BottomSheetType {
   notice,
@@ -19,6 +20,7 @@ enum BottomSheetType {
   cookingInstructions,
   dropPinSheet,
   dropPinButtons,
+  otherChefProfile,
 }
 
 void setupBottomSheetUi() {
@@ -35,6 +37,8 @@ void setupBottomSheetUi() {
         DropPinSheetSheet(request: request, completer: completer),
     BottomSheetType.dropPinButtons: (context, request, completer) =>
         DropPinButtonsSheet(request: request, completer: completer),
+    BottomSheetType.otherChefProfile: (context, request, completer) =>
+        OtherChefProfileSheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);
