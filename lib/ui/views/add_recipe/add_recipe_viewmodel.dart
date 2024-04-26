@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -15,11 +16,14 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_inst
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   late final RecorderController recorderController;
   late final PlayerController playerController;
+  late VideoPlayerController controller;
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
@@ -27,7 +31,8 @@ class AddRecipeViewModel extends BaseViewModel {
   late String path;
   String selectedValue = 'Public';
   int selectedQuantity = 1;
-  List<XFile?> selectedImages = [];
+  List<XFile> selectedImages = [];
+  List<XFile> thumbnails = [];
   TextEditingController titleController = TextEditingController();
   final _recipeService = locator<RecipeService>();
   int count = 0;
@@ -39,7 +44,12 @@ class AddRecipeViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<String> methodsList = [];
+
   bool isPlaying = false;
+
+  bool isclicked = false;
+
+
   List<double>? waveFormData;
 
   bool get isRecording => recorderController.isRecording;
@@ -144,13 +154,32 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> pickImages() async {
-    List<XFile>? images = await ImagePicker().pickMultiImage(
-      imageQuality: 80,
-      maxWidth: 1000,
-    );
+    List<XFile>? images = await ImagePicker()
+        .pickMultipleMedia(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
 
     if (images.isNotEmpty) {
-      selectedImages = images;
+      for (var image in images) {
+        if (File(image.path).isImage) {
+          selectedImages.add(image);
+          
+        } else if (File(image.path).isVideo) {
+          controller = VideoPlayerController.file(images
+              .where((element) => File(element.path).isVideo)
+              .first
+              .toFile);
+          controller.play();
+          // final thumbnailss = await VideoThumbnail.thumbnailFile(
+          //   video: image.path,
+          //   thumbnailPath: (await getTemporaryDirectory()).path,
+          //   imageFormat: ImageFormat.PNG,
+          //   maxHeight: 50,
+          //   quality: 100,
+          // );
+          selectedImages.add(XFile(image.path));
+          
+        }
+      }
+
       notifyListeners();
       rebuildUi();
     }
@@ -247,23 +276,24 @@ class AddRecipeViewModel extends BaseViewModel {
         showToast(message: 'Please add at least one image');
         return;
       } else {
-        // List<String> imageUrls =
-        //     await _recipeService.uploadImagesToFirebase(selectedImages);
+        List<String> imageUrls =
+            await _recipeService.uploadMediaToFirebase(selectedImages,
+            FirebaseFirestore.instance.collection('recipes').doc().id);
 
-        // await _recipeService.addRecipeToFirestore(RecipeModel(
-        //   visibility: selectedValue,
-        //   chefNote: 'recorderController',
-        //   coverImage: imageUrls,
-        //   createdTime: Timestamp.now(),
-        //   ingredients: ingredientsList,
-        //   methods: methodsList,
-        //   prepTime:
-        //       mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-        //   servingSize: selectedQuantity,
-        //   status: 'published',
-        //   title: titleController.text.trim(),
-        //   uid: firebaseAuth.currentUser!.uid,
-        // ));
+        await _recipeService.addRecipeToFirestore(RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: methodsList,
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'published',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid, docId: '',
+        ));
 
         _navigationService.navigateToRecipeViewView(
             recipeModel: RecipeModel(
@@ -307,7 +337,7 @@ class AddRecipeViewModel extends BaseViewModel {
       List<String> imageUrls;
 
       imageUrls = selectedImages.isNotEmpty
-          ? await _recipeService.uploadImagesToFirebase(selectedImages)
+          ? await _recipeService.uploadMediaToFirebase(selectedImages,FirebaseFirestore.instance.collection('recipes').doc().id)
           : [];
 
       await _recipeService.addRecipeToFirestore(RecipeModel(
@@ -323,8 +353,10 @@ class AddRecipeViewModel extends BaseViewModel {
         status: 'draft',
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
+
         docId: '',
         waveForm: waveFormData!,
+
       ));
     }
   }
@@ -352,4 +384,37 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void deleteInstruction(int index) {}
+
+  void updateVideoSource(File value) {
+    if (value.isVideo) {
+      controller = VideoPlayerController.file(value);
+      isclicked == false ? controller.pause() : controller.play();
+      notifyListeners();
+    } else {}
+  }
+
+  navigateToRecipeViewView() async{
+          List<String> imageUrls;
+
+      imageUrls = selectedImages.isNotEmpty
+          ? await _recipeService.uploadMediaToFirebase(selectedImages,FirebaseFirestore.instance.collection('recipes').doc().id)
+          : [];
+
+    _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
+        visibility: selectedValue,
+        chefNote: 'recorderController',
+        coverImage: imageUrls,
+        createdTime: Timestamp.now(),
+        ingredients: ingredientsList,
+        methods: methodsList,
+        prepTime:
+            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+        servingSize: selectedQuantity,
+        status: 'draft',
+        title: titleController.text.trim(),
+        uid: firebaseAuth.currentUser!.uid,
+        docId: '',
+      ),
+      selectedImages: selectedImages);
+  }
 }

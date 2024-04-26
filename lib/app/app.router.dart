@@ -48,6 +48,8 @@ import 'package:sailing_chefs/ui/views/sign_up/sign_up_view.dart' as _i4;
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
     as _i6;
+import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart'
+    as _i25;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i32;
 
@@ -98,7 +100,11 @@ class Routes {
 
   static const editProfileView = '/edit-profile-view';
 
+
+  static const videoPlayerView = '/video-player-view';
+
   static const allChefsView = '/all-chefs-view';
+
 
   static const all = <String>{
     startupView,
@@ -124,7 +130,11 @@ class Routes {
     chefProfileView,
     chatListView,
     editProfileView,
+
+    videoPlayerView,
+
     allChefsView,
+
   };
 }
 
@@ -223,8 +233,13 @@ class StackedRouter extends _i1.RouterBase {
       page: _i24.EditProfileView,
     ),
     _i1.RouteDef(
+
+      Routes.videoPlayerView,
+      page: _i25.VideoPlayerView,
+
       Routes.allChefsView,
       page: _i25.AllChefsView,
+
     ),
   ];
 
@@ -382,11 +397,17 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
+
+    _i25.VideoPlayerView: (data) {
+      return _i26.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i25.VideoPlayerView(),
+
     _i25.AllChefsView: (data) {
       final args = data.getArgs<AllChefsViewArguments>(nullOk: false);
       return _i26.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i25.AllChefsView(key: args.key, chefList: args.chefList),
+
         settings: data,
       );
     },
@@ -496,7 +517,11 @@ class RecipeViewViewArguments {
 
   final _i30.RecipeModel recipeModel;
 
+
+  final List<_i31.XFile> selectedImages;
+
   final List<_i31.XFile?> selectedImages;
+
 
   final _i28.Key? key;
 
@@ -609,6 +634,7 @@ class AllChefsViewArguments {
     return key.hashCode ^ chefList.hashCode;
   }
 }
+
 
 extension NavigatorStateExtension on _i32.NavigationService {
   Future<dynamic> navigateToStartupView([
@@ -864,7 +890,11 @@ extension NavigatorStateExtension on _i32.NavigationService {
 
   Future<dynamic> navigateToRecipeViewView({
     required _i30.RecipeModel recipeModel,
+
+    required List<_i31.XFile> selectedImages,
+
     required List<_i31.XFile?> selectedImages,
+
     _i28.Key? key,
     List<double>? waveFormData,
     String? path,
@@ -964,17 +994,26 @@ extension NavigatorStateExtension on _i32.NavigationService {
         transition: transition);
   }
 
+
+  Future<dynamic> navigateToVideoPlayerView([
+
   Future<dynamic> navigateToAllChefsView({
     _i28.Key? key,
     required List<_i27.UserModel> chefList,
+
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
+
+  ]) async {
+    return navigateTo<dynamic>(Routes.videoPlayerView,
+
   }) async {
     return navigateTo<dynamic>(Routes.allChefsView,
         arguments: AllChefsViewArguments(key: key, chefList: chefList),
+
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1234,7 +1273,11 @@ extension NavigatorStateExtension on _i32.NavigationService {
 
   Future<dynamic> replaceWithRecipeViewView({
     required _i30.RecipeModel recipeModel,
+
+    required List<_i31.XFile> selectedImages,
+
     required List<_i31.XFile?> selectedImages,
+
     _i28.Key? key,
     List<double>? waveFormData,
     String? path,
@@ -1334,17 +1377,26 @@ extension NavigatorStateExtension on _i32.NavigationService {
         transition: transition);
   }
 
+
+  Future<dynamic> replaceWithVideoPlayerView([
+
   Future<dynamic> replaceWithAllChefsView({
     _i28.Key? key,
     required List<_i27.UserModel> chefList,
+
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
+
+  ]) async {
+    return replaceWith<dynamic>(Routes.videoPlayerView,
+
   }) async {
     return replaceWith<dynamic>(Routes.allChefsView,
         arguments: AllChefsViewArguments(key: key, chefList: chefList),
+
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

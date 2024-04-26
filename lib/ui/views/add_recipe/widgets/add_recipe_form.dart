@@ -39,9 +39,7 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         verticalSpaceMedium,
         SaveRecipeButton(
           onPressed:
-              // viewModel.navigteToRecipeListView();
-              //viewModel.goToRecipePreview,
-              viewModel.saveRecipe,
+              viewModel.navigateToRecipeViewView,
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,
         ),

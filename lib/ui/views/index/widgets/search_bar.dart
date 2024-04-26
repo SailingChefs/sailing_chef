@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/search_delegate.dart';
 
 class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
   const SearchBarIndexView({super.key});
@@ -12,7 +13,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              viewModel.goToSearchView();
+              showSearch(context: context, delegate: RecipeSearchDelegate());
             },
             child: Container(
               padding:
@@ -45,9 +46,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
         ),
         horizontalSpaceTiny,
         IconButton(
-          onPressed: () {
-            viewModel.goToFilterView();
-          },
+          onPressed: viewModel.goToFilterView,
           icon: const Icon(FlutterRemix.equalizer_line),
           color: kcPrimaryColor,
           iconSize: 30.dg,

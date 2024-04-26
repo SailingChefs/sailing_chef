@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/following_list/widgets/follower_list.dart';
+import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/tab_bars.dart';
@@ -17,7 +19,8 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
     FollowingListViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
+    return viewModel.isBusy ? const CircularProgressIndicator(color: Colors.transparent, ): 
+    Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const TopBarFollowing(),
       body: SingleChildScrollView(
@@ -28,12 +31,25 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
             const TabBarsFollowing(),
             verticalSpaceTiny,
             const SearchBarFollwoing(),
-            verticalSpaceTiny,
-            FollowingFollowerList(),
+            viewModel.searchController.text.isEmpty ?
+            Column(
+              children: [
+                verticalSpaceTiny,
+                 viewModel.isFollower ?  
+            FollowingList():FollowerList(),
+              ],
+            ):
+            SearchList(users: viewModel.followingUsers,),
+           
           ],
         ),
       ),
     );
+  }
+   @override
+  void onViewModelReady(FollowingListViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

@@ -1,22 +1,32 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'dart:io';
+
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:video_player/video_player.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
+  PageController pageController = PageController(viewportFraction: 1.0);
+  late final PlayerController playerController;
+  late VideoPlayerController controller;
   final _navigationService = locator<NavigationService>();
   final _recipeService = locator<RecipeService>();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
+
   late final PlayerController playerController;
   final PageController pageController = PageController();
+
   Timer? _timer;
   List<double>? waveFormData;
   String? path;
@@ -57,10 +67,12 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
-    List<String> imageUrls =
-        await _recipeService.uploadImagesToFirebase(selectedImages);
+    log(recipe.docId.toString());
+    List<String> imageUrls =await _recipeService.uploadMediaToFirebase(selectedImages,recipe.docId);
+
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+
 
     final check = await _recipeService.addRecipeToFirestore(RecipeModel(
       visibility: recipe.visibility,
@@ -74,8 +86,12 @@ class RecipeViewViewModel extends BaseViewModel {
       status: 'published',
       title: recipe.title,
       uid: recipe.uid,
-      docId: '',
+
+
       waveForm: waveFormData!,
+
+      docId: recipe.docId,
+
     ));
     if (check) {
       _navigationService.replaceWithRecipeListPageView(
@@ -121,12 +137,12 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void startAutoScroll(int length) {
-    const duration = Duration(seconds: 3); // Change the interval as needed
+    const duration = Duration(seconds: 3); 
     _timer = Timer.periodic(duration, (Timer timer) {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0; // Loop back to the first image
+          nextPage = 0; 
         }
         pageController.animateToPage(
           nextPage,
@@ -135,6 +151,14 @@ class RecipeViewViewModel extends BaseViewModel {
         );
       }
     });
+  }
+
+  void updateVideoSource(File value) {
+    if (value.isVideo) {
+      controller = VideoPlayerController.file(value);
+      controller.play();
+      notifyListeners();
+    } else {}
   }
 
   void stopAutoScroll() {

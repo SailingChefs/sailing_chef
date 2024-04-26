@@ -31,10 +31,14 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
             body: Stack(children: [
-              TopBarDetailsScreen(image: recipeModel.coverImage),
+             
+           TopBarDetailsScreen(image: recipeModel.coverImage),
               MainRecipeViewContainer(
                 recipeModel: recipeModel,
               ),
+                    
+
+            
               Positioned(
                 top: 40,
                 left: 10,

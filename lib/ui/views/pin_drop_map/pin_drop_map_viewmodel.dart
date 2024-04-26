@@ -1,9 +1,12 @@
 import 'dart:developer';
+
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 
 class PinDropMapViewModel extends BaseViewModel {
@@ -17,6 +20,7 @@ class PinDropMapViewModel extends BaseViewModel {
   late LocationPermission permission;
   Position? currentPosition;
   bool isClicked = false;
+  late PinnedLocation pinnedLocation;
 
   Future<Position> getCurrentLocation() async {
     try {
@@ -43,23 +47,59 @@ class PinDropMapViewModel extends BaseViewModel {
     }
   }
 
-  void addMarkers(String markerId, LatLng location) {
+  Future<String> getCityCountry(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        return '${placemark.subLocality}, ${placemark.locality}, ${placemark.country}';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
+      print('Error getting city and country: $e');
+      return 'Unknown';
+    }
+  }
+
+  void addMarkers(String markerId, LatLng location) async {
     var marker = Marker(
       markerId: MarkerId(markerId),
       draggable: true,
       position: location,
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: location.latitude.toString(),
       ),
-      onTap: () {
-        isClicked = !isClicked;
-        _dialogService.showCustomDialog(
-          variant: DialogType.pindropDialoguebox,
+      onTap: () async {
+        final place = await getCityCountry(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude);
+
+        List<PinnedLocation> pins =
+            await _navigationpinService.getPinsNearUserLocation(
+          LatLng(currentPosition!.latitude, currentPosition!.longitude),
         );
+
+        for (PinnedLocation pinInList in pins) {
+          if (pinInList.location.latitude == location.latitude &&
+              pinInList.location.longitude == location.longitude) {
+            isClicked = true;
+            notifyListeners();
+            rebuildUi();
+            pinnedLocation = pinInList;
+            _dialogService.showCustomDialog(
+              variant: DialogType.pindropDialoguebox,
+              title: place,
+              data: pinnedLocation,
+            );
+          }
+        }
       },
+      icon: locator<BitmapImageService>().getIcon(false),
     );
+    log("logging the value: ${isClicked.toString()}");
     markers[markerId] = marker;
+    notifyListeners();
     rebuildUi();
   }
 
@@ -83,6 +123,7 @@ class PinDropMapViewModel extends BaseViewModel {
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
             LatLng(pin.location.latitude, pin.location.longitude));
+        pinnedLocation = pin;
       }
     } catch (e) {
       log('Error fetching pins: $e');

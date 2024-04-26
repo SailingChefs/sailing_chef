@@ -11,7 +11,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
     return Expanded(
       flex: 1,
       child: GridView.builder(
-        itemCount: savedRecipes!.length,
+        itemCount: savedRecipes.length,
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,

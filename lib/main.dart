@@ -9,6 +9,7 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/firebase_options.dart';
+import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -37,6 +38,7 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
+  await locator<BitmapImageService>().initialise();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MainApp());

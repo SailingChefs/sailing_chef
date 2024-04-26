@@ -12,6 +12,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final void Function() onTap;
   final String recipeId;
   final List<SavedRecipeModel> savedRecipeList;
+
   const PrimaryGridTile({
     super.key,
     required this.foodImagePath,
@@ -29,6 +30,10 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
+
+
+
+
     bool isRecipeSaved = false;
     for (SavedRecipeModel savedRecipe in savedRecipeList) {
       if (savedRecipe.recipeId == recipeId) {
@@ -36,6 +41,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
         break;
       }
     }
+
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -97,14 +103,18 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     shape: BoxShape.circle,
                     color: kcBlackColor.withOpacity(0.5),
                   ),
+
                   child: isRecipeSaved
                       ? Icon(
                           Icons.bookmark,
+
                           size: 18.dg,
                           color: kcWhiteColor,
                         )
                       : Icon(
+
                           Icons.bookmark_outline,
+
                           size: 18.dg,
                           color: kcWhiteColor,
                         ),

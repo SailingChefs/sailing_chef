@@ -1,4 +1,3 @@
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -9,7 +8,6 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
 
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  TextEditingController searchController = TextEditingController();
   final _chefService = locator<ChefService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
@@ -31,14 +29,11 @@ class IndexViewModel extends BaseViewModel {
 
     setBusy(false);
   }
+
   void toAllChefsView() {
     _navigationService.navigateToAllChefsView(
       chefList: chefList!,
     );
-  }
-
-  void goToSearchView() {
-    // _navigationService.navigateTo;
   }
 
   void toChefProfile(UserModel chef) {
