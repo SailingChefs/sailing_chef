@@ -186,7 +186,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
 
-    startAutoScroll(length);
+    // startAutoScroll(length);
     waveFormData = recipeModel.waveForm;
 
     await commentService.clearComments();

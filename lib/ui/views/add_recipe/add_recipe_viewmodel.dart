@@ -49,7 +49,6 @@ class AddRecipeViewModel extends BaseViewModel {
 
   bool isclicked = false;
 
-
   List<double>? waveFormData;
 
   bool get isRecording => recorderController.isRecording;
@@ -161,7 +160,6 @@ class AddRecipeViewModel extends BaseViewModel {
       for (var image in images) {
         if (File(image.path).isImage) {
           selectedImages.add(image);
-          
         } else if (File(image.path).isVideo) {
           controller = VideoPlayerController.file(images
               .where((element) => File(element.path).isVideo)
@@ -176,7 +174,6 @@ class AddRecipeViewModel extends BaseViewModel {
           //   quality: 100,
           // );
           selectedImages.add(XFile(image.path));
-          
         }
       }
 
@@ -276,8 +273,8 @@ class AddRecipeViewModel extends BaseViewModel {
         showToast(message: 'Please add at least one image');
         return;
       } else {
-        List<String> imageUrls =
-            await _recipeService.uploadMediaToFirebase(selectedImages,
+        List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+            selectedImages,
             FirebaseFirestore.instance.collection('recipes').doc().id);
 
         await _recipeService.addRecipeToFirestore(RecipeModel(
@@ -292,7 +289,9 @@ class AddRecipeViewModel extends BaseViewModel {
           servingSize: selectedQuantity,
           status: 'published',
           title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid, docId: '',
+          uid: firebaseAuth.currentUser!.uid,
+          docId: '',
+          waveForm: waveFormData!,
         ));
 
         _navigationService.navigateToRecipeViewView(
@@ -337,7 +336,8 @@ class AddRecipeViewModel extends BaseViewModel {
       List<String> imageUrls;
 
       imageUrls = selectedImages.isNotEmpty
-          ? await _recipeService.uploadMediaToFirebase(selectedImages,FirebaseFirestore.instance.collection('recipes').doc().id)
+          ? await _recipeService.uploadMediaToFirebase(selectedImages,
+              FirebaseFirestore.instance.collection('recipes').doc().id)
           : [];
 
       await _recipeService.addRecipeToFirestore(RecipeModel(
@@ -353,10 +353,8 @@ class AddRecipeViewModel extends BaseViewModel {
         status: 'draft',
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
-
         docId: '',
         waveForm: waveFormData!,
-
       ));
     }
   }
@@ -393,28 +391,31 @@ class AddRecipeViewModel extends BaseViewModel {
     } else {}
   }
 
-  navigateToRecipeViewView() async{
-          List<String> imageUrls;
+  navigateToRecipeViewView() async {
+    List<String> imageUrls;
 
-      imageUrls = selectedImages.isNotEmpty
-          ? await _recipeService.uploadMediaToFirebase(selectedImages,FirebaseFirestore.instance.collection('recipes').doc().id)
-          : [];
+    imageUrls = selectedImages.isNotEmpty
+        ? await _recipeService.uploadMediaToFirebase(selectedImages,
+            FirebaseFirestore.instance.collection('recipes').doc().id)
+        : [];
 
-    _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
-        visibility: selectedValue,
-        chefNote: 'recorderController',
-        coverImage: imageUrls,
-        createdTime: Timestamp.now(),
-        ingredients: ingredientsList,
-        methods: methodsList,
-        prepTime:
-            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-        servingSize: selectedQuantity,
-        status: 'draft',
-        title: titleController.text.trim(),
-        uid: firebaseAuth.currentUser!.uid,
-        docId: '',
-      ),
-      selectedImages: selectedImages);
+    _navigationService.navigateToRecipeViewView(
+        recipeModel: RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: methodsList,
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'draft',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+          docId: '',
+          waveForm: waveFormData!,
+        ),
+        selectedImages: selectedImages);
   }
 }

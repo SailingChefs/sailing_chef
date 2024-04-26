@@ -26,7 +26,9 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 5,),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 5,
+        ),
         decoration: const BoxDecoration(
           color: kcwhitecolor,
           borderRadius: BorderRadius.only(
@@ -35,7 +37,6 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
           ),
         ),
         child: Column(
-          
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -43,8 +44,8 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
               Center(
                 child: Text(
                   request.title ?? 'Add your ingredients',
-                  style:
-                      const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),
               verticalSpaceTiny,
@@ -57,20 +58,16 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                   prefix: Icons.drag_indicator,
                 ),
               ),
-
-            ),
-            verticalSpaceTiny,
-            const TwoTextFields(),
-            verticalSpaceTiny,
-            SaveRecipeButton(
-              onPressed: () {
-                viewModel.addIngredientToList();
-              },
-              buttonText: 'Add Ingredient',
-              prefix: Icons.add,
-            ),
-           
-              
+              verticalSpaceTiny,
+              const TwoTextFields(),
+              verticalSpaceTiny,
+              SaveRecipeButton(
+                onPressed: () {
+                  viewModel.addIngredientToList();
+                },
+                buttonText: 'Add Ingredient',
+                prefix: Icons.add,
+              ),
             ]),
       ),
     );
@@ -83,5 +80,6 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
 
 class AddIngredientsSheetResponse {
   final List<Ingredient> ingredientsList;
+
   const AddIngredientsSheetResponse({required this.ingredientsList});
 }

@@ -12,7 +12,7 @@ import 'recipe_view_viewmodel.dart';
 class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
 
-  final List<XFile?> selectedImages;
+  final List<XFile>? selectedImages;
   List<double>? waveFormData;
   String? path;
 
@@ -30,8 +30,8 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(children: [
-        TopBarRecipeView(selectedImages),
-        MainRecipeViewContainer(recipeModel, selectedImages),
+        TopBarRecipeView(selectedImages!),
+        MainRecipeViewContainer(recipeModel, selectedImages!),
         verticalSpaceMedium,
       ]),
     );
