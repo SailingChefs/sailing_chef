@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -88,6 +89,7 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),
     LazySingleton(classType: SavedRecipeService),
+    LazySingleton(classType: PinDropService),
 // @stacked-service
   ],
   bottomsheets: [

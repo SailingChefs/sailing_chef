@@ -39,8 +39,16 @@ class AddRecipeViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<String> methodsList = [];
-
+  bool isPlaying = false;
   List<double>? waveFormData;
+
+  bool get isRecording => recorderController.isRecording;
+
+  bool get shouldShowHint {
+    return !hasRecordedAudio && !isRecording;
+  }
+
+  bool hasRecordedAudio = false;
 
   void onTimeMethodSelection(String value) {
     selectedTimeMethod = value;
@@ -66,11 +74,52 @@ class AddRecipeViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    recorderController = RecorderController();
+    _initialiseController();
+    // recorderController = RecorderController();
     playerController = PlayerController();
     directory = await getApplicationDocumentsDirectory();
-    path = '${directory.path}/recording.m4a';
+
+    path = '${directory.path}/recording.mpeg4';
     setBusy(false);
+  }
+
+  void _initialiseController() {
+    recorderController = RecorderController()
+      ..androidEncoder = AndroidEncoder.aac
+      ..androidOutputFormat = AndroidOutputFormat.mpeg4;
+  }
+
+  void startRecording() async {
+    await recorderController.record(
+      path: path,
+      androidOutputFormat: AndroidOutputFormat.mpeg4,
+    );
+    rebuildUi();
+  }
+
+  void stopRecording() async {
+    await recorderController.stop();
+    log("Path=> $path");
+    waveFormData = await playerController.extractWaveformData(path: path);
+    hasRecordedAudio = true;
+    rebuildUi();
+    await playerController.preparePlayer(
+      path: path,
+      volume: 100,
+    );
+    rebuildUi();
+  }
+
+  void startListening() async {
+    await playerController.startPlayer(finishMode: FinishMode.pause);
+  }
+
+  void deleteCurrentRecording() {
+    hasRecordedAudio = false;
+    recorderController.reset();
+    playerController.release();
+
+    rebuildUi();
   }
 
   void deleteCurrentImage() {
@@ -124,6 +173,7 @@ class AddRecipeViewModel extends BaseViewModel {
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
         docId: '',
+        waveForm: waveFormData!,
       ),
       'images': selectedImages,
     });
@@ -191,7 +241,8 @@ class AddRecipeViewModel extends BaseViewModel {
     if (titleController.text.trim().isNotEmpty &&
         prepTimeController.text.trim().isNotEmpty &&
         methodsList.isNotEmpty &&
-        ingredientsList.isNotEmpty) {
+        ingredientsList.isNotEmpty &&
+        hasRecordedAudio) {
       if (selectedImages.isEmpty) {
         showToast(message: 'Please add at least one image');
         return;
@@ -229,8 +280,11 @@ class AddRecipeViewModel extends BaseViewModel {
               title: titleController.text.trim(),
               uid: firebaseAuth.currentUser!.uid,
               docId: '',
+              waveForm: waveFormData!,
             ),
-            selectedImages: selectedImages);
+            selectedImages: selectedImages,
+            path: path,
+            waveFormData: waveFormData);
       }
     } else {
       showToast(message: 'Please fill all fields');
@@ -270,6 +324,7 @@ class AddRecipeViewModel extends BaseViewModel {
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
         docId: '',
+        waveForm: waveFormData!,
       ));
     }
   }
@@ -277,19 +332,6 @@ class AddRecipeViewModel extends BaseViewModel {
   // void goToRecipePreview() {
   //   _navigationService.navigateToRecipeViewView();
   // }
-
-  void startRecording() async {
-    recorderController.reset();
-    await recorderController.record(path: path);
-    rebuildUi();
-  }
-
-  void pauseRecording() async {
-    await recorderController.pause();
-    waveFormData = await playerController.extractWaveformData(path: path);
-    await playerController.preparePlayer(path: path, volume: 1.0);
-    rebuildUi();
-  }
 
   @override
   void dispose() {
@@ -306,13 +348,7 @@ class AddRecipeViewModel extends BaseViewModel {
     count = 0;
     path = '';
     waveFormData = [];
-    recorderController = RecorderController();
-
     super.dispose();
-  }
-
-  void startListening() {
-    playerController.startPlayer();
   }
 
   void deleteInstruction(int index) {}

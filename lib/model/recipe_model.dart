@@ -15,6 +15,7 @@ class RecipeModel {
   final String uid;
   final String visibility;
   final String docId;
+  List<double> waveForm;
   UserModel? user;
 
   RecipeModel({
@@ -30,6 +31,7 @@ class RecipeModel {
     required this.status,
     required this.title,
     required this.uid,
+    required this.waveForm,
     this.user,
   });
 
@@ -47,6 +49,7 @@ class RecipeModel {
       'status': status,
       'title': title,
       'uid': uid,
+      'waveForm': waveForm,
       'doc_id': docId,
     };
   }
@@ -69,6 +72,7 @@ class RecipeModel {
       servingSize: data['serving_size'] ?? 0,
       status: data['status'] ?? '',
       title: data['title'] ?? '',
+      waveForm: List<double>.from(data['waveForm'] ?? []),
       uid: data['uid'] ?? '',
     );
   }

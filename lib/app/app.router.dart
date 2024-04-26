@@ -344,7 +344,7 @@ class StackedRouter extends _i1.RouterBase {
       return _i26.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.RecipeViewView(
             args.recipeModel, args.selectedImages,
-            key: args.key),
+            key: args.key, waveFormData: args.waveFormData, path: args.path),
         settings: data,
       );
     },
@@ -490,6 +490,8 @@ class RecipeViewViewArguments {
     required this.recipeModel,
     required this.selectedImages,
     this.key,
+    this.waveFormData,
+    this.path,
   });
 
   final _i30.RecipeModel recipeModel;
@@ -498,9 +500,13 @@ class RecipeViewViewArguments {
 
   final _i28.Key? key;
 
+  final List<double>? waveFormData;
+
+  final String? path;
+
   @override
   String toString() {
-    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "key": "$key"}';
+    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "key": "$key", "waveFormData": "$waveFormData", "path": "$path"}';
   }
 
   @override
@@ -508,12 +514,18 @@ class RecipeViewViewArguments {
     if (identical(this, other)) return true;
     return other.recipeModel == recipeModel &&
         other.selectedImages == selectedImages &&
-        other.key == key;
+        other.key == key &&
+        other.waveFormData == waveFormData &&
+        other.path == path;
   }
 
   @override
   int get hashCode {
-    return recipeModel.hashCode ^ selectedImages.hashCode ^ key.hashCode;
+    return recipeModel.hashCode ^
+        selectedImages.hashCode ^
+        key.hashCode ^
+        waveFormData.hashCode ^
+        path.hashCode;
   }
 }
 
@@ -854,6 +866,8 @@ extension NavigatorStateExtension on _i32.NavigationService {
     required _i30.RecipeModel recipeModel,
     required List<_i31.XFile?> selectedImages,
     _i28.Key? key,
+    List<double>? waveFormData,
+    String? path,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -862,7 +876,11 @@ extension NavigatorStateExtension on _i32.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.recipeViewView,
         arguments: RecipeViewViewArguments(
-            recipeModel: recipeModel, selectedImages: selectedImages, key: key),
+            recipeModel: recipeModel,
+            selectedImages: selectedImages,
+            key: key,
+            waveFormData: waveFormData,
+            path: path),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1218,6 +1236,8 @@ extension NavigatorStateExtension on _i32.NavigationService {
     required _i30.RecipeModel recipeModel,
     required List<_i31.XFile?> selectedImages,
     _i28.Key? key,
+    List<double>? waveFormData,
+    String? path,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1226,7 +1246,11 @@ extension NavigatorStateExtension on _i32.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.recipeViewView,
         arguments: RecipeViewViewArguments(
-            recipeModel: recipeModel, selectedImages: selectedImages, key: key),
+            recipeModel: recipeModel,
+            selectedImages: selectedImages,
+            key: key,
+            waveFormData: waveFormData,
+            path: path),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

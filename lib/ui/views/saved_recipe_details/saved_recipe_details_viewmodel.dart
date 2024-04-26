@@ -1,8 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+
+// import 'package:just_audio/just_audio.dart';
+// import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -13,11 +19,17 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
-
 import '../../../core/imports/core_imports.dart';
+import 'package:path_provider/path_provider.dart';
+// import 'package:just_audio_cache/just_audio_cache.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
+  final RecipeModel recipeModel;
+
+  SavedRecipeDetailsViewModel({required this.recipeModel});
+
   final _navigationService = locator<NavigationService>();
+
   // final PageController pageController = PageController();
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
@@ -32,6 +44,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
+  late final PlayerController playerController;
+  late List<double>? waveFormData;
+
+  // late final AudioPlayer player;
+
+  // late String? path;
+
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
 
@@ -185,13 +204,43 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
+  Future<void> downloadAudio() async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    Reference audioRef =
+        FirebaseStorage.instance.ref().child(recipeModel.chefNote);
+    File audioFile = File("$tempPath/audio.mpeg4");
+    log("I was here ..........");
+    await playerController.preparePlayer(
+      path: audioFile.path,
+      volume: 100,
+    );
+    await audioRef.writeToFile(audioFile);
+
+  }
+
+  void startListening() async {
+    await playerController.startPlayer(finishMode: FinishMode.pause);
+  }
+
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
     startAutoScroll(length);
+    waveFormData = recipeModel.waveForm;
     await commentService.clearComments();
     await _savedRecipeService.init();
     await commentService.getComments(recipeId);
+    playerController = PlayerController();
+    log("WaveForm=> $waveFormData \n Path=> path");
+    downloadAudio();
+
+    // player = AudioPlayer();
+    // await player.dynamicSet(
+    //   url: recipeModel.chefNote,
+    // );
+    // log((player.cacheFile(url: recipeModel.chefNote)).toString());
     recipeList = await recipeService.fetchRandomRecipes(5);
+
     setBusy(false);
   }
 

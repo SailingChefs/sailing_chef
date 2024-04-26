@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
@@ -21,7 +22,7 @@ Future<void> main() async {
 
   await setupLocator();
   setupDialogUi();
-
+  await MediaCacheManager.instance.init();
   setupBottomSheetUi();
   EasyLoading.instance
     ..textStyle = globalTextStyle(fontSize: 12, color: Colors.white)

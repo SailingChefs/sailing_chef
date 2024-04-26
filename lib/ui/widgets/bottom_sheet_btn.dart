@@ -2,7 +2,7 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class Save_Recipe_Button extends StatelessWidget {
+class SaveRecipeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final double fontSize;
@@ -10,7 +10,7 @@ class Save_Recipe_Button extends StatelessWidget {
   final FontWeight fontWeight;
   final IconData? prefix, postfix;
 
-  const Save_Recipe_Button({
+  const SaveRecipeButton({
     Key? key,
     required this.onPressed,
     required this.buttonText,

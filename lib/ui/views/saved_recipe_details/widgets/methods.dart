@@ -1,11 +1,17 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
-class Methods extends StatelessWidget {
+import '../saved_recipe_details_viewmodel.dart';
+
+class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipe;
+
   const Methods({super.key, required this.recipe});
+
   List<Widget> createIngredientWidgets() {
     return [
       for (var ingredient in recipe.methods)
@@ -42,7 +48,7 @@ class Methods extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -66,34 +72,39 @@ class Methods extends StatelessWidget {
             color: kcMediumGrey.withOpacity(0.2),
             borderRadius: BorderRadius.circular(50),
           ),
-          child: Row(
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: const CircleBorder(),
-                  backgroundColor: kcPrimaryColor,
+          child: viewModel.isBusy
+              ? const CircularProgressIndicator()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: viewModel.startListening,
+                      icon: const Icon(
+                        Icons.play_arrow,
+                        color: kcPrimaryColorDark,
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: AudioFileWaveforms(
+                          enableSeekGesture: false,
+                          size: const Size(double.maxFinite, double.maxFinite),
+                          playerController: viewModel.playerController,
+                          waveformData: viewModel.waveFormData!,
+                          playerWaveStyle: const PlayerWaveStyle(
+                            fixedWaveColor: Colors.black,
+                            liveWaveColor: kcPrimaryColor,
+                            spacing: 6,
+                            seekLineColor: Colors.black,
+                            showSeekLine: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () {},
-                child: const Icon(
-                  Icons.play_arrow,
-                  color: kcwhitecolor,
-                ),
-              ),
-              horizontalSpaceTiny,
-              const Icon(Icons.multitrack_audio, opticalSize: 25),
-              const Spacer(),
-              Text("0:05",
-                  style: globalTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.5))),
-              horizontalSpaceTiny,
-              Icon(Icons.volume_up,
-                  size: 24, color: Colors.black.withOpacity(0.7)),
-              horizontalSpaceSmall,
-            ],
-          ),
         ),
       ],
     );

@@ -58,5 +58,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   SavedRecipeDetailsViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      SavedRecipeDetailsViewModel();
+      SavedRecipeDetailsViewModel(
+        recipeModel: recipeModel,
+      );
 }
