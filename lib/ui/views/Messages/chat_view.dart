@@ -21,70 +21,68 @@ class ChatView extends StackedView<ChatViewModel> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: kcBackgroundColor,
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: BackArrowWidget(
-                    onTap: viewModel.moveBack,
-                  ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: BackArrowWidget(
+                  onTap: viewModel.moveBack,
                 ),
-                StreamBuilder<List<ConversationModel>>(
-                  stream: viewModel.getConversation(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final imageUrl = receiver.displayPicture ??
-                          'assets/images/icons/chef.jpg';
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          verticalSpaceLarge,
-                          Center(
-                            child: Container(
-                              width: 90.w,
-                              height: 90.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(imageUrl),
-                                ),
+              ),
+              StreamBuilder<List<ConversationModel>>(
+                stream: viewModel.getConversation(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final imageUrl = receiver.displayPicture ??
+                        'assets/images/icons/chef.jpg';
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        verticalSpaceLarge,
+                        Center(
+                          child: Container(
+                            width: 90.w,
+                            height: 90.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(imageUrl),
                               ),
                             ),
                           ),
-                          verticalSpaceTiny,
-                          Text(
-                            receiver.displayName ?? 'Chef Name',
-                            style: globalTextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                              color: kcBlackColor,
-                            ),
+                        ),
+                        verticalSpaceTiny,
+                        Text(
+                          receiver.displayName ?? 'Chef Name',
+                          style: globalTextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor,
                           ),
-                        ],
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+              Expanded(
+                // height: MediaQuery.sizeOf(context).height * 0.5.h,
+                child: ListView.builder(
+                  itemCount: viewModel.messages.length,
+                  controller: viewModel.scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return ChatMessage(viewModel.messages[index]);
                   },
                 ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.59.h,
-                  child: ListView.builder(
-                    itemCount: viewModel.messages.length,
-                    controller: viewModel.scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ChatMessage(viewModel.messages[index]);
-                    },
-                  ),
-                ),
-                BuildInputFieldChatScreen(
-                    user: receiver, conversationId: conversationId),
-              ],
-            ),
+              ),
+              BuildInputFieldChatScreen(
+                  user: receiver, conversationId: conversationId),
+            ],
           ),
         ),
       ),

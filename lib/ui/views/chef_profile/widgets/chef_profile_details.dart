@@ -10,13 +10,16 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return FittedBox(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          horizontalSpaceSmall,
+
           GestureDetector(
             onTap: () {
               viewModel.showRecipeList();
             },
             child: Column(
+              mainAxisSize: MainAxisSize.min,
+
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -37,12 +40,14 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               ],
             ),
           ),
-          horizontalSpaceMedium,
+          horizontalSpaceSmall,
           GestureDetector(
             onTap: () {
               viewModel.goToFollowingList('Hafsa Mehmood');
             },
             child: Column(
+              mainAxisSize: MainAxisSize.min,
+
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -63,12 +68,14 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               ],
             ),
           ),
-          horizontalSpaceMedium,
+          horizontalSpaceSmall,
           GestureDetector(
             onTap: () {
               viewModel.goToFollowingList('Hafsa Mehmood');
             },
             child: Column(
+              mainAxisSize: MainAxisSize.min,
+
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
