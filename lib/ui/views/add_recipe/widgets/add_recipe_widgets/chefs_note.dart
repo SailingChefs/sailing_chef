@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -7,6 +12,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
+    log('Rebuild');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +27,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         Container(
           height: 50.h,
           padding: EdgeInsets.only(
-            left: 20.dg,
+            left: 10.dg,
           ),
           decoration: BoxDecoration(
             color: kcVeryLightGrey.withOpacity(0.2),
@@ -31,10 +37,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: viewModel.recorderController.recordedDuration
-                                .inMilliseconds ==
-                            0 &&
-                        !viewModel.recorderController.isRecording
+                child: viewModel.shouldShowHint
                     ? Text(
                         'Add tips for this recipe',
                         style: globalTextStyle(
@@ -42,25 +45,38 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor.withOpacity(0.5)),
                       )
-                    : viewModel.recorderController.recordedDuration
-                                    .inMilliseconds !=
-                                0 &&
-                            !viewModel.recorderController.isRecording
+                    : viewModel.hasRecordedAudio &&
+                            !viewModel.isRecording
                         ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                 onPressed: viewModel.startListening,
-                                icon: const Icon(Icons.play_arrow),
+                                icon: const Icon(
+                                  Icons.play_arrow,
+                                  color: kcPrimaryColorDark,
+                                ),
                               ),
-                              AudioFileWaveforms(
-                                size: const Size(double.maxFinite, 100.0),
-                                playerController: viewModel.playerController,
-                                waveformData: viewModel.waveFormData!,
-                                playerWaveStyle: const PlayerWaveStyle(
-                                  fixedWaveColor: Colors.white54,
-                                  liveWaveColor: Colors.blueAccent,
-                                  spacing: 6,
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: AudioFileWaveforms(
+                                    enableSeekGesture: false,
+                                    size: const Size(
+                                        double.maxFinite, double.maxFinite),
+                                    playerController:
+                                        viewModel.playerController,
+                                    waveformData: viewModel.waveFormData!,
+                                    playerWaveStyle: const PlayerWaveStyle(
+                                      fixedWaveColor: Colors.black,
+                                      liveWaveColor: kcPrimaryColor,
+                                      spacing: 6,
+                                      seekLineColor: Colors.black,
+                                      showSeekLine: false,
+
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -70,7 +86,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             recorderController: viewModel.recorderController,
                             enableGesture: true,
                             waveStyle: const WaveStyle(
-                              waveColor: kcPrimaryColorDark,
+                              waveColor: Colors.black,
                               showDurationLabel: false,
                               spacing: 8.0,
                               showBottom: false,
@@ -83,12 +99,29 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                           ),
               ),
-              GestureDetector(
-                onLongPressStart: (_) => viewModel.startRecording(),
-                onLongPressEnd: (_) => viewModel.pauseRecording(),
-                child: const Icon(
-                  Icons.mic,
-                  color: kcPrimaryColorDark,
+              Visibility(
+                visible: viewModel
+                        .hasRecordedAudio,
+                child: GestureDetector(
+                  onTap: () {
+                    viewModel.deleteCurrentRecording();
+                  },
+                  child: const Icon(
+                    Icons.delete,
+                    color: kcPrimaryColorDark,
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: !viewModel
+                        .hasRecordedAudio,
+                child: GestureDetector(
+                  onLongPressStart: (_) => viewModel.startRecording(),
+                  onLongPressEnd: (_) => viewModel.stopRecording(),
+                  child: const Icon(
+                    Icons.mic,
+                    color: kcPrimaryColorDark,
+                  ),
                 ),
               ),
               const SizedBox(width: 16)

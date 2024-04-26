@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'dart:io';
+
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +23,30 @@ class RecipeViewViewModel extends BaseViewModel {
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
+
+  late final PlayerController playerController;
+  final PageController pageController = PageController();
+
   Timer? _timer;
+  List<double>? waveFormData;
+  String? path;
+
+  RecipeViewViewModel({this.waveFormData, this.path});
+
+  void onViewModelReady() async {
+    setBusy(true);
+    playerController = PlayerController();
+    log("WaveForm=> $waveFormData \n Path=> $path");
+    await playerController.preparePlayer(
+      path: path!,
+      volume: 100,
+    );
+    setBusy(false);
+  }
+
+  void startListening() async {
+    await playerController.startPlayer(finishMode: FinishMode.loop);
+  }
 
   void myIngredientsSelected() {
     isIngredientsSelected = true;
@@ -43,12 +68,15 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
     log(recipe.docId.toString());
-    List<String> imageUrls =
-        await _recipeService.uploadMediaToFirebase(selectedImages,recipe.docId);
+    List<String> imageUrls =await _recipeService.uploadMediaToFirebase(selectedImages,recipe.docId);
+
+    final String chefNote =
+        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+
 
     final check = await _recipeService.addRecipeToFirestore(RecipeModel(
       visibility: recipe.visibility,
-      chefNote: 'recorderController',
+      chefNote: chefNote,
       coverImage: imageUrls,
       createdTime: Timestamp.now(),
       ingredients: recipe.ingredients,
@@ -58,7 +86,12 @@ class RecipeViewViewModel extends BaseViewModel {
       status: 'published',
       title: recipe.title,
       uid: recipe.uid,
+
+
+      waveForm: waveFormData!,
+
       docId: recipe.docId,
+
     ));
     if (check) {
       _navigationService.replaceWithRecipeListPageView(

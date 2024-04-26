@@ -11,8 +11,14 @@ import 'recipe_view_viewmodel.dart';
 
 class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
-  final List<XFile> selectedImages;
-  const RecipeViewView(this.recipeModel, this.selectedImages, {Key? key})
+
+  final List<XFile?> selectedImages;
+  List<double>? waveFormData;
+  String? path;
+
+  RecipeViewView(this.recipeModel, this.selectedImages,
+      {Key? key, this.waveFormData, this.path})
+
       : super(key: key);
 
   @override
@@ -35,5 +41,11 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   RecipeViewViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      RecipeViewViewModel();
+      RecipeViewViewModel(waveFormData: waveFormData, path: path);
+
+  @override
+  void onViewModelReady(RecipeViewViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
 }

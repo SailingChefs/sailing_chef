@@ -41,6 +41,20 @@ class RecipeService {
     }
   }
 
+
+  Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
+    File file = File(filePath);
+    Reference storageReference =
+    FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
+    UploadTask uploadTask = storageReference.putFile(file);
+    await uploadTask.whenComplete(() => print('File Uploaded'));
+    return await storageReference.getDownloadURL();
+  }
+
+
+//   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
+//     List<String> imageUrls = [];
+
   // Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
   //   List<String> imageUrls = [];
 
@@ -68,6 +82,7 @@ class RecipeService {
 
   Future<List<String>> uploadMediaToFirebase(List<XFile?> mediaFiles,String id) async {
     List<String> mediaUrls = [];
+
 
     try {
       EasyLoading.show();

@@ -87,7 +87,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         : Methods(
                             recipeModel: recipeModel,
                           ),
-                    Save_Recipe_Button(
+                    SaveRecipeButton(
                       onPressed: () =>
                           viewModel.saveRecipe(recipeModel, selectedImages),
                       buttonText: 'Submit Recipe',
