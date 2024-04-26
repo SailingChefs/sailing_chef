@@ -13,10 +13,10 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
 
   final List<XFile?> selectedImages;
-  List<double>? waveFormData;
-  String? path;
+  final List<double>? waveFormData;
+  final String? path;
 
-  RecipeViewView(this.recipeModel, this.selectedImages,
+ const RecipeViewView(this.recipeModel, this.selectedImages,
       {Key? key, this.waveFormData, this.path})
 
       : super(key: key);

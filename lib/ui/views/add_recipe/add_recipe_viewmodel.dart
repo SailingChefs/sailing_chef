@@ -17,7 +17,6 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class AddRecipeViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
@@ -287,6 +286,7 @@ class AddRecipeViewModel extends BaseViewModel {
           createdTime: Timestamp.now(),
           ingredients: ingredientsList,
           methods: methodsList,
+          waveForm: waveFormData!,
           prepTime:
               mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
           servingSize: selectedQuantity,
@@ -407,6 +407,7 @@ class AddRecipeViewModel extends BaseViewModel {
         createdTime: Timestamp.now(),
         ingredients: ingredientsList,
         methods: methodsList,
+        waveForm: waveFormData!,
         prepTime:
             mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
         servingSize: selectedQuantity,

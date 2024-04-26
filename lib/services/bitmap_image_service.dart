@@ -21,6 +21,5 @@ class BitmapImageService {
         const ImageConfiguration(size: Size(24, 24)),
         'assets/images/icons/green.png');
 
-    print('BitmapImageService initialised');
   }
 }

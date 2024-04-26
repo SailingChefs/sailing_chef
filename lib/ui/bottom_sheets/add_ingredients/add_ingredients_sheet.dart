@@ -58,7 +58,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                 ),
               ),
 
-            ),
+            
             verticalSpaceTiny,
             const TwoTextFields(),
             verticalSpaceTiny,
