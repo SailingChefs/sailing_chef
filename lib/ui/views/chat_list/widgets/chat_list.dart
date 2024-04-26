@@ -14,8 +14,6 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
         : StreamBuilder<List<ConversationModel>>(
             stream: viewModel.getConversation(),
             builder: (context, snapshot) {
-              log(snapshot.data.toString());
-
               return snapshot.hasData
                   ? SizedBox(
                       width: double.infinity,
@@ -91,9 +89,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                             );
                           }),
                     )
-
                   : Container();
-
             });
   }
 }

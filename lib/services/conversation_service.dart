@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
@@ -59,17 +60,21 @@ class ConversationService {
   }
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final String currentUserUid = firebaseAuth.currentUser!.uid;
+
   Stream<List<ConversationModel>> getConversations() {
+    log(FirebaseAuth.instance.currentUser!.uid);
     return _firestore
         .collection('conversations')
-        .where('users', arrayContains: currentUserUid)
+        .where('users', arrayContains: FirebaseAuth.instance.currentUser!.uid)
         .snapshots()
         .asyncMap((QuerySnapshot querySnapshot) async {
       List<ConversationModel> conversations = [];
       for (var doc in querySnapshot.docs) {
         List<String> users = List<String>.from(doc.get('users'));
-        String otherUserId = users.firstWhere((id) => id != currentUserUid);
+        String otherUserId = users
+            .firstWhere((id) => id != FirebaseAuth.instance.currentUser!.uid);
         UserModel? otherUser = await _userService.fetchUserByUID(otherUserId);
         conversations.add(ConversationModel.fromDocument(doc, otherUser));
       }

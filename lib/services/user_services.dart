@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -39,25 +40,25 @@ class UserServices {
 
   Future<UserModel> getUserDetails() async {
     try {
-    EasyLoading.show();
-    CollectionReference usersCollection = firebasestore.collection('users');
+      EasyLoading.show();
+      CollectionReference usersCollection = firebasestore.collection('users');
 
-    QuerySnapshot userSnapshot = await usersCollection
-        .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
-        .get();
+      QuerySnapshot userSnapshot = await usersCollection
+          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+          .get();
 
-    log(userSnapshot.docs.toString());
+      log(userSnapshot.docs.toString());
 
-    if (userSnapshot.docs.isNotEmpty) {
-      DocumentSnapshot userDoc = userSnapshot.docs.first;
-      EasyLoading.dismiss();
-      showToast(message: 'User Data fetched successfully');
+      if (userSnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = userSnapshot.docs.first;
+        EasyLoading.dismiss();
+        showToast(message: 'User Data fetched successfully');
 
-      return UserModel.fromSnapshot(userDoc);
-    } else {
-      EasyLoading.dismiss();
-      throw Exception("User not found in Firestore");
-    }
+        return UserModel.fromSnapshot(userDoc);
+      } else {
+        EasyLoading.dismiss();
+        throw Exception("User not found in Firestore");
+      }
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());
@@ -132,4 +133,41 @@ class UserServices {
       return UserModel();
     }
   }
+
+  Future<bool> doesUserExist(String uid) async {
+    try {
+      final userSnapshot =
+          await firebasestore.collection('users').doc(uid).get();
+      if (userSnapshot.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log('Error fetching user: $e');
+      return false;
+    }
+  }
+
+  // Future<bool> deleteUserAndDocument(String uid) async {
+  //   try {
+  //     // Delete user from Firebase Authentication
+  //     await FirebaseAuth.instance.currentUser!.delete();
+  //
+  //     // Delete document with the user's UID from Firestore
+  //     await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+  //
+  //     // Delete conversation Documents with user's uid from Firestore
+  //     await firebasestore
+  //         .collection('conversations')
+  //         .where('users', arrayContainsAny: [uid]).de
+  //
+  //     print('User account and document deleted successfully');
+  //     return true;
+  //   } catch (e) {
+  //     print('Error deleting user and document: $e');
+  //     return false;
+  //   }
+  // }
+  
 }

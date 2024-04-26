@@ -116,7 +116,7 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {
-            viewModel.signoutUser();
+            viewModel.signOutUser();
           },
           title: Text(
             'Logout',

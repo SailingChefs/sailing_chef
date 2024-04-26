@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -68,6 +70,7 @@ class ChefService {
 // }
 
   Future<List<UserModel>> fetchChefDocuments() async {
+    log("Here is me........");
     List<UserModel> users = [];
 
     try {

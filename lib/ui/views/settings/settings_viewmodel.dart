@@ -3,6 +3,7 @@ import 'package:sailing_chefs/services/auth_service.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
 
   void getBack() {
     _navigationService.back();
@@ -16,8 +17,8 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToEditProfileView();
   }
 
-  void signoutUser() {
-    AuthService.signout();
-    _navigationService.navigateToLoginView();
+  void signOutUser() async {
+    await _authService.signOut();
+    _navigationService.replaceWithLoginView();
   }
 }
