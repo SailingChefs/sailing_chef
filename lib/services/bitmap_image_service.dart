@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,16 +9,17 @@ class BitmapImageService {
 
   BitmapDescriptor getIcon(bool isSelected) {
     log(isSelected.toString());
-    return (isSelected ? _icon  : _selectedIcon) ?? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+    return (isSelected ? _icon : _selectedIcon) ??
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
   }
 
   Future initialise() async {
     _icon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(24, 24)), 'assets/images/icons/location.png'
-    );
+        const ImageConfiguration(size: Size(24, 24)),
+        'assets/images/icons/location.png');
     _selectedIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(24, 24)), 'assets/images/icons/green.png'
-    );
+        const ImageConfiguration(size: Size(24, 24)),
+        'assets/images/icons/green.png');
 
     print('BitmapImageService initialised');
   }

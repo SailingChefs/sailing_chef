@@ -20,10 +20,6 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
-            // CustomTextButton(
-            //     onPressed: () {},
-            //     buttonText: 'Set time',
-            //     textColor: kcPrimaryColor),
           ],
         ),
         Text(
@@ -40,11 +36,11 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
             SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.5,
               child: RoundedTransparentTextField(
+                keyboardType: TextInputType.number,
                 controller: viewModel.prepTimeController,
                 labelText: 'Prep Time',
                 validator: viewModel.validatePrepTime,
                 textColor: kcBlackColor.withOpacity(0.5),
-                keyboardType: TextInputType.number,
               ),
             ),
             Container(

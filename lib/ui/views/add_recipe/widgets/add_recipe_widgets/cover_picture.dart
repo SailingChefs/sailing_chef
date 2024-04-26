@@ -1,17 +1,27 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
-  const CoverPictureSelector({super.key});
+  const CoverPictureSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return GestureDetector(
-      onTap: viewModel.pickImages,
+      onTap: () {
+        if (viewModel.selectedImages.isNotEmpty) {
+          viewModel.isclicked = !viewModel.isclicked;
+          log(viewModel.isclicked.toString());
+          viewModel.updateVideoSource(File(viewModel.selectedImages[viewModel.pageController.page!.round()].path));
+        }
+      },
       child: viewModel.selectedImages.isEmpty
           ? DottedBorder(
               borderType: BorderType.RRect,
@@ -24,8 +34,11 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/misc/Image.png',
-                        height: 100.0.h, width: 100.0.w),
+                    Image.asset(
+                      'assets/images/misc/Image.png',
+                      height: 100.0.h,
+                      width: 100.0.w,
+                    ),
                     Text(
                       'Add Cover Photo',
                       textAlign: TextAlign.center,
@@ -56,32 +69,37 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                       PageView.builder(
                         itemCount: viewModel.selectedImages.length,
                         controller: viewModel.pageController,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onHorizontalDragEnd: (details) {
-                              if (details.primaryVelocity! > 0) {
-                                viewModel.showPreviousImage();
-                              } else if (details.primaryVelocity! < 0) {
-                                viewModel.showNextImage();
-                              }
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image.file(
-                                File(viewModel.selectedImages[index]!.path),
-                                fit: BoxFit.fitWidth,
-                                width: double.infinity,
-                              ),
-                            ),
+                        onPageChanged: (index) {
+                          viewModel.updateVideoSource(
+                            File(viewModel.selectedImages[index].path),
                           );
+                        },
+                        itemBuilder: (context, index) {
+                          var media = viewModel.selectedImages[index];
+                          if (media.isVideo) {
+                            return CustomVideoPlayer(
+                              isclicked: viewModel.isclicked,
+                              pathh: media.path,
+                );
+                          } else if (media.isImage) {
+                            return Image.file(
+                              File(media.path),
+                              fit: BoxFit.fitWidth,
+                              width: double.infinity,
+                            );
+                          }
+                          return null;
                         },
                       ),
                       Positioned(
                         top: 8.0,
                         right: 8.0,
                         child: IconButton(
-                          icon: const Icon(Icons.delete_outline,
-                              color: kcPrimaryColor, size: 35),
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: kcPrimaryColor,
+                            size: 35,
+                          ),
                           onPressed: viewModel.deleteCurrentImage,
                         ),
                       ),
@@ -105,31 +123,76 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                     ],
                   ),
                 ),
-                FittedBox(
-                  child: SingleChildScrollView(
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.9.w,
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children:
-                              viewModel.selectedImages.map((XFile? image) {
-                            return Container(
-                              margin: const EdgeInsets.only(right: 8.0),
-                              height: 35.0, // Adjust the height as needed
-                              width: 35.0, // Adjust the width as needed
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(File(image!.path)),
-                                  fit: BoxFit.cover,
+                SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.98.w,
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ...viewModel.selectedImages.map((XFile image) {
+                            return Stack(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(right: 8.0),
+                                  height: 50.0,
+                                  width: 50.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(File(image.path)),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  left: 40,
+                                  bottom: 38,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      viewModel.deleteCurrentImage();
+                                    },
+                                    child: Container(
+                                      width: 18,
+                                      height: 18,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: kcsgreycolor,
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 10,
+                                        color: kcBlackColor.withOpacity(0.8),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             );
                           }).toList(),
-                        ),
+                          if (viewModel.selectedImages.isNotEmpty)
+                            GestureDetector(
+                              onTap: () {
+                                viewModel.pickImages();
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 8.0),
+                                height: 50.0,
+                                width: 50.0,
+                                decoration: BoxDecoration(
+                                  color: kcsgreycolor,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: const Center(
+                                  child: Icon(Icons.add),
+                                ),
+                              ),
+                            ),
+                ],
                       ),
                     ),
                   ),

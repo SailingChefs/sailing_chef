@@ -15,6 +15,7 @@ dependencies:
   uuid: ^4.4.0
   flutter_easyloading: ^3.0.5
   flutter_remix: ^0.0.3
+  vimeo_video_player: ^0.0.15
   flutter_screenutil: ^5.9.0
   smooth_page_indicator: ^1.1.0
   google_fonts: ^6.1.0
@@ -30,6 +31,7 @@ dependencies:
   firebase_storage: ^11.6.11
   audioplayers: ^6.0.0
   audio_waveforms: ^1.0.5
+  
   geolocator: ^11.0.0
   geocoding_android:
   flutter_rating_bar: ^4.0.1
@@ -53,6 +55,8 @@ dependencies:
 
   intl: any
   stacked_shared: any
+  video_player: ^2.8.6
+  video_thumbnail: ^0.5.3
 dev_dependencies:
   build_runner: ^2.4.5
   flutter_test:

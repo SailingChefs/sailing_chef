@@ -2,7 +2,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
-
 class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
   const AllSavedRecipesScreen({super.key});
 

@@ -16,7 +16,7 @@ class PinnedLocation {
   final double rating;
   List<Placemark>? placemarks;
 
-  PinnedLocation( {
+  PinnedLocation({
     this.id,
     this.placemarks,
     required this.contactNumber,

@@ -5,7 +5,7 @@ import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class SavedRecipeService with ListenableServiceMixin{
+class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
 
   addSavedRecipeLocally(SavedRecipeModel savedRecipe) async {
@@ -21,7 +21,7 @@ class SavedRecipeService with ListenableServiceMixin{
     if (check) {
       savedRecipes.remove(savedRecipe);
     }
-     notifyListeners();
+    notifyListeners();
   }
 
   getAllSavedRecipes() async {
@@ -32,39 +32,35 @@ class SavedRecipeService with ListenableServiceMixin{
     savedRecipes.clear();
   }
 
- Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
-  try {
-    EasyLoading.show(); // Show loading indicator
-    // Query Firestore to check if a recipe with the same ID exists
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('savedRecipes')
-        .where('recipeId', isEqualTo: savedRecipe.recipeId)
-        .get();
+  Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
+    try {
+      EasyLoading.show(); 
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('savedRecipes')
+          .where('recipeId', isEqualTo: savedRecipe.recipeId)
+          .get();
 
-    // If a recipe with the same ID exists, delete it before adding the new one
-    if (querySnapshot.docs.isNotEmpty) {
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        await doc.reference.delete();
+      if (querySnapshot.docs.isNotEmpty) {
+        for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+          await doc.reference.delete();
+        }
       }
+      DocumentReference docRef = await FirebaseFirestore.instance
+          .collection('savedRecipes')
+          .add(savedRecipe.toMap());
+
+      await docRef.update({'docId': docRef.id});
+
+      EasyLoading.dismiss(); 
+      showToast(message: 'Recipe saved successfully'); 
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error saving recipe: $error'); 
+      return false;
     }
-
-    // Add the new saved recipe
-    DocumentReference docRef = await FirebaseFirestore.instance
-        .collection('savedRecipes')
-        .add(savedRecipe.toMap());
-
-    // Update the document with the newly generated document ID
-    await docRef.update({'docId': docRef.id});
-
-    EasyLoading.dismiss(); // Dismiss loading indicator
-    showToast(message: 'Recipe saved successfully'); // Show success message
-    return true;
-  } catch (error) {
-    EasyLoading.dismiss(); // Dismiss loading indicator
-    showToast(message: 'Error saving recipe: $error'); // Show error message
-    return false;
   }
-}
+
   // Function to delete a saved recipe from Firestore
   Future<bool> deleteSavedRecipe(String recipeId) async {
     try {

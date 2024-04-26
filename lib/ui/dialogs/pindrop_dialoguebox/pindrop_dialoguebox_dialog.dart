@@ -1,7 +1,3 @@
-
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 
@@ -25,7 +21,7 @@ class PindropDialogueboxDialog
     Widget? child,
   ) {
     final PinnedLocation pinnedLocation = viewModel.pinnedLocation;
-    
+
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
@@ -59,7 +55,7 @@ class PindropDialogueboxDialog
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left:8.0,top:15),
+                      padding: const EdgeInsets.only(left: 8.0, top: 15),
                       child: Text(
                         pinnedLocation.tags[0],
                         style: globalTextStyle(
@@ -71,7 +67,7 @@ class PindropDialogueboxDialog
                     ),
                     horizontalSpaceMedium,
                     Padding(
-                      padding: const EdgeInsets.only(top:15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -100,9 +96,7 @@ class PindropDialogueboxDialog
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Text(
                           pinnedLocation.name,
                           style: globalTextStyle(
@@ -113,7 +107,7 @@ class PindropDialogueboxDialog
                         ),
                       ),
                       Text(
-                      viewModel.placeMark,
+                        viewModel.placeMark,
                         overflow: TextOverflow.ellipsis,
                         style: globalTextStyle(
                           color: kcBlackColor.withOpacity(0.4),
@@ -121,7 +115,7 @@ class PindropDialogueboxDialog
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                   ],
+                    ],
                   ),
                 ),
               ],
@@ -134,8 +128,7 @@ class PindropDialogueboxDialog
 
   @override
   PindropDialogueboxDialogModel viewModelBuilder(BuildContext context) =>
-      PindropDialogueboxDialogModel(pinnedLocation: request.data as PinnedLocation, placeMark: request.title.toString());
-
+      PindropDialogueboxDialogModel(
+          pinnedLocation: request.data as PinnedLocation,
+          placeMark: request.title.toString());
 }
-
-

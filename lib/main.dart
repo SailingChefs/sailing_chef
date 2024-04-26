@@ -37,7 +37,7 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
-    await locator<BitmapImageService>().initialise();
+  await locator<BitmapImageService>().initialise();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MainApp());
@@ -62,7 +62,7 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
-      // locale: DevicePreview.locale(context),
+            // locale: DevicePreview.locale(context),
             // // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,

@@ -25,8 +25,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
               itemBuilder: (BuildContext context, int index) {
                 final RecipeModel recipe = viewModel.myRecipes![index];
                 return PrimaryGridTile(
-                  recipeId: recipe.docId,
-                  
+                    recipeId: recipe.docId,
                     onTap: () => viewModel.toDishDetailsScreen(index),
                     foodImagePath: recipe.coverImage.first,
                     dishName: recipe.title,

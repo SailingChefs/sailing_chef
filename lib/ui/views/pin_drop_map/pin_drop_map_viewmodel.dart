@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -46,36 +47,34 @@ class PinDropMapViewModel extends BaseViewModel {
     }
   }
 
-
-   Future<String> getCityCountry(double latitude, double longitude) async {
-  try {
-    List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
-    if (placemarks != null && placemarks.isNotEmpty) {
-      Placemark placemark = placemarks.first;
-      return '${placemark.subLocality}, ${placemark.locality}, ${placemark.country}';
-    } else {
+  Future<String> getCityCountry(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        return '${placemark.subLocality}, ${placemark.locality}, ${placemark.country}';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
+      print('Error getting city and country: $e');
       return 'Unknown';
     }
-  } catch (e) {
-    print('Error getting city and country: $e');
-    return 'Unknown';
   }
-}
 
   void addMarkers(String markerId, LatLng location) async {
     var marker = Marker(
       markerId: MarkerId(markerId),
       draggable: true,
       position: location,
-      icon: locator<BitmapImageService>().getIcon(isClicked),
       infoWindow: InfoWindow(
         title: location.latitude.toString(),
       ),
       onTap: () async {
-        isClicked = true;
-        notifyListeners();
-        rebuildUi();
-     final place =  await   getCityCountry(pinnedLocation.location.latitude, pinnedLocation.location.longitude);
+        final place = await getCityCountry(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude);
+
         List<PinnedLocation> pins =
             await _navigationpinService.getPinsNearUserLocation(
           LatLng(currentPosition!.latitude, currentPosition!.longitude),
@@ -84,14 +83,9 @@ class PinDropMapViewModel extends BaseViewModel {
         for (PinnedLocation pinInList in pins) {
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
-            log("logged ${pinInList.location.latitude}");
-            log("pinnedlogged ${pinnedLocation.location.latitude}");
-            List<Placemark> placemarks = await placemarkFromCoordinates(
-                pinnedLocation.location.latitude,
-                pinnedLocation.location.longitude);
-
-            pinnedLocation.placemarks = placemarks;
-            log("logged ${pinnedLocation.placemarks!.first.toString()}");
+            isClicked = true;
+            notifyListeners();
+            rebuildUi();
             pinnedLocation = pinInList;
             _dialogService.showCustomDialog(
               variant: DialogType.pindropDialoguebox,
@@ -101,8 +95,11 @@ class PinDropMapViewModel extends BaseViewModel {
           }
         }
       },
+      icon: locator<BitmapImageService>().getIcon(false),
     );
+    log("logging the value: ${isClicked.toString()}");
     markers[markerId] = marker;
+    notifyListeners();
     rebuildUi();
   }
 

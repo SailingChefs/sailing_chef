@@ -12,11 +12,7 @@ class SavedRecipeModel {
       this.recipeModel,
       required this.docId});
   Map<String, dynamic> toMap() {
-    return {
-      'recipeId': recipeId,
-      'userId': userId,
-      'docId': docId
-    };
+    return {'recipeId': recipeId, 'userId': userId, 'docId': docId};
   }
 
   factory SavedRecipeModel.fromSnapshot(DocumentSnapshot snapshot) {

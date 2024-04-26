@@ -23,6 +23,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: RoundedTransparentTextField(
+                    keyboardType: TextInputType.number,
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
                     textColor: kcBlackColor.withOpacity(0.4),

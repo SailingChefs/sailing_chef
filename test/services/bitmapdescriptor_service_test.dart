@@ -9,4 +9,3 @@ void main() {
     tearDown(() => locator.reset());
   });
 }
-

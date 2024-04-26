@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -15,6 +16,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService {
   final _userService = locator<UserServices>();
+  final List<XFile?> media= List.empty();
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
@@ -39,34 +41,74 @@ class RecipeService {
     }
   }
 
-  Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
-    List<String> imageUrls = [];
+  // Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
+  //   List<String> imageUrls = [];
+
+  //   try {
+  //     EasyLoading.show();
+  //     for (var image in images) {
+  //       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //       Reference ref = firebaseStorage.ref().child('images/recipes/$fileName');
+  //       UploadTask uploadTask = ref.putFile(File(image!.path));
+  //       TaskSnapshot taskSnapshot = await uploadTask;
+  //       String imageUrl = await taskSnapshot.ref.getDownloadURL();
+  //       imageUrls.add(imageUrl);
+  //     }
+
+  //     EasyLoading.dismiss();
+  //     showToast(message: 'Images uploaded successfully');
+
+  //     return imageUrls;
+  //   } catch (error) {
+  //     EasyLoading.dismiss();
+  //     showToast(message: 'Error uploading images to Firebase Storage: $error');
+  //     return [];
+  //   }
+  // }
+
+  Future<List<String>> uploadMediaToFirebase(List<XFile?> mediaFiles,String id) async {
+    List<String> mediaUrls = [];
 
     try {
       EasyLoading.show();
-      for (var image in images) {
-        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      for (var media in mediaFiles) {
+        String fileName;
+        String fileExtension;
+
+        if (media!.isVideo) {
+          fileExtension = '.mp4';
+          fileName =
+              DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+        } else {
+          fileExtension = '.jpg';
+          fileName =
+              DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+        }
+
         Reference ref = firebaseStorage.ref().child('images/recipes/$fileName');
-        UploadTask uploadTask = ref.putFile(File(image!.path));
+        UploadTask uploadTask = ref.putFile(File(media.path));
         TaskSnapshot taskSnapshot = await uploadTask;
-        String imageUrl = await taskSnapshot.ref.getDownloadURL();
-        imageUrls.add(imageUrl);
+        String mediaUrl = await taskSnapshot.ref.getDownloadURL();
+        log(mediaUrl);
+        mediaUrls.add(mediaUrl);
       }
 
       EasyLoading.dismiss();
-      showToast(message: 'Images uploaded successfully');
+    //   showToast(message: 'Media files uploaded successfully');
+    //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
+    //   'cover_image': mediaUrls,
+    // });
 
-      return imageUrls;
+      return mediaUrls;
     } catch (error) {
       EasyLoading.dismiss();
-      showToast(message: 'Error uploading images to Firebase Storage: $error');
+      showToast(
+          message: 'Error uploading media files to Firebase Storage: $error');
       return [];
     }
   }
 
-
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
-  
     EasyLoading.show();
     try {
       // Fetch recipes
@@ -77,7 +119,6 @@ class RecipeService {
 
       // Fetch user details by UID only once
       UserModel? user = await _userService.fetchUserByUID(uid);
-    
 
       // Map each document to a RecipeModel and include user data
       List<RecipeModel> recipes = snapshot.docs.map((doc) {
@@ -86,7 +127,6 @@ class RecipeService {
         return recipe;
       }).toList();
       // Map each document to a RecipeModel and include user data
-     
 
       EasyLoading.dismiss();
       return recipes;
@@ -96,7 +136,6 @@ class RecipeService {
       return [];
     }
   }
-    
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
@@ -115,7 +154,7 @@ class RecipeService {
         recipe.user = user;
         recipes.add(recipe);
       }
-      
+
       EasyLoading.dismiss();
 
       return recipes;
@@ -161,5 +200,4 @@ class RecipeService {
       return [];
     }
   }
-
 }

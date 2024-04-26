@@ -174,7 +174,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
-    startAutoScroll(length);
+    // startAutoScroll(length);
     await commentService.clearComments();
     await commentService.getComments(recipeId);
     recipeList = await recipeService.fetchRandomRecipes(5);

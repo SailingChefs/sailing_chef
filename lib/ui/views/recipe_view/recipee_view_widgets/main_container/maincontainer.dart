@@ -10,7 +10,7 @@ import 'tab_bars_recipe.dart';
 
 class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
-  final List<XFile?> selectedImages;
+  final List<XFile> selectedImages;
   const MainRecipeViewContainer(this.recipeModel, this.selectedImages,
       {Key? key})
       : super(key: key);

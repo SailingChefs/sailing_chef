@@ -68,7 +68,6 @@ class ChefProfileViewModel extends BaseViewModel {
       uid: "",
     );
     String conversationId = await _serviceConversations
-        
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
