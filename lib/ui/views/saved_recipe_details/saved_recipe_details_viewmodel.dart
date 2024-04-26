@@ -6,6 +6,7 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 // import 'package:just_audio/just_audio.dart';
 // import 'package:just_audio_cache/just_audio_cache.dart';
@@ -207,19 +208,21 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    Reference audioRef =
-        FirebaseStorage.instance.ref().child(recipeModel.chefNote);
+    final response = await http.get(Uri.parse(recipeModel.chefNote));
     File audioFile = File("$tempPath/audio.mpeg4");
-    log("I was here ..........");
-    await playerController.preparePlayer(
-      path: audioFile.path,
-      volume: 100,
-    );
-    await audioRef.writeToFile(audioFile);
-
+    if (response.statusCode == 200) {
+      await audioFile.writeAsBytes(response.bodyBytes);
+      log("Download Complete");
+      await playerController.preparePlayer(
+        path: audioFile.path,
+        volume: 100,
+      );
+      log("Player Ready");
+    }
   }
 
   void startListening() async {
+    log("Start Listening");
     await playerController.startPlayer(finishMode: FinishMode.pause);
   }
 
@@ -232,15 +235,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     await commentService.getComments(recipeId);
     playerController = PlayerController();
     log("WaveForm=> $waveFormData \n Path=> path");
-    downloadAudio();
-
-    // player = AudioPlayer();
-    // await player.dynamicSet(
-    //   url: recipeModel.chefNote,
-    // );
-    // log((player.cacheFile(url: recipeModel.chefNote)).toString());
+    await downloadAudio();
     recipeList = await recipeService.fetchRandomRecipes(5);
-
     setBusy(false);
   }
 
