@@ -12,8 +12,10 @@ import 'package:geocoding/geocoding.dart';
 class ProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final RecipeService _recipeService = locator<RecipeService>();
+
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
+
 
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;

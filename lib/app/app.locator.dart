@@ -12,12 +12,14 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
+import '../services/bitmap_image_service.dart';
 import '../services/chef_service.dart';
 import '../services/comment_service.dart';
 import '../services/conversation_service.dart';
 import '../services/dishes_service.dart';
 import '../services/follow_service.dart';
 import '../services/location_service.dart';
+import '../services/pin_drop_service.dart';
 import '../services/recipe_service.dart';
 import '../services/saved_recipe_service.dart';
 import '../services/search_service.dart';
@@ -50,6 +52,11 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BottomNavBarViewModel());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => SavedRecipeService());
+
+  locator.registerLazySingleton(() => BitmapImageService());
+  locator.registerLazySingleton(() => PinDropService());
+
   locator.registerLazySingleton(() => FollowService());
   locator.registerLazySingleton(() => SearchService());
+
 }

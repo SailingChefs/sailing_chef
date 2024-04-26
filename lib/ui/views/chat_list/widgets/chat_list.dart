@@ -91,7 +91,9 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                             );
                           }),
                     )
-                  : const Text('No Data');
+
+                  : Container();
+
             });
   }
 }

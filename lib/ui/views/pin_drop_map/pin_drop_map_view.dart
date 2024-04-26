@@ -9,13 +9,6 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/topbar_search.dart';
 
 import 'pin_drop_map_viewmodel.dart';
 
-//  LatLng currentPosition = userDetails!.location!['longitude'] != null
-//     ? LatLng(
-//         userDetails!.location!['latitude'] as double,
-//         userDetails!.location!['longitude'] as double,
-//       )
-//     : const LatLng(0, 0);
-
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
   const PinDropMapView({Key? key}) : super(key: key);
 

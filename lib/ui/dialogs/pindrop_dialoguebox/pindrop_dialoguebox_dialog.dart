@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/pin_model.dart';
 
 import 'pindrop_dialoguebox_dialog_model.dart';
-
-const double _graphicSize = 60;
 
 class PindropDialogueboxDialog
     extends StackedView<PindropDialogueboxDialogModel> {
@@ -25,123 +20,115 @@ class PindropDialogueboxDialog
     PindropDialogueboxDialogModel viewModel,
     Widget? child,
   ) {
+    final PinnedLocation pinnedLocation = viewModel.pinnedLocation;
+
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+      alignment: Alignment.bottomRight,
       backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FittedBox(
+            fit: BoxFit.fitHeight,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(27),
+                  bottomLeft: Radius.circular(27)),
+              child: Image.network(
+                pinnedLocation.picture,
+                fit: BoxFit.cover,
+                height: 140,
+                width: 97,
+              ),
+            ),
+          ),
+          horizontalSpaceTiny,
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 15),
+                      child: Text(
+                        pinnedLocation.tags[0],
+                        style: globalTextStyle(
+                          color: kcBlackColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    horizontalSpaceMedium,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: kclightgreencolor,
+                          ),
+                          horizontalSpaceSmall,
+                          Text(
+                            pinnedLocation.rating.toString(),
+                            style: globalTextStyle(
+                              color: kcBlackColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 8, top: 6),
+                  width: 230,
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                const Text(
-                                  'Fishmonger',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  'Oceanic fish',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow[700],
-                                    ),
-                                    const SizedBox(width: 4),
-                                    const Text(
-                                      '4.5',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          pinnedLocation.name,
+                          style: globalTextStyle(
+                            color: kcBlackColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      if (request.description != null) ...[
-                        verticalSpaceTiny,
-                        Text(
-                          request.description!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: kcMediumGrey,
-                          ),
-                          maxLines: 3,
-                          softWrap: true,
+                      Text(
+                        viewModel.placeMark,
+                        overflow: TextOverflow.ellipsis,
+                        style: globalTextStyle(
+                          color: kcBlackColor.withOpacity(0.4),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF6E7B0),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
-                )
               ],
             ),
-            verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(confirmed: true)),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   @override
   PindropDialogueboxDialogModel viewModelBuilder(BuildContext context) =>
-      PindropDialogueboxDialogModel();
+      PindropDialogueboxDialogModel(
+          pinnedLocation: request.data as PinnedLocation,
+          placeMark: request.title.toString());
 }

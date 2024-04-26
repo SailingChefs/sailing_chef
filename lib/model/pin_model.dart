@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_geohash/dart_geohash.dart';
+import 'package:geocoding/geocoding.dart';
 
 class PinnedLocation {
   final String? id;
@@ -13,9 +14,11 @@ class PinnedLocation {
   final String picture;
   final List<String> tags;
   final double rating;
+  List<Placemark>? placemarks;
 
   PinnedLocation({
     this.id,
+    this.placemarks,
     required this.contactNumber,
     required this.rating,
     required this.createdTime,

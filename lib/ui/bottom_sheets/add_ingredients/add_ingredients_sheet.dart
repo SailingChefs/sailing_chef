@@ -23,58 +23,53 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
     AddIngredientsSheetModel viewModel,
     Widget? child,
   ) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: const BoxDecoration(
-        color: kcwhitecolor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 5,),
+        decoration: const BoxDecoration(
+          color: kcwhitecolor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
         ),
-      ),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const IngredientsSheetTopBar(),
-            Center(
-              child: Text(
-                request.title ?? 'Add your ingredients',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        child: Column(
+          
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const IngredientsSheetTopBar(),
+              Center(
+                child: Text(
+                  request.title ?? 'Add your ingredients',
+                  style:
+                      const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-            verticalSpaceTiny,
-            const ListViewQuantityName(),
-            verticalSpaceMedium,
-            SizedBox(
-              width: double.infinity,
-              child: CommonTextField(
-                hintText: 'Add one or multiple steps',
-                prefix: Icons.drag_indicator,
-              ),
-            ),
-            verticalSpaceTiny,
-            const TwoTextFields(),
-            verticalSpaceTiny,
-            Save_Recipe_Button(
-              onPressed: () {
-                viewModel.addIngredientToList();
-              },
-              buttonText: 'Add Ingredient',
-              prefix: Icons.add,
-            ),
-            if (request.description != null) ...[
               verticalSpaceTiny,
-              Text(
-                request.description!,
-                style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-                maxLines: 3,
-                softWrap: true,
+              const ListViewQuantityName(),
+              verticalSpaceMedium,
+              SizedBox(
+                width: double.infinity,
+                child: CommonTextField(
+                  hintText: 'Add one or multiple steps',
+                  prefix: Icons.drag_indicator,
+                ),
               ),
-            ],
-          ]),
+              verticalSpaceTiny,
+              const TwoTextFields(),
+              verticalSpaceTiny,
+              Save_Recipe_Button(
+                onPressed: () {
+                  viewModel.addIngredientToList();
+                },
+                buttonText: 'Add Ingredient',
+                prefix: Icons.add,
+              ),
+              
+            ]),
+      ),
     );
   }
 

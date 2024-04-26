@@ -17,6 +17,8 @@ class SavedRecipeService with ListenableServiceMixin {
     isInitialised = true;
   }
 
+
+
   Future<bool> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
     DocumentReference newRecipeRef =
         await firebasestore.collection('savedRecipes').add(savedRecipe.toMap());
@@ -49,6 +51,7 @@ class SavedRecipeService with ListenableServiceMixin {
   Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
     log('savedRecipe: ${savedRecipe.docId}');
     log('saved: ${savedRecipes.map((e) => e.docId)}');
+
     try {
       EasyLoading.show(); // Show loading indicator
       if (!isInitialised) {

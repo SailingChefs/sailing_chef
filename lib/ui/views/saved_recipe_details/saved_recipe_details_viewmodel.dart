@@ -144,6 +144,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
+
     await commentService.clearComments();
     await _savedRecipeService.init();
     await commentService.getComments(recipeId);
