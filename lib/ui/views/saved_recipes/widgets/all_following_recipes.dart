@@ -21,11 +21,13 @@ class FollowingSavedRecipesScreen
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridTile(
-              recipeId: 'recipe id',
+              savedRecipeList: viewModel.savedRecipes,
+              recipeId: viewModel.savedRecipes[index].recipeId,
               onTap: viewModel.toDishDetailsScreen,
-              foodImagePath: 'assets/images/background/onboarding2.png',
-              dishName: "dish name",
-              duration: "30",
+              foodImagePath:
+                  viewModel.savedRecipes[index].recipeModel!.coverImage.first,
+              dishName: viewModel.savedRecipes[index].recipeModel!.title,
+              duration: viewModel.savedRecipes[index].recipeModel!.prepTime,
               chefImagePath: 'assets/images/icons/chef.jpg');
         },
       ),

@@ -38,7 +38,7 @@ class UserServices {
   }
 
   Future<UserModel> getUserDetails() async {
-    // try {
+    try {
     EasyLoading.show();
     CollectionReference usersCollection = firebasestore.collection('users');
 
@@ -58,12 +58,12 @@ class UserServices {
       EasyLoading.dismiss();
       throw Exception("User not found in Firestore");
     }
-    // } catch (e) {
-    //   EasyLoading.dismiss();
-    //   showToast(message: e.toString());
-    //   // Handle errors as needed
-    //   throw Exception(e.toString());
-    // }
+    } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: e.toString());
+      // Handle errors as needed
+      throw Exception(e.toString());
+    }
   }
 
   Future<bool> storeUserDetails(
@@ -117,7 +117,7 @@ class UserServices {
     }
   }
 
-  Future<UserModel?> fetchUserByUID(String uid) async {
+  Future<UserModel> fetchUserByUID(String uid) async {
     try {
       DocumentSnapshot snapshot =
           await firebasestore.collection('users').doc(uid).get();
@@ -125,11 +125,11 @@ class UserServices {
         return UserModel.fromSnapshot(snapshot);
       } else {
         log('No user found with uid: $uid');
-        return null;
+        return UserModel();
       }
     } catch (e) {
       log('Error fetching user: $e');
-      return null;
+      return UserModel();
     }
   }
 }

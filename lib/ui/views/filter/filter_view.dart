@@ -17,29 +17,34 @@ class FilterView extends StackedView<FilterViewModel> {
     FilterViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                children: [
-                  const TopBarFilterScreen(),
-                  verticalSpaceMedium,
-                  const TimeSliderFilterScreen(),
-                  verticalSpaceMedium,
-                  const CourseTabBarFilerScreen(),
-                  verticalSpaceMedium,
-                  const CategoryTabsFilterScreen(),
-                  verticalSpaceMedium,
-                  const DietaryNeedTabsFilterScreen(),
-                ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const TopBarFilterScreen(),
+                    verticalSpaceMedium,
+                    const TimeSliderFilterScreen(),
+                    verticalSpaceMedium,
+                    const CourseTabBarFilerScreen(),
+                    verticalSpaceMedium,
+                    const CategoryTabsFilterScreen(),
+                    verticalSpaceMedium,
+                    const DietaryNeedTabsFilterScreen(),
+                    verticalSpaceMedium,
+                  ],
+                ),
               ),
-            ),
-            const BottomButtons(),
-          ],
+              const BottomButtons(),
+            ],
+          ),
         ),
       ),
     );

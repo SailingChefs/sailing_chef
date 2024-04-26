@@ -18,9 +18,10 @@ class TopBarFilterScreen extends ViewModelWidget<FilterViewModel> {
               fontWeight: FontWeight.w600),
         ),
         IconButton(
-          onPressed: () => viewModel.goBack(),
-          icon: const Icon(
+          onPressed: viewModel.goBack,
+          icon: Icon(
             Icons.close_rounded,
+            size: 30.dg,
             color: kcPrimaryColor,
           ),
         ),

@@ -6,9 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
@@ -19,6 +21,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   // final PageController pageController = PageController();
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
+  final SavedRecipeService _savedRecipeService = SavedRecipeService();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   final TextEditingController commentController = TextEditingController();
@@ -29,10 +32,20 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
+  List<SavedRecipeModel> get savedRecipeList =>
+      _savedRecipeService.savedRecipes;
+
+  void addToSaveList(RecipeModel recipe) {
+    _savedRecipeService.addSavedRecipe(SavedRecipeModel(
+      recipeId: recipe.docId,
+      userId: userDetails!.uid!,
+    ));
+  }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
+        _savedRecipeService,
       ];
 
   List<CommentModel> get fetchComment {
@@ -51,51 +64,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void startAutoScroll(int length) {
-    const duration = Duration(seconds: 3); // Change the interval as needed
-    _timer = Timer.periodic(duration, (Timer timer) {
-      if (pageController.hasClients) {
-        int nextPage = pageController.page!.toInt() + 1;
-        if (nextPage >= length) {
-          nextPage = 0; // Loop back to the first image
-        }
-        pageController.animateToPage(
-          nextPage,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
 
-  void stopAutoScroll() {
-    _timer?.cancel();
-  }
 
-  void showNextImage(int length) {
-    if (pageController.hasClients) {
-      int nextPage = (pageController.page!.toInt() + 1) % length;
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
-
-  void showPreviousImage(int length) {
-    if (pageController.hasClients) {
-      int previousPage = pageController.page!.toInt() - 1;
-      if (previousPage < 0) {
-        previousPage = length - 1; // Loop to last image
-      }
-      pageController.animateToPage(
-        previousPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
 
   void addRating(double rating) {
     this.rating = rating;
@@ -174,8 +144,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
-    // startAutoScroll(length);
+
     await commentService.clearComments();
+    await _savedRecipeService.init();
     await commentService.getComments(recipeId);
     recipeList = await recipeService.fetchRandomRecipes(5);
     setBusy(false);
@@ -183,7 +154,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   @override
   void dispose() {
-    stopAutoScroll();
     pageController.dispose();
     super.dispose();
   }

@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -14,6 +15,13 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             scrollDirection: Axis.horizontal,
             itemCount: viewModel.recipeList.length,
             itemBuilder: (context, index) {
+              bool isRecipeSaved = false;
+              for (SavedRecipeModel savedRecipe in viewModel.savedRecipeList) {
+                if (savedRecipe.recipeId == viewModel.recipeList[index].docId) {
+                  isRecipeSaved = !isRecipeSaved;
+                  break;
+                }
+              }
               return GestureDetector(
                 onTap: () =>
                     viewModel.toRecipeDetails(viewModel.recipeList[index]),
@@ -51,12 +59,22 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                             ),
                             IconButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark_border,
-                                  color: kcBlackColor.withOpacity(0.6),
-                                  size: 20.dg,
-                                )),
+                                onPressed: () {
+                                  viewModel.addToSaveList(
+                                    viewModel.recipeList[index],
+                                  );
+                                },
+                                icon: isRecipeSaved
+                                    ? Icon(
+                                        Icons.bookmark,
+                                        color: kcBlackColor.withOpacity(0.6),
+                                        size: 20.dg,
+                                      )
+                                    : Icon(
+                                        Icons.bookmark_border,
+                                        color: kcBlackColor.withOpacity(0.6),
+                                        size: 20.dg,
+                                      )),
                           ],
                         ),
                       ]),

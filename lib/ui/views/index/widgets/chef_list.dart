@@ -28,7 +28,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     ),
                   ),
                   CustomTextButton(
-                    onPressed: () {},
+                    onPressed: viewModel.toAllChefsView,
                     buttonText: 'View all',
                     textColor: kclightgreencolor,
                     fontSize: 14,
@@ -43,7 +43,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.chefList!.length,
+                  itemCount: 5,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {

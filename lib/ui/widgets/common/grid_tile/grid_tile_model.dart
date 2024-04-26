@@ -6,16 +6,17 @@ import 'package:stacked/stacked.dart';
 
 class GridTileModel extends ReactiveViewModel {
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
-  @override
-  // ignore: override_on_non_overriding_member
-  List<ListenableServiceMixin> get savedRecipes => [_savedRecipeService];
 
-  List<SavedRecipeModel> get fetchSavedRecipesList {
-    return _savedRecipeService.savedRecipes;
-  }
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
+
 
   void onBookmarkTap(String recipeId) {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
-        recipeId: recipeId, userId: userDetails!.uid!, docId: ''));
+      recipeId: recipeId,
+      userId: userDetails!.uid!,
+    ));
+    notifyListeners();
+
   }
 }

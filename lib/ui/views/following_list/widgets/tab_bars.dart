@@ -33,13 +33,14 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
                   ),
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
+              child:  Padding(
+                padding:const EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
                 child: Text(
-                  '98 Followers',
-                  style: TextStyle(
+                  '${viewModel.followers.length} Followers',
+                  style: globalTextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
+                    color: kcBlackColor,
                   ),
                 ),
               ),
@@ -63,13 +64,14 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
                   ),
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+              child:  Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                 child: Text(
-                  '108 Following',
-                  style: TextStyle(
+                  '${viewModel.following.length} Following',
+                  style: globalTextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
+                    color: kcBlackColor,
                   ),
                 ),
               ),

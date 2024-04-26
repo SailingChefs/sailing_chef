@@ -18,22 +18,23 @@ class MainRecipeViewContainer
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 250.h),
-          Container(
-            // width: double.infinity,
-            decoration: BoxDecoration(
-              color: kcwhitecolor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35.r),
-                topRight: Radius.circular(35.r),
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
+        Container(
+         height: MediaQuery.of(context).size.height * 0.7,
+          decoration: BoxDecoration(
+            color: kcwhitecolor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.r),
+              topRight: Radius.circular(35.r),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(20.0.dg),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20.0.dg),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -91,8 +92,8 @@ class MainRecipeViewContainer
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

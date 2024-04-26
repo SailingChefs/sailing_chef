@@ -4,13 +4,13 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 class SavedRecipeModel {
   String recipeId;
   String userId;
-  String docId;
+  String? docId;
   RecipeModel? recipeModel;
   SavedRecipeModel(
       {required this.recipeId,
       required this.userId,
       this.recipeModel,
-      required this.docId});
+      this.docId});
   Map<String, dynamic> toMap() {
     return {'recipeId': recipeId, 'userId': userId, 'docId': docId};
   }
@@ -23,7 +23,7 @@ class SavedRecipeModel {
       recipeModel: data['recipeModel'] != null
           ? RecipeModel.fromSnapshot(data['recipeModel'])
           : null,
-      docId: data['docId'],
+      docId: snapshot.id,
     );
   }
 }

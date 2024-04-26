@@ -12,38 +12,22 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.only(top: 25.0),
-      child: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          if (details.primaryVelocity! > 0) {
-            viewModel.showPreviousImage(image.length);
-          } else if (details.primaryVelocity! < 0) {
-            viewModel.showNextImage(image.length);
-          }
-        },
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: PageView.builder(
-            itemCount: image.length,
-            controller: viewModel.pageController,
-            itemBuilder: (context, index) {
-              // return GestureDetector(
-              //   onHorizontalDragEnd: (details) {
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.3,
+        child: PageView.builder(
+          itemCount: image.length,
+          controller: viewModel.pageController,
+          physics:const AlwaysScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
 
-              //     if (details.primaryVelocity! > 0) {
-              //       viewModel.showPreviousImage();
-              //     } else if (details.primaryVelocity! < 0) {
-              //       viewModel.showNextImage(image.length);
-              //     }
-              //   },
-              return Center(
-                child: Image.network(
-                  image[index],
-                  fit: BoxFit.fitWidth,
-                  width: double.infinity,
-                ),
-              );
-            },
-          ),
+            return Center(
+              child: Image.network(
+                image[index],
+                fit: BoxFit.fitWidth,
+                width: double.infinity,
+              ),
+            );
+          },
         ),
       ),
     );

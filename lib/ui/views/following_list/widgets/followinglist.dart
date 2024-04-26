@@ -1,33 +1,28 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 
-class FollowingFollowerList extends StatelessWidget {
-  final List<String> names = [
-    'John Doe',
-    'Jane Smith',
-    'Alice Johnson',
-    'Bob Brown',
-    'Eve Wilson',
-    'Jane Smith',
-    'Alice Johnson',
-    'Bob Brown',
-    'Eve Wilson'
-  ];
+class FollowingList extends ViewModelWidget<FollowingListViewModel> {
+  
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context, FollowingListViewModel viewModel) {
+
+    return viewModel.following.isEmpty ? Text('No Following') :
+    Container(
       height: 500,
       width: double.infinity,
       child: ListView.builder(
-        itemCount: names.length,
+        itemCount: viewModel.followingUsers.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/icons/chef.jpg'),
+              backgroundImage: NetworkImage(
+                viewModel.followingUsers[index].displayPicture!,
+              ),
             ),
-            title: Text(names[index]),
+            title: Text(viewModel.followingUsers[index].displayName!),
             trailing: SizedBox(
               width: 109,
               height: 34,

@@ -20,6 +20,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
         ),
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridTile(
+              savedRecipeList: viewModel.savedRecipes,
               recipeId: 'recipe id',
               onTap: viewModel.toDishDetailsScreen,
               foodImagePath: 'assets/images/background/onboarding.png',

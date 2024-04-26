@@ -93,7 +93,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  userDetails!.following!.length.toString(),
+                  viewModel.followingList.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

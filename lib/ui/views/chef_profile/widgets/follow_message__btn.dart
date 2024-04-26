@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/follow_btn.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/message_btn.dart';
@@ -17,12 +18,19 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
       height: 70,
       child: Row(
         children: [
-          FollowBtuton(
-            onPressed: () {},
-            buttonText: 'Follow',
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
+          viewModel.followers.contains(firebaseAuth.currentUser!.uid)
+              ? FollowBtuton(
+                  onPressed: () => viewModel.onFollow(user),
+                  buttonText: 'Following',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                )
+              : FollowBtuton(
+                  onPressed: () => viewModel.onFollow(user),
+                  buttonText: 'Follow',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
           horizontalSpaceTiny,
           MessageBtuton(
             onPressed: () {
