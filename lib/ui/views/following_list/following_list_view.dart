@@ -19,34 +19,40 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
     FollowingListViewModel viewModel,
     Widget? child,
   ) {
-    return viewModel.isBusy ? const CircularProgressIndicator(color: Colors.transparent, ): 
-    Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: const TopBarFollowing(),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            verticalSpaceSmall,
-            const TabBarsFollowing(),
-            verticalSpaceTiny,
-            const SearchBarFollwoing(),
-            viewModel.searchController.text.isEmpty ?
-            Column(
-              children: [
-                verticalSpaceTiny,
-                 viewModel.isFollower ?  
-            FollowingList():FollowerList(),
-              ],
-            ):
-            SearchList(users: viewModel.followingUsers,),
-           
-          ],
-        ),
-      ),
-    );
+    return viewModel.isBusy
+        ? const CircularProgressIndicator(
+            color: Colors.transparent,
+          )
+        : Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            appBar: const TopBarFollowing(),
+            body: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  verticalSpaceSmall,
+                  const TabBarsFollowing(),
+                  verticalSpaceTiny,
+                  const SearchBarFollwoing(),
+                  viewModel.searchController.text.isEmpty
+                      ? Column(
+                          children: [
+                            verticalSpaceTiny,
+                            viewModel.isFollower
+                                ? FollowingList()
+                                : FollowerList(),
+                          ],
+                        )
+                      : SearchList(
+                          users: viewModel.followingUsers,
+                        ),
+                ],
+              ),
+            ),
+          );
   }
-   @override
+
+  @override
   void onViewModelReady(FollowingListViewModel viewModel) {
     viewModel.onViewModelReady();
     super.onViewModelReady(viewModel);

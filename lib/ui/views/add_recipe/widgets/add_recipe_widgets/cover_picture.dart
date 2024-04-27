@@ -19,7 +19,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
         if (viewModel.selectedImages.isNotEmpty) {
           viewModel.isclicked = !viewModel.isclicked;
           log(viewModel.isclicked.toString());
-          viewModel.updateVideoSource(File(viewModel.selectedImages[viewModel.pageController.page!.round()].path));
+          viewModel.updateVideoSource(File(viewModel
+              .selectedImages[viewModel.pageController.page!.round()].path));
         }
       },
       child: viewModel.selectedImages.isEmpty
@@ -80,7 +81,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                             return CustomVideoPlayer(
                               isclicked: viewModel.isclicked,
                               pathh: media.path,
-                );
+                            );
                           } else if (media.isImage) {
                             return Image.file(
                               File(media.path),
@@ -192,7 +193,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 ),
                               ),
                             ),
-                ],
+                        ],
                       ),
                     ),
                   ),

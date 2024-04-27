@@ -24,7 +24,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
   List<RecipeModel>? chefRecipes;
+
   List<String> get followers => _followService.followers;
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   bool isFollowing = false;
 
@@ -48,7 +50,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
-    await _followService.init(user.uid!,false);
+    await _followService.init(user.uid!, false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
     await _savedRecipeService.init();
     setBusy(false);
@@ -98,8 +100,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
         receiver: chef, conversationId: conversationId);
   }
 
-  void toSettings() {
-    _navigationService.navigateToSettingsView();
+  void toSettings(bool isCurrentUser, String uid) {
+    _navigationService.navigateToSettingsView(
+        isCurrentUser: isCurrentUser, uid: uid);
   }
 
   void moveBack() {

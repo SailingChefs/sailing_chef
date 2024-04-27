@@ -18,7 +18,6 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
 
   RecipeViewView(this.recipeModel, this.selectedImages,
       {Key? key, this.waveFormData, this.path})
-
       : super(key: key);
 
   @override

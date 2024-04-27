@@ -1,11 +1,17 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
+
+import '../app/app.locator.dart';
 
 class ChefService {
+  final _userService = locator<UserServices>();
+
 //   Future<List<UserModel>> fetchChefDocuments() async {
 //   List<UserModel> users = [];
 //   final currentUserUid = firebaseAuth.currentUser?.uid;
@@ -85,9 +91,12 @@ class ChefService {
           .get();
 
       for (var doc in querySnapshot.docs) {
-        // Convert each document snapshot to a UserModel object
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
         UserModel user = UserModel.fromSnapshot(doc);
-        users.add(user);
+        if (!currUser.blockedAccounts!.contains(user.uid)) {
+          users.add(user);
+        }
       }
 
       EasyLoading.dismiss();

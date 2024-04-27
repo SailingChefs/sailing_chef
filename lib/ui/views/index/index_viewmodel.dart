@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -13,6 +14,7 @@ class IndexViewModel extends BaseViewModel {
   final _savedRecipeService = locator<SavedRecipeService>();
   List<UserModel>? chefList;
   List<RecipeModel>? dishes;
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
   void goToFilterView() {
@@ -37,7 +39,13 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toChefProfile(UserModel chef) {
-    _navigationService.navigateToChefProfileView(user: chef);
+    if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
+      _navigationService.navigateToChefProfileView(
+          user: chef, isCurrentUser: true);
+    } else {
+      _navigationService.navigateToChefProfileView(
+          user: chef, isCurrentUser: false);
+    }
   }
 
   void toDishDetailsScreen(index) {

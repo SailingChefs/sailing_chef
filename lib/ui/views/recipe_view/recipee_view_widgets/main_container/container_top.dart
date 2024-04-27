@@ -21,33 +21,33 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
       child: Stack(
         children: [
           SizedBox(
-              width: double.infinity,
-              height: 250,
-              child:                       PageView.builder(
-                        itemCount: selectedImages.length,
-                        controller: viewModel.pageController,
-                        onPageChanged: (index) {
-                          viewModel.updateVideoSource(
-                            File(selectedImages[index]!.path),
-                          );
-                        },
-                        itemBuilder: (context, index) {
-                          var media = selectedImages[index];
-                          if (media!.isVideo) {
-                            return CustomVideoPlayer(
-                              pathh: media.path,
-                            );
-                          } else if (media.isImage) {
-                            
-                            return Image.file(
-                              File(media.path),
-                              fit: BoxFit.fitWidth,
-                              width: double.infinity,
-                            );
-                          }
-                          return null;
-                        },
-                      ),),
+            width: double.infinity,
+            height: 250,
+            child: PageView.builder(
+              itemCount: selectedImages.length,
+              controller: viewModel.pageController,
+              onPageChanged: (index) {
+                viewModel.updateVideoSource(
+                  File(selectedImages[index]!.path),
+                );
+              },
+              itemBuilder: (context, index) {
+                var media = selectedImages[index];
+                if (media!.isVideo) {
+                  return CustomVideoPlayer(
+                    pathh: media.path,
+                  );
+                } else if (media.isImage) {
+                  return Image.file(
+                    File(media.path),
+                    fit: BoxFit.fitWidth,
+                    width: double.infinity,
+                  );
+                }
+                return null;
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: BackArrowWidget(

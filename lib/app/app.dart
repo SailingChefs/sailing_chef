@@ -57,6 +57,9 @@ import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
 
+import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.dart';
+import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
+import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -89,6 +92,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_pro
 
     MaterialRoute(page: AllChefsView),
 
+    MaterialRoute(page: ForgetPasswordView),
 // @stacked-route
   ],
   dependencies: [
@@ -126,6 +130,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_pro
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: SaveDraftAlertboxDialog),
     StackedDialog(classType: PindropDialogueboxDialog),
+    StackedDialog(classType: DeleteAccountDialog),
+    StackedDialog(classType: BlockAccountDialog),
 // @stacked-dialog
   ],
 )

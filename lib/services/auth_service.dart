@@ -65,7 +65,8 @@ class AuthService {
         password: password,
       );
       userModel.uid = userCredential.user!.uid;
-      userDetails?.displayName = userModel.displayName;
+      userDetails = userModel;
+      userDetails!.displayName = userModel.displayName;
       // Store user details in Firestore
       bool userStored = await UserServices.storeUserRoleAndName(
         userModel: userModel,

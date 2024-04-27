@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +17,8 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService {
   final _userService = locator<UserServices>();
-  final List<XFile?> media= List.empty();
+  final List<XFile?> media = List.empty();
+
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
@@ -41,16 +43,14 @@ class RecipeService {
     }
   }
 
-
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     File file = File(filePath);
     Reference storageReference =
-    FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
+        FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
     UploadTask uploadTask = storageReference.putFile(file);
     await uploadTask.whenComplete(() => print('File Uploaded'));
     return await storageReference.getDownloadURL();
   }
-
 
 //   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
 //     List<String> imageUrls = [];
@@ -80,9 +80,9 @@ class RecipeService {
   //   }
   // }
 
-  Future<List<String>> uploadMediaToFirebase(List<XFile?> mediaFiles,String id) async {
+  Future<List<String>> uploadMediaToFirebase(
+      List<XFile?> mediaFiles, String id) async {
     List<String> mediaUrls = [];
-
 
     try {
       EasyLoading.show();
@@ -109,10 +109,10 @@ class RecipeService {
       }
 
       EasyLoading.dismiss();
-    //   showToast(message: 'Media files uploaded successfully');
-    //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
-    //   'cover_image': mediaUrls,
-    // });
+      //   showToast(message: 'Media files uploaded successfully');
+      //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
+      //   'cover_image': mediaUrls,
+      // });
 
       return mediaUrls;
     } catch (error) {
@@ -158,16 +158,19 @@ class RecipeService {
 
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('uid', isNotEqualTo: '123456')
+          // .where('uid', isNotEqualTo: '123456')
           .get();
 
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
-        recipes.add(recipe);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          recipes.add(recipe);
+        }
       }
 
       EasyLoading.dismiss();
@@ -187,13 +190,20 @@ class RecipeService {
       // Attempt to fetch more than you need to improve randomness
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('uid', isNotEqualTo: '123456')
+          // .where('uid', isNotEqualTo: '123456')
           .limit(10) // Adjust number based on expected collection size
           .get();
 
       List<RecipeModel> allRecipes = [];
       for (var doc in snapshot.docs) {
-        allRecipes.add(RecipeModel.fromSnapshot(doc));
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          allRecipes.add(recipe);
+        }
       }
 
       // Shuffle the list to randomize and then take the first 5

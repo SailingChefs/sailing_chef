@@ -17,6 +17,7 @@ class UserModel {
   final String? link;
   final String? phoneNumber;
   final List<String>? savedRecipes;
+  final List<String>? blockedAccounts;
 
   UserModel({
     this.displayName,
@@ -35,6 +36,7 @@ class UserModel {
     this.link,
     this.phoneNumber,
     this.savedRecipes,
+    this.blockedAccounts,
   });
 
   Map<String, dynamic> toJson() {
@@ -54,6 +56,7 @@ class UserModel {
       'link': link,
       'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
+      'blocked_accounts': blockedAccounts,
     };
   }
 
@@ -76,6 +79,7 @@ class UserModel {
       link: data['link'],
       phoneNumber: data['phone_number'],
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
+      blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
     );
   }
 }

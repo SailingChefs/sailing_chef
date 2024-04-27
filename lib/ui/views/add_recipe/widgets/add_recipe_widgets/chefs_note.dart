@@ -45,8 +45,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor.withOpacity(0.5)),
                       )
-                    : viewModel.hasRecordedAudio &&
-                            !viewModel.isRecording
+                    : viewModel.hasRecordedAudio && !viewModel.isRecording
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -74,7 +73,6 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                       spacing: 6,
                                       seekLineColor: Colors.black,
                                       showSeekLine: false,
-
                                     ),
                                   ),
                                 ),
@@ -100,8 +98,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                           ),
               ),
               Visibility(
-                visible: viewModel
-                        .hasRecordedAudio,
+                visible: viewModel.hasRecordedAudio,
                 child: GestureDetector(
                   onTap: () {
                     viewModel.deleteCurrentRecording();
@@ -113,8 +110,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                 ),
               ),
               Visibility(
-                visible: !viewModel
-                        .hasRecordedAudio,
+                visible: !viewModel.hasRecordedAudio,
                 child: GestureDetector(
                   onLongPressStart: (_) => viewModel.startRecording(),
                   onLongPressEnd: (_) => viewModel.stopRecording(),

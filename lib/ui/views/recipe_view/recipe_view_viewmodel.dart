@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'dart:io';
 
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -68,11 +67,11 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
     log(recipe.docId.toString());
-    List<String> imageUrls =await _recipeService.uploadMediaToFirebase(selectedImages,recipe.docId);
+    List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+        selectedImages, recipe.docId);
 
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
-
 
     final check = await _recipeService.addRecipeToFirestore(RecipeModel(
       visibility: recipe.visibility,
@@ -86,12 +85,8 @@ class RecipeViewViewModel extends BaseViewModel {
       status: 'published',
       title: recipe.title,
       uid: recipe.uid,
-
-
       waveForm: waveFormData!,
-
       docId: recipe.docId,
-
     ));
     if (check) {
       _navigationService.replaceWithRecipeListPageView(
@@ -137,12 +132,12 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void startAutoScroll(int length) {
-    const duration = Duration(seconds: 3); 
+    const duration = Duration(seconds: 3);
     _timer = Timer.periodic(duration, (Timer timer) {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0; 
+          nextPage = 0;
         }
         pageController.animateToPage(
           nextPage,

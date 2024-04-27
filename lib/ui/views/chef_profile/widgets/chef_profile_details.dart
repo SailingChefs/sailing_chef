@@ -12,14 +12,12 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-
           GestureDetector(
             onTap: () {
               viewModel.showRecipeList();
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
-
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -47,7 +45,6 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
-
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -75,7 +72,6 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
-
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(

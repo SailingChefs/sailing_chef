@@ -8,6 +8,8 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
@@ -16,11 +18,12 @@ class ProfileViewModel extends ReactiveViewModel {
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
 
-
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+
   List<String> get followingList => _followService.following;
 
   List<RecipeModel>? myRecipes;
@@ -34,12 +37,21 @@ class ProfileViewModel extends ReactiveViewModel {
   // }
 
   List<Placemark>? placemarks;
+
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
     isMySelected = true;
     isSavedSelected = false;
     notifyListeners();
     rebuildUi();
+  }
+
+  Future<void> onClickUrl(String url) async {
+    Uri uri = Uri.parse("https://$url");
+    // if (await canLaunchUrlString(url)) {
+    //   launchUrlString(url, );
+    // }
+    await launchUrl(uri);
   }
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.

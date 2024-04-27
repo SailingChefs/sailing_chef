@@ -28,6 +28,7 @@ class UserDetailsViewModel extends BaseViewModel {
   File? selectedImageFile;
   String? selectedImagePath;
   List<Placemark>? placemarks;
+
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 

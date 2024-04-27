@@ -84,9 +84,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-
-
-
   void addRating(double rating) {
     this.rating = rating;
     rebuildUi();
