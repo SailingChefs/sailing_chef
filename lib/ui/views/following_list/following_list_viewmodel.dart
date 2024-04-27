@@ -16,18 +16,19 @@ class FollowingListViewModel extends BaseViewModel {
   void popBack() {
     _navigationloactor.back();
   }
+
   void onViewModelReady() async {
     setBusy(true);
-    await _followService.init(userDetails!.uid!,true);
+    await _followService.init(userDetails!.uid!, true);
     setBusy(false);
   }
-  Iterable<UserModel> searchUsers(String query , List<UserModel> users) sync* { 
+
+  Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
     for (var user in users) {
       if (user.displayName!.toLowerCase().contains(query.toLowerCase())) {
         yield user;
       }
     }
-
   }
 
   void updateFollowing() {

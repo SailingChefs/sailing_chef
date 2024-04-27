@@ -30,10 +30,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
-
-
-
-
     bool isRecipeSaved = false;
     for (SavedRecipeModel savedRecipe in savedRecipeList) {
       if (savedRecipe.recipeId == recipeId) {
@@ -103,18 +99,14 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     shape: BoxShape.circle,
                     color: kcBlackColor.withOpacity(0.5),
                   ),
-
                   child: isRecipeSaved
                       ? Icon(
                           Icons.bookmark,
-
                           size: 18.dg,
                           color: kcWhiteColor,
                         )
                       : Icon(
-
                           Icons.bookmark_outline,
-
                           size: 18.dg,
                           color: kcWhiteColor,
                         ),

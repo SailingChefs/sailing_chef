@@ -8,9 +8,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
+import '../core/imports/core_imports.dart';
 import '../model/user_model.dart';
 
-class UserServices {
+class UserServices with ListenableServiceMixin {
+  UserModel? currentUserDetails;
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {
@@ -38,6 +40,13 @@ class UserServices {
     }
   }
 
+  void updateCurrentUserModel({required UserModel localModel}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update(localModel.toJson());
+  }
+
   Future<UserModel> getUserDetails() async {
     try {
       EasyLoading.show();
@@ -54,7 +63,11 @@ class UserServices {
         EasyLoading.dismiss();
         showToast(message: 'User Data fetched successfully');
 
-        return UserModel.fromSnapshot(userDoc);
+        currentUserDetails = UserModel.fromSnapshot(userDoc);
+        notifyListeners();
+
+        return currentUserDetails ?? UserModel();
+        // return UserModel.fromSnapshot(userDoc);
       } else {
         EasyLoading.dismiss();
         throw Exception("User not found in Firestore");
@@ -149,6 +162,11 @@ class UserServices {
     }
   }
 
+  void clickOnForgetPassword({required String email}) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    showToast(message: "Forgot password link sent to $email");
+  }
+
   // Future<bool> deleteUserAndDocument(String uid) async {
   //   try {
   //     // Delete user from Firebase Authentication
@@ -169,5 +187,4 @@ class UserServices {
   //     return false;
   //   }
   // }
-  
 }

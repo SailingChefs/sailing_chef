@@ -6,16 +6,17 @@ import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
+  final usrService = locator<UserServices>();
   final RecipeService _recipeService = locator<RecipeService>();
 
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
-
 
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
@@ -24,6 +25,11 @@ class ProfileViewModel extends ReactiveViewModel {
   List<String> get followingList => _followService.following;
 
   List<RecipeModel>? myRecipes;
+
+  void navigateToBlockScreen() {
+    _navigationService.navigateToBlockedAccountsView(
+        blockedUserList: usrService.currentUserDetails!.blockedAccounts!);
+  }
 
   @override
   List<ListenableServiceMixin> get listenableServices =>

@@ -16,7 +16,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService {
   final _userService = locator<UserServices>();
-  final List<XFile?> media= List.empty();
+  final List<XFile?> media = List.empty();
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
@@ -41,16 +41,14 @@ class RecipeService {
     }
   }
 
-
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     File file = File(filePath);
     Reference storageReference =
-    FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
+        FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
     UploadTask uploadTask = storageReference.putFile(file);
     await uploadTask.whenComplete(() => print('File Uploaded'));
     return await storageReference.getDownloadURL();
   }
-
 
 //   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
 //     List<String> imageUrls = [];
@@ -80,9 +78,9 @@ class RecipeService {
   //   }
   // }
 
-  Future<List<String>> uploadMediaToFirebase(List<XFile?> mediaFiles,String id) async {
+  Future<List<String>> uploadMediaToFirebase(
+      List<XFile?> mediaFiles, String id) async {
     List<String> mediaUrls = [];
-
 
     try {
       EasyLoading.show();
@@ -109,10 +107,10 @@ class RecipeService {
       }
 
       EasyLoading.dismiss();
-    //   showToast(message: 'Media files uploaded successfully');
-    //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
-    //   'cover_image': mediaUrls,
-    // });
+      //   showToast(message: 'Media files uploaded successfully');
+      //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
+      //   'cover_image': mediaUrls,
+      // });
 
       return mediaUrls;
     } catch (error) {

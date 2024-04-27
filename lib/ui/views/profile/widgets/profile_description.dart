@@ -18,14 +18,19 @@ class ProfileDescriptionProfileScreen
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpaceSmall,
-          Text(
-            userDetails!.displayName!.isEmpty
-                ? ''
-                : capitalizeEachWord(userDetails!.displayName!),
-            style: globalTextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-                color: kcBlackColor),
+          GestureDetector(
+            onTap: () {
+              viewModel.navigateToBlockScreen();
+            },
+            child: Text(
+              userDetails!.displayName!.isEmpty
+                  ? ''
+                  : capitalizeEachWord(userDetails!.displayName!),
+              style: globalTextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                  color: kcBlackColor),
+            ),
           ),
           viewModel.placemarks!.isEmpty
               ? Container()

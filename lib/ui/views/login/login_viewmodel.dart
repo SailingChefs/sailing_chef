@@ -16,6 +16,10 @@ class LoginViewModel extends BaseViewModel {
     super.dispose();
   }
 
+  void vaigateToForgetPassword() {
+    _navigationService.navigateToForgetPasswordView();
+  }
+
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
 

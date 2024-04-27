@@ -9,7 +9,8 @@ class CustomVideoPlayer extends StatefulWidget {
 
   const CustomVideoPlayer({
     Key? key,
-    this.pathh,  this.isclicked, 
+    this.pathh,
+    this.isclicked,
   }) : super(key: key);
 
   @override
@@ -50,7 +51,9 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       future: futureController,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else {
           return VideoPlayer(controller);
         }

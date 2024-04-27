@@ -88,10 +88,9 @@ class BuildInputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
               },
             ),
             GestureDetector(
-              onTap:
-                  () {
-                      viewModel.sendMessage(user.uid!, conversationId);
-                    },
+              onTap: () {
+                viewModel.sendMessage(user.uid!, conversationId);
+              },
               child: Container(
                 height: 40.0,
                 width: 40.0,

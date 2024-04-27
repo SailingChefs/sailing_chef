@@ -17,9 +17,8 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         child: PageView.builder(
           itemCount: image.length,
           controller: viewModel.pageController,
-          physics:const AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-
             return Center(
               child: Image.network(
                 image[index],

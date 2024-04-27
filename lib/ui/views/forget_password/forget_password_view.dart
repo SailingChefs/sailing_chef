@@ -1,26 +1,26 @@
-import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import '../../widgets/custom_textbtn.dart';
-import 'login_viewmodel.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
-class LoginView extends StackedView<LoginViewModel> {
-  const LoginView({Key? key}) : super(key: key);
+import '../../../core/imports/core_imports.dart';
+import '../../widgets/custom_textbtn.dart';
+import '../../widgets/rounded_elevated_button.dart';
+import '../../widgets/rounded_tranparent_textfield.dart';
+import 'forget_password_viewmodel.dart';
+
+class ForgetPasswordView extends StackedView<ForgetPasswordViewModel> {
+  const ForgetPasswordView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    LoginViewModel viewModel,
+    ForgetPasswordViewModel viewModel,
     Widget? child,
   ) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: kcBackgroundColor,
-          body: Stack(children: [
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: kcBackgroundColor,
+        body: Stack(
+          children: [
             Container(
               height: screenHeight(context),
               width: screenWidth(context),
@@ -45,6 +45,19 @@ class LoginView extends StackedView<LoginViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      CircleAvatar(
+                          backgroundColor: Colors.transparent.withOpacity(0.4),
+                          radius: 16.r,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios_new,
+                              size: 16.r,
+                              color: Colors.white,
+                            ),
+                          )),
                       SizedBox(
                         width: 150.w,
                         height: 80.h,
@@ -52,22 +65,12 @@ class LoginView extends StackedView<LoginViewModel> {
                           'assets/images/logo/SAILING CHEFS.png',
                         ),
                       ),
-                      RoundedElevatedButton(
-                        onPressed: viewModel.toSignUp,
-                        buttonText: 'sign up',
-                        textColor: kclightgreencolor,
-                        buttonColor: kcWhiteColor,
-                        width: 103.dg,
-                        height: 34,
-                        textFontSize: 14.sp,
-                        textFontWeight: FontWeight.w600,
-                        isEnabled: true,
-                      ),
+                      const SizedBox()
                     ],
                   ),
                   verticalSpace(MediaQuery.of(context).size.height * 0.088),
                   Text(
-                    'welcome back ',
+                    'Forget Password',
                     style: globalTextStyle(
                         fontSize: 20.sp,
                         color: kcWhiteColor,
@@ -75,9 +78,9 @@ class LoginView extends StackedView<LoginViewModel> {
                   ),
                   verticalSpace(MediaQuery.of(context).size.height * 0.015),
                   Text(
-                    'login here',
+                    'Enter Email Address to recover Password',
                     style: globalTextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 11.sp,
                         color: kcWhiteColor,
                         fontWeight: FontWeight.w400),
                   ),
@@ -94,38 +97,21 @@ class LoginView extends StackedView<LoginViewModel> {
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.027),
-                        RoundedTransparentTextField(
-                          controller: viewModel.passwordController,
-                          labelText: 'password',
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: !viewModel.showPassword,
-                          suffixIcon: true,
-                          validator: viewModel.validatePassword,
-                          onVisibilityToggle: () {
-                            viewModel.passwordVisibility();
-                          },
-                        ),
-                        verticalSpace(
-                            MediaQuery.of(context).size.height * 0.014),
-                        CustomTextButton(
-                          onPressed: () {
-                            viewModel.vaigateToForgetPassword();
-                          },
-                          buttonText: 'forget password?',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
-                          textColor: kcWhiteColor,
-                        ),
-                        verticalSpace(
-                            MediaQuery.of(context).size.height * 0.045),
-                        RoundedElevatedButton(
-                          onPressed: viewModel.login,
-                          textColor: kclightgreencolor,
-                          buttonText: 'login',
-                          width: 144.dg,
-                          height: 40.dg,
-                          textFontSize: 18.sp,
-                          isEnabled: viewModel.isLoginButtonEnabled(),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          decoration: BoxDecoration(
+                              color: kcBackgroundColor.withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(50)),
+                          child: CustomTextButton(
+                            onPressed: () {
+                              viewModel.sendEmailLink(
+                                  email: viewModel.emailController.text);
+                            },
+                            buttonText: 'Send',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            textColor: kcWhiteColor,
+                          ),
                         ),
                       ],
                     ),
@@ -138,13 +124,13 @@ class LoginView extends StackedView<LoginViewModel> {
                 ]),
               ),
             )),
-          ])),
-    );
+          ],
+        ));
   }
 
   @override
-  LoginViewModel viewModelBuilder(
+  ForgetPasswordViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      LoginViewModel();
+      ForgetPasswordViewModel();
 }
