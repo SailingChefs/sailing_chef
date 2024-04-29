@@ -1,8 +1,4 @@
 import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -45,8 +41,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor.withOpacity(0.5)),
                       )
-                    : viewModel.hasRecordedAudio &&
-                            !viewModel.isRecording
+                    : viewModel.hasRecordedAudio && !viewModel.isRecording
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -74,7 +69,6 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                       spacing: 6,
                                       seekLineColor: Colors.black,
                                       showSeekLine: false,
-
                                     ),
                                   ),
                                 ),
@@ -100,8 +94,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                           ),
               ),
               Visibility(
-                visible: viewModel
-                        .hasRecordedAudio,
+                visible: viewModel.hasRecordedAudio,
                 child: GestureDetector(
                   onTap: () {
                     viewModel.deleteCurrentRecording();
@@ -113,8 +106,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                 ),
               ),
               Visibility(
-                visible: !viewModel
-                        .hasRecordedAudio,
+                visible: !viewModel.hasRecordedAudio,
                 child: GestureDetector(
                   onLongPressStart: (_) => viewModel.startRecording(),
                   onLongPressEnd: (_) => viewModel.stopRecording(),

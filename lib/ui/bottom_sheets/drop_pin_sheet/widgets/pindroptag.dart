@@ -2,39 +2,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/selectedwidget.dart';
 
-// class Tags extends ViewModelWidget<DropPinSheetSheetModel> {
-//   const Tags({super.key});
-
-//   @override
-//   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {
-//     return Column(
-//       children: [
-//          Text(
-//           'Select one or more',
-//           style: globalTextStyle(
-//               fontSize: 18.0.dg,
-//               color: kcBlackColor,
-//               fontWeight: FontWeight.w500),
-//         ),
-//         verticalSpaceSmall,
-//         Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             SelectedWidgetPinDrop(selectedTabSelection: 'Provisioner', index: 0, selection: () { viewModel.provionerSelected(); },),
-//             verticalSpaceMedium,
-//             SelectedWidgetPinDrop(selectedTabSelection: 'Supermarket', index: 1, selection: () { viewModel.supermarketSelected(); },),
-//             verticalSpaceMedium,
-//             SelectedWidgetPinDrop(selectedTabSelection: 'Deliverables ', index: 2, selection: () { viewModel.deliverablesSelected(); },),
-//             verticalSpaceMedium,
-//             SelectedWidgetPinDrop(selectedTabSelection: 'Fresh market', index: 3, selection: () { viewModel.freshmarketSelected(); },),
-//             verticalSpaceMedium,
-//           ]
-//         )
-//       ],
-//     );
-//   }
-// }
-
 class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;

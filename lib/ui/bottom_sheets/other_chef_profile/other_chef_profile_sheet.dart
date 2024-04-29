@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+
 
 import 'other_chef_profile_sheet_model.dart';
 
@@ -24,7 +22,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.transparent,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
@@ -34,20 +32,95 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            request.title ?? 'Hello Stacked Sheet!!',
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          if (request.description != null) ...[
-            verticalSpaceTiny,
-            Text(
-              request.description!,
-              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-              maxLines: 3,
-              softWrap: true,
+          Container(
+
+             decoration: const BoxDecoration(
+                color: kcWhiteColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () =>  completer!(SheetResponse(
+                confirmed: true,
+              )),
+                  child: Container(
+                    height: 55,
+                    decoration: const BoxDecoration(
+                color: kcWhiteColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+                    child: Center(
+                      child: Text(
+                        'Report Profile',
+                        style: globalTextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor
+                        )
+                      ),
+                    ),
+                  ),
+                ),
+                
+                const Divider(),
+                GestureDetector(
+                  onTap: () =>  completer!(SheetResponse(
+                confirmed: true,
+              )),
+                  child: Container(
+                    height: 55,
+                    decoration: const BoxDecoration(
+                color: kcWhiteColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+                    child: Center(
+                      child: Text(
+                        'Block Profile',
+                        style: globalTextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor
+                        )
+                      ),
+                    ),
+                  ),
+                ),
+              ]
             ),
-          ],
-          verticalSpaceLarge,
+          ),
+          verticalSpaceMedium,
+          GestureDetector(
+             onTap: () =>  completer!(SheetResponse(
+                confirmed: true,
+              )),
+            child: Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                color: kcWhiteColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  'Cancel',
+                  style: globalTextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: kcErrorColor
+                  )
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

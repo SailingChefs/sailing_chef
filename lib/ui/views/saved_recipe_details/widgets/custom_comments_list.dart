@@ -60,65 +60,67 @@ class CustomListTileComments extends StatelessWidget {
             IntrinsicHeight(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(image),
-                    ),
-                    horizontalSpaceMedium,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              name,
-                              style: globalTextStyle(
-                                color: Colors.black,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w400,
+                child: FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(image),
+                      ),
+                      horizontalSpaceMedium,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                name,
+                                style: globalTextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            horizontalSpaceLarge,
-                            horizontalSpaceSmall,
-                            RatingBarIndicator(
-                              rating: rating,
-                              itemBuilder: (context, index) => const Icon(
-                                Icons.star,
-                                color: Color(0xFF2E3E5C),
+                              horizontalSpaceLarge,
+                              horizontalSpaceSmall,
+                              RatingBarIndicator(
+                                rating: rating,
+                                itemBuilder: (context, index) => const Icon(
+                                  Icons.star,
+                                  color: Color(0xFF2E3E5C),
+                                ),
+                                itemCount: 5,
+                                itemSize: 20.0,
                               ),
-                              itemCount: 5,
-                              itemSize: 20.0,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          formattedDate,
-                          style: globalTextStyle(
-                            color: Colors.grey,
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.w500,
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.6.w,
-                          child: Text(
-                            description,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
+                          Text(
+                            formattedDate,
                             style: globalTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.grey,
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.6.w,
+                            child: Text(
+                              description,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: globalTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

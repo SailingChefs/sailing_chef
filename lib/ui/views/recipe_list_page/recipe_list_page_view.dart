@@ -46,8 +46,19 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                   final RecipeModel recipe = viewModel.recipes![index];
                   return Container(
                     width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: kcWhiteColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: kclightgreycolor.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                          )
+                        ]),
                     height: 335.h,
-                    padding: const EdgeInsets.all(10.0),
+                    padding:
+                        const EdgeInsets.only(left: 10.0, right: 10, top: 10),
                     child: Column(
                       children: [
                         Stack(

@@ -108,7 +108,9 @@ class LoginView extends StackedView<LoginViewModel> {
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.014),
                         CustomTextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            viewModel.vaigateToForgetPassword();
+                          },
                           buttonText: 'forget password?',
                           fontWeight: FontWeight.w400,
                           fontSize: 14.sp,

@@ -62,6 +62,7 @@ class EditProfileViewModel extends BaseViewModel {
       String name, String email, String number, String dob, String bio) async {
     if (formKey.currentState!.validate()) {
       Map<String, dynamic> userData = {
+        'display_picture': selectedImagePath,
         'display_name': name,
         'email': email,
         'phone_number': number,
@@ -70,9 +71,6 @@ class EditProfileViewModel extends BaseViewModel {
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
-
-      _navigationService
-          .popUntil((route) => route.settings.name == Routes.bottomNavBarView);
     }
   }
 }

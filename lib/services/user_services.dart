@@ -2,14 +2,17 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
+import '../core/imports/core_imports.dart';
 import '../model/user_model.dart';
 
-class UserServices {
+class UserServices with ListenableServiceMixin {
+  UserModel? currentUserDetails;
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {
@@ -37,27 +40,38 @@ class UserServices {
     }
   }
 
+  void updateCurrentUserModel({required UserModel localModel}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update(localModel.toJson());
+  }
+
   Future<UserModel> getUserDetails() async {
     try {
-    EasyLoading.show();
-    CollectionReference usersCollection = firebasestore.collection('users');
+      EasyLoading.show();
+      CollectionReference usersCollection = firebasestore.collection('users');
 
-    QuerySnapshot userSnapshot = await usersCollection
-        .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
-        .get();
+      QuerySnapshot userSnapshot = await usersCollection
+          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+          .get();
 
-    log(userSnapshot.docs.toString());
+      log(userSnapshot.docs.toString());
 
-    if (userSnapshot.docs.isNotEmpty) {
-      DocumentSnapshot userDoc = userSnapshot.docs.first;
-      EasyLoading.dismiss();
-      showToast(message: 'User Data fetched successfully');
+      if (userSnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = userSnapshot.docs.first;
+        EasyLoading.dismiss();
+        showToast(message: 'User Data fetched successfully');
 
-      return UserModel.fromSnapshot(userDoc);
-    } else {
-      EasyLoading.dismiss();
-      throw Exception("User not found in Firestore");
-    }
+          currentUserDetails = UserModel.fromSnapshot(userDoc);
+        notifyListeners();
+
+        return currentUserDetails ?? UserModel();
+        // return UserModel.fromSnapshot(userDoc);
+        } else {
+          EasyLoading.dismiss();
+          throw Exception("User not found in Firestore");
+        }
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());
@@ -119,17 +133,101 @@ class UserServices {
 
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
+      EasyLoading.show();
       DocumentSnapshot snapshot =
           await firebasestore.collection('users').doc(uid).get();
       if (snapshot.exists) {
+        EasyLoading.dismiss();
         return UserModel.fromSnapshot(snapshot);
       } else {
+        EasyLoading.dismiss();
         log('No user found with uid: $uid');
         return UserModel();
       }
     } catch (e) {
+      EasyLoading.dismiss();
       log('Error fetching user: $e');
       return UserModel();
+    }
+  }
+
+  Future<bool> doesUserExist(String uid) async {
+    try {
+      final userSnapshot =
+          await firebasestore.collection('users').doc(uid).get();
+      if (userSnapshot.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log('Error fetching user: $e');
+      return false;
+    }
+  }
+
+  void clickOnForgetPassword({required String email}) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    showToast(message: "Forgot password link sent to $email");
+  }
+
+  Future<bool> deleteUserAndDocument() async {
+    try {
+      // Delete document with the user's UID from Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .delete();
+
+      // Delete conversation Documents with user's uid from Firestore
+      await FirebaseFirestore.instance
+          .collection('conversations')
+          .where('users', arrayContains: FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }
+      });
+
+      // Delete user from Firebase Authentication
+      await FirebaseAuth.instance.currentUser!.delete();
+
+      log('User account and document deleted successfully');
+      return true;
+    } catch (e) {
+      log('Error deleting user and document: $e');
+      return false;
+    }
+  }
+
+  Future<bool> updateBlockedAccounts(List<String> blockedAccounts) async {
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
+
+    try {
+      // Check if the document exists
+      final DocumentSnapshot document = await usersCollection
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      if (document.exists) {
+        // If the document exists, update the blocked_accounts field
+        await usersCollection
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update(
+                {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
+      } else {
+        // If the document doesn't exist, create it with the blocked_accounts field
+        await usersCollection
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({'blocked_accounts': blockedAccounts});
+      }
+      log('Blocked accounts updated successfully.');
+      return true;
+    } catch (e) {
+      log('Error updating blocked accounts: $e');
+      return false;
     }
   }
 }

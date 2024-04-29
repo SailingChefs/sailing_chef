@@ -81,5 +81,6 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
 
 class AddIngredientsSheetResponse {
   final List<Ingredient> ingredientsList;
+
   const AddIngredientsSheetResponse({required this.ingredientsList});
 }

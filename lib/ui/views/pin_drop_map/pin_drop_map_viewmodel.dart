@@ -9,11 +9,11 @@ import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 
-class PinDropMapViewModel extends BaseViewModel {
+class PinDropMapViewModel extends ReactiveViewModel {
   GoogleMapController? controllermap;
-  Map<String, Marker> markers = {};
+  Map<String, Marker> allMarkers = {};
+  Map<String, Marker> filteredMarkers = {};
   final bottomSheetService = locator<BottomSheetService>();
-  final _navigationLoactor = locator<NavigationService>();
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
   late bool serviceEnabled;
@@ -21,7 +21,23 @@ class PinDropMapViewModel extends BaseViewModel {
   Position? currentPosition;
   bool isClicked = false;
   late PinnedLocation pinnedLocation;
+  List<String> selectedTabSelections = [];
+  List<bool> selections = [];
+  final pins = List<PinnedLocation>.empty(growable: true);
 
+
+  List<String> tagTabSelections = [];
+
+  int totalFilters = 0;
+
+
+Map<String,Marker> get markers{
+  if(totalFilters==0)return allMarkers;
+  return filteredMarkers;
+}
+
+@override
+  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
   Future<Position> getCurrentLocation() async {
     try {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -47,10 +63,19 @@ class PinDropMapViewModel extends BaseViewModel {
     }
   }
 
+  bool isSelected = true;
+
+  void tagsIconSelected(){
+    isSelected = !isSelected;
+    log(isSelected.toString());
+    notifyListeners();
+  }
+
   Future<String> getCityCountry(double latitude, double longitude) async {
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latitude, longitude);
+      // ignore: unnecessary_null_comparison
       if (placemarks != null && placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
         return '${placemark.subLocality}, ${placemark.locality}, ${placemark.country}';
@@ -58,12 +83,12 @@ class PinDropMapViewModel extends BaseViewModel {
         return 'Unknown';
       }
     } catch (e) {
-      print('Error getting city and country: $e');
       return 'Unknown';
     }
   }
 
-  void addMarkers(String markerId, LatLng location) async {
+  Marker createMarker(String markerId, LatLng location,
+      [bool isSelected = false]) {
     var marker = Marker(
       markerId: MarkerId(markerId),
       draggable: true,
@@ -83,29 +108,32 @@ class PinDropMapViewModel extends BaseViewModel {
         for (PinnedLocation pinInList in pins) {
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
-            isClicked = true;
-            notifyListeners();
-            rebuildUi();
+            final newMarker = createMarker(markerId, location, true);
+            allMarkers[markerId] = newMarker;
+
             pinnedLocation = pinInList;
             _dialogService.showCustomDialog(
               variant: DialogType.pindropDialoguebox,
               title: place,
               data: pinnedLocation,
             );
+
+            notifyListeners();
+            rebuildUi();
           }
         }
       },
-      icon: locator<BitmapImageService>().getIcon(false),
+      icon: locator<BitmapImageService>().getIcon(isSelected),
     );
     log("logging the value: ${isClicked.toString()}");
-    markers[markerId] = marker;
-    notifyListeners();
-    rebuildUi();
+    
+    return marker;
   }
 
-  void goToFilterView() {
-    _navigationLoactor.navigateTo(Routes.filterView);
+  void addMarkers(String markerId, LatLng location) {
+    allMarkers[markerId] = createMarker(markerId, location);
   }
+
 
   void onViewModelReady() async {
     setBusy(true);
@@ -115,18 +143,125 @@ class PinDropMapViewModel extends BaseViewModel {
 
   void showAllMarkers(String id) async {
     try {
-      List<PinnedLocation> pins =
+      List<PinnedLocation> newPins =
           await _navigationpinService.getPinsNearUserLocation(
         LatLng(currentPosition!.latitude, currentPosition!.longitude),
       );
+
+      pins.addAll(newPins);
 
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
             LatLng(pin.location.latitude, pin.location.longitude));
         pinnedLocation = pin;
       }
+      notifyListeners();
     } catch (e) {
       log('Error fetching pins: $e');
     }
   }
+
+  
+  void showAllMarkersWithTags() async {
+    
+    try {
+      final filteredPins = List<PinnedLocation>.empty(growable: true);
+
+      if(totalFilters==0){
+        filteredPins.addAll(pins);
+      }else{
+      for(final pin in pins){
+        if(tagTabSelections.where((e) => pin.tags.contains(e)).isNotEmpty){
+          filteredPins.add(pin);
+        }
+      }}
+      allMarkers.clear();
+      rebuildUi();
+
+      for (PinnedLocation pin in filteredPins) {
+        addMarkers(pin.id! ,
+            LatLng(pin.location.latitude, pin.location.longitude));
+        pinnedLocation = pin;
+        
+      }
+      notifyListeners();
+      rebuildUi();
+    } catch (e) {
+      log('Error fetching pins with tags: $e');
+    }
+   
+  }
+
+
+  void handleTagSelection(String tabSelection) {
+    if (tagTabSelections.contains(tabSelection)) {
+      tagTabSelections.remove(tabSelection);
+    } else {
+      tagTabSelections.add(tabSelection);
+    }
+    totalFilters = tagTabSelections.length;
+    notifyListeners();
+    rebuildUi();
+  }
+
+  void handleTabSelection(String tabSelection) {
+    if (selectedTabSelections.contains(tabSelection)) {
+      selectedTabSelections.remove(tabSelection);
+    } else {
+      selectedTabSelections.add(tabSelection);
+    }
+    notifyListeners();
+    rebuildUi();
+  }
+
+  clearTags() {
+    totalFilters = 0;
+    tagTabSelections.clear();
+    notifyListeners();
+    rebuildUi();
+  }
+
+    Marker createMarkerwithTags(String markerId, LatLng location,
+      [bool isSelected = false]) {
+    var marker = Marker(
+      markerId: MarkerId(markerId),
+      draggable: true,
+      position: location,
+      infoWindow: InfoWindow(
+        title: location.latitude.toString(),
+      ),
+      onTap: () async {
+        final place = await getCityCountry(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude);
+
+        List<PinnedLocation> pins =
+            await _navigationpinService.getPinsUsingTags(LatLng(currentPosition!.latitude, currentPosition!.longitude),tagTabSelections);
+      
+        for (PinnedLocation pinInList in pins) {
+          if (pinInList.location.latitude == location.latitude &&
+              pinInList.location.longitude == location.longitude) {
+            final newMarker = createMarker(markerId, location, true);
+            allMarkers[markerId] = newMarker;
+
+            pinnedLocation = pinInList;
+            _dialogService.showCustomDialog(
+              variant: DialogType.pindropDialoguebox,
+              title: place,
+              data: pinnedLocation,
+            );
+
+            notifyListeners();
+            rebuildUi();
+          }
+        }
+      },
+      icon: locator<BitmapImageService>().getIcon(isSelected),
+    );
+    log("logging the value: ${isClicked.toString()}");
+    
+    return marker;
+  }
+
+
+ 
 }

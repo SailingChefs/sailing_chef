@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -30,10 +32,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
-
-
-
-
     bool isRecipeSaved = false;
     for (SavedRecipeModel savedRecipe in savedRecipeList) {
       if (savedRecipe.recipeId == recipeId) {
@@ -41,6 +39,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
         break;
       }
     }
+    log('foodimagePath : $foodImagePath');
 
     return GestureDetector(
         onTap: onTap,
@@ -68,11 +67,11 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       topLeft: Radius.circular(15.0.r),
                       topRight: Radius.circular(15.0.r),
                     ),
-                    child: Image.network(
+                    child: foodImagePath.isNotEmpty ? Image.network(
                       foodImagePath,
                       width: double.infinity,
                       fit: BoxFit.cover,
-                    ),
+                    ):Center(child: Text('No image' , style: globalTextStyle(color: Colors.black, fontSize: 15),)),
                   ),
                 ),
                 verticalSpaceTiny,
@@ -103,18 +102,14 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     shape: BoxShape.circle,
                     color: kcBlackColor.withOpacity(0.5),
                   ),
-
                   child: isRecipeSaved
                       ? Icon(
                           Icons.bookmark,
-
                           size: 18.dg,
                           color: kcWhiteColor,
                         )
                       : Icon(
-
                           Icons.bookmark_outline,
-
                           size: 18.dg,
                           color: kcWhiteColor,
                         ),

@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'dart:io';
 
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,12 +17,12 @@ class RecipeViewViewModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   late final PlayerController playerController;
   late VideoPlayerController controller;
-  final _navigationService = locator<NavigationService>();
+  final navigationService = locator<NavigationService>();
   final _recipeService = locator<RecipeService>();
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
-
+  bool isclicked = false;
 
   Timer? _timer;
   List<double>? waveFormData;
@@ -32,6 +31,7 @@ class RecipeViewViewModel extends BaseViewModel {
   RecipeViewViewModel({this.waveFormData, this.path});
 
   void onViewModelReady() async {
+    isclicked = false;
     setBusy(true);
     playerController = PlayerController();
     log("WaveForm=> $waveFormData \n Path=> $path");
@@ -61,41 +61,36 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void moveBack() {
-    _navigationService.back();
+    navigationService.back();
   }
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
-    log(recipe.docId.toString());
-    List<String> imageUrls =await _recipeService.uploadMediaToFirebase(selectedImages,recipe.docId);
-
+    List<String> imageUrls =
+        await _recipeService.uploadMediaToFirebase(selectedImages, recipe.docId);
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
-
-
-    final check = await _recipeService.addRecipeToFirestore(RecipeModel(
-      visibility: recipe.visibility,
-      chefNote: chefNote,
-      coverImage: imageUrls,
-      createdTime: Timestamp.now(),
-      ingredients: recipe.ingredients,
-      methods: recipe.methods,
-      prepTime: recipe.prepTime,
-      servingSize: recipe.servingSize,
-      status: 'published',
-      title: recipe.title,
-      uid: recipe.uid,
-
-
-      waveForm: waveFormData!,
-
-      docId: recipe.docId,
-
-    ));
-    if (check) {
-      _navigationService.replaceWithRecipeListPageView(
-          isFromProfileView: false);
-    } else {
+    try {
+      await _recipeService
+          .addRecipeToFirestore(RecipeModel(
+            visibility: recipe.visibility,
+            chefNote: chefNote,
+            coverImage: imageUrls,
+            createdTime: Timestamp.now(),
+            ingredients: recipe.ingredients,
+            methods: recipe.methods,
+            prepTime: recipe.prepTime,
+            servingSize: recipe.servingSize,
+            status: 'published',
+            title: recipe.title,
+            uid: recipe.uid,
+            docId: '',
+            waveForm: waveFormData!,
+          ))
+          .then((value) => navigationService.replaceWithRecipeListPageView(
+              isFromProfileView: false));
+    } catch (e) {
       showToast(message: 'Something went wrong');
+      log(e.toString());
     }
   }
 
@@ -135,12 +130,12 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void startAutoScroll(int length) {
-    const duration = Duration(seconds: 3); 
+    const duration = Duration(seconds: 3);
     _timer = Timer.periodic(duration, (Timer timer) {
       if (pageController.hasClients) {
         int nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
-          nextPage = 0; 
+          nextPage = 0;
         }
         pageController.animateToPage(
           nextPage,
@@ -178,7 +173,7 @@ class RecipeViewViewModel extends BaseViewModel {
     if (pageController.hasClients) {
       int previousPage = pageController.page!.toInt() - 1;
       if (previousPage < 0) {
-        previousPage = length - 1; // Loop to last image
+        previousPage = length - 1;
       }
       pageController.animateToPage(
         previousPage,

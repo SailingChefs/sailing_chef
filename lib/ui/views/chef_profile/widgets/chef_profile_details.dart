@@ -10,13 +10,12 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return FittedBox(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.showRecipeList();
-            },
+            onTap: viewModel.showRecipeList,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -37,16 +36,15 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               ],
             ),
           ),
-          horizontalSpaceMedium,
+          horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.goToFollowingList('Hafsa Mehmood');
-            },
+            onTap:() => viewModel.goToFollowingList(user),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  viewModel.followers.length.toString(),
+                 viewModel.followers.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -63,16 +61,15 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
               ],
             ),
           ),
-          horizontalSpaceMedium,
+          horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.goToFollowingList('Hafsa Mehmood');
-            },
+            onTap:() => viewModel.goToFollowingList,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  user.following!.length.toString(),
+                 user.following!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

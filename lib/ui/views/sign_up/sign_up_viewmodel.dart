@@ -22,7 +22,9 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   TextEditingController get textController => _nameController;
+
   TextEditingController get passwordController => _passwordController;
+
   TextEditingController get emailController => _emailController;
 
   final _navigationService = locator<NavigationService>();
@@ -81,9 +83,11 @@ class SignUpViewModel extends BaseViewModel {
             link: '',
             phoneNumber: '',
             savedRecipes: [],
+            blockedAccounts: [],
           ));
       if (userRegistered) {
-        _navigationService.replaceWithUserDetailsView();
+        _navigationService.replaceWithUserDetailsView(
+            userRole: selectedSignUpAs);
       } else {
         _navigationService.replaceWithSignUpView();
       }
@@ -118,7 +122,6 @@ class SignUpViewModel extends BaseViewModel {
       default:
         break;
     }
-
     rebuildUi();
   }
 }

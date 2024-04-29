@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 
@@ -17,24 +16,23 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
         children: [
           GestureDetector(
             onTap: () {
-              viewModel.updateFollowing();
               viewModel.updateFollower();
-              log('following');
             },
             child: Container(
               width: 170,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: viewModel.isFollowing == true
+                    color: viewModel.isFollower == true
                         ? Colors.black
                         : Colors.transparent,
                     width: 1.0,
                   ),
                 ),
               ),
-              child:  Padding(
-                padding:const EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
                 child: Text(
                   '${viewModel.followers.length} Followers',
                   style: globalTextStyle(
@@ -49,23 +47,22 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
           GestureDetector(
             onTap: () {
               viewModel.updateFollowing();
-              viewModel.updateFollower();
-              log('Followers');
             },
             child: Container(
               width: 170,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: viewModel.isFollowing == false
+                    color: viewModel.isFollowing == true
                         ? Colors.black
                         : Colors.transparent,
                     width: 1.0,
                   ),
                 ),
               ),
-              child:  Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                 child: Text(
                   '${viewModel.following.length} Following',
                   style: globalTextStyle(

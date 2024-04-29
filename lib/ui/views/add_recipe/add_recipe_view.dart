@@ -1,7 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_form.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'add_recipe_viewmodel.dart';
 
@@ -22,9 +21,6 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
               resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).colorScheme.background,
               appBar: AppBar(
-                leading: BackArrowWidget(
-                  onTap: viewModel.popBack,
-                ),
                 title: Text(
                   'Create Recipe',
                   style: globalTextStyle(

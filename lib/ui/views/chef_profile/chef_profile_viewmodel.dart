@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -10,6 +11,7 @@ import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
 
@@ -19,12 +21,15 @@ class ChefProfileViewModel extends ReactiveViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
   List<RecipeModel>? chefRecipes;
+
   List<String> get followers => _followService.followers;
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   bool isFollowing = false;
 
@@ -48,11 +53,18 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
-    await _followService.init(user.uid!,false);
+    await _followService.init(user.uid!, false);
+    await _followService.init(user.uid!, false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
     await _savedRecipeService.init();
     setBusy(false);
   }
+   void showBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.otherChefProfile,
+    );
+
+   }
 
   void onFollow(UserModel user) async {
     bool check = await _followService.addFollower(user);
@@ -61,15 +73,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
     }
   }
 
-  void goToFollowingList(String name) {
-    _navigationService.navigateTo(Routes.followingListView,
-        arguments: const FollowingListView());
+  void goToFollowingList(UserModel user) {
+    _navigationService.navigateToFollowingListView(user: user);
   }
 
   getUserLocation(UserModel user) async {
     log(user.displayName.toString());
     if (user.location == null) {
-      // ignore: prefer_const_constructors
       return placemarks = null;
     }
     placemarks = await placemarkFromCoordinates(
@@ -98,8 +108,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
         receiver: chef, conversationId: conversationId);
   }
 
-  void toSettings() {
-    _navigationService.navigateToSettingsView();
+  void toSettings(bool isCurrentUser, String uid) {
+    _navigationService.navigateToSettingsView(
+        isCurrentUser: isCurrentUser, uid: uid);
   }
 
   void moveBack() {
@@ -132,4 +143,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
       isFromProfileView: true,
     );
   }
+   Future<void> onClickUrl(String url) async {
+    Uri uri = Uri.parse("https://$url");
+    // if (await canLaunchUrlString(url)) {
+    //   launchUrlString(url, );
+    // }
+    await launchUrl(uri);
+  }
+
 }

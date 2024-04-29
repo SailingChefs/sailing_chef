@@ -10,13 +10,11 @@ class GridTileModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
 
-
   void onBookmarkTap(String recipeId) {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
       recipeId: recipeId,
       userId: userDetails!.uid!,
     ));
     notifyListeners();
-
   }
 }

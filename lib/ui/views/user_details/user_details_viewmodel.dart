@@ -13,6 +13,8 @@ import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
+  final String userrole;
+  UserDetailsViewModel(this.userrole);
   final _navigationService = locator<NavigationService>();
   GlobalObjectKey<FormState> formKey = GlobalObjectKey<FormState>(UniqueKey());
   final _userService = locator<UserServices>();
@@ -28,6 +30,7 @@ class UserDetailsViewModel extends BaseViewModel {
   File? selectedImageFile;
   String? selectedImagePath;
   List<Placemark>? placemarks;
+
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -127,9 +130,11 @@ class UserDetailsViewModel extends BaseViewModel {
         showToast(message: 'Please select image to proceed');
         return;
       }
-      if (locationController.text.isEmpty) {
-        showToast(message: 'Please select your location to proceed');
-        return;
+      if (userrole == 'chef' || userrole == 'culinarySchool') {
+        if (locationController.text.isEmpty) {
+          showToast(message: 'Please select your location to proceed');
+          return;
+        }
       }
 
       final imageLink = await _userService.uploadImage(
@@ -157,7 +162,7 @@ class UserDetailsViewModel extends BaseViewModel {
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
-        _navigationService.replaceWithUserDetailsView();
+        _navigationService.replaceWithUserDetailsView(userRole: userrole);
       }
     } else {
       showToast(message: 'Please fill all the fields');

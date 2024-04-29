@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/searchbar.dart';
 
 class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
   const SearchBarPinDrop({super.key});
@@ -11,7 +14,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              // viewModel.goToSearchView();
+              showSearch(context: context, delegate: PinsSearchDelegate());
             },
             child: Container(
               padding:
@@ -43,13 +46,30 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
           ),
         ),
         horizontalSpaceSmall,
-        IconButton(
-          onPressed: () {
-            viewModel.goToFilterView();
-          },
-          icon: const Icon(FlutterRemix.equalizer_line),
-          color: kcPrimaryColor,
-          iconSize: 30.dg,
+        Stack(
+          children: [
+           
+            IconButton(
+              onPressed: () {
+                viewModel.tagsIconSelected();
+              },
+              icon: const Icon(FlutterRemix.equalizer_line),
+              color: kcPrimaryColor,
+              iconSize: 30.dg,
+            ),
+             Positioned(
+              top: 0,
+              left: 25,
+              child: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: const BoxDecoration(
+                  color: kclightgreencolor,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(viewModel.totalFilters.toString(),style: globalTextStyle(fontSize: 12.sp,color: kcwhitecolor),),
+              ),
+            ),
+          ],
         ),
       ],
     );

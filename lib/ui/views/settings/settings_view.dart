@@ -7,7 +7,10 @@ import 'package:stacked/stacked.dart';
 import 'settings_viewmodel.dart';
 
 class SettingsView extends StackedView<SettingsViewModel> {
-  const SettingsView({Key? key}) : super(key: key);
+  bool? isCurrentUser;
+  String? uid;
+
+  SettingsView({Key? key, this.isCurrentUser, this.uid}) : super(key: key);
 
   @override
   Widget builder(
@@ -15,13 +18,16 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         body: Column(
           children: [
-            TopBarSettingsScreen(title: 'Settings'),
-            SettingsListSettingsScreen(),
+            const TopBarSettingsScreen(title: 'Settings'),
+            SettingsListSettingsScreen(
+              isCurrentUser: isCurrentUser ?? true,
+              uid: uid ?? "",
+            ),
           ],
         ),
       ),

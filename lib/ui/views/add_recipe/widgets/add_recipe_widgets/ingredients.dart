@@ -28,7 +28,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
             ),
           ],
         ),
-        verticalSpaceTiny,
+        verticalSpaceSmall,
         viewModel.ingredientsList.isNotEmpty
             ? SingleChildScrollView(
                 child: ListView.builder(

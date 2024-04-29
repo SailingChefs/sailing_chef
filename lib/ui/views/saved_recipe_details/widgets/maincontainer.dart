@@ -21,9 +21,11 @@ class MainRecipeViewContainer
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+        ),
         Container(
-         height: MediaQuery.of(context).size.height * 0.7,
+          height: MediaQuery.of(context).size.height * 0.7,
           decoration: BoxDecoration(
             color: kcwhitecolor,
             borderRadius: BorderRadius.only(

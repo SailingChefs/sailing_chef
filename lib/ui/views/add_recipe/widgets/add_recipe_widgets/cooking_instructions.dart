@@ -28,7 +28,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
             ),
           ],
         ),
-        verticalSpaceTiny,
+        verticalSpaceSmall,
         viewModel.methodsList.isNotEmpty
             ? ListView.builder(
                 shrinkWrap: true,
@@ -36,38 +36,29 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                 itemBuilder: (context, index) {
                   final instruction = viewModel.methodsList[index];
                   return Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Step ${index + 1}',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: kcDarkColor.withOpacity(0.4)),
-                        ),
-                        verticalSpaceTiny,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Flexible(
-                              child: Container(
-                                // height: 100.h,
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                  color: kcVeryLightGrey.withOpacity(0.2),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(30)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Text(
-                                    instruction,
-                                    style: globalTextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff2E3E5C)),
-                                  ),
+                            Container(
+                              // height: 100.h,
+                              width: MediaQuery.sizeOf(context).width * 0.69,
+                              decoration: BoxDecoration(
+                                color: kcVeryLightGrey.withOpacity(0.2),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(30)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  instruction,
+                                  style: globalTextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: kcBlackColor.withOpacity(0.5)),
                                 ),
                               ),
                             ),
@@ -76,7 +67,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                                 viewModel.deleteMethod(index);
                               },
                               icon: const Icon(
-                                FlutterRemix.delete_bin_6_line,
+                                Icons.delete_outline,
                               ),
                             ),
                           ],

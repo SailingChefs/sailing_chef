@@ -1,39 +1,49 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/message_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 
 class ChatMessage extends ViewModelWidget<ChatViewModel> {
   final MessageModel message;
-  const ChatMessage(this.message, {Key? key}) : super(key: key);
+  final UserModel user;
+
+  const ChatMessage(this.message, {Key? key, required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
-    final isCurrentUser = message.senderId == userDetails!.uid;
+    final isCurrentUser =
+        message.senderId == FirebaseAuth.instance.currentUser!.uid;
+    log(isCurrentUser.toString());
     final messageIndex = viewModel.messages.indexOf(message);
     final nextMessageIsDifferentUser =
         messageIndex + 1 < viewModel.messages.length &&
             viewModel.messages[messageIndex + 1].senderId == message.senderId;
-
+    log("Next log=> \n ${nextMessageIsDifferentUser.toString()}");
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
       child: Row(
         mainAxisAlignment:
             isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          if (!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
-            const SizedBox(width: 3.0),
-          if (!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
+          // if (!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
+          //   const SizedBox(width: 3.0),
+          if (!isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
             CircleAvatar(
               radius: 20.0,
-              backgroundImage: userDetails!.displayPicture!.isNotEmpty
-                  ? NetworkImage(userDetails!.displayPicture!)
+              backgroundImage: user.displayPicture!.isNotEmpty
+                  ? NetworkImage(user.displayPicture!)
                   : null,
-              child: userDetails!.displayPicture!.isNotEmpty
+              child: user.displayPicture!.isNotEmpty
                   ? null
                   : const Icon(Icons.person),
             ),
+
           horizontalSpaceSmall,
           Container(
             constraints: BoxConstraints(
@@ -85,6 +95,21 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
               ],
             ),
           ),
+          horizontalSpaceSmall,
+          if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
+            const SizedBox(width: 3.0),
+          if (isCurrentUser &&
+              messageIndex > 0 &&
+              !nextMessageIsDifferentUser) // Render image for current user
+            CircleAvatar(
+              radius: 20.0,
+              backgroundImage: userDetails!.displayPicture!.isNotEmpty
+                  ? NetworkImage(userDetails!.displayPicture!)
+                  : null,
+              child: userDetails!.displayPicture!.isNotEmpty
+                  ? null
+                  : const Icon(Icons.person),
+            ),
         ],
       ),
     );

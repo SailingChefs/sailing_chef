@@ -6,6 +6,7 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 // import 'package:just_audio/just_audio.dart';
 // import 'package:just_audio_cache/just_audio_cache.dart';
@@ -39,17 +40,12 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final TextEditingController commentController = TextEditingController();
   bool isMethodsSelected = false;
   final PageController pageController = PageController();
-  Timer? _timer;
   final ImagePicker _picker = ImagePicker();
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
   late final PlayerController playerController;
   late List<double>? waveFormData;
-
-  // late final AudioPlayer player;
-
-  // late String? path;
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -82,9 +78,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     images.removeAt(index);
     rebuildUi();
   }
-
-
-
 
   void addRating(double rating) {
     this.rating = rating;
@@ -164,19 +157,21 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    Reference audioRef =
-        FirebaseStorage.instance.ref().child(recipeModel.chefNote);
+    final response = await http.get(Uri.parse(recipeModel.chefNote));
     File audioFile = File("$tempPath/audio.mpeg4");
-    log("I was here ..........");
-    await playerController.preparePlayer(
-      path: audioFile.path,
-      volume: 100,
-    );
-    await audioRef.writeToFile(audioFile);
-
+    if (response.statusCode == 200) {
+      await audioFile.writeAsBytes(response.bodyBytes);
+      log("Download Complete");
+      await playerController.preparePlayer(
+        path: audioFile.path,
+        volume: 100,
+      );
+      log("Player Ready");
+    }
   }
 
   void startListening() async {
+    log("Start Listening");
     await playerController.startPlayer(finishMode: FinishMode.pause);
   }
 
@@ -197,7 +192,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     //   url: recipeModel.chefNote,
     // );
     // log((player.cacheFile(url: recipeModel.chefNote)).toString());
-    recipeList = await recipeService.fetchRandomRecipes(5);
+    recipeList = await recipeService.fetchRandomRecipes(5,recipeId);
 
     setBusy(false);
   }
