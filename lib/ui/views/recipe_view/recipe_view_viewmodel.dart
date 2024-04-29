@@ -24,8 +24,6 @@ class RecipeViewViewModel extends BaseViewModel {
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
 
-  late final PlayerController playerController;
-  final PageController pageController = PageController();
 
   Timer? _timer;
   List<double>? waveFormData;

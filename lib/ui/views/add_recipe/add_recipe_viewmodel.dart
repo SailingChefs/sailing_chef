@@ -292,7 +292,7 @@ class AddRecipeViewModel extends BaseViewModel {
           servingSize: selectedQuantity,
           status: 'published',
           title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid, docId: '',
+          uid: firebaseAuth.currentUser!.uid, docId: '', waveForm: waveFormData!,
         ));
 
         _navigationService.navigateToRecipeViewView(
@@ -413,7 +413,7 @@ class AddRecipeViewModel extends BaseViewModel {
         status: 'draft',
         title: titleController.text.trim(),
         uid: firebaseAuth.currentUser!.uid,
-        docId: '',
+        docId: '', waveForm: waveFormData!,
       ),
       selectedImages: selectedImages);
   }

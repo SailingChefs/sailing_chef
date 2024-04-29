@@ -52,15 +52,8 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BottomNavBarViewModel());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => SavedRecipeService());
-
   locator.registerLazySingleton(() => PinDropService());
-
-
   locator.registerLazySingleton(() => BitmapImageService());
-  locator.registerLazySingleton(() => PinDropService());
-
   locator.registerLazySingleton(() => FollowService());
   locator.registerLazySingleton(() => SearchService());
-
-
 }
