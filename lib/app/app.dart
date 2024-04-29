@@ -3,7 +3,6 @@ import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
-import 'package:sailing_chefs/services/pin_drop_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/search_service.dart';

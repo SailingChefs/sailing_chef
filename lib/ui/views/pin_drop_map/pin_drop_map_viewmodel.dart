@@ -9,9 +9,10 @@ import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 
-class PinDropMapViewModel extends BaseViewModel {
+class PinDropMapViewModel extends ReactiveViewModel {
   GoogleMapController? controllermap;
-  Map<String, Marker> markers = {};
+  Map<String, Marker> allMarkers = {};
+  Map<String, Marker> filteredMarkers = {};
   final bottomSheetService = locator<BottomSheetService>();
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -20,7 +21,23 @@ class PinDropMapViewModel extends BaseViewModel {
   Position? currentPosition;
   bool isClicked = false;
   late PinnedLocation pinnedLocation;
+  List<String> selectedTabSelections = [];
+  List<bool> selections = [];
+  final pins = List<PinnedLocation>.empty(growable: true);
 
+
+  List<String> tagTabSelections = [];
+
+  int totalFilters = 0;
+
+
+Map<String,Marker> get markers{
+  if(totalFilters==0)return allMarkers;
+  return filteredMarkers;
+}
+
+@override
+  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
   Future<Position> getCurrentLocation() async {
     try {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -48,7 +65,7 @@ class PinDropMapViewModel extends BaseViewModel {
 
   bool isSelected = true;
 
-  void TagsIconSelected(){
+  void tagsIconSelected(){
     isSelected = !isSelected;
     log(isSelected.toString());
     notifyListeners();
@@ -93,7 +110,7 @@ class PinDropMapViewModel extends BaseViewModel {
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
             final newMarker = createMarker(markerId, location, true);
-            markers[markerId] = newMarker;
+            allMarkers[markerId] = newMarker;
 
             pinnedLocation = pinInList;
             _dialogService.showCustomDialog(
@@ -115,7 +132,7 @@ class PinDropMapViewModel extends BaseViewModel {
   }
 
   void addMarkers(String markerId, LatLng location) {
-    markers[markerId] = createMarker(markerId, location);
+    allMarkers[markerId] = createMarker(markerId, location);
   }
 
 
@@ -127,10 +144,12 @@ class PinDropMapViewModel extends BaseViewModel {
 
   void showAllMarkers(String id) async {
     try {
-      List<PinnedLocation> pins =
+      List<PinnedLocation> newPins =
           await _navigationpinService.getPinsNearUserLocation(
         LatLng(currentPosition!.latitude, currentPosition!.longitude),
       );
+
+      pins.addAll(newPins);
 
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
@@ -143,12 +162,37 @@ class PinDropMapViewModel extends BaseViewModel {
     }
   }
 
-  List<String> selectedTabSelections = [];
-  List<bool> selections = [];
+  
+  void showAllMarkersWithTags() async {
+    
+    try {
+      final filteredPins = List<PinnedLocation>.empty(growable: true);
 
-  List<String> tagTabSelections = [];
+      if(totalFilters==0){
+        filteredPins.addAll(pins);
+      }else{
+      for(final pin in pins){
+        if(tagTabSelections.where((e) => pin.tags.contains(e)).isNotEmpty){
+          filteredPins.add(pin);
+        }
+      }}
+      allMarkers.clear();
+      rebuildUi();
 
-  int totalFilters=0;
+      for (PinnedLocation pin in filteredPins) {
+        addMarkers(pin.id! ,
+            LatLng(pin.location.latitude, pin.location.longitude));
+        pinnedLocation = pin;
+        
+      }
+      notifyListeners();
+      rebuildUi();
+    } catch (e) {
+      log('Error fetching pins with tags: $e');
+    }
+   
+  }
+
 
   void handleTagSelection(String tabSelection) {
     if (tagTabSelections.contains(tabSelection)) {
@@ -198,7 +242,7 @@ class PinDropMapViewModel extends BaseViewModel {
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
             final newMarker = createMarker(markerId, location, true);
-            markers[markerId] = newMarker;
+            allMarkers[markerId] = newMarker;
 
             pinnedLocation = pinInList;
             _dialogService.showCustomDialog(
