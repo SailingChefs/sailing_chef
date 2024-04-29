@@ -8,7 +8,8 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return SizedBox(
+    return viewModel.recipeList.isEmpty ? Container() :
+     SizedBox(
         // width: screenWidth(context),
         height: screenHeight(context) * 0.32,
         child: ListView.builder(

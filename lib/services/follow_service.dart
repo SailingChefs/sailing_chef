@@ -12,14 +12,14 @@ class FollowService with ListenableServiceMixin {
   final UserServices _userServices = UserServices();
   List<String> followers = [];
   List<String> following = [];
-  Future<void> init(String uid, bool fetch) async {
+  Future<void> init(String uid,  bool fetch) async {
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
-    if (fetch == true) {
+    if  (fetch == true)  {
       usersFollowers.clear();
       usersFollowing.clear();
-      _getFollowUserDetails();
-      _getFollowingUserDetails();
+      await _getFollowUserDetails();
+      await _getFollowingUserDetails();
     }
     notifyListeners();
   }
@@ -28,7 +28,7 @@ class FollowService with ListenableServiceMixin {
   List<UserModel> usersFollowing = [];
 
   Future<void> _getFollowUserDetails() async {
-    for (var follower in followers) {
+    for  (var follower in followers)  {
       usersFollowers.add(await _userServices.fetchUserByUID(follower));
     }
     log('followerslength: ${usersFollowers.length}');
@@ -36,10 +36,10 @@ class FollowService with ListenableServiceMixin {
   }
 
   Future<void> _getFollowingUserDetails() async {
-    for (var following in following) {
+    for  (var following in following)  {
       usersFollowing.add(await _userServices.fetchUserByUID(following));
     }
-    log('followinglength: ${usersFollowing.length}');
+
     notifyListeners();
   }
 
@@ -56,7 +56,6 @@ class FollowService with ListenableServiceMixin {
       following.add(user.uid!);
       notifyListeners();
       EasyLoading.dismiss();
-      log('followed');
       return true;
     } catch (e) {
       log(e.toString());
@@ -102,9 +101,7 @@ class FollowService with ListenableServiceMixin {
     }
   }
 
-  void _removeFollower(UserModel user) async {
-    followers
-        .removeWhere((element) => element == firebaseAuth.currentUser!.uid);
+  Future<void> _removeFollower(UserModel user) async {
     try {
       await firebasestore.collection('users').doc(user.uid).update({
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
@@ -115,12 +112,55 @@ class FollowService with ListenableServiceMixin {
           .update({
         'following': FieldValue.arrayRemove([user.uid]),
       });
+      followers
+          .removeWhere((element) => element == firebaseAuth.currentUser!.uid);
+      log('deleted');
       following
           .removeWhere((element) => element == firebaseAuth.currentUser!.uid);
       log('removed');
       notifyListeners();
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<void> deleteFollower(UserModel user) async {
+    try {
+      await firebasestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
+        'followers': FieldValue.arrayRemove([user.uid]),
+      });
+      await firebasestore.collection('users').doc(user.uid).update({
+        'following': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
+      });
+      followers.removeWhere((element) => element == user.uid);
+      log('deleted');
+      notifyListeners();
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> removeFollowing(UserModel user) async {
+    try {
+      EasyLoading.show();
+      await firebasestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
+        'following': FieldValue.arrayRemove([user.uid]),
+      });
+      await firebasestore.collection('users').doc(user.uid).update({
+        'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
+      });
+      following.removeWhere((element) => element == user.uid);
+      EasyLoading.dismiss();
+      notifyListeners();
+    } catch (e) {
+      log(e.toString());
+        notifyListeners();
     }
   }
 }

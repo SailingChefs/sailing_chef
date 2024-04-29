@@ -10,9 +10,9 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () {
-            viewModel.moveBack();
-          },
+          onTap: 
+            viewModel.moveBack,
+          
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 8.0.dg),
@@ -30,7 +30,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel> {
           ),
         ),
         GestureDetector(
-          onTap: () => viewModel.toSettings(),
+          onTap: viewModel.showBottomSheet,
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 2.0.dg),

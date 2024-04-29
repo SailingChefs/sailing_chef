@@ -15,7 +15,10 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
               itemCount: viewModel.followingUsers.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  leading: CircleAvatar(
+                  onTap: () {
+              viewModel.toUserDetails(viewModel.followingUsers[index]);
+            },
+            leading: CircleAvatar(
                     backgroundImage: NetworkImage(
                       viewModel.followingUsers[index].displayPicture!,
                     ),
@@ -32,9 +35,13 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(kcPrimaryColor),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                  
+                  viewModel.onFollowTap(viewModel.followingUsers[index]);
+                },
                       child: Text(
-                        'Following',
+                        viewModel.followingUsers.contains(viewModel.followingUsers[index]) ? 'Following' :
+                  'Follow',
                         style: TextStyle(
                             color: kcwhitecolor,
                             fontSize: 14.sp,

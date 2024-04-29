@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -19,6 +20,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
@@ -53,6 +55,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _savedRecipeService.init();
     setBusy(false);
   }
+   void showBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.otherChefProfile,
+    );
+
+   }
 
   void onFollow(UserModel user) async {
     bool check = await _followService.addFollower(user);
@@ -61,15 +69,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
     }
   }
 
-  void goToFollowingList(String name) {
-    _navigationService.navigateTo(Routes.followingListView,
-        arguments: const FollowingListView());
+  void goToFollowingList(UserModel user) {
+    _navigationService.navigateToFollowingListView(user: user);
   }
 
   getUserLocation(UserModel user) async {
     log(user.displayName.toString());
     if (user.location == null) {
-      // ignore: prefer_const_constructors
       return placemarks = null;
     }
     placemarks = await placemarkFromCoordinates(
@@ -98,9 +104,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
         receiver: chef, conversationId: conversationId);
   }
 
-  void toSettings() {
-    _navigationService.navigateToSettingsView();
-  }
+
 
   void moveBack() {
     _navigationService.back();

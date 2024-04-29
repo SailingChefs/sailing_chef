@@ -1,9 +1,8 @@
 import 'package:sailing_chefs/services/auth_service.dart';
 
-import 'package:sailing_chefs/services/pin_drop_service.dart';
+
 
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
-import 'package:sailing_chefs/services/pin_drop_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/search_service.dart';
@@ -44,7 +43,6 @@ import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
-import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
@@ -105,12 +103,12 @@ import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.da
     LazySingleton(classType: LocationService),
     LazySingleton(classType: ConversationService),
     LazySingleton(classType: ChefService),
-    LazySingleton(classType: DishesService),
+  
     LazySingleton(classType: UserdataServiceService),
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),
     LazySingleton(classType: SavedRecipeService),
-    LazySingleton(classType: PinDropService),
+
     LazySingleton(classType: BitmapImageService),
     LazySingleton(classType: FollowService),
     LazySingleton(classType: SearchService),

@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';

@@ -8,7 +8,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     final savedRecipes = viewModel.savedRecipes;
-    return Expanded(
+    return savedRecipes.isEmpty ? const Center(child: Text('No saved recipes')) : Expanded(
       flex: 1,
       child: GridView.builder(
         itemCount: savedRecipes.length,

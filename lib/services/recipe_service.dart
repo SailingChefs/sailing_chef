@@ -46,6 +46,7 @@ class RecipeService {
     Reference storageReference =
         FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
     UploadTask uploadTask = storageReference.putFile(file);
+    // ignore: avoid_print
     await uploadTask.whenComplete(() => print('File Uploaded'));
     return await storageReference.getDownloadURL();
   }
@@ -151,34 +152,36 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
-    try {
-      EasyLoading.show();
+  try {
+    EasyLoading.show();
 
-      QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('uid', isNotEqualTo: '123456')
-          .get();
+    QuerySnapshot snapshot = await firebasestore
+        .collection('recipes')
+        .where('uid', isNotEqualTo: '123456')
+        .where('visibility', isEqualTo: 'Public' )
+        .where('status', isEqualTo: 'published' )
+        .get();
 
-      List<RecipeModel> recipes = [];
-      for (var doc in snapshot.docs) {
-        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+    List<RecipeModel> recipes = [];
+    for (var doc in snapshot.docs) {
+      RecipeModel recipe = RecipeModel.fromSnapshot(doc);
 
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
-        recipes.add(recipe);
-      }
-
-      EasyLoading.dismiss();
-
-      return recipes;
-    } catch (e) {
-      EasyLoading.dismiss();
-      log("Error fetching recipes: $e");
-      return [];
+      UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+      recipe.user = user;
+      recipes.add(recipe);
     }
-  }
 
-  Future<List<RecipeModel>> fetchRandomRecipes(int count) async {
+    EasyLoading.dismiss();
+
+    return recipes;
+  } catch (e) {
+    EasyLoading.dismiss();
+    log("Error fetching recipes: $e");
+    return [];
+  }
+}
+
+  Future<List<RecipeModel>> fetchRandomRecipes(int count,String currentRecipeId) async {
     try {
       EasyLoading.show();
 
@@ -186,7 +189,10 @@ class RecipeService {
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
           .where('uid', isNotEqualTo: '123456')
-          .limit(10) // Adjust number based on expected collection size
+           .where('visibility', isEqualTo: 'Public' )
+            .where('status', isEqualTo: 'published' )
+            .where('recipeId', isNotEqualTo: currentRecipeId)
+          .limit(10) 
           .get();
 
       List<RecipeModel> allRecipes = [];

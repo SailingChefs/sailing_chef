@@ -361,8 +361,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i18.FollowingListView: (data) {
+      final args = data.getArgs<FollowingListViewArguments>(nullOk: false);
       return _i29.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i18.FollowingListView(),
+        builder: (context) =>
+            _i18.FollowingListView(key: args.key, user: args.user),
         settings: data,
       );
     },
@@ -529,6 +531,33 @@ class RecipeListPageViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ isFromProfileView.hashCode;
+  }
+}
+
+class FollowingListViewArguments {
+  const FollowingListViewArguments({
+    this.key,
+    required this.user,
+  });
+
+  final _i31.Key? key;
+
+  final _i30.UserModel user;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "user": "$user"}';
+  }
+
+  @override
+  bool operator ==(covariant FollowingListViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.user == user;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ user.hashCode;
   }
 }
 
@@ -922,14 +951,17 @@ extension NavigatorStateExtension on _i35.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToFollowingListView([
+  Future<dynamic> navigateToFollowingListView({
+    _i31.Key? key,
+    required _i30.UserModel user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.followingListView,
+        arguments: FollowingListViewArguments(key: key, user: user),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1338,14 +1370,17 @@ extension NavigatorStateExtension on _i35.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithFollowingListView([
+  Future<dynamic> replaceWithFollowingListView({
+    _i31.Key? key,
+    required _i30.UserModel user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.followingListView,
+        arguments: FollowingListViewArguments(key: key, user: user),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

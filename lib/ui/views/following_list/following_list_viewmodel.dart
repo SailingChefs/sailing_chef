@@ -1,3 +1,4 @@
+
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -17,9 +18,9 @@ class FollowingListViewModel extends BaseViewModel {
     _navigationloactor.back();
   }
 
-  void onViewModelReady() async {
+  void onViewModelReady(String userId) async {
     setBusy(true);
-    await _followService.init(userDetails!.uid!, true);
+    await _followService.init(userId, true);
     setBusy(false);
   }
 
@@ -30,15 +31,29 @@ class FollowingListViewModel extends BaseViewModel {
       }
     }
   }
+ 
+  void onFollowTap(UserModel user) async {
+   await _followService.removeFollowing(user);
+   rebuildUi();
+  }
+  void deleteFollower(UserModel user) async {
+    await _followService.deleteFollower(user);
+    rebuildUi();
+  }
+  void toUserDetails(UserModel user) {
+    _navigationloactor.navigateToChefProfileView(user: user);
+  }
 
   void updateFollowing() {
-    isFollowing = !isFollowing;
+    isFollowing = true;
+    isFollower = false;
     notifyListeners();
     rebuildUi();
   }
 
   void updateFollower() {
-    isFollower = !isFollower;
+    isFollower = true;
+    isFollowing = false;
     notifyListeners();
     rebuildUi();
   }

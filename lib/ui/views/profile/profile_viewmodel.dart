@@ -7,7 +7,6 @@ import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:geocoding/geocoding.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
@@ -23,6 +22,7 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isSavedSelected = false;
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   List<String> get followingList => _followService.following;
+  List<String> get followersList => _followService.followers;
 
   List<RecipeModel>? myRecipes;
 
@@ -66,9 +66,9 @@ class ProfileViewModel extends ReactiveViewModel {
         userDetails!.location!['longitude']);
   }
 
-  void goTogoToProfileEditView(String name) {
+  void goTogoToProfileEditView() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: const FollowingListView());
+        arguments:FollowingListViewArguments(user: userDetails!) );
   }
 
   // A function that navigates to the settings view.
@@ -92,7 +92,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
-
+  
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();

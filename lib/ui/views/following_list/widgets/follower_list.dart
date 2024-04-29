@@ -9,10 +9,19 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
     return viewModel.followers.isEmpty
         ? Text('No Followers')
         : Column(
-            children: [
-              Text(
-                'All Followers',
-              ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+              Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Text(
+                  'All Followers',
+                  style: globalTextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w500,
+              color: kcBlackColor,
+            )
+          ),
+        ),
               Container(
                 height: 500,
                 width: double.infinity,
@@ -20,15 +29,18 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                   itemCount: viewModel.followersUsers.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      leading: CircleAvatar(
+                      onTap: () {
+                  viewModel.toUserDetails(viewModel.followersUsers[index]);
+                },
+                leading: CircleAvatar(
                         backgroundImage: NetworkImage(
                           viewModel.followersUsers[index].displayPicture!,
                         ),
                       ),
                       title: Text(viewModel.followersUsers[index].displayName!),
                       trailing: SizedBox(
-                        width: 71,
-                        height: 34,
+                        width: 80.w,
+                        height: 34.h,
                         child: TextButton(
                           style: ButtonStyle(
                             shape:
@@ -38,9 +50,12 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 kcPrimaryColor),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                      print('Tapped');
+                      viewModel.deleteFollower(viewModel.followersUsers[index]);
+                    },
                           child: Text(
-                            'remove',
+                            'Remove',
                             style: TextStyle(
                                 color: kcwhitecolor,
                                 fontSize: 14.sp,
