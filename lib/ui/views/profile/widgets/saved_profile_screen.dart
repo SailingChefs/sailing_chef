@@ -28,7 +28,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
               foodImagePath: savedRecipes[index].recipeModel!.coverImage.first,
               dishName: savedRecipes[index].recipeModel!.title,
               duration: savedRecipes[index].recipeModel!.prepTime,
-              chefImagePath: 'https://picsum.photos/200');
+              chefImagePath: savedRecipes[index].recipeModel!.user!.displayPicture!);
         },
       ),
     );

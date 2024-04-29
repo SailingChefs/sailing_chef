@@ -7,10 +7,10 @@ import 'package:stacked/stacked.dart';
 import 'settings_viewmodel.dart';
 
 class SettingsView extends StackedView<SettingsViewModel> {
-  bool? isCurrentUser;
-  String? uid;
+  final bool? isCurrentUser;
+  final String? uid;
 
-  SettingsView({Key? key, this.isCurrentUser, this.uid}) : super(key: key);
+  const SettingsView({Key? key, this.isCurrentUser, this.uid}) : super(key: key);
 
   @override
   Widget builder(

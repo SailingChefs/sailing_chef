@@ -7,10 +7,12 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
-    return SizedBox(
+
+    return viewModel.savedRecipes.isEmpty ? const Center(child: Text('No Saved Recipe Found')) :
+    SizedBox(
       height: 500.h,
       child: GridView.builder(
-        itemCount: 10,
+        itemCount: viewModel.savedRecipes.length,
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -21,12 +23,12 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
         itemBuilder: (BuildContext context, int index) {
           return PrimaryGridTile(
               savedRecipeList: viewModel.savedRecipes,
-              recipeId: 'recipe id',
-              onTap: viewModel.toDishDetailsScreen,
-              foodImagePath: 'assets/images/background/onboarding.png',
-              dishName: "dish name",
-              duration: "30",
-              chefImagePath: 'assets/images/icons/chef.jpg');
+              recipeId: viewModel.savedRecipes[index].recipeId,
+              onTap:() => viewModel.toDishDetailsScreen(viewModel.savedRecipes[index].recipeModel!),
+              foodImagePath: viewModel.savedRecipes[index].recipeModel!.coverImage.first,
+              dishName: viewModel.savedRecipes[index].recipeModel!.title,
+              duration: viewModel.savedRecipes[index].recipeModel!.prepTime,
+              chefImagePath: viewModel.savedRecipes[index].recipeModel!.user!.displayPicture!);
         },
       ),
     );

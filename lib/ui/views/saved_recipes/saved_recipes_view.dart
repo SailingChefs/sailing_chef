@@ -17,7 +17,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: GestureDetector(
+      child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -43,6 +43,11 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
             )),
       ),
     );
+  }
+  @override
+  void onViewModelReady(SavedRecipesViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

@@ -58,7 +58,6 @@ import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.dart';
-import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
 import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
 // @stacked-import
 

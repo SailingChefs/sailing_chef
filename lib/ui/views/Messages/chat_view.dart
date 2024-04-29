@@ -47,7 +47,7 @@ class ChatView extends StackedView<ChatViewModel> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (builder) => TestClass()));
+                                      builder: (builder) => const TestClass()));
                             },
                             child: Container(
                               width: 90.w,

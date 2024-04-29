@@ -9,7 +9,6 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
@@ -17,6 +16,7 @@ class ProfileViewModel extends ReactiveViewModel {
   final RecipeService _recipeService = locator<RecipeService>();
 
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
+
   final FollowService _followService = locator<FollowService>();
 
   String selectedTab = 'Myrecipes';
@@ -53,6 +53,7 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
+
   Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
     // if (await canLaunchUrlString(url)) {
@@ -62,8 +63,9 @@ class ProfileViewModel extends ReactiveViewModel {
   }
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
-  void savedSelected() {
+  void savedSelected() async {
     isSavedSelected = true;
+    await _savedRecipeService.init();
     isMySelected = false;
     notifyListeners();
     rebuildUi();

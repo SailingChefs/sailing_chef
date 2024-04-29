@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/user_services.dart';
 import 'blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
@@ -17,7 +16,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
   ) {
     log(blockedUserList.length.toString());
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return  viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leadingWidth: 70,
@@ -28,9 +27,9 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
             backgroundColor: Colors.grey.shade300,
             child: Center(
               child: IconButton(
-                  onPressed: () {
-                    viewModel.back();
-                  },
+                  onPressed: 
+                    viewModel.back
+                  ,
                   icon: Icon(
                     Icons.arrow_back_ios_new,
                     size: 16.r,
@@ -133,6 +132,11 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
               ),
       ),
     );
+  }
+  @override
+  void onViewModelReady(BlockedAccountsViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

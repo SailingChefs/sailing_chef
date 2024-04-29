@@ -408,8 +408,8 @@ class StackedRouter extends _i1.RouterBase {
     _i22.ChefProfileView: (data) {
       final args = data.getArgs<ChefProfileViewArguments>(nullOk: false);
       return _i30.MaterialPageRoute<dynamic>(
-        builder: (context) => _i22.ChefProfileView(
-            user: args.user, isCurrentUser: args.isCurrentUser, key: args.key),
+        builder: (context) =>
+            _i22.ChefProfileView(user: args.user, key: args.key),
         settings: data,
       );
     },
@@ -714,32 +714,27 @@ class SavedRecipeDetailsViewArguments {
 class ChefProfileViewArguments {
   const ChefProfileViewArguments({
     required this.user,
-    this.isCurrentUser,
     this.key,
   });
 
   final _i32.UserModel user;
 
-  final bool? isCurrentUser;
-
   final _i31.Key? key;
 
   @override
   String toString() {
-    return '{"user": "$user", "isCurrentUser": "$isCurrentUser", "key": "$key"}';
+    return '{"user": "$user", "key": "$key"}';
   }
 
   @override
   bool operator ==(covariant ChefProfileViewArguments other) {
     if (identical(this, other)) return true;
-    return other.user == user &&
-        other.isCurrentUser == isCurrentUser &&
-        other.key == key;
+    return other.user == user && other.key == key;
   }
 
   @override
   int get hashCode {
-    return user.hashCode ^ isCurrentUser.hashCode ^ key.hashCode;
+    return user.hashCode ^ key.hashCode;
   }
 }
 
@@ -1119,7 +1114,6 @@ extension NavigatorStateExtension on _i36.NavigationService {
 
   Future<dynamic> navigateToChefProfileView({
     required _i32.UserModel user,
-    bool? isCurrentUser,
     _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -1128,8 +1122,7 @@ extension NavigatorStateExtension on _i36.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.chefProfileView,
-        arguments: ChefProfileViewArguments(
-            user: user, isCurrentUser: isCurrentUser, key: key),
+        arguments: ChefProfileViewArguments(user: user, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1562,7 +1555,6 @@ extension NavigatorStateExtension on _i36.NavigationService {
 
   Future<dynamic> replaceWithChefProfileView({
     required _i32.UserModel user,
-    bool? isCurrentUser,
     _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -1571,8 +1563,7 @@ extension NavigatorStateExtension on _i36.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.chefProfileView,
-        arguments: ChefProfileViewArguments(
-            user: user, isCurrentUser: isCurrentUser, key: key),
+        arguments: ChefProfileViewArguments(user: user, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

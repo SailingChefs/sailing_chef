@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 
@@ -17,14 +17,13 @@ class SettingsViewModel extends BaseViewModel {
     _dialogService.showCustomDialog(variant: DialogType.deleteAccount);
   }
 
-  void blockAccount(String uid) {
-    log("In Block Account");
-    _dialogService.showCustomDialog(
-      variant: DialogType.blockAccount,
-      data: uid,
-    );
-  }
+ void getBlockAcc(){
+  _navigationService.navigateToBlockedAccountsView(blockedUserList: userDetails!.blockedAccounts!);
+ }
 
+  void getBecomeChef() {
+    _navigationService.navigateToBecomechefView();
+  }
   void getToMap() {
     _navigationService.navigateToPinDropMapView();
   }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 
@@ -7,6 +8,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<SavedRecipeModel> get followingRecipes =>
+      _savedRecipeService.followingRecipes;
 
   String selectedTab = 'All';
   bool isAllSelected = true;
@@ -56,7 +59,9 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     _navigationService.back();
   }
 
-  void toDishDetailsScreen() {
-    // _navigationService.navigateToSavedRecipeDetailsView();
+  void toDishDetailsScreen(RecipeModel recipe) {
+    _navigationService.navigateToSavedRecipeDetailsView(
+      recipeModel: recipe,
+    );
   }
 }

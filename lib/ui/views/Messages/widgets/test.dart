@@ -41,7 +41,7 @@ class _TestClassState extends State<TestClass> {
                   child: Center(
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.send),
+                      icon: const Icon(Icons.send),
                     ),
                   ),
                 )
@@ -55,12 +55,12 @@ class _TestClassState extends State<TestClass> {
             children: [
               CustomScrollView(
                 slivers: [
-                  SliverAppBar(
+                  const SliverAppBar(
                     leadingWidth: 80,
                     backgroundColor: Colors.transparent,
 
                     // collapsedHeight: 400,
-                    flexibleSpace: const FlexibleSpaceBar(
+                    flexibleSpace: FlexibleSpaceBar(
                       background: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -89,7 +89,7 @@ class _TestClassState extends State<TestClass> {
                           for (int i = 0; i < 100; i++)
                             Text(
                               i.toString(),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             )
                         ],
                       ),
@@ -104,7 +104,7 @@ class _TestClassState extends State<TestClass> {
                   radius: 20,
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios_new,
                       size: 18,
                       color: Colors.black,
