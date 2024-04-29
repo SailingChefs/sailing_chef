@@ -86,9 +86,11 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
                 ),
               ),
               title: Text(capitalizeEachWord(pins[index].name)),
-              trailing: const Icon(Icons.chevron_right),
+              // trailing: const Icon(Icons.chevron_right),
               subtitle: Text(pins[index].description),
-              onTap: () {},
+              // onTap: () {
+               
+              // },
             );
           },
         );

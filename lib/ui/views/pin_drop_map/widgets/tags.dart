@@ -1,5 +1,4 @@
-import 'dart:developer';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/selectedtab.dart';
@@ -45,7 +44,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      viewModel.TagsIconSelected();
+                      viewModel.tagsIconSelected();
                     },
                     child: Icon(Icons.close,
                         color: kcBlackColor.withOpacity(0.87), size: 24.0.dg),
@@ -189,8 +188,9 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                 child: TextButton(
                   onPressed: (){
                     viewModel.totalFilters = viewModel.tagTabSelections.length;
-                    log(viewModel.totalFilters.toString());
-                    viewModel.createMarkerwithTags(id, LatLng(viewModel.currentPosition!.latitude, viewModel.currentPosition!.longitude));
+                    viewModel.tagsIconSelected();
+                    viewModel.showAllMarkersWithTags();
+                    
                   },
                   child: Text(
                     'Apply Filter',
