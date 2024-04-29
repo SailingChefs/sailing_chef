@@ -13,9 +13,7 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
         children: [
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.showRecipeList();
-            },
+            onTap: viewModel.showRecipeList,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -39,14 +37,12 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
           ),
           horizontalSpaceMedium,
           GestureDetector(
-            onTap: () {
-              viewModel.goToFollowingList('Hafsa Mehmood');
-            },
+            onTap:() => viewModel.goToFollowingList(user),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  viewModel.followers.length.toString(),
+                 viewModel.followers.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -65,14 +61,12 @@ class ChefProfileDetails extends ViewModelWidget<ChefProfileViewModel> {
           ),
           horizontalSpaceMedium,
           GestureDetector(
-            onTap: () {
-              viewModel.goToFollowingList('Hafsa Mehmood');
-            },
+            onTap:() => viewModel.goToFollowingList,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  user.following!.length.toString(),
+                 user.following!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

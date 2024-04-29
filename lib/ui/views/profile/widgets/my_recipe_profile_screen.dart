@@ -30,7 +30,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     savedRecipeList: viewModel.savedRecipes,
 
                     onTap: () => viewModel.toDishDetailsScreen(index),
-                    foodImagePath: recipe.coverImage.first,
+                    foodImagePath: recipe.coverImage.any((element) => element != null) ? recipe.coverImage.first : 'https://images.app.goo.gl/SPd1LsjeVohN57Fh8',
                     dishName: recipe.title,
                     duration: recipe.prepTime,
                     chefImagePath: userDetails!.displayPicture!);

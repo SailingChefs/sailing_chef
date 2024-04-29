@@ -39,7 +39,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final TextEditingController commentController = TextEditingController();
   bool isMethodsSelected = false;
   final PageController pageController = PageController();
-  Timer? _timer;
   final ImagePicker _picker = ImagePicker();
   List<File> images = [];
   double rating = 3.0;
@@ -183,7 +182,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
 
-    startAutoScroll(length);
+    
     waveFormData = recipeModel.waveForm;
 
     await commentService.clearComments();
@@ -198,7 +197,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     //   url: recipeModel.chefNote,
     // );
     // log((player.cacheFile(url: recipeModel.chefNote)).toString());
-    recipeList = await recipeService.fetchRandomRecipes(5);
+    recipeList = await recipeService.fetchRandomRecipes(5,recipeId);
 
     setBusy(false);
   }

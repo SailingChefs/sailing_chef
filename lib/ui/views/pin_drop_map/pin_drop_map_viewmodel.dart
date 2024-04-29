@@ -51,14 +51,13 @@ class PinDropMapViewModel extends BaseViewModel {
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latitude, longitude);
-      if (placemarks != null && placemarks.isNotEmpty) {
+      if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
         return '${placemark.subLocality}, ${placemark.locality}, ${placemark.country}';
       } else {
         return 'Unknown';
       }
     } catch (e) {
-      print('Error getting city and country: $e');
       return 'Unknown';
     }
   }

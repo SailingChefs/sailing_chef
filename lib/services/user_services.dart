@@ -119,15 +119,19 @@ class UserServices {
 
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
+      EasyLoading.show();
       DocumentSnapshot snapshot =
           await firebasestore.collection('users').doc(uid).get();
       if (snapshot.exists) {
+        EasyLoading.dismiss();
         return UserModel.fromSnapshot(snapshot);
       } else {
+        EasyLoading.dismiss();
         log('No user found with uid: $uid');
         return UserModel();
       }
     } catch (e) {
+      EasyLoading.dismiss();
       log('Error fetching user: $e');
       return UserModel();
     }
