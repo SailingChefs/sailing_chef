@@ -45,7 +45,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      viewModel.TagsIconSelected();
+                      viewModel.tagsIconSelected();
                     },
                     child: Icon(Icons.close,
                         color: kcBlackColor.withOpacity(0.87), size: 24.0.dg),

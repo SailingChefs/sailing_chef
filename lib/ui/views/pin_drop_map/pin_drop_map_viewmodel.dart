@@ -48,7 +48,7 @@ class PinDropMapViewModel extends BaseViewModel {
 
   bool isSelected = true;
 
-  void TagsIconSelected(){
+  void tagsIconSelected(){
     isSelected = !isSelected;
     log(isSelected.toString());
     notifyListeners();

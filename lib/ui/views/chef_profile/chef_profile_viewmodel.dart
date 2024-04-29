@@ -10,7 +10,6 @@ import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
-import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -59,9 +58,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _savedRecipeService.init();
     setBusy(false);
   }
-   void showBottomSheet() {
+   void showBottomSheet(
+    String uid
+   ) {
     _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.otherChefProfile,
+      data: uid
     );
 
    }

@@ -45,6 +45,7 @@ class UserServices with ListenableServiceMixin {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update(localModel.toJson());
+        notifyListeners();
   }
 
   Future<UserModel> getUserDetails() async {

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -11,6 +10,8 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
   Widget build(BuildContext context, viewModel) {
     return viewModel.isBusy
         ? const Center(child: CircularProgressIndicator())
+        
+        
         : StreamBuilder<List<ConversationModel>>(
             stream: viewModel.getConversation(),
             builder: (context, snapshot) {

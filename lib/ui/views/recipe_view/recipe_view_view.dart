@@ -29,8 +29,8 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(children: [
-        TopBarRecipeView(selectedImages!),
-        MainRecipeViewContainer(recipeModel, selectedImages!),
+        TopBarRecipeView(selectedImages),
+        MainRecipeViewContainer(recipeModel, selectedImages),
         verticalSpaceMedium,
       ]),
     );

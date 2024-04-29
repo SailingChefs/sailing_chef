@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
@@ -38,9 +39,11 @@ class ProfileView extends StackedView<ProfileViewModel> {
                     const ProfileDetailsProfileScreen(),
                     const ProfileDescriptionProfileScreen(),
                     verticalSpaceMedium,
+                    userDetails!.userRole == 'guest' ? Container() :
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        
                         const TabBarProfileScreen(),
                         Icon(
                           FlutterRemix.equalizer_line,
@@ -49,10 +52,24 @@ class ProfileView extends StackedView<ProfileViewModel> {
                         ),
                       ],
                     ),
-                    verticalSpaceMedium,
-                    viewModel.isMySelected
-                        ? const MyRecipesProfileScreen()
-                        : const SavedProfileScreen(),
+
+                    userDetails!.userRole == 'guest' ?  const Expanded(
+                      child: Column(
+                        children: [
+                          Divider(),
+                          SavedProfileScreen(),
+                        ],
+                      ),
+                    ) :
+
+                    Column(
+                      children: [
+                        verticalSpaceMedium,
+                        viewModel.isMySelected
+                            ? const MyRecipesProfileScreen()
+                            : const SavedProfileScreen(),
+                      ],
+                    ),
                   ],
                 ),
               )),

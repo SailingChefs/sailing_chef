@@ -41,10 +41,10 @@ class IndexViewModel extends BaseViewModel {
   void toChefProfile(UserModel chef) {
     if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
       _navigationService.navigateToChefProfileView(
-          user: chef, isCurrentUser: true);
+          user: chef);
     } else {
       _navigationService.navigateToChefProfileView(
-          user: chef, isCurrentUser: false);
+          user: chef,);
     }
   }
 

@@ -1,5 +1,4 @@
 
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';

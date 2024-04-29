@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
@@ -36,7 +36,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel> {
         ),
         GestureDetector(
           onTap: () {
-            viewModel.showBottomSheet();
+            viewModel.showBottomSheet(uid);
             // viewModel.toSettings(
             //   isCurrentUser!,
             //   uid,

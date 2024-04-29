@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 // import 'package:just_audio/just_audio.dart';
@@ -53,7 +53,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void addToSaveList(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
       recipeId: recipe.docId,
-      userId: userDetails!.uid!,
     ));
   }
 

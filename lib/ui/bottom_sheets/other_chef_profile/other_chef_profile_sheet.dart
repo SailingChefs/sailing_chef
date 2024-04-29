@@ -70,9 +70,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
                 
                 const Divider(),
                 GestureDetector(
-                  onTap: () =>  completer!(SheetResponse(
-                confirmed: true,
-              )),
+                  onTap: () => viewModel.blockAccount(request.data),
                   child: Container(
                     height: 55,
                     decoration: const BoxDecoration(

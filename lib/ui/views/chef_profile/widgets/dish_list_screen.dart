@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -10,26 +11,32 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    const double itemHeight = 7.4 / 9 * 140;
-    final int itemCount = viewModel.chefRecipes!.length;
-    double totalHeight = itemHeight * itemCount;
+   
     final List<RecipeModel> recipes = viewModel.chefRecipes!;
-    return viewModel.chefRecipes!.isEmpty
-        ? const Center(child: Text('No Recipe Found'))
-        : SizedBox(
-            height: totalHeight.h,
-            child: GridView.builder(
-              itemCount: recipes.length,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15.0,
-                mainAxisSpacing: 18.0,
-                childAspectRatio: 7.4 / 9,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return PrimaryGridTile(
+    return recipes.isEmpty
+        ? Text(
+            'No Dish Found',
+            style: Theme.of(context).textTheme.titleMedium,
+          )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return ShrinkWrappingViewport(
+                offset: ViewportOffset.zero(),
+                axisDirection: AxisDirection.down,
+                slivers: [
+                  SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15.0,
+                      mainAxisSpacing: 18.0,
+                      childAspectRatio: 7.4 / 9,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return PrimaryGridTile(
                   savedRecipeList: viewModel.savedRecipes,
                   recipeId: recipes[index].docId,
                   onTap: () => viewModel.toDishDetailsScreen(index),
@@ -38,8 +45,15 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                   duration: recipes[index].prepTime,
                   chefImagePath: user.displayPicture!,
                 );
-              },
-            ),
+                      },
+                      childCount: recipes.length,
+                    ),
+                  ),
+                ],
+              );
+            }),
           );
+  
+          
   }
 }

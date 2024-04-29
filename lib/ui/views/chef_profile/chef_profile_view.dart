@@ -10,9 +10,9 @@ import 'widgets/chef_profile_description.dart';
 // ignore: must_be_immutable
 class ChefProfileView extends StackedView<ChefProfileViewModel> {
   final UserModel user;
-  bool? isCurrentUser;
 
-  ChefProfileView({required this.user, this.isCurrentUser, super.key});
+
+  ChefProfileView({required this.user, super.key});
 
   @override
   Widget builder(
@@ -35,7 +35,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   child: Column(
                     children: [
                       ChefProfileTopBar(
-                        isCurrentUser: isCurrentUser!,
+                    
                         uid: user.uid!,
                       ),
                       verticalSpace(35),
