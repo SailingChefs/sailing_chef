@@ -8,6 +8,10 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
+  void moveToBecomeChef() {
+    _navigationService.navigateToBecomechefView();
+  }
+
   void getToMap() {
     _navigationService.navigateToPinDropMapView();
   }

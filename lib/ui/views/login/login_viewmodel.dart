@@ -60,7 +60,8 @@ class LoginViewModel extends BaseViewModel {
       if (success) {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.displayPicture == '') {
-          _navigationService.replaceWithUserDetailsView();
+          _navigationService.replaceWithUserDetailsView(
+              userRole: userDetails!.userRole!);
         } else {
           if (userDetails!.userRole == 'guest') {
             _navigationService.replaceWithBottomBarGuestView();

@@ -74,4 +74,36 @@ class PinDropService {
     log(pins.toString());
     return pins;
   }
+
+
+    Future<List<PinnedLocation>> getPinsUsingTags(
+      LatLng userLocation,List<String> tags) async {
+    final List<PinnedLocation> pins = [];
+    final ref = FirebaseFirestore.instance.collection('pins').where(
+                  'tags',
+            arrayContainsAny: tags,
+    );
+    final query = await GeoCollectionReference(ref as CollectionReference).fetchWithinWithDistance(
+      center: GeoFirePoint(
+        GeoPoint(
+          userLocation.latitude,
+          userLocation.longitude,
+        ),
+      ),
+      radiusInKm: 0.5,
+      geohashField: 'geohash',
+      field: 'geo',
+      strictMode: true,
+      geopointFrom: (data) =>
+          (data as Map<String, dynamic>)['geopoint'] as GeoPoint,
+    );
+
+    for (final doc in query) {
+      final PinnedLocation pin =
+          PinnedLocation.fromSnapshot(doc.documentSnapshot);
+      pins.add(pin);
+    }
+    log("get location ${pins.toString()}");
+    return pins;
+  }
 }

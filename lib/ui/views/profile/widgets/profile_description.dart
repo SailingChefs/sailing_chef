@@ -27,25 +27,27 @@ class ProfileDescriptionProfileScreen
                 fontWeight: FontWeight.w700,
                 color: kcBlackColor),
           ),
-          viewModel.placemarks!.isEmpty
+          userDetails!.userRole == 'guest'
               ? Container()
-              : Text(
-                  viewModel.placemarks![0].country!.isEmpty &&
-                          userDetails!.boatName!.isEmpty
-                      ? ' '
-                      : viewModel.placemarks![0].country!.isEmpty
-                          ? capitalizeEachWord(userDetails!.boatName!)
-                          : userDetails!.boatName!.isEmpty
-                              ? capitalizeEachWord(
-                                  viewModel.placemarks!.first.country!)
-                              : capitalizeEachWord(
-                                  '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
-                  style: globalTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor,
-                  ),
-                ),
+              : viewModel.placemarks!.isEmpty
+                  ? Container()
+                  : Text(
+                      viewModel.placemarks![0].country!.isEmpty &&
+                              userDetails!.boatName!.isEmpty
+                          ? ' '
+                          : viewModel.placemarks![0].country!.isEmpty
+                              ? capitalizeEachWord(userDetails!.boatName!)
+                              : userDetails!.boatName!.isEmpty
+                                  ? capitalizeEachWord(
+                                      viewModel.placemarks!.first.country!)
+                                  : capitalizeEachWord(
+                                      '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
+                      style: globalTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor,
+                      ),
+                    ),
           verticalSpaceSmall,
           Text(
             userDetails!.bio!.isEmpty ? '' : userDetails!.bio!,
@@ -58,27 +60,29 @@ class ProfileDescriptionProfileScreen
             maxLines: 3,
           ),
           verticalSpaceTiny,
-          userDetails!.link!.isEmpty
+          userDetails!.userRole == 'guest'
               ? Container()
-              : Row(
-                  children: [
-                    const Icon(
-                      Icons.link_outlined,
-                      color: kcPrimaryColor,
-                      size: 20,
-                    ),
-                    horizontalSpaceSmall,
-                    Text(
-                      userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
-                      style: globalTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: kcPrimaryColor,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                )
+              : userDetails!.link!.isEmpty
+                  ? Container()
+                  : Row(
+                      children: [
+                        const Icon(
+                          Icons.link_outlined,
+                          color: kcPrimaryColor,
+                          size: 20,
+                        ),
+                        horizontalSpaceSmall,
+                        Text(
+                          userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
+                          style: globalTextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: kcPrimaryColor,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ],
+                    )
         ],
       ),
     );

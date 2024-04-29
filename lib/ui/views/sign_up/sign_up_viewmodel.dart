@@ -83,7 +83,8 @@ class SignUpViewModel extends BaseViewModel {
             savedRecipes: [],
           ));
       if (userRegistered) {
-        _navigationService.replaceWithUserDetailsView();
+        _navigationService.replaceWithUserDetailsView(
+            userRole: selectedSignUpAs);
       } else {
         _navigationService.replaceWithSignUpView();
       }
@@ -118,7 +119,6 @@ class SignUpViewModel extends BaseViewModel {
       default:
         break;
     }
-
     rebuildUi();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
 
 import '../saved_recipe_details_viewmodel.dart';
 
@@ -17,15 +18,18 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         child: PageView.builder(
           itemCount: image.length,
           controller: viewModel.pageController,
-          physics:const AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-
             return Center(
-              child: Image.network(
-                image[index],
-                fit: BoxFit.fitWidth,
-                width: double.infinity,
-              ),
+              child: image[index].contains('mp4')
+                  ? CustomVideoPlayer.network(
+                      url: image[index],
+                    )
+                  : Image.network(
+                      image[index],
+                      fit: BoxFit.fitWidth,
+                      width: double.infinity,
+                    ),
             );
           },
         ),

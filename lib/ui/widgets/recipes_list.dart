@@ -49,14 +49,12 @@ class RecipeeItem extends StatelessWidget {
                   description,
                   style: const TextStyle(fontSize: 12.0),
                 ),
-                const SizedBox(height: 4.0),
                 Row(
                   children: [
                     const Icon(
                       Icons.timer,
                       size: 12.0,
                     ),
-                    const SizedBox(width: 4.0),
                     Text(time, style: const TextStyle(fontSize: 12.0)),
                     const Spacer(),
                     Text(

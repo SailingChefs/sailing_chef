@@ -16,7 +16,6 @@ class ProfileViewModel extends ReactiveViewModel {
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
 
-
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;

@@ -5,12 +5,17 @@ import 'package:video_player/video_player.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final String? pathh;
-  final bool? isclicked;
+  final String? url;
 
-  const CustomVideoPlayer({
-    Key? key,
-    this.pathh,  this.isclicked, 
-  }) : super(key: key);
+  const CustomVideoPlayer.file({
+    super.key,
+    required this.pathh,
+  }) : url = null;
+
+  const CustomVideoPlayer.network({
+    super.key,
+    required this.url,
+  }) : pathh = null;
 
   @override
   State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
@@ -22,14 +27,12 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   late Future<void> futureController;
 
   initVideo() {
-    controller = VideoPlayerController.file(File(widget.pathh!));
-    futureController = controller.initialize().then((_) {
-      if (widget.isclicked!) {
-        controller.play();
-      } else {
-        controller.pause();
-      }
-    });
+    controller = widget.pathh != null
+        ? VideoPlayerController.file(
+            File(widget.pathh!),
+          )
+        : VideoPlayerController.networkUrl(Uri.parse(widget.url!));
+    futureController = controller.initialize();
   }
 
   @override
@@ -50,11 +53,22 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       future: futureController,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else {
-          return VideoPlayer(controller);
+          return GestureDetector(
+              onTap: _playPause, child: VideoPlayer(controller));
         }
       },
     );
+  }
+
+  void _playPause() {
+    if (controller.value.isPlaying) {
+      controller.pause();
+    } else {
+      controller.play();
+    }
   }
 }

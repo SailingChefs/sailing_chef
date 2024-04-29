@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
@@ -28,23 +29,32 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           ),
         ),
         const Divider(),
-        ListTile(
-          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
-          title: Text(
-            'Become a Chef',
-            style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
-          ),
-        ),
-        const Divider(),
+        userDetails!.userRole == 'guest'
+            ? Column(
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: () {
+                      viewModel.moveToBecomeChef();
+                    },
+                    title: Text(
+                      'Become a Chef',
+                      style: globalTextStyle(
+                          fontSize: 16.0.dg,
+                          color: kcBlackColor,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor,
+                      size: 14,
+                    ),
+                  ),
+                  const Divider(),
+                ],
+              )
+            : Container(),
+
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {},

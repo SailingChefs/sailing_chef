@@ -39,17 +39,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final TextEditingController commentController = TextEditingController();
   bool isMethodsSelected = false;
   final PageController pageController = PageController();
-  Timer? _timer;
+
   final ImagePicker _picker = ImagePicker();
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
   late final PlayerController playerController;
   late List<double>? waveFormData;
-
-  // late final AudioPlayer player;
-
-  // late String? path;
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -82,9 +78,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     images.removeAt(index);
     rebuildUi();
   }
-
-
-
 
   void addRating(double rating) {
     this.rating = rating;
@@ -173,7 +166,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       volume: 100,
     );
     await audioRef.writeToFile(audioFile);
-
   }
 
   void startListening() async {
@@ -183,7 +175,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
 
-    startAutoScroll(length);
     waveFormData = recipeModel.waveForm;
 
     await commentService.clearComments();

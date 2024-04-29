@@ -17,8 +17,6 @@ class SavedRecipeService with ListenableServiceMixin {
     isInitialised = true;
   }
 
-
-
   Future<bool> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
     DocumentReference newRecipeRef =
         await firebasestore.collection('savedRecipes').add(savedRecipe.toMap());
