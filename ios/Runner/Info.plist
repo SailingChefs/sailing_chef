@@ -45,7 +45,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
 	<!-- PERMISSIONS -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  	<string>sms</string>
+  	<string>tel</string>
+	</array>
 	<key>NSMicrophoneUsageDescription</key>
     <string>This app requires Mic permission.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

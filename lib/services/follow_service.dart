@@ -33,8 +33,8 @@ class FollowService with ListenableServiceMixin {
       usersFollowers.add(await _userServices.fetchUserByUID(follower));
     }
     log('followerslength: ${usersFollowers.length}');
-    notifyListeners();
-  }
+    }
+
 
   Future<void> _getFollowingUserDetails() async {
     for  (var following in following)  {

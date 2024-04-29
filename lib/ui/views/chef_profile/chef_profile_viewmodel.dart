@@ -11,6 +11,7 @@ import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
 
@@ -26,7 +27,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isSavedSelected = false;
   List<Placemark>? placemarks;
   List<RecipeModel>? chefRecipes;
+
   List<String> get followers => _followService.followers;
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   bool isFollowing = false;
 
@@ -50,6 +53,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await getUserLocation(user);
+    await _followService.init(user.uid!, false);
     await _followService.init(user.uid!, false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
     await _savedRecipeService.init();
@@ -104,7 +108,10 @@ class ChefProfileViewModel extends ReactiveViewModel {
         receiver: chef, conversationId: conversationId);
   }
 
-
+  void toSettings(bool isCurrentUser, String uid) {
+    _navigationService.navigateToSettingsView(
+        isCurrentUser: isCurrentUser, uid: uid);
+  }
 
   void moveBack() {
     _navigationService.back();
@@ -136,4 +143,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
       isFromProfileView: true,
     );
   }
+   Future<void> onClickUrl(String url) async {
+    Uri uri = Uri.parse("https://$url");
+    // if (await canLaunchUrlString(url)) {
+    //   launchUrlString(url, );
+    // }
+    await launchUrl(uri);
+  }
+
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -81,7 +82,8 @@ class RecipeService {
   // }
 
   Future<List<String>> uploadMediaToFirebase(
-    List<XFile?> mediaFiles,
+    
+      List<XFile?> mediaFiles, 
   ) async {
     List<String> mediaUrls = [];
     try {
@@ -267,7 +269,14 @@ class RecipeService {
 
       List<RecipeModel> allRecipes = [];
       for (var doc in snapshot.docs) {
-        allRecipes.add(RecipeModel.fromSnapshot(doc));
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          allRecipes.add(recipe);
+        }
       }
 
       // Shuffle the list to randomize and then take the first 5

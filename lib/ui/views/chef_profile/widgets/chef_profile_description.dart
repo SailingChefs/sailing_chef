@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
@@ -89,7 +90,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
           verticalSpaceTiny,
           user.link!.isEmpty
               ? const SizedBox()
-              : Row(
+              :  Row(
                   children: [
                     const Icon(
                       Icons.link_outlined,
@@ -97,17 +98,22 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       size: 20,
                     ),
                     horizontalSpaceSmall,
-                    Text(
-                      user.link!,
-                      style: globalTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: kcPrimaryColor,
-                        decoration: TextDecoration.underline,
+                    GestureDetector(
+                      onTap: () {
+                        viewModel.onClickUrl(userDetails!.link!);
+                      },
+                      child: Text(
+                        userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
+                        style: globalTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: kcPrimaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                   ],
-                )
+                ),
         ],
       ),
     );

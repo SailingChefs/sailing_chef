@@ -25,12 +25,16 @@ class FollowingListViewModel extends BaseViewModel {
   }
 
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
+
+
     for (var user in users) {
       if (user.displayName!.toLowerCase().contains(query.toLowerCase())) {
         yield user;
       }
     }
+
   }
+  
  
   void onFollowTap(UserModel user) async {
    await _followService.removeFollowing(user);
@@ -58,3 +62,4 @@ class FollowingListViewModel extends BaseViewModel {
     rebuildUi();
   }
 }
+

@@ -1,16 +1,22 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+
+import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
   bool isInitialised = false;
+  final _userService = locator<UserServices>();
+
   Future<void> init() async {
     savedRecipes = await _getSavedRecipesForUser(firebaseAuth.currentUser!.uid);
     notifyListeners();
@@ -83,12 +89,19 @@ class SavedRecipeService with ListenableServiceMixin {
 
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         SavedRecipeModel savedRecipe = SavedRecipeModel.fromSnapshot(doc);
-        // Fetch recipe details using recipeId
         RecipeModel? recipeModel =
             await fetchRecipeDetails(savedRecipe.recipeId);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipeModel!.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipeModel.uid);
+          recipeModel.user = user;
+          savedRecipe.recipeModel = recipeModel;
+          savedRecipes.add(savedRecipe);
+        }
         // Update the recipeModel property
-        savedRecipe.recipeModel = recipeModel;
-        savedRecipes.add(savedRecipe);
+        // savedRecipe.recipeModel = recipeModel;
+        // savedRecipes.add(savedRecipe);
       }
 
       return savedRecipes;

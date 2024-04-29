@@ -70,24 +70,29 @@ class ProfileDescriptionProfileScreen
               : userDetails!.link!.isEmpty
                   ? Container()
                   : Row(
-                      children: [
-                        const Icon(
-                          Icons.link_outlined,
+                  children: [
+                    const Icon(
+                      Icons.link_outlined,
+                      color: kcPrimaryColor,
+                      size: 20,
+                    ),
+                    horizontalSpaceSmall,
+                    GestureDetector(
+                      onTap: () {
+                        viewModel.onClickUrl(userDetails!.link!);
+                      },
+                      child: Text(
+                        userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
+                        style: globalTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                           color: kcPrimaryColor,
-                          size: 20,
+                          decoration: TextDecoration.underline,
                         ),
-                        horizontalSpaceSmall,
-                        Text(
-                          userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
-                          style: globalTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: kcPrimaryColor,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    )
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
