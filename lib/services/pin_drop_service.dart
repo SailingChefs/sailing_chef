@@ -6,12 +6,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/pindrop_review.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class PinDropService {
+class PinDropService with ListenableServiceMixin{
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
 
@@ -79,11 +80,8 @@ class PinDropService {
     Future<List<PinnedLocation>> getPinsUsingTags(
       LatLng userLocation,List<String> tags) async {
     final List<PinnedLocation> pins = [];
-    final ref = FirebaseFirestore.instance.collection('pins').where(
-                  'tags',
-            arrayContainsAny: tags,
-    );
-    final query = await GeoCollectionReference(ref as CollectionReference).fetchWithinWithDistance(
+    final ref = FirebaseFirestore.instance.collection('pins');
+    final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
       center: GeoFirePoint(
         GeoPoint(
           userLocation.latitude,
@@ -94,8 +92,12 @@ class PinDropService {
       geohashField: 'geohash',
       field: 'geo',
       strictMode: true,
+      queryBuilder: (query)=>query.where(
+                  'tags',
+                  arrayContainsAny: tags,
+    ),
       geopointFrom: (data) =>
-          (data as Map<String, dynamic>)['geopoint'] as GeoPoint,
+          (data['geo'])['geopoint'] as GeoPoint,
     );
 
     for (final doc in query) {
@@ -104,6 +106,7 @@ class PinDropService {
       pins.add(pin);
     }
     log("get location ${pins.toString()}");
+    notifyListeners();
     return pins;
   }
 }

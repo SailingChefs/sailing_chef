@@ -12,7 +12,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     List<String> imageUrls;
     log(recipe.docId.toString());
     imageUrls = images.isNotEmpty
-        ? await _recipeService.uploadMediaToFirebase(images)
+        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId)
         : [];
     recipe.coverImage = imageUrls;
     await _recipeService.addRecipeToFirestore(recipe);

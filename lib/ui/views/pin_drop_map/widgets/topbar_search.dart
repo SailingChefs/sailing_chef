@@ -49,9 +49,10 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
           children: [
            
             IconButton(
+
               onPressed: 
                 viewModel.tagsIconSelected,
-              
+
               icon: const Icon(FlutterRemix.equalizer_line),
               color: kcPrimaryColor,
               iconSize: 30.dg,

@@ -83,7 +83,7 @@ class RecipeService {
 
   Future<List<String>> uploadMediaToFirebase(
     
-      List<XFile?> mediaFiles, 
+      List<XFile?> mediaFiles, String id, 
   ) async {
     List<String> mediaUrls = [];
     try {

@@ -27,9 +27,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
-          
           horizontal: 5,
-        
         ),
         decoration: const BoxDecoration(
           color: kcwhitecolor,
