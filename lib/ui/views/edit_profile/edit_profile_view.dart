@@ -28,6 +28,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
               verticalSpaceSmall,
               const EditProfileForm(),
               verticalSpaceMedium,
+              
             ],
           ),
         ));

@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 
-import '../edit_profile_viewmodel.dart';
-
-class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
+class GestureDetectorEdit extends ViewModelWidget<BecomechefViewModel> {
   const GestureDetectorEdit(this.left, this.top, {super.key});
   final double? left, top;
   @override
-  Widget build(BuildContext context, EditProfileViewModel viewModel) {
+  Widget build(BuildContext context, BecomechefViewModel viewModel) {
     return Positioned(
       left: left,
       top: top,

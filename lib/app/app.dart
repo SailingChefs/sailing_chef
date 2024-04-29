@@ -1,7 +1,6 @@
 import 'package:sailing_chefs/services/auth_service.dart';
 
 
-
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
@@ -57,6 +56,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_pro
 
 import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
+import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -91,6 +91,7 @@ import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.da
 
     MaterialRoute(page: ForgetPasswordView),
     MaterialRoute(page: BlockedAccountsView),
+    MaterialRoute(page: BecomechefView),
 // @stacked-route
   ],
   dependencies: [

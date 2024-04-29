@@ -20,13 +20,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                 children: [
                   SemiRoundedTranpaentTextField(
                     controller: viewModel.nameController,
-                    labelText:
-                        UserdataServiceService.user.displayName ?? 'Name',
+                    labelText: UserdataServiceService.user.displayName ?? 'Name',
                   ),
                   verticalSpaceMedium,
                   SemiRoundedTranpaentTextField(
                     controller: viewModel.emailController,
-                    labelText: UserdataServiceService.user.email ?? 'Email',
+                    labelText:  UserdataServiceService.user.email ?? 'Email',
                     prefixIcon: const Icon(
                       Icons.email_outlined,
                       size: 15,
@@ -35,14 +34,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                   verticalSpaceMedium,
                   SemiRoundedTranpaentTextField(
                     controller: viewModel.numberController,
-                    labelText: UserdataServiceService.user.phoneNumber ??
-                        'Phone Number',
+                    labelText:  UserdataServiceService.user.phoneNumber!.isNotEmpty ? UserdataServiceService.user.phoneNumber! : 'Enter Phone Number',
                   ),
                   verticalSpaceMedium,
                   SemiRoundedTranpaentTextField(
                     controller: viewModel.dobController,
-                    labelText:
-                        UserdataServiceService.user.dob ?? 'Date of Birth',
+                    labelText:  UserdataServiceService.user.dob!.isNotEmpty ? UserdataServiceService.user.dob! : 'Enter Date of Birth',
                   ),
                   verticalSpaceMedium,
                   SemiRoundedTranpaentTextField(
@@ -52,24 +49,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
                     onPressed: () {
-                      viewModel.saveEditDetails(
-                          viewModel.nameController.text.isEmpty
-                              ? UserdataServiceService.user.displayName!
-                              : viewModel.nameController.text.isEmpty
-                                  ? UserdataServiceService.user.displayName!
-                                  : viewModel.nameController.text,
-                          viewModel.emailController.text.isEmpty
-                              ? UserdataServiceService.user.email!
-                              : viewModel.emailController.text,
-                          viewModel.numberController.text.isEmpty
-                              ? UserdataServiceService.user.phoneNumber!
-                              : viewModel.numberController.text,
-                          viewModel.dobController.text.isEmpty
-                              ? UserdataServiceService.user.dob!
-                              : viewModel.dobController.text,
-                          viewModel.bioController.text.isEmpty
-                              ? UserdataServiceService.user.bio!
-                              : viewModel.bioController.text);
+                      viewModel.saveEditDetails(viewModel.nameController.text.isEmpty ? UserdataServiceService.user.displayName! : viewModel.nameController.text.isEmpty? UserdataServiceService.user.displayName! : viewModel.nameController.text,viewModel.emailController.text.isEmpty ? UserdataServiceService.user.email! : viewModel.emailController.text,viewModel.numberController.text.isEmpty ? UserdataServiceService.user.phoneNumber! : viewModel.numberController.text,viewModel.dobController.text.isEmpty ? UserdataServiceService.user.dob! : viewModel.dobController.text,viewModel.bioController.text.isEmpty ? UserdataServiceService.user.bio! : viewModel.bioController.text);
                     },
                     buttonText: 'Save',
                   ),

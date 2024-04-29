@@ -27,7 +27,9 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
+          
           horizontal: 5,
+        
         ),
         decoration: const BoxDecoration(
           color: kcwhitecolor,
@@ -37,38 +39,39 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
           ),
         ),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const IngredientsSheetTopBar(),
-              Center(
-                child: Text(
-                  request.title ?? 'Add your ingredients',
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500),
-                ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const IngredientsSheetTopBar(),
+            Center(
+              child: Text(
+                request.title ?? 'Add your ingredients',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              verticalSpaceTiny,
-              const ListViewQuantityName(),
-              verticalSpaceMedium,
-              SizedBox(
-                width: double.infinity,
-                child: CommonTextField(
-                  hintText: 'Add one or multiple steps',
-                  prefix: Icons.drag_indicator,
-                ),
+            ),
+            verticalSpaceTiny,
+            const ListViewQuantityName(),
+            verticalSpaceMedium,
+            SizedBox(
+              width: double.infinity,
+              child: CommonTextField(
+                hintText: 'Add one or multiple steps',
+                prefix: Icons.drag_indicator,
               ),
-              verticalSpaceTiny,
-              const TwoTextFields(),
-              verticalSpaceTiny,
-              SaveRecipeButton(
-                onPressed: () {
-                  viewModel.addIngredientToList();
-                },
-                buttonText: 'Add Ingredient',
-                prefix: Icons.add,
-              ),
-            ]),
+            ),
+            verticalSpaceTiny,
+            const TwoTextFields(),
+            verticalSpaceTiny,
+            SaveRecipeButton(
+              onPressed: () {
+                viewModel.addIngredientToList();
+              },
+              buttonText: 'Add Ingredient',
+              prefix: Icons.add,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -54,7 +54,7 @@ class ListViewCookingInstructions
                         viewModel.deleteInstruction(index);
                       },
                       icon: const Icon(
-                        FlutterRemix.delete_bin_6_line,
+                        Icons.delete_outline,
                       ),
                     ),
                   ],

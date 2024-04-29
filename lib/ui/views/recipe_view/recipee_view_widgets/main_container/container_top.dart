@@ -34,7 +34,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
               itemBuilder: (context, index) {
                 var media = selectedImages[index];
                 if (media!.isVideo) {
-                  return CustomVideoPlayer(
+                  return CustomVideoPlayer.file(
                     pathh: media.path,
                   );
                 } else if (media.isImage) {

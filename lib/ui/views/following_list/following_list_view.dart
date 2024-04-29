@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/follower_list.dart';
@@ -28,7 +29,7 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
           )
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
-            appBar: TopBarFollowing(name: user.displayName!,),
+            appBar:  TopBarFollowing(name: user.displayName!,),
             body: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -42,8 +43,8 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
                           children: [
                             verticalSpaceTiny,
                             viewModel.isFollower
-                               ? FollowerList()
-                                :  FollowingList(),
+                                ? FollowingList()
+                                : FollowerList(),
                           ],
                         )
                       : SearchList(

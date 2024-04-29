@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,12 +14,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return GestureDetector(
       onTap: () {
-        if (viewModel.selectedImages.isNotEmpty) {
-          viewModel.isclicked = !viewModel.isclicked;
-          log(viewModel.isclicked.toString());
-          viewModel.updateVideoSource(File(viewModel
-              .selectedImages[viewModel.pageController.page!.round()].path));
-        }
+        viewModel.selectedImages.isEmpty ? viewModel.pickImages() : null;
       },
       child: viewModel.selectedImages.isEmpty
           ? DottedBorder(
@@ -77,8 +71,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         itemBuilder: (context, index) {
                           var media = viewModel.selectedImages[index];
                           if (media.isVideo) {
-                            return CustomVideoPlayer(
-                              isclicked: viewModel.isclicked,
+                            return CustomVideoPlayer.file(
                               pathh: media.path,
                             );
                           } else if (media.isImage) {
@@ -132,7 +125,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ...viewModel.selectedImages.map((XFile image) {
+                          ...viewModel.thumbnails.map((XFile image) {
                             return Stack(
                               children: [
                                 Container(

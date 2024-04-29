@@ -47,10 +47,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   late final PlayerController playerController;
   late List<double>? waveFormData;
 
-  // late final AudioPlayer player;
-
-  // late String? path;
-
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
 
@@ -182,7 +178,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void onViewModelReady(int length, String recipeId) async {
     setBusy(true);
 
-    
+
     waveFormData = recipeModel.waveForm;
 
     await commentService.clearComments();

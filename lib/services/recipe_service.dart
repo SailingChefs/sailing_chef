@@ -16,7 +16,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService {
   final _userService = locator<UserServices>();
-  final List<XFile?> media = List.empty();
+  final List<XFile?> media  = List.empty();
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
@@ -29,6 +29,7 @@ class RecipeService {
 
       // Update the document with the document ID
       await docRef.update({'doc_id': docId});
+      log(docId.toString());
 
       EasyLoading.dismiss();
 
@@ -44,7 +45,7 @@ class RecipeService {
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     File file = File(filePath);
     Reference storageReference =
-        FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
+            FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
     UploadTask uploadTask = storageReference.putFile(file);
     // ignore: avoid_print
     await uploadTask.whenComplete(() => print('File Uploaded'));
@@ -80,9 +81,9 @@ class RecipeService {
   // }
 
   Future<List<String>> uploadMediaToFirebase(
-      List<XFile?> mediaFiles, String id) async {
+    List<XFile?> mediaFiles,
+  ) async {
     List<String> mediaUrls = [];
-
     try {
       EasyLoading.show();
       for (var media in mediaFiles) {
@@ -103,12 +104,12 @@ class RecipeService {
         UploadTask uploadTask = ref.putFile(File(media.path));
         TaskSnapshot taskSnapshot = await uploadTask;
         String mediaUrl = await taskSnapshot.ref.getDownloadURL();
-        log(mediaUrl);
+
         mediaUrls.add(mediaUrl);
+        log(mediaUrls.toString());
       }
 
       EasyLoading.dismiss();
-      //   showToast(message: 'Media files uploaded successfully');
       //    await FirebaseFirestore.instance.collection('recipes').doc(id).update({
       //   'cover_image': mediaUrls,
       // });
@@ -118,6 +119,75 @@ class RecipeService {
       EasyLoading.dismiss();
       showToast(
           message: 'Error uploading media files to Firebase Storage: $error');
+      log('Error uploading media files to Firebase Storage: $error');
+      return [];
+    }
+  }
+
+  // Future<List<String>> uploadMediaToFirebase(List<XFile?> mediaFiles,String id) async {
+  //   List<String> mediaUrls = [];
+
+  //   try {
+  //     EasyLoading.show();
+  //     for (var media in mediaFiles) {
+  //       String fileName;
+  //       String fileExtension;
+
+  //       if (media!.isVideo) {
+  //         fileExtension = '.mp4';
+  //         fileName =
+  //             DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+  //       } else {
+  //         fileExtension = '.jpg';
+  //         fileName =
+  //             DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+  //       }
+
+  //       Reference ref = firebaseStorage.ref().child('images/recipes/$fileName');
+  //       UploadTask uploadTask = ref.putFile(File(media.path));
+  //       TaskSnapshot taskSnapshot = await uploadTask;
+  //       String mediaUrl = await taskSnapshot.ref.getDownloadURL();
+  //       log(mediaUrl);
+  //       mediaUrls.add(mediaUrl);
+  //     }
+
+  //     EasyLoading.dismiss();
+  //     // showToast(message: 'Media files uploaded successfully');
+  //     //  await FirebaseFirestore.instance.collection('recipes').doc(id).update({
+  //     // 'cover_image': mediaUrls,
+  //   // });
+
+  //     return mediaUrls;
+  //   } catch (error) {
+  //     EasyLoading.dismiss();
+  //     showToast(
+  //         message: 'Error uploading media files to Firebase Storage: $error');
+  //      log( 'Error uploading media files to Firebase Storage: $error');
+  //     return [];
+  //   }
+  // }
+
+  Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
+    List<String> imageUrls = [];
+
+    try {
+      EasyLoading.show();
+      for (var image in images) {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        Reference ref = firebaseStorage.ref().child('images/$fileName');
+        UploadTask uploadTask = ref.putFile(File(image!.path));
+        TaskSnapshot taskSnapshot = await uploadTask;
+        String imageUrl = await taskSnapshot.ref.getDownloadURL();
+        imageUrls.add(imageUrl);
+      }
+
+      EasyLoading.dismiss();
+      showToast(message: 'Images uploaded successfully');
+
+      return imageUrls;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error uploading images to Firebase Storage: $error');
       return [];
     }
   }

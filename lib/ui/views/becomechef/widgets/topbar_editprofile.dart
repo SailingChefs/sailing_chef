@@ -1,11 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 
-class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> {
-  const TopBarEditProfile(this.title, {super.key});
+class TopBarBecomeChef extends ViewModelWidget<BecomechefViewModel> {
+  const TopBarBecomeChef(this.title, {super.key});
   final String title;
   @override
-  Widget build(BuildContext context, EditProfileViewModel viewModel) {
+  Widget build(BuildContext context, BecomechefViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 25.0,

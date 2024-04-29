@@ -12,10 +12,10 @@ class FollowService with ListenableServiceMixin {
   final UserServices _userServices = UserServices();
   List<String> followers = [];
   List<String> following = [];
-  Future<void> init(String uid,  bool fetch) async {
+  Future<void> init(String uid,   bool fetch) async {
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
-    if  (fetch == true)  {
+    if   (fetch == true)   {
       usersFollowers.clear();
       usersFollowing.clear();
       await _getFollowUserDetails();
@@ -24,11 +24,12 @@ class FollowService with ListenableServiceMixin {
     notifyListeners();
   }
 
+
   List<UserModel> usersFollowers = [];
   List<UserModel> usersFollowing = [];
 
   Future<void> _getFollowUserDetails() async {
-    for  (var follower in followers)  {
+    for   (var follower in followers)   {
       usersFollowers.add(await _userServices.fetchUserByUID(follower));
     }
     log('followerslength: ${usersFollowers.length}');
