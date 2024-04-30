@@ -154,35 +154,39 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
-    try {
-      EasyLoading.show();
 
-      QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('visibility', isEqualTo: 'Public')
+  try {
+    EasyLoading.show();
+
+    QuerySnapshot snapshot = await firebasestore
+        .collection('recipes')
+       .where('visibility', isEqualTo: 'Public')
           .where('status', isEqualTo: 'published')
+        // .where('uid', isNotEqualTo: '123456')
+        .get();
 
-          .get();
-
-      List<RecipeModel> recipes = [];
-      for (var doc in snapshot.docs) {
-        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+    List<RecipeModel> recipes = [];
+    for (var doc in snapshot.docs) {
+      RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+      UserModel? currUser = await _userService
+          .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+      if (!currUser.blockedAccounts!.contains(recipe.uid)) {
 
         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
         recipes.add(recipe);
       }
-
-      EasyLoading.dismiss();
-
-      return recipes;
-    } catch (e) {
-      EasyLoading.dismiss();
-      log("Error fetching recipes: $e");
-      return [];
     }
-  }
 
+    EasyLoading.dismiss();
+
+    return recipes;
+  } catch (e) {
+    EasyLoading.dismiss();
+    log("Error fetching recipes: $e");
+    return [];
+  }
+}
   Future<List<RecipeModel>> fetchRandomRecipes(
       int count, String currentRecipeId) async {
     try {
@@ -191,10 +195,10 @@ class RecipeService {
       // Attempt to fetch more than you need to improve randomness
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('uid', isNotEqualTo: '123456')
+
           .where('visibility', isEqualTo: 'Public')
           .where('status', isEqualTo: 'published')
-          .where('recipeId', isNotEqualTo: currentRecipeId)
+          .where('uid', isNotEqualTo: currentRecipeId)
           .limit(10)
           .get();
 

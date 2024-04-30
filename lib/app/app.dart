@@ -1,6 +1,7 @@
 import 'package:sailing_chefs/services/auth_service.dart';
 
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
+import 'package:sailing_chefs/services/block_user_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/search_service.dart';
@@ -112,6 +113,7 @@ import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),
     LazySingleton(classType: SavedRecipeService),
+    LazySingleton(classType: BlockUserService),
 
     LazySingleton(classType: BitmapImageService),
     LazySingleton(classType: FollowService),

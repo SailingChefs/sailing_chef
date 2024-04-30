@@ -40,13 +40,7 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  void updateCurrentUserModel({required UserModel localModel}) {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(localModel.toJson());
-    notifyListeners();
-  }
+ 
 
   Future<UserModel> getUserDetails() async {
     try {
@@ -202,33 +196,5 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  Future<bool> updateBlockedAccounts(List<String> blockedAccounts) async {
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-
-    try {
-      // Check if the document exists
-      final DocumentSnapshot document = await usersCollection
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get();
-
-      if (document.exists) {
-        // If the document exists, update the blocked_accounts field
-        await usersCollection
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .update(
-                {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
-      } else {
-        // If the document doesn't exist, create it with the blocked_accounts field
-        await usersCollection
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set({'blocked_accounts': blockedAccounts});
-      }
-      log('Blocked accounts updated successfully.');
-      return true;
-    } catch (e) {
-      log('Error updating blocked accounts: $e');
-      return false;
-    }
-  }
+  
 }

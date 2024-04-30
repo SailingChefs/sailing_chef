@@ -2,7 +2,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_details.dart';
 
 import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
@@ -38,9 +37,85 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                             fit: BoxFit.cover,
                           )),
               ),
-              ChefProfileDetails(
-                user: user,
+               horizontalSpaceSmall,
+           verticalSpaceTiny,
+             GestureDetector(
+          onTap: viewModel.showRecipeList,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                viewModel.chefRecipes!.length.toString(),
+                style: globalTextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6)),
               ),
+              verticalSpaceTiny,
+              Text(
+                'Dishes',
+                style: globalTextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6)),
+              ),
+            ],
+          ),
+        ),
+        horizontalSpaceSmall,
+        GestureDetector(
+          onTap: () => viewModel.goToFollowingList(user),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                viewModel.followers.length.toString(),
+                style: globalTextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6)),
+              ),
+              verticalSpaceTiny,
+              Text(
+                'Followers',
+                style: globalTextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6)),
+              ),
+            ],
+          ),
+        ),
+        horizontalSpaceSmall,
+        GestureDetector(
+          onTap: () => viewModel.goToFollowingList,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                user.following!.length.toString(),
+                style: globalTextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6)),
+              ),
+              verticalSpaceTiny,
+              Text(
+                'Following',
+                style: globalTextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6)),
+              ),
+            ],
+          ),
+        ),
+              // ChefProfileDetails(
+              //   user: user,
+              // ),
             ],
           ),
           user.displayName!.isEmpty

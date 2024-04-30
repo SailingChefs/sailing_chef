@@ -6,6 +6,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/container_top.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/maincontainer.dart';
+import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:stacked/stacked.dart';
 import 'recipe_view_viewmodel.dart';
 
@@ -26,6 +27,20 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     RecipeViewViewModel viewModel,
     Widget? child,
   ) {
+    Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Stack(children: [
+        TopBarRecipeView(selectedImages),
+        MainRecipeViewContainer(recipeModel, selectedImages),
+        Positioned(
+          top: 40,
+          left: 10,
+          child: BackArrowWidget(onTap: () {
+            viewModel.moveBack();
+          }),
+        ),
+      ]),
+    );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(children: [

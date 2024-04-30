@@ -3,6 +3,7 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_topbar.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/dish_list_screen.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/follow_message__btn.dart';
+import 'package:sailing_chefs/ui/views/chef_profile/widgets/shimmer_loader.dart';
 
 import 'chef_profile_viewmodel.dart';
 import 'widgets/chef_profile_description.dart';
@@ -22,31 +23,36 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: viewModel.isBusy
-            ? const Center(
-                child: CircularProgressIndicator(
-                color: kcBackgroundColor,
-              ))
-            : Padding(
+        body:  
+             Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ChefProfileTopBar(
                         uid: user.uid!,
                       ),
-                      verticalSpace(35),
-                      ChefProfileDetailsDesc(
-                        user: user,
+                     
+                      viewModel.isBusy ?
+                    const  ShimmerLoaderChefView():
+                      
+                      Column(
+
+                        children: [
+                          ChefProfileDetailsDesc(
+                            user: user,
+                          ),
+                          verticalSpaceMedium,
+                          Follow_Message_Btns(user: user),
+                          DishListScreen(user: user),
+                        ],
                       ),
-                      verticalSpaceMedium,
-                      Follow_Message_Btns(user: user),
-                      DishListScreen(user: user),
                     ],
                   ),
                 ),
-              ),
+              )
       ),
     );
   }

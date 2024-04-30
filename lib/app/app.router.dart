@@ -455,10 +455,8 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i28.BlockedAccountsView: (data) {
-      final args = data.getArgs<BlockedAccountsViewArguments>(nullOk: false);
       return _i31.MaterialPageRoute<dynamic>(
-        builder: (context) => _i28.BlockedAccountsView(
-            key: args.key, blockedUserList: args.blockedUserList),
+        builder: (context) => const _i28.BlockedAccountsView(),
         settings: data,
       );
     },
@@ -777,33 +775,6 @@ class AllChefsViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ chefList.hashCode;
-  }
-}
-
-class BlockedAccountsViewArguments {
-  const BlockedAccountsViewArguments({
-    this.key,
-    required this.blockedUserList,
-  });
-
-  final _i32.Key? key;
-
-  final List<String> blockedUserList;
-
-  @override
-  String toString() {
-    return '{"key": "$key", "blockedUserList": "$blockedUserList"}';
-  }
-
-  @override
-  bool operator ==(covariant BlockedAccountsViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key && other.blockedUserList == blockedUserList;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode ^ blockedUserList.hashCode;
   }
 }
 
@@ -1217,18 +1188,14 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToBlockedAccountsView({
-    _i32.Key? key,
-    required List<String> blockedUserList,
+  Future<dynamic> navigateToBlockedAccountsView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return navigateTo<dynamic>(Routes.blockedAccountsView,
-        arguments: BlockedAccountsViewArguments(
-            key: key, blockedUserList: blockedUserList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1672,18 +1639,14 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBlockedAccountsView({
-    _i32.Key? key,
-    required List<String> blockedUserList,
+  Future<dynamic> replaceWithBlockedAccountsView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return replaceWith<dynamic>(Routes.blockedAccountsView,
-        arguments: BlockedAccountsViewArguments(
-            key: key, blockedUserList: blockedUserList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

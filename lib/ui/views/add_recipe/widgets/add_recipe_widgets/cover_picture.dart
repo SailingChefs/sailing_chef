@@ -122,70 +122,73 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.98.w,
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...viewModel.thumbnails.map((XFile image) {
-                            return Stack(
-                              children: [
-                                Container(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ...viewModel.thumbnails.map((XFile image) {
+                              return Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 8.0),
+                                    height: 50.0,
+                                    width: 50.0,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: FileImage(File(image.path)),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    left: 40,
+                                    bottom: 38,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        viewModel.deleteCurrentImage();
+                                      },
+                                      child: Container(
+                                        width: 18,
+                                        height: 18,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: kcsgreycolor,
+                                        ),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 10,
+                                          color: kcBlackColor.withOpacity(0.8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                            if (viewModel.selectedImages.isNotEmpty)
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.pickImages();
+                                },
+                                child: Container(
                                   margin: const EdgeInsets.only(right: 8.0),
                                   height: 50.0,
                                   width: 50.0,
                                   decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: FileImage(File(image.path)),
-                                      fit: BoxFit.cover,
-                                    ),
+                                    color: kcsgreycolor,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                ),
-                                Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  left: 40,
-                                  bottom: 38,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      viewModel.deleteCurrentImage();
-                                    },
-                                    child: Container(
-                                      width: 18,
-                                      height: 18,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: kcsgreycolor,
-                                      ),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 10,
-                                        color: kcBlackColor.withOpacity(0.8),
-                                      ),
-                                    ),
+                                  child: const Center(
+                                    child: Icon(Icons.add),
                                   ),
                                 ),
-                              ],
-                            );
-                          }).toList(),
-                          if (viewModel.selectedImages.isNotEmpty)
-                            GestureDetector(
-                              onTap: () {
-                                viewModel.pickImages();
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 8.0),
-                                height: 50.0,
-                                width: 50.0,
-                                decoration: BoxDecoration(
-                                  color: kcsgreycolor,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: const Center(
-                                  child: Icon(Icons.add),
-                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

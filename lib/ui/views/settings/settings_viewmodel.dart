@@ -18,7 +18,7 @@ class SettingsViewModel extends BaseViewModel {
 
   void getBlockAcc() {
     _navigationService.navigateToBlockedAccountsView(
-        blockedUserList: userDetails!.blockedAccounts!);
+        );
   }
 
   void getBecomeChef() {
