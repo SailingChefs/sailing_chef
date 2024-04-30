@@ -195,7 +195,7 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
-    EasyLoading.show();
+  
     try {
       // Fetch recipes
       QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -214,10 +214,9 @@ class RecipeService {
       }).toList();
       // Map each document to a RecipeModel and include user data
 
-      EasyLoading.dismiss();
       return recipes;
     } catch (e) {
-      EasyLoading.dismiss();
+
       log('Error fetching recipes: $e');
       return [];
     }

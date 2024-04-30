@@ -3,9 +3,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/follower_list.dart';
-import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 
-import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/tab_bars.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/topbar_following.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/followinglist.dart';

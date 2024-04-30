@@ -76,11 +76,11 @@ class ChefService {
 // }
 
   Future<List<UserModel>> fetchChefDocuments() async {
-    log("Here is me........");
+ 
     List<UserModel> users = [];
 
     try {
-      EasyLoading.show();
+    
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where(
@@ -99,7 +99,7 @@ class ChefService {
         }
       }
 
-      EasyLoading.dismiss();
+    
 
       return users;
     } catch (error) {

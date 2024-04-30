@@ -46,6 +46,7 @@ dependencies:
   device_preview: ^1.1.0
   dart_geohash: ^2.1.0
   geoflutterfire_plus: ^0.0.21
+  shimmer: ^3.0.0
   
  
   

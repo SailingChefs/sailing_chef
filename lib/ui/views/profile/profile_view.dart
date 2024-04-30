@@ -31,46 +31,48 @@ class ProfileView extends StackedView<ProfileViewModel> {
                   left: 15.0,
                   right: 15.0,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TopBarProfileScreen(),
-                    verticalSpace(35),
-                    const ProfileDetailsProfileScreen(),
-                    const ProfileDescriptionProfileScreen(),
-                    verticalSpaceMedium,
-                    userDetails!.userRole == 'guest' ? Container() :
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        
-                        const TabBarProfileScreen(),
-                        Icon(
-                          FlutterRemix.equalizer_line,
-                          color: kcPrimaryColor,
-                          size: 30.sp,
-                        ),
-                      ],
-                    ),
-
-                    userDetails!.userRole == 'guest' ?  const Expanded(
-                      child: Column(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TopBarProfileScreen(),
+                      verticalSpace(35),
+                      const ProfileDetailsProfileScreen(),
+                      const ProfileDescriptionProfileScreen(),
+                      verticalSpaceMedium,
+                      userDetails!.userRole == 'guest' ? Container() :
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Divider(),
-                          SavedProfileScreen(),
+                          
+                          const TabBarProfileScreen(),
+                          Icon(
+                            FlutterRemix.equalizer_line,
+                            color: kcPrimaryColor,
+                            size: 30.sp,
+                          ),
                         ],
                       ),
-                    ) :
-
-                    Column(
-                      children: [
-                        verticalSpaceMedium,
-                        viewModel.isMySelected
-                            ? const MyRecipesProfileScreen()
-                            : const SavedProfileScreen(),
-                      ],
-                    ),
-                  ],
+                  
+                      userDetails!.userRole == 'guest' ?  const Expanded(
+                        child: Column(
+                          children: [
+                            Divider(),
+                            SavedProfileScreen(),
+                          ],
+                        ),
+                      ) :
+                  
+                      Column(
+                        children: [
+                          verticalSpaceMedium,
+                          viewModel.isMySelected
+                              ? const MyRecipesProfileScreen()
+                              : const SavedProfileScreen(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               )),
     );

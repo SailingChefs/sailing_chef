@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/dish_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/shimmer_loader.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 
 import 'index_viewmodel.dart';
@@ -17,11 +18,8 @@ class IndexView extends StackedView<IndexViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(
-              child: CircularProgressIndicator(
-              color: kcBackgroundColor,
-            ))
-          : Scaffold(
+          ? const ShimmerLoader():
+           Scaffold(
               backgroundColor: kcBackgroundColor,
               body: SingleChildScrollView(
                 padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -38,7 +36,7 @@ class IndexView extends StackedView<IndexViewModel> {
                   ],
                 ),
               ),
-            ),
+            )
     );
   }
 

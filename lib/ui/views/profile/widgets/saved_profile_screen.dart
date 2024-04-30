@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -8,29 +9,42 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     final savedRecipes = viewModel.savedRecipes;
-    return savedRecipes.isEmpty ? const Center(child: Text('No saved recipes')) : Expanded(
-      flex: 1,
-      child: GridView.builder(
-        itemCount: savedRecipes.length,
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 15.0,
-          mainAxisSpacing: 18.0,
-          childAspectRatio: 7.4 / 9,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return PrimaryGridTile(
-              recipeId: savedRecipes[index].recipeId,
-              savedRecipeList: viewModel.savedRecipes,
-              onTap: () {},
-              //  viewModel.toDishDetailsScreen,
-              foodImagePath: savedRecipes[index].recipeModel!.coverImage.first,
-              dishName: savedRecipes[index].recipeModel!.title,
-              duration: savedRecipes[index].recipeModel!.prepTime,
-              chefImagePath: savedRecipes[index].recipeModel!.user!.displayPicture!);
-        },
-      ),
-    );
+    return savedRecipes.isEmpty ? const Center(child: Text('No saved recipes')) :  
+   Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return ShrinkWrappingViewport(
+                offset: ViewportOffset.zero(),
+                axisDirection: AxisDirection.down,
+                slivers: [
+                  SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15.0,
+                      mainAxisSpacing: 18.0,
+                      childAspectRatio: 7.4 / 9,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return PrimaryGridTile(
+                          savedRecipeList: viewModel.savedRecipes,
+                          recipeId: savedRecipes[index].recipeId,
+                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          foodImagePath: savedRecipes[index].recipeModel!.coverImage.first,
+                          dishName: savedRecipes[index].recipeModel!.title,
+                          duration: savedRecipes[index].recipeModel!.prepTime,
+                          chefImagePath: savedRecipes[index].recipeModel!.user!.displayPicture!,
+                        );
+                      },
+                      childCount: savedRecipes.length,
+                    ),
+                  ),
+                ],
+              );
+            }),
+          );
   }
 }
+ 

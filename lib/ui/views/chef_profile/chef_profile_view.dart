@@ -12,7 +12,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
   final UserModel user;
 
 
-  ChefProfileView({required this.user, super.key});
+  const ChefProfileView({required this.user, super.key});
 
   @override
   Widget builder(

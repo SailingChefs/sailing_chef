@@ -64,8 +64,10 @@ class ProfileViewModel extends ReactiveViewModel {
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
   void savedSelected() async {
+
     isSavedSelected = true;
-    await _savedRecipeService.init();
+
+
     isMySelected = false;
     notifyListeners();
     rebuildUi();
