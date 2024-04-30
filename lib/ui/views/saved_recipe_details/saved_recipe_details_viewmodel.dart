@@ -4,10 +4,10 @@ import 'dart:io';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 // import 'package:just_audio/just_audio.dart';
 // import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -20,8 +20,8 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
+
 import '../../../core/imports/core_imports.dart';
-import 'package:path_provider/path_provider.dart';
 // import 'package:just_audio_cache/just_audio_cache.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
@@ -46,6 +46,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<RecipeModel> recipeList = [];
   late final PlayerController playerController;
   late List<double>? waveFormData;
+  bool isPlaying = false;
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -170,8 +171,25 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void startListening() async {
-    log("Start Listening");
-    await playerController.startPlayer(finishMode: FinishMode.pause);
+    log("start Listening ${isPlaying.toString()}");
+    isPlaying = true;
+    rebuildUi();
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause)
+        .then((value) {
+      // isPlaying = false;
+      // rebuildUi();
+    });
+    log("start Listening ends ${isPlaying.toString()}");
+  }
+
+  void stopListening() async {
+    log("stop Listening ${isPlaying.toString()}");
+    await playerController.pausePlayer();
+    isPlaying = false;
+    log(isPlaying.toString());
+    rebuildUi();
+    log("stop Listening ends ${isPlaying.toString()}");
   }
 
   void onViewModelReady(int length, String recipeId) async {

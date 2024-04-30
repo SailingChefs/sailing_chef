@@ -83,11 +83,18 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: viewModel.startListening,
-                          icon: const Icon(
-                            Icons.play_arrow,
-                            color: kcPrimaryColorDark,
-                          ),
+                          onPressed: viewModel.isPlaying
+                              ? viewModel.stopListening
+                              : viewModel.startListening,
+                          icon: viewModel.isPlaying
+                              ? const Icon(
+                                  Icons.stop,
+                                  color: kcPrimaryColorDark,
+                                )
+                              : const Icon(
+                                  Icons.play_arrow,
+                                  color: kcPrimaryColorDark,
+                                ),
                         ),
                         Expanded(
                           child: Align(
