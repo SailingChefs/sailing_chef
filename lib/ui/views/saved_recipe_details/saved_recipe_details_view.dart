@@ -26,7 +26,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
-            color: Colors.transparent,
+            color: kcPrimaryColor,
           ))
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,

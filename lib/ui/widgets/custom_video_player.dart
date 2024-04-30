@@ -29,6 +29,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   initVideo() {
     controller = widget.pathh != null
         ? VideoPlayerController.file(
+           
             File(widget.pathh!),
           )
         : VideoPlayerController.networkUrl(Uri.parse(widget.url!));
@@ -54,7 +55,9 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+            ),
           );
         } else {
           return GestureDetector(

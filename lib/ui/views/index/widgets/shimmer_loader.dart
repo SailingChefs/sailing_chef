@@ -10,10 +10,9 @@ class ShimmerLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const TopBarIndexScreen(),
-          verticalSpaceMedium,
           Shimmer.fromColors(
             baseColor: Colors.grey.withOpacity(0.2),
             highlightColor: Colors.white,
@@ -67,7 +66,31 @@ class ShimmerLoader extends StatelessWidget {
               },
             ),
           ),
-          verticalSpaceMedium,
+          verticalSpaceSmall,
+          Shimmer.fromColors(
+            baseColor: Colors.grey.withOpacity(0.2),
+            highlightColor: Colors.white,
+            child: Flexible(
+              child: Container(
+               
+                height: 40,
+                decoration: BoxDecoration(
+                  color: kcwhitecolor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                margin: const EdgeInsets.all(8),
+              ),
+            ),
+          ),
+          verticalSpaceSmall,
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -91,20 +114,19 @@ class ShimmerLoader extends StatelessWidget {
                             baseColor: Colors.grey.withOpacity(0.2),
                             highlightColor: Colors.white,
                             child: Container(
-                              width: 160.w,
+                              width: 240.w,
                               decoration: BoxDecoration(
                                 color: kcwhitecolor,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
+                                    spreadRadius: 2,
                                     blurRadius: 1,
                                     offset: const Offset(0, 3),
                                   ),
                                 ],
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              margin: const EdgeInsets.all(8),
                             ),
                           );
                         },

@@ -27,7 +27,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.savedRecipes[index].recipeModel!),
                     foodImagePath: viewModel
-                        .savedRecipes[index].recipeModel!.coverImage.first,
+                        .savedRecipes[index].recipeModel!.coverImage.where((element) => element.contains('.jpg')).first,
                     dishName: viewModel.savedRecipes[index].recipeModel!.title,
                     duration:
                         viewModel.savedRecipes[index].recipeModel!.prepTime,

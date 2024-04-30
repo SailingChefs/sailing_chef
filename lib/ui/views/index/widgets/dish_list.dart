@@ -35,10 +35,11 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
+                          
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: dishes[index].docId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: dishes[index].coverImage.first,
+                          foodImagePath: dishes[index].coverImage.where((element) => element.contains('.jpg')).first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
                           chefImagePath: dishes[index].user!.displayPicture!,

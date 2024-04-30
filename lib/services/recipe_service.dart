@@ -19,6 +19,14 @@ class RecipeService {
   List<RecipeModel> recipes = [];
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
+  bool isInitialized = false;
+
+  Future<void> initialized() async{
+    if(isInitialized) return;
+    recipes = await fetchAllRecipes();
+    isInitialized = true;
+  }
+
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
       EasyLoading.show();
@@ -26,13 +34,11 @@ class RecipeService {
           .collection('recipes')
           .add(recipe.toMap());
 
-      // Get the document ID assigned by Firestore
       String docId = docRef.id;
 
-      // Update the document with the document ID
       await docRef.update({'doc_id': docId});
       log(docId.toString());
-
+      
       EasyLoading.dismiss();
 
       showToast(message: 'Recipe added successfully');
@@ -133,7 +139,7 @@ class RecipeService {
       UserModel? user = await _userService.fetchUserByUID(uid);
 
       // Map each document to a RecipeModel and include user data
-      List<RecipeModel> recipes = snapshot.docs.map((doc) {
+      recipes = snapshot.docs.map((doc) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
         recipe.user = user; // Assuming RecipeModel has a field for UserModel
         return recipe;
@@ -148,11 +154,14 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
+
   try {
     EasyLoading.show();
 
     QuerySnapshot snapshot = await firebasestore
         .collection('recipes')
+       .where('visibility', isEqualTo: 'Public')
+          .where('status', isEqualTo: 'published')
         // .where('uid', isNotEqualTo: '123456')
         .get();
 
@@ -162,6 +171,7 @@ class RecipeService {
       UserModel? currUser = await _userService
           .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
       if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+
         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
         recipes.add(recipe);

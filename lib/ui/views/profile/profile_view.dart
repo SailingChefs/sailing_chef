@@ -54,14 +54,13 @@ class ProfileView extends StackedView<ProfileViewModel> {
                               ],
                             ),
                       userDetails!.userRole == 'guest'
-                          ? const Expanded(
-                              child: Column(
-                                children: [
-                                  Divider(),
-                                  SavedProfileScreen(),
-                                ],
-                              ),
-                            )
+                          ? Column(
+                            children: [
+                              const Divider(),
+                              verticalSpaceMedium,
+                              const SavedProfileScreen(),
+                            ],
+                          )
                           : Column(
                               children: [
                                 verticalSpaceMedium,

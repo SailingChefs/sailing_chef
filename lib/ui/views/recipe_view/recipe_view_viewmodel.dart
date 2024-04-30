@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'dart:io';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -23,6 +22,7 @@ class RecipeViewViewModel extends BaseViewModel {
   bool isIngredientsSelected = true;
   bool isMethodsSelected = false;
   bool isclicked = false;
+  bool isPlaying = false;
 
   Timer? _timer;
   List<double>? waveFormData;
@@ -43,7 +43,25 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void startListening() async {
-    await playerController.startPlayer(finishMode: FinishMode.loop);
+    log("start Listening ${isPlaying.toString()}");
+    isPlaying = true;
+    rebuildUi();
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause)
+        .then((value) {
+      // isPlaying = false;
+      // rebuildUi();
+    });
+    log("start Listening ends ${isPlaying.toString()}");
+  }
+
+  void stopListening() async {
+    log("stop Listening ${isPlaying.toString()}");
+    await playerController.pausePlayer();
+    isPlaying = false;
+    log(isPlaying.toString());
+    rebuildUi();
+    log("stop Listening ends ${isPlaying.toString()}");
   }
 
   void myIngredientsSelected() {

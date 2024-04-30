@@ -10,24 +10,24 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-          onTap: () => viewModel.moveBack(),
-          child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(left: 8.0.dg),
-            height: 36.h,
-            width: 36.w,
-            decoration: const BoxDecoration(
-              color: kcVeryLightGrey,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: kcPrimaryColor,
-              size: 20.sp,
-            ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () => viewModel.moveBack(),
+        //   child: Container(
+        //     alignment: Alignment.center,
+        //     padding: EdgeInsets.only(left: 8.0.dg),
+        //     height: 36.h,
+        //     width: 36.w,
+        //     decoration: const BoxDecoration(
+        //       color: kcVeryLightGrey,
+        //       shape: BoxShape.circle,
+        //     ),
+        //     child: Icon(
+        //       Icons.arrow_back_ios,
+        //       color: kcPrimaryColor,
+        //       size: 20.sp,
+        //     ),
+        //   ),
+        // ),
         Text(
           'Your Profile',
           style: globalTextStyle(
