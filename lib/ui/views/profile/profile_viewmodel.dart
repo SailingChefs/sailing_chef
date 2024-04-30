@@ -32,7 +32,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   void navigateToBlockScreen() {
     _navigationService.navigateToBlockedAccountsView(
-        blockedUserList: usrService.currentUserDetails!.blockedAccounts!);
+        );
   }
 
   @override

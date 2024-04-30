@@ -1,12 +1,48 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 class Methods extends ViewModelWidget<RecipeViewViewModel> {
-  final RecipeModel recipeModel;
+  final RecipeModel recipe;
 
-  const Methods({super.key, required this.recipeModel});
+  const Methods({super.key, required this.recipe});
+  List<Widget> createIngredientWidgets() {
+    return [
+      for (var ingredient in recipe.methods)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CircleAvatar(
+                minRadius: double.minPositive + 13,
+                backgroundColor: const Color(0xFF2E3E5C),
+                child: Text(
+                  '${recipe.methods.indexOf(ingredient) + 1}',
+                  style: const TextStyle(color: kcwhitecolor, fontSize: 12),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(15.dg),
+                child: Text(capitalizeEachWord(ingredient),
+                    style: GoogleFonts.inter(
+                      textStyle: globalTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.5)),
+                    )),
+              ),
+            ),
+          ],
+        ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
@@ -19,52 +55,8 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
             "Instructions",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
-          SizedBox(
-            height: recipeModel.methods.length * 100.h,
-            child: ListView.builder(
-              itemCount: recipeModel.methods.length,
-              //physics: const,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: CircleAvatar(
-                          minRadius: double.minPositive + 13,
-                          backgroundColor: Colors.blueGrey,
-                          child: Text(
-                            '${index + 1}',
-                            style: const TextStyle(
-                                color: kcwhitecolor, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          width: 300.w,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              recipeModel.methods[index],
-                              style: globalTextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor.withOpacity(0.5)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
+          ... createIngredientWidgets(),
+        
           verticalSpaceMedium,
           const Text("Chef Notes",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
@@ -110,39 +102,8 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ],
                     )
-              // Row(
-              //   children: [
-              //     ElevatedButton(
-              //       style: ElevatedButton.styleFrom(
-              //         padding: EdgeInsets.zero,
-              //         shape: const CircleBorder(),
-              //         backgroundColor: kcPrimaryColor,
-              //       ),
-              //       onPressed: () {},
-              //       child: const Icon(
-              //         Icons.play_arrow,
-              //         color: kcwhitecolor,
-              //       ),
-              //     ),
-              //     horizontalSpaceTiny,
-              //     const Icon(Icons.multitrack_audio, opticalSize: 25),
-              //     const Spacer(),
-              //     const Text("0:05",
-              //         style:
-              //             TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              //     horizontalSpaceTiny,
-              //     Icon(Icons.volume_up,
-              //         size: 24, color: Colors.black.withOpacity(0.5)),
-              //     horizontalSpaceSmall,
-              //   ],
-              // ),
               ),
           verticalSpaceLarge,
-          // Save_Recipe_Button(
-          //   onPressed: () {},
-          //   buttonText: 'Submit Recipe',
-          // ),
-          // horizontalSpaceSmall,
         ],
       ),
     );

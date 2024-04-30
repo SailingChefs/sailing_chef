@@ -42,7 +42,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                       Radius.circular(22.7.dg)),
                                   child: Image.network(
                                     viewModel
-                                        .recipeList[index].coverImage.first,
+                                        .recipeList[index].coverImage.where((element) => element.contains('jpg')).first,
                                     fit: BoxFit.cover,
                                     width: 119.w,
                                     height: 162.h,

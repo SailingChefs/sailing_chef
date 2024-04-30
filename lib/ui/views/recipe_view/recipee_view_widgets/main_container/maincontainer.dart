@@ -17,44 +17,52 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 250),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: kcwhitecolor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
-                  ),
-                ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            decoration: BoxDecoration(
+              color: kcwhitecolor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35.r),
+                topRight: Radius.circular(35.r),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20.0.dg),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     verticalSpaceMedium,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            capitalizeEachWord(recipeModel.title),
-                            style: globalTextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: kcBlackColor,
-                            ),
+                        Text(
+                          capitalizeEachWord(recipeModel.title),
+                          style: globalTextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor,
                           ),
                         ),
-                        Container(
-                          width: 70,
+                        SizedBox(
+                          width: 50,
                           height: 45,
-                          padding: const EdgeInsets.all(10.0),
+                          
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              const Icon(
+                                FlutterRemix.time_line,
+                                color: kcPrimaryColor,
+                                size: 20,
+                              ),
                               Text(
                                 recipeModel.prepTime,
                                 style: const TextStyle(
@@ -67,25 +75,14 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10.0, right: 10, top: 2),
-                      child: Text(
-                        'This Healthy Taco Salad is the universal delight of taco night',
-                        style: globalTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: kcBlackColor,
-                        ),
-                      ),
-                    ),
+                  
                     verticalSpaceMedium,
                     const TabBarWidgets(),
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
-                        ? IngredientsClass(recipeModel, selectedImages)
+                        ? IngredientsClass(recipeModel,)
                         : Methods(
-                            recipeModel: recipeModel,
+                            recipe: recipeModel,
                           ),
                     SaveRecipeButton(
                       onPressed: () {
@@ -97,9 +94,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            )),
       ],
     );
   }

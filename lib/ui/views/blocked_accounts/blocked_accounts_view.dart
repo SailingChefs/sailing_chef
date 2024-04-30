@@ -4,8 +4,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
-  final List<String> blockedUserList;
-  const BlockedAccountsView({Key? key, required this.blockedUserList})
+  
+  const BlockedAccountsView({Key? key, })
       : super(key: key);
 
   @override
@@ -14,7 +14,6 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
     BlockedAccountsViewModel viewModel,
     Widget? child,
   ) {
-    log(blockedUserList.length.toString());
     Size size = MediaQuery.of(context).size;
     return viewModel.isBusy
         ? const Center(child: CircularProgressIndicator())
@@ -50,7 +49,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
               height: size.height,
               width: size.width,
               // padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-              child: blockedUserList.isEmpty
+              child: viewModel.blockedUsers.isEmpty
                   ? Center(
                       child: Text(
                         "No Blocked User",
@@ -59,11 +58,11 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                     )
                   : ListView.builder(
                       padding: EdgeInsets.only(left: 10.w, right: 0, top: 20.h),
-                      itemCount: blockedUserList.length,
+                      itemCount: viewModel.blockedUsers.length,
                       itemBuilder: ((context, index) {
                         return FutureBuilder(
                           future: viewModel.findUserDetails(
-                              uid: blockedUserList[index]),
+                              uid: viewModel.blockedUsers[index]),
                           builder: ((context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -102,7 +101,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                     onSelected: (value) {
                                       viewModel.selectMenuItem(
                                         option: value,
-                                        uid: blockUser.uid.toString(),
+                                        user: blockUser,
                                       );
                                     },
                                     itemBuilder: (BuildContext context) =>
@@ -111,21 +110,10 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                         value: 'unblock',
                                         child: Text('Unblock User'),
                                       ),
-                                      // const PopupMenuItem<String>(
-                                      //   value: 'Option 2',
-                                      //   child: Text('Option 2'),
-                                      // ),
-                                      // Add more PopupMenuItems for additional options
+                                      
                                     ],
                                   ),
-                                  // IconButton(
-                                  //     padding: EdgeInsets.zero,
-                                  //     onPressed: () {},
-                                  //     icon: Transform.rotate(
-                                  //         angle: 3.14 * 90 / 180,
-                                  //         child: const Icon(
-                                  //           FlutterRemix.more_fill,
-                                  //         ),),),
+                                  
                                 ),
                               );
                             }
