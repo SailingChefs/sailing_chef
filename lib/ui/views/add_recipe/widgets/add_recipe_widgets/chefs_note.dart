@@ -1,7 +1,8 @@
 import 'dart:developer';
+
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-import 'package:audio_waveforms/audio_waveforms.dart';
 
 class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
   const ChefsNote({super.key});
@@ -47,11 +48,18 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                onPressed: viewModel.startListening,
-                                icon: const Icon(
-                                  Icons.play_arrow,
-                                  color: kcPrimaryColorDark,
-                                ),
+                                onPressed: viewModel.isPlaying
+                                    ? viewModel.stopListening
+                                    : viewModel.startListening,
+                                icon: viewModel.isPlaying
+                                    ? const Icon(
+                                        Icons.stop,
+                                        color: kcPrimaryColorDark,
+                                      )
+                                    : const Icon(
+                                        Icons.play_arrow,
+                                        color: kcPrimaryColorDark,
+                                      ),
                               ),
                               Expanded(
                                 child: Align(

@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
@@ -14,8 +16,6 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_s
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -123,7 +123,26 @@ String? validatePrepTime(String? value) {
   }
 
   void startListening() async {
-    await playerController.startPlayer(finishMode: FinishMode.pause);
+    log("start Listening ${isPlaying.toString()}");
+    isPlaying = true;
+    rebuildUi();
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause)
+        .then((value) {
+      // stopListening();
+      // isPlaying = false;
+      // rebuildUi();
+    });
+    log("start Listening ends ${isPlaying.toString()}");
+  }
+
+  void stopListening() async {
+    log("stop Listening ${isPlaying.toString()}");
+    await playerController.pausePlayer();
+    isPlaying = false;
+    log(isPlaying.toString());
+    rebuildUi();
+    log("stop Listening ends ${isPlaying.toString()}");
   }
 
   void deleteCurrentRecording() {
