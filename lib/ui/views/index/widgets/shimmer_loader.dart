@@ -10,10 +10,9 @@ class ShimmerLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const TopBarIndexScreen(),
-          verticalSpaceMedium,
           Shimmer.fromColors(
             baseColor: Colors.grey.withOpacity(0.2),
             highlightColor: Colors.white,
@@ -68,53 +67,50 @@ class ShimmerLoader extends StatelessWidget {
             ),
           ),
           verticalSpaceMedium,
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                return ShrinkWrappingViewport(
-                  offset: ViewportOffset.zero(),
-                  axisDirection: AxisDirection.down,
-                  slivers: [
-                    SliverGrid(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15.0,
-                        mainAxisSpacing: 18.0,
-                        childAspectRatio: 7.4 / 9,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey.withOpacity(0.2),
-                            highlightColor: Colors.white,
-                            child: Container(
-                              width: 160.w,
-                              decoration: BoxDecoration(
-                                color: kcwhitecolor,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              margin: const EdgeInsets.all(8),
-                            ),
-                          );
-                        },
-                        childCount: 4,
-                      ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return ShrinkWrappingViewport(
+                offset: ViewportOffset.zero(),
+                axisDirection: AxisDirection.down,
+                slivers: [
+                  SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10.0,
+                      mainAxisSpacing: 10.0,
+                      childAspectRatio: 7.4 / 9,
                     ),
-                  ],
-                );
-              }),
-            ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey.withOpacity(0.2),
+                          highlightColor: Colors.white,
+                          child: Container(
+                            width: 250.w,
+                            decoration: BoxDecoration(
+                              color: kcwhitecolor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 1,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        );
+                      },
+                      childCount: 4,
+                    ),
+                  ),
+                ],
+              );
+            }),
           ),
         ]),
       ),

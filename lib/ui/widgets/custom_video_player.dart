@@ -29,6 +29,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   initVideo() {
     controller = widget.pathh != null
         ? VideoPlayerController.file(
+           
             File(widget.pathh!),
           )
         : VideoPlayerController.networkUrl(Uri.parse(widget.url!));
