@@ -13,7 +13,7 @@ class IndexViewModel extends BaseViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   List<UserModel> get chefList => _chefService.chefs;
-  List<RecipeModel>? dishes;
+  List<RecipeModel> get  dishes => _recipeService.recipes;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
@@ -27,7 +27,9 @@ class IndexViewModel extends BaseViewModel {
 
     await _savedRecipeService.init();
 
-    dishes = await _recipeService.fetchAllRecipes();
+    await _recipeService.initialized();
+
+   
 
     setBusy(false);
   }
@@ -50,7 +52,7 @@ class IndexViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: dishes![index],
+      recipeModel: dishes[index],
     );
   }
 }

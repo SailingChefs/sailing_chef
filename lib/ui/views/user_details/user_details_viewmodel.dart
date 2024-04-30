@@ -191,7 +191,5 @@ class UserDetailsViewModel extends BaseViewModel {
     _navigationService.navigateToIndexView();
   }
 
-  void moveBack() {
-    _navigationService.back();
-  }
+
 }

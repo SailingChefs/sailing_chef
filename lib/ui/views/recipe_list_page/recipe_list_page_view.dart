@@ -70,7 +70,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    recipe.coverImage.first,
+                                    recipe.coverImage.where((element) => element.contains('.jpg')).first,
                                   ),
                                   fit: BoxFit.cover,
                                 ),

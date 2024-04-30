@@ -65,12 +65,15 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  String? validatePrepTime(String? value) {
-    if (value!.isEmpty) {
-      return 'Please enter some time';
-    }
-    return null;
+String? validatePrepTime(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter some time';
   }
+  if (value.length > 3) {
+    return 'Please enter only 3 or fewer characters';
+  }
+  return null;
+}
 
   String? validateTitle(String? value) {
     if (value!.isEmpty) {
@@ -145,7 +148,6 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  // Function to handle swipe to the left (show next image)
   void showNextImage() {
     if (pageController.page! < selectedImages.length - 1) {
       pageController.nextPage(
@@ -268,119 +270,43 @@ class AddRecipeViewModel extends BaseViewModel {
     return '$time $method';
   }
 
-  // void saveRecipe() async {
-  //   if (titleController.text.trim().isNotEmpty &&
-  //       prepTimeController.text.trim().isNotEmpty &&
-  //       methodsList.isNotEmpty &&
-  //       ingredientsList.isNotEmpty &&
-  //       hasRecordedAudio) {
-  //     if (thumbnails.isEmpty) {
-  //       showToast(message: 'Please add at least one image');
-  //       return;
-  //     } else {
-  //       List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
-  //           thumbnails,
-  //           FirebaseFirestore.instance.collection('recipes').doc().id);
-
-  //       await _recipeService.addRecipeToFirestore(RecipeModel(
-  //         visibility: selectedValue,
-  //         chefNote: 'recorderController',
-  //         coverImage: imageUrls,
-  //         createdTime: Timestamp.now(),
-  //         ingredients: ingredientsList,
-  //         methods: methodsList,
-  //         prepTime:
-  //             mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-  //         servingSize: selectedQuantity,
-  //         status: 'published',
-  //         title: titleController.text.trim(),
-  //         uid: firebaseAuth.currentUser!.uid,
-  //         docId: '',
-  //         waveForm: [],
-  //       ));
-
-  //       _navigationService.navigateToRecipeViewView(
-  //           recipeModel: RecipeModel(
-  //             visibility: selectedValue,
-  //             chefNote: 'recorderController',
-  //             coverImage: [],
-  //             createdTime: Timestamp.now(),
-  //             ingredients: ingredientsList,
-  //             methods: methodsList,
-  //             prepTime: mergeStrings(
-  //                 prepTimeController.text.trim(), selectedTimeMethod),
-  //             servingSize: selectedQuantity,
-  //             status: 'published',
-  //             title: titleController.text.trim(),
-  //             uid: firebaseAuth.currentUser!.uid,
-  //             docId: '',
-  //             waveForm: waveFormData!,
-  //           ),
-  //           selectedImages: thumbnails,
-  //           path: path,
-  //           waveFormData: waveFormData);
-  //     }
-  //   } else {
-  //     showToast(message: 'Please fill all fields');
-  //   }
-  // }
-
-  void previewRecipe() async {
-    if (titleController.text.trim().isNotEmpty &&
-        prepTimeController.text.trim().isNotEmpty &&
-        methodsList.isNotEmpty &&
-        ingredientsList.isNotEmpty &&
-        hasRecordedAudio) {
-      if (selectedImages.isEmpty) {
-        showToast(message: 'Please add at least one image');
-        return;
-      } else {
-        // List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
-        //     selectedImages,
-        //     FirebaseFirestore.instance.collection('recipes').doc().id);
-
-        // await _recipeService.addRecipeToFirestore(RecipeModel(
-        //   visibility: selectedValue,
-        //   chefNote: 'recorderController',
-        //   coverImage: imageUrls,
-        //   createdTime: Timestamp.now(),
-        //   ingredients: ingredientsList,
-        //   methods: methodsList,
-        //   prepTime:
-        //       mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-        //   servingSize: selectedQuantity,
-        //   status: 'published',
-        //   title: titleController.text.trim(),
-        //   uid: firebaseAuth.currentUser!.uid,
-        //   docId: '',
-        //   waveForm: waveFormData!,
-        // ));
-
-        _navigationService.navigateToRecipeViewView(
-            recipeModel: RecipeModel(
-              visibility: selectedValue,
-              chefNote: '',
-              coverImage: [],
-              createdTime: Timestamp.now(),
-              ingredients: ingredientsList,
-              methods: methodsList,
-              prepTime: mergeStrings(
-                  prepTimeController.text.trim(), selectedTimeMethod),
-              servingSize: selectedQuantity,
-              status: 'published',
-              title: titleController.text.trim(),
-              uid: firebaseAuth.currentUser!.uid,
-              docId: '',
-              waveForm: waveFormData!,
-            ),
-            selectedImages: selectedImages,
-            path: path,
-            waveFormData: waveFormData);
-      }
-    } else {
-      showToast(message: 'Please fill all fields');
+ void previewRecipe() async {
+  if (titleController.text.trim().isNotEmpty &&
+      prepTimeController.text.trim().isNotEmpty &&
+      methodsList.isNotEmpty &&
+      ingredientsList.isNotEmpty &&
+      hasRecordedAudio) {
+    bool hasImage = selectedImages.any((image) => image.isImage);
+    if (!hasImage) {
+      showToast(message: 'Please add at least one image');
+      return; 
+    }else {
+      _navigationService.navigateToRecipeViewView(
+        recipeModel: RecipeModel(
+          visibility: selectedValue,
+          chefNote: '',
+          coverImage: [],
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: methodsList,
+          prepTime: mergeStrings(
+              prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'published',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+          docId: '',
+          waveForm: waveFormData!,
+        ),
+        selectedImages: selectedImages,
+        path: path,
+        waveFormData: waveFormData,
+      );
     }
+  } else {
+    showToast(message: 'Please fill all fields');
   }
+}
 
   void deleteMethod(int index) {
     methodsList.removeAt(index);

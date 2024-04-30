@@ -48,9 +48,15 @@ class AuthService {
     }
   }
 
-  Future<void> signOut() async {
+
+void signOut() async {
+  try {
     await FirebaseAuth.instance.signOut();
+    userDetails = null;
+  } catch (e) {
+    log("Error signing out: $e");
   }
+}
 
   Future<bool> signUp({
     required String password,
