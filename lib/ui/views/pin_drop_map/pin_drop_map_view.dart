@@ -71,8 +71,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                           log(viewModel.currentPosition!.longitude.toString());
                           viewModel.showAllMarkers(markerId);
                         },
-                        
-                        markers:  viewModel.allMarkers.values.toSet(),
+                        markers: viewModel.allMarkers.values.toSet(),
                       ),
                     ),
                   ],

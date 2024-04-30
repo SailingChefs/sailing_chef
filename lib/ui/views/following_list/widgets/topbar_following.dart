@@ -6,7 +6,7 @@ import '../../../widgets/back_arrow.dart';
 
 class TopBarFollowing extends ViewModelWidget<FollowingListViewModel>
     implements PreferredSizeWidget {
-    final String name;
+  final String name;
   const TopBarFollowing({super.key, required this.name});
 
   @override

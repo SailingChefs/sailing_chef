@@ -1,10 +1,6 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-
 import 'block_account_dialog_model.dart';
-
-
 
 class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
   final DialogRequest request;
@@ -25,15 +21,13 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
-      
       backgroundColor: kcWhiteColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-             Text(
-
+            Text(
               "Are you Sure you want to block this account?",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -49,7 +43,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                     onTap: () => completer(DialogResponse(confirmed: true)),
                     child: Container(
                       height: 45,
-                      width: screenWidth(context)*0.4,
+                      width: screenWidth(context) * 0.4,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
@@ -59,7 +53,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                       child: const Text(
                         'No',
                         style: TextStyle(
-                          color:  Color(0xFF1E5D6D),
+                          color: Color(0xFF1E5D6D),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -73,7 +67,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                     },
                     child: Container(
                       height: 45,
-                     width: screenWidth(context)*0.4,
+                      width: screenWidth(context) * 0.4,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: const Color(0xFF1E5D6D),

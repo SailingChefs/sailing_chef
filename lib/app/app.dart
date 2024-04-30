@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/services/auth_service.dart';
 
-
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
@@ -59,6 +58,7 @@ import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.da
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.dart';
 import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
+import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -94,6 +94,7 @@ import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart
     MaterialRoute(page: ForgetPasswordView),
     MaterialRoute(page: BlockedAccountsView),
     MaterialRoute(page: BecomechefView),
+    MaterialRoute(page: PrivacyPolicyView),
 // @stacked-route
   ],
   dependencies: [
@@ -106,7 +107,7 @@ import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart
     LazySingleton(classType: LocationService),
     LazySingleton(classType: ConversationService),
     LazySingleton(classType: ChefService),
-  
+
     LazySingleton(classType: UserdataServiceService),
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),

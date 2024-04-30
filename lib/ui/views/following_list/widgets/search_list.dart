@@ -5,7 +5,8 @@ import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.d
 class SearchList extends ViewModelWidget<FollowingListViewModel> {
   final List<UserModel> users;
   final bool isFromFollowingList;
-  const SearchList({super.key, required this.users,required this.isFromFollowingList});
+  const SearchList(
+      {super.key, required this.users, required this.isFromFollowingList});
 
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {

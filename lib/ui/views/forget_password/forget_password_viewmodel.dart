@@ -1,11 +1,6 @@
-
-
 import 'package:sailing_chefs/services/user_services.dart';
 
 import '../../../core/imports/core_imports.dart';
-
-
-
 
 class ForgetPasswordViewModel extends BaseViewModel {
   final _emailController = TextEditingController();

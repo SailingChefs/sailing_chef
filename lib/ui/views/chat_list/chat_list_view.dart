@@ -14,7 +14,7 @@ class ChatListView extends StackedView<ChatListViewModel> {
     ChatListViewModel viewModel,
     Widget? child,
   ) {
-    return  SafeArea(
+    return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Padding(
@@ -30,11 +30,7 @@ class ChatListView extends StackedView<ChatListViewModel> {
     );
   }
 
-  @override
-  void onViewModelReady(ChatListViewModel viewModel) {
-    viewModel.onViewModelReady();
-    super.onViewModelReady(viewModel);
-  }
+
 
   @override
   ChatListViewModel viewModelBuilder(

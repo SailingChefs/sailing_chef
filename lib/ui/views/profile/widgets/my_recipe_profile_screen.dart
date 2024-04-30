@@ -1,7 +1,5 @@
 import 'package:flutter/rendering.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
@@ -12,7 +10,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes!.isEmpty
         ? const Center(child: Text('No recipes yet'))
-        :  Padding(
+        : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
@@ -34,10 +32,12 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes![index].docId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: viewModel.myRecipes![index].coverImage.first,
+                          foodImagePath:
+                              viewModel.myRecipes![index].coverImage.first,
                           dishName: viewModel.myRecipes![index].title,
                           duration: viewModel.myRecipes![index].prepTime,
-                          chefImagePath: viewModel.myRecipes![index].user!.displayPicture!,
+                          chefImagePath:
+                              viewModel.myRecipes![index].user!.displayPicture!,
                         );
                       },
                       childCount: viewModel.myRecipes!.length,

@@ -67,11 +67,18 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       topLeft: Radius.circular(15.0.r),
                       topRight: Radius.circular(15.0.r),
                     ),
-                    child: foodImagePath.isNotEmpty ? Image.network(
-                      foodImagePath,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ):Center(child: Text('No image' , style: globalTextStyle(color: Colors.black, fontSize: 15),)),
+                    child: foodImagePath.isNotEmpty
+                        ? Image.network(
+                            foodImagePath,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Center(
+                            child: Text(
+                            'No image',
+                            style: globalTextStyle(
+                                color: Colors.black, fontSize: 15),
+                          )),
                   ),
                 ),
                 verticalSpaceTiny,

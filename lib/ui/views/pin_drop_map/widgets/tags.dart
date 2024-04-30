@@ -1,11 +1,9 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/selectedtab.dart';
 
 class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
-
-  const TagsSelectionWidget( {
+  const TagsSelectionWidget({
     required this.id,
     Key? key,
   }) : super(key: key);
@@ -157,8 +155,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                 ],
               ),
               verticalSpaceLarge,
-              Row(mainAxisAlignment: MainAxisAlignment.start, 
-              children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 GestureDetector(
                   onTap: () => viewModel.clearTags(),
                   child: const DecoratedBox(
@@ -179,29 +176,29 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                 horizontalSpaceLarge,
                 horizontalSpaceMedium,
                 Flexible(
-              child: Container(
-                height: 45,
-                width: 160,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: kcPrimaryColor),
-                child: TextButton(
-                  onPressed: (){
-                    viewModel.totalFilters = viewModel.tagTabSelections.length;
-                    viewModel.tagsIconSelected();
-                    viewModel.showAllMarkersWithTags();
-                    
-                  },
-                  child: Text(
-                    'Apply Filter',
-                    style: globalTextStyle(
-                        fontSize: 14,
-                        color: kcwhitecolor,
-                        fontWeight: FontWeight.w500),
+                  child: Container(
+                    height: 45,
+                    width: 160,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: kcPrimaryColor),
+                    child: TextButton(
+                      onPressed: () {
+                        viewModel.totalFilters =
+                            viewModel.tagTabSelections.length;
+                        viewModel.tagsIconSelected();
+                        viewModel.showAllMarkersWithTags();
+                      },
+                      child: Text(
+                        'Apply Filter',
+                        style: globalTextStyle(
+                            fontSize: 14,
+                            color: kcwhitecolor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
               ])
             ],
           ),

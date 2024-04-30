@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/searchbar.dart';
@@ -47,17 +46,13 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
         horizontalSpaceSmall,
         Stack(
           children: [
-           
             IconButton(
-
-              onPressed: 
-                viewModel.tagsIconSelected,
-
+              onPressed: viewModel.tagsIconSelected,
               icon: const Icon(FlutterRemix.equalizer_line),
               color: kcPrimaryColor,
               iconSize: 30.dg,
             ),
-             Positioned(
+            Positioned(
               top: 0,
               left: 25,
               child: Container(
@@ -66,7 +61,10 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
                   color: kclightgreencolor,
                   shape: BoxShape.circle,
                 ),
-                child: Text(viewModel.totalFilters.toString(),style: globalTextStyle(fontSize: 12.sp,color: kcwhitecolor),),
+                child: Text(
+                  viewModel.totalFilters.toString(),
+                  style: globalTextStyle(fontSize: 12.sp, color: kcwhitecolor),
+                ),
               ),
             ),
           ],

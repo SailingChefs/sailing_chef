@@ -17,27 +17,26 @@ class IndexView extends StackedView<IndexViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: viewModel.isBusy
-          ? const ShimmerLoader():
-           Scaffold(
-              backgroundColor: kcBackgroundColor,
-              body: SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                child: Column(
-                  children: [
-                    const TopBarIndexScreen(),
-                    verticalSpace(10),
-                    const ChefListIndexScreen(),
-                    verticalSpace(10),
-                    const SearchBarIndexView(),
-                    verticalSpace(10),
-                    const DishListIndexScreen(),
-                    verticalSpaceMedium,
-                  ],
+        child: viewModel.isBusy
+            ? const ShimmerLoader()
+            : Scaffold(
+                backgroundColor: kcBackgroundColor,
+                body: SingleChildScrollView(
+                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                  child: Column(
+                    children: [
+                      const TopBarIndexScreen(),
+                      verticalSpace(10),
+                      const ChefListIndexScreen(),
+                      verticalSpace(10),
+                      const SearchBarIndexView(),
+                      verticalSpace(10),
+                      const DishListIndexScreen(),
+                      verticalSpaceMedium,
+                    ],
+                  ),
                 ),
-              ),
-            )
-    );
+              ));
   }
 
   @override

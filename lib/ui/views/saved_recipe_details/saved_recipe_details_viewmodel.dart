@@ -191,7 +191,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     //   url: recipeModel.chefNote,
     // );
     // log((player.cacheFile(url: recipeModel.chefNote)).toString());
-    recipeList = await recipeService.fetchRandomRecipes(5,recipeId);
+    recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);
   }

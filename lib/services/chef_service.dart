@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,76 +10,21 @@ import '../app/app.locator.dart';
 
 class ChefService {
   final _userService = locator<UserServices>();
+  List<UserModel> chefs = [];
+  bool isInitialized = false;
 
-//   Future<List<UserModel>> fetchChefDocuments() async {
-//   List<UserModel> users = [];
-//   final currentUserUid = firebaseAuth.currentUser?.uid;
+  Future<void> chefInit() async {
+    if (isInitialized) return;
+    chefs = await _fetchChefDocuments();
+    isInitialized = true;
+  }
 
-//   try {
-//     EasyLoading.show();
-//     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-//         .collection('users')
-//         .where('user_role', isEqualTo: 'chef')
-//         .get();
 
-//     for (var doc in querySnapshot.docs) {
-//       if (doc.id != currentUserUid) {  // Check if document is not the current user
-//         UserModel user = UserModel.fromSnapshot(doc);
-//         users.add(user);
-//       }
-//     }
-
-//     EasyLoading.dismiss();
-//     return users;
-//   } catch (error) {
-//     // Handle any errors
-//     EasyLoading.dismiss();
-//     log('Error fetching chef documents: $error' );
-//     return users; // Return an empty list in case of error
-//   }
-// }
-// Future<List<UserModel>> fetchChefDocuments() async {
-//   List<UserModel> users = [];
-//   final currentUserUid = firebaseAuth.currentUser?.uid;
-
-//   try {
-//     EasyLoading.show();
-//     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-//         .collection('users')
-//         .where('user_role', isEqualTo: 'chef')
-//         .get();
-
-//     for (var doc in querySnapshot.docs) {
-//       if (doc.id != currentUserUid && hasCompleteProfile(doc)) {  // Check if document is not the current user and has complete profile
-//         UserModel user = UserModel.fromSnapshot(doc);
-//         users.add(user);
-//       }
-//     }
-
-//     EasyLoading.dismiss();
-//     return users;
-//   } catch (error) {
-//     // Handle any errors
-//     EasyLoading.dismiss();
-//     print('Error fetching chef documents: $error');
-//     return users; // Return an empty list in case of error
-//   }
-// }
-
-// bool hasCompleteProfile(QueryDocumentSnapshot doc) {
-//   var data = doc.data() as Map<String, dynamic>;
-//   // Check if 'display_picture', 'bio', or 'location' are not empty
-//   return data['display_picture'] != null && data['display_picture'].isNotEmpty &&
-//          data['bio'] != null && data['bio'].isNotEmpty &&
-//          data['location'] != null && data['location'].isNotEmpty;
-// }
-
-  Future<List<UserModel>> fetchChefDocuments() async {
- 
+  Future<List<UserModel>> _fetchChefDocuments() async {
     List<UserModel> users = [];
+  
 
     try {
-    
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where(
@@ -98,8 +42,6 @@ class ChefService {
           users.add(user);
         }
       }
-
-    
 
       return users;
     } catch (error) {

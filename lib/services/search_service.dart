@@ -38,7 +38,7 @@ class SearchService {
 
       return filteredRecipes;
     } catch (error) {
-      return []; 
+      return [];
     }
   }
 

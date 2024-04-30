@@ -89,7 +89,7 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
               // trailing: const Icon(Icons.chevron_right),
               subtitle: Text(pins[index].description),
               // onTap: () {
-               
+
               // },
             );
           },

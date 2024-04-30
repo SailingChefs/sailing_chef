@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
@@ -24,25 +23,23 @@ class FollowingListViewModel extends BaseViewModel {
   }
 
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
-
-
     for (var user in users) {
       if (user.displayName!.toLowerCase().contains(query.toLowerCase())) {
         yield user;
       }
     }
+  }
 
-  }
-  
- 
   void onFollowTap(UserModel user) async {
-   await _followService.removeFollowing(user);
-   rebuildUi();
+    await _followService.removeFollowing(user);
+    rebuildUi();
   }
+
   void deleteFollower(UserModel user) async {
     await _followService.deleteFollower(user);
     rebuildUi();
   }
+
   void toUserDetails(UserModel user) {
     _navigationloactor.navigateToChefProfileView(user: user);
   }
@@ -61,4 +58,3 @@ class FollowingListViewModel extends BaseViewModel {
     rebuildUi();
   }
 }
-

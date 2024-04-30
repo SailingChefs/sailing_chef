@@ -37,8 +37,7 @@ class SelectedWidgetPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               style: globalTextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                color: viewModel.tagTabSelections
-                        .contains(selectedTabSelection)
+                color: viewModel.tagTabSelections.contains(selectedTabSelection)
                     ? kcVeryLightGrey
                     : kcBlackColor.withOpacity(0.6),
               ),

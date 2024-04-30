@@ -12,7 +12,7 @@ class IndexViewModel extends BaseViewModel {
   final _chefService = locator<ChefService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
-  List<UserModel>? chefList;
+  List<UserModel> get chefList => _chefService.chefs;
   List<RecipeModel>? dishes;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
@@ -23,7 +23,7 @@ class IndexViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    chefList = await _chefService.fetchChefDocuments();
+     await _chefService.chefInit();
 
     await _savedRecipeService.init();
 
@@ -34,17 +34,17 @@ class IndexViewModel extends BaseViewModel {
 
   void toAllChefsView() {
     _navigationService.navigateToAllChefsView(
-      chefList: chefList!,
+      chefList: chefList,
     );
   }
 
   void toChefProfile(UserModel chef) {
     if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
-      _navigationService.navigateToChefProfileView(
-          user: chef);
+      _navigationService.navigateToChefProfileView(user: chef);
     } else {
       _navigationService.navigateToChefProfileView(
-          user: chef,);
+        user: chef,
+      );
     }
   }
 

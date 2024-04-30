@@ -23,7 +23,10 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      leading: const Icon(Icons.photo_library,color: kclightgreencolor,),
+                      leading: const Icon(
+                        Icons.photo_library,
+                        color: kclightgreencolor,
+                      ),
                       title: const Text('Choose from Gallery'),
                       onTap: () {
                         viewModel.getImagefromGallery();
@@ -31,7 +34,10 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.camera_alt,color: kclightgreencolor,),
+                      leading: const Icon(
+                        Icons.camera_alt,
+                        color: kclightgreencolor,
+                      ),
                       title: const Text('Take a Photo'),
                       onTap: () {
                         viewModel.getImagefromCamera();

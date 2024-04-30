@@ -17,33 +17,36 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: Column(
-                children: [
-                  const TopBarSavedRecipesScreen(),
-                  verticalSpaceLarge,
-                  const TabBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  const SearchBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  viewModel.isAllSelected
-                      ? const AllSavedRecipesScreen()
-                      : const FollowingSavedRecipesScreen(),
-                ],
-              ),
-            )),
-      ),
+      child: viewModel.isBusy
+          ? const Center(child: CircularProgressIndicator())
+          : GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  body: SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                      left: 15.0,
+                      right: 15.0,
+                    ),
+                    child: Column(
+                      children: [
+                        const TopBarSavedRecipesScreen(),
+                        verticalSpaceLarge,
+                        const TabBarSavedRecipesScreen(),
+                        verticalSpaceMedium,
+                        const SearchBarSavedRecipesScreen(),
+                        verticalSpaceMedium,
+                        viewModel.isAllSelected
+                            ? const AllSavedRecipesScreen()
+                            : const FollowingSavedRecipesScreen(),
+                      ],
+                    ),
+                  )),
+            ),
     );
   }
+
   @override
   void onViewModelReady(SavedRecipesViewModel viewModel) {
     viewModel.onViewModelReady();

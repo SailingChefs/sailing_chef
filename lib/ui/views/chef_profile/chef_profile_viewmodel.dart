@@ -58,15 +58,11 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _savedRecipeService.init();
     setBusy(false);
   }
-   void showBottomSheet(
-    String uid
-   ) {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.otherChefProfile,
-      data: uid
-    );
 
-   }
+  void showBottomSheet(String uid) {
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.otherChefProfile, data: uid);
+  }
 
   void onFollow(UserModel user) async {
     bool check = await _followService.addFollower(user);
@@ -145,12 +141,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
       isFromProfileView: true,
     );
   }
-   Future<void> onClickUrl(String url) async {
+
+  Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
     // if (await canLaunchUrlString(url)) {
     //   launchUrlString(url, );
     // }
     await launchUrl(uri);
   }
-
 }

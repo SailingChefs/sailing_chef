@@ -11,7 +11,6 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-   
     final List<RecipeModel> recipes = viewModel.chefRecipes!;
     return recipes.isEmpty
         ? Text(
@@ -37,14 +36,14 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                  savedRecipeList: viewModel.savedRecipes,
-                  recipeId: recipes[index].docId,
-                  onTap: () => viewModel.toDishDetailsScreen(index),
-                  foodImagePath: recipes[index].coverImage.first,
-                  dishName: recipes[index].title,
-                  duration: recipes[index].prepTime,
-                  chefImagePath: user.displayPicture!,
-                );
+                          savedRecipeList: viewModel.savedRecipes,
+                          recipeId: recipes[index].docId,
+                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          foodImagePath: recipes[index].coverImage.first,
+                          dishName: recipes[index].title,
+                          duration: recipes[index].prepTime,
+                          chefImagePath: user.displayPicture!,
+                        );
                       },
                       childCount: recipes.length,
                     ),
@@ -53,7 +52,5 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
               );
             }),
           );
-  
-          
   }
 }

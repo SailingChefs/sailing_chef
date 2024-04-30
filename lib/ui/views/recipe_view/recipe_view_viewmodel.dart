@@ -65,8 +65,8 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
-    List<String> imageUrls =
-        await _recipeService.uploadMediaToFirebase(selectedImages, recipe.docId);
+    List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+        selectedImages, recipe.docId);
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     try {

@@ -1,5 +1,3 @@
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
@@ -15,9 +13,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: 
-            viewModel.moveBack,
-          
+          onTap: viewModel.moveBack,
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 8.0.dg),

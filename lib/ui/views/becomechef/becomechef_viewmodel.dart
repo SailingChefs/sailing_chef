@@ -12,7 +12,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import '../../../core/imports/core_imports.dart';
 
 class BecomechefViewModel extends BaseViewModel {
-   final _navigationService = locator<NavigationService>();
+  final _navigationService = locator<NavigationService>();
   GlobalObjectKey<FormState> formKey = GlobalObjectKey<FormState>(UniqueKey());
   final TextEditingController numberController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -37,14 +37,13 @@ class BecomechefViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-    String? validateBoatName(String? value) {
+  String? validateBoatName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a name';
     }
 
     return null;
   }
-
 
   getBack() {
     _navigationService.back();
@@ -56,7 +55,8 @@ class BecomechefViewModel extends BaseViewModel {
     locationController.text =
         ' ${placemarks![0].street} - ${placemarks![0].locality},${placemarks![0].country}';
   }
-    void getLocation() async {
+
+  void getLocation() async {
     EasyLoading.show();
     location = await _locationService.determinePosition();
     userlocation = {
@@ -124,10 +124,10 @@ class BecomechefViewModel extends BaseViewModel {
   void saveEditDetails() async {
     if (formKey.currentState!.validate()) {
       Map<String, dynamic> userData = {
-          'user_role':'chef',
-          'link': linkController.text,
-          'boat_name': boatNameController.text,
-          'location': userlocation,
+        'user_role': 'chef',
+        'link': linkController.text,
+        'boat_name': boatNameController.text,
+        'location': userlocation,
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);

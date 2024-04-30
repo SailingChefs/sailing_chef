@@ -45,7 +45,7 @@ class UserServices with ListenableServiceMixin {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update(localModel.toJson());
-        notifyListeners();
+    notifyListeners();
   }
 
   Future<UserModel> getUserDetails() async {
@@ -64,15 +64,15 @@ class UserServices with ListenableServiceMixin {
         EasyLoading.dismiss();
         showToast(message: 'User Data fetched successfully');
 
-          currentUserDetails = UserModel.fromSnapshot(userDoc);
+        currentUserDetails = UserModel.fromSnapshot(userDoc);
         notifyListeners();
 
         return currentUserDetails ?? UserModel();
         // return UserModel.fromSnapshot(userDoc);
-        } else {
-          EasyLoading.dismiss();
-          throw Exception("User not found in Firestore");
-        }
+      } else {
+        EasyLoading.dismiss();
+        throw Exception("User not found in Firestore");
+      }
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());

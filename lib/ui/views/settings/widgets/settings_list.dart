@@ -34,35 +34,33 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             size: 14,
           ),
         ),
-         userDetails!.userRole == 'guest' ? Column(
-          children: [
-            const Divider(),
-                   
-            ListTile(
-              contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-              onTap: 
-                viewModel.getBecomeChef,
-              
-              title: Text(
-                'Become a Chef',
-                style: globalTextStyle(
-                    fontSize: 16.0.dg,
-                    color: kcBlackColor,
-                    fontWeight: FontWeight.w400),
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                color: kcBlackColor,
-                size: 14,
-              ),
-            ),
-          ],
-        ) : const SizedBox(),
-        
+        userDetails!.userRole == 'guest'
+            ? Column(
+                children: [
+                  const Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.getBecomeChef,
+                    title: Text(
+                      'Become a Chef',
+                      style: globalTextStyle(
+                          fontSize: 16.0.dg,
+                          color: kcBlackColor,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor,
+                      size: 14,
+                    ),
+                  ),
+                ],
+              )
+            : const SizedBox(),
         const Divider(),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
+          onTap: viewModel.getTerms,
           title: Text(
             'Terms & Conditions',
             style: globalTextStyle(

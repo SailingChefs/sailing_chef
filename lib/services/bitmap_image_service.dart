@@ -20,6 +20,5 @@ class BitmapImageService {
     _selectedIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: Size(24, 24)),
         'assets/images/icons/green.png');
-
   }
 }

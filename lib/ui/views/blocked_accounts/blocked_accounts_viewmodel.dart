@@ -15,7 +15,6 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [_userService];
 
-
   void back() {
     _navigationService.back();
   }
@@ -25,12 +24,12 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   }
 
   void unblockUser({required String uid}) async {
-     userService.currentUserDetails!.blockedAccounts!.remove(uid);
-    
+    userService.currentUserDetails!.blockedAccounts!.remove(uid);
+
     userService.updateCurrentUserModel(
         localModel: userService.currentUserDetails!);
-        notifyListeners();
-        rebuildUi();
+    notifyListeners();
+    rebuildUi();
 
     log(uid);
   }
@@ -41,9 +40,10 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
     }
     showToast(message: "User has been unblocked");
   }
+
   void onViewModelReady() async {
     setBusy(true);
-  userDetails = await _userService.getUserDetails();
+    userDetails = await _userService.getUserDetails();
     setBusy(false);
   }
 }

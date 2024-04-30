@@ -54,9 +54,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            
             child: CircularProgressIndicator(),
-          
           );
         } else {
           return GestureDetector(

@@ -36,16 +36,12 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
                   verticalSpaceSmall,
                   const TabBarsFollowing(),
                   verticalSpaceTiny,
-               
-                       Column(
-                          children: [
-                            verticalSpaceTiny,
-                            viewModel.isFollower
-                                ? FollowerList()
-                                : FollowingList(),
-                          ],
-                        )
-                      
+                  Column(
+                    children: [
+                      verticalSpaceTiny,
+                      viewModel.isFollower ? FollowerList() : FollowingList(),
+                    ],
+                  )
                 ],
               ),
             ),

@@ -9,8 +9,9 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     final savedRecipes = viewModel.savedRecipes;
-    return savedRecipes.isEmpty ? const Center(child: Text('No saved recipes')) :  
-   Padding(
+    return savedRecipes.isEmpty
+        ? const Center(child: Text('No saved recipes'))
+        : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
@@ -32,10 +33,14 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: savedRecipes[index].recipeId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: savedRecipes[index].recipeModel!.coverImage.first,
+                          foodImagePath:
+                              savedRecipes[index].recipeModel!.coverImage.first,
                           dishName: savedRecipes[index].recipeModel!.title,
                           duration: savedRecipes[index].recipeModel!.prepTime,
-                          chefImagePath: savedRecipes[index].recipeModel!.user!.displayPicture!,
+                          chefImagePath: savedRecipes[index]
+                              .recipeModel!
+                              .user!
+                              .displayPicture!,
                         );
                       },
                       childCount: savedRecipes.length,
@@ -47,4 +52,3 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
           );
   }
 }
- 

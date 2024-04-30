@@ -18,7 +18,6 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
               key: viewModel.formKey,
               child: Column(
                 children: [
-                  
                   SemiRoundedTranpaentTextField(
                       validator: (value) => viewModel.validateLink(value),
                       controller: viewModel.linkController,

@@ -25,19 +25,18 @@ class PinDropMapViewModel extends ReactiveViewModel {
   List<bool> selections = [];
   final pins = List<PinnedLocation>.empty(growable: true);
 
-
   List<String> tagTabSelections = [];
 
   int totalFilters = 0;
 
+  Map<String, Marker> get markers {
+    if (totalFilters == 0) return allMarkers;
+    return filteredMarkers;
+  }
 
-Map<String,Marker> get markers{
-  if(totalFilters==0)return allMarkers;
-  return filteredMarkers;
-}
-
-@override
-  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
+  @override
+  List<ListenableServiceMixin> get listenableServices =>
+      [_navigationpinService];
   Future<Position> getCurrentLocation() async {
     try {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -65,7 +64,7 @@ Map<String,Marker> get markers{
 
   bool isSelected = true;
 
-  void tagsIconSelected(){
+  void tagsIconSelected() {
     isSelected = !isSelected;
     log(isSelected.toString());
     notifyListeners();
@@ -126,14 +125,13 @@ Map<String,Marker> get markers{
       icon: locator<BitmapImageService>().getIcon(isSelected),
     );
     log("logging the value: ${isClicked.toString()}");
-    
+
     return marker;
   }
 
   void addMarkers(String markerId, LatLng location) {
     allMarkers[markerId] = createMarker(markerId, location);
   }
-
 
   void onViewModelReady() async {
     setBusy(true);
@@ -161,37 +159,33 @@ Map<String,Marker> get markers{
     }
   }
 
-  
   void showAllMarkersWithTags() async {
-    
     try {
       final filteredPins = List<PinnedLocation>.empty(growable: true);
 
-      if(totalFilters==0){
+      if (totalFilters == 0) {
         filteredPins.addAll(pins);
-      }else{
-      for(final pin in pins){
-        if(tagTabSelections.where((e) => pin.tags.contains(e)).isNotEmpty){
-          filteredPins.add(pin);
+      } else {
+        for (final pin in pins) {
+          if (tagTabSelections.where((e) => pin.tags.contains(e)).isNotEmpty) {
+            filteredPins.add(pin);
+          }
         }
-      }}
+      }
       allMarkers.clear();
       rebuildUi();
 
       for (PinnedLocation pin in filteredPins) {
-        addMarkers(pin.id! ,
-            LatLng(pin.location.latitude, pin.location.longitude));
+        addMarkers(
+            pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
         pinnedLocation = pin;
-        
       }
       notifyListeners();
       rebuildUi();
     } catch (e) {
       log('Error fetching pins with tags: $e');
     }
-   
   }
-
 
   void handleTagSelection(String tabSelection) {
     if (tagTabSelections.contains(tabSelection)) {
@@ -221,7 +215,7 @@ Map<String,Marker> get markers{
     rebuildUi();
   }
 
-    Marker createMarkerwithTags(String markerId, LatLng location,
+  Marker createMarkerwithTags(String markerId, LatLng location,
       [bool isSelected = false]) {
     var marker = Marker(
       markerId: MarkerId(markerId),
@@ -235,8 +229,10 @@ Map<String,Marker> get markers{
             pinnedLocation.location.longitude);
 
         List<PinnedLocation> pins =
-            await _navigationpinService.getPinsUsingTags(LatLng(currentPosition!.latitude, currentPosition!.longitude),tagTabSelections);
-      
+            await _navigationpinService.getPinsUsingTags(
+                LatLng(currentPosition!.latitude, currentPosition!.longitude),
+                tagTabSelections);
+
         for (PinnedLocation pinInList in pins) {
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
@@ -258,10 +254,7 @@ Map<String,Marker> get markers{
       icon: locator<BitmapImageService>().getIcon(isSelected),
     );
     log("logging the value: ${isClicked.toString()}");
-    
+
     return marker;
   }
-
-
- 
 }

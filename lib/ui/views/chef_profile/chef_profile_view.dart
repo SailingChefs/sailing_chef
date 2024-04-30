@@ -11,7 +11,6 @@ import 'widgets/chef_profile_description.dart';
 class ChefProfileView extends StackedView<ChefProfileViewModel> {
   final UserModel user;
 
-
   const ChefProfileView({required this.user, super.key});
 
   @override
@@ -35,7 +34,6 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   child: Column(
                     children: [
                       ChefProfileTopBar(
-                    
                         uid: user.uid!,
                       ),
                       verticalSpace(35),

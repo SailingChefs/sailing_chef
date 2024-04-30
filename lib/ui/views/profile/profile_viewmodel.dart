@@ -53,7 +53,6 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-
   Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
     // if (await canLaunchUrlString(url)) {
@@ -64,9 +63,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
   void savedSelected() async {
-
     isSavedSelected = true;
-
 
     isMySelected = false;
     notifyListeners();
@@ -83,11 +80,9 @@ class ProfileViewModel extends ReactiveViewModel {
         userDetails!.location!['longitude']);
   }
 
-
-
   void goTogoToProfileEditView() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments:FollowingListViewArguments(user: userDetails!) );
+        arguments: FollowingListViewArguments(user: userDetails!));
   }
 
   // A function that navigates to the settings view.
@@ -111,7 +106,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
-  
+
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();

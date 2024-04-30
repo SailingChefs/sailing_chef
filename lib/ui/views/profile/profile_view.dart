@@ -40,37 +40,36 @@ class ProfileView extends StackedView<ProfileViewModel> {
                       const ProfileDetailsProfileScreen(),
                       const ProfileDescriptionProfileScreen(),
                       verticalSpaceMedium,
-                      userDetails!.userRole == 'guest' ? Container() :
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          
-                          const TabBarProfileScreen(),
-                          Icon(
-                            FlutterRemix.equalizer_line,
-                            color: kcPrimaryColor,
-                            size: 30.sp,
-                          ),
-                        ],
-                      ),
-                  
-                      userDetails!.userRole == 'guest' ?  const Expanded(
-                        child: Column(
-                          children: [
-                            Divider(),
-                            SavedProfileScreen(),
-                          ],
-                        ),
-                      ) :
-                  
-                      Column(
-                        children: [
-                          verticalSpaceMedium,
-                          viewModel.isMySelected
-                              ? const MyRecipesProfileScreen()
-                              : const SavedProfileScreen(),
-                        ],
-                      ),
+                      userDetails!.userRole == 'guest'
+                          ? Container()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TabBarProfileScreen(),
+                                Icon(
+                                  FlutterRemix.equalizer_line,
+                                  color: kcPrimaryColor,
+                                  size: 30.sp,
+                                ),
+                              ],
+                            ),
+                      userDetails!.userRole == 'guest'
+                          ? const Expanded(
+                              child: Column(
+                                children: [
+                                  Divider(),
+                                  SavedProfileScreen(),
+                                ],
+                              ),
+                            )
+                          : Column(
+                              children: [
+                                verticalSpaceMedium,
+                                viewModel.isMySelected
+                                    ? const MyRecipesProfileScreen()
+                                    : const SavedProfileScreen(),
+                              ],
+                            ),
                     ],
                   ),
                 ),

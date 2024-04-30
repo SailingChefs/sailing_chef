@@ -335,8 +335,8 @@ class AddRecipeViewModel extends BaseViewModel {
         showToast(message: 'Please add at least one image');
         return;
       } else {
-        List<String> imageUrls =
-            await _recipeService.uploadMediaToFirebase(selectedImages,
+        List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+            selectedImages,
             FirebaseFirestore.instance.collection('recipes').doc().id);
 
         await _recipeService.addRecipeToFirestore(RecipeModel(
@@ -351,7 +351,9 @@ class AddRecipeViewModel extends BaseViewModel {
           servingSize: selectedQuantity,
           status: 'published',
           title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid, docId: '', waveForm: waveFormData!,
+          uid: firebaseAuth.currentUser!.uid,
+          docId: '',
+          waveForm: waveFormData!,
         ));
 
         _navigationService.navigateToRecipeViewView(
@@ -457,27 +459,27 @@ class AddRecipeViewModel extends BaseViewModel {
 
   navigateToRecipeViewView() async {
     imageUrls = selectedImages.isNotEmpty
-        ? await _recipeService.uploadMediaToFirebase(
-            selectedImages,
-            FirebaseFirestore.instance.collection('recipes').doc().id
-          )
+        ? await _recipeService.uploadMediaToFirebase(selectedImages,
+            FirebaseFirestore.instance.collection('recipes').doc().id)
         : [];
 
-    _navigationService.navigateToRecipeViewView(recipeModel: RecipeModel(
-        visibility: selectedValue,
-        chefNote: 'recorderController',
-        coverImage: imageUrls,
-        createdTime: Timestamp.now(),
-        ingredients: ingredientsList,
-        methods: methodsList,
-        prepTime:
-            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-        servingSize: selectedQuantity,
-        status: 'draft',
-        title: titleController.text.trim(),
-        uid: firebaseAuth.currentUser!.uid,
-        docId: '', waveForm: waveFormData!,
-      ),
-      selectedImages: selectedImages);
+    _navigationService.navigateToRecipeViewView(
+        recipeModel: RecipeModel(
+          visibility: selectedValue,
+          chefNote: 'recorderController',
+          coverImage: imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          methods: methodsList,
+          prepTime:
+              mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+          servingSize: selectedQuantity,
+          status: 'draft',
+          title: titleController.text.trim(),
+          uid: firebaseAuth.currentUser!.uid,
+          docId: '',
+          waveForm: waveFormData!,
+        ),
+        selectedImages: selectedImages);
   }
 }

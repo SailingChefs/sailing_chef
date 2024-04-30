@@ -90,7 +90,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
           verticalSpaceTiny,
           user.link!.isEmpty
               ? const SizedBox()
-              :  Row(
+              : Row(
                   children: [
                     const Icon(
                       Icons.link_outlined,

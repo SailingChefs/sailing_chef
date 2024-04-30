@@ -12,7 +12,7 @@ import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/pindrop_review.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class PinDropService with ListenableServiceMixin{
+class PinDropService with ListenableServiceMixin {
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
 
@@ -76,9 +76,8 @@ class PinDropService with ListenableServiceMixin{
     return pins;
   }
 
-
-    Future<List<PinnedLocation>> getPinsUsingTags(
-      LatLng userLocation,List<String> tags) async {
+  Future<List<PinnedLocation>> getPinsUsingTags(
+      LatLng userLocation, List<String> tags) async {
     final List<PinnedLocation> pins = [];
     final ref = FirebaseFirestore.instance.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
@@ -92,12 +91,11 @@ class PinDropService with ListenableServiceMixin{
       geohashField: 'geohash',
       field: 'geo',
       strictMode: true,
-      queryBuilder: (query)=>query.where(
-                  'tags',
-                  arrayContainsAny: tags,
-    ),
-      geopointFrom: (data) =>
-          (data['geo'])['geopoint'] as GeoPoint,
+      queryBuilder: (query) => query.where(
+        'tags',
+        arrayContainsAny: tags,
+      ),
+      geopointFrom: (data) => (data['geo'])['geopoint'] as GeoPoint,
     );
 
     for (final doc in query) {

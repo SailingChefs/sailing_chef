@@ -10,7 +10,8 @@ class SettingsView extends StackedView<SettingsViewModel> {
   final bool? isCurrentUser;
   final String? uid;
 
-  const SettingsView({Key? key, this.isCurrentUser, this.uid}) : super(key: key);
+  const SettingsView({Key? key, this.isCurrentUser, this.uid})
+      : super(key: key);
 
   @override
   Widget builder(

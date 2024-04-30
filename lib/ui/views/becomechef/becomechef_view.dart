@@ -6,7 +6,6 @@ import 'package:stacked/stacked.dart';
 import 'becomechef_viewmodel.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 
-
 class BecomechefView extends StackedView<BecomechefViewModel> {
   const BecomechefView({Key? key}) : super(key: key);
 
@@ -26,7 +25,6 @@ class BecomechefView extends StackedView<BecomechefViewModel> {
               verticalSpaceSmall,
               const BecomeChefForm(),
               verticalSpaceMedium,
-              
             ],
           ),
         ));
