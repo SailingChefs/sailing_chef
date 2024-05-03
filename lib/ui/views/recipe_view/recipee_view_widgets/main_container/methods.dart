@@ -55,8 +55,7 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
             "Instructions",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
-          ... createIngredientWidgets(),
-        
+          ...createIngredientWidgets(),
           verticalSpaceMedium,
           const Text("Chef Notes",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
@@ -108,8 +107,7 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
                           ),
                         ),
                       ],
-                    )
-              ),
+                    )),
           verticalSpaceLarge,
         ],
       ),

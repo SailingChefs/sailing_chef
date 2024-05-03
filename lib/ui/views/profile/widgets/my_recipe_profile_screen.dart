@@ -32,8 +32,9 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes![index].docId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath:
-                              viewModel.myRecipes![index].coverImage.where((element) => element.contains('.jpg')).first,
+                          foodImagePath: viewModel.myRecipes![index].coverImage
+                              .where((element) => element.contains('.jpg'))
+                              .first,
                           dishName: viewModel.myRecipes![index].title,
                           duration: viewModel.myRecipes![index].prepTime,
                           chefImagePath:

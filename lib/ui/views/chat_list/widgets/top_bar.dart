@@ -5,12 +5,8 @@ class TopBarChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Image.asset(
-        'assets/images/logo/SAILING CHEFS2.png',
-      ),
-      IconButton(
-          onPressed: () {}, icon: const Icon(FlutterRemix.edit_box_fill)),
-    ]);
+    return Image.asset(
+      'assets/images/logo/SAILING CHEFS2.png',
+    );
   }
 }

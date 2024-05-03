@@ -1,5 +1,4 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -7,14 +6,13 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
-  
+
   const IngredientsClass(
-    this.recipeModel,
-     {
+    this.recipeModel, {
     super.key,
   });
 
-List<Widget> createIngredientWidgets() {
+  List<Widget> createIngredientWidgets() {
     return [
       for (var ingredient in recipeModel.ingredients)
         Container(

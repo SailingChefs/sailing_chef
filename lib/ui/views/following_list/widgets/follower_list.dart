@@ -9,7 +9,13 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
     return viewModel.followers.isEmpty
-        ? Text('No Followers')
+        ? Column(
+            children: [
+              verticalSpaceMassive,
+              verticalSpaceMassive,
+              Center(child: Text('No Followers')),
+            ],
+          )
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

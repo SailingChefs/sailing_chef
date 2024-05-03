@@ -31,8 +31,7 @@ class ProfileViewModel extends ReactiveViewModel {
   List<RecipeModel>? myRecipes;
 
   void navigateToBlockScreen() {
-    _navigationService.navigateToBlockedAccountsView(
-        );
+    _navigationService.navigateToBlockedAccountsView();
   }
 
   @override
@@ -63,6 +62,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
   void savedSelected() async {
+    await _savedRecipeService.init();
     isSavedSelected = true;
 
     isMySelected = false;
@@ -117,9 +117,10 @@ class ProfileViewModel extends ReactiveViewModel {
   }
 
   void toDishesScreen() {
-    _navigationService.navigateToRecipeListPageView(
-      isFromProfileView: true,
-    );
+    // _navigationService.navigateToRecipeListPageView(
+    //   isFromProfileView: true,
+    // );
+    _navigationService.navigateToAddRecipeView(isFromProfileView: true);
   }
 
   void toDishDetailsScreen(index) {

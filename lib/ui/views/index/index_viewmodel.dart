@@ -4,6 +4,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 
@@ -12,10 +13,17 @@ class IndexViewModel extends BaseViewModel {
   final _chefService = locator<ChefService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
+  final _cullinaryService = locator<CullinaryschoolService>();
   List<UserModel> get chefList => _chefService.chefs;
-  List<RecipeModel> get  dishes => _recipeService.recipes;
+  List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
+  List<RecipeModel> get dishes => _recipeService.recipes;
+  bool isMySelected = true;
+  bool isSavedSelected = false;
+  String selectedTab = 'Yacht Chefs';
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+
+  get toViewCullinarySchool => null;
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
@@ -23,13 +31,13 @@ class IndexViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-     await _chefService.chefInit();
 
-    await _savedRecipeService.init();
-
-    await _recipeService.initialized();
-
-   
+    await Future.wait([
+      _cullinaryService.culinaryInit(),
+      _chefService.chefInit(),
+      _savedRecipeService.init(),
+      _recipeService.initialized(),
+    ]);
 
     setBusy(false);
   }
@@ -38,6 +46,22 @@ class IndexViewModel extends BaseViewModel {
     _navigationService.navigateToAllChefsView(
       chefList: chefList,
     );
+  }
+
+  void myRecipeSelected() {
+    isMySelected = true;
+    isSavedSelected = false;
+    notifyListeners();
+    rebuildUi();
+  }
+
+  void savedSelected() async {
+    await _savedRecipeService.init();
+    isSavedSelected = true;
+
+    isMySelected = false;
+    notifyListeners();
+    rebuildUi();
   }
 
   void toChefProfile(UserModel chef) {
@@ -54,5 +78,25 @@ class IndexViewModel extends BaseViewModel {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: dishes[index],
     );
+  }
+
+  void handleTab(int index) {
+    switch (index) {
+      case 0:
+        selectedTab = 'Yacht Chefs';
+        break;
+      case 1:
+        selectedTab = 'Culinary School';
+        break;
+
+      default:
+        break;
+    }
+
+    rebuildUi();
+  }
+
+  void toViewCullinarySchools() {
+    _navigationService.navigateToCulineryschoolviewallView();
   }
 }

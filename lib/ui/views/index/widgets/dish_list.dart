@@ -9,9 +9,9 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    final List<RecipeModel> dishes = viewModel.dishes!;
+    final List<RecipeModel> dishes = viewModel.dishes;
 
-    return viewModel.dishes!.isEmpty
+    return viewModel.dishes.isEmpty
         ? Text(
             'No Dish Found',
             style: Theme.of(context).textTheme.titleMedium,
@@ -35,11 +35,13 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: dishes[index].docId,
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: dishes[index].coverImage.where((element) => element.contains('.jpg')).first,
+                          foodImagePath: dishes[index]
+                              .coverImage
+                              .where((element) => element.contains('.jpg'))
+                              .first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
                           chefImagePath: dishes[index].user!.displayPicture!,

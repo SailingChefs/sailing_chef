@@ -21,31 +21,33 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             key: viewModel.formKey,
             child: Column(
               children: [
-                SemiRoundedTranpaentTextField(
-                  validator: (value) => viewModel.validateName(value),
-                  controller: viewModel.nameController,
-                  labelText: 'Name',
-                ),
                 verticalSpaceMedium,
-                SemiRoundedTranpaentTextFieldBio(
-                    validator: (value) => viewModel.validateBio(value),
-                    controller: viewModel.bioController,
-                    labelText: 'Bio'),
-                verticalSpaceMedium,
-                (userRole == 'chef') || (userRole == 'culinarySchool')
+                (userRole == 'chef')
                     ? Column(
                         children: [
+                          SemiRoundedTranpaentTextField(
+                            validator: (value) => viewModel.validateName(value),
+                            controller: viewModel.nameController,
+                            labelText: 'Name',
+                          ),
+                          verticalSpaceMedium,
+                          SemiRoundedTranpaentTextFieldBio(
+                              validator: (value) =>
+                                  viewModel.validateBio(value),
+                              controller: viewModel.bioController,
+                              labelText: 'Bio'),
+                          verticalSpaceMedium,
                           SemiRoundedTranpaentTextField(
                               validator: (value) =>
                                   viewModel.validateLink(value),
                               controller: viewModel.linkController,
-                              labelText: 'Link'),
+                              labelText: 'Link*'),
                           verticalSpaceMedium,
                           SemiRoundedTranpaentTextField(
                               validator: (value) =>
                                   viewModel.validateBoatName(value),
                               controller: viewModel.boatNameController,
-                              labelText: 'Boat Name'),
+                              labelText: 'Boat Name*'),
                           verticalSpaceMedium,
                           GestureDetector(
                               onTap: viewModel.getLocation,
@@ -71,7 +73,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                   child: Text(
                                     viewModel.locationController.text.isNotEmpty
                                         ? viewModel.locationController.text
-                                        : 'Location',
+                                        : 'Location*',
                                     style: globalTextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
@@ -81,12 +83,100 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               )),
                         ],
                       )
-                    : Container(),
+                    : (userRole == 'culinarySchool')
+                        ? Column(
+                            children: [
+                              SemiRoundedTranpaentTextField(
+                                validator: (value) =>
+                                    viewModel.validateName(value),
+                                controller: viewModel.nameController,
+                                labelText: 'Company Name',
+                              ),
+                              verticalSpaceMedium,
+                              SemiRoundedTranpaentTextFieldBio(
+                                  validator: (value) =>
+                                      viewModel.validateBio(value),
+                                  controller: viewModel.bioController,
+                                  labelText: 'Description'),
+                              verticalSpaceMedium,
+                              SemiRoundedTranpaentTextField(
+                                  validator: (value) =>
+                                      viewModel.validateLink(value),
+                                  controller: viewModel.linkController,
+                                  labelText: 'Link'),
+                              verticalSpaceMedium,
+                              GestureDetector(
+                                onTap: viewModel.getLocation,
+                                child: Container(
+                                  height: 45.h,
+                                  width: double.infinity,
+                                  decoration: islocationempty == false
+                                      ? BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          border: Border.all(
+                                            color: Colors.red,
+                                          ),
+                                          color: Colors.grey.withOpacity(0.2),
+                                        )
+                                      : BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          color: Colors.grey.withOpacity(0.2),
+                                        ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12.0.dg),
+                                    child: Text(
+                                      viewModel.locationController.text
+                                              .isNotEmpty
+                                          ? viewModel.locationController.text
+                                          : 'Location',
+                                      style: globalTextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: kcBlackColor.withOpacity(0.6)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(),
+                                  Text(
+                                    '*optional',
+                                    style: globalTextStyle(
+                                        fontSize: 14.sp,
+                                        color: kcsgreycolor,
+                                        fontWeight: FontWeight.w400),
+                                  )
+                                ],
+                              )
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              SemiRoundedTranpaentTextField(
+                                validator: (value) =>
+                                    viewModel.validateName(value),
+                                controller: viewModel.nameController,
+                                labelText: 'Name',
+                              ),
+                              verticalSpaceMedium,
+                              SemiRoundedTranpaentTextFieldBio(
+                                  validator: (value) =>
+                                      viewModel.validateBio(value),
+                                  controller: viewModel.bioController,
+                                  labelText: 'Bio'),
+                              verticalSpaceMedium,
+                            ],
+                          ),
               ],
             ),
           ),
         ),
-        verticalSpaceMassive,
+        verticalSpaceLarge,
         PrimaryColorRoundedElevatedButton(
           onPressed: () {
             if (userRole == 'chef' || userRole == 'culinarySchool') {

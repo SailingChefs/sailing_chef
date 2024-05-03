@@ -10,6 +10,7 @@ class ChatListViewModel extends BaseViewModel {
   final _convoService = locator<ConversationService>();
   final _navigationService = locator<NavigationService>();
   final _userService = locator<UserServices>();
+  int totalchats = 0;
 
   Stream<List<ConversationModel>> getConversation() {
     Stream<List<ConversationModel>> conversations =

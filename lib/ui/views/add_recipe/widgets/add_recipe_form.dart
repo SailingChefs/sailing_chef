@@ -13,8 +13,10 @@ import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   final List<Ingredient>? ingredientsList;
-  const AddRecipeFormAddRecipeScreen(this.ingredientsList, {super.key});
-
+  const AddRecipeFormAddRecipeScreen(
+      this.ingredientsList, this.isfromprofileview,
+      {super.key});
+  final bool isfromprofileview;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return SingleChildScrollView(

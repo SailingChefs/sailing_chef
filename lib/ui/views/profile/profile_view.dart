@@ -3,6 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/saved_profile_screen.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/tab_bar.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
 
@@ -20,10 +21,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(
-              child: CircularProgressIndicator(
-              color: kcWhiteColor,
-            ))
+          ? const ShimmerLoaderChefView()
           : Scaffold(
               backgroundColor: kcBackgroundColor,
               body: Padding(
@@ -55,12 +53,12 @@ class ProfileView extends StackedView<ProfileViewModel> {
                             ),
                       userDetails!.userRole == 'guest'
                           ? Column(
-                            children: [
-                              const Divider(),
-                              verticalSpaceMedium,
-                              const SavedProfileScreen(),
-                            ],
-                          )
+                              children: [
+                                const Divider(),
+                                verticalSpaceMedium,
+                                const SavedProfileScreen(),
+                              ],
+                            )
                           : Column(
                               children: [
                                 verticalSpaceMedium,
@@ -72,7 +70,8 @@ class ProfileView extends StackedView<ProfileViewModel> {
                     ],
                   ),
                 ),
-              )),
+              ),
+            ),
     );
   }
 

@@ -22,38 +22,32 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body:  
-             Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ChefProfileTopBar(
-                        uid: user.uid!,
-                      ),
-                     
-                      viewModel.isBusy ?
-                    const  ShimmerLoaderChefView():
-                      
-                      Column(
-
-                        children: [
-                          ChefProfileDetailsDesc(
-                            user: user,
-                          ),
-                          verticalSpaceMedium,
-                          Follow_Message_Btns(user: user),
-                          DishListScreen(user: user),
-                        ],
-                      ),
-                    ],
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ChefProfileTopBar(
+                    uid: user.uid!,
                   ),
-                ),
-              )
-      ),
+                  viewModel.isBusy
+                      ? const ShimmerLoaderChefView()
+                      : Column(
+                          children: [
+                            ChefProfileDetailsDesc(
+                              user: user,
+                            ),
+                            verticalSpaceMedium,
+                            Follow_Message_Btns(user: user),
+                            DishListScreen(user: user),
+                          ],
+                        ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 

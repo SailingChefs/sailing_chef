@@ -23,7 +23,7 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
               backgroundColor: Theme.of(context).colorScheme.background,
               elevation: 0,
               title: Text(
-                'All Chefs',
+                'Meet Your Chefs',
                 style: globalTextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -46,9 +46,10 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 15.0,
-                      mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
+                      crossAxisSpacing: 0.0,
+                      mainAxisSpacing: 5.0,
+                      childAspectRatio: 190 / 270,
+                      mainAxisExtent: 270,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
@@ -57,15 +58,12 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                             viewModel.toChefProfile(chefList[index]);
                           },
                           child: Container(
-                            width: 160.w,
-
-                            // height: containerHeight.h,
-
+                            width: 190.w,
                             decoration: BoxDecoration(
                               color: kcwhitecolor,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
+                                  color: kcBlackColor.withOpacity(0.08),
                                   spreadRadius: 1,
                                   blurRadius: 1,
                                   offset: const Offset(0, 3),
@@ -75,18 +73,19 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                             ),
                             margin: const EdgeInsets.all(8),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                     child: ClipRRect(
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.r),
-                                    topRight: Radius.circular(20.r),
+                                    topLeft: Radius.circular(12.r),
+                                    topRight: Radius.circular(12.r),
                                   ),
                                   child: chefList[index].displayPicture == ''
                                       ? Image.asset(
                                           'assets/images/misc/blank_image.png',
                                           fit: BoxFit.cover,
+                                          height: 200,
                                         )
                                       : Image.network(
                                           chefList[index].displayPicture!,
@@ -95,13 +94,28 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                                         ),
                                 )),
                                 Padding(
-                                  padding: EdgeInsets.all(8.0.dg),
+                                  padding:
+                                      EdgeInsets.only(left: 13.0.dg, top: 10),
                                   child: Text(
                                     capitalizeEachWord(
                                         chefList[index].displayName!),
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 13.0.dg, bottom: 10),
+                                  child: Text(
+                                    capitalizeEachWord(
+                                      ("${chefList[index].recipeCount}  Dishes"),
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: kcBlackColor.withOpacity(0.6),
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),

@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 
@@ -17,8 +16,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void getBlockAcc() {
-    _navigationService.navigateToBlockedAccountsView(
-        );
+    _navigationService.navigateToBlockedAccountsView();
   }
 
   void getBecomeChef() {
@@ -32,7 +30,8 @@ class SettingsViewModel extends BaseViewModel {
   void getEditProfile() {
     _navigationService.navigateToEditProfileView();
   }
-  void getTerms(){
+
+  void getTerms() {
     _navigationService.navigateToPrivacyPolicyView();
   }
 

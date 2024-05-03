@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -76,9 +74,8 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(
-              color: borderColor ??
-                  kcWhiteColor.withOpacity(0.2)), 
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

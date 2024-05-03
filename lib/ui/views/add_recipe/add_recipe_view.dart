@@ -5,8 +5,11 @@ import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_form.dart';
 import 'add_recipe_viewmodel.dart';
 
 class AddRecipeView extends StackedView<AddRecipeViewModel> {
-  final List<Ingredient>? ingredientsList;
-  const AddRecipeView(this.ingredientsList, {Key? key}) : super(key: key);
+  final bool isFromProfileView;
+  const AddRecipeView({
+    Key? key,
+    required this.isFromProfileView,
+  }) : super(key: key);
 
   @override
   Widget builder(
@@ -14,6 +17,7 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
     AddRecipeViewModel viewModel,
     Widget? child,
   ) {
+    List<Ingredient>? ingredientsList;
     return SizedBox(
       child: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator())
@@ -49,7 +53,8 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                   children: [
                     verticalSpaceMedium,
                     Expanded(
-                      child: AddRecipeFormAddRecipeScreen(ingredientsList),
+                      child: AddRecipeFormAddRecipeScreen(
+                          ingredientsList, isFromProfileView),
                     ),
                   ],
                 ),

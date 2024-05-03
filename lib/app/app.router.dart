@@ -5,14 +5,12 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i31;
+import 'package:flutter/material.dart' as _i32;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart' as _i36;
-import 'package:sailing_chefs/core/imports/core_imports.dart' as _i32;
+import 'package:sailing_chefs/core/imports/core_imports.dart' as _i33;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i35;
-import 'package:sailing_chefs/model/user_model.dart' as _i33;
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart'
-    as _i34;
+import 'package:sailing_chefs/model/user_model.dart' as _i34;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i14;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i26;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i29;
@@ -26,6 +24,8 @@ import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i23;
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
     as _i22;
 import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart' as _i15;
+import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart'
+    as _i31;
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart'
     as _i24;
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart' as _i12;
@@ -119,6 +119,8 @@ class Routes {
 
   static const privacyPolicyView = '/privacy-policy-view';
 
+  static const culineryschoolviewallView = '/culineryschoolviewall-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -149,6 +151,7 @@ class Routes {
     blockedAccountsView,
     becomechefView,
     privacyPolicyView,
+    culineryschoolviewallView,
   };
 }
 
@@ -270,56 +273,60 @@ class StackedRouter extends _i1.RouterBase {
       Routes.privacyPolicyView,
       page: _i30.PrivacyPolicyView,
     ),
+    _i1.RouteDef(
+      Routes.culineryschoolviewallView,
+      page: _i31.CulineryschoolviewallView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartupView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
     _i3.OnboardingView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.OnboardingView(),
         settings: data,
       );
     },
     _i4.SignUpView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.SignUpView(),
         settings: data,
       );
     },
     _i5.LoginView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.LoginView(),
         settings: data,
       );
     },
     _i6.UserDetailsView: (data) {
       final args = data.getArgs<UserDetailsViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i6.UserDetailsView(key: args.key, userRole: args.userRole),
         settings: data,
       );
     },
     _i7.BottomNavBarView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.BottomNavBarView(),
         settings: data,
       );
     },
     _i8.SavedRecipesView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.SavedRecipesView(),
         settings: data,
       );
     },
     _i9.ChatView: (data) {
       final args = data.getArgs<ChatViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => _i9.ChatView(
             receiver: args.receiver,
             conversationId: args.conversationId,
@@ -328,7 +335,7 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i10.ProfileView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ProfileView(),
         settings: data,
       );
@@ -337,55 +344,55 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SettingsViewArguments>(
         orElse: () => const SettingsViewArguments(),
       );
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => _i11.SettingsView(
             key: args.key, isCurrentUser: args.isCurrentUser, uid: args.uid),
         settings: data,
       );
     },
     _i12.FilterView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.FilterView(),
         settings: data,
       );
     },
     _i13.IndexView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.IndexView(),
         settings: data,
       );
     },
     _i14.AddRecipeView: (data) {
       final args = data.getArgs<AddRecipeViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i14.AddRecipeView(args.ingredientsList, key: args.key),
+      return _i32.MaterialPageRoute<dynamic>(
+        builder: (context) => _i14.AddRecipeView(
+            key: args.key, isFromProfileView: args.isFromProfileView),
         settings: data,
       );
     },
     _i15.ComingsoonView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.ComingsoonView(),
         settings: data,
       );
     },
     _i16.RecipeListPageView: (data) {
       final args = data.getArgs<RecipeListPageViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => _i16.RecipeListPageView(
             key: args.key, isFromProfileView: args.isFromProfileView),
         settings: data,
       );
     },
     _i17.PinDropMapView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.PinDropMapView(),
         settings: data,
       );
     },
     _i18.FollowingListView: (data) {
       final args = data.getArgs<FollowingListViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i18.FollowingListView(key: args.key, user: args.user),
         settings: data,
@@ -393,7 +400,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i19.RecipeViewView: (data) {
       final args = data.getArgs<RecipeViewViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.RecipeViewView(
             args.recipeModel, args.selectedImages,
             key: args.key, waveFormData: args.waveFormData, path: args.path),
@@ -401,14 +408,14 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i20.BottomBarGuestView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i20.BottomBarGuestView(),
         settings: data,
       );
     },
     _i21.SavedRecipeDetailsView: (data) {
       final args = data.getArgs<SavedRecipeDetailsViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => _i21.SavedRecipeDetailsView(
             key: args.key, recipeModel: args.recipeModel),
         settings: data,
@@ -416,59 +423,65 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i22.ChefProfileView: (data) {
       final args = data.getArgs<ChefProfileViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i22.ChefProfileView(user: args.user, key: args.key),
         settings: data,
       );
     },
     _i23.ChatListView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i23.ChatListView(),
         settings: data,
       );
     },
     _i24.EditProfileView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i24.EditProfileView(),
         settings: data,
       );
     },
     _i25.VideoPlayerView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i25.VideoPlayerView(),
         settings: data,
       );
     },
     _i26.AllChefsView: (data) {
       final args = data.getArgs<AllChefsViewArguments>(nullOk: false);
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i26.AllChefsView(key: args.key, chefList: args.chefList),
         settings: data,
       );
     },
     _i27.ForgetPasswordView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i27.ForgetPasswordView(),
         settings: data,
       );
     },
     _i28.BlockedAccountsView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i28.BlockedAccountsView(),
         settings: data,
       );
     },
     _i29.BecomechefView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i29.BecomechefView(),
         settings: data,
       );
     },
     _i30.PrivacyPolicyView: (data) {
-      return _i31.MaterialPageRoute<dynamic>(
+      return _i32.MaterialPageRoute<dynamic>(
         builder: (context) => const _i30.PrivacyPolicyView(),
+        settings: data,
+      );
+    },
+    _i31.CulineryschoolviewallView: (data) {
+      return _i32.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i31.CulineryschoolviewallView(),
         settings: data,
       );
     },
@@ -487,7 +500,7 @@ class UserDetailsViewArguments {
     required this.userRole,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String userRole;
 
@@ -515,11 +528,11 @@ class ChatViewArguments {
     this.key,
   });
 
-  final _i33.UserModel receiver;
+  final _i34.UserModel receiver;
 
   final String conversationId;
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   @override
   String toString() {
@@ -547,7 +560,7 @@ class SettingsViewArguments {
     this.uid,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isCurrentUser;
 
@@ -574,28 +587,28 @@ class SettingsViewArguments {
 
 class AddRecipeViewArguments {
   const AddRecipeViewArguments({
-    required this.ingredientsList,
     this.key,
+    required this.isFromProfileView,
   });
 
-  final List<_i34.Ingredient>? ingredientsList;
+  final _i33.Key? key;
 
-  final _i32.Key? key;
+  final bool isFromProfileView;
 
   @override
   String toString() {
-    return '{"ingredientsList": "$ingredientsList", "key": "$key"}';
+    return '{"key": "$key", "isFromProfileView": "$isFromProfileView"}';
   }
 
   @override
   bool operator ==(covariant AddRecipeViewArguments other) {
     if (identical(this, other)) return true;
-    return other.ingredientsList == ingredientsList && other.key == key;
+    return other.key == key && other.isFromProfileView == isFromProfileView;
   }
 
   @override
   int get hashCode {
-    return ingredientsList.hashCode ^ key.hashCode;
+    return key.hashCode ^ isFromProfileView.hashCode;
   }
 }
 
@@ -605,7 +618,7 @@ class RecipeListPageViewArguments {
     required this.isFromProfileView,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool isFromProfileView;
 
@@ -632,9 +645,9 @@ class FollowingListViewArguments {
     required this.user,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
-  final _i33.UserModel user;
+  final _i34.UserModel user;
 
   @override
   String toString() {
@@ -666,7 +679,7 @@ class RecipeViewViewArguments {
 
   final List<_i36.XFile> selectedImages;
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<double>? waveFormData;
 
@@ -703,7 +716,7 @@ class SavedRecipeDetailsViewArguments {
     required this.recipeModel,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final _i35.RecipeModel recipeModel;
 
@@ -730,9 +743,9 @@ class ChefProfileViewArguments {
     this.key,
   });
 
-  final _i33.UserModel user;
+  final _i34.UserModel user;
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   @override
   String toString() {
@@ -757,9 +770,9 @@ class AllChefsViewArguments {
     required this.chefList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
-  final List<_i33.UserModel> chefList;
+  final List<_i34.UserModel> chefList;
 
   @override
   String toString() {
@@ -836,7 +849,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToUserDetailsView({
-    _i32.Key? key,
+    _i33.Key? key,
     required String userRole,
     int? routerId,
     bool preventDuplicates = true,
@@ -881,9 +894,9 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToChatView({
-    required _i33.UserModel receiver,
+    required _i34.UserModel receiver,
     required String conversationId,
-    _i32.Key? key,
+    _i33.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -914,7 +927,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToSettingsView({
-    _i32.Key? key,
+    _i33.Key? key,
     bool? isCurrentUser,
     String? uid,
     int? routerId,
@@ -961,8 +974,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToAddRecipeView({
-    required List<_i34.Ingredient>? ingredientsList,
-    _i32.Key? key,
+    _i33.Key? key,
+    required bool isFromProfileView,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -970,8 +983,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.addRecipeView,
-        arguments:
-            AddRecipeViewArguments(ingredientsList: ingredientsList, key: key),
+        arguments: AddRecipeViewArguments(
+            key: key, isFromProfileView: isFromProfileView),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -993,7 +1006,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToRecipeListPageView({
-    _i32.Key? key,
+    _i33.Key? key,
     required bool isFromProfileView,
     int? routerId,
     bool preventDuplicates = true,
@@ -1025,8 +1038,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToFollowingListView({
-    _i32.Key? key,
-    required _i33.UserModel user,
+    _i33.Key? key,
+    required _i34.UserModel user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1044,7 +1057,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   Future<dynamic> navigateToRecipeViewView({
     required _i35.RecipeModel recipeModel,
     required List<_i36.XFile> selectedImages,
-    _i32.Key? key,
+    _i33.Key? key,
     List<double>? waveFormData,
     String? path,
     int? routerId,
@@ -1081,7 +1094,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToSavedRecipeDetailsView({
-    _i32.Key? key,
+    _i33.Key? key,
     required _i35.RecipeModel recipeModel,
     int? routerId,
     bool preventDuplicates = true,
@@ -1099,8 +1112,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToChefProfileView({
-    required _i33.UserModel user,
-    _i32.Key? key,
+    required _i34.UserModel user,
+    _i33.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1158,8 +1171,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> navigateToAllChefsView({
-    _i32.Key? key,
-    required List<_i33.UserModel> chefList,
+    _i33.Key? key,
+    required List<_i34.UserModel> chefList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1230,6 +1243,20 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToCulineryschoolviewallView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.culineryschoolviewallView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -1287,7 +1314,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithUserDetailsView({
-    _i32.Key? key,
+    _i33.Key? key,
     required String userRole,
     int? routerId,
     bool preventDuplicates = true,
@@ -1332,9 +1359,9 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithChatView({
-    required _i33.UserModel receiver,
+    required _i34.UserModel receiver,
     required String conversationId,
-    _i32.Key? key,
+    _i33.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1365,7 +1392,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithSettingsView({
-    _i32.Key? key,
+    _i33.Key? key,
     bool? isCurrentUser,
     String? uid,
     int? routerId,
@@ -1412,8 +1439,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithAddRecipeView({
-    required List<_i34.Ingredient>? ingredientsList,
-    _i32.Key? key,
+    _i33.Key? key,
+    required bool isFromProfileView,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1421,8 +1448,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.addRecipeView,
-        arguments:
-            AddRecipeViewArguments(ingredientsList: ingredientsList, key: key),
+        arguments: AddRecipeViewArguments(
+            key: key, isFromProfileView: isFromProfileView),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1444,7 +1471,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithRecipeListPageView({
-    _i32.Key? key,
+    _i33.Key? key,
     required bool isFromProfileView,
     int? routerId,
     bool preventDuplicates = true,
@@ -1476,8 +1503,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithFollowingListView({
-    _i32.Key? key,
-    required _i33.UserModel user,
+    _i33.Key? key,
+    required _i34.UserModel user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1495,7 +1522,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   Future<dynamic> replaceWithRecipeViewView({
     required _i35.RecipeModel recipeModel,
     required List<_i36.XFile> selectedImages,
-    _i32.Key? key,
+    _i33.Key? key,
     List<double>? waveFormData,
     String? path,
     int? routerId,
@@ -1532,7 +1559,7 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithSavedRecipeDetailsView({
-    _i32.Key? key,
+    _i33.Key? key,
     required _i35.RecipeModel recipeModel,
     int? routerId,
     bool preventDuplicates = true,
@@ -1550,8 +1577,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithChefProfileView({
-    required _i33.UserModel user,
-    _i32.Key? key,
+    required _i34.UserModel user,
+    _i33.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1609,8 +1636,8 @@ extension NavigatorStateExtension on _i37.NavigationService {
   }
 
   Future<dynamic> replaceWithAllChefsView({
-    _i32.Key? key,
-    required List<_i33.UserModel> chefList,
+    _i33.Key? key,
+    required List<_i34.UserModel> chefList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1675,6 +1702,20 @@ extension NavigatorStateExtension on _i37.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.privacyPolicyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithCulineryschoolviewallView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.culineryschoolviewallView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

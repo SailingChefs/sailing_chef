@@ -190,6 +190,4 @@ class UserDetailsViewModel extends BaseViewModel {
   void skipToHome() {
     _navigationService.navigateToIndexView();
   }
-
-
 }

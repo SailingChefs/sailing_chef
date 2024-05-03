@@ -65,15 +65,15 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-String? validatePrepTime(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter some time';
+  String? validatePrepTime(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter some time';
+    }
+    if (value.length > 3) {
+      return 'Please enter only 3 or fewer characters';
+    }
+    return null;
   }
-  if (value.length > 3) {
-    return 'Please enter only 3 or fewer characters';
-  }
-  return null;
-}
 
   String? validateTitle(String? value) {
     if (value!.isEmpty) {
@@ -289,43 +289,43 @@ String? validatePrepTime(String? value) {
     return '$time $method';
   }
 
- void previewRecipe() async {
-  if (titleController.text.trim().isNotEmpty &&
-      prepTimeController.text.trim().isNotEmpty &&
-      methodsList.isNotEmpty &&
-      ingredientsList.isNotEmpty &&
-      hasRecordedAudio) {
-    bool hasImage = selectedImages.any((image) => image.isImage);
-    if (!hasImage) {
-      showToast(message: 'Please add at least one image');
-      return; 
-    }else {
-      _navigationService.navigateToRecipeViewView(
-        recipeModel: RecipeModel(
-          visibility: selectedValue,
-          chefNote: '',
-          coverImage: [],
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          methods: methodsList,
-          prepTime: mergeStrings(
-              prepTimeController.text.trim(), selectedTimeMethod),
-          servingSize: selectedQuantity,
-          status: 'published',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-          docId: '',
-          waveForm: waveFormData!,
-        ),
-        selectedImages: selectedImages,
-        path: path,
-        waveFormData: waveFormData,
-      );
+  void previewRecipe() async {
+    if (titleController.text.trim().isNotEmpty &&
+        prepTimeController.text.trim().isNotEmpty &&
+        methodsList.isNotEmpty &&
+        ingredientsList.isNotEmpty &&
+        hasRecordedAudio) {
+      bool hasImage = selectedImages.any((image) => image.isImage);
+      if (!hasImage) {
+        showToast(message: 'Please add at least one image');
+        return;
+      } else {
+        _navigationService.navigateToRecipeViewView(
+          recipeModel: RecipeModel(
+            visibility: selectedValue,
+            chefNote: '',
+            coverImage: [],
+            createdTime: Timestamp.now(),
+            ingredients: ingredientsList,
+            methods: methodsList,
+            prepTime: mergeStrings(
+                prepTimeController.text.trim(), selectedTimeMethod),
+            servingSize: selectedQuantity,
+            status: 'published',
+            title: titleController.text.trim(),
+            uid: firebaseAuth.currentUser!.uid,
+            docId: '',
+            waveForm: waveFormData!,
+          ),
+          selectedImages: selectedImages,
+          path: path,
+          waveFormData: waveFormData,
+        );
+      }
+    } else {
+      showToast(message: 'Please fill all fields');
     }
-  } else {
-    showToast(message: 'Please fill all fields');
   }
-}
 
   void deleteMethod(int index) {
     methodsList.removeAt(index);

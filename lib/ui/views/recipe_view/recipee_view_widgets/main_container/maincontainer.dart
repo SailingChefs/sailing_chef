@@ -52,16 +52,15 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                           ),
                         ),
                         SizedBox(
-                          width: 50,
+                          width: 55,
                           height: 45,
-                          
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Icon(
                                 FlutterRemix.time_line,
                                 color: kcPrimaryColor,
-                                size: 20,
+                                size: 12,
                               ),
                               Text(
                                 recipeModel.prepTime,
@@ -75,22 +74,24 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                         ),
                       ],
                     ),
-                  
                     verticalSpaceMedium,
                     const TabBarWidgets(),
+                    verticalSpaceSmall,
                     verticalSpaceTiny,
                     viewModel.isIngredientsSelected
-                        ? IngredientsClass(recipeModel,)
+                        ? IngredientsClass(
+                            recipeModel,
+                          )
                         : Methods(
                             recipe: recipeModel,
                           ),
+                    verticalSpaceMassive,
                     SaveRecipeButton(
                       onPressed: () {
                         viewModel.saveRecipe(recipeModel, selectedImages);
                       },
                       buttonText: 'Submit Recipe',
                     ),
-                    horizontalSpaceSmall,
                   ],
                 ),
               ),

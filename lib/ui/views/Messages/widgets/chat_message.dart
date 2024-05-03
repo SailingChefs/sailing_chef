@@ -31,8 +31,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
             isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          // if (!isCurrentUser && messageIndex > 0 && nextMessageIsDifferentUser)
-          //   const SizedBox(width: 3.0),
           if (!isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
             CircleAvatar(
               radius: 20.0,
@@ -43,8 +41,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   ? null
                   : const Icon(Icons.person),
             ),
-
-          horizontalSpaceSmall,
+          horizontalSpaceMedium,
           Container(
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * 0.7,
@@ -98,9 +95,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
           horizontalSpaceSmall,
           if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
             const SizedBox(width: 3.0),
-          if (isCurrentUser &&
-              messageIndex > 0 &&
-              !nextMessageIsDifferentUser) // Render image for current user
+          if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
             CircleAvatar(
               radius: 20.0,
               backgroundImage: userDetails!.displayPicture!.isNotEmpty

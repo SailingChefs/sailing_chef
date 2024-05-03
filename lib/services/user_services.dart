@@ -40,8 +40,6 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
- 
-
   Future<UserModel> getUserDetails() async {
     try {
       EasyLoading.show();
@@ -195,6 +193,4 @@ class UserServices with ListenableServiceMixin {
       return false;
     }
   }
-
-  
 }

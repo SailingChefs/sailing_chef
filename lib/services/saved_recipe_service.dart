@@ -16,9 +16,7 @@ class SavedRecipeService with ListenableServiceMixin {
 
   Future<void> init() async {
     savedRecipes = await _fetchSavedRecipes();
-    // await _getSavedRecipeIdsForUser(firebaseAuth.currentUser!.uid);
     notifyListeners();
-    isInitialised = true;
   }
 
   Future<void> _addSavedRecipe(SavedRecipeModel savedRecipe) async {

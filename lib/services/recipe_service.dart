@@ -21,10 +21,8 @@ class RecipeService {
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
 
-  Future<void> initialized() async{
-    if(isInitialized) return;
+  Future<void> initialized() async {
     recipes = await fetchAllRecipes();
-    isInitialized = true;
   }
 
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
@@ -38,7 +36,7 @@ class RecipeService {
 
       await docRef.update({'doc_id': docId});
       log(docId.toString());
-      
+
       EasyLoading.dismiss();
 
       showToast(message: 'Recipe added successfully');
@@ -129,22 +127,18 @@ class RecipeService {
 
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
     try {
-      // Fetch recipes
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('recipes')
           .where('uid', isEqualTo: uid)
           .get();
 
-      // Fetch user details by UID only once
       UserModel? user = await _userService.fetchUserByUID(uid);
 
-      // Map each document to a RecipeModel and include user data
       recipes = snapshot.docs.map((doc) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        recipe.user = user; // Assuming RecipeModel has a field for UserModel
+        recipe.user = user;
         return recipe;
       }).toList();
-      // Map each document to a RecipeModel and include user data
 
       return recipes;
     } catch (e) {
@@ -154,39 +148,36 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
+    try {
+      EasyLoading.show();
+      // Fetches all documents from the 'recipes' collection
+      QuerySnapshot snapshot = await firebasestore
+          .collection('recipes')
+          .where('uid',
+              isNotEqualTo:
+                  '123456') // Exclude documents where 'uid' equals '123456'
+          .get();
 
-  try {
-    EasyLoading.show();
-
-    QuerySnapshot snapshot = await firebasestore
-        .collection('recipes')
-       .where('visibility', isEqualTo: 'Public')
-          .where('status', isEqualTo: 'published')
-        // .where('uid', isNotEqualTo: '123456')
-        .get();
-
-    List<RecipeModel> recipes = [];
-    for (var doc in snapshot.docs) {
-      RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-      UserModel? currUser = await _userService
-          .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
-      if (!currUser.blockedAccounts!.contains(recipe.uid)) {
-
+      // Maps each DocumentSnapshot to a RecipeModel
+      List<RecipeModel> recipes = [];
+      for (var doc in snapshot.docs) {
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        // Fetch user details by UID and assign it to the recipe
         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
         recipes.add(recipe);
       }
+
+      EasyLoading.dismiss();
+
+      return recipes;
+    } catch (e) {
+      EasyLoading.dismiss();
+      log("Error fetching recipes: $e");
+      return []; // Return an empty list on error
     }
-
-    EasyLoading.dismiss();
-
-    return recipes;
-  } catch (e) {
-    EasyLoading.dismiss();
-    log("Error fetching recipes: $e");
-    return [];
   }
-}
+
   Future<List<RecipeModel>> fetchRandomRecipes(
       int count, String currentRecipeId) async {
     try {
@@ -195,7 +186,6 @@ class RecipeService {
       // Attempt to fetch more than you need to improve randomness
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-
           .where('visibility', isEqualTo: 'Public')
           .where('status', isEqualTo: 'published')
           .where('uid', isNotEqualTo: currentRecipeId)

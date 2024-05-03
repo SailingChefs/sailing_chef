@@ -9,7 +9,13 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
     return viewModel.following.isEmpty
-        ? Text('No Following')
+        ? Column(
+            children: [
+              verticalSpaceMassive,
+              verticalSpaceMassive,
+              Center(child: Text('No Following')),
+            ],
+          )
         : Column(
             children: [
               const SearchBarFollwoing(),
@@ -50,7 +56,7 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                                           kcPrimaryColor),
                                 ),
                                 onPressed: () {
-                                  viewModel.onFollowTap(
+                                  viewModel.removeFollowing(
                                       viewModel.followingUsers[index]);
                                 },
                                 child: Text(

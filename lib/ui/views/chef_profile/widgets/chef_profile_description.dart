@@ -37,82 +37,82 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                             fit: BoxFit.cover,
                           )),
               ),
-               horizontalSpaceSmall,
-           verticalSpaceTiny,
-             GestureDetector(
-          onTap: viewModel.showRecipeList,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                viewModel.chefRecipes!.length.toString(),
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
+              horizontalSpaceSmall,
               verticalSpaceTiny,
-              Text(
-                'Dishes',
-                style: globalTextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
+              GestureDetector(
+                onTap: viewModel.showRecipeList,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      viewModel.chefRecipes!.length.toString(),
+                      style: globalTextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                    verticalSpaceTiny,
+                    Text(
+                      'Dishes',
+                      style: globalTextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-        horizontalSpaceSmall,
-        GestureDetector(
-          onTap: () => viewModel.goToFollowingList(user),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                viewModel.followers.length.toString(),
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
+              horizontalSpaceSmall,
+              GestureDetector(
+                onTap: () => viewModel.goToFollowingList(user),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      viewModel.followers.length.toString(),
+                      style: globalTextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                    verticalSpaceTiny,
+                    Text(
+                      'Followers',
+                      style: globalTextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                  ],
+                ),
               ),
-              verticalSpaceTiny,
-              Text(
-                'Followers',
-                style: globalTextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
+              horizontalSpaceSmall,
+              GestureDetector(
+                onTap: () => viewModel.goToFollowingList,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      user.following!.length.toString(),
+                      style: globalTextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                    verticalSpaceTiny,
+                    Text(
+                      'Following',
+                      style: globalTextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.6)),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-        horizontalSpaceSmall,
-        GestureDetector(
-          onTap: () => viewModel.goToFollowingList,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                user.following!.length.toString(),
-                style: globalTextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-              verticalSpaceTiny,
-              Text(
-                'Following',
-                style: globalTextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6)),
-              ),
-            ],
-          ),
-        ),
               // ChefProfileDetails(
               //   user: user,
               // ),

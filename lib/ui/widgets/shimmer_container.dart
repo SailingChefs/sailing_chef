@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -10,25 +9,25 @@ class ShimmerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-            baseColor: Colors.grey.withOpacity(0.2),
-            highlightColor: Colors.white,
-            child: Container(
-              width: width?? 150.w,
-              height: height ?? 20.h,
-              decoration: BoxDecoration(
-                color: kcwhitecolor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              margin: const EdgeInsets.all(8),
+      baseColor: Colors.grey.withOpacity(0.2),
+      highlightColor: Colors.white,
+      child: Container(
+        width: width ?? 150.w,
+        height: height ?? 20.h,
+        decoration: BoxDecoration(
+          color: kcwhitecolor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 3),
             ),
-          );
+          ],
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: const EdgeInsets.all(8),
+      ),
+    );
   }
 }

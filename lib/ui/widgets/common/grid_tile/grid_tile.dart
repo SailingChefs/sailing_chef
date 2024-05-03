@@ -1,8 +1,4 @@
 import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -67,17 +63,15 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15.0.r),
-                      topRight: Radius.circular(15.0.r),
-                    ),
-                    child: Image.network(
-                            foodImagePath,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        
-                  ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15.0.r),
+                        topRight: Radius.circular(15.0.r),
+                      ),
+                      child: Image.network(
+                        foodImagePath,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      )),
                 ),
                 verticalSpaceTiny,
                 Padding(
@@ -144,10 +138,9 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                         size: 12.dg,
                         color: kcWhiteColor,
                       ),
-                     horizontalSpaceTiny,
+                      horizontalSpaceTiny,
                       Expanded(
                         child: Text(
-                          
                           duration,
                           style: globalTextStyle(fontSize: 10.sp),
                         ),

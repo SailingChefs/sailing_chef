@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
-  
-  const BlockedAccountsView({Key? key, })
-      : super(key: key);
+  const BlockedAccountsView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget builder(
@@ -110,10 +108,8 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                         value: 'unblock',
                                         child: Text('Unblock User'),
                                       ),
-                                      
                                     ],
                                   ),
-                                  
                                 ),
                               );
                             }

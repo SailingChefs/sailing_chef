@@ -18,9 +18,11 @@ class UserModel {
   final String? phoneNumber;
   final List<String>? savedRecipes;
   final List<String>? blockedAccounts;
+  int? recipeCount;
 
   UserModel({
     this.displayName,
+    this.recipeCount,
     this.email,
     this.userRole,
     this.uid,

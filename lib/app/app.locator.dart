@@ -17,6 +17,7 @@ import '../services/block_user_service.dart';
 import '../services/chef_service.dart';
 import '../services/comment_service.dart';
 import '../services/conversation_service.dart';
+import '../services/cullinaryschool_service.dart';
 import '../services/follow_service.dart';
 import '../services/location_service.dart';
 import '../services/recipe_service.dart';
@@ -54,5 +55,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BitmapImageService());
   locator.registerLazySingleton(() => FollowService());
   locator.registerLazySingleton(() => SearchService());
-  
+  locator.registerLazySingleton(() => CullinaryschoolService());
 }

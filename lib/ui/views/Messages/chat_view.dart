@@ -78,8 +78,11 @@ class ChatView extends StackedView<ChatViewModel> {
                   }
                 },
               ),
-              Expanded(
-                // height: MediaQuery.sizeOf(context).height * 0.5.h,
+              verticalSpaceLarge,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.63,
                 child: ListView.builder(
                   itemCount: viewModel.messages.length,
                   controller: viewModel.scrollController,

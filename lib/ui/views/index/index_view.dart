@@ -1,8 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/chef_list.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/culinaryschooldlist.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/dish_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_loader.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 
 import 'index_viewmodel.dart';
@@ -27,7 +29,11 @@ class IndexView extends StackedView<IndexViewModel> {
                     children: [
                       const TopBarIndexScreen(),
                       verticalSpace(10),
-                      const ChefListIndexScreen(),
+                      const TabBarIndexScreen(),
+                      verticalSpace(10),
+                      viewModel.isMySelected
+                          ? const ChefListIndexScreen()
+                          : const CullinaryListIndexScreen(),
                       verticalSpace(10),
                       const SearchBarIndexView(),
                       verticalSpace(10),

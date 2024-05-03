@@ -155,6 +155,7 @@ class FollowService with ListenableServiceMixin {
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
       following.removeWhere((element) => element == user.uid);
+
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

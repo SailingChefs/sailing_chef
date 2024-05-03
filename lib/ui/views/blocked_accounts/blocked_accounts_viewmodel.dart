@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
@@ -16,7 +15,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   final ChefService _chefService = locator<ChefService>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
   final userService = locator<UserServices>();
-  List<String>  get blockedUsers => _blockUserService.blockedAccounts;
+  List<String> get blockedUsers => _blockUserService.blockedAccounts;
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_userService];
@@ -31,17 +30,17 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
 
   void unblockUser({required UserModel user}) async {
     userDetails!.blockedAccounts!.remove(user.uid);
-    if(user.userRole == 'chef' ){ 
-      if(_chefService.chefs.contains(user)){
+    if (user.userRole == 'chef') {
+      if (_chefService.chefs.contains(user)) {
         notifyListeners();
       }
       _chefService.chefs.add(user);
       notifyListeners();
-      
     }
 
-    _blockUserService.updateCurrentUserModel(localModel: userDetails!,userId: user.uid!);
-   
+    _blockUserService.updateCurrentUserModel(
+        localModel: userDetails!, userId: user.uid!);
+
     notifyListeners();
     rebuildUi();
 

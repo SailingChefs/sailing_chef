@@ -11,7 +11,6 @@ class BlockUserService with ListenableServiceMixin {
   final ChefService chefService = locator<ChefService>();
   List<String> blockedAccounts = [];
 
-
   void onInit() {
     blockedAccounts = userDetails!.blockedAccounts!;
   }
