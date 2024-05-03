@@ -20,6 +20,7 @@ import '../services/conversation_service.dart';
 import '../services/cullinaryschool_service.dart';
 import '../services/follow_service.dart';
 import '../services/location_service.dart';
+import '../services/pin_drop_service.dart';
 import '../services/recipe_service.dart';
 import '../services/saved_recipe_service.dart';
 import '../services/search_service.dart';
@@ -56,4 +57,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => FollowService());
   locator.registerLazySingleton(() => SearchService());
   locator.registerLazySingleton(() => CullinaryschoolService());
+  locator.registerLazySingleton(() => PinDropService());
 }

@@ -5,6 +5,7 @@ import 'package:sailing_chefs/services/block_user_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 
 import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/services/search_service.dart';
 
 import 'package:sailing_chefs/services/user_services.dart';
@@ -62,6 +63,7 @@ import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.da
 import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
 import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -122,6 +124,7 @@ import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewa
     LazySingleton(classType: FollowService),
     LazySingleton(classType: SearchService),
     LazySingleton(classType: CullinaryschoolService),
+    LazySingleton(classType: PinDropService),
 
 // @stacked-service
   ],
@@ -132,6 +135,7 @@ import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewa
     StackedBottomsheet(classType: DropPinSheetSheet),
     StackedBottomsheet(classType: DropPinButtonsSheet),
     StackedBottomsheet(classType: OtherChefProfileSheet),
+    StackedBottomsheet(classType: CoursesSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

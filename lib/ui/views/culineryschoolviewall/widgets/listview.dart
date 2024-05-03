@@ -2,7 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
-class ListViewCulinaryChool extends ViewModelWidget<CulineryschoolviewallViewModel> {
+class ListViewCulinaryChool
+    extends ViewModelWidget<CulineryschoolviewallViewModel> {
   const ListViewCulinaryChool({super.key});
 
   @override

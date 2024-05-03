@@ -1,5 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
@@ -10,7 +14,58 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     final savedRecipes = viewModel.savedRecipes;
     return savedRecipes.isEmpty
-        ? const Center(child: Text('No saved recipes'))
+        ? userDetails!.userRole == 'culinarySchool'
+            ? Center(
+                child: Container(
+                  width: screenWidth(context) * 0.9,
+                  height: screenHeight(context) * 0.4,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Allow chefs to book your courses',
+                        style: globalTextStyle(
+                            fontSize: 14.0.dg,
+                            color: kcPrimaryColor,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      verticalSpaceMedium,
+                      GestureDetector(
+                        onTap: (){
+                          viewModel.callCourseNameBottomSheet();
+                        },
+                        child: Container(
+                          width: 165,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: kcPrimaryColor,
+                            borderRadius: BorderRadius.circular(38),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.add_circle,
+                                color: kcwhitecolor,
+                                size: 26,
+                              ),
+                              horizontalSpaceTiny,
+                              Text(
+                                'Add courses',
+                                style: globalTextStyle(
+                                    fontSize: 14, color: kcwhitecolor),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            : const Center(child: Text('No saved recipes'))
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(

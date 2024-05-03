@@ -128,4 +128,8 @@ class ProfileViewModel extends ReactiveViewModel {
       recipeModel: myRecipes![index],
     );
   }
+
+  void callCourseNameBottomSheet() {
+    
+  }
 }
