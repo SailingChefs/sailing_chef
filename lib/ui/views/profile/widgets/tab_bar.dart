@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
@@ -35,7 +36,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'My Recipes',
+                      'Recipes',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Myrecipes'
@@ -66,15 +67,25 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Saved',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTab == 'Saved'
-                            ? kcVeryLightGrey
-                            : kcPrimaryColor,
-                      ),
-                    ),
+                    userDetails!.userRole == 'culinarySchool'
+                        ? Text(
+                            'Courses',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: viewModel.selectedTab == 'Saved'
+                                  ? kcVeryLightGrey
+                                  : kcPrimaryColor,
+                            ),
+                          )
+                        : Text(
+                            'Saved',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: viewModel.selectedTab == 'Saved'
+                                  ? kcVeryLightGrey
+                                  : kcPrimaryColor,
+                            ),
+                          ),
                   ],
                 ),
               ),
