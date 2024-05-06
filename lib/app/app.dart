@@ -64,6 +64,7 @@ import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart
 import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -144,6 +145,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
     StackedDialog(classType: PindropDialogueboxDialog),
     StackedDialog(classType: DeleteAccountDialog),
     StackedDialog(classType: BlockAccountDialog),
+    StackedDialog(classType: CourseSavedDialog),
 // @stacked-dialog
   ],
 )

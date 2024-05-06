@@ -1,8 +1,11 @@
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
@@ -11,12 +14,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
+  bool isEdit = false;
   final _navigationService = locator<NavigationService>();
   final usrService = locator<UserServices>();
   final RecipeService _recipeService = locator<RecipeService>();
-
+  final bottomsheetService = locator<BottomSheetService>();
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
-
+  final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
   final FollowService _followService = locator<FollowService>();
 
   String selectedTab = 'Myrecipes';
@@ -106,13 +110,15 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
-
+  List<Course> courses = [];
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();
     await _savedRecipeService.init();
     await _followService.init(userDetails!.uid!, false);
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+
+    courses = await _cullinarySchoolService.getCoursesFromDatabase(userId: userDetails!.uid!);
     setBusy(false);
   }
 
@@ -130,6 +136,14 @@ class ProfileViewModel extends ReactiveViewModel {
   }
 
   void callCourseNameBottomSheet() {
-    
+    bottomsheetService.showCustomSheet(
+      variant: BottomSheetType.courses,
+    );
+  }
+  void callCourseNameBottomSheett(Course course) {
+    bottomsheetService.showCustomSheet(
+      variant: BottomSheetType.courses,
+      data: course,
+    );
   }
 }
