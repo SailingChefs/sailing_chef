@@ -13,9 +13,10 @@ class BackArrowWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 8.0.dg),
         height: 30.h,
         width: 30.w,
-        decoration: const BoxDecoration(
-          color: kcVeryLightGrey,
+        decoration:  BoxDecoration(
+          color: kcBlackColor.withOpacity(0.04),
           shape: BoxShape.circle,
+
         ),
         child: Icon(
           Icons.arrow_back_ios,
