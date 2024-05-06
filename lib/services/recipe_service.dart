@@ -153,9 +153,7 @@ class RecipeService {
       // Fetches all documents from the 'recipes' collection
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('uid',
-              isNotEqualTo:
-                  '123456') // Exclude documents where 'uid' equals '123456'
+           // Exclude documents where 'uid' equals '123456'
           .get();
 
       // Maps each DocumentSnapshot to a RecipeModel

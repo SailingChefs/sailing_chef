@@ -27,6 +27,7 @@ class ChefService {
             isEqualTo: 'chef',
           )
           .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
+          .limit(5)
           .get();
       for (var doc in querySnapshot.docs) {
         UserModel? currUser = await _userService

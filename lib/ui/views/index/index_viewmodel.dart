@@ -48,7 +48,7 @@ class IndexViewModel extends BaseViewModel {
     );
   }
 
-  void myRecipeSelected() {
+  void yatchSelected() {
     isMySelected = true;
     isSavedSelected = false;
     notifyListeners();
@@ -56,7 +56,7 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void savedSelected() async {
-    await _savedRecipeService.init();
+   
     isSavedSelected = true;
 
     isMySelected = false;

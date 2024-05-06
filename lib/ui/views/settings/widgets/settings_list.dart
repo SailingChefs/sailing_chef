@@ -5,10 +5,9 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
 class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
-  final bool? isCurrentUser;
-  final String? uid;
 
-  const SettingsListSettingsScreen({super.key, this.isCurrentUser, this.uid});
+
+  const SettingsListSettingsScreen({super.key, });
 
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
@@ -56,7 +55,27 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                   ),
                 ],
               )
-            : const SizedBox(),
+            : Column(
+                children: [
+                  const Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.getAllDrafts,
+                    title: Text(
+                      'View all drafts',
+                      style: globalTextStyle(
+                          fontSize: 16.0.dg,
+                          color: kcBlackColor,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor,
+                      size: 14,
+                    ),
+                  ),
+                ],
+              ),
         const Divider(),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),

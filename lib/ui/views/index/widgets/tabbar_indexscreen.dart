@@ -20,7 +20,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
             child: GestureDetector(
               onTap: () {
                 viewModel.handleTab(0);
-                viewModel.myRecipeSelected();
+                viewModel.yatchSelected();
               },
               child: Container(
                 decoration: BoxDecoration(

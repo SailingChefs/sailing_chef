@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 class ListViewCulinaryChool
     extends ViewModelWidget<CulineryschoolviewallViewModel> {
@@ -8,63 +7,90 @@ class ListViewCulinaryChool
 
   @override
   Widget build(BuildContext context, CulineryschoolviewallViewModel viewModel) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          'Explore Culinary\nSchools',
-          style: globalTextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: BackArrowWidget(
-            onTap: viewModel.toHomeView,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          verticalSpaceMedium,
-          ListView.builder(
+    return Column(
+      children: [
+        verticalSpaceMedium,
+        Expanded(
+          child: ListView.builder(
             physics: const ClampingScrollPhysics(),
             itemCount: viewModel.cullinary.length,
             itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        // viewModel.toCulinaryDetails(viewModel.cullinary[index]);
-                      },
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(5),
-                        title: Text(
-                          viewModel.cullinary[index].displayName!,
-                        ),
-                        subtitle: Text(
-                          viewModel.placemarks!.first.country!,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style:
-                              TextStyle(color: kcPrimaryColor.withOpacity(0.5)),
-                        ),
-                        leading: CircleAvatar(
-                          radius: 30.r,
-                          backgroundImage: NetworkImage(
-                              viewModel.cullinary[index].displayPicture!),
-                        ),
-                      )),
-                  const Divider(
-                    color: kcVeryLightGrey,
-                    thickness: 0.5,
+              return GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 113.h,
+                  margin: EdgeInsets.only(bottom: 10.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: kcWhiteColor.withOpacity(0.97),
+                    boxShadow: [
+                      BoxShadow(
+                        color: kcBlackColor.withOpacity(0.09),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 113.h,
+                        width: 113.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            viewModel.cullinary[index].displayPicture!,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                     
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              viewModel.cullinary[index].displayName!,
+                              style: globalTextStyle(
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w700,
+                                color: kcBlackColor,
+                              ),
+                            ),
+                            Text(
+                              viewModel.placemarks!.first.country!,
+                              style: globalTextStyle(
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w500,
+                                color: kcBlackColor,
+                              ),
+                            ),
+                            Text(
+                              '12 courses',
+                              style: globalTextStyle(
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w300,
+                                color: kcBlackColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
