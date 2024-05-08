@@ -12,8 +12,7 @@ class CoursesSheetModel extends BaseViewModel {
   final TextEditingController numOfDays = TextEditingController();
   final CullinaryschoolService _cullinaryService =
       locator<CullinaryschoolService>();
-  final DialogService _dialogSaved =
-      locator<DialogService>();
+  final DialogService _dialogSaved = locator<DialogService>();
   bool isLinkValid(String input) {
     if (!input.contains("www.") ||
         !input.contains(".com") ||
@@ -42,7 +41,7 @@ class CoursesSheetModel extends BaseViewModel {
       showToast(message: 'Please enter all fields!');
     } else {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-       _cullinaryService.addCourseToDatabase(
+      _cullinaryService.addCourseToDatabase(
           userId: uid,
           name: name.text,
           link: link.text,
@@ -54,9 +53,8 @@ class CoursesSheetModel extends BaseViewModel {
       desc.clear();
       numOfDays.clear();
 
-    // Show the dialog using the DialogService
-    _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
-  }
-    
+      // Show the dialog using the DialogService
+      _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
+    }
   }
 }

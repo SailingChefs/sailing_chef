@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 
@@ -17,6 +18,7 @@ class RecipeModel {
   final String docId;
   List<double> waveForm;
   UserModel? user;
+  List<CommentModel> ? comment;
 
   RecipeModel({
     required this.visibility,
@@ -33,6 +35,7 @@ class RecipeModel {
     required this.uid,
     required this.waveForm,
     this.user,
+    this.comment,
   });
 
   Map<String, dynamic> toMap() {
@@ -74,6 +77,13 @@ class RecipeModel {
       title: data['title'] ?? '',
       waveForm: List<double>.from(data['waveForm'] ?? []),
       uid: data['uid'] ?? '',
+      comment: data['comment'] != null
+          ? (data['comment'] as List<dynamic>)
+              .map((comment) =>
+                  CommentModel.fromSnapshot(comment ))
+              .toList()
+          : null,
+     
     );
   }
 }

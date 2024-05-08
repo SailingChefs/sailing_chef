@@ -71,8 +71,6 @@ class CullinaryschoolService {
     }
   }
 
-
-
   Future<List<Course>> getCoursesFromDatabase({
     required String userId,
   }) async {
@@ -86,7 +84,8 @@ class CullinaryschoolService {
               .get();
 
       if (querySnapshot.exists) {
-        List<String> courseIds = querySnapshot.data()?['school_courses'].cast<String>() ?? [];
+        List<String> courseIds =
+            querySnapshot.data()?['school_courses'].cast<String>() ?? [];
 
         for (String courseId in courseIds) {
           DocumentSnapshot<Map<String, dynamic>> courseSnapshot =

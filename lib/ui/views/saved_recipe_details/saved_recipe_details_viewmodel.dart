@@ -19,6 +19,7 @@ import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -63,9 +64,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         _savedRecipeService,
       ];
 
-  List<CommentModel> get fetchComment {
-    return commentService.comments;
-  }
+  
 
   void pickImage() async {
     final List<XFile> selectedImages = await _picker.pickMultiImage();
@@ -79,8 +78,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void addRating(double rating) {
-    this.rating = rating;
+  void addRating(double ratings) {
+    log("Rating $ratings");
+    rating = ratings;
     rebuildUi();
   }
 
@@ -118,7 +118,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void toRecipeDetails(RecipeModel recipe) {
     _navigationService.replaceWithTransition(
-        SavedRecipeDetailsView(recipeModel: recipe),
+        SavedRecipeDetailsView(
+          recipeModel: recipe,
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe,[] ),
+          ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);
   }
@@ -196,20 +199,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(true);
 
     waveFormData = recipeModel.waveForm;
-
-    await commentService.clearComments();
     await _savedRecipeService.init();
-    await commentService.getComments(recipeId);
     playerController = PlayerController();
-    log("WaveForm=> $waveFormData \n Path=> path");
     downloadAudio();
-
-    // player = AudioPlayer();
-    // await player.dynamicSet(
-    //   url: recipeModel.chefNote,
-    // );
-    // log((player.cacheFile(url: recipeModel.chefNote)).toString());
-    recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
+    // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);
   }

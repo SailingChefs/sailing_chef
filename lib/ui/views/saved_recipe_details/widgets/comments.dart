@@ -1,25 +1,46 @@
+import 'dart:developer';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comments_list.dart';
 
 class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
-  const CommentsDetailsScreen({super.key});
+  final RecipeModel recipeModel;
+  const CommentsDetailsScreen({super.key, required this.recipeModel});
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
-    List<CommentModel> comment = viewModel.fetchComment;
-    return [
-      for (var comment in comment)
-        CustomListTileComments(
-          name: comment.userName,
-          date: comment.timestamp,
-          description: comment.content,
-          image: comment.userImageUrl,
-          ratingImages: comment.imageUrl!,
-          rating: comment.rating!,
+    log(recipeModel.comment.toString());
+    if (recipeModel.comment != null) {
+      log('here');
+      List<CommentModel> comment = recipeModel.comment!;
+      return [
+        for (var comment in comment)
+          CustomListTileComments(
+            name: comment.userName,
+            date: comment.timestamp,
+            description: comment.content,
+            image: comment.userImageUrl,
+            ratingImages: comment.imageUrl!,
+            rating: comment.rating!,
+          ),
+      ];
+    // ignore: unnecessary_null_comparison
+    } else if (recipeModel.comment == []) {
+      log('here2');
+      return [
+        Text(
+          'No comments yet',
+          style: globalTextStyle(
+              fontSize: 14.0.sp,
+              color: kcBlackColor,
+              fontWeight: FontWeight.w300),
         ),
-    ];
+      ];
+    }
+    return [];
   }
 
   @override
@@ -49,13 +70,6 @@ class CommentsDetailsScreen
           ],
         ),
         verticalSpaceSmall,
-        viewModel.fetchComment.isEmpty
-            ? Text('No comments yet',
-                style: globalTextStyle(
-                    fontSize: 14.0.sp,
-                    color: kcBlackColor,
-                    fontWeight: FontWeight.w300))
-            : Container(),
         ...createCommentWidgets(viewModel),
         verticalSpaceSmall,
         Row(
@@ -81,9 +95,7 @@ class CommentsDetailsScreen
                 Icons.star,
                 color: Color(0xFF2E3E5C),
               ),
-              onRatingUpdate: (rating) {
-                viewModel.addRating(rating);
-              },
+              onRatingUpdate: (rating) => viewModel.addRating(rating),
             ),
           ],
         )

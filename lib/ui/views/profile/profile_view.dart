@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/saved_guest_button.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/saved_profile_screen.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/tab_bar.dart';
@@ -54,7 +55,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                       userDetails!.userRole == 'guest'
                           ? Column(
                               children: [
-                                const Divider(),
+                                const SavedGuestButton(),
                                 verticalSpaceMedium,
                                 const SavedProfileScreen(),
                               ],

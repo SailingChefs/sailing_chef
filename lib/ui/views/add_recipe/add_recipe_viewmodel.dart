@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:croppy/croppy.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
@@ -44,6 +45,7 @@ class AddRecipeViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<String> methodsList = [];
+  TimeOfDay? selectedTime;
 
   bool isPlaying = false;
 
@@ -63,6 +65,17 @@ class AddRecipeViewModel extends BaseViewModel {
     selectedTimeMethod = value;
     notifyListeners();
     rebuildUi();
+  }
+
+  void showCroppper(File value, context,index) {
+    showCupertinoImageCropper(context, imageProvider: FileImage(value),
+        postProcessFn: (result) async {
+      
+
+     thumbnails[index] = XFile(result.uiImage as String);
+
+      return result;
+    });
   }
 
   String? validatePrepTime(String? value) {
@@ -109,6 +122,13 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  int timeConverter() {
+    int totalMinutes = selectedTime != null
+        ? selectedTime!.hour * 60 + selectedTime!.minute
+        : 0;
+    return totalMinutes;
+  }
+
   void stopRecording() async {
     await recorderController.stop();
     log("Path=> $path");
@@ -153,10 +173,54 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void deleteCurrentImage() {
-    selectedImages.removeAt(pageController.page!.round());
-    thumbnails.removeAt(pageController.page!.round());
-    notifyListeners();
+  void deleteCurrentImage(index) {
+    selectedImages.remove(index);
+    thumbnails.remove(index);
+    log('length: ${selectedImages.length}');
+    log('lengthTTTTTTTTTTT: ${thumbnails.length}');
+    rebuildUi();
+  }
+
+  Future<void> showCustomTimePickerDialog(BuildContext context) async {
+    // Set the initial time to 00:00 (midnight)
+    TimeOfDay initialTime = const TimeOfDay(hour: 0, minute: 0);
+
+    // Define a custom theme for the time picker dialog
+    final ThemeData themeData = Theme.of(
+        context); // Change the text color// Change the color of the dial
+    // Change the color of the hand // Change the background color
+
+    // Show the time picker dialog and wait for user input
+    selectedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      initialEntryMode: TimePickerEntryMode.inputOnly,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            textTheme: themeData.textTheme.copyWith(),
+            colorScheme: themeData.colorScheme.copyWith(
+              primary: kcPrimaryColor,
+              onPrimary: kcWhiteColor,
+              // onSurface: kcPrimaryColor,
+              // surface: kcPrimaryColor,
+            ),
+            primaryColor: kcPrimaryColor,
+            dialogBackgroundColor: kcPrimaryColor,
+            hoverColor: kcPrimaryColor,
+            focusColor: kcPrimaryColor,
+            fontFamily: 'Poppins',
+            dialogTheme: DialogTheme(
+              backgroundColor: kcWhiteColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
     rebuildUi();
   }
 
@@ -218,8 +282,7 @@ class AddRecipeViewModel extends BaseViewModel {
         createdTime: Timestamp.now(),
         ingredients: ingredientsList,
         methods: ['methods'],
-        prepTime:
-            mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
+        prepTime: timeConverter().toString(),
         servingSize: selectedQuantity,
         status: 'draft',
         title: titleController.text.trim(),
@@ -265,12 +328,6 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void updateValue(String value) {
-    selectedValue = value;
-    notifyListeners();
-    rebuildUi();
-  }
-
   void increment() {
     count++;
     notifyListeners();
@@ -308,8 +365,7 @@ class AddRecipeViewModel extends BaseViewModel {
             createdTime: Timestamp.now(),
             ingredients: ingredientsList,
             methods: methodsList,
-            prepTime: mergeStrings(
-                prepTimeController.text.trim(), selectedTimeMethod),
+            prepTime: timeConverter().toString(),
             servingSize: selectedQuantity,
             status: 'published',
             title: titleController.text.trim(),

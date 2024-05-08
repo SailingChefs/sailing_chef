@@ -32,12 +32,13 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         const Ingredients(),
         verticalSpaceMedium,
         const CookingInstructions(),
-        verticalSpaceMedium,
-        const ChefsNote(),
-        verticalSpaceSmall,
+          verticalSpaceMedium,
         const PrepTime(),
-        verticalSpaceMedium,
+         verticalSpaceMedium,
         const VisibiltyDropDown(),
+        verticalSpaceMedium,
+        
+        const ChefsNote(),
         verticalSpaceMedium,
         SaveRecipeButton(
           onPressed: viewModel.previewRecipe,

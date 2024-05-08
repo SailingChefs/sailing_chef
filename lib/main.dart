@@ -61,6 +61,7 @@ class MainApp extends StatelessWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           child: MaterialApp(
+         
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
             // locale: DevicePreview.locale(context),

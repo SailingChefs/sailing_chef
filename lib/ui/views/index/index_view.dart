@@ -39,6 +39,7 @@ class IndexView extends StackedView<IndexViewModel> {
                       verticalSpace(10),
                       const DishListIndexScreen(),
                       verticalSpaceMedium,
+                      Center(child: TextButton(onPressed: viewModel.toAllRecipesView, child: Text('View All Recipes',style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),)))
                     ],
                   ),
                 ),

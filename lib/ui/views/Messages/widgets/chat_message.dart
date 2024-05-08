@@ -17,12 +17,12 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
     final isCurrentUser =
-        message.senderId == FirebaseAuth.instance.currentUser!.uid;
+        message.sendBy == FirebaseAuth.instance.currentUser!.uid;
     log(isCurrentUser.toString());
     final messageIndex = viewModel.messages.indexOf(message);
     final nextMessageIsDifferentUser =
         messageIndex + 1 < viewModel.messages.length &&
-            viewModel.messages[messageIndex + 1].senderId == message.senderId;
+            viewModel.messages[messageIndex + 1].sendBy == message.sendBy;
     log("Next log=> \n ${nextMessageIsDifferentUser.toString()}");
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
@@ -71,7 +71,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   ? CrossAxisAlignment.start
                   : CrossAxisAlignment.end,
               children: [
-                if (message.type == 'image')
+                if (message.messageType == 'image')
                   GestureDetector(
                     onTap: () {},
                     child: ClipRRect(
@@ -84,7 +84,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       ),
                     ),
                   ),
-                if (message.type == 'String')
+                if (message.messageType == 'String')
                   Text(
                     message.content,
                     style: const TextStyle(color: kcBlackColor),

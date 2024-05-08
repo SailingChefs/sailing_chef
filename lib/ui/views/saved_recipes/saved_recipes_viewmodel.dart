@@ -2,14 +2,18 @@ import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
 class SavedRecipesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _savedRecipeService = locator<SavedRecipeService>();
+  final _recipeService = locator<RecipeService>();
+
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-  List<SavedRecipeModel> get followingRecipes =>
-      _savedRecipeService.followingRecipes;
+  List<RecipeModel> ? followingRecipes ;
+      
 
   String selectedTab = 'All';
   bool isAllSelected = true;
@@ -27,10 +31,13 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   void onViewModelReady() async {
     setBusy(true);
     await _savedRecipeService.init();
+    followingRecipes = await _recipeService.fetchFollowingRecipesByUID();
 
     setBusy(false);
   }
-
+  void toAllDishesScreen() {
+    _navigationService.navigateToExploreAllRecipesView();
+  }
   void followingSelected() {
     isFollowingSelected = true;
     isAllSelected = false;
@@ -62,6 +69,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: recipe,
+      recipeList: IndexViewModel.getRandomDishes(recipe, [])
     );
   }
 }

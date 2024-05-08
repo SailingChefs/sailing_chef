@@ -11,10 +11,13 @@ import 'widgets/top_image.dart';
 
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
+  final List<RecipeModel> randomRecipeList;
+
 
   const SavedRecipeDetailsView({
     Key? key,
     required this.recipeModel,
+    required this.randomRecipeList,
   }) : super(key: key);
 
   @override
@@ -34,6 +37,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
               TopBarDetailsScreen(image: recipeModel.coverImage),
               MainRecipeViewContainer(
                 recipeModel: recipeModel,
+                recipeList: randomRecipeList,
               ),
               Positioned(
                 top: 40,

@@ -13,7 +13,8 @@ import '../saved_recipe_details_viewmodel.dart';
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const MainRecipeViewContainer({Key? key, required this.recipeModel})
+  final List<RecipeModel> recipeList;
+  const MainRecipeViewContainer({Key? key, required this.recipeModel, required this.recipeList})
       : super(key: key);
 
   @override
@@ -85,11 +86,11 @@ class MainRecipeViewContainer
                       : Methods(
                           recipe: recipeModel,
                         ),
-                  const CommentsDetailsScreen(),
+                 CommentsDetailsScreen(recipeModel:  recipeModel),
                   LeaveComment(
                     recipeId: recipeModel.docId,
                   ),
-                  const BottomSlider(),
+                   BottomSlider(recipeList: recipeList ,),
                 ],
               ),
             ),

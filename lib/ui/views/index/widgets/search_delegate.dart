@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/search_service.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
 class RecipeSearchDelegate extends SearchDelegate<List<RecipeModel>> {
   final NavigationService _navigationService = NavigationService();
@@ -93,7 +94,8 @@ class RecipeSearchDelegate extends SearchDelegate<List<RecipeModel>> {
               subtitle: Text(recipe.prepTime),
               onTap: () {
                 _navigationService.navigateToSavedRecipeDetailsView(
-                    recipeModel: recipe);
+                    recipeModel: recipe,
+                    recipeList: IndexViewModel.getRandomDishes(recipe, recipes));
               },
             );
           },

@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/shimmer.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/widgets/listview.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
-import 'package:stacked/stacked.dart';
 
 import 'culineryschoolviewall_viewmodel.dart';
 
@@ -17,10 +15,9 @@ class CulineryschoolviewallView
     CulineryschoolviewallViewModel viewModel,
     Widget? child,
   ) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-
-       appBar: AppBar(
+      appBar: AppBar(
         elevation: 0,
         title: Text(
           'Explore Culinary\nSchools',
@@ -36,16 +33,11 @@ class CulineryschoolviewallView
           ),
         ),
       ),
-      body:  Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28.0),
-        child: viewModel.isBusy ? const  ShimmerLoaderCulinarySchool() :const ListViewCulinaryChool() ,
-
-      body: Container(
-        height: MediaQuery.of(context).size.height * 0.9,
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: const ListViewCulinaryChool(),
-
+        child: viewModel.isBusy
+            ? const ShimmerLoaderCulinarySchool()
+            : const ListViewCulinaryChool(),
       ),
     );
   }

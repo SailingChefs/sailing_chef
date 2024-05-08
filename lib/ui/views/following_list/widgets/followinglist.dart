@@ -43,16 +43,21 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                             title: Text(
                                 viewModel.followingUsers[index].displayName!),
                             trailing: SizedBox(
-                              width: 109,
-                              height: 34,
+                              width: 112,
+                              height: 35,
                               child: TextButton(
                                 style: ButtonStyle(
                                   shape: MaterialStatePropertyAll(
                                       RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(30),
                                   )),
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
+                                        viewModel.followingUsers.contains(
+                                          viewModel.followingUsers[index])
+                                            ? kcPrimaryColor.withOpacity(0.5)
+                                            :
+
                                           kcPrimaryColor),
                                 ),
                                 onPressed: () {

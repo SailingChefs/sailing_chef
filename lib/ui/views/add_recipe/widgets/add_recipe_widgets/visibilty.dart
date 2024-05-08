@@ -17,39 +17,34 @@ class VisibiltyDropDown extends ViewModelWidget<AddRecipeViewModel> {
               color: kcBlackColor),
         ),
         verticalSpaceSmall,
-        Container(
-          height: 50.h,
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: Colors.transparent,
-            border: Border.all(
-              color: kcPrimaryColorDark,
-              width: 2.0,
+        GestureDetector(
+              onTap: viewModel.callCookingInstructionBottomSheet,
+              child: Container(
+                height: 50.h,
+                decoration: BoxDecoration(
+                  color: kcVeryLightGrey.withOpacity(0.2),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.add,
+                          color: kcBlackColor.withOpacity(0.5),
+                        )),
+                    horizontalSpaceSmall,
+                    Text(
+                      'Select a minimum of 2 tags',
+                      style: globalTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.5)),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              iconDisabledColor: kcPrimaryColorDark,
-              iconEnabledColor: kcPrimaryColorDark,
-              style: globalTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor.withOpacity(0.4)),
-              isExpanded: true,
-              value: viewModel.selectedValue,
-              onChanged: (String? newValue) {
-                viewModel.updateValue(newValue!);
-              },
-              items: viewModel.values.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
       ],
     );
   }

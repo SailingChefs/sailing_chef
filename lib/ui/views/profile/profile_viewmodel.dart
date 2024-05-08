@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -11,6 +13,7 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
@@ -20,7 +23,8 @@ class ProfileViewModel extends ReactiveViewModel {
   final RecipeService _recipeService = locator<RecipeService>();
   final bottomsheetService = locator<BottomSheetService>();
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
-  final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
+  final CullinaryschoolService _cullinarySchoolService =
+      locator<CullinaryschoolService>();
   final FollowService _followService = locator<FollowService>();
 
   String selectedTab = 'Myrecipes';
@@ -110,6 +114,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
+
   List<Course> courses = [];
   void onViewModelReady() async {
     setBusy(true);
@@ -118,7 +123,8 @@ class ProfileViewModel extends ReactiveViewModel {
     await _followService.init(userDetails!.uid!, false);
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
 
-    courses = await _cullinarySchoolService.getCoursesFromDatabase(userId: userDetails!.uid!);
+    courses = await _cullinarySchoolService.getCoursesFromDatabase(
+        userId: userDetails!.uid!);
     setBusy(false);
   }
 
@@ -128,18 +134,30 @@ class ProfileViewModel extends ReactiveViewModel {
     // );
     _navigationService.navigateToAddRecipeView(isFromProfileView: true);
   }
-
-  void toDishDetailsScreen(index) {
+void toDishDetailsScreen(int index,RecipeModel recipeModel) {
+ 
     _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: myRecipes![index],
+      recipeModel: recipeModel,
+      recipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes!),
     );
-  }
+ 
+}
+
+  // void toDishDetailsScreen(index) {
+  //   log('index is $index');
+  //   log('myRecipes is ${myRecipes![index]}');
+  //   _navigationService.navigateToSavedRecipeDetailsView(
+  //     recipeModel: myRecipes![index],
+  //     recipeList: IndexViewModel.getRandomDishes(myRecipes![index], myRecipes!),
+  //   );
+  // }
 
   void callCourseNameBottomSheet() {
     bottomsheetService.showCustomSheet(
       variant: BottomSheetType.courses,
     );
   }
+
   void callCourseNameBottomSheett(Course course) {
     bottomsheetService.showCustomSheet(
       variant: BottomSheetType.courses,

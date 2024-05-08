@@ -14,11 +14,11 @@ import '../ui/common/show_toast.dart';
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<CommentModel> comments = [];
-  getComments(String recipeId) async {
-    comments = await fetchCommentsByRecipeId(recipeId);
+  // getComments(String recipeId) async {
+  //   comments = await fetchCommentsByRecipeId(recipeId);
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   clearComments() {
     comments.clear();
@@ -36,47 +36,70 @@ class CommentService with ListenableServiceMixin {
     return true;
   }
 
-  Future<bool> addCommentToFirestore(CommentModel comment) async {
-    try {
-      EasyLoading.show();
-      DocumentReference docRef =
-          await firebasestore.collection('comments').add(comment.toJson());
+  // Future<bool> addCommentToFirestore(CommentModel comment) async {
+  //   try {
+  //     EasyLoading.show();
+  //     DocumentReference docRef =
+  //         await firebasestore.collection('recipes').doc(comment.recipeId).collection('comments').update(comment.toMap());
 
-      // Get the document ID assigned by Firestore
-      String docId = docRef.id;
+  //     // Get the document ID assigned by Firestore
+  //     String docId = docRef.id;
 
-      // Update the document with the document ID
-      await docRef.update({'doc_id': docId});
+  //     // Update the document with the document ID
+  //     await docRef.update({'doc_id': docId});
 
-      EasyLoading.dismiss();
-      showToast(message: 'Comment added successfully');
-      return true;
-    } catch (error) {
-      EasyLoading.dismiss();
-      showToast(message: 'Error adding comment to Firestore: $error');
-      return false;
-    }
+  //     EasyLoading.dismiss();
+  //     showToast(message: 'Comment added successfully');
+  //     return true;
+  //   } catch (error) {
+  //     EasyLoading.dismiss();
+  //     showToast(message: 'Error adding comment to Firestore: $error');
+  //     return false;
+  //   }
+  // }
+
+Future<bool> addCommentToFirestore(CommentModel comment) async {
+  try {
+    EasyLoading.show();
+
+    // Get a reference to the comments subcollection of the specified recipe ID
+    CollectionReference commentsCollection = FirebaseFirestore.instance
+        .collection('recipes')
+        .doc(comment.recipeId)
+        .collection('comments');
+
+    // Add the new comment to the comments subcollection
+    await commentsCollection.add(comment.toJson());
+
+    EasyLoading.dismiss();
+    showToast(message: 'Comment added successfully');
+    return true;
+  } catch (error) {
+    EasyLoading.dismiss();
+    showToast(message: 'Error adding comment to Firestore: $error');
+    return false;
   }
+}
 
-  Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
-    log('recipeId:$recipeId');
-    try {
-      QuerySnapshot querySnapshot = await firebasestore
-          .collection('comments')
-          .where('recipeId', isEqualTo: recipeId)
-          .orderBy('timestamp', descending: true)
-          .get();
+  // Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+  //   log('recipeId:$recipeId');
+  //   try {
+  //     QuerySnapshot querySnapshot = await firebasestore
+  //         .collection('comments')
+  //         .where('recipeId', isEqualTo: recipeId)
+  //         .orderBy('timestamp', descending: true)
+  //         .get();
 
-      List<CommentModel> comments = querySnapshot.docs
-          .map((doc) => CommentModel.fromSnapshot(doc))
-          .toList();
+  //     List<CommentModel> comments = querySnapshot.docs
+  //         .map((doc) => CommentModel.fromSnapshot(doc))
+  //         .toList();
 
-      return comments;
-    } catch (e) {
-      log('Error fetching comments: $e');
-      return [];
-    }
-  }
+  //     return comments;
+  //   } catch (e) {
+  //     log('Error fetching comments: $e');
+  //     return [];
+  //   }
+  // }
 
   Future<List<String>> uploadImagesToFirebase(List<File> images) async {
     List<String> imageUrls = [];

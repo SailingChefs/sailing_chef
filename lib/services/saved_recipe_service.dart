@@ -10,13 +10,17 @@ import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
-  List<SavedRecipeModel> followingRecipes = [];
   bool isInitialised = false;
   // final _userService = locator<UserServices>();
 
   Future<void> init() async {
+  
     savedRecipes = await _fetchSavedRecipes();
+    isInitialised = true;
     notifyListeners();
+  }
+  followingRecipe(){
+   
   }
 
   Future<void> _addSavedRecipe(SavedRecipeModel savedRecipe) async {

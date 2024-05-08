@@ -25,9 +25,7 @@ class SettingsView extends StackedView<SettingsViewModel> {
         body: Column(
           children: [
             TopBarSettingsScreen(title: 'Settings'),
-            SettingsListSettingsScreen(
-              
-            ),
+            SettingsListSettingsScreen(),
           ],
         ),
       ),
