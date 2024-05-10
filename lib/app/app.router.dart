@@ -426,7 +426,7 @@ class StackedRouter extends _i1.RouterBase {
         builder: (context) => _i20.SavedRecipeDetailsView(
             key: args.key,
             recipeModel: args.recipeModel,
-            randomRecipeList: args.recipeList),
+            randomRecipeList: args.randomRecipeList),
         settings: data,
       );
     },
@@ -713,18 +713,18 @@ class SavedRecipeDetailsViewArguments {
   const SavedRecipeDetailsViewArguments({
     this.key,
     required this.recipeModel,
-    required this.recipeList,
+    required this.randomRecipeList,
   });
 
   final _i35.Key? key;
 
   final _i37.RecipeModel recipeModel;
 
-  final List<_i37.RecipeModel> recipeList;
+  final List<_i37.RecipeModel> randomRecipeList;
 
   @override
   String toString() {
-    return '{"key": "$key", "recipeModel": "$recipeModel", "recipeList": "$recipeList"}';
+    return '{"key": "$key", "recipeModel": "$recipeModel", "randomRecipeList": "$randomRecipeList"}';
   }
 
   @override
@@ -732,12 +732,12 @@ class SavedRecipeDetailsViewArguments {
     if (identical(this, other)) return true;
     return other.key == key &&
         other.recipeModel == recipeModel &&
-        other.recipeList == recipeList;
+        other.randomRecipeList == randomRecipeList;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ recipeModel.hashCode ^ recipeList.hashCode;
+    return key.hashCode ^ recipeModel.hashCode ^ randomRecipeList.hashCode;
   }
 }
 
@@ -1113,7 +1113,7 @@ extension NavigatorStateExtension on _i39.NavigationService {
   Future<dynamic> navigateToSavedRecipeDetailsView({
     _i35.Key? key,
     required _i37.RecipeModel recipeModel,
-    required List<_i37.RecipeModel> recipeList,
+    required List<_i37.RecipeModel> randomRecipeList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1122,7 +1122,9 @@ extension NavigatorStateExtension on _i39.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.savedRecipeDetailsView,
         arguments: SavedRecipeDetailsViewArguments(
-            key: key, recipeModel: recipeModel, recipeList: recipeList),
+            key: key,
+            recipeModel: recipeModel,
+            randomRecipeList: randomRecipeList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1607,7 +1609,7 @@ extension NavigatorStateExtension on _i39.NavigationService {
   Future<dynamic> replaceWithSavedRecipeDetailsView({
     _i35.Key? key,
     required _i37.RecipeModel recipeModel,
-    required List<_i37.RecipeModel> recipeList,
+    required List<_i37.RecipeModel> randomRecipeList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1616,7 +1618,9 @@ extension NavigatorStateExtension on _i39.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.savedRecipeDetailsView,
         arguments: SavedRecipeDetailsViewArguments(
-            key: key, recipeModel: recipeModel, recipeList: recipeList),
+            key: key,
+            recipeModel: recipeModel,
+            randomRecipeList: randomRecipeList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -51,14 +51,11 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30),
                                   )),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                        viewModel.followingUsers.contains(
+                                  backgroundColor: MaterialStateProperty.all<
+                                      Color>(viewModel.followingUsers.contains(
                                           viewModel.followingUsers[index])
-                                            ? kcPrimaryColor.withOpacity(0.5)
-                                            :
-
-                                          kcPrimaryColor),
+                                      ? kcPrimaryColor.withOpacity(0.5)
+                                      : kcPrimaryColor),
                                 ),
                                 onPressed: () {
                                   viewModel.removeFollowing(

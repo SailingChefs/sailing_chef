@@ -9,6 +9,7 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
@@ -30,20 +31,20 @@ class IndexViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.filterView);
   }
 
-static List<RecipeModel> getRandomDishes(RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
-  // Create a copy of allRecipes
-  List<RecipeModel> dishes = List.from(allRecipes);
-  // Remove the current recipe from the list
-  dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
+  static List<RecipeModel> getRandomDishes(
+      RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
+    // Create a copy of allRecipes
+    List<RecipeModel> dishes = List.from(allRecipes);
+    // Remove the current recipe from the list
+    dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
 
-  // Shuffle the list
-  dishes.shuffle();
-  log(dishes.length.toString());
+    // Shuffle the list
+    dishes.shuffle();
+    log(dishes.length.toString());
 
-  // Take the first 5 elements if there are more than 5 dishes, otherwise return all dishes
-  return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
-}
-
+    // Take the first 5 elements if there are more than 5 dishes, otherwise return all dishes
+    return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
+  }
 
   void onViewModelReady() async {
     setBusy(true);
@@ -78,6 +79,7 @@ static List<RecipeModel> getRandomDishes(RecipeModel currentRecipe, List<RecipeM
     notifyListeners();
     rebuildUi();
   }
+
   void toAllRecipesView() {
     _navigationService.navigateToExploreAllRecipesView();
   }
@@ -95,8 +97,7 @@ static List<RecipeModel> getRandomDishes(RecipeModel currentRecipe, List<RecipeM
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: dishes[index],
-      recipeList : getRandomDishes(dishes[index], dishes),
-      
+      randomRecipeList: getRandomDishes(dishes[index], dishes),
     );
   }
 

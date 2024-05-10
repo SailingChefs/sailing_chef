@@ -16,12 +16,11 @@ class ListViewCulinaryChool
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: viewModel.cullinary.length,
             itemBuilder: (BuildContext context, int index) {
-              if (viewModel.cullinary[index].location == null) {
-                
-              }
+              if (viewModel.cullinary[index].location == null) {}
               final Placemark place = viewModel.placemarks[index];
               return GestureDetector(
-                onTap:()=> viewModel.toUserDetails( viewModel.cullinary[index]),
+                onTap: () =>
+                    viewModel.toUserDetails(viewModel.cullinary[index]),
                 child: Container(
                   height: 113.h,
                   margin: EdgeInsets.only(bottom: 10.h),
@@ -48,10 +47,13 @@ class ListViewCulinaryChool
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
-                          child:  viewModel.cullinary[index].displayPicture!.isEmpty ? const Icon(Icons.person) : Image.network(
-                            viewModel.cullinary[index].displayPicture!,
-                            fit: BoxFit.cover,
-                          ),
+                          child: viewModel
+                                  .cullinary[index].displayPicture!.isEmpty
+                              ? const Icon(Icons.person)
+                              : Image.network(
+                                  viewModel.cullinary[index].displayPicture!,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       Padding(
@@ -69,22 +71,22 @@ class ListViewCulinaryChool
                                 color: kcBlackColor,
                               ),
                             ),
-                            
-                           place.country != null ?
-                            Column(
-                              children: [
-                                verticalSpace(5),
-                                Text(
-                                  place.country!,
-                                  style: globalTextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kcBlackColor,
-                                  ),
-                                ),
-                                verticalSpace(5),
-                              ],
-                            ):const SizedBox(),
+                            place.country != null
+                                ? Column(
+                                    children: [
+                                      verticalSpace(5),
+                                      Text(
+                                        place.country!,
+                                        style: globalTextStyle(
+                                          fontSize: 17.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcBlackColor,
+                                        ),
+                                      ),
+                                      verticalSpace(5),
+                                    ],
+                                  )
+                                : const SizedBox(),
                             Text(
                               '${viewModel.cullinary[index].schoolCourses!.length} Courses',
                               style: globalTextStyle(

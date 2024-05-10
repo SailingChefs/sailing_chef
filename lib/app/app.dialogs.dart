@@ -13,6 +13,7 @@ import '../ui/dialogs/delete_account/delete_account_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import '../ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
+import '../ui/dialogs/success/success_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -21,6 +22,7 @@ enum DialogType {
   deleteAccount,
   blockAccount,
   courseSaved,
+  success,
 }
 
 void setupDialogUi() {
@@ -39,6 +41,8 @@ void setupDialogUi() {
         BlockAccountDialog(request: request, completer: completer),
     DialogType.courseSaved: (context, request, completer) =>
         CourseSavedDialog(request: request, completer: completer),
+    DialogType.success: (context, request, completer) =>
+        SuccessDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

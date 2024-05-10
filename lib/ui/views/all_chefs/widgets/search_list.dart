@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -19,7 +17,7 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
             child: Text('No Chef Found'),
           );
         }
-      
+
         return CustomScrollView(
           slivers: [
             SliverGrid(

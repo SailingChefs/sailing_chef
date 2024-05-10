@@ -31,7 +31,8 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes![index].docId,
-                          onTap: () => viewModel.toDishDetailsScreen(index,viewModel.myRecipes![index]),
+                          onTap: () => viewModel.toDishDetailsScreen(
+                              index, viewModel.myRecipes![index]),
                           foodImagePath: viewModel.myRecipes![index].coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,

@@ -95,7 +95,8 @@ class RecipeSearchDelegate extends SearchDelegate<List<RecipeModel>> {
               onTap: () {
                 _navigationService.navigateToSavedRecipeDetailsView(
                     recipeModel: recipe,
-                    recipeList: IndexViewModel.getRandomDishes(recipe, recipes));
+                    randomRecipeList:
+                        IndexViewModel.getRandomDishes(recipe, recipes));
               },
             );
           },

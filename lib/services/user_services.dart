@@ -40,7 +40,7 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
- Future<UserModel> getUserDetails() async {
+  Future<UserModel> getUserDetails() async {
     try {
       EasyLoading.show();
       CollectionReference usersCollection = firebasestore.collection('users');
@@ -56,8 +56,7 @@ class UserServices with ListenableServiceMixin {
         EasyLoading.dismiss();
         showToast(message: 'User Data fetched successfully');
 
-         UserModel.fromSnapshot(userDoc);
-   
+        UserModel.fromSnapshot(userDoc);
 
         // return  UserModel();
         return UserModel.fromSnapshot(userDoc);

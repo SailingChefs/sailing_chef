@@ -64,8 +64,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         _savedRecipeService,
       ];
 
-  
-
   void pickImage() async {
     final List<XFile> selectedImages = await _picker.pickMultiImage();
 
@@ -120,8 +118,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     _navigationService.replaceWithTransition(
         SavedRecipeDetailsView(
           recipeModel: recipe,
-          randomRecipeList: IndexViewModel.getRandomDishes(recipe,[] ),
-          ),
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe, []),
+        ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);
   }

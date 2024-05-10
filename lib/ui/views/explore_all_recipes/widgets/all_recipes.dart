@@ -13,7 +13,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             height: 500.h,
             child: GridView.builder(
               itemCount: viewModel.recipes.length,
-              padding: EdgeInsets.symmetric( vertical: 15.h),
+              padding: EdgeInsets.symmetric(vertical: 15.h),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15.0,
@@ -24,16 +24,15 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 return PrimaryGridTile(
                     savedRecipeList: viewModel.savedRecipes,
                     recipeId: viewModel.recipes[index].docId,
-                    onTap: () => viewModel.toDishDetailsScreen(
-                        viewModel.recipes[index]),
-                    foodImagePath: viewModel
-                        .recipes[index].coverImage
+                    onTap: () =>
+                        viewModel.toDishDetailsScreen(viewModel.recipes[index]),
+                    foodImagePath: viewModel.recipes[index].coverImage
                         .where((element) => element.contains('.jpg'))
                         .first,
                     dishName: viewModel.recipes[index].title,
                     duration: viewModel.recipes[index].prepTime,
-                    chefImagePath: viewModel
-                        .recipes[index].user!.displayPicture!);
+                    chefImagePath:
+                        viewModel.recipes[index].user!.displayPicture!);
               },
             ),
           );

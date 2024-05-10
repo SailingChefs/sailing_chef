@@ -27,7 +27,7 @@ class CommentsDetailsScreen
             rating: comment.rating!,
           ),
       ];
-    // ignore: unnecessary_null_comparison
+      // ignore: unnecessary_null_comparison
     } else if (recipeModel.comment == []) {
       log('here2');
       return [

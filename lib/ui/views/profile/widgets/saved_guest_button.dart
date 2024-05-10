@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class SavedGuestButton extends StatelessWidget {
@@ -24,7 +23,13 @@ class SavedGuestButton extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(onPressed: (){}, icon: const Icon(FlutterRemix.equalizer_line, color: kcPrimaryColor,size: 35,))
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                FlutterRemix.equalizer_line,
+                color: kcPrimaryColor,
+                size: 35,
+              ))
         ],
       ),
     );

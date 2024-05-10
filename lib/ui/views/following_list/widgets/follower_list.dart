@@ -56,8 +56,7 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                   color: kcBlackColor,
-                                )
-                                ),
+                                )),
                             // trailing: SizedBox(
                             //   width: 80.w,
                             //   height: 34.h,

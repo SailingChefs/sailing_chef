@@ -135,8 +135,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: chefRecipes![index],
-        recipeList: IndexViewModel.getRandomDishes(chefRecipes![index], chefRecipes!)
-        );
+        randomRecipeList:
+            IndexViewModel.getRandomDishes(chefRecipes![index], chefRecipes!));
   }
 
   void showRecipeList() {

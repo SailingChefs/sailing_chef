@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -58,28 +57,28 @@ class CommentService with ListenableServiceMixin {
   //   }
   // }
 
-Future<bool> addCommentToFirestore(CommentModel comment) async {
-  try {
-    EasyLoading.show();
+  Future<bool> addCommentToFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
 
-    // Get a reference to the comments subcollection of the specified recipe ID
-    CollectionReference commentsCollection = FirebaseFirestore.instance
-        .collection('recipes')
-        .doc(comment.recipeId)
-        .collection('comments');
+      // Get a reference to the comments subcollection of the specified recipe ID
+      CollectionReference commentsCollection = FirebaseFirestore.instance
+          .collection('recipes')
+          .doc(comment.recipeId)
+          .collection('comments');
 
-    // Add the new comment to the comments subcollection
-    await commentsCollection.add(comment.toJson());
+      // Add the new comment to the comments subcollection
+      await commentsCollection.add(comment.toJson());
 
-    EasyLoading.dismiss();
-    showToast(message: 'Comment added successfully');
-    return true;
-  } catch (error) {
-    EasyLoading.dismiss();
-    showToast(message: 'Error adding comment to Firestore: $error');
-    return false;
+      EasyLoading.dismiss();
+      showToast(message: 'Comment added successfully');
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error adding comment to Firestore: $error');
+      return false;
+    }
   }
-}
 
   // Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
   //   log('recipeId:$recipeId');

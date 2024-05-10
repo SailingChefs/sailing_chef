@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -134,14 +132,13 @@ class ProfileViewModel extends ReactiveViewModel {
     // );
     _navigationService.navigateToAddRecipeView(isFromProfileView: true);
   }
-void toDishDetailsScreen(int index,RecipeModel recipeModel) {
- 
+
+  void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: recipeModel,
-      recipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes!),
+      randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes!),
     );
- 
-}
+  }
 
   // void toDishDetailsScreen(index) {
   //   log('index is $index');

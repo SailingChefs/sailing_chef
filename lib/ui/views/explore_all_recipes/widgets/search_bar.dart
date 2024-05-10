@@ -77,7 +77,6 @@ class SearchBarAllRecipesScreen
               log("pressed");
               viewModel.searchRecipes();
               log("after searching");
-
             },
             icon: const Icon(FlutterRemix.equalizer_line),
             color: kcPrimaryColor,

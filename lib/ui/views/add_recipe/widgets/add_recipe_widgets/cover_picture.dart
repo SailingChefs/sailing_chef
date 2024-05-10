@@ -1,9 +1,12 @@
 import 'dart:io';
-import 'package:croppy/croppy.dart';
+// import 'package:croppy/croppy.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
+
+import '../../../../widgets/custom_video_player.dart';
 
 class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
   const CoverPictureSelector({Key? key}) : super(key: key);
@@ -144,49 +147,113 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ...viewModel.thumbnails.map((XFile image) {
-                              return Stack(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 8.0),
-                                    height: 148.0,
-                                    width: 138.0,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: FileImage(File(image.path)),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 10,
-                                    right: 10,
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          viewModel.deleteCurrentImage(image),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 24,
-                                        color: kcwhitecolor.withOpacity(0.5),
-                                      ),
-                                    ),
-                                  ),
-                                
-                                  Positioned(
-                                    top: 10,
-                                    left: 10,
-                                    child: GestureDetector(
-                                      onTap: () => viewModel.showCroppper(File(image.path), context, viewModel.thumbnails.indexOf(image)),
-                                      child: Icon(
-                                        Icons.crop,
-                                        size: 24,
-                                        color: kcwhitecolor.withOpacity(0.6),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                            ...viewModel.selectedImages.map((XFile image) {
+                              viewModel.updateVideoSource(
+                                File(viewModel
+                                    .selectedImages[
+                                        viewModel.selectedImages.indexOf(image)]
+                                    .path),
                               );
+
+                              var media = File(image.path);
+
+                              if (media.path.toLowerCase().endsWith('.mp4')) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 8.0),
+                                      height: 148.0,
+                                      width: 138.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        child: CustomVideoPlayer.file(
+                                          pathh: media.path,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            viewModel.deleteCurrentImage(image),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 24,
+                                          color: kcwhitecolor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        child: Text(
+                                          'video',
+                                          style:
+                                              globalTextStyle(fontSize: 7.sp),
+                                        )),
+                                  ],
+                                );
+                              } else if (media.path
+                                      .toLowerCase()
+                                      .endsWith('.jpg') ||
+                                  media.path.toLowerCase().endsWith('.jpeg') ||
+                                  media.path.toLowerCase().endsWith('.png')) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 8.0),
+                                      height: 148.0,
+                                      width: 138.0,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: FileImage(media),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            viewModel.deleteCurrentImage(image),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 24,
+                                          color: kcwhitecolor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      left: 10,
+                                      child: GestureDetector(
+                                        onTap: () => viewModel.showCroppper(
+                                          media,
+                                          context,
+                                          viewModel.selectedImages
+                                              .indexOf(image),
+                                        ),
+                                        child: Icon(
+                                          Icons.crop,
+                                          size: 24,
+                                          color: kcwhitecolor.withOpacity(0.6),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Container(); // Placeholder for unsupported media types
+                              }
                             }).toList(),
                             GestureDetector(
                               onTap: viewModel.pickImages,

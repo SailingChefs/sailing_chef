@@ -135,5 +135,4 @@ class UserChatViewModel extends BaseViewModel {
       ),
     ],
   );
-
 }

@@ -14,14 +14,12 @@ class SavedRecipeService with ListenableServiceMixin {
   // final _userService = locator<UserServices>();
 
   Future<void> init() async {
-  
     savedRecipes = await _fetchSavedRecipes();
     isInitialised = true;
     notifyListeners();
   }
-  followingRecipe(){
-   
-  }
+
+  followingRecipe() {}
 
   Future<void> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
     try {

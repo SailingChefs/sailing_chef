@@ -167,45 +167,44 @@ class RecipeService {
     }
   }
 
- Future<List<RecipeModel>> fetchFollowingRecipesByUID() async {
-  try {
-    List<RecipeModel> allRecipes = [];
+  Future<List<RecipeModel>> fetchFollowingRecipesByUID() async {
+    try {
+      List<RecipeModel> allRecipes = [];
 
-    for (String uId in userDetails!.following!) {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('recipes')
-          .where('uid', isEqualTo: uId)
-          .get();
+      for (String uId in userDetails!.following!) {
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('recipes')
+            .where('uid', isEqualTo: uId)
+            .get();
 
-      List<RecipeModel> recipes = [];
-      for (var doc in snapshot.docs) {
-        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        List<RecipeModel> recipes = [];
+        for (var doc in snapshot.docs) {
+          RecipeModel recipe = RecipeModel.fromSnapshot(doc);
 
-        // Fetch comments for the current recipe
-        QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        List<CommentModel> comments = commentsSnapshot.docs
-            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-            .toList();
-        recipe.comment = comments;
+          // Fetch comments for the current recipe
+          QuerySnapshot commentsSnapshot =
+              await doc.reference.collection('comments').get();
+          List<CommentModel> comments = commentsSnapshot.docs
+              .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+              .toList();
+          recipe.comment = comments;
 
-        // Fetch user details by UID and assign it to the recipe
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
+          // Fetch user details by UID and assign it to the recipe
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
 
-        recipes.add(recipe);
+          recipes.add(recipe);
+        }
+
+        allRecipes.addAll(recipes);
       }
 
-      allRecipes.addAll(recipes);
+      return allRecipes;
+    } catch (e) {
+      log('Error fetching recipes: $e');
+      return [];
     }
-
-    return allRecipes;
-  } catch (e) {
-    log('Error fetching recipes: $e');
-    return [];
   }
-}
-
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {

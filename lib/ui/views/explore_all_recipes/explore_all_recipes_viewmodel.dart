@@ -43,7 +43,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
       recipeModel: recip,
-      recipeList: IndexViewModel.getRandomDishes(recip, recipes),
-      );
+      randomRecipeList: IndexViewModel.getRandomDishes(recip, recipes),
+    );
   }
 }

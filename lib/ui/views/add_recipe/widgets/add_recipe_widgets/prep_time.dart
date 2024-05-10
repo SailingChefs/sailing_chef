@@ -44,7 +44,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 ),
                 child: viewModel.selectedTime != null
                     ? Center(
-                      child: Text(
+                        child: Text(
                           '$totalMinutes mins',
                           style: globalTextStyle(
                             fontSize: 14.sp,
@@ -52,7 +52,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                             color: kcPrimaryColor,
                           ),
                         ),
-                    )
+                      )
                     : FittedBox(
                         child: Row(
                           children: [

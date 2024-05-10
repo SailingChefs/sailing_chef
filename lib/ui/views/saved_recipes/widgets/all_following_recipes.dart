@@ -27,14 +27,12 @@ class FollowingSavedRecipesScreen
                     recipeId: viewModel.followingRecipes![index].docId,
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),
-                    foodImagePath: viewModel
-                        .followingRecipes![index].coverImage.first,
-                    dishName:
-                        viewModel.followingRecipes![index].title,
-                    duration:
-                        viewModel.followingRecipes![index].prepTime,
-                    chefImagePath: viewModel.followingRecipes![index]
-                        .user!.displayPicture!);
+                    foodImagePath:
+                        viewModel.followingRecipes![index].coverImage.first,
+                    dishName: viewModel.followingRecipes![index].title,
+                    duration: viewModel.followingRecipes![index].prepTime,
+                    chefImagePath: viewModel
+                        .followingRecipes![index].user!.displayPicture!);
               },
             ),
           );

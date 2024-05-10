@@ -8,7 +8,8 @@ class ShimmerLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const TopBarIndexScreen(),
         Shimmer.fromColors(

@@ -14,7 +14,7 @@ class BackArrowWidget extends StatelessWidget {
         height: 30.h,
         width: 30.w,
         decoration: BoxDecoration(
-          color: kcBlackColor.withOpacity(0.04),
+          color: kcwhitecolor.withOpacity(0.8),
           shape: BoxShape.circle,
         ),
         child: Icon(

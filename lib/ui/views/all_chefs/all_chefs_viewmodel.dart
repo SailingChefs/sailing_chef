@@ -1,14 +1,12 @@
 import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/chef_service.dart';
 
 import '../../../model/user_model.dart';
 
 class AllChefsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   TextEditingController searchController = TextEditingController();
-
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
     log("came to search func");
@@ -24,7 +22,6 @@ class AllChefsViewModel extends BaseViewModel {
       }
     }
   }
-
 
   void toChefProfile(UserModel chef) async {
     _navigationService.navigateToChefProfileView(user: chef);

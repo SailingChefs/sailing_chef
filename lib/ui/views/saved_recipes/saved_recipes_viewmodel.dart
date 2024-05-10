@@ -12,8 +12,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final _recipeService = locator<RecipeService>();
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-  List<RecipeModel> ? followingRecipes ;
-      
+  List<RecipeModel>? followingRecipes;
 
   String selectedTab = 'All';
   bool isAllSelected = true;
@@ -35,9 +34,11 @@ class SavedRecipesViewModel extends ReactiveViewModel {
 
     setBusy(false);
   }
+
   void toAllDishesScreen() {
     _navigationService.navigateToExploreAllRecipesView();
   }
+
   void followingSelected() {
     isFollowingSelected = true;
     isAllSelected = false;
@@ -68,8 +69,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
 
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: recipe,
-      recipeList: IndexViewModel.getRandomDishes(recipe, [])
-    );
+        recipeModel: recipe,
+        randomRecipeList: IndexViewModel.getRandomDishes(recipe, []));
   }
 }

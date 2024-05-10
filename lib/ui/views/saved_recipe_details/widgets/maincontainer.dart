@@ -14,7 +14,8 @@ class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> recipeList;
-  const MainRecipeViewContainer({Key? key, required this.recipeModel, required this.recipeList})
+  const MainRecipeViewContainer(
+      {Key? key, required this.recipeModel, required this.recipeList})
       : super(key: key);
 
   @override
@@ -86,11 +87,13 @@ class MainRecipeViewContainer
                       : Methods(
                           recipe: recipeModel,
                         ),
-                 CommentsDetailsScreen(recipeModel:  recipeModel),
+                  CommentsDetailsScreen(recipeModel: recipeModel),
                   LeaveComment(
                     recipeId: recipeModel.docId,
                   ),
-                   BottomSlider(recipeList: recipeList ,),
+                  BottomSlider(
+                    recipeList: recipeList,
+                  ),
                 ],
               ),
             ),

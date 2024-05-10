@@ -8,15 +8,14 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
-   return viewModel.searchRecipes().isEmpty
+    return viewModel.searchRecipes().isEmpty
         ? SizedBox(
-            height: 500.h,  
-          child: const Center(child: Text('No Recipe Found')))
+            height: 500.h, child: const Center(child: Text('No Recipe Found')))
         : SizedBox(
             height: 500.h,
             child: GridView.builder(
               itemCount: viewModel.searchRecipes().length,
-              padding: EdgeInsets.symmetric( vertical: 15.h),
+              padding: EdgeInsets.symmetric(vertical: 15.h),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15.0,
@@ -24,20 +23,21 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 childAspectRatio: 7.4 / 9,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final RecipeModel recipe = viewModel.searchRecipes().elementAt(index);
-               return PrimaryGridTile(
-                      savedRecipeList: viewModel.savedRecipes,
-                      recipeId: recipe.docId,
-                      onTap: () => viewModel.toDishDetailsScreen(recipe),
-                      foodImagePath: recipe.coverImage
-                          .where((element) => element.contains('.jpg'))
-                          .first,
-                      dishName: recipe.title,
-                      duration: recipe.prepTime,
-                      chefImagePath: recipe.user!.displayPicture!);
+                final RecipeModel recipe =
+                    viewModel.searchRecipes().elementAt(index);
+                return PrimaryGridTile(
+                    savedRecipeList: viewModel.savedRecipes,
+                    recipeId: recipe.docId,
+                    onTap: () => viewModel.toDishDetailsScreen(recipe),
+                    foodImagePath: recipe.coverImage
+                        .where((element) => element.contains('.jpg'))
+                        .first,
+                    dishName: recipe.title,
+                    duration: recipe.prepTime,
+                    chefImagePath: recipe.user!.displayPicture!);
               },
             ),
           );
   }
 }
-// 
+//
