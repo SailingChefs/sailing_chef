@@ -1,12 +1,12 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
-class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
-  const ChefNotes({super.key});
+class ChefNotesRecipeDetails extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+  const ChefNotesRecipeDetails({super.key});
 
   @override
-  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+  Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

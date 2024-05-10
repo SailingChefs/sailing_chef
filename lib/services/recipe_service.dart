@@ -212,12 +212,21 @@ class RecipeService {
 
       // Fetches all documents from the 'recipes' collection
       QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('recipes').get();
+          await FirebaseFirestore.instance.collection('recipes').where('visibility', isEqualTo: 'Public')
+          .where('status', isEqualTo: 'published')
+          .get();
 
       // Maps each DocumentSnapshot to a RecipeModel
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          // recipes.add(recipe);
+        }
 
         // Fetch comments for the current recipe
         QuerySnapshot commentsSnapshot =

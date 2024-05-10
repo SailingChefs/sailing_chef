@@ -92,11 +92,13 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Ingredients',
-                style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
+                 style:
+                   globalTextStyle(
                     fontSize: 15.0.sp,
                     fontWeight: FontWeight.w500,
-                  ),
+                    color: kcBlackColor,
+                  
+                
                 )),
             Container(
               height: 20.0.h,
@@ -133,15 +135,6 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
           ],
         ),
         verticalSpaceMedium,
-        // Text(
-        //   '${recipeModel.ingredients.length} items',
-        //   style: GoogleFonts.poppins(
-        //     textStyle: TextStyle(
-        //       fontSize: 10.0.sp,
-        //       fontWeight: FontWeight.w300,
-        //     ),
-        //   ),
-        // ),
         ...allIngredients
       ],
     );
