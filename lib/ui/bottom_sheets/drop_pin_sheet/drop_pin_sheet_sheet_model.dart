@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,7 +11,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   DropPinSheetSheetModel({required this.location});
   final LatLng location;
   final _navigationService = locator<NavigationService>();
-  XFile? selectedImageFile;
+  List<XFile>? selectedImageFile;
   String? selectedImagePath;
   final ImagePicker picker = ImagePicker();
   final _navigationpinService = locator<PinDropService>();
@@ -24,7 +23,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   final TextEditingController description = TextEditingController();
   double ratings = 3.0;
   String? image;
-
+  List<String>? imageUrls;
   void savePinDrop() async {
     if (name.text.isEmpty) {
       showToast(message: 'Please enter name!');
@@ -51,7 +50,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
         email: email.text,
         link: link.text,
         name: name.text,
-        picture: image!,
+        picture: imageUrls!,
         tags: selectedTabSelections,
         location: GeoPoint(location.latitude, location.longitude),
         rating: ratings,
@@ -86,11 +85,17 @@ class DropPinSheetSheetModel extends BaseViewModel {
   }
 
   Future<void> getPfpImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final List<XFile> pickedFile = await picker.pickMultiImage(
+      imageQuality:
+          const int.fromEnvironment('imageQuality', defaultValue: 100),
+      maxHeight: 500,
+      maxWidth: 500,
+    );
+    // ignore: unnecessary_null_comparison
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      image = await _navigationpinService.uploadImage(
-          File(selectedImageFile!.path), selectedImageFile!.name);
+      imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
+      image = imageUrls!.first;
       notifyListeners();
       rebuildUi();
     } else {
@@ -135,7 +140,6 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   void setRating(double value) {
     ratings = value;
-
     notifyListeners();
   }
 }

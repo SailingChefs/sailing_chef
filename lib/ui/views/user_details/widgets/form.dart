@@ -11,7 +11,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
   final String userRole;
   @override
   Widget build(BuildContext context, UserDetailsViewModel viewModel) {
-    bool islocationempty = false;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -29,58 +28,66 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             validator: (value) => viewModel.validateName(value),
                             controller: viewModel.nameController,
                             labelText: 'Name',
+                            suffixIcon: false,
                           ),
-                          verticalSpaceMedium,
+                          verticalSpaceSmall,
                           SemiRoundedTranpaentTextFieldBio(
-                              validator: (value) =>
-                                  viewModel.validateBio(value),
-                              controller: viewModel.bioController,
-                              labelText: 'Bio'),
-                          verticalSpaceMedium,
+                            validator: (value) => viewModel.validateBio(value),
+                            controller: viewModel.bioController,
+                            labelText: 'Bio',
+                          ),
+                          verticalSpaceSmall,
                           SemiRoundedTranpaentTextField(
                               validator: (value) =>
                                   viewModel.validateLink(value),
                               controller: viewModel.linkController,
+                              suffixIcon: false,
                               labelText: 'Link*'),
-                          verticalSpaceMedium,
+                          verticalSpaceSmall,
                           SemiRoundedTranpaentTextField(
+                              suffixIcon: false,
                               validator: (value) =>
                                   viewModel.validateBoatName(value),
                               controller: viewModel.boatNameController,
                               labelText: 'Boat Name*'),
-                          verticalSpaceMedium,
+                          verticalSpaceSmall,
                           GestureDetector(
-                              onTap: viewModel.getLocation,
-                              child: Container(
-                                height: 45.h,
-                                width: double.infinity,
-                                decoration: islocationempty == false
-                                    ? BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                        border: Border.all(
-                                          color: Colors.red,
-                                        ),
-                                        color: Colors.grey.withOpacity(0.2),
-                                      )
-                                    : BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                        color: Colors.grey.withOpacity(0.2),
-                                      ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.0.dg),
-                                  child: Text(
-                                    viewModel.locationController.text.isNotEmpty
-                                        ? viewModel.locationController.text
-                                        : 'Location*',
-                                    style: globalTextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: kcBlackColor.withOpacity(0.6)),
-                                  ),
+                            onTap: viewModel.getLocation,
+                            child: Container(
+                              height: 45.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: Colors.grey.withOpacity(0.2),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12.0.dg),
+                                child: Text(
+                                  viewModel.locationController.text.isNotEmpty
+                                      ? viewModel.locationController.text
+                                      : 'Location',
+                                  style: globalTextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: kcBlackColor.withOpacity(0.6)),
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceTiny,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              Text(
+                                '*optional',
+                                style: globalTextStyle(
+                                    fontSize: 14.sp,
+                                    color: editIconColor.withOpacity(0.6),
+                                    fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          )
                         ],
                       )
                     : (userRole == 'culinarySchool')
@@ -91,39 +98,79 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                     viewModel.validateName(value),
                                 controller: viewModel.nameController,
                                 labelText: 'Company Name',
+                                suffixIcon: false,
                               ),
-                              verticalSpaceMedium,
+                              verticalSpaceSmall,
                               SemiRoundedTranpaentTextFieldBio(
                                   validator: (value) =>
                                       viewModel.validateBio(value),
                                   controller: viewModel.bioController,
                                   labelText: 'Description'),
-                              verticalSpaceMedium,
+                              verticalSpaceSmall,
                               SemiRoundedTranpaentTextField(
                                   validator: (value) =>
                                       viewModel.validateLink(value),
                                   controller: viewModel.linkController,
+                                  suffixIcon: false,
                                   labelText: 'Link'),
-                              verticalSpaceMedium,
+                              verticalSpaceSmall,
                               GestureDetector(
                                 onTap: viewModel.getLocation,
+                                // child: GooglePlaceAutoCompleteTextField(
+                                //   textEditingController:
+                                //       viewModel.locationController,
+
+                                //   googleAPIKey:
+                                //       "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk",
+                                //   inputDecoration: const InputDecoration(
+                                //     hintText: "Search your location",
+                                //     border: InputBorder.none,
+                                //     enabledBorder: InputBorder.none,
+                                //   ),
+                                //   debounceTime: 400,
+                                //   isLatLngRequired: true,
+                                //   getPlaceDetailWithLatLng:
+                                //       (Prediction prediction) {
+                                //     viewModel.latitude = prediction.lat;
+                                //     viewModel.longitude = prediction.lng;
+                                //   },
+                                //   itemClick: (Prediction prediction) {
+                                //     viewModel.locationController.text =
+                                //         prediction.description ?? "";
+                                //     viewModel.locationController.selection =
+                                //         TextSelection.fromPosition(TextPosition(
+                                //             offset: prediction
+                                //                     .description?.length ??
+                                //                 0));
+                                //   },
+                                //   seperatedBuilder: const Divider(),
+
+                                //   itemBuilder:
+                                //       (context, index, Prediction prediction) {
+                                //     return Container(
+                                //       padding: const EdgeInsets.all(10),
+                                //       child: Row(
+                                //         children: [
+                                //           const Icon(Icons.location_on),
+                                //           const SizedBox(
+                                //             width: 7,
+                                //           ),
+                                //           Expanded(
+                                //               child: Text(
+                                //                   prediction.description ?? ""))
+                                //         ],
+                                //       ),
+                                //     );
+                                //   },
+                                //   isCrossBtnShown: true,
+                                // ),
                                 child: Container(
                                   height: 45.h,
                                   width: double.infinity,
-                                  decoration: islocationempty == false
-                                      ? BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          border: Border.all(
-                                            color: Colors.red,
-                                          ),
-                                          color: Colors.grey.withOpacity(0.2),
-                                        )
-                                      : BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          color: Colors.grey.withOpacity(0.2),
-                                        ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Colors.grey.withOpacity(0.2),
+                                  ),
                                   child: Padding(
                                     padding: EdgeInsets.all(12.0.dg),
                                     child: Text(
@@ -139,20 +186,50 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(),
-                                  Text(
-                                    '*optional',
-                                    style: globalTextStyle(
-                                        fontSize: 14.sp,
-                                        color: kcsgreycolor,
-                                        fontWeight: FontWeight.w400),
-                                  )
-                                ],
-                              )
+                              // GooglePlaceAutoCompleteTextField(
+                              //   textEditingController:
+                              //       viewModel.locationController,
+                              //   googleAPIKey:
+                              //       'AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk',
+                              //   inputDecoration: const InputDecoration(
+                              //     hintText: "Search your location",
+                              //     contentPadding: const EdgeInsets.only(left: 10.0),
+                              //     border: InputBorder.none,
+                              //     enabledBorder: InputBorder.none,
+                              //   ),
+                              //   debounceTime: 400,
+                              //   isLatLngRequired: true,
+                              //   getPlaceDetailWithLatLng: viewModel.onLocationChanged,
+                              //   itemClick: viewModel.onLocationItemClicked,
+                              //   // itemClick: (Prediction prediction) {
+                              //   //   viewModel.locationController.text =
+                              //   //       prediction.description ?? "";
+                              //   //   viewModel.locationController.selection =
+                              //   //       TextSelection.fromPosition(
+                              //   //     TextPosition(
+                              //   //         offset:
+                              //   //             prediction.description?.length ??
+                              //   //                 0),
+                              //   //   );
+                              //   // },
+                              //   seperatedBuilder: const Divider(),
+                              //   itemBuilder:
+                              //       (context, index, Prediction prediction) {
+                              //     return Container(
+                              //       padding: const EdgeInsets.all(10),
+                              //       child: Row(
+                              //         children: [
+                              //           const Icon(Icons.location_on),
+                              //           const SizedBox(width: 7),
+                              //           Expanded(
+                              //               child: Text(
+                              //                   prediction.description ?? "")),
+                              //         ],
+                              //       ),
+                              //     );
+                              //   },
+                              //   isCrossBtnShown: true,
+                              // ),
                             ],
                           )
                         : Column(
@@ -162,8 +239,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                     viewModel.validateName(value),
                                 controller: viewModel.nameController,
                                 labelText: 'Name',
+                                suffixIcon: false,
                               ),
-                              verticalSpaceMedium,
+                              verticalSpaceSmall,
                               SemiRoundedTranpaentTextFieldBio(
                                   validator: (value) =>
                                       viewModel.validateBio(value),
@@ -176,16 +254,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             ),
           ),
         ),
-        verticalSpaceLarge,
+        verticalSpaceMassive,
         PrimaryColorRoundedElevatedButton(
           onPressed: () {
             if (userRole == 'chef' || userRole == 'culinarySchool') {
               if (viewModel.formKey.currentState!.validate()) {
                 if (viewModel.locationController.text.isEmpty) {
                   log('location empty');
-                  islocationempty = false;
                 } else {
-                  islocationempty = true;
                 }
                 viewModel.saveUserDetails();
               }

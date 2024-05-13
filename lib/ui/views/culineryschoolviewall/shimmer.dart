@@ -36,7 +36,7 @@ class ShimmerLoaderCulinarySchool extends StatelessWidget {
                   width: 113.w,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(9.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

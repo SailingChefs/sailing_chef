@@ -90,7 +90,7 @@ class ListViewCulinaryChool
                             Text(
                               '${viewModel.cullinary[index].schoolCourses!.length} Courses',
                               style: globalTextStyle(
-                                fontSize: 17.sp,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: kcBlackColor,
                               ),

@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
-import '../app/app.locator.dart';
 
-class ChefService {
+class ChefService with ListenableServiceMixin{
   final _userService = locator<UserServices>();
   List<UserModel> chefs = [];
   bool isInitialized = false;
 
   Future<void> chefInit() async {
     chefs = await fetchChefDocuments();
+    notifyListeners();
   }
 
   Future<List<UserModel>> fetchChefDocuments() async {
@@ -60,7 +60,7 @@ class ChefService {
       // return users;
     } catch (error) {
       // Handle any errors
-      EasyLoading.dismiss();
+
       return users; // Return an empty list in case of error
     }
   }
@@ -89,7 +89,6 @@ class ChefService {
 
       return users;
     } catch (error) {
-      EasyLoading.dismiss();
       return users;
     }
   }

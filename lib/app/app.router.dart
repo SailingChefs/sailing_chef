@@ -55,7 +55,6 @@ import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart'
 import 'package:sailing_chefs/ui/views/settings/settings_view.dart' as _i10;
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_view.dart' as _i4;
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
-import 'package:sailing_chefs/ui/views/user_chat/user_chat_view.dart' as _i32;
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
     as _i6;
 import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart'
@@ -287,10 +286,6 @@ class StackedRouter extends _i1.RouterBase {
       page: _i31.ChatView,
     ),
     _i1.RouteDef(
-      Routes.userChatView,
-      page: _i32.UserChatView,
-    ),
-    _i1.RouteDef(
       Routes.exploreAllRecipesView,
       page: _i33.ExploreAllRecipesView,
     ),
@@ -501,12 +496,6 @@ class StackedRouter extends _i1.RouterBase {
             receiver: args.receiver,
             conversationId: args.conversationId,
             key: args.key),
-        settings: data,
-      );
-    },
-    _i32.UserChatView: (data) {
-      return _i34.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i32.UserChatView(),
         settings: data,
       );
     },

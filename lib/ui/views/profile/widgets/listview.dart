@@ -57,12 +57,8 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              viewModel.isEdit = true;
-                              if (viewModel.isEdit == true) {
-                                viewModel.callCourseNameBottomSheett(
-                                    viewModel.courses[index]);
-                              }
-                              viewModel.isEdit = false;
+                              viewModel.callCourseNameBottomSheett(
+                                  viewModel.courses[index]);
                             },
                             child: Container(
                               height: 40,

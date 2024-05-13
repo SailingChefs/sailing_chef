@@ -7,7 +7,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
     return Container(
-      height: screenHeight(context) * 0.057,
+      height: screenHeight(context) * 0.055,
       width: screenWidth(context) * 0.92,
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),

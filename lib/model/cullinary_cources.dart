@@ -2,13 +2,15 @@ class Course {
   final String name;
   final String link;
   final String description;
-  final int numOfDays;
+  final String numOfDays;
+  String? id;
 
   Course({
     required this.name,
     required this.link,
     required this.description,
     required this.numOfDays,
+    this.id,
   });
 
   factory Course.fromMap(Map<String, dynamic> data) {
@@ -17,6 +19,7 @@ class Course {
       link: data['link'],
       description: data['description'],
       numOfDays: data['numOfDays'],
+      id: data['id'],
     );
   }
 
@@ -26,6 +29,7 @@ class Course {
       'link': link,
       'description': description,
       'numOfDays': numOfDays,
+      'id': id,
     };
   }
 }

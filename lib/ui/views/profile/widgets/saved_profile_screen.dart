@@ -114,6 +114,9 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           chefImagePath: savedRecipes[index]
                               .recipeModel!
                               .user!
+                              .displayPicture == null ? '' : savedRecipes[index]
+                              .recipeModel!
+                              .user!
                               .displayPicture!,
                         );
                       },

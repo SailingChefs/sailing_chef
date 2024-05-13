@@ -1,14 +1,13 @@
 import 'dart:io';
 
-import 'package:chatview/chatview.dart';
+// import 'package:chatview/chatview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 
-import '../../../model/message_model.dart';
+import '../../../../model/message_model.dart';
 
 class UserChatViewModel extends BaseViewModel {
   final TextEditingController textController = TextEditingController();
@@ -43,10 +42,10 @@ class UserChatViewModel extends BaseViewModel {
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
-            sendBy: FirebaseAuth.instance.currentUser!.uid,
-            createdAt: DateTime.now(),
-            messageType: 'image',
-            id: '',
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'image',
+            fileName: '',
           ),
           conversationId);
 
@@ -64,12 +63,13 @@ class UserChatViewModel extends BaseViewModel {
     if (messageController.text.isNotEmpty) {
       addMessage(
           MessageModel(
+            
             content: messageController.text,
             receiverId: receiverId,
-            sendBy: FirebaseAuth.instance.currentUser!.uid,
-            createdAt: DateTime.now(),
-            messageType: 'String',
-            id: '',
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'String',
+            fileName: '',
           ),
           conversationId);
       scrollController.animateTo(
@@ -104,35 +104,35 @@ class UserChatViewModel extends BaseViewModel {
   // Stream<List<Message>> get stream =>
   //     _conversationService.getMessages(convoId);
 
-  final currentUser = ChatUser(
-    id: FirebaseAuth.instance.currentUser!.uid,
-    name: userDetails!.displayName!,
-    profilePhoto: userDetails!.displayPicture!,
-  );
-  final chatController = ChatController(
-    initialMessageList: List.empty(growable: true),
-    scrollController: ScrollController(),
-    chatUsers: [
-      ChatUser(
-        id: '2',
-        name: 'Simform',
-        profilePhoto: 'https://picsum.photos/200',
-      ),
-      ChatUser(
-        id: '3',
-        name: 'Jhon',
-        profilePhoto: 'https://picsum.photos/200',
-      ),
-      ChatUser(
-        id: '4',
-        name: 'Mike',
-        profilePhoto: 'https://picsum.photos/200',
-      ),
-      ChatUser(
-        id: '5',
-        name: 'Rich',
-        profilePhoto: 'https://picsum.photos/200',
-      ),
-    ],
-  );
+  // final currentUser = ChatUser(
+  //   id: FirebaseAuth.instance.currentUser!.uid,
+  //   name: userDetails!.displayName!,
+  //   profilePhoto: userDetails!.displayPicture!,
+  // );
+  // final chatController = ChatController(
+  //   initialMessageList: List.empty(growable: true),
+  //   scrollController: ScrollController(),
+  //   chatUsers: [
+  //     ChatUser(
+  //       id: '2',
+  //       name: 'Simform',
+  //       profilePhoto: 'https://picsum.photos/200',
+  //     ),
+  //     ChatUser(
+  //       id: '3',
+  //       name: 'Jhon',
+  //       profilePhoto: 'https://picsum.photos/200',
+  //     ),
+  //     ChatUser(
+  //       id: '4',
+  //       name: 'Mike',
+  //       profilePhoto: 'https://picsum.photos/200',
+  //     ),
+  //     ChatUser(
+  //       id: '5',
+  //       name: 'Rich',
+  //       profilePhoto: 'https://picsum.photos/200',
+  //     ),
+  //   ],
+ // );
 }

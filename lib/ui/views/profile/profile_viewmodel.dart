@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -33,7 +35,6 @@ class ProfileViewModel extends ReactiveViewModel {
 
   List<String> get followingList => _followService.following;
   List<String> get followersList => _followService.followers;
-
   List<RecipeModel>? myRecipes;
 
   void navigateToBlockScreen() {
@@ -42,7 +43,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _followService];
+      [_savedRecipeService, _followService, _cullinarySchoolService];
 
   // List<SavedRecipeModel> get fetchSavedRecipesList {
   //   return _savedRecipeService.savedRecipes;
@@ -105,7 +106,6 @@ class ProfileViewModel extends ReactiveViewModel {
       case 1:
         selectedTab = 'Saved';
         break;
-
       default:
         break;
     }
@@ -113,23 +113,19 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  List<Course> courses = [];
+  List<Course> get courses => _cullinarySchoolService.courses;
   void onViewModelReady() async {
     setBusy(true);
     await getUserLocation();
     await _savedRecipeService.init();
     await _followService.init(userDetails!.uid!, false);
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
-
-    courses = await _cullinarySchoolService.getCoursesFromDatabase(
-        userId: userDetails!.uid!);
+    _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!);
+    log(courses.length.toString());
     setBusy(false);
   }
 
   void toDishesScreen() {
-    // _navigationService.navigateToRecipeListPageView(
-    //   isFromProfileView: true,
-    // );
     _navigationService.navigateToAddRecipeView(isFromProfileView: true);
   }
 

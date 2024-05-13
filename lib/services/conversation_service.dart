@@ -168,7 +168,7 @@ class ConversationService {
   }
 
   Future<void> sendMessage(MessageModel message, String conversationId,
-      {String? imageUrl}) async {
+      {String? imageUrl, String? file}) async {
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final CollectionReference conversationsCollection =
         db.collection('conversations');
@@ -179,6 +179,10 @@ class ConversationService {
 
     if (imageUrl != null) {
       message.content = imageUrl;
+    }
+
+    if (file != null) {
+      message.content = file;
     }
 
     try {

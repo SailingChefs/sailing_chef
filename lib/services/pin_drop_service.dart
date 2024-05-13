@@ -6,13 +6,80 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/pindrop_review.dart';
+import 'package:sailing_chefs/model/reviews.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class PinDropService with ListenableServiceMixin {
+  final UserServices userService = UserServices();
+  List<Reviews> reviews = [];
+
+  Future<void> getReviews(String pinId) async {
+    reviews = await fetchReviewsByPinId(pinId);
+    notifyListeners();
+  }
+
+  Future<List<Reviews>> fetchReviewsByPinId(String pinId) async {
+    log('pinId:$pinId');
+    try {
+      QuerySnapshot querySnapshot = await firebasestore
+          .collection('pins')
+          .doc(pinId)
+          .collection('reviews')
+          .where('pinId', isEqualTo: pinId)
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      List<Reviews> reviews =
+          querySnapshot.docs.map((doc) => Reviews.fromSnapshot(doc)).toList();
+
+      return reviews;
+    } catch (e) {
+      log('Error fetching reviews: $e');
+      return [];
+    }
+  }
+
+  Future<bool> addComment(Reviews comment) async {
+    bool uploaded = await addReviewsToFirestore(comment);
+    if (!uploaded) {
+      return false;
+    }
+
+    reviews.add(comment);
+
+    notifyListeners();
+    return true;
+  }
+
+  Future<bool> addReviewsToFirestore(Reviews reviews) async {
+    try {
+      EasyLoading.show();
+      DocumentReference docRef = await firebasestore
+          .collection('pins')
+          .doc(reviews.pindropId)
+          .collection('reviews')
+          .add(reviews.toJson());
+
+      String docId = docRef.id;
+
+      await docRef.update({'doc_id': docId});
+
+      EasyLoading.dismiss();
+      showToast(message: 'review added successfully');
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error adding review to Firestore: $error');
+      return false;
+    }
+  }
+
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
 
@@ -38,6 +105,21 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
+  Future<List<String>> uploadImages(List<XFile> imageFiles) async {
+    final List<String> downloadUrls = [];
+    EasyLoading.show();
+    for (final imageFile in imageFiles) {
+      final fileName = imageFile.name;
+      final ref = firebaseStorage.ref().child('pinImages/$fileName');
+      final uploadTask = ref.putFile(File(imageFile.path));
+      final taskSnapshot = await uploadTask;
+      final downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      downloadUrls.add(downloadUrl);
+    }
+    EasyLoading.dismiss();
+    return downloadUrls;
+  }
+
   Future<void> addReview(String pinId, Review review) async {
     final CollectionReference pinsCollection =
         FirebaseFirestore.instance.collection('pins');
@@ -59,7 +141,7 @@ class PinDropService with ListenableServiceMixin {
           userLocation.longitude,
         ),
       ),
-      radiusInKm: 0.5,
+      radiusInKm: 50,
       geohashField: 'geohash',
       field: 'geo',
       strictMode: true,

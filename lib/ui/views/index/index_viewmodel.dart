@@ -25,6 +25,9 @@ class IndexViewModel extends BaseViewModel {
   String selectedTab = 'Yacht Chefs';
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
+  List<ListenableServiceMixin> get listenableServices =>
+      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
+
   get toViewCullinarySchool => null;
 
   void goToFilterView() {
@@ -48,14 +51,14 @@ class IndexViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-
     await Future.wait([
       _cullinaryService.culinaryInit(),
       _chefService.chefInit(),
       _savedRecipeService.init(),
       _recipeService.initialized(),
     ]);
-
+    notifyListeners();
+    rebuildUi();
     setBusy(false);
   }
 

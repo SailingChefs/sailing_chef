@@ -1,12 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+
+//  Stack(
+//   (ListOfMessages and expanded app bar as first child)
+// (collapsed app bar as second child only visible when screen is scrolled more than 300 pixels)
+//  )
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final TextEditingController textController = TextEditingController();
@@ -17,7 +24,19 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   XFile? selectedImageFile;
   List<MessageModel> messages = List.empty(growable: true);
 
+  bool isAtTop = false;
+
   ChatViewModel({required this.convoId});
+
+  void onViewModelReady() {
+    scrollController.addListener(() {
+      isAtTop = scrollController.offset <= kToolbarHeight;
+      if (scrollController.position.pixels < 180) {
+        isAtTop = true;
+      }
+      rebuildUi();
+    });
+  }
 
   Stream<List<ConversationModel>> getConversation() {
     Stream<List<ConversationModel>> conversations =
@@ -41,10 +60,10 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
-            sendBy: FirebaseAuth.instance.currentUser!.uid,
-            createdAt: DateTime.now(),
-            messageType: 'image',
-            id: '',
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'image',
+            fileName: '',
           ),
           conversationId);
 
@@ -58,26 +77,50 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     }
   }
 
-  void sendMessage(receiverId, conversationId) async {
-    log(messageController.text);
+  void sendMessage(receiverId, conversationId,
+      {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
       addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,
-            sendBy: FirebaseAuth.instance.currentUser!.uid,
-            createdAt: DateTime.now(),
-            messageType: 'String',
-            id: '',
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'String',
+            fileName: '',
           ),
           conversationId);
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-      messageController.clear();
     }
+    if (imageUrl != null) {
+      addMessage(
+          MessageModel(
+            content: imageUrl,
+            receiverId: receiverId,
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'image',
+            fileName: '',
+          ),
+          conversationId);
+    }
+    if (fileUrl != null) {
+      // addMessage(
+      //     MessageModel(
+      //       content: fileUrl,
+      //       receiverId: receiverId,
+      //       senderId: FirebaseAuth.instance.currentUser!.uid,
+      //       timestamp: DateTime.now(),
+      //       type: 'file',
+      //       fileName: fileName!,
+      //     ),
+      //     conversationId);
+    }
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+    messageController.clear();
   }
 
   void addMessage(MessageModel message, String conversationId) async {
@@ -100,7 +143,47 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     super.onData(data);
   }
 
+  File? pickFile;
+
   @override
   Stream<List<MessageModel>> get stream =>
       _conversationService.getMessages(convoId);
+
+  void getFile(String receiverId, String conversationId) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['zip', 'pdf', 'doc', 'docx'],
+    );
+    if (result != null) {
+      pickFile = File(result.files.single.path!);
+      String fileName = result.files.single.path!.split('/').last;
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child('files/$fileName');
+      UploadTask uploadTask = storageRef.putFile(pickFile!);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      addMessage(
+          MessageModel(
+            content: downloadUrl,
+            receiverId: receiverId,
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'file',
+            fileName: fileName,
+          ),
+          conversationId);
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    } else {
+      log("No file selected");
+    }
+  }
+
+  void getBack() {
+    _navigationLoactor.back();
+  }
 }

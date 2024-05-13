@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/Messages/widgets/image_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatMessage extends ViewModelWidget<ChatViewModel> {
   final MessageModel message;
@@ -17,94 +21,276 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
     final isCurrentUser =
-        message.sendBy == FirebaseAuth.instance.currentUser!.uid;
+        message.senderId == FirebaseAuth.instance.currentUser!.uid;
     log(isCurrentUser.toString());
     final messageIndex = viewModel.messages.indexOf(message);
     final nextMessageIsDifferentUser =
         messageIndex + 1 < viewModel.messages.length &&
-            viewModel.messages[messageIndex + 1].sendBy == message.sendBy;
-    log("Next log=> \n ${nextMessageIsDifferentUser.toString()}");
+            viewModel.messages[messageIndex + 1].senderId == message.senderId;
+    final timestampInMinutes =
+        DateTime.now().difference(message.timestamp).inDays;
+
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-      child: Row(
+      margin: EdgeInsets.symmetric(
+        vertical: 3.0,
+        horizontal: nextMessageIsDifferentUser ? 21 : 0.0,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Column(
         mainAxisAlignment:
-            isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          if (!isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
-            CircleAvatar(
-              radius: 20.0,
-              backgroundImage: user.displayPicture!.isNotEmpty
-                  ? NetworkImage(user.displayPicture!)
-                  : null,
-              child: user.displayPicture!.isNotEmpty
-                  ? null
-                  : const Icon(Icons.person),
-            ),
-          horizontalSpaceMedium,
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.7,
-            ),
-            padding: const EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-              color: isCurrentUser
-                  ? kcchatboxecolor
-                  : kcPrimaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                topLeft: isCurrentUser
-                    ? const Radius.circular(30)
-                    : const Radius.circular(30),
-                topRight: isCurrentUser
-                    ? const Radius.circular(30)
-                    : const Radius.circular(30),
-                bottomRight: isCurrentUser
-                    ? const Radius.circular(0)
-                    : const Radius.circular(30),
-                bottomLeft: isCurrentUser
-                    ? const Radius.circular(30)
-                    : const Radius.circular(0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: isCurrentUser
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.end,
-              children: [
-                if (message.messageType == 'image')
-                  GestureDetector(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        message.content,
-                        width: 150.0,
-                        height: 150.0,
-                        fit: BoxFit.cover,
+            isCurrentUser ? MainAxisAlignment.start : MainAxisAlignment.end,
+        crossAxisAlignment:
+            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment:
+                isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              if (!isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
+                CircleAvatar(
+                  radius: 15.0,
+                  backgroundImage: user.displayPicture!.isNotEmpty
+                      ? NetworkImage(user.displayPicture!)
+                      : null,
+                  child: user.displayPicture!.isNotEmpty
+                      ? null
+                      : const Icon(Icons.person),
+                ),
+              horizontalSpaceTiny,
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.69,
+                ),
+                child: Column(
+                  crossAxisAlignment: isCurrentUser
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    if (message.type == 'image')
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ImageViewerScreen(
+                                imageUrl: message.content,
+                              ),
+                            ),
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              topRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0)),
+                          child: Image.network(
+                            message.content,
+                            width: 120.0,
+                            height: 178.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                if (message.messageType == 'String')
-                  Text(
-                    message.content,
-                    style: const TextStyle(color: kcBlackColor),
-                  ),
-              ],
-            ),
+                    if (message.type == 'String')
+                      Container(
+                        padding: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          color: isCurrentUser
+                              ? kcchatboxecolor
+                              : kcPrimaryColor.withOpacity(0.2),
+                          borderRadius: BorderRadius.only(
+                            topLeft: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(30),
+                            topRight: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(30),
+                            bottomRight: isCurrentUser
+                                ? const Radius.circular(0)
+                                : const Radius.circular(30),
+                            bottomLeft: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(0),
+                          ),
+                        ),
+                        child: Text(
+                          message.content,
+                          style: const TextStyle(color: kcBlackColor),
+                        ),
+                      ),
+                    if (message.type == 'file')
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: kcWhiteColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: kcLightGrey.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: message.content.contains('pdf')
+                            ? ListTile(
+                                title: Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    message.fileName.toString()),
+                                subtitle: Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    message.content),
+                                trailing: GestureDetector(
+                                    onTap: () async {
+                                      await launch(message.content);
+                                    },
+                                    child: const Icon(Icons.download)),
+                                leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      'assets/images/icons/pdf.png',
+                                      width: 50.0,
+                                      height: 50.0,
+                                      fit: BoxFit.cover,
+                                    )))
+                            : message.content.contains('doc')
+                                ? ListTile(
+                                    title: Text(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        message.fileName.toString()),
+                                    subtitle: Text(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        message.content),
+                                    trailing: GestureDetector(
+                                        onTap: () async {
+                                          await launch(message.content);
+                                        },
+                                        child: const Icon(Icons.download)),
+                                    leading: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Image.asset(
+                                          'assets/images/icons/docx.png',
+                                          width: 50.0,
+                                          height: 50.0,
+                                          fit: BoxFit.cover,
+                                        )))
+                                : message.content.contains('docx')
+                                    ? ListTile(
+                                        title: Text(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            message.fileName.toString()),
+                                        subtitle: Text(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            message.content),
+                                        trailing: GestureDetector(
+                                            onTap: () async {
+                                              await launch(message.content);
+                                            },
+                                            child: const Icon(Icons.download)),
+                                        leading: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: Image.asset(
+                                              'assets/images/icons/docx.png',
+                                              width: 50.0,
+                                              height: 50.0,
+                                              fit: BoxFit.cover,
+                                            )))
+                                    : message.content.contains('zip')
+                                        ? ListTile(
+                                            title: Text(
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                message.fileName.toString()),
+                                            subtitle: Text(
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                message.content),
+                                            trailing: GestureDetector(
+                                                onTap: () async {
+                                                  await launch(message.content);
+                                                },
+                                                child:
+                                                    const Icon(Icons.download)),
+                                            leading: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.asset(
+                                                'assets/images/icons/zip.png',
+                                                width: 50.0,
+                                                height: 50.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          )
+                                        : Container(),
+                      ),
+                  ],
+                ),
+              ),
+              horizontalSpaceTiny,
+              if (isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
+                const SizedBox(),
+              if (isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
+                CircleAvatar(
+                  radius: 15.0,
+                  backgroundImage: userDetails!.displayPicture!.isNotEmpty
+                      ? NetworkImage(userDetails!.displayPicture!)
+                      : null,
+                  child: userDetails!.displayPicture!.isNotEmpty
+                      ? null
+                      : const Icon(Icons.person),
+                ),
+            ],
           ),
-          horizontalSpaceSmall,
-          if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
-            const SizedBox(width: 3.0),
-          if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
-            CircleAvatar(
-              radius: 20.0,
-              backgroundImage: userDetails!.displayPicture!.isNotEmpty
-                  ? NetworkImage(userDetails!.displayPicture!)
-                  : null,
-              child: userDetails!.displayPicture!.isNotEmpty
-                  ? null
-                  : const Icon(Icons.person),
-            ),
+          nextMessageIsDifferentUser
+              ? Container()
+              : Row(
+                  mainAxisAlignment: isCurrentUser
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
+                  children: [
+                    horizontalSpaceSmall,
+                    horizontalSpaceSmall,
+                    horizontalSpaceSmall,
+                    horizontalSpaceTiny,
+                    Text(
+                      '$timestampInMinutes days ago',
+                      style: globalTextStyle(
+                          fontSize: 12, color: kcBlackColor.withOpacity(0.4)),
+                    ),
+                    horizontalSpaceSmall,
+                    horizontalSpaceSmall,
+                    horizontalSpaceSmall,
+                    horizontalSpaceTiny,
+                  ],
+                )
         ],
       ),
     );

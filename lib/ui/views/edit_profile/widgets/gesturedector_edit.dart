@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -51,16 +51,21 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
           );
         },
         child: Container(
-          height: 20.h,
-          width: 20.w,
-          decoration: const BoxDecoration(
-            color: kcPrimaryColor,
-            shape: BoxShape.rectangle,
-          ),
+          height: 26.h,
+          width: 26.w,
+          decoration: BoxDecoration(
+              color: kcwhitecolor,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: kcBlackColor.withOpacity(0.05),
+                  spreadRadius: 1,
+                )
+              ]),
           child: Icon(
-            Icons.edit_outlined,
-            color: kcwhitecolor,
-            size: 15,
+            Icons.camera_alt,
+            color: kcBlackColor.withOpacity(0.6),
+            size: 13,
           ),
         ),
       ),

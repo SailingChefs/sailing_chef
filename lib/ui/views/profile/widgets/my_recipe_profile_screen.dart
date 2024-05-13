@@ -38,7 +38,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               .first,
                           dishName: viewModel.myRecipes![index].title,
                           duration: viewModel.myRecipes![index].prepTime,
-                          chefImagePath:
+                          chefImagePath:viewModel.myRecipes![index].user!.displayPicture == null ? '':
                               viewModel.myRecipes![index].user!.displayPicture!,
                         );
                       },

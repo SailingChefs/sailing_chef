@@ -3,18 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class MessageModel {
   String content;
   final String receiverId;
-  final String sendBy;
-  final DateTime createdAt;
-  String messageType;
-  final String id;
-
+  final String senderId;
+  final DateTime timestamp;
+  String type;
+  String fileName;
   MessageModel({
-    required this.id,
+
     required this.content,
     required this.receiverId,
-    required this.sendBy,
-    required this.createdAt,
-    required this.messageType,
+    required this.senderId,
+    required this.timestamp,
+    required this.type,
+    required this.fileName,
   });
 
   factory MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -22,22 +22,24 @@ class MessageModel {
 
     return MessageModel(
       content: data['content'],
-      id: snapshot.id,
+
       receiverId: data['receiverId'],
-      sendBy: data['senderId'],
-      createdAt: (data['timestamp'] as Timestamp).toDate(),
-      messageType: data['type'],
+      senderId: data['senderId'],
+      timestamp: (data['timestamp'] as Timestamp).toDate(),
+      type: data['type'],
+      fileName: data['fileName'],
     );
   }
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      id: map['id'],
+  
       content: map['content'],
       receiverId: map['receiverId'],
-      sendBy: map['senderId'],
-      createdAt: (map['timestamp'] as Timestamp).toDate(),
-      messageType: map['type'],
+      senderId: map['senderId'],
+      timestamp: (map['timestamp'] as Timestamp).toDate(),
+      type: map['type'],
+      fileName: map['fileName'],
     );
   }
 
@@ -45,9 +47,10 @@ class MessageModel {
     return {
       'content': content,
       'receiverId': receiverId,
-      'senderId': sendBy,
-      'timestamp': Timestamp.fromDate(createdAt),
-      'type': messageType,
+      'senderId': senderId,
+      'timestamp': Timestamp.fromDate(timestamp),
+      'type': type,
+      'fileName': fileName,
     };
   }
 }

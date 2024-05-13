@@ -130,21 +130,26 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                         color: kcBlackColor),
                   ),
                 ]),
-          user.boatName!.isEmpty && viewModel.placemarks == null
-              ? const SizedBox()
-              : Column(
-                  children: [
-                    verticalSpaceSmall,
-                    Text(
-                      "${capitalizeEachWord(user.boatName!)}, ${viewModel.placemarks!.first.country!}",
+          viewModel.placemarks == null
+                  ? Container()
+                  : Text(
+                      viewModel.placemarks![0].country!.isEmpty &&
+                              user.boatName!.isEmpty
+                          ? ' '
+                          : viewModel.placemarks![0].country!.isEmpty
+                              ? capitalizeEachWord(userDetails!.boatName!)
+                              : user.boatName!.isEmpty
+                                  ? capitalizeEachWord(
+                                      viewModel.placemarks!.first.country!)
+                                  : capitalizeEachWord(
+                                      '${user.boatName!}, ${viewModel.placemarks!.first.country!}'),
                       style: globalTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: kcBlackColor,
                       ),
                     ),
-                  ],
-                ),
+
           user.bio!.isEmpty
               ? const SizedBox()
               : Column(
@@ -175,10 +180,10 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     horizontalSpaceSmall,
                     GestureDetector(
                       onTap: () {
-                        viewModel.onClickUrl(userDetails!.link!);
+                        viewModel.onClickUrl(user.link!);
                       },
                       child: Text(
-                        userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
+                        user.link!.isEmpty ? ' ' : user.link!,
                         style: globalTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

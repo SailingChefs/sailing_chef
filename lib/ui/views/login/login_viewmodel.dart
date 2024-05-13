@@ -72,8 +72,6 @@ class LoginViewModel extends BaseViewModel {
           } else {
             _navigationService.replaceWithBottomNavBarView();
           }
-
-          ///  _navigationService.replaceWithHomeView();
         }
       } else {
         _navigationService.replaceWithLoginView();
@@ -86,6 +84,7 @@ class LoginViewModel extends BaseViewModel {
   void passwordVisibility() {
     showPassword = !showPassword;
     notifyListeners();
+    rebuildUi();
   }
 
   void toSignUp() {

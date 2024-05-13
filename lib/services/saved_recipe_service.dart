@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -57,7 +56,6 @@ class SavedRecipeService with ListenableServiceMixin {
 
   Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
     try {
-      EasyLoading.show(); // Show loading indicator
       if (!isInitialised) {
         throw "Service not initialised";
       }
@@ -69,11 +67,8 @@ class SavedRecipeService with ListenableServiceMixin {
       }
       notifyListeners();
 
-      EasyLoading.dismiss(); // Dismiss loading indicator
-      // Show success message
       return true;
     } catch (error) {
-      EasyLoading.dismiss(); // Dismiss loading indicator
       showToast(message: 'Error saving recipe: $error'); // Show error message
       return false;
     }

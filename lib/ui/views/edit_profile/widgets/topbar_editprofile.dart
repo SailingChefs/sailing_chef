@@ -7,10 +7,7 @@ class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> {
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 25.0,
-        right: 25.0,
-      ),
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -19,7 +16,6 @@ class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> {
             onTap: () => viewModel.getBack(),
             child: Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 8.0.dg),
               height: 36.h,
               width: 36.w,
               child: Icon(
