@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -51,6 +52,7 @@ class FollowService with ListenableServiceMixin {
       await firebasestore.collection('users').doc(userId).update({
         'following': FieldValue.arrayUnion([user.uid]),
       });
+      userDetails = await _userServices.getUserDetails();
       followers.add(userId);
       following.add(user.uid!);
       notifyListeners();
@@ -111,6 +113,7 @@ class FollowService with ListenableServiceMixin {
           .update({
         'following': FieldValue.arrayRemove([user.uid]),
       });
+      userDetails = await _userServices.getUserDetails();
       followers
           .removeWhere((element) => element == firebaseAuth.currentUser!.uid);
       log('deleted');

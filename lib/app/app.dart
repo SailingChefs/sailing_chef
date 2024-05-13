@@ -11,6 +11,7 @@ import 'package:sailing_chefs/services/search_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -21,7 +22,6 @@ import 'package:sailing_chefs/ui/views/login/login_view.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
-import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_view.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
@@ -65,6 +65,11 @@ import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
+import 'package:sailing_chefs/ui/views/user_chat/user_chat_view.dart';
+import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -76,7 +81,6 @@ import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
     MaterialRoute(page: UserDetailsView),
     MaterialRoute(page: BottomNavBarView),
     MaterialRoute(page: SavedRecipesView),
-    MaterialRoute(page: ChatView),
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: SettingsView),
     MaterialRoute(page: FilterView),
@@ -102,6 +106,9 @@ import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
     MaterialRoute(page: BecomechefView),
     MaterialRoute(page: PrivacyPolicyView),
     MaterialRoute(page: CulineryschoolviewallView),
+    MaterialRoute(page: ChatView),
+    MaterialRoute(page: UserChatView),
+    MaterialRoute(page: ExploreAllRecipesView),
 // @stacked-route
   ],
   dependencies: [
@@ -137,6 +144,8 @@ import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
     StackedBottomsheet(classType: DropPinButtonsSheet),
     StackedBottomsheet(classType: OtherChefProfileSheet),
     StackedBottomsheet(classType: CoursesSheet),
+    StackedBottomsheet(classType: TagsSheet),
+    StackedBottomsheet(classType: DiscardSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [
@@ -146,6 +155,7 @@ import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
     StackedDialog(classType: DeleteAccountDialog),
     StackedDialog(classType: BlockAccountDialog),
     StackedDialog(classType: CourseSavedDialog),
+    StackedDialog(classType: SuccessDialog),
 // @stacked-dialog
   ],
 )

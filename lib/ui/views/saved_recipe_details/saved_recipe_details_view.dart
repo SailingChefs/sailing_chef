@@ -5,16 +5,19 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/maincontainer.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'widgets/top_image.dart';
 
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
+  final List<RecipeModel> randomRecipeList;
 
   const SavedRecipeDetailsView({
     Key? key,
     required this.recipeModel,
+    required this.randomRecipeList,
   }) : super(key: key);
 
   @override
@@ -29,17 +32,24 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
             color: kcPrimaryColor,
           ))
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).colorScheme.background,
             body: Stack(children: [
               TopBarDetailsScreen(image: recipeModel.coverImage),
               MainRecipeViewContainer(
                 recipeModel: recipeModel,
+                recipeList: randomRecipeList,
               ),
+               Positioned(
+                top: 40,
+                right: 10,
+                child: SaveShare(
+                  recipe: recipeModel,
+                )),
               Positioned(
                 top: 40,
                 left: 10,
                 child: BackArrowWidget(onTap: () {
-                  log('back arrow pressed');
                   viewModel.moveBack();
                 }),
               ),

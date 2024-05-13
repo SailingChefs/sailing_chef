@@ -22,7 +22,7 @@ class UserModel {
   final List<String>? schoolCourses;
 
   UserModel({
-    this.schoolCourses, 
+    this.schoolCourses,
     this.displayName,
     this.recipeCount,
     this.email,
@@ -86,7 +86,6 @@ class UserModel {
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
       blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
-      
     );
   }
 }

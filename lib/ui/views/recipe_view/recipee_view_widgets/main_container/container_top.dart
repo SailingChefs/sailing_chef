@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
   final List<XFile?> selectedImages;
@@ -21,7 +23,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
         children: [
           SizedBox(
             width: double.infinity,
-            height: 250,
+            height: 350,
             child: PageView.builder(
               itemCount: selectedImages.length,
               controller: viewModel.pageController,
@@ -39,12 +41,30 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
                 } else if (media.isImage) {
                   return Image.file(
                     File(media.path),
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                     width: double.infinity,
                   );
                 }
                 return null;
               },
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: MediaQuery.of(context).size.width * 0.42,
+            child: SmoothPageIndicator(
+              controller: viewModel.pageController,
+              count: selectedImages.length,
+              axisDirection: Axis.horizontal,
+              effect: SlideEffect(
+                spacing: 8.0,
+                radius: 4.0,
+                dotWidth: 9.0,
+                dotHeight: 9.0,
+                strokeWidth: 1.5,
+                dotColor: kcWhiteColor.withOpacity(0.5),
+                activeDotColor: kcWhiteColor,
+              ),
             ),
           ),
         ],

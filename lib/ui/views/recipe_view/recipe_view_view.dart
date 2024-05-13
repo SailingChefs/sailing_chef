@@ -27,27 +27,21 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     RecipeViewViewModel viewModel,
     Widget? child,
   ) {
-    Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Stack(children: [
-        TopBarRecipeView(selectedImages),
-        MainRecipeViewContainer(recipeModel, selectedImages),
-        Positioned(
-          top: 40,
-          left: 10,
-          child: BackArrowWidget(onTap: () {
-            viewModel.moveBack();
-          }),
-        ),
-      ]),
-    );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Stack(children: [
-        TopBarRecipeView(selectedImages),
-        MainRecipeViewContainer(recipeModel, selectedImages),
-        verticalSpaceMedium,
-      ]),
+      body: Stack(
+        children: [
+          TopBarRecipeView(selectedImages),
+          MainRecipeViewContainer(recipeModel, selectedImages),
+          Positioned(
+            top: 40,
+            left: 10,
+            child: BackArrowWidget(onTap: () {
+              viewModel.moveBack();
+            }),
+          ),
+        ],
+      ),
     );
   }
 

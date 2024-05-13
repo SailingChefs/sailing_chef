@@ -189,7 +189,7 @@ class ConversationService {
       await conversationsCollection.doc(conversationId).update({
         'latestMessage': message.content,
         'latestMessageTime': FieldValue.serverTimestamp(),
-        'latestMessageType': message.type,
+        'latestMessageType': message.runtimeType,
       });
     } catch (error) {
       log('Error sending message: $error');

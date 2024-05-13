@@ -4,7 +4,7 @@ import 'package:sailing_chefs/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('CoursesSheetModel Tests -', () {
+  group('SuccessDialogModel Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

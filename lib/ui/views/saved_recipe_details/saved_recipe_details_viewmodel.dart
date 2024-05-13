@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -12,13 +13,16 @@ import 'package:path_provider/path_provider.dart';
 // import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -41,12 +45,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   bool isMethodsSelected = false;
   final PageController pageController = PageController();
   final ImagePicker _picker = ImagePicker();
+  final _serviceConversations = locator<ConversationService>();
+  
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
   late final PlayerController playerController;
   late List<double>? waveFormData;
   bool isPlaying = false;
+  bool seeComments = false;
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -63,24 +70,66 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         _savedRecipeService,
       ];
 
-  List<CommentModel> get fetchComment {
-    return commentService.comments;
-  }
-
   void pickImage() async {
     final List<XFile> selectedImages = await _picker.pickMultiImage();
 
     images.addAll(selectedImages.map((xFile) => File(xFile.path)));
     rebuildUi();
   }
+  void seeCommentsAll(){
+    seeComments = !seeComments;
+     notifyListeners();
+    rebuildUi();
+   
+  }
+  String calculateAverageRating(List<CommentModel> comments) {
+  if (comments.isEmpty) {
+    return '0.0'; // Return 0 if there are no comments
+  }
+
+  double totalRating = 0.0;
+
+  // Calculate the total rating
+  for (var comment in comments) {
+    if (comment.rating != null) {
+      totalRating += comment.rating!;
+    }
+  }
+
+  // Calculate the average rating
+  double averageRating = totalRating / comments.length;
+  return averageRating.toStringAsFixed(1);
+}
+Future<void> moveToChatScreen(
+    UserModel chef,
+  ) async {
+    var conversationModel = ConversationModel(
+      latestMessage: '',
+      users: [
+        FirebaseAuth.instance.currentUser!.uid,
+        chef.uid!,
+      ],
+      latestMessageType: 'text',
+      latestMessageTime: DateTime.now(),
+      lastActive: DateTime.now(),
+      uid: "",
+    );
+    String conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
+    log('conversationId: $conversationId');
+    _navigationService.navigateToChatView(
+        receiver: chef, conversationId: conversationId);
+  }
+
 
   void removeImage(int index) {
     images.removeAt(index);
     rebuildUi();
   }
 
-  void addRating(double rating) {
-    this.rating = rating;
+  void addRating(double ratings) {
+    log("Rating $ratings");
+    rating = ratings;
     rebuildUi();
   }
 
@@ -112,13 +161,17 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       images.clear();
       rating = rating;
       rebuildUi();
+      notifyListeners();
       showToast(message: 'Comment Added');
     }
   }
 
   void toRecipeDetails(RecipeModel recipe) {
     _navigationService.replaceWithTransition(
-        SavedRecipeDetailsView(recipeModel: recipe),
+        SavedRecipeDetailsView(
+          recipeModel: recipe,
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe, []),
+        ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);
   }
@@ -196,20 +249,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(true);
 
     waveFormData = recipeModel.waveForm;
-
-    await commentService.clearComments();
     await _savedRecipeService.init();
-    await commentService.getComments(recipeId);
     playerController = PlayerController();
-    log("WaveForm=> $waveFormData \n Path=> path");
     downloadAudio();
-
-    // player = AudioPlayer();
-    // await player.dynamicSet(
-    //   url: recipeModel.chefNote,
-    // );
-    // log((player.cacheFile(url: recipeModel.chefNote)).toString());
-    recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
+    // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);
   }

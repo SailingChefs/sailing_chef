@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
@@ -57,10 +56,11 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                             ],
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               viewModel.isEdit = true;
-                              if(viewModel.isEdit == true){
-                                viewModel.callCourseNameBottomSheett(viewModel.courses[index]);
+                              if (viewModel.isEdit == true) {
+                                viewModel.callCourseNameBottomSheett(
+                                    viewModel.courses[index]);
                               }
                               viewModel.isEdit = false;
                             },
@@ -71,7 +71,14 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                                 color: kcchatboxecolor,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Center(child: Text( 'Edit',style: globalTextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: kcwhitecolor),)),
+                              child: Center(
+                                  child: Text(
+                                'Edit',
+                                style: globalTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: kcwhitecolor),
+                              )),
                             ),
                           )
                         ],

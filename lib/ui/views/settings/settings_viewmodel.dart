@@ -30,6 +30,7 @@ class SettingsViewModel extends BaseViewModel {
   void getEditProfile() {
     _navigationService.navigateToEditProfileView();
   }
+
   void getAllDrafts() {
     //_navigationService.navigateToAllDraftsView();
   }

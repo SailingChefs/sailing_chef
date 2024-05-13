@@ -10,6 +10,7 @@ import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -133,7 +134,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
-        recipeModel: chefRecipes![index]);
+        recipeModel: chefRecipes![index],
+        randomRecipeList:
+            IndexViewModel.getRandomDishes(chefRecipes![index], chefRecipes!));
   }
 
   void showRecipeList() {

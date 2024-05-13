@@ -10,7 +10,7 @@ import 'course_saved_dialog_model.dart';
 class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  
+
   const CourseSavedDialog({
     Key? key,
     required this.request,
@@ -29,7 +29,7 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
       insetPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 110),
       backgroundColor: Colors.white,
       child: Padding(
-        padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 45),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 45),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -52,7 +52,6 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            
           ],
         ),
       ),

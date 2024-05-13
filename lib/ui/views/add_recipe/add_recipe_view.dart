@@ -35,7 +35,7 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                 centerTitle: true,
                 actions: [
                   GestureDetector(
-                    onTap: viewModel.draftRecipe,
+                    onTap: viewModel.showDraftDialog,
                     child: Icon(
                       Icons.file_copy,
                       color: kcPrimaryColor,

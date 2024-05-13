@@ -15,8 +15,7 @@ class SearchBarFollwoing extends ViewModelWidget<FollowingListViewModel> {
             height: 40.dg,
             child: TextField(
               controller: viewModel.searchController,
-              onChanged: (value) =>
-                  viewModel.searchUsers(value, viewModel.followingUsers),
+              onChanged: (value) => viewModel.rebuildUi(),
               textAlign: TextAlign.start,
               decoration: InputDecoration(
                 hintStyle: TextStyle(

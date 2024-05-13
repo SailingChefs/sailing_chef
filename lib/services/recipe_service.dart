@@ -9,7 +9,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -132,15 +134,72 @@ class RecipeService {
           .where('uid', isEqualTo: uid)
           .get();
 
-      UserModel? user = await _userService.fetchUserByUID(uid);
-
-      recipes = snapshot.docs.map((doc) {
+      List<RecipeModel> recipes = [];
+      for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+
+        // Fetch comments for the current recipe
+        QuerySnapshot commentsSnapshot =
+            await doc.reference.collection('comments').get();
+        List<CommentModel> comments = commentsSnapshot.docs
+            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+            .toList();
+        recipe.comment = comments;
+
+        // Fetch user details by UID and assign it to the recipe
+        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
-        return recipe;
-      }).toList();
+
+        recipes.add(recipe);
+      }
+      // UserModel? user = await _userService.fetchUserByUID(uid);
+
+      // recipes = snapshot.docs.map((doc) {
+      //   RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+      //   recipe.user = user;
+      //   return recipe;
+      // }).toList();
 
       return recipes;
+    } catch (e) {
+      log('Error fetching recipes: $e');
+      return [];
+    }
+  }
+
+  Future<List<RecipeModel>> fetchFollowingRecipesByUID() async {
+    try {
+      List<RecipeModel> allRecipes = [];
+
+      for (String uId in userDetails!.following!) {
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('recipes')
+            .where('uid', isEqualTo: uId)
+            .get();
+
+        List<RecipeModel> recipes = [];
+        for (var doc in snapshot.docs) {
+          RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+
+          // Fetch comments for the current recipe
+          QuerySnapshot commentsSnapshot =
+              await doc.reference.collection('comments').get();
+          List<CommentModel> comments = commentsSnapshot.docs
+              .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+              .toList();
+          recipe.comment = comments;
+
+          // Fetch user details by UID and assign it to the recipe
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+
+          recipes.add(recipe);
+        }
+
+        allRecipes.addAll(recipes);
+      }
+
+      return allRecipes;
     } catch (e) {
       log('Error fetching recipes: $e');
       return [];
@@ -150,19 +209,37 @@ class RecipeService {
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
       EasyLoading.show();
+
       // Fetches all documents from the 'recipes' collection
-      QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-           // Exclude documents where 'uid' equals '123456'
+      QuerySnapshot snapshot =
+          await FirebaseFirestore.instance.collection('recipes').where('visibility', isEqualTo: 'Public')
+          .where('status', isEqualTo: 'published')
           .get();
 
       // Maps each DocumentSnapshot to a RecipeModel
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          // recipes.add(recipe);
+        }
+
+        // Fetch comments for the current recipe
+        QuerySnapshot commentsSnapshot =
+            await doc.reference.collection('comments').get();
+        List<CommentModel> comments = commentsSnapshot.docs
+            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+            .toList();
+        recipe.comment = comments;
+
         // Fetch user details by UID and assign it to the recipe
         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
+
         recipes.add(recipe);
       }
 
@@ -175,6 +252,36 @@ class RecipeService {
       return []; // Return an empty list on error
     }
   }
+
+  // Future<List<RecipeModel>> fetchAllRecipes() async {
+  //   try {
+  //     EasyLoading.show();
+  //     // Fetches all documents from the 'recipes' collection
+  //     QuerySnapshot snapshot = await firebasestore
+  //         .collection('recipes')
+  //         // Exclude documents where 'uid' equals '123456'
+  //         .get();
+
+  //     // Maps each DocumentSnapshot to a RecipeModel
+  //     List<RecipeModel> recipes = [];
+  //     for (var doc in snapshot.docs) {
+  //       RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+  //       // Fetch user details by UID and assign it to the recipe
+  //       UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+  //       recipe.user = user;
+  //       recipes.add(recipe);
+  //     }
+
+  //     EasyLoading.dismiss();
+
+  //     return recipes;
+  //   } catch (e) {
+  //     EasyLoading.dismiss();
+  //     log('loggggggggggggggg${recipes.first.comment.toString()}');
+  //     log("Error fetching recipes: $e");
+  //     return []; // Return an empty list on error
+  //   }
+  // }
 
   Future<List<RecipeModel>> fetchRandomRecipes(
       int count, String currentRecipeId) async {
