@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/edit_profile_details.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/profileimage.dart';
@@ -23,7 +25,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
             children: [
               verticalSpaceMedium,
               const TopBarEditProfile('Edit Profile'),
-              verticalSpaceLarge,
+              verticalSpaceMedium,
               const EditProfileImage(),
               verticalSpaceSmall,
               const EditProfileForm(),

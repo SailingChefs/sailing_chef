@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/shimmer_dishes.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
@@ -12,10 +13,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
     final List<RecipeModel> dishes = viewModel.dishes;
 
     return viewModel.dishes.isEmpty
-        ? Text(
-            'No Dish Found',
-            style: Theme.of(context).textTheme.titleMedium,
-          )
+        ? const ShimmerDishes()
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(

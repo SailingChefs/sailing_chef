@@ -1,5 +1,3 @@
 import 'package:stacked/stacked.dart';
 
-class CourseSavedDialogModel extends BaseViewModel {
-
-}
+class CourseSavedDialogModel extends BaseViewModel {}

@@ -6,13 +6,14 @@ class MessageModel {
   final String senderId;
   final DateTime timestamp;
   String type;
-
+  String fileName;
   MessageModel({
     required this.content,
     required this.receiverId,
     required this.senderId,
     required this.timestamp,
     required this.type,
+    required this.fileName,
   });
 
   factory MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -24,6 +25,7 @@ class MessageModel {
       senderId: data['senderId'],
       timestamp: (data['timestamp'] as Timestamp).toDate(),
       type: data['type'],
+      fileName: data['fileName'],
     );
   }
 
@@ -34,6 +36,7 @@ class MessageModel {
       senderId: map['senderId'],
       timestamp: (map['timestamp'] as Timestamp).toDate(),
       type: map['type'],
+      fileName: map['fileName'],
     );
   }
 
@@ -44,6 +47,7 @@ class MessageModel {
       'senderId': senderId,
       'timestamp': Timestamp.fromDate(timestamp),
       'type': type,
+      'fileName': fileName,
     };
   }
 }

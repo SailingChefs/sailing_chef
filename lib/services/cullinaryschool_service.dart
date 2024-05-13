@@ -1,21 +1,63 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sailing_chefs/app/app.locator.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
 import '../ui/common/show_toast.dart';
 
-class CullinaryschoolService {
+class CullinaryschoolService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
   List<UserModel> cullinaryscools = [];
+  List<Course> courses = [];
   bool isInitialized = false;
 
   Future<void> culinaryInit() async {
     cullinaryscools = await _fetchCulinaryDocuments();
+    notifyListeners();
+    
+  }
+
+  void cullinaryCoursesInit(String uid) async {
+    courses = await getCoursesFromDatabase(userId: uid);
+    notifyListeners();
+  }
+
+  Future<void> cullinaryCoursesAdd(Course course) async {
+    log(course.toString());
+    log(courses.toString());
+    if (courses.any((element) => element.id == course.id)) {
+      await _updateCourseToDatabase(course);
+      notifyListeners();
+    } else {
+      await _addCourseToDatabase(course);
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> deleteCullinaryCoursesData(
+    String courseId,
+  ) async {
+    try {
+      await firebasestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
+        'school_courses': FieldValue.arrayRemove([courseId])
+      });
+      showToast(message: 'Course removed successfully');
+      await _deleteCourseFromDatabase(
+          userId: userDetails!.uid!, courseId: courseId);
+      courses.removeWhere((element) => element.id == courseId);
+      notifyListeners();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<List<UserModel>> _fetchCulinaryDocuments() async {
@@ -41,37 +83,49 @@ class CullinaryschoolService {
       }
       return users;
     } catch (error) {
-      EasyLoading.dismiss();
       return users;
     }
   }
 
-  Future<void> addCourseToDatabase({
-    required String userId,
-    required String name,
-    required String link,
-    required String desc,
-    required String numOfDays,
-  }) async {
+  Future<void> _addCourseToDatabase(Course course) async {
     try {
-      DocumentReference courseRef =
-          await FirebaseFirestore.instance.collection('courses').add({
-        'name': name,
-        'link': link,
-        'description': desc,
-        'numOfDays': int.parse(numOfDays),
+      DocumentReference courseRef = await FirebaseFirestore.instance
+          .collection('courses')
+          .add(course.toMap());
+      course.id = courseRef.id;
+      await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(course.id)
+          .update({
+        'id': course.id,
       });
-      String courseId = courseRef.id;
+      courses.add(course);
 
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
-        'school_courses': FieldValue.arrayUnion([courseId]),
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userDetails!.uid)
+          .update({
+        'school_courses': FieldValue.arrayUnion([course.id]),
       });
     } catch (e) {
-      showToast(message: e.toString());
+      log(e.toString());
     }
   }
 
-
+  Future<List<Course>> _updateCourseToDatabase(Course course) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(course.id)
+          .update(course.toMap());
+      courses = courses.map((c) => c.id == course.id ? course : c).toList();
+      notifyListeners();
+      return courses;
+    } catch (e) {
+      log(e.toString());
+      return courses;
+    }
+  }
 
   Future<List<Course>> getCoursesFromDatabase({
     required String userId,
@@ -86,7 +140,8 @@ class CullinaryschoolService {
               .get();
 
       if (querySnapshot.exists) {
-        List<String> courseIds = querySnapshot.data()?['school_courses'].cast<String>() ?? [];
+        List<String> courseIds =
+            querySnapshot.data()?['school_courses'].cast<String>() ?? [];
 
         for (String courseId in courseIds) {
           DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
@@ -107,5 +162,23 @@ class CullinaryschoolService {
     }
 
     return courses;
+  }
+
+  Future<void> _deleteCourseFromDatabase({
+    required String userId,
+    required String courseId,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(courseId)
+          .delete();
+
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'school_courses': FieldValue.arrayRemove([courseId]),
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

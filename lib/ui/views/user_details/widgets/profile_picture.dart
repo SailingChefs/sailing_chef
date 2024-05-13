@@ -16,45 +16,15 @@ class ProfilePictureUserDetailsScreen
                   height: MediaQuery.sizeOf(context).height * 0.12,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        kcPrimaryColor,
-                        kcPrimaryColor,
-                        kcWhiteColor,
-                        kcPrimaryColor,
-                        kcPrimaryColor,
-                        kcPrimaryColor
-                      ],
+                  ),
+                  child: const Center(
+                      child: CircleAvatar(
+                    backgroundColor: kcwhitecolor,
+                    radius: 70,
+                    backgroundImage: AssetImage(
+                      'assets/images/icons/imageicon.png',
                     ),
-                  ),
-                  child: Center(
-                    child: Container(
-                        height: MediaQuery.sizeOf(context).height * 0.11,
-                        width: MediaQuery.sizeOf(context).height * 0.11,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: kcWhiteColor, width: 4.0.w),
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              kcPrimaryColor,
-                              kcPrimaryColor,
-                              kcWhiteColor,
-                              kcPrimaryColor,
-                              kcPrimaryColor,
-                            ],
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.person_outlined,
-                          color: kcWhiteColor,
-                          size: 50.sp,
-                        )),
-                  ),
-                )
+                  )))
               : CircleAvatar(
                   radius: 50,
                   backgroundImage: FileImage(
@@ -65,13 +35,13 @@ class ProfilePictureUserDetailsScreen
             bottom: 0,
             right: 130,
             child: Container(
-              height: 35,
+              height: 30,
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: kcWhiteColor),
               child: IconButton(
                 icon: Icon(
                   FlutterRemix.camera_fill,
-                  size: 20,
+                  size: 15,
                   color: kcBlackColor.withOpacity(0.6),
                 ),
                 onPressed: () {

@@ -50,8 +50,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                 ),
                 verticalSpace(13),
                 Expanded(
-                  child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
                     return CustomScrollView(
                       slivers: [
                         SliverGrid(
@@ -85,7 +85,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                                   ),
                                   margin: const EdgeInsets.all(8),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
                                           child: ClipRRect(
@@ -93,7 +94,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                                           topLeft: Radius.circular(12.r),
                                           topRight: Radius.circular(12.r),
                                         ),
-                                        child: chefList[index].displayPicture == ''
+                                        child: chefList[index].displayPicture ==
+                                                ''
                                             ? Image.asset(
                                                 'assets/images/misc/blank_image.png',
                                                 fit: BoxFit.cover,
@@ -106,8 +108,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                                               ),
                                       )),
                                       Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 13.0.dg, top: 10),
+                                        padding: EdgeInsets.only(
+                                            left: 13.0.dg, top: 10),
                                         child: Text(
                                           capitalizeEachWord(
                                               chefList[index].displayName!),
@@ -126,7 +128,8 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                                           ),
                                           style: TextStyle(
                                             fontSize: 12.sp,
-                                            color: kcBlackColor.withOpacity(0.6),
+                                            color:
+                                                kcBlackColor.withOpacity(0.6),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),

@@ -5,29 +5,29 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:image_picker/image_picker.dart';
-import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class RecipeService {
+class RecipeService with ListenableServiceMixin{
   List<RecipeModel> recipes = [];
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
 
-  Future<void> initialized() async {
+    Future<void> initialized() async {
     recipes = await fetchAllRecipes();
+    notifyListeners();
   }
 
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
-      EasyLoading.show();
       DocumentReference docRef = await FirebaseFirestore.instance
           .collection('recipes')
           .add(recipe.toMap());
@@ -37,12 +37,9 @@ class RecipeService {
       await docRef.update({'doc_id': docId});
       log(docId.toString());
 
-      EasyLoading.dismiss();
-
       showToast(message: 'Recipe added successfully');
       return true;
     } catch (error) {
-      EasyLoading.dismiss();
       showToast(message: 'Error adding recipe to Firestore: $error');
       return false;
     }
@@ -64,7 +61,6 @@ class RecipeService {
   ) async {
     List<String> mediaUrls = [];
     try {
-      EasyLoading.show();
       for (var media in mediaFiles) {
         String fileName;
         String fileExtension;
@@ -88,11 +84,8 @@ class RecipeService {
         log(mediaUrls.toString());
       }
 
-      EasyLoading.dismiss();
-
       return mediaUrls;
     } catch (error) {
-      EasyLoading.dismiss();
       showToast(
           message: 'Error uploading media files to Firebase Storage: $error');
       log('Error uploading media files to Firebase Storage: $error');
@@ -104,7 +97,6 @@ class RecipeService {
     List<String> imageUrls = [];
 
     try {
-      EasyLoading.show();
       for (var image in images) {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
         Reference ref = firebaseStorage.ref().child('images/$fileName');
@@ -114,12 +106,10 @@ class RecipeService {
         imageUrls.add(imageUrl);
       }
 
-      EasyLoading.dismiss();
       showToast(message: 'Images uploaded successfully');
 
       return imageUrls;
     } catch (error) {
-      EasyLoading.dismiss();
       showToast(message: 'Error uploading images to Firebase Storage: $error');
       return [];
     }
@@ -149,11 +139,10 @@ class RecipeService {
 
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
-      EasyLoading.show();
       // Fetches all documents from the 'recipes' collection
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-           // Exclude documents where 'uid' equals '123456'
+          // Exclude documents where 'uid' equals '123456'
           .get();
 
       // Maps each DocumentSnapshot to a RecipeModel
@@ -166,11 +155,8 @@ class RecipeService {
         recipes.add(recipe);
       }
 
-      EasyLoading.dismiss();
-
       return recipes;
     } catch (e) {
-      EasyLoading.dismiss();
       log("Error fetching recipes: $e");
       return []; // Return an empty list on error
     }
@@ -179,8 +165,6 @@ class RecipeService {
   Future<List<RecipeModel>> fetchRandomRecipes(
       int count, String currentRecipeId) async {
     try {
-      EasyLoading.show();
-
       // Attempt to fetch more than you need to improve randomness
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
@@ -212,11 +196,8 @@ class RecipeService {
         recipe.user = user;
       }
 
-      EasyLoading.dismiss();
-
       return randomRecipes;
     } catch (e) {
-      EasyLoading.dismiss();
       log("Error fetching random recipes: $e");
       return [];
     }

@@ -1,9 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
@@ -14,7 +15,9 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
   final String userrole;
-  UserDetailsViewModel(this.userrole);
+  UserDetailsViewModel(
+    this.userrole,
+  );
   final _navigationService = locator<NavigationService>();
   GlobalObjectKey<FormState> formKey = GlobalObjectKey<FormState>(UniqueKey());
   final _userService = locator<UserServices>();
@@ -184,10 +187,88 @@ class UserDetailsViewModel extends BaseViewModel {
   onViewModelReady() async {
     setBusy(true);
     nameController.text = capitalizeEachWord(userDetails!.displayName!);
+    // await getCurrentLocation();
+    // locationController.text = currentPosition!.longitude.toString();
     setBusy(false);
   }
 
   void skipToHome() {
     _navigationService.navigateToIndexView();
   }
+
+  void getBack() {
+    _navigationService.navigateToSignUpView();
+  }
+
+  movetoDropPin() {
+    _navigationService.navigateToPinDropMapView();
+  }
+
+  late bool serviceEnabled;
+  late LocationPermission permission;
+  Position? currentPosition;
+  Future<Position> getCurrentLocation() async {
+    try {
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return Future.error('Location permissions are denied');
+        }
+      }
+
+      currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      log(currentPosition.toString());
+      rebuildUi();
+      return currentPosition!;
+    } catch (e) {
+      log(e.toString());
+      return Future.error(e.toString());
+    }
+  }
+
+  String? longitude;
+  String? latitude;
+
+  void onLocationChanged(Prediction prediction) {
+    locationController.text = prediction.description ?? "";
+    latitude = prediction.lat!.toString();
+    longitude = prediction.lng!.toString();
+  }
+
+  void onLocationItemClicked(Prediction prediction) {
+    onLocationChanged(prediction);
+  }
+
+  // void showPlacePicker(BuildContext context) async {
+  //   try {
+  //     final LocationResult? result = await Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: (context) => PlacePicker(
+  //           apiKey,
+  //           displayLocation:
+  //               LatLng(currentPosition!.latitude, currentPosition!.longitude),
+  //           localizationItem: LocalizationItem(
+  //             unnamedLocation:
+  //                 '${LatLng(currentPosition!.latitude, currentPosition!.longitude)}',
+  //           ),
+  //         ),
+  //       ),
+  //     );
+
+  //     if (result != null) {
+  //       locationController.text = result.country.toString();
+  //     } else {
+  //       showToast(message: 'Failed to get location');
+  //     }
+  //   } catch (e, stackTrace) {
+  //     log('Error in showPlacePicker: $e\n$stackTrace');
+  //     showToast(message: 'Error: $e');
+  //   }
+  // }
 }

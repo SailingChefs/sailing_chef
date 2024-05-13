@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
@@ -18,13 +20,15 @@ class PinDropMapViewModel extends ReactiveViewModel {
   final DialogService _dialogService = locator<DialogService>();
   late bool serviceEnabled;
   late LocationPermission permission;
+  String? mapStyle;
+
   Position? currentPosition;
   bool isClicked = false;
-  late PinnedLocation pinnedLocation;
+  PinnedLocation? pinnedLocation;
   List<String> selectedTabSelections = [];
   List<bool> selections = [];
   final pins = List<PinnedLocation>.empty(growable: true);
-
+  LatLng? value;
   List<String> tagTabSelections = [];
 
   int totalFilters = 0;
@@ -96,29 +100,44 @@ class PinDropMapViewModel extends ReactiveViewModel {
         title: location.latitude.toString(),
       ),
       onTap: () async {
-        final place = await getCityCountry(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude);
+        if (pinnedLocation == null) {
+          final res = await bottomSheetService.showCustomSheet(
+            variant: BottomSheetType.dropPinButtons,
+          );
+          if (res?.data == null || res?.data == false) return;
+          final res2 = await bottomSheetService.showCustomSheet(
+              variant: BottomSheetType.dropPinSheet,
+              data: LatLng(
+                  currentPosition!.latitude, currentPosition!.longitude));
+          if (res?.data == null ||
+              res?.data == false && res2?.data == false ||
+              res2?.data == null) return;
+          return;
+        }
+        final place = await getCityCountry(pinnedLocation!.location.latitude,
+            pinnedLocation!.location.longitude);
 
         List<PinnedLocation> pins =
             await _navigationpinService.getPinsNearUserLocation(
           LatLng(currentPosition!.latitude, currentPosition!.longitude),
         );
-
+        log(pins.toString());
         for (PinnedLocation pinInList in pins) {
+          log("logging the value: ${pinInList.location.latitude == location.latitude.toString()}");
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {
-            final newMarker = createMarker(markerId, location, true);
-            allMarkers[markerId] = newMarker;
+            log("logging: ${isClicked.toString()}");
 
             pinnedLocation = pinInList;
+
             _dialogService.showCustomDialog(
               variant: DialogType.pindropDialoguebox,
               title: place,
               data: pinnedLocation,
             );
-
             notifyListeners();
             rebuildUi();
+            return;
           }
         }
       },
@@ -129,13 +148,19 @@ class PinDropMapViewModel extends ReactiveViewModel {
     return marker;
   }
 
-  void addMarkers(String markerId, LatLng location) {
+  void addMarkers(String markerId, LatLng location,) {
     allMarkers[markerId] = createMarker(markerId, location);
+    
+    notifyListeners();
+    rebuildUi();
   }
 
   void onViewModelReady() async {
     setBusy(true);
     currentPosition = await getCurrentLocation();
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      mapStyle = string;
+    });
     setBusy(false);
   }
 
@@ -154,6 +179,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
         pinnedLocation = pin;
       }
       notifyListeners();
+      rebuildUi();
     } catch (e) {
       log('Error fetching pins: $e');
     }
@@ -225,8 +251,8 @@ class PinDropMapViewModel extends ReactiveViewModel {
         title: location.latitude.toString(),
       ),
       onTap: () async {
-        final place = await getCityCountry(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude);
+        final place = await getCityCountry(pinnedLocation!.location.latitude,
+            pinnedLocation!.location.longitude);
 
         List<PinnedLocation> pins =
             await _navigationpinService.getPinsUsingTags(

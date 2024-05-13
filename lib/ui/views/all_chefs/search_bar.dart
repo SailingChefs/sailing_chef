@@ -1,8 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 
-class SearchBarAllChefsScreen
-    extends ViewModelWidget<AllChefsViewModel> {
+class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
   const SearchBarAllChefsScreen({super.key});
 
   @override
@@ -10,7 +9,6 @@ class SearchBarAllChefsScreen
     return SizedBox(
       height: 40.h,
       child: TextField(
-        
         textAlign: TextAlign.start,
         decoration: InputDecoration(
           hintStyle: TextStyle(
@@ -19,8 +17,8 @@ class SearchBarAllChefsScreen
           ),
           filled: true,
           fillColor: kcPrimaryColor.withOpacity(0.2),
-          labelStyle: TextStyle(
-              fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
+          labelStyle:
+              TextStyle(fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
           labelText: 'Search',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0.r),
@@ -33,8 +31,7 @@ class SearchBarAllChefsScreen
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0.r),
             borderSide: BorderSide(
-                color: kcWhiteColor
-                    .withOpacity(0.2)), // Unfocused border color
+                color: kcWhiteColor.withOpacity(0.2)), // Unfocused border color
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0.r),

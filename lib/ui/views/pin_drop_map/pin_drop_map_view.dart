@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,6 +25,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     return viewModel.isBusy
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 Column(
@@ -37,6 +40,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                       child: GoogleMap(
                         mapType: MapType.normal,
                         mapToolbarEnabled: false,
+                        zoomControlsEnabled: false,
                         onTap: (value) async {
                           final res = await viewModel.bottomSheetService
                               .showCustomSheet(
@@ -52,10 +56,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                           if (res?.data == null ||
                               res?.data == false && res2?.data == false ||
                               res2?.data == null) return;
-                          viewModel.addMarkers(
-                            markerId,
-                            value,
-                          );
+
+                          viewModel.value != value;
                           log(value.toString());
                         },
                         initialCameraPosition: CameraPosition(
@@ -75,6 +77,35 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                       ),
                     ),
                   ],
+                ),
+                Positioned(
+                  bottom: 40,
+                  right: 40,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.addMarkers(
+                            
+                              markerId,
+                              LatLng(viewModel.currentPosition!.latitude,
+                                  viewModel.currentPosition!.longitude));
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/icons/icon_add.svg',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      verticalSpaceMedium,
+                      SvgPicture.asset(
+                        'assets/images/icons/share.svg',
+                        width: 40,
+                        height: 40,
+                      ),
+                      verticalSpaceLarge,
+                    ],
+                  ),
                 ),
                 viewModel.isSelected
                     ? Container()

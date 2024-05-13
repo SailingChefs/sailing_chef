@@ -13,10 +13,18 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     final List<RecipeModel> recipes = viewModel.chefRecipes!;
     return recipes.isEmpty
-        ? Text(
-            'No Dish Found',
-            style: Theme.of(context).textTheme.titleMedium,
-          )
+        ? user.userRole != 'culinarySchool'
+            ? SizedBox(
+                width: 400,
+                height: 300,
+                child: Center(
+                  child: Text('No Dishes Found',
+                      style: globalTextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: kcBlackColor)),
+                ))
+            : Container()
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(

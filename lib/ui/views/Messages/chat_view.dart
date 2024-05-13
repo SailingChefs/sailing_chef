@@ -1,9 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/input_field.dart';
-import 'package:sailing_chefs/ui/views/Messages/widgets/test.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'chat_viewmodel.dart';
 
@@ -21,83 +19,15 @@ class ChatView extends StackedView<ChatViewModel> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: kcBackgroundColor,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          backgroundColor: kcwhitecolor,
+          body: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: BackArrowWidget(
-                  onTap: viewModel.moveBack,
-                ),
-              ),
-              StreamBuilder<List<ConversationModel>>(
-                stream: viewModel.getConversation(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final imageUrl = receiver.displayPicture ??
-                        'assets/images/icons/chef.jpg';
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => const TestClass()));
-                            },
-                            child: Container(
-                              width: 90.w,
-                              height: 90.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(imageUrl),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        verticalSpaceTiny,
-                        Text(
-                          receiver.displayName ?? 'Chef Name',
-                          style: globalTextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: kcBlackColor,
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-              verticalSpaceLarge,
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.63,
-                child: ListView.builder(
-                  itemCount: viewModel.messages.length,
-                  controller: viewModel.scrollController,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return ChatMessage(
-                      viewModel.messages[index],
-                      user: receiver,
-                    );
-                  },
-                ),
-              ),
-              BuildInputFieldChatScreen(
-                  user: receiver, conversationId: conversationId),
+              _MessageListAndAppBar(viewModel, receiver, conversationId),
             ],
+          ),
+          bottomSheet: InputFieldChatScreen(
+            user: receiver,
+            conversationId: conversationId,
           ),
         ),
       ),
@@ -105,95 +35,177 @@ class ChatView extends StackedView<ChatViewModel> {
   }
 
   @override
-  ChatViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
+  void onViewModelReady(ChatViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
+  ChatViewModel viewModelBuilder(BuildContext context) =>
       ChatViewModel(convoId: conversationId);
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:sailing_chefs/model/user_model.dart';
-// import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
-// import 'package:sailing_chefs/ui/views/Messages/widgets/input_field.dart';
-// import 'package:stacked/stacked.dart';
-//
-// import 'chat_viewmodel.dart';
-//
-// class ChatView extends StackedView<ChatViewModel> {
-//   final String conversationId;
-//   final UserModel receiver;
-//
-//   const ChatView(
-//       {required this.receiver, required this.conversationId, super.key});
-//
-//   @override
-//   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
-//     Size size = MediaQuery.of(context).size;
-//     return Scaffold(
-//       bottomSheet: BuildInputFieldChatScreen(
-//           user: receiver, conversationId: conversationId),
-//       body: SizedBox(
-//         height: size.height * 0.9,
-//         child: Stack(
-//           children: [
-//             CustomScrollView(
-//               slivers: [
-//                 const SliverAppBar(
-//                   leadingWidth: 80,
-//                   backgroundColor: Colors.transparent,
-//
-//                   // collapsedHeight: 400,
-//                   flexibleSpace: FlexibleSpaceBar(
-//                     background: Column(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children: [
-//                         CircleAvatar(
-//                           radius: 100,
-//                           backgroundImage: NetworkImage(
-//                               'https://imgv3.fotor.com/images/gallery/cartoon-character-generated-by-Fotor-ai-art-creator.jpg'),
-//                         ),
-//                         Text(
-//                           "Someones's Moon",
-//                           style: TextStyle(fontSize: 25),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//
-//                   expandedHeight: 400,
-//
-//                   // flexibleSpace:
-//                 ),
-//                 SliverList(
-//                     delegate: SliverChildListDelegate([
-//                   //     for()
-//                   // Expanded(
-//                   //   // height: MediaQuery.sizeOf(context).height * 0.5.h,
-//                   //   child: ListView.builder(
-//                   //     itemCount: viewModel.messages.length,
-//                   //     controller: viewModel.scrollController,
-//                   //     physics: const AlwaysScrollableScrollPhysics(),
-//                   //     itemBuilder: (context, index) {
-//                   //       return ChatMessage(
-//                   //         viewModel.messages[index],
-//                   //         user: receiver,
-//                   //       );
-//                   //     },
-//                   //   ),
-//                   // ),
-//                 ]))
-//               ],
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   ChatViewModel viewModelBuilder(
-//     BuildContext context,
-//   ) =>
-//       ChatViewModel(convoId: conversationId);
-// }
+class _MessageListAndAppBar extends StatelessWidget {
+  final ChatViewModel viewModel;
+  final UserModel receiver;
+  final String conversationId;
+
+  const _MessageListAndAppBar(
+    this.viewModel,
+    this.receiver,
+    this.conversationId,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
+            child: SingleChildScrollView(
+              controller: viewModel.scrollController,
+              child: Column(
+                children: [
+                  viewModel.isAtTop
+                      ? _CollapsedAppBar(viewModel, conversationId, receiver)
+                      : _ExpandedAppBar(viewModel, receiver, conversationId),
+                  for (int index = 0;
+                      index < viewModel.messages.length;
+                      index++)
+                    ChatMessage(
+                      viewModel.messages[index],
+                      user: receiver,
+                    ),
+                  verticalSpaceLarge,
+                  verticalSpaceSmall,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// _ExpandedAppBar widget
+class _ExpandedAppBar extends StatelessWidget {
+  final ChatViewModel viewModel;
+  final UserModel receiver;
+  final String conversationId;
+
+  const _ExpandedAppBar(
+    this.viewModel,
+    this.receiver,
+    this.conversationId,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: !viewModel.isAtTop,
+      child: SizedBox(
+        height: 180,
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalSpaceSmall,
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: BackArrowWidget(onTap: () {
+                viewModel.getBack();
+              }),
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 90.w,
+                  height: 90.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(receiver.displayPicture!),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            verticalSpaceTiny,
+            Center(
+              child: Text(
+                receiver.displayName ?? 'Chef Name',
+                style: globalTextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: kcBlackColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// _CollapsedAppBar widget
+class _CollapsedAppBar extends StatelessWidget {
+  final ChatViewModel viewModel;
+
+  const _CollapsedAppBar(this.viewModel, this.conversationId, this.receiver);
+  final String conversationId;
+  final UserModel receiver;
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      maintainState: false,
+      visible: viewModel.isAtTop,
+      child: Container(
+        height: kToolbarHeight,
+        color: kcwhitecolor,
+        width: double.maxFinite,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
+          child: Column(
+            children: [
+              verticalSpaceSmall,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                BackArrowWidget(onTap: () {
+                  viewModel.getBack();
+                }),
+                Text(
+                  receiver.displayName ?? 'Chef Name',
+                  style: globalTextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor,
+                  ),
+                ),
+                Container(
+                  width: 35.w,
+                  height: 35.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(receiver.displayPicture!),
+                    ),
+                  ),
+                ),
+              ]),
+              verticalSpaceSmall,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

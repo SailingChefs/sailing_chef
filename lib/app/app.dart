@@ -65,6 +65,10 @@ import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/pindetails/pindetails_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/rate_experience/rate_experience_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/reviews_all/reviews_all_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -146,6 +150,10 @@ import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
     StackedDialog(classType: DeleteAccountDialog),
     StackedDialog(classType: BlockAccountDialog),
     StackedDialog(classType: CourseSavedDialog),
+    StackedDialog(classType: DeleteconfirmationDialog),
+    StackedDialog(classType: PindetailsDialog),
+    StackedDialog(classType: RateExperienceDialog),
+    StackedDialog(classType: ReviewsAllDialog),
 // @stacked-dialog
   ],
 )

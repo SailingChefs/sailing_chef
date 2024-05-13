@@ -19,18 +19,18 @@ class SignUpView extends StackedView<SignUpViewModel> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: Stack(children: [
-            Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/background/back_screen.png'),
-                      fit: BoxFit.fill)),
-            ),
-            Positioned.fill(
-                child: Container(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image:
+                        AssetImage('assets/images/background/back_screen.png'),
+                    fit: BoxFit.fill)),
+          ),
+          Positioned.fill(
+            child: Container(
               height: screenHeight(context),
               width: screenWidth(context),
               decoration: const BoxDecoration(
@@ -52,7 +52,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         ),
                       ),
                       RoundedElevatedButton(
-                        width: 103.dg,
+                        width: screenWidth(context) * 0.3,
                         height: 34,
                         textFontSize: 14.sp,
                         textFontWeight: FontWeight.w600,
@@ -109,11 +109,14 @@ class SignUpView extends StackedView<SignUpViewModel> {
                               RoundedTransparentTextField(
                                 controller: viewModel.passwordController,
                                 labelText: 'Password',
+                                ispassvisible: viewModel.showPassword,
+                                keyboardType: TextInputType.visiblePassword,
                                 obscureText: !viewModel.showPassword,
                                 suffixIcon: true,
                                 isPasswordVisible: viewModel.showPassword,
                                 onVisibilityToggle: () {
                                   viewModel.passwordVisibility();
+                                  viewModel.showPassword;
                                 },
                                 validator: viewModel.validatePassword,
                               ),
@@ -137,43 +140,12 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       ],
                     ),
                   ),
-
-                  // verticalSpace(MediaQuery.of(context).size.height*0.030),
-                  // const Padding(
-                  //   padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                  //   child: OrDesign(),
-                  // ),
-                  // verticalSpace(MediaQuery.of(context).size.height*0.070),
-                  // GestureDetector(
-                  //   onTap: viewModel.toLogin,
-                  //   child: RichText(
-                  //     text: TextSpan(
-                  //       children: <TextSpan>[
-
-                  //         TextSpan(
-                  //           text: 'login',
-                  //           style: globalTextStyle(
-                  //             color: kcwhitecolor,
-                  //             fontWeight: FontWeight.w600, fontSize: 16.sp,
-                  //           ),
-                  //         ),
-
-                  //         TextSpan(
-                  //           text: ' to existing account',
-                  //           style: globalTextStyle(
-                  //             color: kcwhitecolor,
-                  //             fontWeight: FontWeight.w400, fontSize: 16.sp,
-                  //           ),
-                  //         ),
-
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ]),
               ),
-            )),
-          ])),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 

@@ -49,7 +49,6 @@ class ListViewCulinaryChool
                           ),
                         ),
                       ),
-                     
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Column(
@@ -73,9 +72,9 @@ class ListViewCulinaryChool
                               ),
                             ),
                             Text(
-                              '12 courses',
+                              '${viewModel.cullinary[index].schoolCourses!.length} Courses',
                               style: globalTextStyle(
-                                fontSize: 17.sp,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: kcBlackColor,
                               ),

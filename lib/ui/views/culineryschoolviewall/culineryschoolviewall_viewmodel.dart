@@ -13,12 +13,12 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    await _cullinaryService.culinaryInit();
-    await  getUserLocation();
+    _cullinaryService.culinaryInit();
+    await getUserLocation();
     setBusy(false);
   }
 
-  List<Placemark> ? placemarks;
+  List<Placemark>? placemarks;
 
   getUserLocation() async {
     if (cullinary.first.location?['latitude'] == null) {

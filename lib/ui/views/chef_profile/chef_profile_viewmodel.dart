@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
+import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
@@ -17,6 +19,7 @@ import '../../../core/imports/core_imports.dart';
 class ChefProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
+  final _cullinarySchoolService = locator<CullinaryschoolService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
@@ -30,10 +33,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<String> get followers => _followService.followers;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<Course> get courses => _cullinarySchoolService.courses;
   bool isFollowing = false;
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_followService];
+  List<RecipeModel>? myRecipes;
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -55,7 +60,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _followService.init(user.uid!, false);
     await _followService.init(user.uid!, false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
-    await _savedRecipeService.init();
+     _savedRecipeService.init();
+    _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
+    log(courses.length.toString());
     setBusy(false);
   }
 

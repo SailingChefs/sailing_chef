@@ -12,16 +12,17 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? postfixIcon;
 
-  const SemiRoundedTranpaentTextFieldBio(
-      {super.key,
-      this.validator,
-      this.keyboardType,
-      this.inputFormatters,
-      this.readOnly = false,
-      this.controller,
-      required this.labelText,
-      this.prefixIcon,
-      this.postfixIcon});
+  const SemiRoundedTranpaentTextFieldBio({
+    super.key,
+    this.validator,
+    this.keyboardType,
+    this.inputFormatters,
+    this.readOnly = false,
+    this.controller,
+    required this.labelText,
+    this.prefixIcon,
+    this.postfixIcon,
+  });
 
   @override
   Widget build(BuildContext context) {

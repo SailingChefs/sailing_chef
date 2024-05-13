@@ -9,7 +9,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
     double screenHeight = MediaQuery.sizeOf(context).height;
-    return viewModel.cullinary.isEmpty
+    return viewModel.cullinary!.isEmpty
         ? Text(
             'No Cullinary School Found',
             style: Theme.of(context).textTheme.titleMedium,
@@ -43,14 +43,14 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.cullinary.length,
+                  itemCount: viewModel.cullinary!.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final cullinaruschools = viewModel.cullinary[index];
+                    final cullinaruschools = viewModel.cullinary![index];
                     return GestureDetector(
                       onTap: () {
-                        // viewModel.toChefProfile(chef);
+                        viewModel.toChefProfile(cullinaruschools);
                       },
                       child: Container(
                         width: 160.w,

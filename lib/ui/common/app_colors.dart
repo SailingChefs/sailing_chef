@@ -21,6 +21,10 @@ const Color ontop = Color.fromARGB(30, 93, 109, 1);
 const Color kcwhitecolor = Color(0xFFFFFFFF);
 const Color kcchatboxecolor = Color(0xFFC2D2BE);
 const Color kcbuttoncolor = Color(0xFF427536);
+const Color kcallertcolor = Color(0xFFDA1B1B);
+const Color kcwhitelight = Color(0xFFC4C4C4);
+const Color editTextColor = Color(0xFF1F1F1F);
+const Color editIconColor = Color(0xFF636363);
 
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,
