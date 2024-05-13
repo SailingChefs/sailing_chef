@@ -1,20 +1,31 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 
 class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
-  const SearchBarAllChefsScreen({super.key});
+  final List<UserModel> chefs;
+  const SearchBarAllChefsScreen({super.key, required this.chefs});
 
   @override
   Widget build(BuildContext context, AllChefsViewModel viewModel) {
     return SizedBox(
       height: 40.h,
       child: TextField(
+        controller: viewModel.searchController,
+        onChanged: (value) => viewModel.rebuildUi(),
         textAlign: TextAlign.start,
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: kcBlackColor.withOpacity(0.6),
             fontSize: 12.sp,
           ),
+          suffixIcon: IconButton(
+              icon: const Icon(
+                FlutterRemix.arrow_drop_right_line,
+              ),
+              onPressed: () {
+                // viewModel.searchUsers();
+              }),
           filled: true,
           fillColor: kcPrimaryColor.withOpacity(0.2),
           labelStyle:
@@ -49,10 +60,13 @@ class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
             vertical: 10.0,
             horizontal: 20.0,
           ),
-          prefixIcon: Icon(
-            FlutterRemix.search_line,
-            color: kcBlackColor.withOpacity(0.6),
-            size: 20,
+          prefixIcon: GestureDetector(
+            onTap: () => viewModel.searchUsers(chefs),
+            child: Icon(
+              FlutterRemix.search_line,
+              color: kcBlackColor.withOpacity(0.6),
+              size: 20,
+            ),
           ),
         ),
       ),

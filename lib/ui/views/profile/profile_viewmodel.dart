@@ -13,6 +13,7 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
@@ -128,11 +129,21 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToAddRecipeView(isFromProfileView: true);
   }
 
-  void toDishDetailsScreen(index) {
+  void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: myRecipes![index],
+      recipeModel: recipeModel,
+      randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes!),
     );
   }
+
+  // void toDishDetailsScreen(index) {
+  //   log('index is $index');
+  //   log('myRecipes is ${myRecipes![index]}');
+  //   _navigationService.navigateToSavedRecipeDetailsView(
+  //     recipeModel: myRecipes![index],
+  //     recipeList: IndexViewModel.getRandomDishes(myRecipes![index], myRecipes!),
+  //   );
+  // }
 
   void callCourseNameBottomSheet() {
     bottomsheetService.showCustomSheet(

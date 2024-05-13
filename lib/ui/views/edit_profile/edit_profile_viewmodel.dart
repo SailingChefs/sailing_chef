@@ -33,7 +33,7 @@ class EditProfileViewModel extends BaseViewModel {
     emailController.text = userDetails!.email!;
     linkController.text = userDetails!.link!;
     bioController.text = userDetails!.bio!;
-    boatController.text = userDetails!.boatName!;
+    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
     await getUserLocation();
     log(placemarks!.first.locality.toString());
     location.text = placemarks!.first.locality.toString();
@@ -115,7 +115,7 @@ class EditProfileViewModel extends BaseViewModel {
         'display_name': name,
         'email': email,
         'link': link,
-        'location': placemarks,
+        'location': userDetails!.location,
         'bio': bio,
         'boat_name': boatName,
       };

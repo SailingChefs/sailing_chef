@@ -123,6 +123,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
         );
         log(pins.toString());
         for (PinnedLocation pinInList in pins) {
+          // ignore: unrelated_type_equality_checks
           log("logging the value: ${pinInList.location.latitude == location.latitude.toString()}");
           if (pinInList.location.latitude == location.latitude &&
               pinInList.location.longitude == location.longitude) {

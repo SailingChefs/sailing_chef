@@ -11,7 +11,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
   final String userRole;
   @override
   Widget build(BuildContext context, UserDetailsViewModel viewModel) {
-    bool islocationempty = false;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -262,9 +261,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
               if (viewModel.formKey.currentState!.validate()) {
                 if (viewModel.locationController.text.isEmpty) {
                   log('location empty');
-                  islocationempty = false;
                 } else {
-                  islocationempty = true;
                 }
                 viewModel.saveUserDetails();
               }

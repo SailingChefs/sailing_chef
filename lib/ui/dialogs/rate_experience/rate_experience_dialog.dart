@@ -61,7 +61,7 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
               RatingBar.builder(
                 direction: Axis.horizontal,
                 allowHalfRating: true,
-                initialRating: viewModel.ratings!,
+                initialRating: viewModel.ratings,
                 itemSize: 30,
                 itemCount: 5,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),

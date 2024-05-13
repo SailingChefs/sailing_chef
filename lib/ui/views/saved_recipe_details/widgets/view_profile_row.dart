@@ -34,14 +34,10 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         ),
       ),
       OutlinedButton(
-        onPressed: () => viewModel.moveToChefProfileView(user),
-        child: const Text(
-          'View',
-          style: TextStyle(
-            color: kcPrimaryColor,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
+        onPressed: () => viewModel.moveToChatScreen(user),
+        child: const Icon(
+         Icons.message_outlined,
+          color: kcPrimaryColor,
         ),
       )
     ]);

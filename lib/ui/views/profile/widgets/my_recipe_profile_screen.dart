@@ -31,13 +31,14 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes![index].docId,
-                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          onTap: () => viewModel.toDishDetailsScreen(
+                              index, viewModel.myRecipes![index]),
                           foodImagePath: viewModel.myRecipes![index].coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
                           dishName: viewModel.myRecipes![index].title,
                           duration: viewModel.myRecipes![index].prepTime,
-                          chefImagePath:
+                          chefImagePath:viewModel.myRecipes![index].user!.displayPicture == null ? '':
                               viewModel.myRecipes![index].user!.displayPicture!,
                         );
                       },

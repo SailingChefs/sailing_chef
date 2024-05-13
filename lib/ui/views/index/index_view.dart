@@ -4,7 +4,6 @@ import 'package:sailing_chefs/ui/views/index/widgets/culinaryschooldlist.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/dish_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_chef.dart';
-import 'package:sailing_chefs/ui/views/index/widgets/shimmer_loader.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 
@@ -43,6 +42,14 @@ class IndexView extends StackedView<IndexViewModel> {
                       verticalSpace(10),
                       const DishListIndexScreen(),
                       verticalSpaceMedium,
+                      Center(
+                          child: TextButton(
+                              onPressed: viewModel.toAllRecipesView,
+                              child: Text(
+                                'View All Recipes',
+                                style: globalTextStyle(
+                                    fontSize: 14, color: kcPrimaryColor),
+                              )))
                     ],
                   ),
                 ),

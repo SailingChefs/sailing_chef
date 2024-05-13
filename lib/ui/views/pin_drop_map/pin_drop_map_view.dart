@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'dart:developer';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:uuid/uuid.dart';
@@ -21,7 +20,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     PinDropMapViewModel viewModel,
     Widget? child,
   ) {
-    String markerId = Uuid().v4();
+    String markerId = const Uuid().v4();
     return viewModel.isBusy
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(

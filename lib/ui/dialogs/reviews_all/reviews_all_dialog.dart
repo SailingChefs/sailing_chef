@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
@@ -9,7 +8,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'reviews_all_dialog_model.dart';
 
-const double _graphicSize = 60;
 
 class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
   final DialogRequest request;
@@ -113,26 +111,28 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       left: 26.0, right: 5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
-                                        size: 15,
-                                        color: kclightgreencolor,
-                                      ),
-                                      horizontalSpaceSmall,
-                                      Text(
-                                        viewModel.reviews[index].rating
-                                            .toString(),
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
+                                  child: FittedBox(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          size: 15,
+                                          color: kclightgreencolor,
                                         ),
-                                      ),
-                                    ],
+                                        horizontalSpaceSmall,
+                                        Text(
+                                          viewModel.reviews[index].rating
+                                              .toString(),
+                                          style: globalTextStyle(
+                                            color: kcBlackColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

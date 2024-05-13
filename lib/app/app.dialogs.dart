@@ -17,6 +17,7 @@ import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import '../ui/dialogs/rate_experience/rate_experience_dialog.dart';
 import '../ui/dialogs/reviews_all/reviews_all_dialog.dart';
 import '../ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
+import '../ui/dialogs/success/success_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -25,6 +26,7 @@ enum DialogType {
   deleteAccount,
   blockAccount,
   courseSaved,
+  success,
   deleteconfirmation,
   pindetails,
   rateExperience,
@@ -55,6 +57,8 @@ void setupDialogUi() {
         RateExperienceDialog(request: request, completer: completer),
     DialogType.reviewsAll: (context, request, completer) =>
         ReviewsAllDialog(request: request, completer: completer),
+    DialogType.success: (context, request, completer) =>
+        SuccessDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

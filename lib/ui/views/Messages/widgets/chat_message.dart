@@ -86,17 +86,17 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
                               topLeft: isCurrentUser
-                                  ? Radius.circular(20)
-                                  : Radius.circular(0),
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
                               bottomLeft: isCurrentUser
-                                  ? Radius.circular(20)
-                                  : Radius.circular(0),
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
                               topRight: !isCurrentUser
-                                  ? Radius.circular(20)
-                                  : Radius.circular(0),
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
                               bottomRight: !isCurrentUser
-                                  ? Radius.circular(20)
-                                  : Radius.circular(0)),
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0)),
                           child: Image.network(
                             message.content,
                             width: 120.0,

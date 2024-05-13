@@ -51,33 +51,38 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                               ),
                             ),
                             title: Text(
-                                viewModel.followersUsers[index].displayName!),
-                            trailing: SizedBox(
-                              width: 80.w,
-                              height: 34.h,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  )),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          kcPrimaryColor),
-                                ),
-                                onPressed: () {
-                                  viewModel.deleteFollower(
-                                      viewModel.followersUsers[index]);
-                                },
-                                child: Text(
-                                  'Remove',
-                                  style: TextStyle(
-                                      color: kcwhitecolor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
+                                viewModel.followersUsers[index].displayName!,
+                                style: globalTextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: kcBlackColor,
+                                )),
+                            // trailing: SizedBox(
+                            //   width: 80.w,
+                            //   height: 34.h,
+                            //   child: TextButton(
+                            //     style: ButtonStyle(
+                            //       shape: MaterialStatePropertyAll(
+                            //           RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       )),
+                            //       backgroundColor:
+                            //           MaterialStateProperty.all<Color>(
+                            //               kcPrimaryColor),
+                            //     ),
+                            //     onPressed: () {
+                            //       viewModel.deleteFollower(
+                            //           viewModel.followersUsers[index]);
+                            //     },
+                            //     child: Text(
+                            //       'Remove',
+                            //       style: TextStyle(
+                            //           color: kcwhitecolor,
+                            //           fontSize: 14.sp,
+                            //           fontWeight: FontWeight.w500),
+                            //     ),
+                            //   ),
+                            // ),
                           );
                         },
                       ),

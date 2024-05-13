@@ -26,13 +26,14 @@ class SaveDraftAlertboxDialog
     SaveDraftAlertboxDialogModel viewModel,
     Widget? child,
   ) {
-    final RecipeModel recipe = request!.data['recipe'];
+    final RecipeModel recipe = request!.data['model'];
     final images = request!.data['images'];
+    final path = request!.data['path'];
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      backgroundColor: kcWhiteColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -57,7 +58,7 @@ class SaveDraftAlertboxDialog
                         children: [
                           TextButton(
                             onPressed: () {
-                              viewModel.yesButton(recipe, images);
+                              viewModel.yesButton(recipe, images , path);
                             },
                             child: const Text(
                               'Yes',
@@ -69,7 +70,10 @@ class SaveDraftAlertboxDialog
                             ),
                           ),
                           TextButton(
-                            onPressed: viewModel.noButton,
+                            onPressed: () {
+                              viewModel.noButton(recipe, images , path);
+                              // completer!(DialogResponse(confirmed: true));
+                            },
                             child: Text(
                               'No',
                               style: const TextStyle(
@@ -81,18 +85,6 @@ class SaveDraftAlertboxDialog
                           ),
                         ],
                       ),
-                      if (request!.description != null) ...[
-                        verticalSpaceTiny,
-                        Text(
-                          request!.description!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: kcMediumGrey,
-                          ),
-                          maxLines: 3,
-                          softWrap: true,
-                        ),
-                      ],
                     ],
                   ),
                 ),

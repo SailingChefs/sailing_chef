@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 import 'package:shimmer/shimmer.dart';

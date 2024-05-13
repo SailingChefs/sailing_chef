@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
@@ -52,7 +51,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                               media,
                               height: 210,
                               width: 400,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                           );
                         },

@@ -42,7 +42,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               .first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
-                          chefImagePath: dishes[index].user!.displayPicture!,
+                          chefImagePath: dishes[index].user!.displayPicture ==null ? '' : dishes[index].user!.displayPicture!,
                         );
                       },
                       childCount: dishes.length,

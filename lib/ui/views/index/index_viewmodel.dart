@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -30,6 +32,21 @@ class IndexViewModel extends BaseViewModel {
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
+  }
+
+  static List<RecipeModel> getRandomDishes(
+      RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
+    // Create a copy of allRecipes
+    List<RecipeModel> dishes = List.from(allRecipes);
+    // Remove the current recipe from the list
+    dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
+
+    // Shuffle the list
+    dishes.shuffle();
+    log(dishes.length.toString());
+
+    // Take the first 5 elements if there are more than 5 dishes, otherwise return all dishes
+    return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
   void onViewModelReady() async {
@@ -66,6 +83,10 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  void toAllRecipesView() {
+    _navigationService.navigateToExploreAllRecipesView();
+  }
+
   void toChefProfile(UserModel chef) {
     if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
       _navigationService.navigateToChefProfileView(user: chef);
@@ -79,6 +100,7 @@ class IndexViewModel extends BaseViewModel {
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: dishes[index],
+      randomRecipeList: getRandomDishes(dishes[index], dishes),
     );
   }
 

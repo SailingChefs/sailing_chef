@@ -165,7 +165,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0.r),
-                  child: Image.network(
+                  child: chefImagePath.isEmpty ? Image.asset( 'assets/images/misc/blank_image.png',fit: BoxFit.contain, height: 32.h,
+                    width: 32.w,) : Image.network(
                     chefImagePath,
                     height: 32.h,
                     width: 32.w,

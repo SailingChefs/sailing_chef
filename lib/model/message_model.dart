@@ -8,6 +8,7 @@ class MessageModel {
   String type;
   String fileName;
   MessageModel({
+
     required this.content,
     required this.receiverId,
     required this.senderId,
@@ -21,6 +22,7 @@ class MessageModel {
 
     return MessageModel(
       content: data['content'],
+
       receiverId: data['receiverId'],
       senderId: data['senderId'],
       timestamp: (data['timestamp'] as Timestamp).toDate(),
@@ -31,6 +33,7 @@ class MessageModel {
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
+  
       content: map['content'],
       receiverId: map['receiverId'],
       senderId: map['senderId'],

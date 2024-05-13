@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -92,6 +91,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
       maxHeight: 500,
       maxWidth: 500,
     );
+    // ignore: unnecessary_null_comparison
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
       imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);

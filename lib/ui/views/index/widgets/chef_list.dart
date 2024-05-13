@@ -9,7 +9,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
     double screenHeight = MediaQuery.sizeOf(context).height;
-    return viewModel.chefList!.isEmpty
+    return viewModel.chefList.isEmpty
         ? Text(
             'No Chef Found',
             style: Theme.of(context).textTheme.titleMedium,
@@ -43,11 +43,11 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.chefList!.length,
+                  itemCount: viewModel.chefList.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final chef = viewModel.chefList![index];
+                    final chef = viewModel.chefList[index];
                     return GestureDetector(
                       onTap: () {
                         viewModel.toChefProfile(chef);

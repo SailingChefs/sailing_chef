@@ -53,7 +53,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                               .first,
                           dishName: recipes[index].title,
                           duration: recipes[index].prepTime,
-                          chefImagePath: user.displayPicture!,
+                          chefImagePath: user.displayPicture == null ? '' : user.displayPicture!,
                         );
                       },
                       childCount: recipes.length,

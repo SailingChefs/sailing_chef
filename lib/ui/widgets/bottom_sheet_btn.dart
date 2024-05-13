@@ -29,7 +29,7 @@ class SaveRecipeButton extends StatelessWidget {
         width: double.infinity,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: kcPrimaryColor,
+            backgroundColor: kcPrimaryColorDark,
           ),
           onPressed: onPressed,
           child: Row(
