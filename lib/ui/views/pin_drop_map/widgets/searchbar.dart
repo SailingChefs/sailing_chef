@@ -80,7 +80,7 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(pins[index].picture),
+                    image: NetworkImage(pins[index].picture.first),
                     fit: BoxFit.cover,
                   ),
                 ),

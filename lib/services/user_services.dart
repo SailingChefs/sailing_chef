@@ -56,11 +56,10 @@ class UserServices with ListenableServiceMixin {
         EasyLoading.dismiss();
         showToast(message: 'User Data fetched successfully');
 
-        currentUserDetails = UserModel.fromSnapshot(userDoc);
-        notifyListeners();
+        UserModel.fromSnapshot(userDoc);
 
-        return currentUserDetails ?? UserModel();
-        // return UserModel.fromSnapshot(userDoc);
+        // return  UserModel();
+        return UserModel.fromSnapshot(userDoc);
       } else {
         EasyLoading.dismiss();
         throw Exception("User not found in Firestore");

@@ -71,7 +71,16 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   ),
                 ),
               )
-            : const Center(child: Text('No saved recipes'))
+            : SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Center(
+                    child: Text(
+                  'Save your favorite recipes for later',
+                  style: globalTextStyle(
+                      color: kcPrimaryColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                )))
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -93,7 +102,8 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: savedRecipes[index].recipeId,
-                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          onTap: () => viewModel.toDishDetailsScreen(
+                              index, savedRecipes[index].recipeModel!),
                           foodImagePath: savedRecipes[index]
                               .recipeModel!
                               .coverImage
@@ -102,6 +112,9 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           dishName: savedRecipes[index].recipeModel!.title,
                           duration: savedRecipes[index].recipeModel!.prepTime,
                           chefImagePath: savedRecipes[index]
+                              .recipeModel!
+                              .user!
+                              .displayPicture == null ? '' : savedRecipes[index]
                               .recipeModel!
                               .user!
                               .displayPicture!,

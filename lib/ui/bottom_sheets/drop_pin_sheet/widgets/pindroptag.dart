@@ -16,7 +16,7 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {
     return SizedBox(
       width: 400,
-      height: viewModel.isTagsVisible == true ? 405 : 65,
+      height: viewModel.isTagsVisible == true ? 418 : 65,
       child: Column(
         children: [
           GestureDetector(
@@ -62,9 +62,9 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
           ),
           const Divider(),
           Container(
-            height: viewModel.isTagsVisible == true ? 340 : 0,
-            width: viewModel.isTagsVisible == true ? 398 : 0,
-            padding: const EdgeInsets.all(10.0),
+            height: viewModel.isTagsVisible == true ? 330 : 0,
+            width: viewModel.isTagsVisible == true ? 400 : 0,
+            padding: const EdgeInsets.all(6.0),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),

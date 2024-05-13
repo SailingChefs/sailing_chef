@@ -48,7 +48,7 @@ class RoundedElevatedButton extends StatelessWidget {
         ),
         backgroundColor: buttonColor ?? kcWhiteColor,
         disabledBackgroundColor: kcPrimaryColor.withOpacity(0.2),
-        fixedSize: Size(width ?? 102.w, height ?? 34.h),
+        fixedSize: Size(width ?? 107.w, height ?? 34.h),
       ),
       child: Padding(
         padding: EdgeInsets.all(2.0.dg),

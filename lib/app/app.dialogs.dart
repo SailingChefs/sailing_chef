@@ -10,9 +10,14 @@ import 'app.locator.dart';
 import '../ui/dialogs/block_account/block_account_dialog.dart';
 import '../ui/dialogs/course_saved/course_saved_dialog.dart';
 import '../ui/dialogs/delete_account/delete_account_dialog.dart';
+import '../ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
+import '../ui/dialogs/pindetails/pindetails_dialog.dart';
 import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
+import '../ui/dialogs/rate_experience/rate_experience_dialog.dart';
+import '../ui/dialogs/reviews_all/reviews_all_dialog.dart';
 import '../ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
+import '../ui/dialogs/success/success_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -21,6 +26,11 @@ enum DialogType {
   deleteAccount,
   blockAccount,
   courseSaved,
+  success,
+  deleteconfirmation,
+  pindetails,
+  rateExperience,
+  reviewsAll,
 }
 
 void setupDialogUi() {
@@ -39,6 +49,16 @@ void setupDialogUi() {
         BlockAccountDialog(request: request, completer: completer),
     DialogType.courseSaved: (context, request, completer) =>
         CourseSavedDialog(request: request, completer: completer),
+    DialogType.deleteconfirmation: (context, request, completer) =>
+        DeleteconfirmationDialog(request: request, completer: completer),
+    DialogType.pindetails: (context, request, completer) =>
+        PindetailsDialog(request: request, completer: completer),
+    DialogType.rateExperience: (context, request, completer) =>
+        RateExperienceDialog(request: request, completer: completer),
+    DialogType.reviewsAll: (context, request, completer) =>
+        ReviewsAllDialog(request: request, completer: completer),
+    DialogType.success: (context, request, completer) =>
+        SuccessDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

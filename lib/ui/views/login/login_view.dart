@@ -57,7 +57,7 @@ class LoginView extends StackedView<LoginViewModel> {
                         buttonText: 'sign up',
                         textColor: kclightgreencolor,
                         buttonColor: kcWhiteColor,
-                        width: 103.dg,
+                        width: screenWidth(context) * 0.3,
                         height: 34,
                         textFontSize: 14.sp,
                         textFontWeight: FontWeight.w600,
@@ -96,14 +96,17 @@ class LoginView extends StackedView<LoginViewModel> {
                             MediaQuery.of(context).size.height * 0.027),
                         RoundedTransparentTextField(
                           controller: viewModel.passwordController,
-                          labelText: 'password',
+                          labelText: 'Password',
+                          ispassvisible: viewModel.showPassword,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: !viewModel.showPassword,
                           suffixIcon: true,
-                          validator: viewModel.validatePassword,
+                          isPasswordVisible: viewModel.showPassword,
                           onVisibilityToggle: () {
                             viewModel.passwordVisibility();
+                            viewModel.showPassword;
                           },
+                          validator: viewModel.validatePassword,
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.014),

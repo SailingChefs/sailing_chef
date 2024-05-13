@@ -2,7 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet_model.dart';
 
 class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
-  const CoursesButtons({super.key});
+  final Function(SheetResponse response)? completer;
+  const CoursesButtons({super.key, this.completer});
 
   @override
   Widget build(BuildContext context, CoursesSheetModel viewModel) {
@@ -17,8 +18,8 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
                 borderRadius: BorderRadius.circular(30), color: kcPrimaryColor),
             child: TextButton(
               onPressed: () {
+                completer!(SheetResponse(confirmed: true));
                 viewModel.saveCourse();
-                // completer!(SheetResponse(data: true));
               },
               child: Text(
                 'Submit for review',

@@ -5,15 +5,17 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class RoundedTransparentTextField extends StatelessWidget {
   final TextEditingController? controller;
-  final String labelText;
+  final String? labelText;
   final bool obscureText;
   final bool? suffixIcon;
   final bool? prefixIcon;
-  final Icon? suffixIconData;
-  final Icon? prefixIconData;
+  final IconData? suffixIconData;
+  final IconData? prefixIconData;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
+  final int? maxLength;
+  final int? maxLines;
   final Color? textColor;
   final Function(String)? onChanged;
   final Function()? onVisibilityToggle;
@@ -22,12 +24,14 @@ class RoundedTransparentTextField extends StatelessWidget {
   final bool? readOnly;
   final List<TextInputFormatter>? inputFormatters;
   final Color? borderColor;
+  final double? size;
+  final bool? ispassvisible;
 
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
     this.readOnly = false,
-    required this.labelText,
+    this.labelText,
     this.keyboardType,
     this.obscureText = false,
     this.suffixIcon = false,
@@ -43,17 +47,40 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.suffixIconData,
     this.prefixIconData,
     this.borderColor,
+    this.maxLength,
+    this.maxLines,
+    this.size,
+    this.ispassvisible,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Will print error messages to the console.
+    String close = 'assets/images/icons/eye_button_close.png';
+    Widget closeEye = Image.asset(
+      close,
+      color: kcWhiteColor,
+      width: 2.w,
+      height: 6.h,
+    );
+    String open = 'assets/images/icons/eye_button.png';
+    Widget openEye = Image.asset(
+      open,
+      color: kcWhiteColor,
+      width: 2.w,
+      height: 6.h,
+    );
     return TextFormField(
       readOnly: readOnly!,
+      cursorColor: kcPrimaryColor,
+      showCursor: true,
       onChanged: onChanged,
       obscureText: obscureText,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       controller: controller,
+      maxLength: maxLength,
+      maxLines: maxLines ?? 1,
       validator: validator,
       style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
@@ -91,15 +118,20 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
-          horizontal: 20.0,
+          horizontal: 15.0,
         ),
-        prefix: prefixIconData,
-        suffix: suffixIconData,
+        prefixIcon: prefixIcon == true
+            ? Icon(
+                prefixIconData,
+                color: editIconColor,
+                size: size ?? 16,
+              )
+            : null,
         suffixIcon: suffixIcon == false
             ? null
             : GestureDetector(
                 onTap: onVisibilityToggle,
-                child: Image.asset('assets/images/icons/eye_button.png')),
+                child: ispassvisible == true ? openEye : closeEye),
       ),
     );
   }

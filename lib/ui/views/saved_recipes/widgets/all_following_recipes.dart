@@ -8,12 +8,12 @@ class FollowingSavedRecipesScreen
 
   @override
   Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
-    return viewModel.followingRecipes.isEmpty
+    return viewModel.followingRecipes!.isEmpty
         ? const Center(child: Text('No Following Saved Recipe Found'))
         : SizedBox(
             height: 500.h,
             child: GridView.builder(
-              itemCount: viewModel.followingRecipes.length,
+              itemCount: viewModel.followingRecipes!.length,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -23,18 +23,16 @@ class FollowingSavedRecipesScreen
               ),
               itemBuilder: (BuildContext context, int index) {
                 return PrimaryGridTile(
-                    savedRecipeList: viewModel.followingRecipes,
-                    recipeId: viewModel.followingRecipes[index].recipeId,
+                    savedRecipeList: viewModel.savedRecipes,
+                    recipeId: viewModel.followingRecipes![index].docId,
                     onTap: () => viewModel.toDishDetailsScreen(
-                        viewModel.followingRecipes[index].recipeModel!),
-                    foodImagePath: viewModel
-                        .followingRecipes[index].recipeModel!.coverImage.first,
-                    dishName:
-                        viewModel.followingRecipes[index].recipeModel!.title,
-                    duration:
-                        viewModel.followingRecipes[index].recipeModel!.prepTime,
-                    chefImagePath: viewModel.followingRecipes[index]
-                        .recipeModel!.user!.displayPicture!);
+                        viewModel.followingRecipes![index]),
+                    foodImagePath:
+                        viewModel.followingRecipes![index].coverImage.first,
+                    dishName: viewModel.followingRecipes![index].title,
+                    duration: viewModel.followingRecipes![index].prepTime,
+                    chefImagePath: viewModel
+                        .followingRecipes![index].user!.displayPicture!);
               },
             ),
           );

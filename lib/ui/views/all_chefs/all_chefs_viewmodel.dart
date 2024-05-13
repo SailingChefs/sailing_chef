@@ -1,21 +1,25 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/chef_service.dart';
 
 import '../../../model/user_model.dart';
 
 class AllChefsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final _chefService = locator<ChefService>();
+  TextEditingController searchController = TextEditingController();
 
-  List<UserModel> chefList = [];
+  Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
+    log("came to search func");
+    log("Searched query --------->  ${searchController.text}");
+    log("total cheffs --------->  ${chefs.length}");
 
-  Future<void> fetchChefs() async {
-    try {
-      chefList = await _chefService.fetchChefDocuments();
-      setBusy(false);
-    } catch (error) {
-      setError(error.toString());
-      setBusy(false);
+    for (var user in chefs) {
+      if (user.displayName!
+          .toLowerCase()
+          .contains(searchController.text.toLowerCase())) {
+        log("Searched Cheff --------->  ${user.displayName!.toLowerCase()}");
+        yield user;
+      }
     }
   }
 

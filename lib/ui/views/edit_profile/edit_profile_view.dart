@@ -23,7 +23,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
             children: [
               verticalSpaceMedium,
               const TopBarEditProfile('Edit Profile'),
-              verticalSpaceLarge,
+              verticalSpaceMedium,
               const EditProfileImage(),
               verticalSpaceSmall,
               const EditProfileForm(),

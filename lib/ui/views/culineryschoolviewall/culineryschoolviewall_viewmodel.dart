@@ -14,19 +14,30 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     await _cullinaryService.culinaryInit();
-    await  getUserLocation();
+    await getUserLocation();
     setBusy(false);
   }
 
-  List<Placemark> ? placemarks;
+  toUserDetails(UserModel user) {
+    _navigationService.navigateToChefProfileView(
+        user: user, preventDuplicates: false);
+  }
 
-  getUserLocation() async {
-    if (cullinary.first.location?['latitude'] == null) {
-      return '';
+  List<Placemark> placemarks = [];
+
+  Future<void> getUserLocation() async {
+    for (var cullinary in cullinary) {
+      if (cullinary.location?['latitude'] == null ||
+          cullinary.location?['longitude'] == null) {
+        placemarks.add(const Placemark()); // Add an empty Placemark to the list
+      } else {
+        List<Placemark> currentPlacemarks = await placemarkFromCoordinates(
+          cullinary.location!['latitude'],
+          cullinary.location!['longitude'],
+        );
+        placemarks.addAll(currentPlacemarks);
+        // Log each Placemark added to the list
+      }
     }
-
-    placemarks = await placemarkFromCoordinates(
-        cullinary.first.location!['latitude'],
-        cullinary.first.location!['longitude']);
   }
 }

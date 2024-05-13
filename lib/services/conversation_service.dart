@@ -168,7 +168,7 @@ class ConversationService {
   }
 
   Future<void> sendMessage(MessageModel message, String conversationId,
-      {String? imageUrl}) async {
+      {String? imageUrl, String? file}) async {
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final CollectionReference conversationsCollection =
         db.collection('conversations');
@@ -181,6 +181,10 @@ class ConversationService {
       message.content = imageUrl;
     }
 
+    if (file != null) {
+      message.content = file;
+    }
+
     try {
       // Add the message to the messages subcollection
       await messagesCollection.add(message.toMap());
@@ -189,7 +193,7 @@ class ConversationService {
       await conversationsCollection.doc(conversationId).update({
         'latestMessage': message.content,
         'latestMessageTime': FieldValue.serverTimestamp(),
-        'latestMessageType': message.type,
+        'latestMessageType': message.runtimeType,
       });
     } catch (error) {
       log('Error sending message: $error');

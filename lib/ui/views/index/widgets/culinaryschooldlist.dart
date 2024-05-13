@@ -50,7 +50,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     final cullinaruschools = viewModel.cullinary[index];
                     return GestureDetector(
                       onTap: () {
-                        // viewModel.toChefProfile(chef);
+                        viewModel.toChefProfile(cullinaruschools);
                       },
                       child: Container(
                         width: 160.w,

@@ -1,89 +1,143 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
   const PrepTime({super.key});
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
+    int totalMinutes = viewModel.selectedTime != null
+        ? viewModel.selectedTime!.hour * 60 + viewModel.selectedTime!.minute
+        : 0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Prep Time',
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor),
+            Row(
+              children: [
+                Text(
+                  'Cooking Time',
+                  style: globalTextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor),
+                ),
+                horizontalSpaceTiny,
+                Text('*',
+                    style: globalTextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        color: kcErrorColor)),
+              ],
             ),
-          ],
-        ),
-        Text(
-          'How long does it take to cook this recipe?',
-          style: globalTextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: kcBlackColor.withOpacity(0.5)),
-        ),
-        verticalSpaceSmall,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width * 0.5,
-              child: RoundedTransparentTextField(
-                keyboardType: TextInputType.number,
-                controller: viewModel.prepTimeController,
-                labelText: 'Prep Time',
-                validator: viewModel.validatePrepTime,
-                textColor: kcBlackColor.withOpacity(0.5),
-              ),
-            ),
-            Container(
-              height: 45.h,
-              width: MediaQuery.sizeOf(context).width * 0.35,
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: kcVeryLightGrey.withOpacity(0.2),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.timelapse_outlined,
-                      color: kcBlackColor.withOpacity(0.5), size: 20.0),
-                  horizontalSpaceMedium,
-                  Expanded(
-                    flex: 2,
-                    child: DropdownButton<String>(
-                      isExpanded: true,
-                      dropdownColor: kcWhiteColor,
-                      underline: const SizedBox(),
-                      icon: Icon(FlutterRemix.arrow_down_s_line,
-                          color: kcBlackColor.withOpacity(0.5), size: 30.0),
-                      value: viewModel.selectedTimeMethod,
-                      onChanged: (String? newValue) {
-                        viewModel.onTimeMethodSelection(newValue!);
-                      },
-                      items: viewModel.timeMethod.map((index) {
-                        return DropdownMenuItem<String>(
-                          value: index.toString(),
-                          child: Text(
-                            index,
-                            style: const TextStyle(fontSize: 14),
+            GestureDetector(
+              onTap: () => viewModel.showCustomTimePickerDialog(context),
+              child: Container(
+                height: 45.h,
+                width: 105.w,
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0.r),
+                  color: kcVeryLightGrey.withOpacity(0.2),
+                ),
+                child: viewModel.selectedTime != null
+                    ? Center(
+                        child: Text(
+                          '$totalMinutes mins',
+                          style: globalTextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: kcPrimaryColor,
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
+                        ),
+                      )
+                    : FittedBox(
+                        child: Row(
+                          children: [
+                            const Icon(
+                              FlutterRemix.time_line,
+                              color: kcBlackColor,
+                            ),
+                            horizontalSpaceSmall,
+                            Text(
+                              'Set Time',
+                              style: globalTextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: kcPrimaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
               ),
             ),
           ],
-        )
+        ),
+
+        // Text(
+        //   'How long does it take to cook this recipe?',
+        //   style: globalTextStyle(
+        //       fontSize: 14.sp,
+        //       fontWeight: FontWeight.w500,
+        //       color: kcBlackColor.withOpacity(0.5)),
+        // ),
+        // verticalSpaceSmall,
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     SizedBox(
+        //       width: MediaQuery.sizeOf(context).width * 0.5,
+        //       child: RoundedTransparentTextField(
+        //         keyboardType: TextInputType.number,
+        //         controller: viewModel.prepTimeController,
+        //         labelText: 'Prep Time',
+        //         validator: viewModel.validatePrepTime,
+        //         textColor: kcBlackColor.withOpacity(0.5),
+        //       ),
+        //     ),
+        //     // Container(
+        //     //   height: 45.h,
+        //     //   width: MediaQuery.sizeOf(context).width * 0.35,
+        //     //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+        //     //   decoration: BoxDecoration(
+        //     //     borderRadius: BorderRadius.circular(30.0),
+        //     //     color: kcVeryLightGrey.withOpacity(0.2),
+        //     //   ),
+        //     //   child: Row(
+        //     //     children: [
+        //     //       Icon(Icons.timelapse_outlined,
+        //     //           color: kcBlackColor.withOpacity(0.5), size: 20.0),
+        //     //       horizontalSpaceMedium,
+        //     //       Expanded(
+        //     //         flex: 2,
+        //     //         child: DropdownButton<String>(
+        //     //           isExpanded: true,
+        //     //           dropdownColor: kcWhiteColor,
+        //     //           underline: const SizedBox(),
+        //     //           icon: Icon(FlutterRemix.arrow_down_s_line,
+        //     //               color: kcBlackColor.withOpacity(0.5), size: 30.0),
+        //     //           value: viewModel.selectedTimeMethod,
+        //     //           onChanged: (String? newValue) {
+        //     //             viewModel.onTimeMethodSelection(newValue!);
+        //     //           },
+        //     //           items: viewModel.timeMethod.map((index) {
+        //     //             return DropdownMenuItem<String>(
+        //     //               value: index.toString(),
+        //     //               child: Text(
+        //     //                 index,
+        //     //                 style: const TextStyle(fontSize: 14),
+        //     //               ),
+        //     //             );
+        //     //           }).toList(),
+        //     //         ),
+        //     //       ),
+        //     //     ],
+        //     //   ),
+        //     // ),
+        //   ],
+        // )
       ],
     );
   }

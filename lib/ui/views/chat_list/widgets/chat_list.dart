@@ -12,9 +12,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
         stream: viewModel.getConversation(),
         builder: (context, snapshot) {
           return snapshot.hasData
-              ? SizedBox(
-                  width: double.infinity,
-                  height: 400.h,
+              ? Expanded(
                   child: ListView.builder(
                       physics: const ClampingScrollPhysics(),
                       itemCount: snapshot.data!.length,

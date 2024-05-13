@@ -8,6 +8,7 @@ import 'user_details_viewmodel.dart';
 class UserDetailsView extends StackedView<UserDetailsViewModel> {
   const UserDetailsView({Key? key, required this.userRole}) : super(key: key);
   final String userRole;
+
   @override
   Widget builder(
     BuildContext context,

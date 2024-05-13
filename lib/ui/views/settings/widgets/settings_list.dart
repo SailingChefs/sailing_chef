@@ -5,9 +5,9 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
 class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
-
-
-  const SettingsListSettingsScreen({super.key, });
+  const SettingsListSettingsScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {

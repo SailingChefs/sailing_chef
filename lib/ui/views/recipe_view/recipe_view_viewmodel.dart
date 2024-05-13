@@ -27,6 +27,7 @@ class RecipeViewViewModel extends BaseViewModel {
   Timer? _timer;
   List<double>? waveFormData;
   String? path;
+  int? duration;
 
   RecipeViewViewModel({this.waveFormData, this.path});
 
@@ -39,6 +40,8 @@ class RecipeViewViewModel extends BaseViewModel {
       path: path!,
       volume: 100,
     );
+    // duration = await playerController.getDuration(DurationType.values[0]);
+
     setBusy(false);
   }
 
@@ -91,6 +94,37 @@ class RecipeViewViewModel extends BaseViewModel {
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
             visibility: recipe.visibility,
+            chefNote: chefNote,
+            coverImage: imageUrls,
+            createdTime: Timestamp.now(),
+            ingredients: recipe.ingredients,
+            methods: recipe.methods,
+            prepTime: recipe.prepTime,
+            servingSize: recipe.servingSize,
+            status: 'published',
+            title: recipe.title,
+            uid: recipe.uid,
+            docId: '',
+            waveForm: waveFormData!,
+          ))
+          .then((value) => navigationService.replaceWithRecipeListPageView(
+              isFromProfileView: false));
+    } catch (e) {
+      showToast(message: 'Something went wrong');
+      log(e.toString());
+    }
+  }
+
+  void saveRecipeToPrivate(
+      RecipeModel recipe, List<XFile?> selectedImages) async {
+    List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+        selectedImages, recipe.docId);
+    final String chefNote =
+        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    try {
+      await _recipeService
+          .addRecipeToFirestore(RecipeModel(
+            visibility: 'private',
             chefNote: chefNote,
             coverImage: imageUrls,
             createdTime: Timestamp.now(),

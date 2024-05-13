@@ -11,7 +11,7 @@ class PinnedLocation {
   final String link;
   final GeoPoint location;
   final String name;
-  final String picture;
+  final List<String> picture;
   final List<String> tags;
   final double rating;
   List<Placemark>? placemarks;
@@ -42,7 +42,7 @@ class PinnedLocation {
       link: data['link'] ?? '',
       location: data['location'] ?? const GeoPoint(0.0, 0.0),
       name: data['name'] ?? '',
-      picture: data['picture'] ?? '',
+      picture: List<String>.from(data['picture'] ?? []),
       tags: List<String>.from(data['tags'] ?? []),
       rating: (data['ratings'] as num).toDouble(),
     );

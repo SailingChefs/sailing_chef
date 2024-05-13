@@ -3,7 +3,7 @@ import 'package:sailing_chefs/ui/views/index/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/culinaryschooldlist.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/dish_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
-import 'package:sailing_chefs/ui/views/index/widgets/shimmer_loader.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/shimmer_chef.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 
@@ -19,8 +19,7 @@ class IndexView extends StackedView<IndexViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-        child: viewModel.isBusy
-            ? const ShimmerLoader()
+        child 
             : Scaffold(
                 backgroundColor: kcBackgroundColor,
                 body: SingleChildScrollView(
@@ -32,13 +31,25 @@ class IndexView extends StackedView<IndexViewModel> {
                       const TabBarIndexScreen(),
                       verticalSpace(10),
                       viewModel.isMySelected
-                          ? const ChefListIndexScreen()
-                          : const CullinaryListIndexScreen(),
+                          ? viewModel.chefList.isEmpty
+                              ? const ShimmerChef()
+                              : const ChefListIndexScreen()
+                          : viewModel.cullinary.isEmpty
+                              ? const ShimmerChef()
+                              : const CullinaryListIndexScreen(),
                       verticalSpace(10),
                       const SearchBarIndexView(),
                       verticalSpace(10),
                       const DishListIndexScreen(),
                       verticalSpaceMedium,
+                      Center(
+                          child: TextButton(
+                              onPressed: viewModel.toAllRecipesView,
+                              child: Text(
+                                'View All Recipes',
+                                style: globalTextStyle(
+                                    fontSize: 14, color: kcPrimaryColor),
+                              )))
                     ],
                   ),
                 ),
