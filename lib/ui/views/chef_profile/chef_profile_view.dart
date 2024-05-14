@@ -7,7 +7,6 @@ import 'package:sailing_chefs/ui/views/chef_profile/widgets/recipes.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/savedrecipes.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/shimmer_loader.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/tab_bar.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
 
 import 'chef_profile_viewmodel.dart';
 import 'widgets/chef_profile_description.dart';

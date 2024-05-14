@@ -36,6 +36,7 @@ class AddRecipeViewModel extends BaseViewModel {
   int selectedQuantity = 1;
   List<XFile> selectedImages = [];
   List<XFile> thumbnails = [];
+  List<String> alreadySelectedImages = [];
   TextEditingController titleController = TextEditingController();
   final _recipeService = locator<RecipeService>();
   int count = 0;
@@ -158,6 +159,7 @@ class AddRecipeViewModel extends BaseViewModel {
     // recorderController = RecorderController();
     playerController = PlayerController();
     directory = await getApplicationDocumentsDirectory();
+    
 
     path = '${directory.path}/recording.mpeg4';
     setBusy(false);

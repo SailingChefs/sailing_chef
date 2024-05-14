@@ -12,7 +12,6 @@ import '../../../model/user_model.dart';
 class BlockedAccountsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserServices _userService = locator<UserServices>();
-  final ChefService _chefService = locator<ChefService>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
   final userService = locator<UserServices>();
   List<String> get blockedUsers => _blockUserService.blockedAccounts;
