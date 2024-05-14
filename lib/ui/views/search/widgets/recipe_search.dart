@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/explore_all_buttons.dart';
@@ -38,7 +37,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .elementAt(index);
                             return PrimaryGridTile(
                                 savedRecipeList: viewModel.savedRecipes,
-                                recipeId: recipe.docId,
+                                recipeId: recipe.docId!,
                                 onTap: () =>
                                     viewModel.toDishDetailsScreen(recipe),
                                 foodImagePath: recipe.coverImage
@@ -89,7 +88,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
                                     savedRecipeList: viewModel.savedRecipes,
-                                    recipeId: recipes[index].docId,
+                                    recipeId: recipes[index].docId!,
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),
                                     foodImagePath: recipes[index]

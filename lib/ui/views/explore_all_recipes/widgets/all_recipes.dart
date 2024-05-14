@@ -25,7 +25,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             itemBuilder: (BuildContext context, int index) {
               return PrimaryGridTile(
                   savedRecipeList: viewModel.savedRecipes,
-                  recipeId: recipes[index].docId,
+                  recipeId: recipes[index].docId!,
                   onTap: () => viewModel
                       .toDishDetailsScreen(recipes[index]),
                   foodImagePath: recipes[index].coverImage

@@ -7,7 +7,6 @@ import 'package:sailing_chefs/ui/views/chef_profile/widgets/recipes.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/savedrecipes.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/shimmer_loader.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/tab_bar.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
 
 import 'chef_profile_viewmodel.dart';
 import 'widgets/chef_profile_description.dart';
@@ -45,7 +44,8 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                             ),
                             verticalSpaceMedium,
                             Follow_Message_Btns(user: user),
-                            DishListScreen(user: user),
+                            user.userRole != 'guest' ?
+                            DishListScreen(user: user):Container(),
                             verticalSpaceTiny,
                           user.userRole == 'guest' ? 
                           SavedChefProfileScreen(user, savedRecipes: viewModel.userSavedRecipe!) : 
@@ -56,7 +56,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                                       TabBarChefProfileScreen(user),
                                       viewModel.isMySelected
                                           ? const RecipesProfileScreen()
-                                          : SavedChefProfileScreen(user ,savedRecipes: []),
+                                          : SavedChefProfileScreen(user ,savedRecipes: const []),
                                     ],
                                   )
                                 : Container(),

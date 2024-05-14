@@ -6,6 +6,7 @@ import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart'
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/courselist.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
+
 class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
   final UserModel user;
   final List<SavedRecipeModel> savedRecipes ;

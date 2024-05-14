@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -94,7 +95,8 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                 onPressed: () {
                   // viewModel.getImage(
                   //     ImageSource.gallery, user.uid!, conversationId);
-                  viewModel.getFile(user.uid!, conversationId);
+
+                  viewModel.isBusy ? EasyLoading() : viewModel.getFile(user.uid!, conversationId);
                 },
               ),
               GestureDetector(
