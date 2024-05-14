@@ -1,4 +1,10 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/app/app.locator.dart';
+import 'package:sailing_chefs/app/app.router.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -28,6 +34,7 @@ class FilterViewModel extends BaseViewModel {
   SfRangeValues values = const SfRangeValues(0.0, 5.0);
   // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
   void updateValue(SfRangeValues newValue) {
+    
     values = newValue;
     notifyListeners();
     rebuildUi();
@@ -175,7 +182,26 @@ class FilterViewModel extends BaseViewModel {
 
     rebuildUi();
   }
+ List<String> selectedOptions() {
+    List<String> selectedList = [];
 
+    if (isPassageSelected) selectedList.add('Passage');
+    if (isMealSelected) selectedList.add('Meal');
+    if (isPlatedSelected) selectedList.add('Plated');
+    if (isBreakfastSelected) selectedList.add('Breakfast');
+    if (isLunchSelected) selectedList.add('Lunch');
+    if (isDinnerSelected) selectedList.add('Dinner');
+    if (isSweetSelected) selectedList.add('Sweet');
+    if (isStarterSelected) selectedList.add('Starter');
+    if (isCanapeSelected) selectedList.add('Canape');
+    if (isSideSelected) selectedList.add('Side');
+    if (isFamilySelected) selectedList.add('Family');
+    if (isLightSelected) selectedList.add('Light');
+    if (isCharterSelected) selectedList.add('Charter');
+    if (isCrewSelected) selectedList.add('Crew');
+
+    return selectedList;
+  }
   void handleSubTabsCourse(int index) {
     switch (index) {
       case 0:
@@ -261,26 +287,49 @@ class FilterViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void apply() {
-    isCrewSelected;
-    isFamilySelected;
-    isLightSelected;
-    isCharterSelected;
-    isPassageSelected;
-    isMealSelected;
-    isPlatedSelected;
-    isSweetSelected;
-    isStarterSelected;
-    isCanapeSelected;
-    isSideSelected;
-    isBreakfastSelected;
-    isLunchSelected;
-    isDinnerSelected;
-    selectedTabMainCourse;
-    selectedTabSub;
-    selectedTabMainDietaryNeed;
-    selectedTabSubDietaryNeed;
+void apply() {
+  int minTimeInMinutes = (values.start * 60).floor();
+  int maxTimeInMinutes = (values.end * 60).floor();
+  List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
 
-    _navigationService.back();
+    // Check if any tag in the recipe matches any tag in the specified tags list
+    bool tagMatch = recipe.tags!.any((tag) => selectedOptions().contains(tag));
+    
+    // Parse prep time of the recipe into minutes
+    int prepTimeMinutes = _parsePrepTime(recipe.prepTime);
+
+    // Check if prep time falls within the specified range
+    bool timeInRange = prepTimeMinutes >= minTimeInMinutes && prepTimeMinutes <= maxTimeInMinutes;
+
+    log(selectedOptions().toString());
+
+    if(selectedOptions().isEmpty){
+      return timeInRange;
+    }
+
+    return tagMatch && timeInRange;
+  }).toList();
+ _navigationService.replaceWithSearchView(recipeModel: filteredRecipes, chefList: ChefService.chefs);
+  // Now filteredRecipes contains only the recipes that have at least one of the specified tags
+  // and prep time within the specified range
+}
+
+int _parsePrepTime(String prepTimeString) {
+  if (prepTimeString.contains('h')) {
+    List<String> parts = prepTimeString.split('h');
+    int hours = int.parse(parts[0]);
+    int minutes = parts.length > 1 ? int.parse(parts[1].replaceAll('min', '').trim()) : 0;
+    return hours * 60 + minutes;
+  } else {
+    return int.parse(prepTimeString.replaceAll('min', '').trim());
   }
+}
+
+//  void apply() {
+  
+//   List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
+//     return recipe.tags!.any((tag) => selectedOptions().contains(tag));
+//   }).toList();
+//   _navigationService.replaceWithSearchView(recipeModel: filteredRecipes, chefList: ChefService.chefs);
+// }
 }

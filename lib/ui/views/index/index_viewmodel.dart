@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -16,10 +18,10 @@ class IndexViewModel extends BaseViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
-  List<UserModel> get chefList => _chefService.chefs;
+  List<UserModel> get chefList => ChefService.chefs;
   List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
-  List<RecipeModel> get dishes => _recipeService.recipes;
+  List<RecipeModel> get dishes => RecipeService.recipes;
   bool isMySelected = true;
   bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
@@ -49,6 +51,15 @@ class IndexViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
+Future<void> getUserLocation() async {
+    if (userDetails?.location?['latitude'] == null) {
+      return;
+    }
+
+    placemarks = await placemarkFromCoordinates(
+        userDetails!.location!['latitude'],
+        userDetails!.location!['longitude']);
+  }
   void onViewModelReady() async {
     setBusy(true);
     await Future.wait([
@@ -56,6 +67,8 @@ class IndexViewModel extends BaseViewModel {
       _chefService.chefInit(),
       _savedRecipeService.init(),
       _recipeService.initialized(),
+      getUserLocation(),
+
     ]);
     notifyListeners();
     rebuildUi();
@@ -84,7 +97,9 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toAllRecipesView() {
-    _navigationService.navigateToExploreAllRecipesView();
+    _navigationService.navigateToExploreAllRecipesView(
+      recipes: dishes,
+    );
   }
 
   void toChefProfile(UserModel chef) {
@@ -122,5 +137,12 @@ class IndexViewModel extends BaseViewModel {
 
   void toViewCullinarySchools() {
     _navigationService.navigateToCulineryschoolviewallView();
+  }
+
+  void toSearch() {
+    _navigationService.navigateToSearchView(
+      chefList: chefList,
+      recipeModel: dishes,
+    );
   }
 }

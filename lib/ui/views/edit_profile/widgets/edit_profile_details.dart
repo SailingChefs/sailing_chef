@@ -75,24 +75,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                   ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
-                    onPressed: () {
-                      viewModel.saveEditDetailsCullinary(
-                        viewModel.nameController.text.isEmpty
-                            ? UserdataServiceService.user.displayName!
-                            : viewModel.nameController.text.isEmpty
-                                ? UserdataServiceService.user.displayName!
-                                : viewModel.nameController.text,
-                        viewModel.bioController.text.isEmpty
-                            ? UserdataServiceService.user.bio!
-                            : viewModel.bioController.text,
-                        viewModel.emailController.text.isEmpty
-                            ? UserdataServiceService.user.email!
-                            : viewModel.emailController.text,
-                        viewModel.linkController.text.isEmpty
-                            ? UserdataServiceService.user.phoneNumber!
-                            : viewModel.linkController.text,
-                      );
-                    },
+                    onPressed: viewModel.saveEditDetailsCullinary,
                     buttonText: 'Save',
                   ),
                 ],

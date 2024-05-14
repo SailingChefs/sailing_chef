@@ -73,7 +73,7 @@ import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_v
 import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
-import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
+import 'package:sailing_chefs/ui/views/search/search_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 // @stacked-import
 
@@ -115,6 +115,7 @@ import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart
     MaterialRoute(page: ExploreAllRecipesView),
     MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: ViewAllDraftsView),
+    MaterialRoute(page: SearchView),
 // @stacked-route
   ],
   dependencies: [

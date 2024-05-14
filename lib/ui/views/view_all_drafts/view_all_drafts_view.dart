@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/draftgrid.dart';
-import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
-import 'package:stacked/stacked.dart';
 
 import 'view_all_drafts_viewmodel.dart';
 
@@ -40,16 +35,9 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
                       color: kcBlackColor)),
             ),
             verticalSpaceSmall,
+            viewModel.isBusy ? const CircularProgressIndicator(color: kcWhiteColor,) :
             viewModel.draft.isEmpty
-                ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const SizedBox(),
-                    Center(child: Text('No Drafts Found')),
-                  ],
-                )
+                ? const Center(child: Text('No Drafts Found'))
                 : SizedBox(
                     height: screenHeight(context) * 0.802,
                     child: GridView.builder(

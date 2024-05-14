@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/all_recipes.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/search_view.dart';
@@ -8,7 +9,8 @@ import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'explore_all_recipes_viewmodel.dart';
 
 class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
-  const ExploreAllRecipesView({Key? key}) : super(key: key);
+  final List<RecipeModel> recipes;
+  const ExploreAllRecipesView({Key? key, required this.recipes}) : super(key: key);
 
   @override
   Widget builder(
@@ -40,12 +42,12 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
         child: Column(
           children: [
             verticalSpace(41),
-            const SearchBarAllRecipesScreen(),
+            SearchBarAllRecipesScreen(recipes: recipes,),
             viewModel.isBusy
                 ? const ShimmerLoaderAllRecipes()
                 : viewModel.searchController.text.isEmpty
-                    ? const AllRecipesScreen()
-                    : const SearchViewAllRecipes(),
+                    ? AllRecipesScreen(recipes: recipes,)
+                    :  SearchViewAllRecipes(recipes: recipes,),
           ],
         ),
       ),

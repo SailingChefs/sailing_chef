@@ -24,6 +24,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
     SavedRecipeDetailsViewModel viewModel,
     Widget? child,
   ) {
+    
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
@@ -31,7 +32,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
           ))
         : Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor:kcBackgroundColor,
             body: Stack(children: [
               TopBarDetailsScreen(image: recipeModel.coverImage),
               MainRecipeViewContainer(

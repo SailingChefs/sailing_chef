@@ -18,7 +18,7 @@ import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class RecipeService with ListenableServiceMixin {
-  List<RecipeModel> recipes = [];
+  static List<RecipeModel> recipes = [];
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
@@ -439,44 +439,45 @@ class RecipeService with ListenableServiceMixin {
   //   }
   // }
 
-  Future<List<RecipeModel>> fetchRandomRecipes(
-      int count, String currentRecipeId) async {
-    try {
-      // Attempt to fetch more than you need to improve randomness
-      QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('visibility', isEqualTo: 'Public')
-          .where('status', isEqualTo: 'published')
-          .where('uid', isNotEqualTo: currentRecipeId)
-          .limit(10)
-          .get();
+//   Future<List<RecipeModel>> fetchRandomRecipes(
+//       int count, String currentRecipeId) async {
+//     try {
+//       // Attempt to fetch more than you need to improve randomness
+//       QuerySnapshot snapshot = await firebasestore
+//           .collection('recipes')
+//           .where('visibility', isEqualTo: 'Public')
+//           .where('status', isEqualTo: 'published')
+//           .where('uid', isNotEqualTo: currentRecipeId)
+//           .limit(10)
+//           .get();
 
-      List<RecipeModel> allRecipes = [];
-      for (var doc in snapshot.docs) {
-        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        UserModel? currUser = await _userService
-            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
-        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
-          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-          recipe.user = user;
-          allRecipes.add(recipe);
-        }
-      }
+//       List<RecipeModel> allRecipes = [];
+//       for (var doc in snapshot.docs) {
+//         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+//         UserModel? currUser = await _userService
+//             .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+//         if (!currUser.blockedAccounts!.contains(recipe.uid)) {
+//           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+//           recipe.user = user;
+//           allRecipes.add(recipe);
+//         }
+//       }
 
-      // Shuffle the list to randomize and then take the first 5
-      allRecipes.shuffle();
-      List<RecipeModel> randomRecipes = allRecipes.take(count).toList();
+//       // Shuffle the list to randomize and then take the first 5
+//       allRecipes.shuffle();
+//       List<RecipeModel> randomRecipes = allRecipes.take(count).toList();
 
-      // Optionally fetch associated user data if needed
-      for (RecipeModel recipe in randomRecipes) {
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
-      }
+//       // Optionally fetch associated user data if needed
+//       for (RecipeModel recipe in randomRecipes) {
+//         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+//         recipe.user = user;
+//       }
 
-      return randomRecipes;
-    } catch (e) {
-      log("Error fetching random recipes: $e");
-      return [];
-    }
-  }
+//       return randomRecipes;
+//     } catch (e) {
+//       log("Error fetching random recipes: $e");
+//       return [];
+//     }
+//   }
+// }
 }

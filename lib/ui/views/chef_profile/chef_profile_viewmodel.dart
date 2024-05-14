@@ -12,6 +12,7 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,6 +35,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<String> get followers => _followService.followers;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<SavedRecipeModel> ? userSavedRecipe;
   List<Course> get courses => _cullinarySchoolService.courses;
   bool isFollowing = false;
 
@@ -59,8 +61,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
     setBusy(true);
     await getUserLocation(user);
     await _followService.init(user.uid!, false);
-    await _followService.init(user.uid!, false);
+    
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+    userSavedRecipe = await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
     _savedRecipeService.init();
     _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
     log(courses.length.toString());
@@ -79,8 +82,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     }
   }
 
-  void goToFollowingList(UserModel user) {
-    _navigationService.navigateToFollowingListView(user: user);
+  void goToFollowingList() {
+   showToast(message: 'You cannot see Others following/followers list');
   }
 
   getUserLocation(UserModel user) async {
@@ -92,7 +95,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
         user.location!['latitude'], user.location!['longitude']);
     log(placemarks.toString());
   }
-
+ void checkSave(){
+  
+ }
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
@@ -143,7 +148,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: chefRecipes![index],
         randomRecipeList:
-            IndexViewModel.getRandomDishes(chefRecipes![index], chefRecipes!));
+            IndexViewModel.getRandomDishes(chefRecipes![index], RecipeService.recipes));
   }
 
   void showRecipeList() {

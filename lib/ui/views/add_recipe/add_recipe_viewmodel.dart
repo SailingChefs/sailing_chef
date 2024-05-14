@@ -13,7 +13,6 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
@@ -40,7 +39,6 @@ class AddRecipeViewModel extends BaseViewModel {
   List<XFile> selectedImages = [];
   List<XFile> thumbnails = [];
   TextEditingController titleController = TextEditingController();
-  final _recipeService = locator<RecipeService>();
   int count = 0;
   List<String> values = ['Public', 'Private'];
   List<String> quantity = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -341,6 +339,7 @@ class AddRecipeViewModel extends BaseViewModel {
         );
       },
     );
+
     rebuildUi();
   }
 
