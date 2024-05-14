@@ -91,13 +91,10 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Ingredients',
-                 style:
-                   globalTextStyle(
-                    fontSize: 15.0.sp,
-                    fontWeight: FontWeight.w500,
-                    color: kcBlackColor,
-                  
-                
+                style: globalTextStyle(
+                  fontSize: 15.0.sp,
+                  fontWeight: FontWeight.w500,
+                  color: kcBlackColor,
                 )),
             Container(
               height: 20.0.h,

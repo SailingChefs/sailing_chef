@@ -10,7 +10,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
     return viewModel.recipes.isEmpty
         ? const Center(child: Text('No Recipe Found'))
         : SizedBox(
-            height: 500.h,
+            height: ScreenUtil().screenHeight * 0.76,
             child: GridView.builder(
               itemCount: viewModel.recipes.length,
               padding: EdgeInsets.symmetric(vertical: 15.h),
@@ -23,7 +23,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
               itemBuilder: (BuildContext context, int index) {
                 return PrimaryGridTile(
                     savedRecipeList: viewModel.savedRecipes,
-                    recipeId: viewModel.recipes[index].docId,
+                    recipeId: viewModel.recipes[index].docId!,
                     onTap: () =>
                         viewModel.toDishDetailsScreen(viewModel.recipes[index]),
                     foodImagePath: viewModel.recipes[index].coverImage

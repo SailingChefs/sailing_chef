@@ -61,7 +61,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _followService.init(user.uid!, false);
     await _followService.init(user.uid!, false);
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
-     _savedRecipeService.init();
+    _savedRecipeService.init();
     _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
     log(courses.length.toString());
     setBusy(false);

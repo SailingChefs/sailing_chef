@@ -63,7 +63,6 @@ class UserChatViewModel extends BaseViewModel {
     if (messageController.text.isNotEmpty) {
       addMessage(
           MessageModel(
-            
             content: messageController.text,
             receiverId: receiverId,
             senderId: FirebaseAuth.instance.currentUser!.uid,
@@ -134,5 +133,5 @@ class UserChatViewModel extends BaseViewModel {
   //       profilePhoto: 'https://picsum.photos/200',
   //     ),
   //   ],
- // );
+  // );
 }

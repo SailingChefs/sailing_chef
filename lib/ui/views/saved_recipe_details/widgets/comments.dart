@@ -42,6 +42,7 @@ class CommentsDetailsScreen
     }
     return [];
   }
+
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
       spacing: 10,
@@ -73,14 +74,11 @@ class CommentsDetailsScreen
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpaceMedium,
-        
-        
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -95,7 +93,9 @@ class CommentsDetailsScreen
             Row(
               children: [
                 Text(
-                  viewModel.calculateAverageRating(recipeModel.comment!).toString(),
+                  viewModel
+                      .calculateAverageRating(recipeModel.comment!)
+                      .toString(),
                   style: globalTextStyle(
                     color: kcBlackColor,
                     fontSize: 24.0.sp,
@@ -115,7 +115,7 @@ class CommentsDetailsScreen
         // ...createCommentWidgets(viewModel),
         // verticalSpaceSmall,
         if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
-         verticalSpaceSmall,
+        verticalSpaceSmall,
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
           decoration: BoxDecoration(
@@ -139,7 +139,7 @@ class CommentsDetailsScreen
                 child: TextField(
                   controller: viewModel.commentController,
                   onSubmitted: (value) =>
-                      viewModel.addComment(recipeModel.docId),
+                      viewModel.addComment(recipeModel.docId!),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Add your Review',
@@ -178,12 +178,12 @@ class CommentsDetailsScreen
                     fontWeight: FontWeight.w500),
               )),
         ),
-         
+
         viewModel.seeComments
             ? Column(
                 children: [
-                 ...createCommentWidgets(viewModel),
-                  if(recipeModel.comment!.isEmpty)
+                  ...createCommentWidgets(viewModel),
+                  if (recipeModel.comment!.isEmpty)
                     const Center(
                       child: Text(
                         'No comments yet',
@@ -192,7 +192,7 @@ class CommentsDetailsScreen
                 ],
               )
             : const SizedBox(),
-            const Divider(),
+        const Divider(),
       ],
     );
   }

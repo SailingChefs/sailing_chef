@@ -19,41 +19,40 @@ class IndexView extends StackedView<IndexViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-        child 
-            : Scaffold(
-                backgroundColor: kcBackgroundColor,
-                body: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Column(
-                    children: [
-                      const TopBarIndexScreen(),
-                      verticalSpace(10),
-                      const TabBarIndexScreen(),
-                      verticalSpace(10),
-                      viewModel.isMySelected
-                          ? viewModel.chefList.isEmpty
-                              ? const ShimmerChef()
-                              : const ChefListIndexScreen()
-                          : viewModel.cullinary.isEmpty
-                              ? const ShimmerChef()
-                              : const CullinaryListIndexScreen(),
-                      verticalSpace(10),
-                      const SearchBarIndexView(),
-                      verticalSpace(10),
-                      const DishListIndexScreen(),
-                      verticalSpaceMedium,
-                      Center(
-                          child: TextButton(
-                              onPressed: viewModel.toAllRecipesView,
-                              child: Text(
-                                'View All Recipes',
-                                style: globalTextStyle(
-                                    fontSize: 14, color: kcPrimaryColor),
-                              )))
-                    ],
-                  ),
-                ),
-              ));
+        child: Scaffold(
+      backgroundColor: kcBackgroundColor,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+        child: Column(
+          children: [
+            const TopBarIndexScreen(),
+            verticalSpace(10),
+            const TabBarIndexScreen(),
+            verticalSpace(10),
+            viewModel.isMySelected
+                ? viewModel.chefList.isEmpty
+                    ? const ShimmerChef()
+                    : const ChefListIndexScreen()
+                : viewModel.cullinary.isEmpty
+                    ? const ShimmerChef()
+                    : const CullinaryListIndexScreen(),
+            verticalSpace(10),
+            const SearchBarIndexView(),
+            verticalSpace(10),
+            const DishListIndexScreen(),
+            verticalSpaceMedium,
+            Center(
+                child: TextButton(
+                    onPressed: viewModel.toAllRecipesView,
+                    child: Text(
+                      'View All Recipes',
+                      style:
+                          globalTextStyle(fontSize: 14, color: kcPrimaryColor),
+                    )))
+          ],
+        ),
+      ),
+    ));
   }
 
   @override

@@ -126,7 +126,7 @@ class ProfileViewModel extends ReactiveViewModel {
   }
 
   void toDishesScreen() {
-    _navigationService.navigateToAddRecipeView(isFromProfileView: true);
+    _navigationService.navigateToAddRecipeView();
   }
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {

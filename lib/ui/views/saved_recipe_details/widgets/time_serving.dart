@@ -61,7 +61,6 @@ class TimeAndServingRecipeShow extends StatelessWidget {
                   Text(
                     ' ${recipeModel.servingSize} servings',
                   ),
-                  
                 ])),
       ],
     );

@@ -35,9 +35,10 @@ class CulineryschoolviewallView
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28.0),
-        child: viewModel.isBusy ? const  ShimmerLoaderCulinarySchool() :const ListViewCulinaryChool() ,
-
-      
+        child: viewModel.isBusy
+            ? const ShimmerLoaderCulinarySchool()
+            : const ListViewCulinaryChool(),
+      ),
     );
   }
 

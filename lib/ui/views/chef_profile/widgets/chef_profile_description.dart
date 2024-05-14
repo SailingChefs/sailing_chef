@@ -131,25 +131,24 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   ),
                 ]),
           viewModel.placemarks == null
-                  ? Container()
-                  : Text(
-                      viewModel.placemarks![0].country!.isEmpty &&
-                              user.boatName!.isEmpty
-                          ? ' '
-                          : viewModel.placemarks![0].country!.isEmpty
-                              ? capitalizeEachWord(userDetails!.boatName!)
-                              : user.boatName!.isEmpty
-                                  ? capitalizeEachWord(
-                                      viewModel.placemarks!.first.country!)
-                                  : capitalizeEachWord(
-                                      '${user.boatName!}, ${viewModel.placemarks!.first.country!}'),
-                      style: globalTextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor,
-                      ),
-                    ),
-
+              ? Container()
+              : Text(
+                  viewModel.placemarks![0].country!.isEmpty &&
+                          user.boatName!.isEmpty
+                      ? ' '
+                      : viewModel.placemarks![0].country!.isEmpty
+                          ? capitalizeEachWord(userDetails!.boatName!)
+                          : user.boatName!.isEmpty
+                              ? capitalizeEachWord(
+                                  viewModel.placemarks!.first.country!)
+                              : capitalizeEachWord(
+                                  '${user.boatName!}, ${viewModel.placemarks!.first.country!}'),
+                  style: globalTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor,
+                  ),
+                ),
           user.bio!.isEmpty
               ? const SizedBox()
               : Column(

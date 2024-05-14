@@ -8,7 +8,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'reviews_all_dialog_model.dart';
 
-
 class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;

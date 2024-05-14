@@ -30,7 +30,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
-                          recipeId: viewModel.myRecipes![index].docId,
+                          recipeId: viewModel.myRecipes![index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, viewModel.myRecipes![index]),
                           foodImagePath: viewModel.myRecipes![index].coverImage
@@ -38,8 +38,12 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               .first,
                           dishName: viewModel.myRecipes![index].title,
                           duration: viewModel.myRecipes![index].prepTime,
-                          chefImagePath:viewModel.myRecipes![index].user!.displayPicture == null ? '':
-                              viewModel.myRecipes![index].user!.displayPicture!,
+                          chefImagePath: viewModel
+                                      .myRecipes![index].user!.displayPicture ==
+                                  null
+                              ? ''
+                              : viewModel
+                                  .myRecipes![index].user!.displayPicture!,
                         );
                       },
                       childCount: viewModel.myRecipes!.length,

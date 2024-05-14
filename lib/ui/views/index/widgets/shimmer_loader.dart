@@ -34,7 +34,6 @@ class ShimmerLoader extends StatelessWidget {
             ),
           ),
           verticalSpaceSmall,
-          
           verticalSpaceSmall,
           Shimmer.fromColors(
             baseColor: Colors.grey.withOpacity(0.2),
@@ -56,7 +55,6 @@ class ShimmerLoader extends StatelessWidget {
               margin: const EdgeInsets.all(8),
             ),
           ),
-          
         ]),
       ),
     );

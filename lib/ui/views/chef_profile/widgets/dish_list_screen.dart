@@ -45,7 +45,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
-                          recipeId: recipes[index].docId,
+                          recipeId: recipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: recipes[index]
                               .coverImage
@@ -53,7 +53,9 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                               .first,
                           dishName: recipes[index].title,
                           duration: recipes[index].prepTime,
-                          chefImagePath: user.displayPicture == null ? '' : user.displayPicture!,
+                          chefImagePath: user.displayPicture == null
+                              ? ''
+                              : user.displayPicture!,
                         );
                       },
                       childCount: recipes.length,

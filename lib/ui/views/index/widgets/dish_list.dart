@@ -34,7 +34,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
-                          recipeId: dishes[index].docId,
+                          recipeId: dishes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: dishes[index]
                               .coverImage
@@ -42,7 +42,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               .first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
-                          chefImagePath: dishes[index].user!.displayPicture ==null ? '' : dishes[index].user!.displayPicture!,
+                          chefImagePath:
+                              dishes[index].user!.displayPicture == null
+                                  ? ''
+                                  : dishes[index].user!.displayPicture!,
                         );
                       },
                       childCount: dishes.length,

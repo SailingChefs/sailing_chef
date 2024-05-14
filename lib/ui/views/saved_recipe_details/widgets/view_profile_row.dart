@@ -36,7 +36,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       OutlinedButton(
         onPressed: () => viewModel.moveToChatScreen(user),
         child: const Icon(
-         Icons.message_outlined,
+          Icons.message_outlined,
           color: kcPrimaryColor,
         ),
       )

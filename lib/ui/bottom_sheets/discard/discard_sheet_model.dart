@@ -9,10 +9,11 @@ class DiscardSheetModel extends BaseViewModel {
   void saveButton(RecipeModel recipe, final images, final path) async {
     List<String> imageUrls;
     imageUrls = images.isNotEmpty
-        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId)
+        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!)
         : [];
-        final String chefNote = path . isNotEmpty ?
-        await _recipeService.uploadChefNoteToFirebaseStorage(path!) : '';
+    final String chefNote = path.isNotEmpty
+        ? await _recipeService.uploadChefNoteToFirebaseStorage(path!)
+        : '';
     recipe.coverImage = imageUrls;
     recipe.chefNote = chefNote;
 

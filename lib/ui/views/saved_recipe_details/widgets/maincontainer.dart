@@ -2,7 +2,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/chef_notes.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/chefnotes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart';

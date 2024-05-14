@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 import '../../../../widgets/custom_video_player.dart';
 
 class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
-  const CoverPictureSelector({Key? key}) : super(key: key);
-
+  const CoverPictureSelector(this.drafts,{Key? key}) : super(key: key);
+  final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return GestureDetector(

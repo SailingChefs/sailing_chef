@@ -17,35 +17,132 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
-class RecipeService with ListenableServiceMixin{
+class RecipeService with ListenableServiceMixin {
   List<RecipeModel> recipes = [];
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
 
-    Future<void> initialized() async {
+  Future<void> initialized() async {
     recipes = await fetchAllRecipes();
+
     notifyListeners();
+  }
+
+  Future<void> initializeddraft() async {
+    drafts.clear();
+    drafts = await fetchDraftRecipes(userDetails!.uid!);
+    notifyListeners();
+  }
+
+  Future<bool> doesDraftExist(String uid) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('recipes')
+          .where('uid', isEqualTo: uid)
+          .where('status', isEqualTo: 'draft')
+          .get();
+
+      return snapshot.docs.isNotEmpty;
+    } catch (error) {
+      // Handle error
+      return false;
+    }
+  }
+
+  Future<bool> addOrUpdateDraft(RecipeModel recipe) async {
+    try {
+      bool draftExists = await doesDraftExist(recipe.uid);
+
+      if (draftExists) {
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('recipes')
+            .where('uid', isEqualTo: recipe.uid)
+            .where('status', isEqualTo: 'draft')
+            .get();
+
+        String docId = snapshot.docs.first.id;
+
+        recipe.docId = docId;
+
+        DocumentReference docRef =
+            FirebaseFirestore.instance.collection('recipes').doc(docId);
+
+        await docRef.update(recipe.toMap());
+
+        showToast(message: 'Draft updated successfully');
+      } else {
+        // Add new draft
+        DocumentReference docRef = await FirebaseFirestore.instance
+            .collection('recipes')
+            .add(recipe.toMap());
+
+        String docId = docRef.id;
+
+        await docRef.update({'doc_id': docId});
+
+        showToast(message: 'Draft saved successfully');
+      }
+
+      return true;
+    } catch (error) {
+      // Handle error
+      showToast(message: 'Error saving or updating draft: $error');
+      return false;
+    }
   }
 
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     try {
-      DocumentReference docRef = await FirebaseFirestore.instance
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('recipes')
-          .add(recipe.toMap());
+          .where('doc_id', isEqualTo: recipe.uid)
+          .get();
 
-      String docId = docRef.id;
+      if (snapshot.docs.isNotEmpty && recipe.docId != null) {
+        DocumentReference docRef =
+            FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
 
-      await docRef.update({'doc_id': docId});
-      log(docId.toString());
+        await docRef.update(recipe.toMap());
 
-      showToast(message: 'Recipe added successfully');
+        showToast(message: 'Recipe updated successfully');
+      } else {
+        DocumentReference docRef = await FirebaseFirestore.instance
+            .collection('recipes')
+            .add(recipe.toMap());
+
+        String docId = docRef.id;
+
+        await docRef.update({'doc_id': docId});
+
+        showToast(message: 'Recipe added successfully');
+      }
+
       return true;
     } catch (error) {
-      showToast(message: 'Error adding recipe to Firestore: $error');
+      log(error.toString());
       return false;
     }
   }
+
+  // Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
+  //   try {
+  //     DocumentReference docRef = await FirebaseFirestore.instance
+  //         .collection('recipes')
+  //         .add(recipe.toMap());
+
+  //     String docId = docRef.id;
+
+  //     await docRef.update({'doc_id': docId});
+  //     log(docId.toString());
+
+  //     showToast(message: 'Recipe added successfully');
+  //     return true;
+  //   } catch (error) {
+  //     showToast(message: 'Error adding recipe to Firestore: $error');
+  //     return false;
+  //   }
+  // }
 
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     File file = File(filePath);
@@ -95,6 +192,34 @@ class RecipeService with ListenableServiceMixin{
     }
   }
 
+  Future<void> deleteAudioFromDocument(String id) async {
+    try {
+      // Get the DocumentReference of the document
+      CollectionReference collection =
+          FirebaseFirestore.instance.collection('recipes');
+      DocumentReference documentReference = collection.doc(id);
+
+      // Get the audio file reference from the document
+      DocumentSnapshot documentSnapshot = await documentReference.get();
+      String audioFilePath = documentSnapshot.get('chef_note') ?? '';
+
+      Reference audioFileReference = FirebaseStorage.instance.ref().child(
+          'audio/${DateTime.parse(audioFilePath).toString().split(' ')[0]}.mpeg');
+      await audioFileReference.delete();
+
+      await documentReference.update({
+        'chef_note': FieldValue.delete(),
+      });
+
+      // Show a success toast
+      showToast(message: 'Audio file deleted successfully');
+    } catch (error) {
+      // Show an error toast
+      showToast(message: 'Error deleting audio file from document: $error');
+      log('Error deleting audio file from document: $error');
+    }
+  }
+
   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
     List<String> imageUrls = [];
 
@@ -122,6 +247,7 @@ class RecipeService with ListenableServiceMixin{
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('recipes')
           .where('uid', isEqualTo: uid)
+          .where('status', isEqualTo: 'published')
           .get();
 
       List<RecipeModel> recipes = [];
@@ -165,6 +291,8 @@ class RecipeService with ListenableServiceMixin{
         QuerySnapshot snapshot = await FirebaseFirestore.instance
             .collection('recipes')
             .where('uid', isEqualTo: uId)
+            .where('status', isEqualTo: 'published')
+            .where('visibility', isEqualTo: 'Public')
             .get();
 
         List<RecipeModel> recipes = [];
@@ -199,8 +327,9 @@ class RecipeService with ListenableServiceMixin{
   Future<List<RecipeModel>> fetchAllRecipes() async {
     try {
       // Fetches all documents from the 'recipes' collection
-      QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('recipes').where('visibility', isEqualTo: 'Public')
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('recipes')
+          .where('visibility', isEqualTo: 'Public')
           .where('status', isEqualTo: 'published')
           .get();
 
@@ -235,6 +364,48 @@ class RecipeService with ListenableServiceMixin{
     } catch (e) {
       log("Error fetching recipes: $e");
       return []; // Return an empty list on error
+    }
+  }
+
+  List<RecipeModel> drafts = [];
+  Future<List<RecipeModel>> fetchDraftRecipes(String uid) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('recipes')
+          .where('uid', isEqualTo: uid)
+          .where('visibility', isEqualTo: 'private')
+          .where('status', isEqualTo: 'draft')
+          .get();
+
+      List<RecipeModel> draftRecipes = [];
+      for (var doc in snapshot.docs) {
+        RecipeModel draftRecipe = RecipeModel.fromSnapshot(doc);
+
+        QuerySnapshot commentsSnapshot =
+            await doc.reference.collection('comments').get();
+        List<CommentModel> comments = commentsSnapshot.docs
+            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+            .toList();
+        draftRecipe.comment = comments;
+
+        UserModel? user = await _userService.fetchUserByUID(draftRecipe.uid);
+        draftRecipe.user = user;
+
+        if (drafts.any((element) => element.docId == doc.id)) {
+          await FirebaseFirestore.instance
+              .collection('recipes')
+              .doc(doc.id)
+              .update(draftRecipe.toMap());
+        } else {
+          draftRecipe.docId = doc.id;
+          draftRecipes.add(draftRecipe);
+        }
+      }
+
+      return draftRecipes;
+    } catch (e) {
+      log("Error fetching draft recipes: $e");
+      return [];
     }
   }
 

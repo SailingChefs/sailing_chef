@@ -6,6 +6,7 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
@@ -28,13 +29,14 @@ class RecipeViewViewModel extends BaseViewModel {
   List<double>? waveFormData;
   String? path;
   int? duration;
-
-  RecipeViewViewModel({this.waveFormData, this.path});
+  List<RecipeModel>? myRecipes;
+  RecipeViewViewModel({this.waveFormData, this.path,});
 
   void onViewModelReady() async {
     isclicked = false;
     setBusy(true);
     playerController = PlayerController();
+    myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
     log("WaveForm=> $waveFormData \n Path=> $path");
     await playerController.preparePlayer(
       path: path!,
@@ -87,10 +89,11 @@ class RecipeViewViewModel extends BaseViewModel {
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
-        selectedImages, recipe.docId);
+        selectedImages, recipe.docId!);
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     try {
+      log("id"+recipe.docId!);
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
             visibility: recipe.visibility,
@@ -103,8 +106,9 @@ class RecipeViewViewModel extends BaseViewModel {
             servingSize: recipe.servingSize,
             status: 'published',
             title: recipe.title,
+            tags: recipe.tags,
             uid: recipe.uid,
-            docId: '',
+            docId: recipe.docId,
             waveForm: waveFormData!,
           ))
           .then((value) => navigationService.replaceWithRecipeListPageView(
@@ -118,7 +122,7 @@ class RecipeViewViewModel extends BaseViewModel {
   void saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
-        selectedImages, recipe.docId);
+        selectedImages, recipe.docId!);
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     try {

@@ -36,7 +36,6 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   );
                 }),
           ),
-          
           Positioned(
             bottom: 20,
             left: MediaQuery.of(context).size.width * 0.42,

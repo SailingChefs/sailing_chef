@@ -92,6 +92,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
           conversationId);
     }
     if (imageUrl != null) {
+      setBusy(true);
       addMessage(
           MessageModel(
             content: imageUrl,
@@ -102,19 +103,9 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             fileName: '',
           ),
           conversationId);
+      setBusy(false);
     }
-    if (fileUrl != null) {
-      // addMessage(
-      //     MessageModel(
-      //       content: fileUrl,
-      //       receiverId: receiverId,
-      //       senderId: FirebaseAuth.instance.currentUser!.uid,
-      //       timestamp: DateTime.now(),
-      //       type: 'file',
-      //       fileName: fileName!,
-      //     ),
-      //     conversationId);
-    }
+    
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 300),
@@ -162,7 +153,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       UploadTask uploadTask = storageRef.putFile(pickFile!);
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-
+      setBusy(true);
       addMessage(
           MessageModel(
             content: downloadUrl,
@@ -178,6 +169,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
+      setBusy(false);
     } else {
       log("No file selected");
     }

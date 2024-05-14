@@ -261,8 +261,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
               if (viewModel.formKey.currentState!.validate()) {
                 if (viewModel.locationController.text.isEmpty) {
                   log('location empty');
-                } else {
-                }
+                } else {}
                 viewModel.saveUserDetails();
               }
             } else {

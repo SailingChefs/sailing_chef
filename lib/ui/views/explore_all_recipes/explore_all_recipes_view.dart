@@ -20,19 +20,21 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
       resizeToAvoidBottomInset: false,
       backgroundColor: kcBackgroundColor,
       appBar: AppBar(
-          backgroundColor: kcBackgroundColor,
-          elevation: 0,
-          title: Text('Explore All Recipes',
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor)),
-          centerTitle: true,
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BackArrowWidget(
-                onTap: viewModel.toHomeView,
-              ))),
+        backgroundColor: kcBackgroundColor,
+        elevation: 0,
+        title: Text('Explore All Recipes',
+            style: globalTextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor)),
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BackArrowWidget(
+            onTap: viewModel.toHomeView,
+          ),
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Column(

@@ -17,7 +17,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   List<RecipeModel> recipes = [];
 
   Iterable<RecipeModel> searchRecipes() sync* {
-    log('came to search');
+   
     for (var recipe in recipes) {
       if (recipe.title
           .toLowerCase()

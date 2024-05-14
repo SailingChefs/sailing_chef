@@ -1,9 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
-class VisibiltyDropDown extends ViewModelWidget<AddRecipeViewModel> {
-  const VisibiltyDropDown({super.key});
-
+class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
+  const AddFilters(this.drafts, {super.key});
+  final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return Column(

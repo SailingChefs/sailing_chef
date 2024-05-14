@@ -112,12 +112,15 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           dishName: savedRecipes[index].recipeModel!.title,
                           duration: savedRecipes[index].recipeModel!.prepTime,
                           chefImagePath: savedRecipes[index]
-                              .recipeModel!
-                              .user!
-                              .displayPicture == null ? '' : savedRecipes[index]
-                              .recipeModel!
-                              .user!
-                              .displayPicture!,
+                                      .recipeModel!
+                                      .user!
+                                      .displayPicture ==
+                                  null
+                              ? ''
+                              : savedRecipes[index]
+                                  .recipeModel!
+                                  .user!
+                                  .displayPicture!,
                         );
                       },
                       childCount: savedRecipes.length,
