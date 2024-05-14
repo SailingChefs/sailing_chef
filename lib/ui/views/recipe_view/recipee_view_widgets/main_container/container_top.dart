@@ -9,8 +9,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
   final List<XFile?> selectedImages;
+  final List<String?> newUrls;
   const TopBarRecipeView(
-    this.selectedImages, {
+    this.selectedImages, this.newUrls, {
     super.key,
   });
 
@@ -24,7 +25,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
             width: double.infinity,
             height: 350,
             child: PageView.builder(
-              itemCount: selectedImages.length,
+              itemCount: viewModel.selectedImages.length,
               controller: viewModel.pageController,
               onPageChanged: (index) {
                 viewModel.updateVideoSource(
@@ -32,8 +33,22 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
                 );
               },
               itemBuilder: (context, index) {
-                var media = selectedImages[index];
-                if (media!.isVideo) {
+                var media = viewModel.selectedImages[index];
+                if(media is String){
+                  if (media.contains('.mp4')) {
+                  return CustomVideoPlayer.network(
+                    url: media,
+                  );
+                } else if (media.contains('.jpg')) {
+                  return Image.network(
+                    media,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  );
+                }
+                }
+                if(media is XFile){
+                if (media.isVideo) {
                   return CustomVideoPlayer.file(
                     pathh: media.path,
                   );
@@ -43,7 +58,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
                     fit: BoxFit.cover,
                     width: double.infinity,
                   );
-                }
+                }}
                 return null;
               },
             ),

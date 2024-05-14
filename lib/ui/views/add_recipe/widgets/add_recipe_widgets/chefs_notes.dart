@@ -19,7 +19,8 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
               color: kcBlackColor),
         ),
         verticalSpaceTiny,
-        (drafts?.chefNote.isNotEmpty ??false) && (drafts?.waveForm.isNotEmpty ??false)
+        (drafts?.chefNote.isNotEmpty ?? false) &&
+                (drafts?.waveForm.isNotEmpty ?? false)
             ? Container(
                 height: 48,
                 padding: const EdgeInsets.all(5),
@@ -107,7 +108,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: !viewModel.shouldShowHint
+                      child: viewModel.shouldShowHint
                           ? Text(
                               'Add tips for this recipe',
                               style: globalTextStyle(
@@ -115,7 +116,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                   fontWeight: FontWeight.w600,
                                   color: kcBlackColor.withOpacity(0.5)),
                             )
-                          : drafts?.chefNote.isNotEmpty ?? false
+                          : (drafts?.waveForm.isNotEmpty ?? false)
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
@@ -134,57 +135,71 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                               color: kcPrimaryColorDark,
                                             ),
                                     ),
-                                    drafts?.waveForm.isNotEmpty??false
-                                        ? Expanded(
-                                            child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: AudioFileWaveforms(
-                                                enableSeekGesture: false,
-                                                size: const Size(
-                                                    double.maxFinite,
-                                                    double.maxFinite),
-                                                playerController:
-                                                    viewModel.playerController,
-                                                waveformData:
-                                                    viewModel.waveFormData!,
-                                                playerWaveStyle:
-                                                    const PlayerWaveStyle(
-                                                  fixedWaveColor: Colors.black,
-                                                  liveWaveColor: kcPrimaryColor,
-                                                  spacing: 6,
-                                                  seekLineColor: Colors.black,
-                                                  showSeekLine: false,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : Text(
-                                            'Add tips for this recipe',
-                                            style: globalTextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: kcBlackColor
-                                                    .withOpacity(0.5)),
-                                          )
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: AudioFileWaveforms(
+                                          enableSeekGesture: false,
+                                          size: const Size(double.maxFinite,
+                                              double.maxFinite),
+                                          playerController:
+                                              viewModel.playerController,
+                                          waveformData: viewModel.waveFormData!,
+                                          playerWaveStyle:
+                                              const PlayerWaveStyle(
+                                            fixedWaveColor: Colors.black,
+                                            liveWaveColor: kcPrimaryColor,
+                                            spacing: 6,
+                                            seekLineColor: Colors.black,
+                                            showSeekLine: false,
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 )
-                              : AudioWaveforms(
-                                  size: const Size(double.maxFinite, 50),
-                                  recorderController:
-                                      viewModel.recorderController,
-                                  enableGesture: true,
-                                  waveStyle: const WaveStyle(
-                                    waveColor: Colors.black,
-                                    showDurationLabel: false,
-                                    spacing: 8.0,
-                                    showBottom: false,
-                                    extendWaveform: true,
-                                    showMiddleLine: false,
+                              : Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: kcPrimaryColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: IconButton(
+                                        onPressed: viewModel.isPlaying
+                                            ? viewModel.stopListening
+                                            : viewModel.startListening,
+                                        icon: viewModel.isPlaying
+                                            ? const Icon(
+                                                Icons.stop,
+                                                color: kcWhiteColor,
+                                              )
+                                            : const Icon(
+                                                Icons.play_arrow,
+                                                color: kcWhiteColor,
+                                              ),
+                                      ),
+                                    ),
+                                    AudioWaveforms(
+                                      size: const Size(200, 50),
+                                      recorderController:
+                                          viewModel.recorderController,
+                                      enableGesture: true,
+                                      waveStyle: const WaveStyle(
+                                        waveColor: Colors.black,
+                                        showDurationLabel: false,
+                                        spacing: 8.0,
+                                        showBottom: false,
+                                        extendWaveform: true,
+                                        showMiddleLine: false,
 
-                                    //   gradient: LinearGradient(
-                                    //     colors: [Colors.red, Colors.green],
-                                    // ),
-                                  ),
+                                        //   gradient: LinearGradient(
+                                        //     colors: [Colors.red, Colors.green],
+                                        // ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                     ),
                     Visibility(

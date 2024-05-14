@@ -127,7 +127,105 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 return Container(); // Placeholder for unsupported media types
                               }
                             }).toList(),
-                            // GestureDetector(
+                            ...viewModel.selectedImages.map((e){
+                              final media = e.path;
+                              
+                              if (media.contains('.mp4')) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 8.0),
+                                      height: 148.0,
+                                      width: 138.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        child: CustomVideoPlayer.file(
+                                         pathh:  media,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                             viewModel.fireBaseImage(drafts!.docId!,viewModel.selectedImages.indexOf(e)),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 24,
+                                          color: kcwhitecolor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        child: Text(
+                                          'video',
+                                          style:
+                                              globalTextStyle(fontSize: 7.sp),
+                                        )),
+                                  ],
+                                );
+                              } else if (media.contains('.jpg') ||
+                                  media.contains('.jpeg') ||
+                                  media.contains('.png')) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 8.0),
+                                      height: 148.0,
+                                      width: 138.0,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: FileImage(File(media)),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            viewModel.fireBaseImage(drafts!.docId!,viewModel.selectedImages.indexOf(e)),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 24,
+                                          color: kcwhitecolor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                    // Positioned(
+                                    //   top: 10,
+                                    //   left: 10,
+                                    //   child: GestureDetector(
+                                    //     onTap: () => viewModel.showCroppper(
+                                    //       media,
+                                    //       context,
+                                    //       viewModel.selectedImages
+                                    //           .indexOf(image),
+                                    //     ),
+                                    //     child: Icon(
+                                    //       Icons.crop,
+                                    //       size: 24,
+                                    //       color: kcwhitecolor.withOpacity(0.6),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
+                                );
+                              } else {
+                                return Container(); // Placeholder for unsupported media types
+                              }
+                            }).toList(),// GestureDetector(
                             //   onTap: viewModel.pickImages,
                             //   child: DottedBorder(
                             //     borderType: BorderType.RRect,

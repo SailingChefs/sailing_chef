@@ -130,8 +130,6 @@ class Routes {
 
   static const viewAllDraftsView = '/view-all-drafts-view';
 
-  // static const viewAllDraftsView = '/view-all-drafts-view';
-
   static const searchView = '/search-view';
 
   static const all = <String>{
@@ -426,7 +424,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<RecipeViewViewArguments>(nullOk: false);
       return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i18.RecipeViewView(
-            args.recipeModel, args.selectedImages,
+            args.recipeModel, args.selectedImages, args.draftUrls,
             key: args.key, waveFormData: args.waveFormData, path: args.path),
         settings: data,
       );
@@ -698,6 +696,7 @@ class RecipeViewViewArguments {
   const RecipeViewViewArguments({
     required this.recipeModel,
     required this.selectedImages,
+    required this.draftUrls,
     this.key,
     this.waveFormData,
     this.path,
@@ -707,6 +706,8 @@ class RecipeViewViewArguments {
 
   final List<_i39.XFile> selectedImages;
 
+  final List<String> draftUrls;
+
   final _i36.Key? key;
 
   final List<double>? waveFormData;
@@ -715,7 +716,7 @@ class RecipeViewViewArguments {
 
   @override
   String toString() {
-    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "key": "$key", "waveFormData": "$waveFormData", "path": "$path"}';
+    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "draftUrls": "$draftUrls", "key": "$key", "waveFormData": "$waveFormData", "path": "$path"}';
   }
 
   @override
@@ -723,6 +724,7 @@ class RecipeViewViewArguments {
     if (identical(this, other)) return true;
     return other.recipeModel == recipeModel &&
         other.selectedImages == selectedImages &&
+        other.draftUrls == draftUrls &&
         other.key == key &&
         other.waveFormData == waveFormData &&
         other.path == path;
@@ -732,6 +734,7 @@ class RecipeViewViewArguments {
   int get hashCode {
     return recipeModel.hashCode ^
         selectedImages.hashCode ^
+        draftUrls.hashCode ^
         key.hashCode ^
         waveFormData.hashCode ^
         path.hashCode;
@@ -1161,6 +1164,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
   Future<dynamic> navigateToRecipeViewView({
     required _i37.RecipeModel recipeModel,
     required List<_i39.XFile> selectedImages,
+    required List<String> draftUrls,
     _i36.Key? key,
     List<double>? waveFormData,
     String? path,
@@ -1174,6 +1178,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         arguments: RecipeViewViewArguments(
             recipeModel: recipeModel,
             selectedImages: selectedImages,
+            draftUrls: draftUrls,
             key: key,
             waveFormData: waveFormData,
             path: path),
@@ -1414,19 +1419,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  // Future<dynamic> navigateToViewAllDraftsView([
-  //   int? routerId,
-  //   bool preventDuplicates = true,
-  //   Map<String, String>? parameters,
-  //   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-  //       transition,
-  // ]) async {
-  //   return navigateTo<dynamic>(Routes.viewAllDraftsView,
-  //       id: routerId,
-  //       preventDuplicates: preventDuplicates,
-  //       parameters: parameters,
-  //       transition: transition);
-  // }
+
 
   Future<dynamic> navigateToSearchView({
     _i36.Key? key,
@@ -1692,6 +1685,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
   Future<dynamic> replaceWithRecipeViewView({
     required _i37.RecipeModel recipeModel,
     required List<_i39.XFile> selectedImages,
+    required List<String> draftUrls,
     _i36.Key? key,
     List<double>? waveFormData,
     String? path,
@@ -1705,6 +1699,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         arguments: RecipeViewViewArguments(
             recipeModel: recipeModel,
             selectedImages: selectedImages,
+            draftUrls: draftUrls,
             key: key,
             waveFormData: waveFormData,
             path: path),
@@ -1945,19 +1940,6 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  // Future<dynamic> replaceWithViewAllDraftsView([
-  //   int? routerId,
-  //   bool preventDuplicates = true,
-  //   Map<String, String>? parameters,
-  //   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-  //       transition,
-  // ]) async {
-  //   return replaceWith<dynamic>(Routes.viewAllDraftsView,
-  //       id: routerId,
-  //       preventDuplicates: preventDuplicates,
-  //       parameters: parameters,
-  //       transition: transition);
-  // }
 
   Future<dynamic> replaceWithSearchView({
     _i36.Key? key,

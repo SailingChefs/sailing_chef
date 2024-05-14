@@ -24,13 +24,18 @@ class RecipeViewViewModel extends BaseViewModel {
   bool isMethodsSelected = false;
   bool isclicked = false;
   bool isPlaying = false;
+  final List<String> prevImageUrls;
+  final List<XFile> newImageUrls;
+
+
+  List<dynamic> get selectedImages => [...prevImageUrls, ...newImageUrls];
 
   Timer? _timer;
   List<double>? waveFormData;
   String? path;
   int? duration;
   List<RecipeModel>? myRecipes;
-  RecipeViewViewModel({this.waveFormData, this.path,});
+  RecipeViewViewModel( this.prevImageUrls, this.newImageUrls, {this.waveFormData, this.path,});
 
   void onViewModelReady() async {
     isclicked = false;
@@ -42,6 +47,7 @@ class RecipeViewViewModel extends BaseViewModel {
       path: path!,
       volume: 100,
     );
+    
     // duration = await playerController.getDuration(DurationType.values[0]);
 
     setBusy(false);
