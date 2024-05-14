@@ -46,7 +46,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final PageController pageController = PageController();
   final ImagePicker _picker = ImagePicker();
   final _serviceConversations = locator<ConversationService>();
-  
+  bool isRecipeSaved = false;
+
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
@@ -64,6 +65,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     ));
   }
 
+  void checkSave(String recipeId) {
+    for (SavedRecipeModel savedRecipe in savedRecipeList) {
+      if (savedRecipe.recipeId == recipeId) {
+        isRecipeSaved = !isRecipeSaved;
+        break;
+      }
+    }
+  }
+
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
@@ -76,31 +86,33 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     images.addAll(selectedImages.map((xFile) => File(xFile.path)));
     rebuildUi();
   }
-  void seeCommentsAll(){
+
+  void seeCommentsAll() {
     seeComments = !seeComments;
-     notifyListeners();
+    notifyListeners();
     rebuildUi();
-   
   }
+
   String calculateAverageRating(List<CommentModel> comments) {
-  if (comments.isEmpty) {
-    return '0.0'; // Return 0 if there are no comments
-  }
-
-  double totalRating = 0.0;
-
-  // Calculate the total rating
-  for (var comment in comments) {
-    if (comment.rating != null) {
-      totalRating += comment.rating!;
+    if (comments.isEmpty) {
+      return '0.0'; // Return 0 if there are no comments
     }
+
+    double totalRating = 0.0;
+
+    // Calculate the total rating
+    for (var comment in comments) {
+      if (comment.rating != null) {
+        totalRating += comment.rating!;
+      }
+    }
+
+    // Calculate the average rating
+    double averageRating = totalRating / comments.length;
+    return averageRating.toStringAsFixed(1);
   }
 
-  // Calculate the average rating
-  double averageRating = totalRating / comments.length;
-  return averageRating.toStringAsFixed(1);
-}
-Future<void> moveToChatScreen(
+  Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
     var conversationModel = ConversationModel(
@@ -120,7 +132,6 @@ Future<void> moveToChatScreen(
     _navigationService.navigateToChatView(
         receiver: chef, conversationId: conversationId);
   }
-
 
   void removeImage(int index) {
     images.removeAt(index);
@@ -252,6 +263,7 @@ Future<void> moveToChatScreen(
     await _savedRecipeService.init();
     playerController = PlayerController();
     downloadAudio();
+    checkSave(recipeId);
     // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);

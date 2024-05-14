@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_following_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_saved_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
@@ -8,7 +9,8 @@ import 'package:sailing_chefs/ui/views/saved_recipes/widgets/top_bar.dart';
 import 'saved_recipes_viewmodel.dart';
 
 class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
-  const SavedRecipesView({Key? key}) : super(key: key);
+ 
+  const SavedRecipesView({Key? key, }) : super(key: key);
 
   @override
   Widget builder(
@@ -38,7 +40,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                         const SearchBarSavedRecipesScreen(),
                         verticalSpaceMedium,
                         viewModel.isAllSelected
-                            ? const AllSavedRecipesScreen()
+                            ?  AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),
                       ],
                     ),

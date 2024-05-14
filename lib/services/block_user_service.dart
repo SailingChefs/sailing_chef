@@ -35,7 +35,7 @@ class BlockUserService with ListenableServiceMixin {
                 {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
 
         blockedAccounts.add(blockedAccounts.last);
-        chefService.chefs
+       ChefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));
         notifyListeners();
       } else {

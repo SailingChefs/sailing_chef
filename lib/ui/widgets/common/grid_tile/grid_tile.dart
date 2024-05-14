@@ -138,10 +138,12 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                         size: 12.dg,
                         color: kcWhiteColor,
                       ),
-                      horizontalSpaceTiny,
+                      horizontalSpaceTiny, 
                       Expanded(
                         child: Text(
-                          duration,
+                         viewModel.formatTimeString(duration),
+                          maxLines: 1,
+                          
                           style: globalTextStyle(fontSize: 10.sp),
                         ),
                       )
@@ -165,13 +167,19 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0.r),
-                  child: chefImagePath.isEmpty ? Image.asset( 'assets/images/misc/blank_image.png',fit: BoxFit.contain, height: 32.h,
-                    width: 32.w,) : Image.network(
-                    chefImagePath,
-                    height: 32.h,
-                    width: 32.w,
-                    fit: BoxFit.cover,
-                  ),
+                  child: chefImagePath.isEmpty
+                      ? Image.asset(
+                          'assets/images/misc/blank_image.png',
+                          fit: BoxFit.contain,
+                          height: 32.h,
+                          width: 32.w,
+                        )
+                      : Image.network(
+                          chefImagePath,
+                          height: 32.h,
+                          width: 32.w,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
             )

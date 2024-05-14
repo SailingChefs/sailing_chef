@@ -10,13 +10,11 @@ import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 class ExploreAllRecipesViewModel extends BaseViewModel {
   final _navigatorService = locator<NavigationService>();
   final TextEditingController searchController = TextEditingController();
-  final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
-  List<RecipeModel> recipes = [];
 
-  Iterable<RecipeModel> searchRecipes() sync* {
+  Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (var recipe in recipes) {
       if (recipe.title
@@ -30,7 +28,6 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
 
   Future<void> onViewModelReady() async {
     setBusy(true);
-    recipes = await _recipeService.fetchAllRecipes();
     await _savedRecipeService.init();
 
     setBusy(false);
@@ -43,7 +40,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
       recipeModel: recip,
-      randomRecipeList: IndexViewModel.getRandomDishes(recip, recipes),
+      randomRecipeList: IndexViewModel.getRandomDishes(recip, RecipeService.recipes),
     );
   }
 }

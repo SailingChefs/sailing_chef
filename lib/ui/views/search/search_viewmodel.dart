@@ -1,66 +1,78 @@
 import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
-class SavedRecipesViewModel extends ReactiveViewModel {
+class SearchViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _savedRecipeService = locator<SavedRecipeService>();
-  final _recipeService = locator<RecipeService>();
-  final TextEditingController searchSavedController = TextEditingController();
-  final TextEditingController searchFollowingController =
-      TextEditingController();
+  final TextEditingController searchControllerRecipe = TextEditingController();
+  final TextEditingController searchControllerChef = TextEditingController();
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-  List<RecipeModel>? followingRecipes;
+  
 
   String selectedTab = 'All';
-  bool isAllSelected = true;
-  bool isFollowingSelected = false;
-  @override
+  bool isRecipeSelected = true;
+  bool isChefsSelected = false;
+  
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
 
   void allSelected() {
-    isAllSelected = true;
-    isFollowingSelected = false;
+    isRecipeSelected = true;
+    isChefsSelected = false;
     notifyListeners();
     rebuildUi();
   }
-  Iterable<SavedRecipeModel> searchRecipes(List<SavedRecipeModel> recipes,String query) sync* {
+   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (var recipe in recipes) {
-      if (recipe.recipeModel!.title
+      if (recipe.title
           .toLowerCase()
-          .contains(query.toLowerCase())) {
+          .contains(searchControllerRecipe.text.toLowerCase())) {
         // rebuildUi();
         yield recipe;
       }
     }
   }
 
+   Iterable<UserModel> searchUser(List<UserModel> chef) sync* {
+    log('came to search');
+    for (var user in chef) {
+      if (user.displayName!
+          .toLowerCase()
+          .contains(searchControllerChef.text.toLowerCase())) {
+        // rebuildUi();
+        yield user;
+      }
+    }
+  }
   void onViewModelReady() async {
     setBusy(true);
     await _savedRecipeService.init();
-    followingRecipes = await _recipeService.fetchFollowingRecipesByUID();
-
     setBusy(false);
   }
 
-  void toAllDishesScreen() {
+  void toAllDishesScreen(
+    List<RecipeModel> recipeList,
+  ) {
     _navigationService.navigateToExploreAllRecipesView(
-      recipes: RecipeService.recipes
+      recipes: recipeList
     );
   }
 
   void followingSelected() {
-    isFollowingSelected = true;
-    isAllSelected = false;
+    isChefsSelected = true;
+    isRecipeSelected = false;
     notifyListeners();
     rebuildUi();
   }
+ 
 
   void handleTab(int index) {
     switch (index) {
@@ -86,6 +98,17 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: recipe,
-        randomRecipeList: IndexViewModel.getRandomDishes(recipe, []));
+        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
+  }
+
+  void toChefProfile(chef) {}
+
+  void toAllChefsScreen(List<UserModel> chefList) {
+    _navigationService.navigateToAllChefsView(chefList: chefList );
+  }
+  void toFilterScreen(List<RecipeModel> recipeList) {
+    _navigationService.navigateToFilterView(
+      
+    );
   }
 }

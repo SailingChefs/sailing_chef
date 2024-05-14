@@ -16,10 +16,10 @@ class IndexViewModel extends BaseViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
-  List<UserModel> get chefList => _chefService.chefs;
+  List<UserModel> get chefList => ChefService.chefs;
   List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
-  List<RecipeModel> get dishes => _recipeService.recipes;
+  List<RecipeModel> get dishes => RecipeService.recipes;
   bool isMySelected = true;
   bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
@@ -84,7 +84,9 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toAllRecipesView() {
-    _navigationService.navigateToExploreAllRecipesView();
+    _navigationService.navigateToExploreAllRecipesView(
+      recipes: dishes,
+    );
   }
 
   void toChefProfile(UserModel chef) {
@@ -122,5 +124,12 @@ class IndexViewModel extends BaseViewModel {
 
   void toViewCullinarySchools() {
     _navigationService.navigateToCulineryschoolviewallView();
+  }
+
+  void toSearch() {
+    _navigationService.navigateToSearchView(
+      chefList: chefList,
+      recipeModel: dishes,
+    );
   }
 }

@@ -5,10 +5,9 @@ import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
-
-class ChefService with ListenableServiceMixin{
+class ChefService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
-  List<UserModel> chefs = [];
+  static List<UserModel> chefs = [];
   bool isInitialized = false;
 
   Future<void> chefInit() async {

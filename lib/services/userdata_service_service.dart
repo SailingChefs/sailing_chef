@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -29,6 +30,27 @@ class UserdataServiceService {
     } catch (error) {
       EasyLoading.dismiss();
       return users;
+    }
+  }
+
+  Future<void> deleteFileFromStorage(String downloadUrl) async {
+    try {
+      // Extract the file path from the download URL
+      String filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
+
+      // Remove the leading '/' from the file path
+      filePath = filePath.substring(38);
+      log(filePath);
+
+      // Get a reference to the file in Firebase Storage
+      Reference storageRef = FirebaseStorage.instance.ref().child(filePath);
+
+      // Delete the file
+      await storageRef.delete();
+      log('File deleted successfully');
+    } catch (error) {
+      log('Error deleting file: $error');
+      // Handle error as needed
     }
   }
 

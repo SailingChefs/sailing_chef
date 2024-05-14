@@ -149,9 +149,12 @@ class PinDropMapViewModel extends ReactiveViewModel {
     return marker;
   }
 
-  void addMarkers(String markerId, LatLng location,) {
+  void addMarkers(
+    String markerId,
+    LatLng location,
+  ) {
     allMarkers[markerId] = createMarker(markerId, location);
-    
+
     notifyListeners();
     rebuildUi();
   }

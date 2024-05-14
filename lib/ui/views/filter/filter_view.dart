@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/bottom_buttons.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/category_tab.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/course_tab_bar.dart';
@@ -9,6 +10,7 @@ import 'package:sailing_chefs/ui/views/filter/widgets/top_bar.dart';
 import 'filter_viewmodel.dart';
 
 class FilterView extends StackedView<FilterViewModel> {
+
   const FilterView({Key? key}) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class FilterView extends StackedView<FilterViewModel> {
                   ],
                 ),
               ),
-              const BottomButtons(),
+               const BottomButtons(),
             ],
           ),
         ),

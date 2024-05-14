@@ -115,6 +115,44 @@ class SavedRecipeService with ListenableServiceMixin {
       return [];
     }
   }
+  Future<List<SavedRecipeModel>> fetchUserSavedRecipes(String userId) async {
+  try {
+    DocumentSnapshot userDoc = await firebasestore.collection('users').doc(userId).get();
+
+    if (userDoc.exists) {
+      Map<String, dynamic>? savedRecipeIds = userDoc.data() as Map<String, dynamic>?;
+
+      // Initialize an empty list to store saved recipes
+      List<SavedRecipeModel> savedRecipes = [];
+
+      // If the user has saved recipes, fetch each recipe and add it to the list
+      if (savedRecipeIds != null && savedRecipeIds.containsKey('saved_Recipes')) {
+        List<dynamic> savedRecipeIdsList = savedRecipeIds['saved_Recipes'] as List<dynamic>;
+        for (var recipeId in savedRecipeIdsList) {
+          DocumentSnapshot recipeDoc = await firebasestore.collection('recipes').doc(recipeId).get();
+          if (recipeDoc.exists) {
+            RecipeModel recipeModel = RecipeModel.fromSnapshot(recipeDoc);
+            String recipeUserId = recipeModel.uid;
+            DocumentSnapshot userSnapshot = await firebasestore.collection('users').doc(recipeUserId).get();
+            if (userSnapshot.exists) {
+              UserModel userModel = UserModel.fromSnapshot(userSnapshot);
+              recipeModel.user = userModel;
+              savedRecipes.add(SavedRecipeModel(recipeId: recipeModel.docId, recipeModel: recipeModel));
+            }
+          }
+        }
+      }
+
+      return savedRecipes;
+    } else {
+      return [];
+    }
+  } catch (e) {
+    print("Error fetching saved recipes: $e");
+    return [];
+  }
+}
+
 
   // Future<List<SavedRecipeModel>> _getSavedRecipeIdsForUser(
   //     String userId) async {

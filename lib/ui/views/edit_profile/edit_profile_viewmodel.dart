@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -19,6 +20,7 @@ class EditProfileViewModel extends BaseViewModel {
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatController = TextEditingController();
   final TextEditingController location = TextEditingController();
+  final _userService = locator<UserServices>();
   UserdataServiceService userDataService = locator<UserdataServiceService>();
   final ImagePicker picker = ImagePicker();
   File? selectedImageFile;
@@ -33,7 +35,8 @@ class EditProfileViewModel extends BaseViewModel {
     emailController.text = userDetails!.email!;
     linkController.text = userDetails!.link!;
     bioController.text = userDetails!.bio!;
-    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    boatController.text =
+        userDetails!.boatName == null ? '' : userDetails!.boatName!;
     await getUserLocation();
     log(placemarks!.first.locality.toString());
     location.text = placemarks!.first.locality.toString();
@@ -82,20 +85,32 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  void saveEditDetailsCullinary(
-    String name,
-    String bio,
-    String email,
-    String link,
-  ) async {
-    if (formKey.currentState!.validate()) {
+  void saveEditDetailsCullinary() async {
+    log('Iam here');
+    if (selectedImageFile != null) {
+      await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
+      final imageLink = await _userService.uploadImage(
+        selectedImageFile as File,
+        selectedImageFile!.path.split('/').last,
+      );
+      log(imageLink.toString());
       Map<String, dynamic> userData = {
-        'display_picture': selectedImagePath,
-        'display_name': name,
-        'email': email,
-        'link': link,
-        'location': placemarks,
-        'bio': bio,
+        'display_picture': imageLink,
+        'display_name': nameController.text,
+        'email': emailController.text,
+        'link': linkController.text,
+        'bio': bioController.text,
+      };
+      userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
+      userDetails!.displayPicture = imageLink;
+      notifyListeners();
+    } else {
+      Map<String, dynamic> userData = {
+        'display_name': nameController.text,
+        'email': emailController.text,
+        'link': linkController.text,
+        'bio': bioController.text,
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
@@ -109,25 +124,60 @@ class EditProfileViewModel extends BaseViewModel {
     String link,
     String boatName,
   ) async {
-    if (formKey.currentState!.validate()) {
-      Map<String, dynamic> userData = {
-        'display_picture': selectedImagePath,
-        'display_name': name,
-        'email': email,
-        'link': link,
-        'location': userDetails!.location,
-        'bio': bio,
-        'boat_name': boatName,
-      };
-      userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+    if (selectedImageFile != null) {
+      await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
+      final imageLink = await _userService.uploadImage(
+        selectedImageFile as File,
+        selectedImageFile!.path.split('/').last,
+      );
+      if (formKey.currentState!.validate()) {
+        Map<String, dynamic> userData = {
+          'display_picture': imageLink,
+          'display_name': name,
+          'email': email,
+          'link': link,
+          'bio': bio,
+          'boat_name': boatName,
+        };
+        userDataService.storeUserDetails(
+            userData, FirebaseAuth.instance.currentUser!.uid);
+        userDetails!.displayPicture = imageLink;
+        notifyListeners();
+      } else {
+        Map<String, dynamic> userData = {
+          'display_name': name,
+          'email': email,
+          'link': link,
+          'bio': bio,
+          'boat_name': boatName,
+        };
+        userDataService.storeUserDetails(
+            userData, FirebaseAuth.instance.currentUser!.uid);
+      }
     }
   }
 
   void saveEditDetailsGuest(String name, String bio) async {
     if (formKey.currentState!.validate()) {
+      if (selectedImageFile != null) {
+        await userDataService
+            .deleteFileFromStorage(userDetails!.displayPicture!);
+        final imageLink = await _userService.uploadImage(
+          selectedImageFile as File,
+          selectedImageFile!.path.split('/').last,
+        );
+        Map<String, dynamic> userData = {
+          'display_picture': imageLink,
+          'display_name': name,
+          'bio': bio,
+        };
+        userDataService.storeUserDetails(
+            userData, FirebaseAuth.instance.currentUser!.uid);
+        userDetails!.displayPicture = imageLink;
+        notifyListeners();
+      }
+    } else {
       Map<String, dynamic> userData = {
-        'display_picture': selectedImagePath,
         'display_name': name,
         'bio': bio,
       };

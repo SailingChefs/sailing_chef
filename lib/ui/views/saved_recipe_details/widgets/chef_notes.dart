@@ -2,7 +2,8 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
-class ChefNotesRecipeDetails extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+class ChefNotesRecipeDetails
+    extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   const ChefNotesRecipeDetails({super.key});
 
   @override

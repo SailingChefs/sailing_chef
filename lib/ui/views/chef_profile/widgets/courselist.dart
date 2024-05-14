@@ -17,7 +17,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
         verticalSpaceMedium,
         SizedBox(
           height: 290,
-          child: ListView.builder(
+          child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : ListView.builder(
             itemCount: viewModel.courses.length,
             itemBuilder: (context, index) {
               Course course = viewModel.courses[index];

@@ -64,12 +64,6 @@ class AddRecipeViewModel extends BaseViewModel {
 
   bool hasRecordedAudio = false;
 
-  void onTimeMethodSelection(String value) {
-    selectedTimeMethod = value;
-    notifyListeners();
-    rebuildUi();
-  }
-
   Future<void> showTagsSheet(context) async {
     final result =
         await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
@@ -257,31 +251,35 @@ class AddRecipeViewModel extends BaseViewModel {
       initialTime: initialTime,
       initialEntryMode: TimePickerEntryMode.inputOnly,
       builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData(
-            textTheme: themeData.textTheme.copyWith(),
-            colorScheme: themeData.colorScheme.copyWith(
-              primary: kcPrimaryColor,
-              onPrimary: kcWhiteColor,
-              // onSurface: kcPrimaryColor,
-              // surface: kcPrimaryColor,
-            ),
-            primaryColor: kcPrimaryColor,
-            dialogBackgroundColor: kcPrimaryColor,
-            hoverColor: kcPrimaryColor,
-            focusColor: kcPrimaryColor,
-            fontFamily: 'Poppins',
-            dialogTheme: DialogTheme(
-              backgroundColor: kcWhiteColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: Theme(
+            data: ThemeData(
+              textTheme: themeData.textTheme.copyWith(),
+              colorScheme: themeData.colorScheme.copyWith(
+                primary: kcPrimaryColor,
+                onPrimary: kcWhiteColor,
+                // onSurface: kcPrimaryColor,
+                // surface: kcPrimaryColor,
+              ),
+              primaryColor: kcPrimaryColor,
+              dialogBackgroundColor: kcPrimaryColor,
+              hoverColor: kcPrimaryColor,
+              focusColor: kcPrimaryColor,
+              fontFamily: 'Poppins',
+              dialogTheme: DialogTheme(
+                backgroundColor: kcWhiteColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
             ),
+            child: child!,
           ),
-          child: child!,
         );
       },
     );
+
     rebuildUi();
   }
 
@@ -349,7 +347,7 @@ class AddRecipeViewModel extends BaseViewModel {
           waveForm: waveFormData == null ? [] : waveFormData!,
         ),
         'images': selectedImages,
-         'path': path,
+        'path': path,
       });
     }
   }

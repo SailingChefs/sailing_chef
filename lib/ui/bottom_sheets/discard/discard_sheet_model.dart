@@ -11,8 +11,9 @@ class DiscardSheetModel extends BaseViewModel {
     imageUrls = images.isNotEmpty
         ? await _recipeService.uploadMediaToFirebase(images, recipe.docId)
         : [];
-        final String chefNote = path . isNotEmpty ?
-        await _recipeService.uploadChefNoteToFirebaseStorage(path!) : '';
+    final String chefNote = path.isNotEmpty
+        ? await _recipeService.uploadChefNoteToFirebaseStorage(path!)
+        : '';
     recipe.coverImage = imageUrls;
     recipe.chefNote = chefNote;
 

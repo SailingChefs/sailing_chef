@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/index/widgets/search_delegate.dart';
 
 class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
   const SearchBarIndexView({super.key});
@@ -13,7 +12,8 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              showSearch(context: context, delegate: RecipeSearchDelegate());
+              // showSearch(context: context, delegate: RecipeSearchDelegate());
+              viewModel.toSearch();
             },
             child: Container(
               padding:
