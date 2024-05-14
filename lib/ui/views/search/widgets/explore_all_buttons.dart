@@ -1,14 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 
-class ExploreAllButton extends ViewModelWidget<SavedRecipesViewModel> {
- 
-  const ExploreAllButton({super.key, });
+class ExploreAllButtonSearch extends ViewModelWidget<SearchViewModel> {
+  final String text;
+  final void Function()? onTap;
+  const ExploreAllButtonSearch({super.key, required this.text, this.onTap});
 
   @override
-  Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
+  Widget build(BuildContext context, SearchViewModel viewModel) {
     return GestureDetector(
-      onTap:() => viewModel.toAllDishesScreen(),
+      onTap: onTap,
       child: Container(
         width: 203,
         height: 48,
@@ -19,7 +20,7 @@ class ExploreAllButton extends ViewModelWidget<SavedRecipesViewModel> {
         child: Center(
           child: Text(
             textAlign: TextAlign.center,
-            'Discover more  recipes',
+            text,
             style: globalTextStyle(fontSize: 14, color: kcwhitecolor),
           ),
         ),

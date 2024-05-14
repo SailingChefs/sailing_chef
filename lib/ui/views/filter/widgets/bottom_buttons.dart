@@ -5,7 +5,9 @@ import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 import 'package:stacked/stacked.dart';
 
 class BottomButtons extends ViewModelWidget<FilterViewModel> {
+  
   const BottomButtons({super.key});
+
 
   @override
   Widget build(BuildContext context, FilterViewModel viewModel) {
@@ -29,7 +31,7 @@ class BottomButtons extends ViewModelWidget<FilterViewModel> {
             height: MediaQuery.sizeOf(context).height * 0.04,
           ),
           RoundedElevatedButton(
-            onPressed: viewModel.apply,
+            onPressed:() => viewModel.apply (),
             buttonText: 'Apply',
             isEnabled: true,
             textColor: kcPrimaryColor,

@@ -54,7 +54,7 @@ class UserServices with ListenableServiceMixin {
       if (userSnapshot.docs.isNotEmpty) {
         DocumentSnapshot userDoc = userSnapshot.docs.first;
         EasyLoading.dismiss();
-        showToast(message: 'User Data fetched successfully');
+        // showToast(message: 'User Data fetched successfully');
 
         UserModel.fromSnapshot(userDoc);
 
@@ -114,6 +114,7 @@ class UserServices with ListenableServiceMixin {
 
       // Return the download URL
       EasyLoading.dismiss();
+      log(downloadUrl);
       return downloadUrl;
     } catch (e) {
       // Handle errors

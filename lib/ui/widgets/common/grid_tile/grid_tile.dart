@@ -138,10 +138,12 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                         size: 12.dg,
                         color: kcWhiteColor,
                       ),
-                      horizontalSpaceTiny,
+                      horizontalSpaceTiny, 
                       Expanded(
                         child: Text(
-                          duration,
+                         viewModel.formatTimeString(duration),
+                          maxLines: 1,
+                          
                           style: globalTextStyle(fontSize: 10.sp),
                         ),
                       )

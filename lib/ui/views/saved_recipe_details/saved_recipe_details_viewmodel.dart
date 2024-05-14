@@ -46,6 +46,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final PageController pageController = PageController();
   final ImagePicker _picker = ImagePicker();
   final _serviceConversations = locator<ConversationService>();
+  bool isRecipeSaved = false;
 
   List<File> images = [];
   double rating = 3.0;
@@ -63,6 +64,24 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       recipeId: recipe.docId!,
     ));
   }
+
+  void checkSave(String recipeId) {
+    for (SavedRecipeModel savedRecipe in savedRecipeList) {
+      if (savedRecipe.recipeId == recipeId) {
+        isRecipeSaved = !isRecipeSaved;
+        break;
+      }
+    }
+  }
+
+  // void checkSave(String recipeId) {
+  //   for (SavedRecipeModel savedRecipe in savedRecipeList) {
+  //     if (savedRecipe.recipeId == recipeId) {
+  //       isRecipeSaved = !isRecipeSaved;
+  //       break;
+  //     }
+  //   }
+  // }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [
@@ -253,6 +272,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     await _savedRecipeService.init();
     playerController = PlayerController();
     downloadAudio();
+    checkSave(recipeId);
     // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);

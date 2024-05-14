@@ -14,6 +14,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
@@ -33,12 +34,15 @@ class AddRecipeViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
+  final _recipeService = locator<RecipeService>();
+  final _userSerice = locator<UserdataServiceService>();
   late Directory directory;
   late String path;
   String selectedValue = 'Public';
   int selectedQuantity = 1;
   List<XFile> selectedImages = [];
   List<XFile> thumbnails = [];
+  List<String> alreadySelectedImages = [];
   TextEditingController titleController = TextEditingController();
   int count = 0;
   List<String> values = ['Public', 'Private'];
@@ -172,6 +176,9 @@ class AddRecipeViewModel extends BaseViewModel {
       titleController.text = recipeModel!.title;
       ingredientsList = recipeModel!.ingredients;
       methodsList = recipeModel!.methods;
+      if(recipeModel!.coverImage.isNotEmpty){
+        alreadySelectedImages = recipeModel!.coverImage;
+      }
       // selectedTime = recipeModel!.prepTime as TimeOfDay?;
       tagsList = recipeModel!.tags!;
       if (recipeModel!.chefNote.isNotEmpty &&
@@ -301,6 +308,15 @@ class AddRecipeViewModel extends BaseViewModel {
     thumbnails.remove(index);
     rebuildUi();
   }
+  void fireBaseImage(String recipeId, index){
+    alreadySelectedImages.removeAt(index);
+    _recipeService.deleteIndexImageFromDocument(recipeId,alreadySelectedImages[index]);
+    _userSerice.deleteFileFromStorage(alreadySelectedImages[index]);
+    notifyListeners();
+    rebuildUi();
+
+
+  }
 
   Future<void> showCustomTimePickerDialog(BuildContext context) async {
     // Set the initial time to 00:00 (midnight)
@@ -345,15 +361,14 @@ class AddRecipeViewModel extends BaseViewModel {
         );
       },
     );
+
     rebuildUi();
   }
 
   String formatDuration([TimeOfDay? time]) {
     int minutes = selectedTime!.minute;
     int hours = selectedTime!.hour;
-    if (minutes == 0) {
-      return '0 h';
-    } else {
+     
       int remainingMinutes = minutes % 60;
       if (remainingMinutes == 0) {
         return '$hours h'; // If no remaining minutes, only display hours
@@ -362,7 +377,7 @@ class AddRecipeViewModel extends BaseViewModel {
       } else {
         return '$hours h $remainingMinutes mins'; // Otherwise, display hours and minutes
       }
-    }
+    
   }
 
   void pickImages() async {
@@ -426,7 +441,7 @@ class AddRecipeViewModel extends BaseViewModel {
         'model': RecipeModel(
           visibility: 'private',
           chefNote: 'recorderController',
-          coverImage: [],
+          coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
           createdTime: Timestamp.now(),
           ingredients: ingredientsList,
           tags: tagsList,
@@ -536,7 +551,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 recipeModel: RecipeModel(
                   visibility: selectedValue,
                   chefNote: '',
-                  coverImage: [],
+                  coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
                   createdTime: Timestamp.now(),
                   ingredients: ingredientsList,
                   methods: methodsList,
@@ -557,7 +572,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 recipeModel: RecipeModel(
                   visibility: selectedValue,
                   chefNote: '',
-                  coverImage: [],
+                  coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
                   createdTime: Timestamp.now(),
                   ingredients: ingredientsList,
                   methods: methodsList,

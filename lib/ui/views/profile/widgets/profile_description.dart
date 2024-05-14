@@ -34,19 +34,19 @@ class ProfileDescriptionProfileScreen
           ),
           userDetails!.userRole == 'guest'
               ? Container()
-              : viewModel.placemarks!.isEmpty
+              : placemarks!.isEmpty
                   ? Container()
                   : Text(
-                      viewModel.placemarks![0].country!.isEmpty &&
+                      placemarks![0].country!.isEmpty &&
                               userDetails!.boatName!.isEmpty
                           ? ' '
-                          : viewModel.placemarks![0].country!.isEmpty
+                          : placemarks![0].country!.isEmpty
                               ? capitalizeEachWord(userDetails!.boatName!)
                               : userDetails!.boatName!.isEmpty
                                   ? capitalizeEachWord(
-                                      viewModel.placemarks!.first.country!)
+                                      placemarks!.first.country!)
                                   : capitalizeEachWord(
-                                      '${userDetails!.boatName!}, ${viewModel.placemarks!.first.country!}'),
+                                      '${userDetails!.boatName!}, ${placemarks!.first.country!}'),
                       style: globalTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

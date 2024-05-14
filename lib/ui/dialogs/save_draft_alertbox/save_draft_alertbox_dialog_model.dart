@@ -20,7 +20,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     final String chefNote = path.isNotEmpty
         ? await _recipeService.uploadChefNoteToFirebaseStorage(path!)
         : '';
-    recipe.coverImage = imageUrls;
+    recipe.coverImage += imageUrls;
     recipe.chefNote = chefNote;
     bool saved = await _recipeService.addOrUpdateDraft(recipe);
     if (saved) {

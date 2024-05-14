@@ -93,12 +93,12 @@ class RecipeViewViewModel extends BaseViewModel {
     final String chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     try {
-      log("id"+recipe.docId!);
+      log("id${recipe.docId!}");
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
             visibility: recipe.visibility,
             chefNote: chefNote,
-            coverImage: imageUrls,
+            coverImage: recipe.coverImage + imageUrls,
             createdTime: Timestamp.now(),
             ingredients: recipe.ingredients,
             methods: recipe.methods,
@@ -130,7 +130,7 @@ class RecipeViewViewModel extends BaseViewModel {
           .addRecipeToFirestore(RecipeModel(
             visibility: 'private',
             chefNote: chefNote,
-            coverImage: imageUrls,
+            coverImage: recipe.coverImage + imageUrls,
             createdTime: Timestamp.now(),
             ingredients: recipe.ingredients,
             methods: recipe.methods,

@@ -21,7 +21,7 @@ class CullinaryschoolService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  void cullinaryCoursesInit(String uid) async {
+  Future<void> cullinaryCoursesInit(String uid) async {
     courses = await getCoursesFromDatabase(userId: uid);
     notifyListeners();
   }

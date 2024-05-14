@@ -55,6 +55,9 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
       inputFormatters: inputFormatters,
       controller: controller,
       validator: validator,
+      maxLines: 5,
+      maxLength: 200,
+
       style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
         filled: true,
@@ -90,9 +93,9 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
             color: kcErrorColor,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 40.0,
-          horizontal: 20.0,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 25.0.dg,
+          horizontal: 20.0.dg,
         ),
         prefix: prefixIconData,
         suffix: suffixIconData,

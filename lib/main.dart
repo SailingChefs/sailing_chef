@@ -11,14 +11,12 @@ import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/firebase_options.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'core/theme/text_styles.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final _prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

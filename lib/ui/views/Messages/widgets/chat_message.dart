@@ -316,7 +316,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   radius: 15.0,
                   backgroundImage: userDetails!.displayPicture != null
                       ? NetworkImage(userDetails!.displayPicture!)
-                      : AssetImage('assets/images/icons/imageicon.png')
+                      : const AssetImage('assets/images/icons/imageicon.png')
                           as ImageProvider<Object>,
                   child: userDetails!.displayPicture!.isNotEmpty
                       ? null
