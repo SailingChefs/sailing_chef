@@ -4,6 +4,7 @@ import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class SaveDraftAlertboxDialogModel extends BaseViewModel {
   final _navigatorlocator = locator<NavigationService>();
@@ -14,15 +15,19 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     List<String> imageUrls;
     log(recipe.docId.toString());
     imageUrls = images.isNotEmpty
-        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId)
+        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!)
         : [];
     final String chefNote = path.isNotEmpty
         ? await _recipeService.uploadChefNoteToFirebaseStorage(path!)
         : '';
-    recipe.coverImage = imageUrls;
+    recipe.coverImage += imageUrls;
     recipe.chefNote = chefNote;
-    await _recipeService.addRecipeToFirestore(recipe);
-    _navigatorlocator.replaceWithSettingsView();
+    bool saved = await _recipeService.addOrUpdateDraft(recipe);
+    if (saved) {
+      _navigatorlocator.replaceWithSettingsView();
+    } else {
+      showToast(message: 'Error saving draft recipe');
+    }
   }
 
   void noButton(RecipeModel model, final selectedImages, final path) {

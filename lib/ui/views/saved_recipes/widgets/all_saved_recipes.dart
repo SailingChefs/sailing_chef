@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/explore_all_button.dart';
@@ -109,7 +108,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                 }),
               ),
               verticalSpace(90),
-               ExploreAllButton(),
+               const ExploreAllButton(),
             ],
           );
   }

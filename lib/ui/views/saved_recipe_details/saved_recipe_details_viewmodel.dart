@@ -61,7 +61,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void addToSaveList(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
-      recipeId: recipe.docId,
+      recipeId: recipe.docId!,
     ));
   }
 
@@ -73,6 +73,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       }
     }
   }
+
+  // void checkSave(String recipeId) {
+  //   for (SavedRecipeModel savedRecipe in savedRecipeList) {
+  //     if (savedRecipe.recipeId == recipeId) {
+  //       isRecipeSaved = !isRecipeSaved;
+  //       break;
+  //     }
+  //   }
+  // }
 
   @override
   List<ListenableServiceMixin> get listenableServices => [

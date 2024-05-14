@@ -74,6 +74,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/search/search_view.dart';
+import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -112,6 +113,8 @@ import 'package:sailing_chefs/ui/views/search/search_view.dart';
     MaterialRoute(page: CulineryschoolviewallView),
     MaterialRoute(page: ChatView),
     MaterialRoute(page: ExploreAllRecipesView),
+    MaterialRoute(page: ViewAllDraftsView),
+    MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: SearchView),
 // @stacked-route
   ],

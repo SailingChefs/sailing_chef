@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_following_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_saved_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
@@ -40,7 +39,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                         const SearchBarSavedRecipesScreen(),
                         verticalSpaceMedium,
                         viewModel.isAllSelected
-                            ?  AllSavedRecipesScreen()
+                            ?  const AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),
                       ],
                     ),

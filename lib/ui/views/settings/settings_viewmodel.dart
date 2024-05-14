@@ -32,7 +32,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void getAllDrafts() {
-    //_navigationService.navigateToAllDraftsView();
+    _navigationService.navigateToViewAllDraftsView();
   }
 
   void getTerms() {

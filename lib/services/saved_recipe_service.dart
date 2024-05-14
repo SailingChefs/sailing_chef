@@ -9,6 +9,7 @@ import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
   List<SavedRecipeModel> savedRecipes = [];
+
   bool isInitialised = false;
   // final _userService = locator<UserServices>();
 
@@ -102,7 +103,7 @@ class SavedRecipeService with ListenableServiceMixin {
                 UserModel userModel = UserModel.fromSnapshot(userSnapshot);
                 recipeModel.user = userModel;
                 savedRecipes.add(SavedRecipeModel(
-                    recipeId: recipeModel.docId, recipeModel: recipeModel));
+                    recipeId: recipeModel.docId!, recipeModel: recipeModel));
               }
             }
           }
@@ -137,7 +138,7 @@ class SavedRecipeService with ListenableServiceMixin {
             if (userSnapshot.exists) {
               UserModel userModel = UserModel.fromSnapshot(userSnapshot);
               recipeModel.user = userModel;
-              savedRecipes.add(SavedRecipeModel(recipeId: recipeModel.docId, recipeModel: recipeModel));
+              savedRecipes.add(SavedRecipeModel(recipeId: recipeModel.docId!, recipeModel: recipeModel));
             }
           }
         }
@@ -148,7 +149,6 @@ class SavedRecipeService with ListenableServiceMixin {
       return [];
     }
   } catch (e) {
-    print("Error fetching saved recipes: $e");
     return [];
   }
 }

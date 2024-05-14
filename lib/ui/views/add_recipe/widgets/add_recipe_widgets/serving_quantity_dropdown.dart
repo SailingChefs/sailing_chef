@@ -1,9 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
-  const ServingQuantity({super.key});
-
+  const ServingQuantity(this.drafts, {super.key});
+    final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return Column(

@@ -8,7 +8,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-    return viewModel.myRecipes!.isEmpty
+    return viewModel.myRecipes.isEmpty
         ? const Center(child: Text('No recipes yet'))
         : Padding(
             padding: const EdgeInsets.all(8.0),
@@ -30,23 +30,23 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           savedRecipeList: viewModel.savedRecipes,
-                          recipeId: viewModel.myRecipes![index].docId,
+                          recipeId: viewModel.myRecipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(
-                              index, viewModel.myRecipes![index]),
-                          foodImagePath: viewModel.myRecipes![index].coverImage
+                              index, viewModel.myRecipes[index]),
+                          foodImagePath: viewModel.myRecipes[index].coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
-                          dishName: viewModel.myRecipes![index].title,
-                          duration: viewModel.myRecipes![index].prepTime,
+                          dishName: viewModel.myRecipes[index].title,
+                          duration: viewModel.myRecipes[index].prepTime,
                           chefImagePath: viewModel
-                                      .myRecipes![index].user!.displayPicture ==
+                                      .myRecipes[index].user!.displayPicture ==
                                   null
                               ? ''
                               : viewModel
-                                  .myRecipes![index].user!.displayPicture!,
+                                  .myRecipes[index].user!.displayPicture!,
                         );
                       },
-                      childCount: viewModel.myRecipes!.length,
+                      childCount: viewModel.myRecipes.length,
                     ),
                   ),
                 ],

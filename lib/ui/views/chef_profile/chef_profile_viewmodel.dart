@@ -12,6 +12,7 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -81,8 +82,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     }
   }
 
-  void goToFollowingList(UserModel user) {
-    _navigationService.navigateToFollowingListView(user: user);
+  void goToFollowingList() {
+   showToast(message: 'You cannot see Others following/followers list');
   }
 
   getUserLocation(UserModel user) async {

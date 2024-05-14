@@ -58,6 +58,7 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             : Column(
                 children: [
                   const Divider(),
+                  
                   ListTile(
                     contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
                     onTap: viewModel.getAllDrafts,

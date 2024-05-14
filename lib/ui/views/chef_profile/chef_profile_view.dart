@@ -44,7 +44,8 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                             ),
                             verticalSpaceMedium,
                             Follow_Message_Btns(user: user),
-                            DishListScreen(user: user),
+                            user.userRole != 'guest' ?
+                            DishListScreen(user: user):Container(),
                             verticalSpaceTiny,
                           user.userRole == 'guest' ? 
                           SavedChefProfileScreen(user, savedRecipes: viewModel.userSavedRecipe!) : 
@@ -55,7 +56,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                                       TabBarChefProfileScreen(user),
                                       viewModel.isMySelected
                                           ? const RecipesProfileScreen()
-                                          : SavedChefProfileScreen(user ,savedRecipes: []),
+                                          : SavedChefProfileScreen(user ,savedRecipes: const []),
                                     ],
                                   )
                                 : Container(),

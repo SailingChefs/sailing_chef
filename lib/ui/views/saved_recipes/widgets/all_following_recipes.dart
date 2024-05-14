@@ -24,7 +24,7 @@ class FollowingSavedRecipesScreen
               itemBuilder: (BuildContext context, int index) {
                 return PrimaryGridTile(
                     savedRecipeList: viewModel.savedRecipes,
-                    recipeId: viewModel.followingRecipes![index].docId,
+                    recipeId: viewModel.followingRecipes![index].docId!,
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),
                     foodImagePath:

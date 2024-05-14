@@ -139,7 +139,7 @@ class CommentsDetailsScreen
                 child: TextField(
                   controller: viewModel.commentController,
                   onSubmitted: (value) =>
-                      viewModel.addComment(recipeModel.docId),
+                      viewModel.addComment(recipeModel.docId!),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Add your Review',

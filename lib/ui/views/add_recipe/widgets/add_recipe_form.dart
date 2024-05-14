@@ -1,7 +1,9 @@
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/chefs_note.dart';
+import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/chefs_notes.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/cooking_instructions.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/cover_picture.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/ingredients.dart';
@@ -13,31 +15,32 @@ import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   final List<Ingredient>? ingredientsList;
-  const AddRecipeFormAddRecipeScreen(
-      this.ingredientsList, this.isfromprofileview,
+  final RecipeModel? drafts;
+  const AddRecipeFormAddRecipeScreen(this.drafts, this.ingredientsList,
       {super.key});
-  final bool isfromprofileview;
+
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
+  
     return SingleChildScrollView(
         child: Form(
       key: viewModel.formKey,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const RecipeTitle(),
+        RecipeTitle(drafts),
         verticalSpaceMedium,
-        const CoverPictureSelector(),
+        CoverPictureSelector(drafts),
         verticalSpaceSmall,
-        const ServingQuantity(),
+        ServingQuantity(drafts),
         verticalSpaceMedium,
-        const Ingredients(),
+        Ingredients(drafts),
         verticalSpaceMedium,
-        const CookingInstructions(),
+        CookingInstructions(drafts),
         verticalSpaceMedium,
-        const PrepTime(),
+        PrepTime(drafts),
         verticalSpaceMedium,
-        const VisibiltyDropDown(),
+        AddFilters(drafts),
         verticalSpaceMedium,
-        const ChefsNote(),
+        ChefsNote(drafts),
         verticalSpaceMedium,
         SaveRecipeButton(
           onPressed: viewModel.previewRecipe,

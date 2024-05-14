@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/bottom_buttons.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/category_tab.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/course_tab_bar.dart';

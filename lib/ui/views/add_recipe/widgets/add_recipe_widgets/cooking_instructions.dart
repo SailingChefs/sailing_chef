@@ -1,8 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
-  const CookingInstructions({super.key});
+  const CookingInstructions(this.drafts, {super.key});
+  final RecipeModel? drafts;
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
@@ -81,7 +83,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                     },
                   ),
                   GestureDetector(
-                    onTap: viewModel.callCookingInstructionBottomSheet,
+                    onTap: () {
+                      viewModel.callCookingInstructionBottomSheet();
+                      List<String> methods = viewModel.methodsList;
+                      viewModel.addMethods(methods);
+                    },
                     child: Container(
                       height: 50.h,
                       decoration: BoxDecoration(
@@ -112,9 +118,12 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                 ],
               )
             : GestureDetector(
-                onTap: viewModel.callCookingInstructionBottomSheet,
+                onTap: (){
+                  viewModel.callCookingInstructionBottomSheet();
+                } ,
                 child: Container(
                   height: 50.h,
+                  
                   decoration: BoxDecoration(
                     color: kcVeryLightGrey.withOpacity(0.2),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
