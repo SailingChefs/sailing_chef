@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -10,7 +8,6 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
   final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
-    log('build ${drafts!.chefNote.isEmpty && drafts!.waveForm.isEmpty}');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,9 +19,82 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
               color: kcBlackColor),
         ),
         verticalSpaceTiny,
-        
-        drafts!.chefNote.isEmpty && drafts!.waveForm.isEmpty
+        (drafts?.chefNote.isNotEmpty ??false) && (drafts?.waveForm.isNotEmpty ??false)
             ? Container(
+                height: 48,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: kcMediumGrey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: kcPrimaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: viewModel.isPlaying
+                            ? viewModel.stopListening
+                            : viewModel.startListening,
+                        icon: viewModel.isPlaying
+                            ? const Icon(
+                                Icons.stop,
+                                color: kcWhiteColor,
+                              )
+                            : const Icon(
+                                Icons.play_arrow,
+                                color: kcWhiteColor,
+                              ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: screenWidth(context) * 0.56,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: AudioFileWaveforms(
+                              waveformType: WaveformType.fitWidth,
+                              enableSeekGesture: false,
+                              size: const Size(
+                                  double.maxFinite, double.maxFinite),
+                              playerController: viewModel.playerController,
+                              waveformData: viewModel.waveFormData!,
+                              playerWaveStyle: PlayerWaveStyle(
+                                fixedWaveColor: Colors.black,
+                                liveWaveColor: kcBlackColor.withOpacity(0.5),
+                                spacing: 5,
+                                seekLineColor: Colors.black,
+                                showSeekLine: false,
+                              ),
+                            ),
+                          ),
+                        ),
+                        horizontalSpaceSmall,
+                        // Text(
+                        //   '${viewModel.duration} ',
+                        //   style: globalTextStyle(
+                        //     fontSize: 12,
+                        //     fontWeight: FontWeight.w600,
+                        //     color: kcBlackColor,
+                        //   )
+                        // ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.volume_up,
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            : Container(
                 height: 50.h,
                 padding: EdgeInsets.only(
                   left: 10.dg,
@@ -37,7 +107,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: viewModel.shouldShowHint
+                      child: !viewModel.shouldShowHint
                           ? Text(
                               'Add tips for this recipe',
                               style: globalTextStyle(
@@ -45,7 +115,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                   fontWeight: FontWeight.w600,
                                   color: kcBlackColor.withOpacity(0.5)),
                             )
-                          : viewModel.hasRecordedAudio && !viewModel.isRecording
+                          : drafts?.chefNote.isNotEmpty ?? false
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
@@ -64,27 +134,38 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                               color: kcPrimaryColorDark,
                                             ),
                                     ),
-                                    Expanded(
-                                      child: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: AudioFileWaveforms(
-                                          enableSeekGesture: false,
-                                          size: const Size(double.maxFinite,
-                                              double.maxFinite),
-                                          playerController:
-                                              viewModel.playerController,
-                                          waveformData: viewModel.waveFormData!,
-                                          playerWaveStyle:
-                                              const PlayerWaveStyle(
-                                            fixedWaveColor: Colors.black,
-                                            liveWaveColor: kcPrimaryColor,
-                                            spacing: 6,
-                                            seekLineColor: Colors.black,
-                                            showSeekLine: false,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    drafts?.waveForm.isNotEmpty??false
+                                        ? Expanded(
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: AudioFileWaveforms(
+                                                enableSeekGesture: false,
+                                                size: const Size(
+                                                    double.maxFinite,
+                                                    double.maxFinite),
+                                                playerController:
+                                                    viewModel.playerController,
+                                                waveformData:
+                                                    viewModel.waveFormData!,
+                                                playerWaveStyle:
+                                                    const PlayerWaveStyle(
+                                                  fixedWaveColor: Colors.black,
+                                                  liveWaveColor: kcPrimaryColor,
+                                                  spacing: 6,
+                                                  seekLineColor: Colors.black,
+                                                  showSeekLine: false,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Text(
+                                            'Add tips for this recipe',
+                                            style: globalTextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: kcBlackColor
+                                                    .withOpacity(0.5)),
+                                          )
                                   ],
                                 )
                               : AudioWaveforms(
@@ -99,6 +180,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                     showBottom: false,
                                     extendWaveform: true,
                                     showMiddleLine: false,
+
                                     //   gradient: LinearGradient(
                                     //     colors: [Colors.red, Colors.green],
                                     // ),
@@ -131,80 +213,6 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                     const SizedBox(width: 16)
                   ],
                 ),
-              )
-            : Container(
-                height: 48,
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: kcMediumGrey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: viewModel.isBusy
-                    ? const CircularProgressIndicator()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: kcPrimaryColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              onPressed: viewModel.isPlaying
-                                  ? viewModel.stopListening
-                                  : viewModel.startListening,
-                              icon: viewModel.isPlaying
-                                  ? const Icon(
-                                      Icons.stop,
-                                      color: kcWhiteColor,
-                                    )
-                                  : const Icon(
-                                      Icons.play_arrow,
-                                      color: kcWhiteColor,
-                                    ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: screenWidth(context) * 0.56,
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: AudioFileWaveforms(
-                                    waveformType: WaveformType.fitWidth,
-                                    enableSeekGesture: false,
-                                    size: const Size(
-                                        double.maxFinite, double.maxFinite),
-                                    playerController:
-                                        viewModel.playerController,
-                                    waveformData: viewModel.waveFormData!,
-                                    playerWaveStyle: PlayerWaveStyle(
-                                      fixedWaveColor: Colors.black,
-                                      liveWaveColor:
-                                          kcBlackColor.withOpacity(0.5),
-                                      spacing: 5,
-                                      seekLineColor: Colors.black,
-                                      showSeekLine: false,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              horizontalSpaceSmall,
-                              // Text(
-                              //   '${viewModel.duration} ',
-                              //   style: globalTextStyle(
-                              //     fontSize: 12,
-                              //     fontWeight: FontWeight.w600,
-                              //     color: kcBlackColor,
-                              //   )
-                              // ),
-   
-                            ],
-                          ),
-                        ],
-                      ),
               ),
       ],
     );

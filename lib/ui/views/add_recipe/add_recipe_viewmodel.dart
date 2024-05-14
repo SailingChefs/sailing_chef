@@ -40,7 +40,6 @@ class AddRecipeViewModel extends BaseViewModel {
   List<XFile> selectedImages = [];
   List<XFile> thumbnails = [];
   TextEditingController titleController = TextEditingController();
-  final _recipeService = locator<RecipeService>();
   int count = 0;
   List<String> values = ['Public', 'Private'];
   List<String> quantity = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -66,9 +65,13 @@ class AddRecipeViewModel extends BaseViewModel {
     return !hasRecordedAudio && !isRecording;
   }
 
+  bool get isWaveformAndChefNoteEmpty {
+  return (waveFormData?.length ?? 0) == 0 && (recipeModel?.chefNote ?? '').isEmpty;
+}
+
   bool hasRecordedAudio = false;
 
-  Future<void> showTagsSheet(context) async {
+  Future<void> showTagsSheet(context) async {      
     final result =
         await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
       variant: BottomSheetType.tags,
@@ -156,9 +159,8 @@ class AddRecipeViewModel extends BaseViewModel {
         : 'Title must be at least 3 characters long';
   }
 
-  List<double> generateDefaultWaveformData(int length) {
-    return List.generate(length, (index) => index % 2 == 0 ? 1.0 : -1.0);
-  }
+
+  String? timedurationPrep;
 
   void onViewModelReady() async {
     setBusy(true);
@@ -177,10 +179,12 @@ class AddRecipeViewModel extends BaseViewModel {
         waveFormData = recipeModel!.waveForm;
         await downloadAudio();
       }
+      
       selectedQuantity = recipeModel!.servingSize;
+    
       // selectedImages = recipeModel!.coverImage;
-    }
-    waveFormData = generateDefaultWaveformData(1000);
+    } 
+
     path = '${directory.path}/recording.mpeg4';
     setBusy(false);
   }
@@ -344,7 +348,7 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  String formatDuration() {
+  String formatDuration([TimeOfDay? time]) {
     int minutes = selectedTime!.minute;
     int hours = selectedTime!.hour;
     if (minutes == 0) {
@@ -417,7 +421,7 @@ class AddRecipeViewModel extends BaseViewModel {
       showToast(message: 'Please add cooking time');
       return;
     } else {
-      _dialogService
+      recipeModel == null ? _dialogService
           .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
         'model': RecipeModel(
           visibility: 'private',
@@ -433,6 +437,27 @@ class AddRecipeViewModel extends BaseViewModel {
           title: titleController.text.trim().toLowerCase(),
           uid: firebaseAuth.currentUser!.uid,
           docId: '',
+          waveForm: waveFormData == null ? [] : waveFormData!,
+        ),
+        'images': selectedImages,
+        'path': path,
+      }) :
+      _dialogService
+          .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+        'model': RecipeModel(
+          visibility: 'private',
+          chefNote: 'recorderController',
+          coverImage: [],
+          createdTime: Timestamp.now(),
+          ingredients: ingredientsList,
+          tags: tagsList,
+          methods: methodsList,
+          prepTime: formatDuration(),
+          servingSize: selectedQuantity,
+          status: 'draft',
+          title: titleController.text.trim().toLowerCase(),
+          uid: firebaseAuth.currentUser!.uid,
+          docId: recipeModel!.docId,
           waveForm: waveFormData == null ? [] : waveFormData!,
         ),
         'images': selectedImages,

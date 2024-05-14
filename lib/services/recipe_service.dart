@@ -36,14 +36,18 @@ class RecipeService with ListenableServiceMixin {
   }
 
   Future<bool> doesDraftExist(String uid) async {
+    log(uid.toString());
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('recipes')
-          .where('uid', isEqualTo: uid)
-          .where('status', isEqualTo: 'draft')
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('recipes').doc(uid)
           .get();
+        
 
-      return snapshot.docs.isNotEmpty;
+      if (snapshot.exists) {
+        return true;
+      }
+
+      return false;
     } catch (error) {
       // Handle error
       return false;
@@ -52,21 +56,20 @@ class RecipeService with ListenableServiceMixin {
 
   Future<bool> addOrUpdateDraft(RecipeModel recipe) async {
     try {
-      bool draftExists = await doesDraftExist(recipe.uid);
+      bool draftExists = await doesDraftExist(recipe.docId!);
 
+      log(draftExists.toString());
       if (draftExists) {
-        QuerySnapshot snapshot = await FirebaseFirestore.instance
-            .collection('recipes')
-            .where('uid', isEqualTo: recipe.uid)
-            .where('status', isEqualTo: 'draft')
-            .get();
+        // QuerySnapshot snapshot = await firebasestore
+        //     .collection('recipes').where('doc_id', isEqualTo: recipe.docId)
+        //     .get();
 
-        String docId = snapshot.docs.first.id;
+    
 
-        recipe.docId = docId;
+       
 
         DocumentReference docRef =
-            FirebaseFirestore.instance.collection('recipes').doc(docId);
+            FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
 
