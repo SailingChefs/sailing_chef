@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
@@ -24,6 +25,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             ),
             itemBuilder: (BuildContext context, int index) {
               return PrimaryGridTile(
+                  rating: calculateAverageRating(recipes[index].comment!),
                   savedRecipeList: viewModel.savedRecipes,
                   recipeId: recipes[index].docId!,
                   onTap: () => viewModel

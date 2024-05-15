@@ -64,34 +64,33 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 )),
             Container(
               height: 20.0.h,
-              width: 150.0.w,
+              // width: 150.0.w,
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               decoration: BoxDecoration(
-                color: kcPrimaryColor.withOpacity(0.2),
+                color: kcPrimaryColorDark.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'add all to shopping list',
-                      style: globalTextStyle(
-                          fontSize: 9,
-                          color: kcBlackColor,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Container(
-                      width: 10.0.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: kcBlackColor.withOpacity(0.8),
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'add all to shopping list',
+                    style: globalTextStyle(
+                        fontSize: 12,
+                        color: kcBlackColor,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  horizontalSpaceSmall,
+                  Container(
+                    width: 10.0.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: kcBlackColor.withOpacity(0.8),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

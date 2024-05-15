@@ -46,6 +46,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final PageController pageController = PageController();
   final ImagePicker _picker = ImagePicker();
   final _serviceConversations = locator<ConversationService>();
+  final TextEditingController notesController = TextEditingController();
   bool isRecipeSaved = false;
 
   List<File> images = [];

@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
@@ -35,6 +36,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                             final SavedRecipeModel recipe = viewModel.searchRecipes(viewModel
                                     .savedRecipes,viewModel.searchSavedController.text) .elementAt(index);
                             return PrimaryGridTile(
+                               rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId:
                                    recipe.recipeId,
@@ -83,6 +85,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return PrimaryGridTile(
+                              rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId:
                                     viewModel.savedRecipes[index].recipeId,

@@ -26,7 +26,8 @@ class IndexViewModel extends BaseViewModel {
   bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-
+  @override
+  // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
       [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
 

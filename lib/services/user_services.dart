@@ -42,7 +42,7 @@ class UserServices with ListenableServiceMixin {
 
   Future<UserModel> getUserDetails() async {
     try {
-      EasyLoading.show();
+     
       CollectionReference usersCollection = firebasestore.collection('users');
 
       QuerySnapshot userSnapshot = await usersCollection
@@ -53,7 +53,7 @@ class UserServices with ListenableServiceMixin {
 
       if (userSnapshot.docs.isNotEmpty) {
         DocumentSnapshot userDoc = userSnapshot.docs.first;
-        EasyLoading.dismiss();
+      
         // showToast(message: 'User Data fetched successfully');
 
         UserModel.fromSnapshot(userDoc);
@@ -61,11 +61,11 @@ class UserServices with ListenableServiceMixin {
         // return  UserModel();
         return UserModel.fromSnapshot(userDoc);
       } else {
-        EasyLoading.dismiss();
+       
         throw Exception("User not found in Firestore");
       }
     } catch (e) {
-      EasyLoading.dismiss();
+    
       showToast(message: e.toString());
       // Handle errors as needed
       throw Exception(e.toString());
@@ -126,19 +126,19 @@ class UserServices with ListenableServiceMixin {
 
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
-      EasyLoading.show();
+      
       DocumentSnapshot snapshot =
           await firebasestore.collection('users').doc(uid).get();
       if (snapshot.exists) {
-        EasyLoading.dismiss();
+        
         return UserModel.fromSnapshot(snapshot);
       } else {
-        EasyLoading.dismiss();
+        
         log('No user found with uid: $uid');
         return UserModel();
       }
     } catch (e) {
-      EasyLoading.dismiss();
+      
       log('Error fetching user: $e');
       return UserModel();
     }
