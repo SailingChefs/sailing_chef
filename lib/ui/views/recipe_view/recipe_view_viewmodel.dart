@@ -6,7 +6,6 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
@@ -34,7 +33,6 @@ class RecipeViewViewModel extends BaseViewModel {
   List<double>? waveFormData;
   String? path;
   int? duration;
-  List<RecipeModel>? myRecipes;
   RecipeViewViewModel(
     this.prevImageUrls,
     this.newImageUrls,
@@ -48,7 +46,7 @@ class RecipeViewViewModel extends BaseViewModel {
     servings = recipe!.servingSize;
     setBusy(true);
     playerController = PlayerController();
-    myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+    
 
 
     await playerController.preparePlayer(

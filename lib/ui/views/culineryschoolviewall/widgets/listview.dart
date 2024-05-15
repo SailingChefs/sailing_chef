@@ -58,44 +58,46 @@ class ListViewCulinaryChool
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              viewModel.cullinary[index].displayName!,
-                              style: globalTextStyle(
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w700,
-                                color: kcBlackColor,
+                        child: FittedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                viewModel.cullinary[index].displayName!,
+                                style: globalTextStyle(
+                                  fontSize: 17.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: kcBlackColor,
+                                ),
                               ),
-                            ),
-                            place.country != null
-                                ? Column(
-                                    children: [
-                                      verticalSpace(5),
-                                      Text(
-                                        place.country!,
-                                        style: globalTextStyle(
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: kcBlackColor,
+                              place.country != null
+                                  ? Column(
+                                      children: [
+                                        verticalSpace(5),
+                                        Text(
+                                          place.country!,
+                                          style: globalTextStyle(
+                                            fontSize: 17.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: kcBlackColor,
+                                          ),
                                         ),
-                                      ),
-                                      verticalSpace(5),
-                                    ],
-                                  )
-                                : const SizedBox(),
-                            Text(
-                              '${viewModel.cullinary[index].schoolCourses!.length} Courses',
-                              style: globalTextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: kcBlackColor,
+                                        verticalSpace(5),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              Text(
+                                '${viewModel.cullinary[index].schoolCourses!.length} Courses',
+                                style: globalTextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                  color: kcBlackColor,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],

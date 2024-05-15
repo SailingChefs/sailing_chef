@@ -18,13 +18,15 @@ class UserModel {
   final String? phoneNumber;
   final List<String>? savedRecipes;
   final List<String>? blockedAccounts;
-  int? recipeCount;
   final List<String>? schoolCourses;
+  final List<String>? recipes;
+ 
 
   UserModel({
     this.schoolCourses,
     this.displayName,
-    this.recipeCount,
+    this.recipes,
+    
     this.email,
     this.userRole,
     this.uid,
@@ -86,6 +88,7 @@ class UserModel {
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
       blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
+      recipes: List<String>.from(data['recipes'] ?? []),
     );
   }
 }

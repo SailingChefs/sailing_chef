@@ -59,7 +59,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   @override
   void onViewModelReady(SavedRecipeDetailsViewModel viewModel) {
     viewModel.onViewModelReady(
-        recipeModel.coverImage.length, recipeModel.docId!);
+        recipeModel.coverImage.length, recipeModel.docId!,recipeModel.user!);
     super.onViewModelReady(viewModel);
   }
 

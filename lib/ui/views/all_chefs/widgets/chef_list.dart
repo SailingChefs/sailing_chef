@@ -78,7 +78,8 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                             padding: EdgeInsets.only(left: 13.0.dg, bottom: 10),
                             child: Text(
                               capitalizeEachWord(
-                                ("${chefList[index].recipeCount}  Dishes"),
+                                chefList[index].recipes!.isEmpty ? ('no dishes'):
+                                ("${chefList[index].recipes!.length}  Dishes"),
                               ),
                               style: TextStyle(
                                 fontSize: 12.sp,

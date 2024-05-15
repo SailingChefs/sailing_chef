@@ -19,13 +19,7 @@ class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
             color: kcBlackColor.withOpacity(0.6),
             fontSize: 12.sp,
           ),
-          suffixIcon: IconButton(
-              icon: const Icon(
-                FlutterRemix.arrow_drop_right_line,
-              ),
-              onPressed: () {
-                // viewModel.searchUsers();
-              }),
+          
           filled: true,
           fillColor: kcPrimaryColor.withOpacity(0.2),
           labelStyle:

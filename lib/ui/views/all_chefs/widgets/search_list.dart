@@ -86,7 +86,7 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
                             padding: EdgeInsets.only(left: 13.0.dg, bottom: 10),
                             child: Text(
                               capitalizeEachWord(
-                                ("${user.recipeCount}  Dishes"),
+                                ("${user.recipes!.length}  Dishes"),
                               ),
                               style: TextStyle(
                                 fontSize: 12.sp,

@@ -25,6 +25,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   List<MessageModel> messages = List.empty(growable: true);
 
   bool isAtTop = false;
+  bool isImageSending = false;
 
   ChatViewModel({required this.convoId});
 
@@ -53,10 +54,13 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
+        isImageSending = true;
+        rebuildUi();
+     
       String imageUrl = await _conversationService.uploadImage(
           File(selectedImageFile!.path), selectedImageFile!.name);
 
-      addMessage(
+      await addMessage(
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
@@ -68,6 +72,10 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
           conversationId);
 
       selectedImageFile = null;
+      isImageSending = false;
+      rebuildUi();
+
+     
 
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -80,7 +88,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
-      addMessage(
+      await addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,
@@ -92,8 +100,10 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
           conversationId);
     }
     if (imageUrl != null) {
-      setBusy(true);
-      addMessage(
+      isImageSending = true;
+    rebuildUi();
+
+      await addMessage(
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
@@ -103,7 +113,9 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             fileName: '',
           ),
           conversationId);
-      setBusy(false);
+          isImageSending = false;
+          rebuildUi();
+
     }
     
     scrollController.animateTo(
@@ -114,7 +126,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     messageController.clear();
   }
 
-  void addMessage(MessageModel message, String conversationId) async {
+  Future<void> addMessage(MessageModel message, String conversationId) async {
     await _conversationService.sendMessage(message, conversationId);
     messageController.clear();
     notifyListeners();

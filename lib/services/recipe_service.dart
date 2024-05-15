@@ -130,6 +130,9 @@ class RecipeService with ListenableServiceMixin {
         String docId = docRef.id;
 
         await docRef.update({'doc_id': docId});
+         await firebasestore.collection('users').doc(
+            FirebaseAuth.instance.currentUser!.uid)
+          .update({'recipes': FieldValue.arrayUnion([docId])}); 
 
         showToast(message: 'Recipe added successfully');
       }

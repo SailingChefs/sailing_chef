@@ -72,11 +72,12 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
-                      viewModel.isBusy
-                          ?  Container(
-                            color: Colors.amber,
-                            child: ClipRRect(
-                              
+                      viewModel.isImageSending && messageIndex == viewModel.messages.length 
+                          ? Container(
+                              height: 178.h,
+                              width: 120.w,
+                              color: Colors.amber,
+                              child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     topLeft: isCurrentUser
                                         ? const Radius.circular(20)
@@ -90,14 +91,14 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                     bottomRight: !isCurrentUser
                                         ? const Radius.circular(20)
                                         : const Radius.circular(0)),
-                                child: Image.network(
-                                  '',
-                                  width: 120.0,
-                                  height: 178.0,
-                                  fit: BoxFit.cover,
-                                ),
+                                // child: Image.network(
+                                //   '',
+                                //   width: 120.0,
+                                //   height: 178.0,
+                                //   fit: BoxFit.cover,
+                                // ),
                               ),
-                          )
+                            )
                           : GestureDetector(
                               onTap: () {
                                 Navigator.push(
