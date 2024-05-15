@@ -41,6 +41,7 @@ class AddRecipeViewModel extends BaseViewModel {
   String selectedValue = 'Public';
   int selectedQuantity = 1;
   List<XFile> selectedImages = [];
+  String? prepreationTime;
   List<XFile> thumbnails = [];
   List<String> alreadySelectedImages = [];
   TextEditingController titleController = TextEditingController();
@@ -58,6 +59,8 @@ class AddRecipeViewModel extends BaseViewModel {
   TimeOfDay? selectedTime;
 
   bool isPlaying = false;
+  
+
 
   bool isclicked = false;
 
@@ -164,8 +167,6 @@ class AddRecipeViewModel extends BaseViewModel {
         : 'Title must be at least 3 characters long';
   }
 
-  String? timedurationPrep;
-
   void onViewModelReady() async {
     setBusy(true);
     _initialiseController();
@@ -185,6 +186,10 @@ class AddRecipeViewModel extends BaseViewModel {
           recipeModel!.waveForm.isNotEmpty) {
         waveFormData = recipeModel!.waveForm;
         await downloadAudio();
+      }
+
+      if (recipeModel!.prepTime.isNotEmpty) {
+        prepreationTime = recipeModel!.prepTime;
       }
 
       selectedQuantity = recipeModel!.servingSize;
@@ -213,17 +218,22 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
+
+  void durationStop(){
+    playerController.onCompletion.listen((event) {
+      stopListening();
+    });
+  }
+
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
     rebuildUi();
     await playerController
-        .startPlayer(finishMode: FinishMode.pause)
-        .then((value) {
-      // isPlaying = false;
-      // rebuildUi();
-    });
+        .startPlayer(finishMode: FinishMode.pause);
+
     log("start Listening ends ${isPlaying.toString()}");
+    durationStop();
   }
 
   void stopListening() async {
@@ -231,6 +241,7 @@ class AddRecipeViewModel extends BaseViewModel {
     await playerController.pausePlayer();
     isPlaying = false;
     log(isPlaying.toString());
+    notifyListeners();
     rebuildUi();
     log("stop Listening ends ${isPlaying.toString()}");
   }
@@ -275,19 +286,13 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  int timeConverter() {
-    int totalMinutes = selectedTime != null
-        ? selectedTime!.hour * 60 + selectedTime!.minute
-        : 0;
-    return totalMinutes;
-  }
-
   void stopRecording() async {
     await recorderController.stop();
     log("Path=> $path");
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
+
     await playerController.preparePlayer(
       path: path,
       volume: 100,
@@ -366,6 +371,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   String formatDuration([TimeOfDay? time]) {
+    prepreationTime = '';
     int minutes = selectedTime!.minute;
     int hours = selectedTime!.hour;
 
@@ -425,7 +431,7 @@ class AddRecipeViewModel extends BaseViewModel {
     } else if (methodsList.isEmpty) {
       showToast(message: 'Please add cooking instructions');
       return;
-    } else if (timeConverter() == 0) {
+    } else if (prepreationTime == null) {
       showToast(message: 'Please add cooking time');
       return;
     } else {
@@ -440,7 +446,8 @@ class AddRecipeViewModel extends BaseViewModel {
                 ingredients: ingredientsList,
                 tags: tagsList,
                 methods: methodsList,
-                prepTime: formatDuration(),
+                prepTime:
+                    prepreationTime == '' ? formatDuration() : prepreationTime!,
                 servingSize: selectedQuantity,
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
@@ -463,7 +470,8 @@ class AddRecipeViewModel extends BaseViewModel {
                 ingredients: ingredientsList,
                 tags: tagsList,
                 methods: methodsList,
-                prepTime: formatDuration(),
+                prepTime:
+                    prepreationTime == '' ? formatDuration() : prepreationTime!,
                 servingSize: selectedQuantity,
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
@@ -531,13 +539,18 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void previewRecipe() async {
+    log(prepreationTime.toString());
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
-        timeConverter() != 0 &&
+
+        (prepreationTime != null) &&
         methodsList.isNotEmpty &&
         ingredientsList.isNotEmpty) {
       bool hasImage = selectedImages.any((image) => image.isImage);
-      if (!hasImage) {
+      bool hasAlreadySelectedImages =
+          alreadySelectedImages.any((image) => image.isNotEmpty);
+
+      if (!hasImage && !hasAlreadySelectedImages) {
         showToast(message: 'Please add at least one image');
         return;
       } else {
@@ -553,7 +566,9 @@ class AddRecipeViewModel extends BaseViewModel {
                   ingredients: ingredientsList,
                   methods: methodsList,
                   tags: tagsList,
-                  prepTime: formatDuration(),
+                  prepTime: prepreationTime == ''
+                      ? formatDuration()
+                      : prepreationTime!,
                   servingSize: selectedQuantity,
                   status: 'draft',
                   title: titleController.text.trim().toLowerCase(),
@@ -563,7 +578,8 @@ class AddRecipeViewModel extends BaseViewModel {
                 ),
                 selectedImages: selectedImages,
                 path: path,
-                waveFormData: waveFormData, draftUrls: alreadySelectedImages,
+                waveFormData: waveFormData,
+                draftUrls: alreadySelectedImages,
               )
             : _navigationService.navigateToRecipeViewView(
                 recipeModel: RecipeModel(
@@ -576,7 +592,9 @@ class AddRecipeViewModel extends BaseViewModel {
                   ingredients: ingredientsList,
                   methods: methodsList,
                   tags: tagsList,
-                  prepTime: formatDuration(),
+                  prepTime: prepreationTime == ''
+                      ? formatDuration()
+                      : prepreationTime!,
                   servingSize: selectedQuantity,
                   status: '',
                   title: titleController.text.trim().toLowerCase(),
@@ -586,7 +604,8 @@ class AddRecipeViewModel extends BaseViewModel {
                 ),
                 selectedImages: selectedImages,
                 path: path,
-                waveFormData: waveFormData, draftUrls: alreadySelectedImages,
+                waveFormData: waveFormData,
+                draftUrls: alreadySelectedImages,
               );
       }
     } else {

@@ -1,4 +1,7 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -158,31 +161,56 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                     )
                                   ],
                                 )
-                              : Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        color: kcPrimaryColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: viewModel.isPlaying
-                                            ? viewModel.stopListening
-                                            : viewModel.startListening,
-                                        icon: viewModel.isPlaying
-                                            ? const Icon(
-                                                Icons.stop,
-                                                color: kcWhiteColor,
-                                              )
-                                            : const Icon(
-                                                Icons.play_arrow,
-                                                color: kcWhiteColor,
+                              : viewModel.hasRecordedAudio &&
+                                      !viewModel.isRecording
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                   
+                                      children: [
+                                        IconButton(
+                                          onPressed: viewModel.isPlaying
+                                              ? viewModel.stopListening
+                                              : viewModel.startListening,
+                                          icon: viewModel.isPlaying
+                                              ? const Icon(
+                                                  Icons.stop,
+                                                  color: kcPrimaryColorDark,
+                                                )
+                                              : const Icon(
+                                                  Icons.play_arrow,
+                                                  color: kcPrimaryColorDark,
+                                                ),
+                                        ),
+                                        SizedBox(
+                                           width: screenWidth(context) * 0.58,
+                                          child: Align(
+                                            alignment: Alignment.topLeft,
+                                            child: AudioFileWaveforms(
+                                              waveformType: WaveformType.fitWidth,
+                                              enableSeekGesture: false,
+                                              size: const Size(double.maxFinite,
+                                                  double.maxFinite),
+                                              playerController:
+                                                  viewModel.playerController,
+                                              waveformData:
+                                                  viewModel.waveFormData!,
+                                              playerWaveStyle:
+                                                  const PlayerWaveStyle(
+                                                fixedWaveColor: Colors.black,
+                                                liveWaveColor: kcPrimaryColor,
+                                                spacing: 8,
+                                                seekLineColor: Colors.black,
+                                                showSeekLine: false,
                                               ),
-                                      ),
-                                    ),
-                                    AudioWaveforms(
-                                      size: const Size(200, 50),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : AudioWaveforms(
+                                      size: const Size(double.maxFinite, 50),
                                       recorderController:
                                           viewModel.recorderController,
                                       enableGesture: true,
@@ -193,14 +221,11 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                         showBottom: false,
                                         extendWaveform: true,
                                         showMiddleLine: false,
-
                                         //   gradient: LinearGradient(
                                         //     colors: [Colors.red, Colors.green],
                                         // ),
                                       ),
                                     ),
-                                  ],
-                                ),
                     ),
                     Visibility(
                       visible: viewModel.hasRecordedAudio,

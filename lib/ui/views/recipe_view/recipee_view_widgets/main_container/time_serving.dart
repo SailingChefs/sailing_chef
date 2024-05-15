@@ -1,16 +1,16 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
-class TimeAndServing extends StatelessWidget {
+class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
   const TimeAndServing({super.key, required this.recipeModel});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
     return Row(
       children: [
         Container(
-          width: 130,
           height: 45,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -27,7 +27,7 @@ class TimeAndServing extends StatelessWidget {
               ),
               horizontalSpaceSmall,
               Text(
-                ' ${recipeModel.prepTime}min',
+                ' ${recipeModel.prepTime}',
                 style: globalTextStyle(
                   fontSize: 16.0.sp,
                   color: kcBlackColor,
@@ -50,27 +50,32 @@ class TimeAndServing extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    height: 20,
-                    decoration: const BoxDecoration(
-                      color: kcPrimaryColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        FlutterRemix.subtract_fill,
-                        color: kcWhiteColor,
+                  GestureDetector(
+                    onTap: viewModel.decrementServings,
+                    child: Container(
+                      height: 20,
+                      decoration: const BoxDecoration(
+                        color: kcPrimaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: viewModel.decrementServings,
+                          child: const Icon(
+                            FlutterRemix.subtract_fill,
+                            color: kcWhiteColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-
-                  // horizontalSpaceSmall,
-                  Text(
-                    ' ${recipeModel.servingSize} ',
-                  ),
-                  const Icon(
-                    FlutterRemix.add_circle_fill,
-                    color: kcPrimaryColor,
+                  Text(' ${viewModel.servings} '),
+                  GestureDetector(
+                    onTap: viewModel.incrementServings,
+                    child: const Icon(
+                      FlutterRemix.add_circle_fill,
+                      color: kcPrimaryColor,
+                    ),
                   ),
                 ])),
       ],

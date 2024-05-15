@@ -64,11 +64,11 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
             ),
           ),
           Positioned(
-            bottom: 20,
+            bottom: 30,
             left: MediaQuery.of(context).size.width * 0.42,
             child: SmoothPageIndicator(
               controller: viewModel.pageController,
-              count: selectedImages.length,
+              count: viewModel.selectedImages.length,
               axisDirection: Axis.horizontal,
               effect: SlideEffect(
                 spacing: 8.0,

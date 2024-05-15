@@ -49,7 +49,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   RecipeViewViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      RecipeViewViewModel(draftUrls,selectedImages, waveFormData: waveFormData, path: path, 
+      RecipeViewViewModel(draftUrls,selectedImages, waveFormData: waveFormData, path: path, recipeModel,
           );
 
   @override

@@ -44,12 +44,19 @@ class ChefDetail extends ViewModelWidget<RecipeViewViewModel> {
                 color: kcBlackColor,
               ),
             ),
-            Text( '${viewModel.myRecipes!.length} recipes',
-                style: globalTextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: kcBlackColor.withOpacity(0.6),
-                ))
+            viewModel.isBusy
+                ? Text(' recipes',
+                    style: globalTextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ))
+                : Text('${viewModel.myRecipes!.length} recipes',
+                    style: globalTextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ))
           ],
         ),
       ],

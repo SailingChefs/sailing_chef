@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
@@ -38,10 +39,8 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> doesDraftExist(String uid) async {
     log(uid.toString());
     try {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('recipes').doc(uid)
-          .get();
-        
+      DocumentSnapshot snapshot =
+          await FirebaseFirestore.instance.collection('recipes').doc(uid).get();
 
       if (snapshot.exists) {
         return true;
@@ -53,7 +52,8 @@ class RecipeService with ListenableServiceMixin {
       return false;
     }
   }
-  Future<void> deleteIndexImageFromDocument(String id,String link) async {
+
+  Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
       // Get the DocumentReference of the document
       CollectionReference collection =
@@ -67,7 +67,6 @@ class RecipeService with ListenableServiceMixin {
     } catch (e) {
       log(e.toString());
       showToast(message: 'Error deleting image from document: $e');
-
     }
   }
 
@@ -80,10 +79,6 @@ class RecipeService with ListenableServiceMixin {
         // QuerySnapshot snapshot = await firebasestore
         //     .collection('recipes').where('doc_id', isEqualTo: recipe.docId)
         //     .get();
-
-    
-
-       
 
         DocumentReference docRef =
             FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
@@ -113,6 +108,7 @@ class RecipeService with ListenableServiceMixin {
   }
 
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
+    EasyLoading.show();
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('recipes')
@@ -137,9 +133,10 @@ class RecipeService with ListenableServiceMixin {
 
         showToast(message: 'Recipe added successfully');
       }
-
+      EasyLoading.dismiss();
       return true;
     } catch (error) {
+      EasyLoading.dismiss();
       log(error.toString());
       return false;
     }
@@ -165,13 +162,22 @@ class RecipeService with ListenableServiceMixin {
   // }
 
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
-    File file = File(filePath);
-    Reference storageReference =
-        FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
-    UploadTask uploadTask = storageReference.putFile(file);
-    // ignore: avoid_print
-    await uploadTask.whenComplete(() => print('File Uploaded'));
-    return await storageReference.getDownloadURL();
+    try {
+      File file = File(filePath);
+      EasyLoading.show();
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('audio/${DateTime.now()}.mpeg4');
+      UploadTask uploadTask = storageReference.putFile(file);
+      // ignore: avoid_print
+      await uploadTask.whenComplete(() => print('File Uploaded'));
+      EasyLoading.dismiss();
+      return await storageReference.getDownloadURL();
+    } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error uploading audio files to Firebase Storage: $e');
+      log('Error uploading audio to Firebase Storage: $e');
+      return '';
+    }
   }
 
   Future<List<String>> uploadMediaToFirebase(
@@ -180,6 +186,7 @@ class RecipeService with ListenableServiceMixin {
   ) async {
     List<String> mediaUrls = [];
     try {
+      EasyLoading.show();
       for (var media in mediaFiles) {
         String fileName;
         String fileExtension;
@@ -202,12 +209,14 @@ class RecipeService with ListenableServiceMixin {
         mediaUrls.add(mediaUrl);
         log(mediaUrls.toString());
       }
-
+      EasyLoading.dismiss();
       return mediaUrls;
     } catch (error) {
+      EasyLoading.dismiss();
       showToast(
           message: 'Error uploading media files to Firebase Storage: $error');
       log('Error uploading media files to Firebase Storage: $error');
+
       return [];
     }
   }

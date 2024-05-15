@@ -37,6 +37,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: viewModel.methodsList.length,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final instruction = viewModel.methodsList[index];
                       return Padding(

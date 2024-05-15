@@ -307,7 +307,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 ],
                               );
                             } else {
-                              return Container(); // Placeholder for unsupported media types
+                              return Container();
                             }
                           }).toList(),
                           GestureDetector(

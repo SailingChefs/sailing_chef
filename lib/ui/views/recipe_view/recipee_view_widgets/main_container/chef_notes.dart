@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
@@ -21,7 +23,8 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: viewModel.isBusy
-              ? const CircularProgressIndicator()
+              ? Container(
+                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -80,7 +83,10 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                         //   )
                         // ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              log(viewModel.waveFormData!.toString());
+                              
+                            },
                             icon: const Icon(
                               Icons.volume_up,
                             ))

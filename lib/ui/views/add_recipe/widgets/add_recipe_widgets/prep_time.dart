@@ -44,7 +44,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 child: viewModel.selectedTime != null
                     ? Center(
                         child: Text(
-                           viewModel.formatDuration(),
+                          viewModel.formatDuration(),
                           style: globalTextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
@@ -61,6 +61,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                             horizontalSpaceSmall,
                             Text(
+                               viewModel.prepreationTime != null ? viewModel.prepreationTime! :
                               'Set Time',
                               style: globalTextStyle(
                                   fontSize: 12.sp,

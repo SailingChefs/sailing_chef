@@ -26,7 +26,7 @@ class RecipeViewViewModel extends BaseViewModel {
   bool isPlaying = false;
   final List<String> prevImageUrls;
   final List<XFile> newImageUrls;
-
+  final RecipeModel? recipe;
 
   List<dynamic> get selectedImages => [...prevImageUrls, ...newImageUrls];
 
@@ -35,22 +35,56 @@ class RecipeViewViewModel extends BaseViewModel {
   String? path;
   int? duration;
   List<RecipeModel>? myRecipes;
-  RecipeViewViewModel( this.prevImageUrls, this.newImageUrls, {this.waveFormData, this.path,});
+  RecipeViewViewModel(
+    this.prevImageUrls,
+    this.newImageUrls,
+    this.recipe, {
+    this.waveFormData,
+    this.path,
+  });
 
   void onViewModelReady() async {
     isclicked = false;
+    servings = recipe!.servingSize;
     setBusy(true);
     playerController = PlayerController();
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
-    log("WaveForm=> $waveFormData \n Path=> $path");
+
+
     await playerController.preparePlayer(
       path: path!,
       volume: 100,
     );
     
+
     // duration = await playerController.getDuration(DurationType.values[0]);
 
     setBusy(false);
+  }
+
+  int servings = 0;
+
+  void incrementServings() {
+    servings += 1;
+    rebuildUi();
+    notifyListeners();
+  }
+
+  void decrementServings() {
+    if (servings <= 1) {
+      servings = 1;
+      showToast(message: 'Minimum servings are 1');
+      rebuildUi();
+    } else {
+      servings--;
+      rebuildUi();
+    }
+  }
+
+  void durationStop(){
+    playerController.onCompletion.listen((event) {
+      stopListening();
+    });
   }
 
   void startListening() async {
@@ -64,6 +98,7 @@ class RecipeViewViewModel extends BaseViewModel {
       // rebuildUi();
     });
     log("start Listening ends ${isPlaying.toString()}");
+    durationStop();
   }
 
   void stopListening() async {
@@ -109,7 +144,7 @@ class RecipeViewViewModel extends BaseViewModel {
             ingredients: recipe.ingredients,
             methods: recipe.methods,
             prepTime: recipe.prepTime,
-            servingSize: recipe.servingSize,
+            servingSize: servings,
             status: 'published',
             title: recipe.title,
             tags: recipe.tags,
@@ -141,7 +176,7 @@ class RecipeViewViewModel extends BaseViewModel {
             ingredients: recipe.ingredients,
             methods: recipe.methods,
             prepTime: recipe.prepTime,
-            servingSize: recipe.servingSize,
+            servingSize: servings,
             status: 'published',
             title: recipe.title,
             uid: recipe.uid,
