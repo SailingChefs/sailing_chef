@@ -10,11 +10,11 @@ class TimeAndServingRecipeShow extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 130,
+         
           height: 45,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: kcPrimaryColor.withOpacity(0.2),
+            color: kcPrimaryColorDark.withOpacity(0.2),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
@@ -27,7 +27,7 @@ class TimeAndServingRecipeShow extends StatelessWidget {
               ),
               horizontalSpaceSmall,
               Text(
-                ' ${recipeModel.prepTime}min',
+                ' ${recipeModel.prepTime}',
                 style: globalTextStyle(
                   fontSize: 16.0.sp,
                   color: kcBlackColor,
@@ -43,7 +43,7 @@ class TimeAndServingRecipeShow extends StatelessWidget {
             height: 45,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: kcPrimaryColor.withOpacity(0.2),
+              color: kcPrimaryColorDark.withOpacity(0.2),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
@@ -61,7 +61,6 @@ class TimeAndServingRecipeShow extends StatelessWidget {
                   Text(
                     ' ${recipeModel.servingSize} servings',
                   ),
-                  
                 ])),
       ],
     );

@@ -1,12 +1,17 @@
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
-  const Ingredients({super.key});
+  const Ingredients(this.drafts, {super.key});
+  final RecipeModel? drafts;
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
+   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,8 +41,10 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: viewModel.ingredientsList.length,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final ingredient = viewModel.ingredientsList[index];
+                     
                       return Column(
                         children: [
                           Row(
@@ -105,7 +112,12 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                     },
                   ),
                   GestureDetector(
-                    onTap: viewModel.callIngredientsBottomSheet,
+                    onTap: () {
+                      viewModel.callIngredientsBottomSheet;
+                      List<Ingredient> ingredients = viewModel.ingredientsList;
+                      viewModel.addIngredients(ingredients);
+                     
+                    },
                     child: Container(
                       height: 50.h,
                       decoration: BoxDecoration(

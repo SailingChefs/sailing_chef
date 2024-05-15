@@ -245,6 +245,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               SemiRoundedTranpaentTextFieldBio(
                                   validator: (value) =>
                                       viewModel.validateBio(value),
+                                      
                                   controller: viewModel.bioController,
                                   labelText: 'Bio'),
                               verticalSpaceMedium,
@@ -261,8 +262,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
               if (viewModel.formKey.currentState!.validate()) {
                 if (viewModel.locationController.text.isEmpty) {
                   log('location empty');
-                } else {
-                }
+                } else {}
                 viewModel.saveUserDetails();
               }
             } else {

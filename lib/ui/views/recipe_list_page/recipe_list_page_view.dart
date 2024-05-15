@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
@@ -83,13 +84,13 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                               bottom: 10.dg,
                               left: 10.dg,
                               child: Container(
-                                  width: 95.w,
                                   height: 45.h,
                                   decoration: BoxDecoration(
                                     color: Colors.black54.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(30.0.r),
                                   ),
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
                                   child: Row(
                                     children: [
                                       const Icon(
@@ -118,7 +119,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                             children: [
                               verticalSpaceSmall,
                               Text(
-                                recipe.title,
+                                capitalizeEachWord(recipe.title),
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.normal,

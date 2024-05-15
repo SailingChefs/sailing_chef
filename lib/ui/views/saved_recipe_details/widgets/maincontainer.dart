@@ -2,13 +2,14 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/chef_notes.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/chefnotes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
+import 'package:sailing_chefs/ui/views/user_details/widgets/semibio.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
@@ -72,6 +73,13 @@ class MainRecipeViewContainer
                         ),
 
                   const ChefNotesRecipeDetails(),
+                  verticalSpaceMedium,
+                  SemiRoundedTranpaentTextFieldBio(
+                    labelText: 'Add your own personal note...',
+                    controller: viewModel.notesController,
+                    fillColor: kcPrimaryColorDark.withOpacity(0.2),
+
+                  ),
                   verticalSpaceMedium,
                   ViewProfileRow(
                     user: recipeModel.user!,

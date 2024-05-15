@@ -13,10 +13,11 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
 
   final List<XFile> selectedImages;
+  final List<String> draftUrls;
   final List<double>? waveFormData;
   final String? path;
 
-  const RecipeViewView(this.recipeModel, this.selectedImages,
+  const RecipeViewView(this.recipeModel, this.selectedImages, this.draftUrls,
       {Key? key, this.waveFormData, this.path})
       : super(key: key);
 
@@ -30,7 +31,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
-          TopBarRecipeView(selectedImages),
+          TopBarRecipeView(selectedImages,draftUrls),
           MainRecipeViewContainer(recipeModel, selectedImages),
           Positioned(
             top: 40,
@@ -48,7 +49,8 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   RecipeViewViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      RecipeViewViewModel(waveFormData: waveFormData, path: path);
+      RecipeViewViewModel(draftUrls,selectedImages, waveFormData: waveFormData, path: path, recipeModel,
+          );
 
   @override
   void onViewModelReady(RecipeViewViewModel viewModel) {

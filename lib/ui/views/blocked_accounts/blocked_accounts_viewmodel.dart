@@ -12,7 +12,6 @@ import '../../../model/user_model.dart';
 class BlockedAccountsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserServices _userService = locator<UserServices>();
-  final ChefService _chefService = locator<ChefService>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
   final userService = locator<UserServices>();
   List<String> get blockedUsers => _blockUserService.blockedAccounts;
@@ -31,10 +30,10 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   void unblockUser({required UserModel user}) async {
     userDetails!.blockedAccounts!.remove(user.uid);
     if (user.userRole == 'chef') {
-      if (_chefService.chefs.contains(user)) {
+      if (ChefService.chefs.contains(user)) {
         notifyListeners();
       }
-      _chefService.chefs.add(user);
+      ChefService.chefs.add(user);
       notifyListeners();
     }
 

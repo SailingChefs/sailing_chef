@@ -15,7 +15,7 @@ class RecipeModel {
   final String title;
   final String uid;
   final String visibility;
-  final String docId;
+  String? docId;
   List<double> waveForm;
   UserModel? user;
   List<String>? tags;
@@ -25,7 +25,7 @@ class RecipeModel {
     required this.visibility,
     required this.chefNote,
     this.tags,
-    required this.docId,
+    this.docId,
     required this.coverImage,
     required this.createdTime,
     required this.ingredients,
@@ -88,4 +88,8 @@ class RecipeModel {
       tags: List<String>.from(data['tags'] ?? []),
     );
   }
+
+  
+
+
 }

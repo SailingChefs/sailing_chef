@@ -10,7 +10,8 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return Stack(
       children: [
-        UserdataServiceService.user.displayPicture == null
+        UserdataServiceService.user.displayPicture == null &&
+                viewModel.selectedImageFile == null
             ? Container(
                 height: MediaQuery.sizeOf(context).height * 0.12,
                 decoration: const BoxDecoration(
@@ -57,10 +58,14 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
             : Stack(
                 children: [
                   CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(UserdataServiceService
-                          .user.displayPicture!
-                          .toString())),
+                    radius: 50,
+                    backgroundImage: viewModel.selectedImageFile != null
+                        ? FileImage(viewModel.selectedImageFile!)
+                            as ImageProvider<Object>?
+                        : NetworkImage(UserdataServiceService
+                            .user.displayPicture!
+                            .toString()),
+                  ),
                   const GestureDetectorEdit(65, 75),
                 ],
               ),

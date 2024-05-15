@@ -1,20 +1,22 @@
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
-  const SearchViewAllRecipes({super.key});
+  final List<RecipeModel> recipes;
+  const SearchViewAllRecipes({super.key, required this.recipes});
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
-    return viewModel.searchRecipes().isEmpty
+    return viewModel.searchRecipes(recipes).isEmpty
         ? SizedBox(
             height: 500.h, child: const Center(child: Text('No Recipe Found')))
         : SizedBox(
             height: 500.h,
             child: GridView.builder(
-              itemCount: viewModel.searchRecipes().length,
+              itemCount: viewModel.searchRecipes(recipes).length,
               padding: EdgeInsets.symmetric(vertical: 15.h),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -24,10 +26,11 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
               ),
               itemBuilder: (BuildContext context, int index) {
                 final RecipeModel recipe =
-                    viewModel.searchRecipes().elementAt(index);
+                    viewModel.searchRecipes(recipes).elementAt(index);
                 return PrimaryGridTile(
+                  rating: calculateAverageRating(recipes[index].comment!),
                     savedRecipeList: viewModel.savedRecipes,
-                    recipeId: recipe.docId,
+                    recipeId: recipe.docId!,
                     onTap: () => viewModel.toDishDetailsScreen(recipe),
                     foodImagePath: recipe.coverImage
                         .where((element) => element.contains('.jpg'))

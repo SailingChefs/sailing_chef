@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -12,6 +13,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String duration;
   final void Function() onTap;
   final String recipeId;
+  final double rating;
   final List<SavedRecipeModel> savedRecipeList;
 
   const PrimaryGridTile({
@@ -19,6 +21,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     required this.foodImagePath,
     required this.savedRecipeList,
     required this.chefImagePath,
+    required this.rating,
     required this.dishName,
     required this.duration,
     required this.onTap,
@@ -76,15 +79,31 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 verticalSpaceTiny,
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    capitalizeEachWord(dishName),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: globalTextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      color: kcBlackColor.withOpacity(0.6),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        RatingBarIndicator(
+                        rating: rating,
+                        itemBuilder: (context, index) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        itemSize: 20.0,
+                        direction: Axis.horizontal,
+                      ),
+                      Text(
+                        capitalizeEachWord(dishName),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: globalTextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w500,
+                          color: kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                    
+                    ],
                   ),
                 ),
               ],
@@ -117,10 +136,11 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             ),
             Positioned(
               left: 5.dg,
-              bottom: 30.dg + 5.dg,
+              bottom: 30.dg + 25.dg,
               child: Container(
-                width: 70.w,
+                // width: 90.w,
                 height: 25.h,
+                padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: kcBlackColor.withOpacity(0.5),
@@ -128,30 +148,26 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     Radius.circular(20.r),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        FlutterRemix.time_line,
-                        size: 12.dg,
-                        color: kcWhiteColor,
-                      ),
-                      horizontalSpaceTiny,
-                      Expanded(
-                        child: Text(
-                          duration,
-                          style: globalTextStyle(fontSize: 10.sp),
-                        ),
-                      )
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      FlutterRemix.time_line,
+                      size: 12.dg,
+                      color: kcWhiteColor,
+                    ),
+                    horizontalSpaceTiny,
+                    Text(
+                      duration.trimRight().trimLeft(),
+                      maxLines: 1,
+                      style: globalTextStyle(fontSize: 10.sp),
+                    )
+                  ],
                 ),
               ),
             ),
             Positioned(
-              bottom: 10.dg,
+              bottom: 30.dg,
               right: 10.dg,
               child: Container(
                 height: 32.h,
@@ -165,13 +181,19 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0.r),
-                  child: chefImagePath.isEmpty ? Image.asset( 'assets/images/misc/blank_image.png',fit: BoxFit.contain, height: 32.h,
-                    width: 32.w,) : Image.network(
-                    chefImagePath,
-                    height: 32.h,
-                    width: 32.w,
-                    fit: BoxFit.cover,
-                  ),
+                  child: chefImagePath.isEmpty
+                      ? Image.asset(
+                          'assets/images/misc/blank_image.png',
+                          fit: BoxFit.contain,
+                          height: 32.h,
+                          width: 32.w,
+                        )
+                      : Image.network(
+                          chefImagePath,
+                          height: 32.h,
+                          width: 32.w,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
             )

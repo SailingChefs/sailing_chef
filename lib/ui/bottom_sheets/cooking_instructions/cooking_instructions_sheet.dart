@@ -21,33 +21,35 @@ class CookingInstructionsSheet
     CookingInstructionsSheetModel viewModel,
     Widget? child,
   ) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: const BoxDecoration(
-        color: kcwhitecolor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CookingTopBar(),
-          Center(
-            child: Text(
-              request.title ?? 'Cooking Instructions',
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor),
-            ),
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: const BoxDecoration(
+          color: kcwhitecolor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
-          verticalSpaceMedium,
-          const ListViewCookingInstructions(),
-          const BottomCookingInstructions(),
-        ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CookingTopBar(),
+            Center(
+              child: Text(
+                request.title ?? 'Cooking Instructions',
+                style: globalTextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor),
+              ),
+            ),
+            verticalSpaceMedium,
+            const ListViewCookingInstructions(),
+            const BottomCookingInstructions(),
+          ],
+        ),
       ),
     );
   }

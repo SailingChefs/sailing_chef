@@ -34,7 +34,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TopBarProfileScreen(),
+                       const TopBarProfileScreen(),
                       verticalSpace(35),
                       const ProfileDetailsProfileScreen(),
                       const ProfileDescriptionProfileScreen(),

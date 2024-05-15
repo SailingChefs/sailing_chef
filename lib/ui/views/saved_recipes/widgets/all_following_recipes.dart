@@ -2,6 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
+import '../../../../core/helpers/avergae_calculator.dart';
+
 class FollowingSavedRecipesScreen
     extends ViewModelWidget<SavedRecipesViewModel> {
   const FollowingSavedRecipesScreen({super.key});
@@ -23,8 +25,9 @@ class FollowingSavedRecipesScreen
               ),
               itemBuilder: (BuildContext context, int index) {
                 return PrimaryGridTile(
+                  rating: calculateAverageRating(viewModel.followingRecipes![index].comment!) ,
                     savedRecipeList: viewModel.savedRecipes,
-                    recipeId: viewModel.followingRecipes![index].docId,
+                    recipeId: viewModel.followingRecipes![index].docId!,
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),
                     foodImagePath:

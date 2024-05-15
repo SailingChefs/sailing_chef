@@ -1,5 +1,3 @@
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../edit_profile_viewmodel.dart';

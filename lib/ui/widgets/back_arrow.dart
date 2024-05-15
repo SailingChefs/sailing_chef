@@ -11,10 +11,10 @@ class BackArrowWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 8.0.dg),
-        height: 30.h,
-        width: 30.w,
+        height: 25.h,
+        width: 25.w,
         decoration: BoxDecoration(
-          color: kcwhitecolor.withOpacity(0.8),
+          color: kcsgreycolor.withOpacity(0.7),
           shape: BoxShape.circle,
         ),
         child: Icon(

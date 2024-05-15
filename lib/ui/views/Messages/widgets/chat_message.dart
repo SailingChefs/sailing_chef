@@ -72,39 +72,65 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ImageViewerScreen(
-                                imageUrl: message.content,
+                      viewModel.isBusy
+                          ?  Container(
+                            color: Colors.amber,
+                            child: ClipRRect(
+                              
+                                borderRadius: BorderRadius.only(
+                                    topLeft: isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    bottomLeft: isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    topRight: !isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    bottomRight: !isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0)),
+                                child: Image.network(
+                                  '',
+                                  width: 120.0,
+                                  height: 178.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                          )
+                          : GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ImageViewerScreen(
+                                      imageUrl: message.content,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    bottomLeft: isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    topRight: !isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0),
+                                    bottomRight: !isCurrentUser
+                                        ? const Radius.circular(20)
+                                        : const Radius.circular(0)),
+                                child: Image.network(
+                                  message.content,
+                                  width: 120.0,
+                                  height: 178.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              bottomLeft: isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              topRight: !isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              bottomRight: !isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0)),
-                          child: Image.network(
-                            message.content,
-                            width: 120.0,
-                            height: 178.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
                     if (message.type == 'String')
                       Container(
                         padding: const EdgeInsets.all(15.0),
@@ -133,120 +159,148 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         ),
                       ),
                     if (message.type == 'file')
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: kcWhiteColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kcLightGrey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: message.content.contains('pdf')
-                            ? ListTile(
-                                title: Text(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    message.fileName.toString()),
-                                subtitle: Text(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    message.content),
-                                trailing: GestureDetector(
-                                    onTap: () async {
-                                      await launch(message.content);
-                                    },
-                                    child: const Icon(Icons.download)),
-                                leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.asset(
-                                      'assets/images/icons/pdf.png',
-                                      width: 50.0,
-                                      height: 50.0,
-                                      fit: BoxFit.cover,
-                                    )))
-                            : message.content.contains('doc')
-                                ? ListTile(
-                                    title: Text(
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        message.fileName.toString()),
-                                    subtitle: Text(
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        message.content),
-                                    trailing: GestureDetector(
-                                        onTap: () async {
-                                          await launch(message.content);
-                                        },
-                                        child: const Icon(Icons.download)),
-                                    leading: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Image.asset(
-                                          'assets/images/icons/docx.png',
-                                          width: 50.0,
-                                          height: 50.0,
-                                          fit: BoxFit.cover,
-                                        )))
-                                : message.content.contains('docx')
-                                    ? ListTile(
-                                        title: Text(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            message.fileName.toString()),
-                                        subtitle: Text(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            message.content),
-                                        trailing: GestureDetector(
-                                            onTap: () async {
-                                              await launch(message.content);
-                                            },
-                                            child: const Icon(Icons.download)),
-                                        leading: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.asset(
-                                              'assets/images/icons/docx.png',
-                                              width: 50.0,
-                                              height: 50.0,
-                                              fit: BoxFit.cover,
-                                            )))
-                                    : message.content.contains('zip')
-                                        ? ListTile(
-                                            title: Text(
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                message.fileName.toString()),
-                                            subtitle: Text(
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                message.content),
-                                            trailing: GestureDetector(
-                                                onTap: () async {
-                                                  await launch(message.content);
-                                                },
-                                                child:
-                                                    const Icon(Icons.download)),
-                                            leading: ClipRRect(
+                      viewModel.isBusy
+                          ? Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: kcWhiteColor,
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kcLightGrey.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: kcWhiteColor,
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kcLightGrey.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: message.content.contains('pdf')
+                                  ? ListTile(
+                                      title: Text(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          message.fileName.toString()),
+                                      subtitle: Text(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          message.content),
+                                      trailing: GestureDetector(
+                                          onTap: () async {
+                                            await launch(message.content);
+                                          },
+                                          child: const Icon(Icons.download)),
+                                      leading: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Image.asset(
+                                            'assets/images/icons/pdf.png',
+                                            width: 50.0,
+                                            height: 50.0,
+                                            fit: BoxFit.cover,
+                                          )))
+                                  : message.content.contains('doc')
+                                      ? ListTile(
+                                          title: Text(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              message.fileName.toString()),
+                                          subtitle: Text(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              message.content),
+                                          trailing: GestureDetector(
+                                              onTap: () async {
+                                                await launch(message.content);
+                                              },
+                                              child:
+                                                  const Icon(Icons.download)),
+                                          leading: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               child: Image.asset(
-                                                'assets/images/icons/zip.png',
+                                                'assets/images/icons/docx.png',
                                                 width: 50.0,
                                                 height: 50.0,
                                                 fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          )
-                                        : Container(),
-                      ),
+                                              )))
+                                      : message.content.contains('docx')
+                                          ? ListTile(
+                                              title: Text(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  message.fileName.toString()),
+                                              subtitle: Text(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  message.content),
+                                              trailing: GestureDetector(
+                                                  onTap: () async {
+                                                    await launch(
+                                                        message.content);
+                                                  },
+                                                  child: const Icon(
+                                                      Icons.download)),
+                                              leading: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: Image.asset(
+                                                    'assets/images/icons/docx.png',
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    fit: BoxFit.cover,
+                                                  )))
+                                          : message.content.contains('zip')
+                                              ? ListTile(
+                                                  title: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      message.fileName
+                                                          .toString()),
+                                                  subtitle: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      message.content),
+                                                  trailing: GestureDetector(
+                                                      onTap: () async {
+                                                        await launch(
+                                                            message.content);
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.download)),
+                                                  leading: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    child: Image.asset(
+                                                      'assets/images/icons/zip.png',
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
+                            ),
                   ],
                 ),
               ),
@@ -260,9 +314,10 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
-                  backgroundImage: userDetails!.displayPicture!.isNotEmpty
+                  backgroundImage: userDetails!.displayPicture != null
                       ? NetworkImage(userDetails!.displayPicture!)
-                      : null,
+                      : const AssetImage('assets/images/icons/imageicon.png')
+                          as ImageProvider<Object>,
                   child: userDetails!.displayPicture!.isNotEmpty
                       ? null
                       : const Icon(Icons.person),

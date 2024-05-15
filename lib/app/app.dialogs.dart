@@ -26,11 +26,11 @@ enum DialogType {
   deleteAccount,
   blockAccount,
   courseSaved,
-  success,
   deleteconfirmation,
   pindetails,
   rateExperience,
   reviewsAll,
+  success,
 }
 
 void setupDialogUi() {

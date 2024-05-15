@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
@@ -25,6 +24,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
     SavedRecipeDetailsViewModel viewModel,
     Widget? child,
   ) {
+    
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
@@ -32,19 +32,19 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
           ))
         : Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor:kcBackgroundColor,
             body: Stack(children: [
               TopBarDetailsScreen(image: recipeModel.coverImage),
               MainRecipeViewContainer(
                 recipeModel: recipeModel,
                 recipeList: randomRecipeList,
               ),
-               Positioned(
-                top: 40,
-                right: 10,
-                child: SaveShare(
-                  recipe: recipeModel,
-                )),
+              Positioned(
+                  top: 40,
+                  right: 10,
+                  child: SaveShare(
+                    recipe: recipeModel,
+                  )),
               Positioned(
                 top: 40,
                 left: 10,
@@ -59,7 +59,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   @override
   void onViewModelReady(SavedRecipeDetailsViewModel viewModel) {
     viewModel.onViewModelReady(
-        recipeModel.coverImage.length, recipeModel.docId);
+        recipeModel.coverImage.length, recipeModel.docId!);
     super.onViewModelReady(viewModel);
   }
 

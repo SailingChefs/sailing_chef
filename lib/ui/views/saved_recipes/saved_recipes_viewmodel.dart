@@ -10,6 +10,9 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _recipeService = locator<RecipeService>();
+  final TextEditingController searchSavedController = TextEditingController();
+  final TextEditingController searchFollowingController =
+      TextEditingController();
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   List<RecipeModel>? followingRecipes;
@@ -26,6 +29,17 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
+  Iterable<SavedRecipeModel> searchRecipes(List<SavedRecipeModel> recipes,String query) sync* {
+    log('came to search');
+    for (var recipe in recipes) {
+      if (recipe.recipeModel!.title
+          .toLowerCase()
+          .contains(query.toLowerCase())) {
+        // rebuildUi();
+        yield recipe;
+      }
+    }
+  }
 
   void onViewModelReady() async {
     setBusy(true);
@@ -36,7 +50,9 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   }
 
   void toAllDishesScreen() {
-    _navigationService.navigateToExploreAllRecipesView();
+    _navigationService.navigateToExploreAllRecipesView(
+      recipes: RecipeService.recipes
+    );
   }
 
   void followingSelected() {

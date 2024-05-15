@@ -1,14 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
-  const PrepTime({super.key});
-
+  const PrepTime(this.drafts, {super.key});
+  final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
-    int totalMinutes = viewModel.selectedTime != null
-        ? viewModel.selectedTime!.hour * 60 + viewModel.selectedTime!.minute
-        : 0;
+  
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,7 +35,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
               onTap: () => viewModel.showCustomTimePickerDialog(context),
               child: Container(
                 height: 45.h,
-                width: 105.w,
+                width: 115.w,
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0.r),
@@ -45,7 +44,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 child: viewModel.selectedTime != null
                     ? Center(
                         child: Text(
-                          '$totalMinutes mins',
+                          viewModel.formatDuration(),
                           style: globalTextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
@@ -62,6 +61,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                             horizontalSpaceSmall,
                             Text(
+                               viewModel.prepreationTime != null ? viewModel.prepreationTime! :
                               'Set Time',
                               style: globalTextStyle(
                                   fontSize: 12.sp,

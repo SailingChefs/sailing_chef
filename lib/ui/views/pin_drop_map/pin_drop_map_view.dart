@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
@@ -85,7 +83,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                       GestureDetector(
                         onTap: () {
                           viewModel.addMarkers(
-                            
                               markerId,
                               LatLng(viewModel.currentPosition!.latitude,
                                   viewModel.currentPosition!.longitude));

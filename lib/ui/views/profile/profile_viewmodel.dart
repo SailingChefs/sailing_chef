@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -12,7 +11,6 @@ import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,7 +33,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   List<String> get followingList => _followService.following;
   List<String> get followersList => _followService.followers;
-  List<RecipeModel>? myRecipes;
+  List<RecipeModel> myRecipes = [];
 
   void navigateToBlockScreen() {
     _navigationService.navigateToBlockedAccountsView();
@@ -49,7 +47,7 @@ class ProfileViewModel extends ReactiveViewModel {
   //   return _savedRecipeService.savedRecipes;
   // }
 
-  List<Placemark>? placemarks;
+ 
 
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
@@ -77,15 +75,7 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  getUserLocation() async {
-    if (userDetails?.location?['latitude'] == null) {
-      return '';
-    }
-
-    placemarks = await placemarkFromCoordinates(
-        userDetails!.location!['latitude'],
-        userDetails!.location!['longitude']);
-  }
+  
 
   void goTogoToProfileEditView() {
     _navigationService.navigateTo(Routes.followingListView,
@@ -116,23 +106,29 @@ class ProfileViewModel extends ReactiveViewModel {
   List<Course> get courses => _cullinarySchoolService.courses;
   void onViewModelReady() async {
     setBusy(true);
-    await getUserLocation();
-    await _savedRecipeService.init();
-    await _followService.init(userDetails!.uid!, false);
-    myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
-    _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!);
-    log(courses.length.toString());
+    await Future.wait([
+      _savedRecipeService.init(),
+      _recipeService.initialized(),
+     _followService.init(userDetails!.uid!, false),
+    _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
+
+
+
+
+    ]);
+    myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
+
     setBusy(false);
   }
 
   void toDishesScreen() {
-    _navigationService.navigateToAddRecipeView(isFromProfileView: true);
+    _navigationService.navigateToAddRecipeView();
   }
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateToSavedRecipeDetailsView(
       recipeModel: recipeModel,
-      randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes!),
+      randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes),
     );
   }
 

@@ -30,7 +30,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           color: kcWhiteColor.withOpacity(0.7),
           shape: BoxShape.circle,
         ),
-        child: viewModel.savedRecipeList.contains( recipe.docId)
+        child: viewModel.isRecipeSaved
             ? Icon(
                 Icons.bookmark,
                 color: kcBlackColor.withOpacity(0.6),

@@ -1,11 +1,12 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 
 class SearchBarAllRecipesScreen
     extends ViewModelWidget<ExploreAllRecipesViewModel> {
-  const SearchBarAllRecipesScreen({super.key});
+      final List<RecipeModel> recipes;
+  const SearchBarAllRecipesScreen({super.key, required this.recipes});
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
@@ -20,7 +21,7 @@ class SearchBarAllRecipesScreen
               onChanged: (value) {
                 viewModel.rebuildUi();
               },
-              onSubmitted: (value) => viewModel.searchRecipes(),
+              onSubmitted: (value) => viewModel.searchRecipes(recipes),
               controller: viewModel.searchController,
               textAlign: TextAlign.start,
               decoration: InputDecoration(
@@ -74,9 +75,7 @@ class SearchBarAllRecipesScreen
           horizontalSpaceSmall,
           IconButton(
             onPressed: () {
-              log("pressed");
-              viewModel.searchRecipes();
-              log("after searching");
+              
             },
             icon: const Icon(FlutterRemix.equalizer_line),
             color: kcPrimaryColor,
