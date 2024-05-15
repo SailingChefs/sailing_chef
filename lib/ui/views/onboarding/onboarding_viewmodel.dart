@@ -54,16 +54,14 @@ class OnboardingViewModel extends BaseViewModel {
   }
 
   void toLogin() {
-    _navigationServices.navigateToLoginView();
+    _navigationServices.replaceWithLoginView();
   }
 
   void tosignUp() {
-    _navigationServices.navigateToSignUpView();
+    _navigationServices.replaceWithSignUpView();
   }
 
-  void toHome() {
-    _navigationServices.replaceWithIndexView();
-  }
+
 
   void next() {
     if (currentPage < 3) {

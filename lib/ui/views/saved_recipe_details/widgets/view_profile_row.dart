@@ -10,9 +10,11 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      SizedBox(
-        width: 150.w,
+      Container(
+        padding: EdgeInsets.all(8.0.dg),
+        // width: 150.w,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: 19.62.dg,
@@ -21,14 +23,26 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ),
             ),
             horizontalSpaceSmall,
-            Flexible(
-              child: Text(
-                user.displayName!,
-                style: TextStyle(
-                    color: kcBlackColor,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600),
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.displayName!,
+                  style: globalTextStyle(
+                      color: kcBlackColor,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '10 dishes',
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.5),
+                    
+                  )
+                )
+              ],
             ),
           ],
         ),

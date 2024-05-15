@@ -12,6 +12,8 @@ class CommentsDetailsScreen
   final RecipeModel recipeModel;
   const CommentsDetailsScreen({super.key, required this.recipeModel});
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+    recipeModel.comment = viewModel.commentService.comments;
+    recipeModel.comment!.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     log(recipeModel.comment.toString());
     if (recipeModel.comment != null) {
       log('here');

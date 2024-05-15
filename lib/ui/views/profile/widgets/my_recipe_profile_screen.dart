@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -29,6 +30,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
+                          rating: calculateAverageRating(viewModel.myRecipes[index].comment!),
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(
