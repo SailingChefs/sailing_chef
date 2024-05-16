@@ -34,7 +34,6 @@ class FilterViewModel extends BaseViewModel {
   SfRangeValues values = const SfRangeValues(0.0, 5.0);
   // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
   void updateValue(SfRangeValues newValue) {
-    
     values = newValue;
     notifyListeners();
     rebuildUi();
@@ -182,7 +181,8 @@ class FilterViewModel extends BaseViewModel {
 
     rebuildUi();
   }
- List<String> selectedOptions() {
+
+  List<String> selectedOptions() {
     List<String> selectedList = [];
 
     if (isPassageSelected) selectedList.add('Passage');
@@ -202,6 +202,7 @@ class FilterViewModel extends BaseViewModel {
 
     return selectedList;
   }
+
   void handleSubTabsCourse(int index) {
     switch (index) {
       case 0:
@@ -287,61 +288,60 @@ class FilterViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-void apply() {
-  List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
+  void apply() {
+    List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
+      // Check if any tag in the recipe matches any tag in the specified tags list
+      bool tagMatch =
+          recipe.tags!.any((tag) => selectedOptions().contains(tag));
 
-    // Check if any tag in the recipe matches any tag in the specified tags list
-    bool tagMatch = recipe.tags!.any((tag) => selectedOptions().contains(tag));
-    
-    // Parse prep time of the recipe into hours
-    double prepTimeHours = _parsePrepTime(recipe.prepTime) / 60;
-    log('prep time ${prepTimeHours.toString()}');
+      // Parse prep time of the recipe into hours
+      double prepTimeHours = _parsePrepTime(recipe.prepTime) / 60;
+      log('prep time ${prepTimeHours.toString()}');
 
+      // Check if prep time falls within the specified range
+      bool timeInRange =
+          prepTimeHours >= values.start && prepTimeHours <= values.end;
 
-    // Check if prep time falls within the specified range
-    bool timeInRange = prepTimeHours >= values.start && prepTimeHours <= values.end;
+      if (selectedOptions().isEmpty) {
+        return timeInRange;
+      }
 
-    if(selectedOptions().isEmpty){
-      return timeInRange;
-    }
+      return tagMatch && timeInRange;
+    }).toList();
 
-    return tagMatch && timeInRange;
-  }).toList();
-
-  _navigationService.replaceWithSearchView(recipeModel: filteredRecipes, chefList: ChefService.chefs);
-}
-
-int _parsePrepTime(String prepTimeString) {
-  prepTimeString = prepTimeString.trim(); // Remove any leading or trailing spaces
-  
-  if (prepTimeString.contains('h')) {
-    List<String> parts = prepTimeString.split('h');
-    
-    // Check if there are exactly two parts (hours and minutes)
-    if (parts.length == 2) {
-      int hours = int.tryParse(parts[0].trim()) ?? 0;
-      int minutes = int.tryParse(parts[1].replaceAll('mins', '').trim()) ?? 0;
-      
-      // Convert hours and minutes to total minutes
-      return hours * 60 + minutes;
-    } else if (parts.length == 1) {
-      // If only hours are provided
-      return int.tryParse(parts[0].replaceAll('h', '').trim()) ?? 0 * 60;
-    }
-  } else if (prepTimeString.contains('mins')) {
-    // If only minutes are provided
-    return int.tryParse(prepTimeString.replaceAll('mins', '').trim()) ?? 0;
+    _navigationService.replaceWithSearchView(
+        recipeModel: filteredRecipes, chefList: ChefService.chefs);
   }
-  
-  // If the format is invalid or parsing fails, return a default value (e.g., 0)
-  return 0;
-}
 
+  int _parsePrepTime(String prepTimeString) {
+    prepTimeString =
+        prepTimeString.trim(); // Remove any leading or trailing spaces
 
+    if (prepTimeString.contains('h')) {
+      List<String> parts = prepTimeString.split('h');
 
+      // Check if there are exactly two parts (hours and minutes)
+      if (parts.length == 2) {
+        int hours = int.tryParse(parts[0].trim()) ?? 0;
+        int minutes = int.tryParse(parts[1].replaceAll('mins', '').trim()) ?? 0;
+
+        // Convert hours and minutes to total minutes
+        return hours * 60 + minutes;
+      } else if (parts.length == 1) {
+        // If only hours are provided
+        return int.tryParse(parts[0].replaceAll('h', '').trim()) ?? 0 * 60;
+      }
+    } else if (prepTimeString.contains('mins')) {
+      // If only minutes are provided
+      return int.tryParse(prepTimeString.replaceAll('mins', '').trim()) ?? 0;
+    }
+
+    // If the format is invalid or parsing fails, return a default value (e.g., 0)
+    return 0;
+  }
 
 //  void apply() {
-  
+
 //   List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
 //     return recipe.tags!.any((tag) => selectedOptions().contains(tag));
 //   }).toList();

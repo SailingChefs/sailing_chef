@@ -34,7 +34,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<String> get followers => _followService.followers;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-  List<SavedRecipeModel> ? userSavedRecipe;
+  List<SavedRecipeModel>? userSavedRecipe;
   List<Course> get courses => _cullinarySchoolService.courses;
   bool isFollowing = false;
 
@@ -59,9 +59,10 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await _followService.init(user.uid!, false);
-    
+
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
-    userSavedRecipe = await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
+    userSavedRecipe =
+        await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
     _savedRecipeService.init();
     _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
     log(courses.length.toString());
@@ -81,11 +82,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void goToFollowingList() {
-   showToast(message: 'You cannot see Others following/followers list');
+    showToast(message: 'You cannot see Others following/followers list');
   }
 
+
  
- 
+
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
@@ -135,8 +137,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: chefRecipes![index],
-        randomRecipeList:
-            IndexViewModel.getRandomDishes(chefRecipes![index], RecipeService.recipes));
+        randomRecipeList: IndexViewModel.getRandomDishes(
+            chefRecipes![index], RecipeService.recipes));
   }
 
   void showRecipeList() {

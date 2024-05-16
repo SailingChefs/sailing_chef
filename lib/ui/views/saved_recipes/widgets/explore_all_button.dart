@@ -2,13 +2,14 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 
 class ExploreAllButton extends ViewModelWidget<SavedRecipesViewModel> {
- 
-  const ExploreAllButton({super.key, });
+  const ExploreAllButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
     return GestureDetector(
-      onTap:() => viewModel.toAllDishesScreen(),
+      onTap: () => viewModel.toAllDishesScreen(),
       child: Container(
         width: 203,
         height: 48,

@@ -23,8 +23,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
             borderRadius: BorderRadius.circular(50),
           ),
           child: viewModel.isBusy
-              ? Container(
-                 )
+              ? Container()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -85,7 +84,6 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                         IconButton(
                             onPressed: () {
                               log(viewModel.waveFormData!.toString());
-                              
                             },
                             icon: const Icon(
                               Icons.volume_up,

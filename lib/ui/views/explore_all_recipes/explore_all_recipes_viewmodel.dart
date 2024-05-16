@@ -13,7 +13,6 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   final _savedRecipeService = locator<SavedRecipeService>();
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
-
   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (var recipe in recipes) {
@@ -40,7 +39,8 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
       recipeModel: recip,
-      randomRecipeList: IndexViewModel.getRandomDishes(recip, RecipeService.recipes),
+      randomRecipeList:
+          IndexViewModel.getRandomDishes(recip, RecipeService.recipes),
     );
   }
 }

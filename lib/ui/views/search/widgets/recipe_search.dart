@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -37,8 +38,10 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .searchRecipes(recipes)
                                 .elementAt(index);
                             return PrimaryGridTile(
+
                                rating: calculateAverageRating(recipe.comment!) ,
                                chefId: recipe.user!.uid!,
+
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId: recipe.docId!,
                                 onTap: () =>
@@ -59,16 +62,21 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                 }),
               ),
               verticalSpace(90),
-               ExploreAllButtonSearch(
+              ExploreAllButtonSearch(
                 text: 'Discover more Recipes',
-                onTap:()=> viewModel.toAllDishesScreen(recipes),
+                onTap: () => viewModel.toAllDishesScreen(recipes),
               ),
             ],
           )
         : recipes.isEmpty
             ? SizedBox(
                 height: 500.h,
-              child:  Center(child: Text('No Recipe Found',style: globalTextStyle(fontSize: 15.sp,color: kcPrimaryColor),)))
+                child: Center(
+                    child: Text(
+                  'No Recipe Found',
+                  style:
+                      globalTextStyle(fontSize: 15.sp, color: kcPrimaryColor),
+                )))
             : Column(
                 children: [
                   Padding(
@@ -90,6 +98,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
+
                                   chefId: recipes[index].uid,
                                    rating: calculateAverageRating(recipes[index].comment!),
                                     savedRecipeList: viewModel.savedRecipes,
@@ -105,6 +114,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                     duration: recipes[index].prepTime,
                                     chefImagePath:
                                         recipes[index].user!.displayPicture!);
+
                               },
                               childCount: 4,
                             ),
@@ -116,9 +126,11 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                   verticalSpace(90),
                   ExploreAllButtonSearch(
                     text: 'Discover more Recipes',
+
                     onTap:() => viewModel.toAllDishesScreen(recipes),
                   ),
                    verticalSpace(30),
+
                 ],
               );
   }

@@ -17,74 +17,76 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
         verticalSpaceMedium,
         SizedBox(
           height: 290,
-          child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-            itemCount: viewModel.courses.length,
-            itemBuilder: (context, index) {
-              Course course = viewModel.courses[index];
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                color: kcsgreycolor,
-                child: InkWell(
-                  onTap: () {},
-                  child: SizedBox(
-                    width: 390,
-                    height: 85,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                course.name,
-                                style: globalTextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: kcBlackColor),
-                              ),
-                              verticalSpaceSmall,
-                              Text(
-                                '${course.numOfDays} days',
-                                style: globalTextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w300,
-                                    color: kcBlackColor),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              // viewModel.callCourseNameBottomSheett(viewModel.courses[index]);
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                color: kcchatboxecolor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                'Enquire now',
-                                style: globalTextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: kcwhitecolor),
-                              )),
-                            ),
-                          )
-                        ],
+          child: viewModel.isBusy
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  itemCount: viewModel.courses.length,
+                  itemBuilder: (context, index) {
+                    Course course = viewModel.courses[index];
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  ),
+                      color: kcsgreycolor,
+                      child: InkWell(
+                        onTap: () {},
+                        child: SizedBox(
+                          width: 390,
+                          height: 85,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      course.name,
+                                      style: globalTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: kcBlackColor),
+                                    ),
+                                    verticalSpaceSmall,
+                                    Text(
+                                      '${course.numOfDays} days',
+                                      style: globalTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w300,
+                                          color: kcBlackColor),
+                                    ),
+                                  ],
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    // viewModel.callCourseNameBottomSheett(viewModel.courses[index]);
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: kcchatboxecolor,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'Enquire now',
+                                      style: globalTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: kcwhitecolor),
+                                    )),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
       ],
     );

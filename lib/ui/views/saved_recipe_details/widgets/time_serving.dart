@@ -10,7 +10,6 @@ class TimeAndServingRecipeShow extends StatelessWidget {
     return Row(
       children: [
         Container(
-         
           height: 45,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(

@@ -1,15 +1,25 @@
+import 'dart:developer';
+
+import 'package:geolocator/geolocator.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PindetailsDialogModel extends BaseViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
+  late bool serviceEnabled;
+  late LocationPermission permission;
+  Position? currentPosition;
+
   PindetailsDialogModel(
       {required this.pinnedLocation, required this.placeMark});
+
   PageController pageController = PageController(viewportFraction: 1.0);
   List<String>? tags;
   final _dialogNavigation = locator<DialogService>();
+
   void showPreviousImage() {
     if (pageController.page! > 0) {
       pageController.previousPage(
@@ -24,9 +34,48 @@ class PindetailsDialogModel extends BaseViewModel {
     }
   }
 
-  void onViewModelReady() {
+  Future<void> openGoogleMaps() async {
+    final url =
+        'https://www.google.com/maps/dir/?api=1&origin=${currentPosition!.latitude},${currentPosition!.longitude}&destination=${pinnedLocation.location.latitude},${pinnedLocation.location.longitude}&travelmode=driving';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void onViewModelReady() async {
+    setBusy(true);
+    await getCurrentLocation();
     for (var i = 0; i < pinnedLocation.tags.length; i++) {
       tags = pinnedLocation.tags;
+    }
+    log("${currentPosition!.longitude}");
+    setBusy(false);
+  }
+
+  Future<Position> getCurrentLocation() async {
+    try {
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return Future.error('Location permissions are denied');
+        }
+      }
+      currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      log(currentPosition.toString());
+      rebuildUi();
+      return currentPosition!;
+    } catch (e) {
+      log(e.toString());
+      return Future.error(e.toString());
     }
   }
 

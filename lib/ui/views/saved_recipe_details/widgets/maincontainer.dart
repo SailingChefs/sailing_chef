@@ -78,7 +78,6 @@ class MainRecipeViewContainer
                     labelText: 'Add your own personal note...',
                     controller: viewModel.notesController,
                     fillColor: kcPrimaryColorDark.withOpacity(0.2),
-
                   ),
                   verticalSpaceMedium,
                   ViewProfileRow(

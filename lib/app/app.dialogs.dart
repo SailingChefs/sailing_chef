@@ -7,6 +7,7 @@
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app.locator.dart';
+import '../ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 import '../ui/dialogs/block_account/block_account_dialog.dart';
 import '../ui/dialogs/course_saved/course_saved_dialog.dart';
 import '../ui/dialogs/delete_account/delete_account_dialog.dart';
@@ -31,6 +32,7 @@ enum DialogType {
   rateExperience,
   reviewsAll,
   success,
+  addpindropshow,
 }
 
 void setupDialogUi() {
@@ -59,6 +61,8 @@ void setupDialogUi() {
         ReviewsAllDialog(request: request, completer: completer),
     DialogType.success: (context, request, completer) =>
         SuccessDialog(request: request, completer: completer),
+    DialogType.addpindropshow: (context, request, completer) =>
+        AddpindropshowDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

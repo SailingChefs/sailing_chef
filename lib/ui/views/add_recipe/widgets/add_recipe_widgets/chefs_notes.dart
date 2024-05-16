@@ -163,8 +163,8 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                   ? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                   
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         IconButton(
                                           onPressed: viewModel.isPlaying
@@ -181,11 +181,12 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                                 ),
                                         ),
                                         SizedBox(
-                                           width: screenWidth(context) * 0.58,
+                                          width: screenWidth(context) * 0.58,
                                           child: Align(
                                             alignment: Alignment.topLeft,
                                             child: AudioFileWaveforms(
-                                              waveformType: WaveformType.fitWidth,
+                                              waveformType:
+                                                  WaveformType.fitWidth,
                                               enableSeekGesture: false,
                                               size: const Size(double.maxFinite,
                                                   double.maxFinite),

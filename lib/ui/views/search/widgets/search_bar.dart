@@ -2,11 +2,9 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 
-class SearchBarSearchScreen
-    extends ViewModelWidget<SearchViewModel> {
-      final List<RecipeModel> recipes;
+class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
+  final List<RecipeModel> recipes;
 
-      
   const SearchBarSearchScreen({super.key, required this.recipes});
 
   @override
@@ -18,7 +16,9 @@ class SearchBarSearchScreen
           height: 40.dg,
           child: TextField(
             textAlign: TextAlign.start,
-            controller: viewModel.isRecipeSelected ?  viewModel.searchControllerRecipe : viewModel.searchControllerChef,
+            controller: viewModel.isRecipeSelected
+                ? viewModel.searchControllerRecipe
+                : viewModel.searchControllerChef,
             onEditingComplete: () => viewModel.rebuildUi(),
             onChanged: (value) => viewModel.rebuildUi(),
             decoration: InputDecoration(
@@ -30,7 +30,9 @@ class SearchBarSearchScreen
               fillColor: kcWhiteColor,
               labelStyle: TextStyle(
                   fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
-              labelText: viewModel.isRecipeSelected ? 'Find Recipes...' : 'Find Chefs...',
+              labelText: viewModel.isRecipeSelected
+                  ? 'Find Recipes...'
+                  : 'Find Chefs...',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
                 borderSide: BorderSide(color: kcBlackColor.withOpacity(0.2)),
@@ -41,7 +43,9 @@ class SearchBarSearchScreen
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
-                borderSide: BorderSide(color: kcBlackColor.withOpacity(0.2)), // Unfocused border color
+                borderSide: BorderSide(
+                    color: kcBlackColor
+                        .withOpacity(0.2)), // Unfocused border color
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
@@ -69,7 +73,7 @@ class SearchBarSearchScreen
         ),
         horizontalSpaceSmall,
         IconButton(
-          onPressed:()=> viewModel.toFilterScreen(recipes),
+          onPressed: () => viewModel.toFilterScreen(recipes),
           icon: const Icon(FlutterRemix.equalizer_line),
           color: kcPrimaryColor,
           iconSize: 30.dg,

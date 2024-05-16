@@ -44,6 +44,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
         crossAxisAlignment:
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
+          
           Row(
             mainAxisAlignment:
                 isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
@@ -72,10 +73,10 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
-                      viewModel.isImageSending && messageIndex == viewModel.messages.length 
+
+                      viewModel.isBusy
                           ? Container(
-                              height: 178.h,
-                              width: 120.w,
+
                               color: Colors.amber,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(

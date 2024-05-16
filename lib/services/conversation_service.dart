@@ -201,7 +201,9 @@ class ConversationService {
 
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
-     
+
+      EasyLoading.show();
+      
       Reference ref =
           firebaseStorage.ref().child('conversationImages/$fileName');
 
@@ -210,17 +212,24 @@ class ConversationService {
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      
+     
+      EasyLoading.dismiss();
+
       return downloadUrl;
+      
     } catch (e) {
- 
+
+     
+      EasyLoading.dismiss();
+
       showToast(message: 'Error uploading image: $e');
       return '';
     }
   }
-
+  int? lastIndex;
   Stream<List<MessageModel>> getMessages(String conversationId) async* {
     try {
+      EasyLoading.show();
       final CollectionReference messagesCollection = FirebaseFirestore.instance
           .collection('conversations')
           .doc(conversationId)
@@ -241,10 +250,11 @@ class ConversationService {
             log('Error parsing document(${doc.id}): $e\n$stack');
           }
         }
-
+        EasyLoading.dismiss();
         yield messages;
       }
     } catch (e, stack) {
+      EasyLoading.dismiss();
       log('Error getting messages: $e\n$stack');
       yield []; // Yield an empty list if there's an error
     }

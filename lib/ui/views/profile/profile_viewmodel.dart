@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -52,8 +51,6 @@ class ProfileViewModel extends ReactiveViewModel {
     }
   }
 
- 
-
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
     isMySelected = true;
@@ -79,8 +76,6 @@ class ProfileViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
-
-  
 
   void goTogoToProfileEditView() {
     _navigationService.navigateTo(Routes.followingListView,
@@ -116,6 +111,7 @@ class ProfileViewModel extends ReactiveViewModel {
     myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
+
       // _recipeService.initialized(),
     //  _followService.init(userDetails!.uid!, false),
     _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
@@ -126,11 +122,12 @@ class ProfileViewModel extends ReactiveViewModel {
     ]);
     // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
 
+
     setBusy(false);
   }
 
   void toDishesScreen() {
-    _navigationService.navigateToAddRecipeView();
+    _navigationService.navigateToRecipeListPageView(isFromProfileView: true);
   }
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {

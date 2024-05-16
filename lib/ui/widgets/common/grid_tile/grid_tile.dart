@@ -14,7 +14,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String duration;
   final void Function() onTap;
   final String recipeId;
-  final double rating;
+  final double? rating;
   final List<SavedRecipeModel> savedRecipeList;
   final String chefId;
 
@@ -24,7 +24,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     required this.chefId,
     required this.savedRecipeList,
     required this.chefImagePath,
-    required this.rating,
+    this.rating,
     required this.dishName,
     required this.duration,
     required this.onTap,
@@ -85,8 +85,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                        RatingBarIndicator(
-                        rating: rating,
+                      RatingBarIndicator(
+                        rating: rating!,
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -105,7 +105,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                           color: kcBlackColor.withOpacity(0.6),
                         ),
                       ),
-                    
                     ],
                   ),
                 ),

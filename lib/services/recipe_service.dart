@@ -53,6 +53,22 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
+  // Future<bool> doesDraftExist(String uid) async {
+  //   try {
+  //     QuerySnapshot snapshot = await FirebaseFirestore.instance
+  //         .collection('recipes')
+  //         .where('doc_id', isEqualTo: uid)
+  //         .where('uid', isEqualTo: userDetails!.uid)
+  //         .where('status', isEqualTo: 'draft')
+  //         .get();
+
+  //     return snapshot.docs.isNotEmpty;
+  //   } catch (error) {
+  //     // Handle error
+  //     return false;
+  //   }
+  // }
+
   Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
       // Get the DocumentReference of the document
@@ -71,6 +87,7 @@ class RecipeService with ListenableServiceMixin {
   }
 
   Future<bool> addOrUpdateDraft(RecipeModel recipe) async {
+    log("addOrUpdateDraft ${recipe.docId.toString()}");
     try {
       bool draftExists = await doesDraftExist(recipe.docId!);
 
@@ -108,11 +125,12 @@ class RecipeService with ListenableServiceMixin {
   }
 
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
+    log("addRecipeToFirestore ${recipe.docId.toString()}");
     EasyLoading.show();
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('recipes')
-          .where('doc_id', isEqualTo: recipe.uid)
+          .where('doc_id', isEqualTo: recipe.docId)
           .get();
 
       if (snapshot.docs.isNotEmpty && recipe.docId != null) {

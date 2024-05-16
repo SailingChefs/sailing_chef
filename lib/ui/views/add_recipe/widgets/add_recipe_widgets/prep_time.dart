@@ -7,7 +7,6 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
   final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
-  
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -61,8 +60,9 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                             horizontalSpaceSmall,
                             Text(
-                               viewModel.prepreationTime != null ? viewModel.prepreationTime! :
-                              'Set Time',
+                              viewModel.prepreationTime != null
+                                  ? viewModel.prepreationTime!
+                                  : 'Set Time',
                               style: globalTextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500,

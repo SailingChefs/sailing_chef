@@ -51,6 +51,8 @@ class IndexViewModel extends BaseViewModel {
   }
 
 
+
+
   void onViewModelReady() async {
     setBusy(true);
     await Future.wait([
@@ -58,6 +60,8 @@ class IndexViewModel extends BaseViewModel {
       _chefService.chefInit(),
       _savedRecipeService.init(),
       _recipeService.initialized(),
+
+
 
     ]);
     notifyListeners();

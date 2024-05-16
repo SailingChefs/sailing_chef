@@ -20,7 +20,10 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   ) {
     String markerId = const Uuid().v4();
     return viewModel.isBusy
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(
+            color: kcPrimaryColor,
+          ))
         : Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -36,9 +39,10 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     Flexible(
                       child: GoogleMap(
                         mapType: MapType.normal,
+                        
                         mapToolbarEnabled: false,
-                        zoomControlsEnabled: false,
                         onTap: (value) async {
+                          
                           final res = await viewModel.bottomSheetService
                               .showCustomSheet(
                             variant: BottomSheetType.dropPinButtons,
@@ -48,13 +52,15 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                               .showCustomSheet(
                                   variant: BottomSheetType.dropPinSheet,
                                   data: LatLng(
-                                      viewModel.currentPosition!.latitude,
-                                      viewModel.currentPosition!.longitude));
+                                      value.latitude,
+                                      value.longitude));
                           if (res?.data == null ||
                               res?.data == false && res2?.data == false ||
                               res2?.data == null) return;
-
-                          viewModel.value != value;
+                          viewModel.addMarkers(
+                            markerId,
+                            value,
+                          );
                           log(value.toString());
                         },
                         initialCameraPosition: CameraPosition(
@@ -82,10 +88,11 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          viewModel.addMarkers(
-                              markerId,
-                              LatLng(viewModel.currentPosition!.latitude,
-                                  viewModel.currentPosition!.longitude));
+                          // viewModel.addMarkers(
+                          //     markerId,
+                          //     LatLng(viewModel.currentPosition!.latitude,
+                          //         viewModel.currentPosition!.longitude));
+                          viewModel.showPindropDialogueBox();
                         },
                         child: SvgPicture.asset(
                           'assets/images/icons/icon_add.svg',

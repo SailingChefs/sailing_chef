@@ -30,37 +30,39 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
                   ),
                 ),
                 title: Text(user.displayName!),
-                trailing: isFromFollowingList ?   SizedBox(
-                              width: 112,
-                              height: 35,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  )),
-                                  backgroundColor: MaterialStateProperty.all<
-                                      Color>(viewModel.followingUsers.contains(
-                                          viewModel.followingUsers[index])
-                                      ? kcPrimaryColor.withOpacity(0.5)
-                                      : kcPrimaryColor),
-                                ),
-                                onPressed: () {
-                                  viewModel.removeFollowing(
-                                      viewModel.followingUsers[index]);
-                                },
-                                child: Text(
-                                  viewModel.followingUsers.contains(
-                                          viewModel.followingUsers[index])
-                                      ? 'Following'
-                                      : 'Follow',
-                                  style: TextStyle(
-                                      color: kcwhitecolor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ):null,
+                trailing: isFromFollowingList
+                    ? SizedBox(
+                        width: 112,
+                        height: 35,
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape:
+                                MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            )),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                viewModel.followingUsers.contains(
+                                        viewModel.followingUsers[index])
+                                    ? kcPrimaryColor.withOpacity(0.5)
+                                    : kcPrimaryColor),
+                          ),
+                          onPressed: () {
+                            viewModel.removeFollowing(
+                                viewModel.followingUsers[index]);
+                          },
+                          child: Text(
+                            viewModel.followingUsers
+                                    .contains(viewModel.followingUsers[index])
+                                ? 'Following'
+                                : 'Follow',
+                            style: TextStyle(
+                                color: kcwhitecolor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      )
+                    : null,
               );
             }));
   }

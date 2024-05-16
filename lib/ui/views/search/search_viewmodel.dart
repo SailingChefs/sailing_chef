@@ -15,12 +15,11 @@ class SearchViewModel extends BaseViewModel {
   final TextEditingController searchControllerChef = TextEditingController();
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-  
 
   String selectedTab = 'All';
   bool isRecipeSelected = true;
   bool isChefsSelected = false;
-  
+
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
 
   void allSelected() {
@@ -29,7 +28,8 @@ class SearchViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
-   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
+
+  Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (var recipe in recipes) {
       if (recipe.title
@@ -41,7 +41,7 @@ class SearchViewModel extends BaseViewModel {
     }
   }
 
-   Iterable<UserModel> searchUser(List<UserModel> chef) sync* {
+  Iterable<UserModel> searchUser(List<UserModel> chef) sync* {
     log('came to search');
     for (var user in chef) {
       if (user.displayName!
@@ -52,6 +52,7 @@ class SearchViewModel extends BaseViewModel {
       }
     }
   }
+
   void onViewModelReady() async {
     setBusy(true);
     await _savedRecipeService.init();
@@ -61,9 +62,7 @@ class SearchViewModel extends BaseViewModel {
   void toAllDishesScreen(
     List<RecipeModel> recipeList,
   ) {
-    _navigationService.navigateToExploreAllRecipesView(
-      recipes: recipeList
-    );
+    _navigationService.navigateToExploreAllRecipesView(recipes: recipeList);
   }
 
   void followingSelected() {
@@ -72,7 +71,6 @@ class SearchViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
- 
 
   void handleTab(int index) {
     switch (index) {
@@ -98,17 +96,17 @@ class SearchViewModel extends BaseViewModel {
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: recipe,
-        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
+        randomRecipeList:
+            IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
   }
 
   void toChefProfile(chef) {}
 
   void toAllChefsScreen(List<UserModel> chefList) {
-    _navigationService.navigateToAllChefsView(chefList: chefList );
+    _navigationService.navigateToAllChefsView(chefList: chefList);
   }
+
   void toFilterScreen(List<RecipeModel> recipeList) {
-    _navigationService.navigateToFilterView(
-      
-    );
+    _navigationService.navigateToFilterView();
   }
 }

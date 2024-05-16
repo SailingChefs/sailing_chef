@@ -21,6 +21,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
     Widget? child,
   ) {
     return SafeArea(
+
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         body: Padding(
@@ -52,6 +53,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                                 color: kcPrimaryColor,
                                 size: 30.sp,
                               ),
+
                             ),
                           ],
                         ),
