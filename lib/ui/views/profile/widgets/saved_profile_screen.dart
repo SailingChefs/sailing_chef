@@ -1,3 +1,8 @@
+<<<<<<< last
+=======
+
+
+>>>>>>> latest_branch
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
@@ -120,6 +125,10 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               .recipeModel!
                               .user!
                               .displayPicture!,
+<<<<<<< last
+=======
+                          
+>>>>>>> latest_branch
                         );
                       },
                       childCount: savedRecipes.length,

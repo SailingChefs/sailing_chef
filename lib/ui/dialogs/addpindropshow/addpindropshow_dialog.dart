@@ -1,15 +1,10 @@
-import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+
 
 import 'addpindropshow_dialog_model.dart';
 
-const double _graphicSize = 60;
+
 
 class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
   final DialogRequest request;

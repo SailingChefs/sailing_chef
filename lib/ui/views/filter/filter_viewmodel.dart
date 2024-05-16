@@ -284,6 +284,8 @@ class FilterViewModel extends BaseViewModel {
     selectedTabSubDietaryNeed = '';
 
     values = const SfRangeValues(0.0, 5.0);
+     _navigationService.replaceWithSearchView(
+        recipeModel: RecipeService.recipes, chefList: ChefService.chefs);
     notifyListeners();
     rebuildUi();
   }

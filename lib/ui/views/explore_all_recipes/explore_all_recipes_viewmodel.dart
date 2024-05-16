@@ -35,7 +35,9 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   void toHomeView() {
     _navigatorService.navigateTo(Routes.indexView);
   }
-
+ toFilterView() {
+   _navigatorService.navigateToFilterView();
+ }
   toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
       recipeModel: recip,
