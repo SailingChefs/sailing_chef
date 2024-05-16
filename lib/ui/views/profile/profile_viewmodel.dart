@@ -6,7 +6,6 @@ import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
-import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -17,12 +16,12 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
   final _navigationService = locator<NavigationService>();
   final usrService = locator<UserServices>();
-  final RecipeService _recipeService = locator<RecipeService>();
+
   final bottomsheetService = locator<BottomSheetService>();
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final CullinaryschoolService _cullinarySchoolService =
       locator<CullinaryschoolService>();
-  final FollowService _followService = locator<FollowService>();
+ 
 
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
@@ -30,8 +29,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
-  List<String> get followingList => _followService.following;
-  List<String> get followersList => _followService.followers;
+
   List<RecipeModel> myRecipes = [];
 
   void navigateToBlockScreen() {
@@ -40,11 +38,18 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _followService, _cullinarySchoolService];
+      [_savedRecipeService, _cullinarySchoolService];
 
   // List<SavedRecipeModel> get fetchSavedRecipesList {
   //   return _savedRecipeService.savedRecipes;
   // }
+  void myRecipesList(){
+    for(var recipe in RecipeService.recipes){
+       if(recipe.user!.uid == userDetails!.uid){
+        myRecipes.add(recipe);
+       }
+    }
+  }
 
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
@@ -64,7 +69,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
   void savedSelected() async {
-    await _savedRecipeService.init();
+    // await _savedRecipeService.init();
     isSavedSelected = true;
 
     isMySelected = false;
@@ -97,17 +102,26 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
-
+  void toFilterView() {
+    _navigationService.navigateToFilterView();
+  }
   List<Course> get courses => _cullinarySchoolService.courses;
   void onViewModelReady() async {
     setBusy(true);
+    myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
-      _recipeService.initialized(),
-      _followService.init(userDetails!.uid!, false),
-      _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
+
+      // _recipeService.initialized(),
+    //  _followService.init(userDetails!.uid!, false),
+    _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
+
+
+
+
     ]);
-    myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+    // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
+
 
     setBusy(false);
   }

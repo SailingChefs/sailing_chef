@@ -12,6 +12,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
         ? SizedBox(
+
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -33,6 +34,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     )
                   ],
                 ))
+
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -52,8 +54,10 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          rating: calculateAverageRating(
-                              viewModel.myRecipes[index].comment!),
+
+                          chefId: viewModel.myRecipes[index].user!.uid!,
+                          rating: calculateAverageRating(viewModel.myRecipes[index].comment!),
+
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(

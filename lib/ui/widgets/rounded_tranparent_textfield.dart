@@ -7,13 +7,14 @@ class RoundedTransparentTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
   final bool obscureText;
-  final bool? suffixIcon;
+  final bool? suffixIconbool;
   final bool? prefixIcon;
   final IconData? suffixIconData;
   final IconData? prefixIconData;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
+  final Widget? suffixIcon;
   final int? maxLength;
   final int? maxLines;
   final Color? textColor;
@@ -30,11 +31,12 @@ class RoundedTransparentTextField extends StatelessWidget {
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
+    this.suffixIcon,
     this.readOnly = false,
     this.labelText,
     this.keyboardType,
     this.obscureText = false,
-    this.suffixIcon = false,
+    this.suffixIconbool = false,
     this.isPasswordVisible,
     this.onVisibilityToggle,
     this.inputFormatters,
@@ -127,11 +129,11 @@ class RoundedTransparentTextField extends StatelessWidget {
                 size: size ?? 16,
               )
             : null,
-        suffixIcon: suffixIcon == false
+        suffixIcon: suffixIcon ?? (suffixIconbool == false
             ? null
             : GestureDetector(
                 onTap: onVisibilityToggle,
-                child: ispassvisible == true ? openEye : closeEye),
+                child: ispassvisible == true ? openEye : closeEye)),
       ),
     );
   }

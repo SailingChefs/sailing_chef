@@ -27,6 +27,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   // bool uploadingFile = false;
   // bool uploadingImage = false;
   bool isAtTop = false;
+  bool isImageSending = false;
 
   ChatViewModel({required this.convoId});
 
@@ -86,7 +87,17 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
     _uploadingImage = false;
     rebuildUi();
 
+
     scrollToBottom();
+// =======
+ 
+
+//     scrollController.animateTo(
+//       scrollController.position.maxScrollExtent,
+//       duration: const Duration(milliseconds: 300),
+//       curve: Curves.easeOut,
+//     );
+// >>>>>>> latest_branch
   }
 }
 
@@ -105,7 +116,7 @@ void scrollToBottom() {
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
-      addMessage(
+      await addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,
@@ -117,9 +128,11 @@ void scrollToBottom() {
           conversationId);
     }
     if (imageUrl != null) {
+
   _uploadingImage = true;
       rebuildUi();
       await addMessage(
+
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
@@ -129,9 +142,11 @@ void scrollToBottom() {
             fileName: '',
           ),
           conversationId);
+
   
   _uploadingImage = false;
       rebuildUi();
+
     }
 
     scrollController.animateTo(
@@ -142,8 +157,12 @@ void scrollToBottom() {
     messageController.clear();
   }
 
+
   Future<void> addMessage(MessageModel message, String conversationId) async {
+
     log('STARTING...');
+
+
     await _conversationService.sendMessage(message, conversationId);
   log('ENDINGGG...');
     messageController.clear();

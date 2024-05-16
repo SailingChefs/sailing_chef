@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 
@@ -133,8 +135,14 @@ class PindropDialogueboxDialog
   }
 
   @override
-  PindropDialogueboxDialogModel viewModelBuilder(BuildContext context) =>
-      PindropDialogueboxDialogModel(
-          pinnedLocation: request.data as PinnedLocation,
-          placeMark: request.title.toString());
+  PindropDialogueboxDialogModel viewModelBuilder(BuildContext context) {
+    log("${request.data}");
+
+    return PindropDialogueboxDialogModel(
+      pinnedLocation: request.data,
+      placeMark: request.title.toString(),
+      // curLat: request.additionalButtonTitle!,
+      // curLong: request.description!
+    );
+  }
 }

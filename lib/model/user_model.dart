@@ -13,18 +13,20 @@ class UserModel {
   final String? dob;
   final List<String>? followers;
   final List<String>? following;
-  final Map<String, dynamic>? location;
   final String? link;
   final String? phoneNumber;
   final List<String>? savedRecipes;
   final List<String>? blockedAccounts;
-  int? recipeCount;
   final List<String>? schoolCourses;
+  final List<String>? recipes;
+  final String? namedLocation;
+ 
 
   UserModel({
     this.schoolCourses,
     this.displayName,
-    this.recipeCount,
+    this.recipes,
+    this.namedLocation,
     this.email,
     this.userRole,
     this.uid,
@@ -36,7 +38,6 @@ class UserModel {
     this.dob,
     this.followers,
     this.following,
-    this.location,
     this.link,
     this.phoneNumber,
     this.savedRecipes,
@@ -56,8 +57,8 @@ class UserModel {
       'dob': dob,
       'followers': followers,
       'following': following,
-      'location': location,
       'link': link,
+      'address': namedLocation,
       'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
@@ -80,12 +81,13 @@ class UserModel {
       dob: data['dob'],
       followers: List<String>.from(data['followers'] ?? []),
       following: List<String>.from(data['following'] ?? []),
-      location: data['location'],
       link: data['link'],
       phoneNumber: data['phone_number'],
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
       blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
+      recipes: List<String>.from(data['recipes'] ?? []),
+      namedLocation: data['address'],
     );
   }
 }

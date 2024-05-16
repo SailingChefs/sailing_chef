@@ -73,6 +73,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
+
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -80,6 +81,66 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                             MaterialPageRoute(
                               builder: (_) => ImageViewerScreen(
                                 imageUrl: message.content,
+// =======
+
+//                       viewModel.isBusy
+//                           ? Container(
+
+//                               color: Colors.amber,
+//                               child: ClipRRect(
+//                                 borderRadius: BorderRadius.only(
+//                                     topLeft: isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     bottomLeft: isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     topRight: !isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     bottomRight: !isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0)),
+//                                 // child: Image.network(
+//                                 //   '',
+//                                 //   width: 120.0,
+//                                 //   height: 178.0,
+//                                 //   fit: BoxFit.cover,
+//                                 // ),
+//                               ),
+//                             )
+//                           : GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                     builder: (_) => ImageViewerScreen(
+//                                       imageUrl: message.content,
+//                                     ),
+//                                   ),
+//                                 );
+//                               },
+//                               child: ClipRRect(
+//                                 borderRadius: BorderRadius.only(
+//                                     topLeft: isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     bottomLeft: isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     topRight: !isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0),
+//                                     bottomRight: !isCurrentUser
+//                                         ? const Radius.circular(20)
+//                                         : const Radius.circular(0)),
+//                                 child: Image.network(
+//                                   message.content,
+//                                   width: 120.0,
+//                                   height: 178.0,
+//                                   fit: BoxFit.cover,
+//                                 ),
+// >>>>>>> latest_branch
                               ),
                             ),
                           );

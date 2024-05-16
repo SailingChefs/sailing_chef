@@ -21,11 +21,12 @@ class IndexView extends StackedView<IndexViewModel> {
     return SafeArea(
         child: Scaffold(
       backgroundColor: kcBackgroundColor,
+      appBar: const TopBarIndexScreen(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: Column(
           children: [
-            const TopBarIndexScreen(),
+            // const TopBarIndexScreen(),
             verticalSpace(10),
             const TabBarIndexScreen(),
             verticalSpace(10),
