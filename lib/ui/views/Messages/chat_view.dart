@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
@@ -8,9 +7,6 @@ import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import '../../../core/helpers/capitalize_first_fucntion.dart';
 import 'chat_viewmodel.dart';
- 
-
-
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
   final UserModel receiver;
@@ -20,6 +16,14 @@ class ChatView extends StackedView<ChatViewModel> {
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
+    return ViewModelBuilder<ChatViewModel>.reactive(
+      viewModelBuilder: () => ChatViewModel(convoId: conversationId),
+      onModelReady: (viewModel) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          viewModel.scrollToBottom();
+        });
+      },
+      builder: (context, viewModel, child) {
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -39,6 +43,8 @@ class ChatView extends StackedView<ChatViewModel> {
           ),
         ),
       ),
+    );
+  }
     );
   }
 
@@ -76,12 +82,6 @@ class _MessageListAndAppBar extends StatelessWidget {
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
-                mainAxisAlignment: userDetails!.uid == receiver.uid
-                            ? MainAxisAlignment.start
-                            : MainAxisAlignment.end,
-                        crossAxisAlignment: userDetails!.uid == receiver.uid
-                            ? CrossAxisAlignment.end
-                            : CrossAxisAlignment.start,
                 children: [
                   verticalSpaceMedium,
                    _ExpandedAppBar(viewModel, receiver, conversationId) ,
@@ -96,34 +96,80 @@ class _MessageListAndAppBar extends StatelessWidget {
                     else if (index >= viewModel.messages.length &&
                         viewModel.uploadingImage)
                       Column(
-                        mainAxisAlignment: userDetails!.uid == receiver.uid
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.start,
-                        crossAxisAlignment: userDetails!.uid == receiver.uid
-                            ? CrossAxisAlignment.start
-                            : CrossAxisAlignment.end,
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width*0.5,
-                            color: Colors.amber,
-                            child: Row(
-
-                              children: [
-                                horizontalSpaceMedium,
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 40.0),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: kcsgreycolor,
+                                  borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20),
                                     bottomLeft: Radius.circular(20),
                                   ),
-                                  child: Container(
-                                    width: 120.0,
-                                    height: 178.0,
-                                    color: kcsgreycolor,
-                                  ),
+                                ),
+                                width: 120.0,
+                                height: 178.0,
+                                child: const Center(
+                                    child: CircularProgressIndicator(
+                                  color: kcPrimaryColor,
+                                )),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceSmall,
+                        ],
+                      )
+                    else if (index >= viewModel.messages.length &&
+                        viewModel.uploadingFile)
+                      Column(
+                        children: [
+                          Container(
+                            constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.68,
+                            ),
+                            decoration: BoxDecoration(
+                              color: kcWhiteColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kcLightGrey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                  title: const Text(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Name'),
+                                  subtitle: const Text(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Path'),
+                                  trailing: GestureDetector(
+                                      onTap: () async {},
+                                      child: const Icon(
+                                        Icons.download,
+                                        color: kcsgreycolor,
+                                      )),
+                                  leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.asset(
+                                        'assets/images/icons/unid.png',
+                                        width: 50.0,
+                                        height: 50.0,
+                                        fit: BoxFit.cover,
+                                      ))),
+                            ),
                           ),
+                          verticalSpaceSmall,
                         ],
                       )
                     else

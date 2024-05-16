@@ -24,6 +24,10 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
     final nextMessageIsDifferentUser =
         messageIndex + 1 < viewModel.messages.length &&
             viewModel.messages[messageIndex + 1].senderId == message.senderId;
+
+        final last =
+        messageIndex  < viewModel.messages.length &&
+            viewModel.messages[messageIndex].senderId == message.senderId;
     final timestampInMinutes =
         DateTime.now().difference(message.timestamp).inDays;
 
@@ -213,7 +217,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         ),
                       ),
                     if (message.type == 'file')
-                      viewModel.isBusy
+                      viewModel.uploadingFile && !last
                           ? Container(
                               padding: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
@@ -228,6 +232,29 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                   ),
                                 ],
                               ),
+                              child: ListTile(
+                                      title: const Text(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          'File Name'),
+                                      subtitle: const Text(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          'File Path'),
+                                      trailing: GestureDetector(
+                                          onTap: () async {
+                                           
+                                          },
+                                          child: const Icon(Icons.download,color: kcsgreycolor,)),
+                                      leading: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Image.asset(
+                                            'assets/images/icons/unid.png',
+                                            width: 50.0,
+                                            height: 50.0,
+                                            fit: BoxFit.cover,
+                                          )))
                             )
                           : Container(
                               padding: const EdgeInsets.all(10.0),

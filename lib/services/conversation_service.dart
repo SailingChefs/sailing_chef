@@ -202,9 +202,10 @@ class ConversationService {
 
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
+      
 
 
-      EasyLoading.show();
+     
 
       
       Reference ref =
@@ -217,7 +218,7 @@ class ConversationService {
 
      
 
-      EasyLoading.dismiss();
+      
 
 
       return downloadUrl;
@@ -225,7 +226,7 @@ class ConversationService {
     } catch (e) {
 
 
-      EasyLoading.dismiss();
+    
 
       showToast(message: 'Error uploading image: $e');
       return '';
