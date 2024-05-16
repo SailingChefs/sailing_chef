@@ -73,7 +73,7 @@ class SearchBarAllRecipesScreen
           ),
           horizontalSpaceSmall,
           IconButton(
-            onPressed: () {},
+            onPressed: viewModel.toFilterView,
             icon: const Icon(FlutterRemix.equalizer_line),
             color: kcPrimaryColor,
             iconSize: 30.dg,

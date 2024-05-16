@@ -34,14 +34,15 @@ class ProfileDescriptionProfileScreen
           ),
           userDetails!.userRole == 'guest'
               ? Container()
-              :
-             
-               
-                  userDetails!.namedLocation!.isEmpty && userDetails!.boatName!.isEmpty ? Container()
+              : userDetails!.namedLocation == null &&
+                      userDetails!.boatName == null
+                  ? Container()
                   : Text(
-                     userDetails!.namedLocation!.isEmpty ? 
-                      userDetails!.boatName! : userDetails!.boatName!.isEmpty ?
-                       userDetails!.namedLocation! : '${userDetails!.boatName!} ,${userDetails!.namedLocation!}',
+                      userDetails!.namedLocation == null
+                          ? userDetails!.boatName!
+                          : userDetails!.boatName == null
+                              ? userDetails!.namedLocation!
+                              : '${userDetails!.boatName!} ,${userDetails!.namedLocation!}',
                       style: globalTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

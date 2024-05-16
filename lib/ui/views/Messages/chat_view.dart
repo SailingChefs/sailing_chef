@@ -267,41 +267,35 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
       maintainState: false,
       // visible: viewModel.isAtTop,
       child: Container(
-        height: kToolbarHeight,
+        // height: kToolbarHeight,
         color: kcwhitecolor,
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10),
-          child: Column(
-            children: [
-              verticalSpaceSmall,
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                BackArrowWidget(onTap: () {
-                  viewModel.getBack();
-                }),
-                Text(
-                capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
-                  style: globalTextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor,
-                  ),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            BackArrowWidget(onTap: () {
+              viewModel.getBack();
+            }),
+            Text(
+            capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
+              style: globalTextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
+              ),
+            ),
+            Container(
+              width: 35.w,
+              height: 35.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(receiver.displayPicture!),
                 ),
-                Container(
-                  width: 35.w,
-                  height: 35.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(receiver.displayPicture!),
-                    ),
-                  ),
-                ),
-              ]),
-              verticalSpaceSmall,
-            ],
-          ),
+              ),
+            ),
+          ]),
         ),
       ),
     );

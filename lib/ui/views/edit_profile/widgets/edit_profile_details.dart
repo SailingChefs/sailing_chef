@@ -1,4 +1,5 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
@@ -12,7 +13,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return SingleChildScrollView(
-      child: UserdataServiceService.user.userRole == 'culinarySchool'
+      child: userDetails!.userRole == 'culinarySchool'
           ? Column(
               children: [
                 Padding(
@@ -161,7 +162,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                 ),
               ],
             )
-          : UserdataServiceService.user.userRole == 'chef'
+          : userDetails!.userRole == 'chef'
               ? Column(
                   children: [
                     Padding(
