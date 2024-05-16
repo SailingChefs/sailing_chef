@@ -115,7 +115,7 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
-      await addMessage(
+       addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,
@@ -131,7 +131,7 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
       isImageSending = true;
     rebuildUi();
 
-      await addMessage(
+       addMessage(
 
           MessageModel(
             content: imageUrl,

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -124,8 +124,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               .recipeModel!
                               .user!
                               .displayPicture!,
-                          rating: calculateAverageRating(
-                              savedRecipes[index].recipeModel!.comment!),
+                          
                         );
                       },
                       childCount: savedRecipes.length,
