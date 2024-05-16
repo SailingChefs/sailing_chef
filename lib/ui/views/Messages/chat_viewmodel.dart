@@ -38,6 +38,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       }
       rebuildUi();
     });
+     scrollToBottom();
   }
 
   bool _uploadingImage = false;
@@ -147,6 +148,7 @@ void scrollToBottom() {
   log('ENDINGGG...');
     messageController.clear();
     rebuildUi();
+    scrollToBottom();
   }
 
   void moveBack() {
@@ -185,6 +187,7 @@ void getFile(String receiverId, String conversationId) async {
     TaskSnapshot taskSnapshot = await uploadTask;
 
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    
     addMessage(
         MessageModel(
           content: downloadUrl,
@@ -195,18 +198,15 @@ void getFile(String receiverId, String conversationId) async {
           fileName: fileName,
         ),
         conversationId);
-    EasyLoading.dismiss();
-    scrollController.animateTo(
-      scrollController.position.minScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+   
+    
      _uploadingFile = false;
     rebuildUi();
   } else {
     log("No file selected");
   }
 }
+
 
   void getBack() {
     _navigationLoactor.back();
