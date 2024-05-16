@@ -35,6 +35,7 @@ class UserdataServiceService {
 
   Future<void> deleteFileFromStorage(String downloadUrl) async {
     try {
+      EasyLoading.show();
       // Extract the file path from the download URL
       String filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
 
@@ -47,8 +48,10 @@ class UserdataServiceService {
 
       // Delete the file
       await storageRef.delete();
+      EasyLoading.dismiss();
       log('File deleted successfully');
     } catch (error) {
+      EasyLoading.dismiss();
       log('Error deleting file: $error');
       // Handle error as needed
     }

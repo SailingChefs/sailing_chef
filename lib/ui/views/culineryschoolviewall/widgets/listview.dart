@@ -1,4 +1,4 @@
-import 'package:geocoding/geocoding.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 
@@ -16,8 +16,7 @@ class ListViewCulinaryChool
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: viewModel.cullinary.length,
             itemBuilder: (BuildContext context, int index) {
-              if (viewModel.cullinary[index].location == null) {}
-              final Placemark place = viewModel.placemarks[index];
+
               return GestureDetector(
                 onTap: () =>
                     viewModel.toUserDetails(viewModel.cullinary[index]),
@@ -72,12 +71,12 @@ class ListViewCulinaryChool
                                   color: kcBlackColor,
                                 ),
                               ),
-                              place.country != null
+                               viewModel.cullinary[index].namedLocation != null
                                   ? Column(
                                       children: [
                                         verticalSpace(5),
                                         Text(
-                                          place.country!,
+                                           viewModel.cullinary[index].namedLocation!,
                                           style: globalTextStyle(
                                             fontSize: 17.sp,
                                             fontWeight: FontWeight.w500,

@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
@@ -29,7 +28,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
-  List<Placemark>? placemarks;
+
   List<RecipeModel>? chefRecipes;
 
   List<String> get followers => _followService.followers;
@@ -59,7 +58,6 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   void onViewModelReady(UserModel user) async {
     setBusy(true);
-    await getUserLocation(user);
     await _followService.init(user.uid!, false);
     
     chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
@@ -86,18 +84,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
    showToast(message: 'You cannot see Others following/followers list');
   }
 
-  getUserLocation(UserModel user) async {
-    log(user.displayName.toString());
-    if (user.location == null) {
-      return placemarks = null;
-    }
-    placemarks = await placemarkFromCoordinates(
-        user.location!['latitude'], user.location!['longitude']);
-    log(placemarks.toString());
-  }
- void checkSave(){
-  
- }
+ 
+ 
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {

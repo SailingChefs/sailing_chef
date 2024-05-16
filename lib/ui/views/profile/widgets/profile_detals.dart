@@ -19,7 +19,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
             ),
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(50)),
-                child: userDetails!.displayPicture == null
+                child: userDetails!.displayPicture == ''
                     ? Image.asset(
                         'assets/images/misc/blank_image.png',
                         fit: BoxFit.cover,
@@ -64,7 +64,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  viewModel.followersList.length.toString(),
+                  userDetails!.followers!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -89,7 +89,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  viewModel.followingList.length.toString(),
+                  userDetails!.following!.length.toString(),
                   style: globalTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,

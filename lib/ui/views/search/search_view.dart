@@ -5,7 +5,6 @@ import 'package:sailing_chefs/ui/views/search/widgets/chef_screen.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/recipe_search.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/tab_bar.dart';
-import 'package:sailing_chefs/ui/views/search/widgets/top_bar.dart';
 
 import 'search_viewmodel.dart';
 
@@ -30,6 +29,30 @@ class SearchView extends StackedView<SearchViewModel> {
               child: Scaffold(
                   resizeToAvoidBottomInset: false,
                   backgroundColor: kcBackgroundColor,
+                  appBar: AppBar(
+                    leading: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () => viewModel.goBack(),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(left: 8.0.dg),
+                          height: 36.h,
+                          width: 36.w,
+                          decoration: const BoxDecoration(
+                            color: kcVeryLightGrey,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: kcPrimaryColor,
+                            size: 18.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                    //,
+                  ),
                   body: SingleChildScrollView(
                     padding: const EdgeInsets.only(
                       left: 15.0,
@@ -37,7 +60,7 @@ class SearchView extends StackedView<SearchViewModel> {
                     ),
                     child: Column(
                       children: [
-                        const TopBarSearchScreen(),
+                        // const TopBarSearchScreen(),
                         verticalSpaceMedium,
                         SearchBarSearchScreen(
                           recipes: recipeModel,

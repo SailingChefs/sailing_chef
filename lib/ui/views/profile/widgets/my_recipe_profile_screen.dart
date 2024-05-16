@@ -10,7 +10,9 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
-        ? const Center(child: Text('No recipes yet'))
+        ? SizedBox(
+          height: 300,
+          child: Center(child: Text('No recipes yet', style: globalTextStyle(color: kcPrimaryColor, fontSize: 18),)),)
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -30,6 +32,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
+                          chefId: viewModel.myRecipes[index].user!.uid!,
                           rating: calculateAverageRating(viewModel.myRecipes[index].comment!),
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes[index].docId!,

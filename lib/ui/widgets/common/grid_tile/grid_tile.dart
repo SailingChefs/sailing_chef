@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -15,10 +16,12 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String recipeId;
   final double rating;
   final List<SavedRecipeModel> savedRecipeList;
+  final String chefId;
 
   const PrimaryGridTile({
     super.key,
     required this.foodImagePath,
+    required this.chefId,
     required this.savedRecipeList,
     required this.chefImagePath,
     required this.rating,
@@ -108,7 +111,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
               ],
             ),
-            Positioned(
+            chefId==userDetails!.uid! ? Container() :  Positioned(
               top: 5.dg,
               right: 10.dg,
               child: GestureDetector(

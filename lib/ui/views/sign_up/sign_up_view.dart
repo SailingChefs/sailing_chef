@@ -112,7 +112,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 ispassvisible: viewModel.showPassword,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: !viewModel.showPassword,
-                                suffixIcon: true,
+                                suffixIconbool: true,
                                 isPasswordVisible: viewModel.showPassword,
                                 onVisibilityToggle: () {
                                   viewModel.passwordVisibility();

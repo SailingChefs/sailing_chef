@@ -25,6 +25,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             ),
             itemBuilder: (BuildContext context, int index) {
               return PrimaryGridTile(
+                chefId: recipes[index].user!.uid!,
                   rating: calculateAverageRating(recipes[index].comment!),
                   savedRecipeList: viewModel.savedRecipes,
                   recipeId: recipes[index].docId!,

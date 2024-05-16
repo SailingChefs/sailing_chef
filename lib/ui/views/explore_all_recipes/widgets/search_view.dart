@@ -28,6 +28,7 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 final RecipeModel recipe =
                     viewModel.searchRecipes(recipes).elementAt(index);
                 return PrimaryGridTile(
+                  chefId: recipe.user!.uid!,
                   rating: calculateAverageRating(recipes[index].comment!),
                     savedRecipeList: viewModel.savedRecipes,
                     recipeId: recipe.docId!,

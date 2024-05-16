@@ -38,6 +38,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .elementAt(index);
                             return PrimaryGridTile(
                                rating: calculateAverageRating(recipe.comment!) ,
+                               chefId: recipe.user!.uid!,
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId: recipe.docId!,
                                 onTap: () =>
@@ -89,6 +90,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
+                                  chefId: recipes[index].uid,
                                    rating: calculateAverageRating(recipes[index].comment!),
                                     savedRecipeList: viewModel.savedRecipes,
                                     recipeId: recipes[index].docId!,
@@ -104,7 +106,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                     chefImagePath:
                                         recipes[index].user!.displayPicture!);
                               },
-                              childCount: recipes.length,
+                              childCount: 4,
                             ),
                           ),
                         ],
@@ -115,7 +117,8 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                   ExploreAllButtonSearch(
                     text: 'Discover more Recipes',
                     onTap:() => viewModel.toAllDishesScreen(recipes),
-                  )
+                  ),
+                   verticalSpace(30),
                 ],
               );
   }

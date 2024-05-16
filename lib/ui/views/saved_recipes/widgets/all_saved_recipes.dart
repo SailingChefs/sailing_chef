@@ -36,6 +36,8 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                             final SavedRecipeModel recipe = viewModel.searchRecipes(viewModel
                                     .savedRecipes,viewModel.searchSavedController.text) .elementAt(index);
                             return PrimaryGridTile(
+                              chefId: viewModel.savedRecipes[index]
+                                    .recipeModel!.user!.uid!,
                                rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId:
@@ -85,6 +87,8 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return PrimaryGridTile(
+                              chefId:viewModel.savedRecipes[index]
+                                    .recipeModel!.user!.uid! ,
                               rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId:

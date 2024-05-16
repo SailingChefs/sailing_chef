@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:csc_picker/csc_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/user_details/widgets/semibio.dart';
@@ -51,43 +50,72 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               controller: viewModel.boatNameController,
                               labelText: 'Boat Name*'),
                           verticalSpaceSmall,
-                          GestureDetector(
-                            onTap: viewModel.getLocation,
-                            child: Container(
-                              height: 45.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
+
+                          
+                        
+                          CSCPicker(
+                            showStates: true,
+
+                            showCities: true,
+
+                            flagState: CountryFlag.DISABLE,
+
+                            dropdownDecoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
                                 color: Colors.grey.withOpacity(0.2),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12.0.dg),
-                                child: Text(
-                                  viewModel.locationController.text.isNotEmpty
-                                      ? viewModel.locationController.text
-                                      : 'Location',
-                                  style: globalTextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: kcBlackColor.withOpacity(0.6)),
-                                ),
-                              ),
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1)),
+
+                            disabledDropdownDecoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                color: Colors.grey.withOpacity(0.2),
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1)),
+
+                            ///placeholders for dropdown search field
+                            countrySearchPlaceholder: "Country",
+                            stateSearchPlaceholder: "State",
+                            citySearchPlaceholder: "City",
+
+                            ///labels for dropdown
+                            countryDropdownLabel: "*Country",
+                            stateDropdownLabel: "*State",
+                            cityDropdownLabel: "*City",
+
+                            selectedItemStyle:  TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontSize: 14,
                             ),
+
+                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                            dropdownHeadingStyle:  TextStyle(
+                                color: Colors.black.withOpacity(0.6),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+
+                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                            dropdownItemStyle:  TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontSize: 14,
+                            ),
+
+                            dropdownDialogRadius: 10.0,
+
+                            searchBarRadius: 10.0,
+
+                            onCountryChanged: (value) =>
+                                viewModel.setCountryValue(value.toString()),
+
+                            ///triggers once state selected in dropdown
+                            onStateChanged: (value) =>
+                                viewModel.setStateValue(value.toString()),
+
+                            ///triggers once city selected in dropdown
+                            onCityChanged: (value) =>
+                                viewModel.setCityValue(value.toString()),
                           ),
-                          verticalSpaceTiny,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(),
-                              Text(
-                                '*optional',
-                                style: globalTextStyle(
-                                    fontSize: 14.sp,
-                                    color: editIconColor.withOpacity(0.6),
-                                    fontWeight: FontWeight.w400),
-                              )
-                            ],
-                          )
                         ],
                       )
                     : (userRole == 'culinarySchool')
@@ -114,122 +142,69 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                   suffixIcon: false,
                                   labelText: 'Link'),
                               verticalSpaceSmall,
-                              GestureDetector(
-                                onTap: viewModel.getLocation,
-                                // child: GooglePlaceAutoCompleteTextField(
-                                //   textEditingController:
-                                //       viewModel.locationController,
+                              CSCPicker(
+                                showStates: true,
 
-                                //   googleAPIKey:
-                                //       "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk",
-                                //   inputDecoration: const InputDecoration(
-                                //     hintText: "Search your location",
-                                //     border: InputBorder.none,
-                                //     enabledBorder: InputBorder.none,
-                                //   ),
-                                //   debounceTime: 400,
-                                //   isLatLngRequired: true,
-                                //   getPlaceDetailWithLatLng:
-                                //       (Prediction prediction) {
-                                //     viewModel.latitude = prediction.lat;
-                                //     viewModel.longitude = prediction.lng;
-                                //   },
-                                //   itemClick: (Prediction prediction) {
-                                //     viewModel.locationController.text =
-                                //         prediction.description ?? "";
-                                //     viewModel.locationController.selection =
-                                //         TextSelection.fromPosition(TextPosition(
-                                //             offset: prediction
-                                //                     .description?.length ??
-                                //                 0));
-                                //   },
-                                //   seperatedBuilder: const Divider(),
+                                showCities: true,
 
-                                //   itemBuilder:
-                                //       (context, index, Prediction prediction) {
-                                //     return Container(
-                                //       padding: const EdgeInsets.all(10),
-                                //       child: Row(
-                                //         children: [
-                                //           const Icon(Icons.location_on),
-                                //           const SizedBox(
-                                //             width: 7,
-                                //           ),
-                                //           Expanded(
-                                //               child: Text(
-                                //                   prediction.description ?? ""))
-                                //         ],
-                                //       ),
-                                //     );
-                                //   },
-                                //   isCrossBtnShown: true,
-                                // ),
-                                child: Container(
-                                  height: 45.h,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
+                                flagState: CountryFlag.DISABLE,
+
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
                                     color: Colors.grey.withOpacity(0.2),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12.0.dg),
-                                    child: Text(
-                                      viewModel.locationController.text
-                                              .isNotEmpty
-                                          ? viewModel.locationController.text
-                                          : 'Location',
-                                      style: globalTextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: kcBlackColor.withOpacity(0.6)),
-                                    ),
-                                  ),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300, width: 1)),
+
+                                disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: Colors.grey.withOpacity(0.2),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300, width: 1)),
+
+                                ///placeholders for dropdown search field
+                                countrySearchPlaceholder: "Country",
+                                stateSearchPlaceholder: "State",
+                                citySearchPlaceholder: "City",
+
+                                ///labels for dropdown
+                                countryDropdownLabel: "*Country",
+                                stateDropdownLabel: "*State",
+                                cityDropdownLabel: "*City",
+
+                                selectedItemStyle:  TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontSize: 14,
                                 ),
+
+                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                                dropdownHeadingStyle: TextStyle(
+                                    color: Colors.black.withOpacity(0.6),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+
+                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                                dropdownItemStyle:  TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontSize: 14,
+                                ),
+
+                                dropdownDialogRadius: 10.0,
+
+                                searchBarRadius: 10.0,
+
+                                onCountryChanged: (value) =>
+                                    viewModel.setCountryValue(value.toString()),
+
+                                ///triggers once state selected in dropdown
+                                onStateChanged: (value) =>
+                                    viewModel.setStateValue(value.toString()),
+
+                                ///triggers once city selected in dropdown
+                                onCityChanged: (value) =>
+                                    viewModel.setCityValue(value.toString()),
                               ),
-                              // GooglePlaceAutoCompleteTextField(
-                              //   textEditingController:
-                              //       viewModel.locationController,
-                              //   googleAPIKey:
-                              //       'AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk',
-                              //   inputDecoration: const InputDecoration(
-                              //     hintText: "Search your location",
-                              //     contentPadding: const EdgeInsets.only(left: 10.0),
-                              //     border: InputBorder.none,
-                              //     enabledBorder: InputBorder.none,
-                              //   ),
-                              //   debounceTime: 400,
-                              //   isLatLngRequired: true,
-                              //   getPlaceDetailWithLatLng: viewModel.onLocationChanged,
-                              //   itemClick: viewModel.onLocationItemClicked,
-                              //   // itemClick: (Prediction prediction) {
-                              //   //   viewModel.locationController.text =
-                              //   //       prediction.description ?? "";
-                              //   //   viewModel.locationController.selection =
-                              //   //       TextSelection.fromPosition(
-                              //   //     TextPosition(
-                              //   //         offset:
-                              //   //             prediction.description?.length ??
-                              //   //                 0),
-                              //   //   );
-                              //   // },
-                              //   seperatedBuilder: const Divider(),
-                              //   itemBuilder:
-                              //       (context, index, Prediction prediction) {
-                              //     return Container(
-                              //       padding: const EdgeInsets.all(10),
-                              //       child: Row(
-                              //         children: [
-                              //           const Icon(Icons.location_on),
-                              //           const SizedBox(width: 7),
-                              //           Expanded(
-                              //               child: Text(
-                              //                   prediction.description ?? "")),
-                              //         ],
-                              //       ),
-                              //     );
-                              //   },
-                              //   isCrossBtnShown: true,
-                              // ),
                             ],
                           )
                         : Column(
@@ -245,7 +220,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               SemiRoundedTranpaentTextFieldBio(
                                   validator: (value) =>
                                       viewModel.validateBio(value),
-                                      
                                   controller: viewModel.bioController,
                                   labelText: 'Bio'),
                               verticalSpaceMedium,
@@ -260,13 +234,11 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
           onPressed: () {
             if (userRole == 'chef' || userRole == 'culinarySchool') {
               if (viewModel.formKey.currentState!.validate()) {
-                if (viewModel.locationController.text.isEmpty) {
-                  log('location empty');
-                } else {}
+              
                 viewModel.saveUserDetails();
               }
             } else {
-              viewModel.saveUserDetails();
+              viewModel.saveguestDetails();
             }
           },
           buttonText: 'SAVE',

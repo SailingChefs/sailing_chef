@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -13,19 +14,27 @@ class ChefScreen
   Widget build(BuildContext context, SearchViewModel viewModel) {
     return viewModel.searchControllerChef.text.isNotEmpty? Column(
       children: [
-        SizedBox(
-                height: 500.h,
-                child: GridView.builder(
-                  itemCount: viewModel.searchUser(chef).length,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 1.0,
-                    mainAxisSpacing: 1.0,
-                    childAspectRatio: 191/250,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    final UserModel che =  viewModel.searchUser(chef).elementAt(index);
+         Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            final UserModel che =  viewModel.searchUser(chef).elementAt(index);
                    return GestureDetector(
                           onTap: () {
                             viewModel.toChefProfile(chef);
@@ -79,11 +88,20 @@ class ChefScreen
                             ),
                           ),
                         );
-                  },
-                ),
+                          },
+                          childCount: viewModel.searchUser(chef).length,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               ),
-              ExploreAllButtonSearch(text: 'Discover more Chefs', onTap:() =>
+              verticalSpace(90),
+               ExploreAllButtonSearch(text: 'Discover more Chefs', onTap:() =>
                 viewModel.toAllChefsScreen(chef),),
+            ],
+          ),
+             
               
       ],
     ): chef.isEmpty
@@ -91,20 +109,27 @@ class ChefScreen
                 height: 500.h,
               child:  Center(child: Text('No Chef Found',style: globalTextStyle(fontSize: 15.sp,color: kcPrimaryColor),)))
         : Column(
-          children: [
-            SizedBox(
-                height: 500.h,
-                child: GridView.builder(
-                  itemCount: chef.length,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 1.0,
-                    mainAxisSpacing: 1.0,
-                    childAspectRatio: 191/250,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                   return GestureDetector(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                          
+                          return GestureDetector(
                           onTap: () {
                             viewModel.toChefProfile(chef);
                           },
@@ -157,13 +182,29 @@ class ChefScreen
                             ),
                           ),
                         );
-                  },
-                ),
+                          },
+                          childCount: 4,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               ),
-               ExploreAllButtonSearch(text: 'Discover more Chefs', 
-                onTap:() =>
+              verticalSpace(90),
+              ExploreAllButtonSearch(text: 'Discover more Chefs', onTap:() =>
                 viewModel.toAllChefsScreen(chef),),
-          ],
-        );
+                 verticalSpace(30),
+            ],
+          );
   }
 }
+
+
+
+
+
+
+  
+          ///
+          ///
+           
