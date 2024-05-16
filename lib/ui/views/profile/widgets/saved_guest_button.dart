@@ -1,10 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
-class SavedGuestButton extends StatelessWidget {
+class SavedGuestButton extends ViewModelWidget<ProfileViewModel> {
   const SavedGuestButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ProfileViewModel viewModel) {
     return FittedBox(
       child: Row(
         children: [
@@ -24,7 +25,7 @@ class SavedGuestButton extends StatelessWidget {
             ),
           ),
           IconButton(
-              onPressed: () {},
+              onPressed:viewModel.toFilterView,
               icon: const Icon(
                 FlutterRemix.equalizer_line,
                 color: kcPrimaryColor,

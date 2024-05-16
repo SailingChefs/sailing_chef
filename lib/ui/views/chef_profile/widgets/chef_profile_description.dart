@@ -130,19 +130,15 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                         color: kcBlackColor),
                   ),
                 ]),
-          viewModel.placemarks == null
+          user.namedLocation == null && user.boatName == null
               ? Container()
               : Text(
-                  viewModel.placemarks![0].country!.isEmpty &&
-                          user.boatName!.isEmpty
-                      ? ' '
-                      : viewModel.placemarks![0].country!.isEmpty
-                          ? capitalizeEachWord(userDetails!.boatName!)
-                          : user.boatName!.isEmpty
-                              ? capitalizeEachWord(
-                                  viewModel.placemarks!.first.country!)
-                              : capitalizeEachWord(
-                                  '${user.boatName!}, ${viewModel.placemarks!.first.country!}'),
+                  user.namedLocation == null
+                      ? capitalizeEachWord(userDetails!.boatName!)
+                      : user.boatName!.isEmpty
+                          ? capitalizeEachWord(user.namedLocation!)
+                          : capitalizeEachWord(
+                              '${user.boatName!}, ${user.namedLocation}'),
                   style: globalTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

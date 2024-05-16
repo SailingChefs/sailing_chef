@@ -13,8 +13,11 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    await _cullinaryService.culinaryInit();
-    await getUserLocation();
+    await Future.wait([
+       _cullinaryService.culinaryInit(),
+        // getUserLocation(),
+    ]);
+    
     setBusy(false);
   }
 
@@ -25,19 +28,5 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
 
   List<Placemark> placemarks = [];
 
-  Future<void> getUserLocation() async {
-    for (var cullinary in cullinary) {
-      if (cullinary.location?['latitude'] == null ||
-          cullinary.location?['longitude'] == null) {
-        placemarks.add(const Placemark()); // Add an empty Placemark to the list
-      } else {
-        List<Placemark> currentPlacemarks = await placemarkFromCoordinates(
-          cullinary.location!['latitude'],
-          cullinary.location!['longitude'],
-        );
-        placemarks.addAll(currentPlacemarks);
-        // Log each Placemark added to the list
-      }
-    }
-  }
+ 
 }

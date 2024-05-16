@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
@@ -32,8 +33,9 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       color: kcBlackColor,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600),
-                ),
-                Text('10 dishes',
+
+                Text('${user.recipes!.length} dishes',
+
                     style: globalTextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
@@ -44,13 +46,15 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           ],
         ),
       ),
-      OutlinedButton(
-        onPressed: () => viewModel.moveToChatScreen(user),
-        child: const Icon(
-          Icons.message_outlined,
-          color: kcPrimaryColor,
-        ),
-      )
+      user.uid == userDetails!.uid!
+          ? const SizedBox()
+          : OutlinedButton(
+              onPressed: () => viewModel.moveToChatScreen(user),
+              child: const Icon(
+                Icons.message_outlined,
+                color: kcPrimaryColor,
+              ),
+            )
     ]);
   }
 }

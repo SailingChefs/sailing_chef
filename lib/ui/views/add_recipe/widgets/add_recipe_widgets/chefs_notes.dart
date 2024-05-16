@@ -1,7 +1,4 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';

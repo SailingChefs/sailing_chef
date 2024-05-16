@@ -39,8 +39,11 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                     viewModel.searchSavedController.text)
                                 .elementAt(index);
                             return PrimaryGridTile(
-                                rating: calculateAverageRating(viewModel
-                                    .savedRecipes[index].recipeModel!.comment!),
+
+                              chefId: viewModel.savedRecipes[index]
+                                    .recipeModel!.user!.uid!,
+                               rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
+
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId: recipe.recipeId,
                                 onTap: () => viewModel
@@ -67,63 +70,63 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
               verticalSpace(90),
               const ExploreAllButton(),
             ],
-          )
-        : viewModel.savedRecipes.isEmpty
-            ? const Center(child: Text('No Saved Recipe Found'))
-            : Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: LayoutBuilder(builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return ShrinkWrappingViewport(
-                        offset: ViewportOffset.zero(),
-                        axisDirection: AxisDirection.down,
-                        slivers: [
-                          SliverGrid(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 18.0,
-                              childAspectRatio: 7.4 / 9,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                return PrimaryGridTile(
-                                    rating: calculateAverageRating(viewModel
-                                        .savedRecipes[index]
-                                        .recipeModel!
-                                        .comment!),
-                                    savedRecipeList: viewModel.savedRecipes,
-                                    recipeId:
-                                        viewModel.savedRecipes[index].recipeId,
-                                    onTap: () => viewModel.toDishDetailsScreen(
-                                        viewModel
-                                            .savedRecipes[index].recipeModel!),
-                                    foodImagePath: viewModel.savedRecipes[index]
-                                        .recipeModel!.coverImage
-                                        .where((element) =>
-                                            element.contains('.jpg'))
-                                        .first,
-                                    dishName: viewModel
-                                        .savedRecipes[index].recipeModel!.title,
-                                    duration: viewModel.savedRecipes[index]
-                                        .recipeModel!.prepTime,
-                                    chefImagePath: viewModel.savedRecipes[index]
-                                        .recipeModel!.user!.displayPicture!);
-                              },
-                              childCount: viewModel.savedRecipes.length,
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-                  ),
-                  verticalSpace(90),
-                  const ExploreAllButton(),
-                ],
-              );
+
+          ):
+     viewModel.savedRecipes.isEmpty
+        ? const Center(child: Text('No Saved Recipe Found'))
+        : Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return PrimaryGridTile(
+                              chefId:viewModel.savedRecipes[index]
+                                    .recipeModel!.user!.uid! ,
+                              rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
+                                savedRecipeList: viewModel.savedRecipes,
+                                recipeId:
+                                    viewModel.savedRecipes[index].recipeId,
+                                onTap: () => viewModel.toDishDetailsScreen(
+                                    viewModel.savedRecipes[index].recipeModel!),
+                                foodImagePath: viewModel
+                                    .savedRecipes[index].recipeModel!.coverImage
+                                    .where(
+                                        (element) => element.contains('.jpg'))
+                                    .first,
+                                dishName: viewModel
+                                    .savedRecipes[index].recipeModel!.title,
+                                duration: viewModel
+                                    .savedRecipes[index].recipeModel!.prepTime,
+                                chefImagePath: viewModel.savedRecipes[index]
+                                    .recipeModel!.user!.displayPicture!);
+                          },
+                          childCount: viewModel.savedRecipes.length,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+              verticalSpace(90),
+               const ExploreAllButton(),
+            ],
+          );
+
   }
 }
 //

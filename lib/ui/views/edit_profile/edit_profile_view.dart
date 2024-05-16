@@ -26,7 +26,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
               verticalSpaceMedium,
               const EditProfileImage(),
               verticalSpaceSmall,
-              const EditProfileForm(),
+               EditProfileForm(key: ValueKey(viewModel.countryValue),),
               verticalSpaceMedium,
             ],
           ),
