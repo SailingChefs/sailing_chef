@@ -25,8 +25,10 @@ class FollowingSavedRecipesScreen
               ),
               itemBuilder: (BuildContext context, int index) {
                 return PrimaryGridTile(
-                    rating: calculateAverageRating(
-                        viewModel.followingRecipes![index].comment!),
+
+                  chefId: viewModel.followingRecipes![index].user!.uid!,
+                  rating: calculateAverageRating(viewModel.followingRecipes![index].comment!) ,
+
                     savedRecipeList: viewModel.savedRecipes,
                     recipeId: viewModel.followingRecipes![index].docId!,
                     onTap: () => viewModel.toDishDetailsScreen(

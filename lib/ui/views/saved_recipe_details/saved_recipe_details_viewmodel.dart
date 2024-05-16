@@ -48,6 +48,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final _serviceConversations = locator<ConversationService>();
   final TextEditingController notesController = TextEditingController();
   bool isRecipeSaved = false;
+  List<RecipeModel> myRecipes = [];
 
   List<File> images = [];
   double rating = 3.0;
@@ -75,15 +76,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  // void checkSave(String recipeId) {
-  //   for (SavedRecipeModel savedRecipe in savedRecipeList) {
-  //     if (savedRecipe.recipeId == recipeId) {
-  //       isRecipeSaved = !isRecipeSaved;
-  //       break;
-  //     }
-  //   }
-  // }
-
+  
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
@@ -266,8 +259,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     log("stop Listening ends ${isPlaying.toString()}");
   }
 
-  void onViewModelReady(int length, String recipeId) async {
+  void onViewModelReady(int length, String recipeId, UserModel user) async {
     setBusy(true);
+   
 
     waveFormData = recipeModel.waveForm;
     await _savedRecipeService.init();

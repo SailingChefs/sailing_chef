@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -52,15 +50,8 @@ class IndexViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-  Future<void> getUserLocation() async {
-    if (userDetails?.location?['latitude'] == null) {
-      return;
-    }
 
-    placemarks = await placemarkFromCoordinates(
-        userDetails!.location!['latitude'],
-        userDetails!.location!['longitude']);
-  }
+
 
   void onViewModelReady() async {
     setBusy(true);
@@ -69,7 +60,9 @@ class IndexViewModel extends BaseViewModel {
       _chefService.chefInit(),
       _savedRecipeService.init(),
       _recipeService.initialized(),
-      getUserLocation(),
+
+
+
     ]);
     notifyListeners();
     rebuildUi();

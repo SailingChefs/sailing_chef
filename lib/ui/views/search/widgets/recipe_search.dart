@@ -38,7 +38,10 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .searchRecipes(recipes)
                                 .elementAt(index);
                             return PrimaryGridTile(
-                                rating: calculateAverageRating(recipe.comment!),
+
+                               rating: calculateAverageRating(recipe.comment!) ,
+                               chefId: recipe.user!.uid!,
+
                                 savedRecipeList: viewModel.savedRecipes,
                                 recipeId: recipe.docId!,
                                 onTap: () =>
@@ -95,24 +98,25 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
-                                  rating: calculateAverageRating(
-                                      recipes[index].comment!),
-                                  savedRecipeList: viewModel.savedRecipes,
-                                  recipeId: recipes[index].docId!,
-                                  onTap: () => viewModel
-                                      .toDishDetailsScreen(recipes[index]),
-                                  foodImagePath: recipes[index]
-                                      .coverImage
-                                      .where(
-                                          (element) => element.contains('.jpg'))
-                                      .first,
-                                  dishName: recipes[index].title,
-                                  duration: recipes[index].prepTime,
-                                  chefImagePath:
-                                      recipes[index].user!.displayPicture!,
-                                );
+
+                                  chefId: recipes[index].uid,
+                                   rating: calculateAverageRating(recipes[index].comment!),
+                                    savedRecipeList: viewModel.savedRecipes,
+                                    recipeId: recipes[index].docId!,
+                                    onTap: () => viewModel
+                                        .toDishDetailsScreen(recipes[index]),
+                                    foodImagePath: recipes[index]
+                                        .coverImage
+                                        .where((element) =>
+                                            element.contains('.jpg'))
+                                        .first,
+                                    dishName: recipes[index].title,
+                                    duration: recipes[index].prepTime,
+                                    chefImagePath:
+                                        recipes[index].user!.displayPicture!);
+
                               },
-                              childCount: recipes.length,
+                              childCount: 4,
                             ),
                           ),
                         ],
@@ -122,8 +126,11 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                   verticalSpace(90),
                   ExploreAllButtonSearch(
                     text: 'Discover more Recipes',
-                    onTap: () => viewModel.toAllDishesScreen(recipes),
-                  )
+
+                    onTap:() => viewModel.toAllDishesScreen(recipes),
+                  ),
+                   verticalSpace(30),
+
                 ],
               );
   }

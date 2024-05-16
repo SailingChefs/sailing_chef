@@ -12,6 +12,7 @@ class ListViewCookingInstructions
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: viewModel.instructionsList.length,
+        physics:const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final instruction = viewModel.instructionsList[index];
           return Padding(

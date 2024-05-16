@@ -33,13 +33,13 @@ class ChefService with ListenableServiceMixin {
             .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
         UserModel user = UserModel.fromSnapshot(doc);
 
-        int recipeCount = await FirebaseFirestore.instance
-            .collection('recipes')
-            .where('uid', isEqualTo: user.uid)
-            .get()
-            .then((value) => value.size);
+        // int recipeCount = await FirebaseFirestore.instance
+        //     .collection('recipes')
+        //     .where('uid', isEqualTo: user.uid)
+        //     .get()
+        //     .then((value) => value.size);
 
-        user.recipeCount = recipeCount;
+        // user.recipeCount = recipeCount;
 
         if (!currUser.blockedAccounts!.contains(user.uid)) {
           users.add(user);

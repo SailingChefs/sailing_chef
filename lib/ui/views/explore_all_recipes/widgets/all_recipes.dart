@@ -38,6 +38,25 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                     chefImagePath: recipes[index].user!.displayPicture!);
               },
             ),
-          );
+
+            itemBuilder: (BuildContext context, int index) {
+              return PrimaryGridTile(
+                chefId: recipes[index].user!.uid!,
+                  rating: calculateAverageRating(recipes[index].comment!),
+                  savedRecipeList: viewModel.savedRecipes,
+                  recipeId: recipes[index].docId!,
+                  onTap: () => viewModel
+                      .toDishDetailsScreen(recipes[index]),
+                  foodImagePath: recipes[index].coverImage
+                      .where((element) => element.contains('.jpg'))
+                      .first,
+                  dishName: recipes[index].title,
+                  duration: recipes[index].prepTime,
+                  chefImagePath:
+                     recipes[index].user!.displayPicture!);
+            },
+          ),
+        );
+
   }
 }

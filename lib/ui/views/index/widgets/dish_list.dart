@@ -34,8 +34,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          rating:
-                              calculateAverageRating(dishes[index].comment!),
+
+                          chefId: dishes[index].user!.uid!,
+                          rating: calculateAverageRating(dishes[index].comment!),
+
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: dishes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(index),

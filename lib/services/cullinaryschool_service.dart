@@ -17,6 +17,7 @@ class CullinaryschoolService with ListenableServiceMixin {
   bool isInitialized = false;
 
   Future<void> culinaryInit() async {
+    if(isInitialized) return;
     cullinaryscools = await _fetchCulinaryDocuments();
     notifyListeners();
   }
@@ -80,6 +81,7 @@ class CullinaryschoolService with ListenableServiceMixin {
           users.add(user);
         }
       }
+      isInitialized = true;
       return users;
     } catch (error) {
       return users;

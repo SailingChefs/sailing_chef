@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -25,35 +24,59 @@ class EditProfileViewModel extends BaseViewModel {
   final ImagePicker picker = ImagePicker();
   File? selectedImageFile;
   String? selectedImagePath;
-  // final _userService = locator<UserServices>();
+  String countryValue = "";
+  String stateValue = "";
+  String cityValue = "";
+  String ? address ;
+  bool isChange = false;
   List<UserModel>? userList;
-  List<Placemark>? placemarks;
   void onViewModelReady() async {
     setBusy(true);
+    // parseAddress(userDetails!.namedLocation!);
     userList = await userDataService.fetchUsersDocuments();
     nameController.text = userDetails!.displayName!;
     emailController.text = userDetails!.email!;
     linkController.text = userDetails!.link!;
     bioController.text = userDetails!.bio!;
+    location.text = userDetails!.namedLocation!;
+    address = userDetails!.namedLocation!;
+
     boatController.text =
         userDetails!.boatName == null ? '' : userDetails!.boatName!;
-    await getUserLocation();
-    log(placemarks!.first.locality.toString());
-    location.text = placemarks!.first.locality.toString();
-    log("location ${location.text}");
     setBusy(false);
   }
 
-  getUserLocation() async {
-    log(userDetails!.displayName.toString());
-    if (userDetails!.location == null) {
-      return placemarks = null;
-    }
-    placemarks = await placemarkFromCoordinates(
-        userDetails!.location!['latitude'],
-        userDetails!.location!['longitude']);
-    log(placemarks.toString());
+  void setCountryValue(String value) {
+    countryValue = value;
+
+    //
+    rebuildUi();
+    log('cityValue : $cityValue');
+    log('stateValue : $stateValue');
   }
+
+  void setStateValue(String value) {
+    stateValue = value;
+    cityValue = '';
+    notifyListeners();
+    rebuildUi();
+  }
+
+  void setCityValue(String value) {
+    cityValue = value;
+    address = '$cityValue,$stateValue,$countryValue';
+    notifyListeners();
+  }
+
+  // void parseAddress(String address) {
+  //   if(address.isEmpty) return;
+  //   final parsedAddress = address.split(',');
+  //   log(parsedAddress.toString());
+  //   cityValue = parsedAddress[0];
+  //   stateValue = parsedAddress[1];
+  //   countryValue = parsedAddress[2];
+  //   notifyListeners();
+  // }
 
   getBack() {
     _navigationService.back();
@@ -87,12 +110,14 @@ class EditProfileViewModel extends BaseViewModel {
 
   void saveEditDetailsCullinary() async {
     log('Iam here');
+    address = '$cityValue,$stateValue,$countryValue';
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
+
       log(imageLink.toString());
       Map<String, dynamic> userData = {
         'display_picture': imageLink,
@@ -100,6 +125,7 @@ class EditProfileViewModel extends BaseViewModel {
         'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
+        'address': address
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
@@ -111,51 +137,49 @@ class EditProfileViewModel extends BaseViewModel {
         'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
+        'address': address,
       };
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
     }
   }
 
-  void saveEditDetailsChef(
-    String name,
-    String bio,
-    String email,
-    String link,
-    String boatName,
-  ) async {
+  void saveEditDetailsChef() async {
+    // address = '$cityValue,$stateValue,$countryValue';
+    log('Iam here');
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
-      if (formKey.currentState!.validate()) {
-        Map<String, dynamic> userData = {
+       Map<String, dynamic> userData = {
           'display_picture': imageLink,
-          'display_name': name,
-          'email': email,
-          'link': link,
-          'bio': bio,
-          'boat_name': boatName,
+          'display_name': nameController.text,
+          'email': emailController.text,
+          'link': linkController.text,
+          'bio': bioController.text,
+          'boat_name': boatController.text,
+          'address': address,
         };
         userDataService.storeUserDetails(
             userData, FirebaseAuth.instance.currentUser!.uid);
         userDetails!.displayPicture = imageLink;
-        notifyListeners();
-      } else {
+    }
+       else {
         Map<String, dynamic> userData = {
-          'display_name': name,
-          'email': email,
-          'link': link,
-          'bio': bio,
-          'boat_name': boatName,
+          'display_name': nameController.text,
+          'email': emailController.text,
+          'link': linkController.text,
+          'bio': bioController.text,
+          'boat_name': boatController.text,
+          'address': address,
         };
         userDataService.storeUserDetails(
             userData, FirebaseAuth.instance.currentUser!.uid);
       }
     }
-  }
+  
 
   void saveEditDetailsGuest(String name, String bio) async {
     if (formKey.currentState!.validate()) {
@@ -184,5 +208,11 @@ class EditProfileViewModel extends BaseViewModel {
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
     }
+  }
+
+  void changeLocation() {
+    isChange = true;
+    notifyListeners();
+    rebuildUi();
   }
 }

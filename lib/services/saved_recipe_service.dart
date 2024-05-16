@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -95,10 +96,22 @@ class SavedRecipeService with ListenableServiceMixin {
             if (recipeDoc.exists) {
               RecipeModel recipeModel = RecipeModel.fromSnapshot(recipeDoc);
               String recipeUserId = recipeModel.uid;
+              QuerySnapshot commentsSnapshot =
+                  await recipeDoc.reference.collection('comments').get();
+
+                  if(commentsSnapshot.docs.isEmpty){
+                    recipeModel.comment = [];
+                  }
+              List<CommentModel> comments = commentsSnapshot.docs
+                  .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+                  .toList();
+              recipeModel.comment = comments;
+             
               DocumentSnapshot userSnapshot = await firebasestore
                   .collection('users')
                   .doc(recipeUserId)
                   .get();
+              
               if (userSnapshot.exists) {
                 UserModel userModel = UserModel.fromSnapshot(userSnapshot);
                 recipeModel.user = userModel;

@@ -3,7 +3,11 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/input_field.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
+
+import '../../../core/helpers/capitalize_first_fucntion.dart';
 import 'chat_viewmodel.dart';
+ 
+
 
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
@@ -20,6 +24,8 @@ class ChatView extends StackedView<ChatViewModel> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: kcwhitecolor,
+          appBar: _CollapsedAppBar(viewModel,  conversationId,receiver,),
+        
           body: Stack(
             children: [
               _MessageListAndAppBar(viewModel, receiver, conversationId),
@@ -69,9 +75,8 @@ class _MessageListAndAppBar extends StatelessWidget {
               controller: viewModel.scrollController,
               child: Column(
                 children: [
-                  viewModel.isAtTop
-                      ? _CollapsedAppBar(viewModel, conversationId, receiver)
-                      : _ExpandedAppBar(viewModel, receiver, conversationId),
+                  verticalSpaceMedium,
+                   _ExpandedAppBar(viewModel, receiver, conversationId) ,
                   for (int index = 0;
                       index < viewModel.messages.length;
                       index++)
@@ -89,6 +94,7 @@ class _MessageListAndAppBar extends StatelessWidget {
       ],
     );
   }
+  
 }
 
 class _ExpandedAppBar extends StatelessWidget {
@@ -105,7 +111,7 @@ class _ExpandedAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: !viewModel.isAtTop,
+      // visible: !viewModel.isAtTop,
       child: SizedBox(
         height: 180,
         width: double.maxFinite,
@@ -115,18 +121,18 @@ class _ExpandedAppBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalSpaceSmall,
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: BackArrowWidget(onTap: () {
-                viewModel.getBack();
-              }),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10.0),
+            //   child: BackArrowWidget(onTap: () {
+            //     viewModel.getBack();
+            //   }),
+            // ),
             Center(
               child: GestureDetector(
                 onTap: () {},
                 child: Container(
-                  width: 90.w,
-                  height: 90.h,
+                  width: 80.w,
+                  height: 80.h,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -140,9 +146,9 @@ class _ExpandedAppBar extends StatelessWidget {
             verticalSpaceTiny,
             Center(
               child: Text(
-                receiver.displayName ?? 'Chef Name',
+               capitalizeEachWord( receiver.displayName ?? 'Chef Name'),
                 style: globalTextStyle(
-                  fontSize: 22,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor,
                 ),
@@ -155,7 +161,10 @@ class _ExpandedAppBar extends StatelessWidget {
   }
 }
 
-class _CollapsedAppBar extends StatelessWidget {
+
+class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
+   
+
   final ChatViewModel viewModel;
 
   const _CollapsedAppBar(this.viewModel, this.conversationId, this.receiver);
@@ -163,9 +172,10 @@ class _CollapsedAppBar extends StatelessWidget {
   final UserModel receiver;
   @override
   Widget build(BuildContext context) {
+   
     return Visibility(
       maintainState: false,
-      visible: viewModel.isAtTop,
+      // visible: viewModel.isAtTop,
       child: Container(
         height: kToolbarHeight,
         color: kcwhitecolor,
@@ -180,7 +190,7 @@ class _CollapsedAppBar extends StatelessWidget {
                   viewModel.getBack();
                 }),
                 Text(
-                  receiver.displayName ?? 'Chef Name',
+                capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
                   style: globalTextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -206,4 +216,8 @@ class _CollapsedAppBar extends StatelessWidget {
       ),
     );
   }
+  
+  @override
+  
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
