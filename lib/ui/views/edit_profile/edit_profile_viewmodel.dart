@@ -40,9 +40,7 @@ class EditProfileViewModel extends BaseViewModel {
     bioController.text = userDetails!.bio!;
     location.text = userDetails!.namedLocation!;
     address = userDetails!.namedLocation!;
-
-    boatController.text =
-        userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    boatController.text = userDetails!.boatName!;
     setBusy(false);
   }
 

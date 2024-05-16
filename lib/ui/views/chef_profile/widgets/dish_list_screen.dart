@@ -14,61 +14,63 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     final List<RecipeModel> recipes = viewModel.chefRecipes!;
     return recipes.isNotEmpty
-        ? user.userRole != 'culinarySchool'
-            ? SizedBox(
-                width: 400,
-                height: 300,
-                child: Center(
-                  child: Text('No Dishes Found',
-                      style: globalTextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: kcBlackColor)),
-                ))
+        ? user.userRole != 'culinarySchool' && user.userRole == 'chef'
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return PrimaryGridTile(
+                              chefId: recipes[index].user!.uid!,
+                              rating: calculateAverageRating(
+                                  recipes[index].comment!),
+                              savedRecipeList: viewModel.savedRecipes,
+                              recipeId: recipes[index].docId!,
+                              onTap: () => viewModel.toDishDetailsScreen(index),
+                              foodImagePath: recipes[index]
+                                  .coverImage
+                                  .where((element) => element.contains('.jpg'))
+                                  .first,
+                              dishName: recipes[index].title,
+                              duration: recipes[index].prepTime,
+                              chefImagePath: user.displayPicture == null
+                                  ? ''
+                                  : user.displayPicture!,
+                            );
+                          },
+                          childCount: recipes.length,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              )
             : Container()
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-              return ShrinkWrappingViewport(
-                offset: ViewportOffset.zero(),
-                axisDirection: AxisDirection.down,
-                slivers: [
-                  SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15.0,
-                      mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return PrimaryGridTile(
-
-                          chefId: recipes[index].user!.uid!,
-                          rating: calculateAverageRating(recipes[index].comment!),
-
-                          savedRecipeList: viewModel.savedRecipes,
-                          recipeId: recipes[index].docId!,
-                          onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: recipes[index]
-                              .coverImage
-                              .where((element) => element.contains('.jpg'))
-                              .first,
-                          dishName: recipes[index].title,
-                          duration: recipes[index].prepTime,
-                          chefImagePath: user.displayPicture == null
-                              ? ''
-                              : user.displayPicture!,
-                        );
-                      },
-                      childCount: recipes.length,
-                    ),
-                  ),
-                ],
-              );
-            }),
+        : SizedBox(
+            width: 400,
+            height: 300,
+            child: Center(
+              child: Text(
+                'No Dishes Found',
+                style: globalTextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: kcBlackColor),
+              ),
+            ),
           );
   }
 }

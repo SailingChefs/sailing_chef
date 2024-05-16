@@ -203,11 +203,6 @@ class ConversationService {
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
       
-
-
-     
-
-      
       Reference ref =
           firebaseStorage.ref().child('conversationImages/$fileName');
 
@@ -216,17 +211,9 @@ class ConversationService {
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-     
-
-      
-
-
       return downloadUrl;
       
     } catch (e) {
-
-
-    
 
       showToast(message: 'Error uploading image: $e');
       return '';
