@@ -1,7 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -10,6 +7,7 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/image_view.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatMessage extends ViewModelWidget<ChatViewModel> {
   final MessageModel message;
@@ -22,7 +20,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
   Widget build(BuildContext context, ChatViewModel viewModel) {
     final isCurrentUser =
         message.senderId == FirebaseAuth.instance.currentUser!.uid;
-    log(isCurrentUser.toString());
     final messageIndex = viewModel.messages.indexOf(message);
     final nextMessageIsDifferentUser =
         messageIndex + 1 < viewModel.messages.length &&
@@ -44,7 +41,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
         crossAxisAlignment:
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          
           Row(
             mainAxisAlignment:
                 isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
@@ -73,64 +69,61 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
-                      viewModel.isBusy
-                          ? Container(
-                              color: Colors.amber,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    bottomLeft: isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    topRight: !isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    bottomRight: !isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0)),
-                                child: Image.network(
-                                  '',
-                                  width: 120.0,
-                                  height: 178.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )
-                          : GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => ImageViewerScreen(
-                                      imageUrl: message.content,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    bottomLeft: isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    topRight: !isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0),
-                                    bottomRight: !isCurrentUser
-                                        ? const Radius.circular(20)
-                                        : const Radius.circular(0)),
-                                child: Image.network(
-                                  message.content,
-                                  width: 120.0,
-                                  height: 178.0,
-                                  fit: BoxFit.cover,
-                                ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ImageViewerScreen(
+                                imageUrl: message.content,
                               ),
                             ),
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              topRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0)),
+                          child: CachedNetworkImage(
+                            imageUrl: message.content,
+                            width: 120.0,
+                            height: 178.0,
+                            progressIndicatorBuilder:
+                                (context, url, progress) => Container(
+                              width: 120,
+                              height: 178,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomLeft: isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              topRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0),
+                              bottomRight: !isCurrentUser
+                                  ? const Radius.circular(20)
+                                  : const Radius.circular(0)),
+                                  )),
+                            
+                        
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     if (message.type == 'String')
                       Container(
                         padding: const EdgeInsets.all(15.0),

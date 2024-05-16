@@ -37,7 +37,6 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
               children: [
                 SizedBox(
                   height: 210,
-                  width: 400,
                   child: Stack(
                     children: [
                       PageView.builder(
@@ -50,7 +49,6 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                             child: Image.network(
                               media,
                               height: 210,
-                              width: 400,
                               fit: BoxFit.cover,
                             ),
                           );
@@ -109,10 +107,9 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ),
                       ),
                       SizedBox(
-                        width: 80,
                         height: 30,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, right: 15),
+                          padding: const EdgeInsets.only(left: 15.0, right: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [

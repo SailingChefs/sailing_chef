@@ -30,7 +30,7 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
       ),
       backgroundColor: Colors.white,
       child: SizedBox(
-        height: 255,
+        
         width: 340,
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0, left: 15, right: 15),
