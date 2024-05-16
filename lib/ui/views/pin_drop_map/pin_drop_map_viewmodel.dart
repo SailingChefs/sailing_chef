@@ -328,6 +328,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices =>
       [_navigationpinService];
+
   Future<Position> getCurrentLocation() async {
     try {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -376,7 +377,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
       return 'Unknown';
     }
   }
-   LatLng? tapPosition;
+
+  LatLng? tapPosition;
+
   Marker createMarker(String markerId, LatLng location,
       [bool isSelected = false]) {
     var marker = Marker(
@@ -532,10 +535,16 @@ class PinDropMapViewModel extends ReactiveViewModel {
             allMarkers[markerId] = newMarker;
 
             pinnedLocation = pinInList;
+            // Map<String, dynamic> test = {
+            //   "pinList": pinnedLocation,
+            //   "currLoc": currentPosition
+            // };
             _dialogService.showCustomDialog(
               variant: DialogType.pindropDialoguebox,
               title: place,
               data: pinnedLocation,
+              // additionalButtonTitle: currentPosition!.latitude.toString(),
+              // description: currentPosition!.longitude.toString(),
             );
 
             notifyListeners();
