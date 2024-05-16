@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
@@ -74,16 +76,58 @@ class _MessageListAndAppBar extends StatelessWidget {
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
+                mainAxisAlignment: userDetails!.uid == receiver.uid
+                            ? MainAxisAlignment.start
+                            : MainAxisAlignment.end,
+                        crossAxisAlignment: userDetails!.uid == receiver.uid
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
                 children: [
                   verticalSpaceMedium,
                    _ExpandedAppBar(viewModel, receiver, conversationId) ,
                   for (int index = 0;
-                      index < viewModel.messages.length;
+                      index < viewModel.messages.length + 1;
                       index++)
-                    ChatMessage(
-                      viewModel.messages[index],
-                      user: receiver,
-                    ),
+                    if (index < viewModel.messages.length)
+                      ChatMessage(
+                        viewModel.messages[index],
+                        user: receiver,
+                      )
+                    else if (index >= viewModel.messages.length &&
+                        viewModel.uploadingImage)
+                      Column(
+                        mainAxisAlignment: userDetails!.uid == receiver.uid
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.start,
+                        crossAxisAlignment: userDetails!.uid == receiver.uid
+                            ? CrossAxisAlignment.start
+                            : CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.5,
+                            color: Colors.amber,
+                            child: Row(
+
+                              children: [
+                                horizontalSpaceMedium,
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
+                                  ),
+                                  child: Container(
+                                    width: 120.0,
+                                    height: 178.0,
+                                    color: kcsgreycolor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      const SizedBox(),
                   verticalSpaceLarge,
                   verticalSpaceSmall,
                 ],

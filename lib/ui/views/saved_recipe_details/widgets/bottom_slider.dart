@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -67,6 +68,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                       fontWeight: FontWeight.w500,
                                     )),
                               ),
+                              recipeList[index].user!.uid != userDetails!.uid ?
                               IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
@@ -85,7 +87,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                         color: kcBlackColor.withOpacity(0.6),
                                         size: 20.dg,
                                       ),
-                              ),
+                              ): Container()
                             ],
                           ),
                         ],

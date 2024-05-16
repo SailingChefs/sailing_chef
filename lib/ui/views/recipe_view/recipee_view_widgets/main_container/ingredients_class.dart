@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -26,12 +27,19 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w300,
                     )),
-                Text(capitalizeEachWord(ingredient.name),
-                    style: globalTextStyle(
-                      color: kcBlackColor.withOpacity(0.6),
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
-                    )),
+                    
+                SizedBox(
+                  width: 200.0.w,
+                  
+                  child: Text(capitalizeEachWord(ingredient.name),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                      style: globalTextStyle(
+                        color: kcBlackColor.withOpacity(0.6),
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
                 Container(
                   width: 20.0.h,
                   height: 15.0.h,

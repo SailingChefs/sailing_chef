@@ -16,6 +16,7 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
   final _navigationService = locator<NavigationService>();
   final usrService = locator<UserServices>();
+  final _recipeService = locator<RecipeService>();
 
   final bottomsheetService = locator<BottomSheetService>();
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
@@ -111,6 +112,7 @@ class ProfileViewModel extends ReactiveViewModel {
     myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
+      _recipeService.initialized(),
 
       // _recipeService.initialized(),
     //  _followService.init(userDetails!.uid!, false),
