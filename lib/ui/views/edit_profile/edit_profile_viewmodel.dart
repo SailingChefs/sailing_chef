@@ -31,6 +31,17 @@ class EditProfileViewModel extends BaseViewModel {
   bool isChange = false;
   void onViewModelReady() async {
     setBusy(true);
+<<<<<<< last
+    // parseAddress(userDetails!.namedLocation!);
+    userList = await userDataService.fetchUsersDocuments();
+    nameController.text = userDetails!.displayName!;
+    emailController.text = userDetails!.email!;
+    linkController.text = userDetails!.link!;
+    bioController.text = userDetails!.bio!;
+    location.text = userDetails!.namedLocation!;
+    address = userDetails!.namedLocation!;
+    boatController.text = userDetails!.boatName!;
+=======
 
     nameController.text = userDetails!.displayName == null ? '' : userDetails!.displayName!;
     emailController.text = userDetails!.email == null ? '' : userDetails!.email!;
@@ -41,6 +52,7 @@ class EditProfileViewModel extends BaseViewModel {
 
     boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
     log(boatController.text);
+>>>>>>> latest_branch
     setBusy(false);
   }
 

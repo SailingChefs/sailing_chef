@@ -210,4 +210,8 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                 ],
               );
   }
+<<<<<<< last
 }
+=======
+}
+>>>>>>> latest_branch
