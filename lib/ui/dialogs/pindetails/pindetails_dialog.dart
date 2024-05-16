@@ -29,26 +29,38 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
       child: SizedBox(
         width: double.infinity,
         height: 490,
-        child: viewModel.isBusy
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: kcPrimaryColor,
-                ),
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  height: 210,
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: 210,
-                        width: 400,
-                        child: Stack(
-                          children: [
-                            PageView.builder(
-                              itemCount:
-                                  viewModel.pinnedLocation.picture.length,
+                      PageView.builder(
+                        itemCount: viewModel.pinnedLocation.picture.length,
+                        controller: viewModel.pageController,
+                        itemBuilder: (context, index) {
+                          var media = viewModel.pinnedLocation.picture[index];
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(27),
+                            child: Image.network(
+                              media,
+                              height: 210,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SmoothPageIndicator(
+
                               controller: viewModel.pageController,
                               itemBuilder: (context, index) {
                                 var media =
@@ -103,51 +115,46 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                       )
                     ],
                   ),
-                  verticalSpaceSmall,
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              capitalizeEachWord(viewModel.pinnedLocation.name),
-                              style: globalTextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: kcBlackColor,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 30,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15),
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
-                                        size: 15,
-                                        color: kclightgreencolor,
-                                      ),
-                                      horizontalSpaceSmall,
-                                      Text(
-                                        viewModel.pinnedLocation.rating
-                                            .toString(),
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+
+                ),
+                Positioned(
+                  top: 20,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () => completer(DialogResponse(confirmed: true)),
+                    child: const Icon(Icons.close, color: kcchatboxecolor),
+                  ),
+                )
+              ],
+            ),
+            verticalSpaceSmall,
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 10),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        capitalizeEachWord(viewModel.pinnedLocation.name),
+                        style: globalTextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                size: 15,
+                                color: kclightgreencolor,
+
                               ),
                             ),
                           ],

@@ -47,21 +47,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   bool get uploadingImage => _uploadingImage;
   bool get uploadingFile => _uploadingFile;
 
-  void startImageUpload() {
-    _uploadingImage = true;
-    notifyListeners();
-  }
 
-  void startFileUpload() {
-    _uploadingFile = true;
-    notifyListeners();
-  }
-
-  void completeUpload() {
-    _uploadingImage = false;
-    _uploadingFile = false;
-    notifyListeners();
-  }
 
   Stream<List<ConversationModel>> getConversation() {
     Stream<List<ConversationModel>> conversations =
@@ -78,13 +64,14 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
   if (pickedFile != null) {
     selectedImageFile = pickedFile;
     _uploadingImage = true;
-    notifyListeners();
     rebuildUi();
+
+
 
     String imageUrl = await _conversationService.uploadImage(
         File(selectedImageFile!.path), selectedImageFile!.name);
 
-    addMessage(
+   await  addMessage(
         MessageModel(
           content: imageUrl,
           receiverId: receiverId,
@@ -97,17 +84,30 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
 
     selectedImageFile = null;
     _uploadingImage = false;
-    notifyListeners();
     rebuildUi();
 
+
+    scrollToBottom();
+// =======
  
 
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+//     scrollController.animateTo(
+//       scrollController.position.maxScrollExtent,
+//       duration: const Duration(milliseconds: 300),
+//       curve: Curves.easeOut,
+//     );
+// >>>>>>> latest_branch
   }
+}
+
+void scrollToBottom() {
+   Future.delayed(const Duration(milliseconds: 50),(){
+    scrollController.animateTo(
+    scrollController.position.maxScrollExtent,
+    duration: const Duration(milliseconds: 300),
+    curve: Curves.easeOut,
+  );
+   });
 }
 
 
@@ -128,9 +128,8 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
     }
     if (imageUrl != null) {
 
-      isImageSending = true;
-    rebuildUi();
-
+  _uploadingImage = true;
+      rebuildUi();
       await addMessage(
 
           MessageModel(
@@ -144,7 +143,7 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
           conversationId);
 
   
-      notifyListeners();
+  _uploadingImage = false;
       rebuildUi();
 
     }
@@ -158,14 +157,14 @@ Future<void> getImage(ImageSource source, String receiverId, conversationId) asy
   }
 
 
-  void addMessage(MessageModel message, String conversationId) async {
+  Future<void> addMessage(MessageModel message, String conversationId) async {
+
     log('STARTING...');
 
 
     await _conversationService.sendMessage(message, conversationId);
   log('ENDINGGG...');
     messageController.clear();
-    notifyListeners();
     rebuildUi();
   }
 
@@ -195,7 +194,6 @@ void getFile(String receiverId, String conversationId) async {
   );
   if (result != null) {
     _uploadingFile = true;
-    notifyListeners();
     rebuildUi();
     pickFile = File(result.files.single.path!);
     String fileName = result.files.single.path!.split('/').last;
@@ -206,8 +204,6 @@ void getFile(String receiverId, String conversationId) async {
     TaskSnapshot taskSnapshot = await uploadTask;
 
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    _uploadingFile = false;
-   
     addMessage(
         MessageModel(
           content: downloadUrl,
@@ -224,7 +220,7 @@ void getFile(String receiverId, String conversationId) async {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
-    notifyListeners();
+     _uploadingFile = false;
     rebuildUi();
   } else {
     log("No file selected");
