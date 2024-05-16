@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -204,7 +205,7 @@ class ConversationService {
       
 
 
-      EasyLoading.show();
+     
 
       
       Reference ref =
@@ -217,7 +218,7 @@ class ConversationService {
 
      
 
-      EasyLoading.dismiss();
+      
 
 
       return downloadUrl;
@@ -225,7 +226,7 @@ class ConversationService {
     } catch (e) {
 
 
-      EasyLoading.dismiss();
+    
 
       showToast(message: 'Error uploading image: $e');
       return '';
