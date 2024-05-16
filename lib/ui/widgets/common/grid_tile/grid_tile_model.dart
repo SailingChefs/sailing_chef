@@ -18,7 +18,7 @@ class GridTileModel extends ReactiveViewModel {
   }
 // String formatTimeString(String timeString) {
 //   int minutes = int.tryParse(timeString) ?? 0; // Parsing string to integer, defaulting to 0 if parsing fails
-  
+
 //   if (minutes == 0) {
 //     return '0 h'; // If time is zero minutes, only display hours
 //   } else {
@@ -33,7 +33,4 @@ class GridTileModel extends ReactiveViewModel {
 //     }
 //   }
 // }
-
-
-
 }

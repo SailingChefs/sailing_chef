@@ -91,7 +91,6 @@ class _MessageListAndAppBar extends StatelessWidget {
   }
 }
 
-// _ExpandedAppBar widget
 class _ExpandedAppBar extends StatelessWidget {
   final ChatViewModel viewModel;
   final UserModel receiver;
@@ -156,7 +155,6 @@ class _ExpandedAppBar extends StatelessWidget {
   }
 }
 
-// _CollapsedAppBar widget
 class _CollapsedAppBar extends StatelessWidget {
   final ChatViewModel viewModel;
 

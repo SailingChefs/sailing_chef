@@ -11,8 +11,8 @@ class BackArrowWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 8.0.dg),
-        height: 25.h,
-        width: 25.w,
+        height: 35.h,
+        width: 35.w,
         decoration: BoxDecoration(
           color: kcsgreycolor.withOpacity(0.7),
           shape: BoxShape.circle,

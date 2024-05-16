@@ -10,7 +10,8 @@ import 'explore_all_recipes_viewmodel.dart';
 
 class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
-  const ExploreAllRecipesView({Key? key, required this.recipes}) : super(key: key);
+  const ExploreAllRecipesView({Key? key, required this.recipes})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -42,12 +43,18 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
         child: Column(
           children: [
             verticalSpace(41),
-            SearchBarAllRecipesScreen(recipes: recipes,),
+            SearchBarAllRecipesScreen(
+              recipes: recipes,
+            ),
             viewModel.isBusy
                 ? const ShimmerLoaderAllRecipes()
                 : viewModel.searchController.text.isEmpty
-                    ? AllRecipesScreen(recipes: recipes,)
-                    :  SearchViewAllRecipes(recipes: recipes,),
+                    ? AllRecipesScreen(
+                        recipes: recipes,
+                      )
+                    : SearchViewAllRecipes(
+                        recipes: recipes,
+                      ),
           ],
         ),
       ),

@@ -1,11 +1,10 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 
 class SearchBarAllRecipesScreen
     extends ViewModelWidget<ExploreAllRecipesViewModel> {
-      final List<RecipeModel> recipes;
+  final List<RecipeModel> recipes;
   const SearchBarAllRecipesScreen({super.key, required this.recipes});
 
   @override
@@ -74,9 +73,7 @@ class SearchBarAllRecipesScreen
           ),
           horizontalSpaceSmall,
           IconButton(
-            onPressed: () {
-              
-            },
+            onPressed: () {},
             icon: const Icon(FlutterRemix.equalizer_line),
             color: kcPrimaryColor,
             iconSize: 30.dg,

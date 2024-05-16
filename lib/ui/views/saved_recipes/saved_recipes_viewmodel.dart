@@ -29,7 +29,9 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
-  Iterable<SavedRecipeModel> searchRecipes(List<SavedRecipeModel> recipes,String query) sync* {
+
+  Iterable<SavedRecipeModel> searchRecipes(
+      List<SavedRecipeModel> recipes, String query) sync* {
     log('came to search');
     for (var recipe in recipes) {
       if (recipe.recipeModel!.title
@@ -51,8 +53,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
 
   void toAllDishesScreen() {
     _navigationService.navigateToExploreAllRecipesView(
-      recipes: RecipeService.recipes
-    );
+        recipes: RecipeService.recipes);
   }
 
   void followingSelected() {

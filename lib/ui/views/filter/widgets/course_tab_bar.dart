@@ -27,8 +27,8 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                   viewModel.breakfastSelected();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 22.dg, vertical: 12.dg),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -44,10 +44,9 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Breakfast',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color:
-                              viewModel.selectedTabMainCourse == 'breakfast'
-                                  ? kcVeryLightGrey
-                                  : kcBlackColor.withOpacity(0.6),
+                          color: viewModel.selectedTabMainCourse == 'breakfast'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
                         ),
                       ),
                     ],
@@ -61,8 +60,8 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                   viewModel.lunchSelected();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 22.dg, vertical: 12.dg),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -94,8 +93,8 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                   viewModel.lunchSelected();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 22.dg, vertical: 12.dg),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),

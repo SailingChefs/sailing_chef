@@ -75,6 +75,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/search/search_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
+import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -167,6 +168,7 @@ import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart
     StackedDialog(classType: RateExperienceDialog),
     StackedDialog(classType: ReviewsAllDialog),
     StackedDialog(classType: SuccessDialog),
+    StackedDialog(classType: AddpindropshowDialog),
 // @stacked-dialog
   ],
 )

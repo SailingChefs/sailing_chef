@@ -61,8 +61,6 @@ class OnboardingViewModel extends BaseViewModel {
     _navigationServices.replaceWithSignUpView();
   }
 
-
-
   void next() {
     if (currentPage < 3) {
       currentPage++;

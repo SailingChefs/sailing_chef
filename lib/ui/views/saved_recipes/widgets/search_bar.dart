@@ -13,9 +13,11 @@ class SearchBarSavedRecipesScreen
           width: MediaQuery.sizeOf(context).width * 0.75,
           height: 40.dg,
           child: TextField(
-            controller: viewModel.isAllSelected ? viewModel.searchSavedController : viewModel.searchFollowingController,
-            onEditingComplete:  viewModel.rebuildUi,
-            onSubmitted:(value) =>  viewModel.rebuildUi(),
+            controller: viewModel.isAllSelected
+                ? viewModel.searchSavedController
+                : viewModel.searchFollowingController,
+            onEditingComplete: viewModel.rebuildUi,
+            onSubmitted: (value) => viewModel.rebuildUi(),
             textAlign: TextAlign.start,
             decoration: InputDecoration(
               hintStyle: TextStyle(

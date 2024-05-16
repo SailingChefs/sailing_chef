@@ -50,12 +50,10 @@ class RecipeViewViewModel extends BaseViewModel {
     playerController = PlayerController();
     myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
 
-
     await playerController.preparePlayer(
       path: path!,
       volume: 100,
     );
-    
 
     // duration = await playerController.getDuration(DurationType.values[0]);
 
@@ -81,7 +79,7 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
-  void durationStop(){
+  void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
     });

@@ -57,8 +57,6 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
       validator: validator,
       maxLines: 5,
       maxLength: 200,
-      
-
       style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
         alignLabelWithHint: true,

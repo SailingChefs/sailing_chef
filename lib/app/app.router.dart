@@ -130,6 +130,7 @@ class Routes {
 
   static const viewAllDraftsView = '/view-all-drafts-view';
 
+
   static const searchView = '/search-view';
 
   static const all = <String>{
@@ -1420,7 +1421,6 @@ extension NavigatorStateExtension on _i40.NavigationService {
   }
 
 
-
   Future<dynamic> navigateToSearchView({
     _i36.Key? key,
     required List<_i37.RecipeModel> recipeModel,
@@ -1939,6 +1939,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         parameters: parameters,
         transition: transition);
   }
+
 
 
   Future<dynamic> replaceWithSearchView({

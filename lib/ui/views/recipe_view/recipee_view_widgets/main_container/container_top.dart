@@ -11,7 +11,8 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
   final List<XFile?> selectedImages;
   final List<String?> newUrls;
   const TopBarRecipeView(
-    this.selectedImages, this.newUrls, {
+    this.selectedImages,
+    this.newUrls, {
     super.key,
   });
 
@@ -34,31 +35,32 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
               },
               itemBuilder: (context, index) {
                 var media = viewModel.selectedImages[index];
-                if(media is String){
+                if (media is String) {
                   if (media.contains('.mp4')) {
-                  return CustomVideoPlayer.network(
-                    url: media,
-                  );
-                } else if (media.contains('.jpg')) {
-                  return Image.network(
-                    media,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  );
+                    return CustomVideoPlayer.network(
+                      url: media,
+                    );
+                  } else if (media.contains('.jpg')) {
+                    return Image.network(
+                      media,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    );
+                  }
                 }
+                if (media is XFile) {
+                  if (media.isVideo) {
+                    return CustomVideoPlayer.file(
+                      pathh: media.path,
+                    );
+                  } else if (media.isImage) {
+                    return Image.file(
+                      File(media.path),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    );
+                  }
                 }
-                if(media is XFile){
-                if (media.isVideo) {
-                  return CustomVideoPlayer.file(
-                    pathh: media.path,
-                  );
-                } else if (media.isImage) {
-                  return Image.file(
-                    File(media.path),
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  );
-                }}
                 return null;
               },
             ),

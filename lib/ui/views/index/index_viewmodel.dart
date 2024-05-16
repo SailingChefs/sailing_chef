@@ -52,7 +52,7 @@ class IndexViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-Future<void> getUserLocation() async {
+  Future<void> getUserLocation() async {
     if (userDetails?.location?['latitude'] == null) {
       return;
     }
@@ -61,6 +61,7 @@ Future<void> getUserLocation() async {
         userDetails!.location!['latitude'],
         userDetails!.location!['longitude']);
   }
+
   void onViewModelReady() async {
     setBusy(true);
     await Future.wait([
@@ -69,7 +70,6 @@ Future<void> getUserLocation() async {
       _savedRecipeService.init(),
       _recipeService.initialized(),
       getUserLocation(),
-
     ]);
     notifyListeners();
     rebuildUi();

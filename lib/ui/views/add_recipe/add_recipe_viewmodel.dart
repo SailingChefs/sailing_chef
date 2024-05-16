@@ -59,8 +59,6 @@ class AddRecipeViewModel extends BaseViewModel {
   TimeOfDay? selectedTime;
 
   bool isPlaying = false;
-  
-
 
   bool isclicked = false;
 
@@ -218,8 +216,7 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-
-  void durationStop(){
+  void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
     });
@@ -229,8 +226,7 @@ class AddRecipeViewModel extends BaseViewModel {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
     rebuildUi();
-    await playerController
-        .startPlayer(finishMode: FinishMode.pause);
+    await playerController.startPlayer(finishMode: FinishMode.pause);
 
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();

@@ -31,7 +31,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
-          TopBarRecipeView(selectedImages,draftUrls),
+          TopBarRecipeView(selectedImages, draftUrls),
           MainRecipeViewContainer(recipeModel, selectedImages),
           Positioned(
             top: 40,
@@ -49,8 +49,13 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   RecipeViewViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      RecipeViewViewModel(draftUrls,selectedImages, waveFormData: waveFormData, path: path, recipeModel,
-          );
+      RecipeViewViewModel(
+        draftUrls,
+        selectedImages,
+        waveFormData: waveFormData,
+        path: path,
+        recipeModel,
+      );
 
   @override
   void onViewModelReady(RecipeViewViewModel viewModel) {

@@ -245,7 +245,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               SemiRoundedTranpaentTextFieldBio(
                                   validator: (value) =>
                                       viewModel.validateBio(value),
-                                      
                                   controller: viewModel.bioController,
                                   labelText: 'Bio'),
                               verticalSpaceMedium,

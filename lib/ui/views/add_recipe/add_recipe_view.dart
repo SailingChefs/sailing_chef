@@ -1,5 +1,3 @@
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
@@ -9,7 +7,7 @@ import 'add_recipe_viewmodel.dart';
 
 class AddRecipeView extends StackedView<AddRecipeViewModel> {
   final RecipeModel? drafts;
-  const AddRecipeView( {
+  const AddRecipeView({
     this.drafts,
     Key? key,
   }) : super(key: key);
@@ -20,7 +18,6 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
     AddRecipeViewModel viewModel,
     Widget? child,
   ) {
-  
     List<Ingredient>? ingredientsList;
     return SizedBox(
       child: viewModel.isBusy
@@ -58,8 +55,9 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                     verticalSpaceMedium,
                     Expanded(
                       child: AddRecipeFormAddRecipeScreen(
-                          drafts,
-                          ingredientsList,),
+                        drafts,
+                        ingredientsList,
+                      ),
                     ),
                   ],
                 ),

@@ -13,7 +13,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     final List<RecipeModel> recipes = viewModel.chefRecipes!;
-    return recipes.isEmpty
+    return recipes.isNotEmpty
         ? user.userRole != 'culinarySchool'
             ? SizedBox(
                 width: 400,
@@ -45,7 +45,8 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          rating: calculateAverageRating(recipes[index].comment!),
+                          rating:
+                              calculateAverageRating(recipes[index].comment!),
                           savedRecipeList: viewModel.savedRecipes,
                           recipeId: recipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(index),

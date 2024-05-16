@@ -23,7 +23,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     recipe.coverImage += imageUrls;
     recipe.chefNote = chefNote;
     bool saved = await _recipeService.addOrUpdateDraft(recipe);
-    
+
     if (saved) {
       _navigatorlocator.replaceWithSettingsView();
     } else {

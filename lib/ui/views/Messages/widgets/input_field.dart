@@ -96,7 +96,9 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                   // viewModel.getImage(
                   //     ImageSource.gallery, user.uid!, conversationId);
 
-                  viewModel.isBusy ? EasyLoading() : viewModel.getFile(user.uid!, conversationId);
+                  viewModel.isBusy
+                      ? EasyLoading()
+                      : viewModel.getFile(user.uid!, conversationId);
                 },
               ),
               GestureDetector(

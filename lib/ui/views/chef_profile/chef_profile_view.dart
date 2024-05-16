@@ -44,22 +44,24 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                             ),
                             verticalSpaceMedium,
                             Follow_Message_Btns(user: user),
-                            user.userRole != 'guest' ?
-                            DishListScreen(user: user):Container(),
-                            verticalSpaceTiny,
-                          user.userRole == 'guest' ? 
-                          SavedChefProfileScreen(user, savedRecipes: viewModel.userSavedRecipe!) : 
-
-                            user.userRole == 'culinarySchool'
-                                ? Column(
-                                    children: [
-                                      TabBarChefProfileScreen(user),
-                                      viewModel.isMySelected
-                                          ? const RecipesProfileScreen()
-                                          : SavedChefProfileScreen(user ,savedRecipes: const []),
-                                    ],
-                                  )
+                            user.userRole != 'guest'
+                                ? DishListScreen(user: user)
                                 : Container(),
+                            verticalSpaceTiny,
+                            user.userRole == 'guest'
+                                ? SavedChefProfileScreen(user,
+                                    savedRecipes: viewModel.userSavedRecipe!)
+                                : user.userRole == 'culinarySchool'
+                                    ? Column(
+                                        children: [
+                                          TabBarChefProfileScreen(user),
+                                          viewModel.isMySelected
+                                              ? const RecipesProfileScreen()
+                                              : SavedChefProfileScreen(user,
+                                                  savedRecipes: const []),
+                                        ],
+                                      )
+                                    : Container(),
                           ],
                         ),
                 ],

@@ -4,107 +4,118 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/explore_all_buttons.dart';
 
-class ChefScreen
-    extends ViewModelWidget<SearchViewModel> {
-      final List<UserModel> chef;
+class ChefScreen extends ViewModelWidget<SearchViewModel> {
+  final List<UserModel> chef;
   const ChefScreen({super.key, required this.chef});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
-    return viewModel.searchControllerChef.text.isNotEmpty? Column(
-      children: [
-        SizedBox(
+    return viewModel.searchControllerChef.text.isNotEmpty
+        ? Column(
+            children: [
+              SizedBox(
                 height: 500.h,
                 child: GridView.builder(
                   itemCount: viewModel.searchUser(chef).length,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 1.0,
                     mainAxisSpacing: 1.0,
-                    childAspectRatio: 191/250,
+                    childAspectRatio: 191 / 250,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    final UserModel che =  viewModel.searchUser(chef).elementAt(index);
-                   return GestureDetector(
-                          onTap: () {
-                            viewModel.toChefProfile(chef);
-                          },
-                          child: Container(
-                            width: 160.w,
-                            decoration: BoxDecoration(
-                              color: kcwhitecolor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(20),
+                    final UserModel che =
+                        viewModel.searchUser(chef).elementAt(index);
+                    return GestureDetector(
+                      onTap: () {
+                        viewModel.toChefProfile(chef);
+                      },
+                      child: Container(
+                        width: 160.w,
+                        decoration: BoxDecoration(
+                          color: kcwhitecolor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(0, 3),
                             ),
-                            margin: const EdgeInsets.all(8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.r),
-                                    topRight: Radius.circular(20.r),
-                                  ),
-                                  child: che.displayPicture! == ''
-                                      ? Image.asset(
-                                          'assets/images/misc/blank_image.png',
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.network(
-                                          che.displayPicture!,
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                        ),
-                                )),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0.dg),
-                                  child: Text(
-                                    capitalizeEachWord(che.displayName!),
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
+                          ],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        margin: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r),
+                              ),
+                              child: che.displayPicture! == ''
+                                  ? Image.asset(
+                                      'assets/images/misc/blank_image.png',
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      che.displayPicture!,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
                                     ),
-                                  ),
+                            )),
+                            Padding(
+                              padding: EdgeInsets.all(8.0.dg),
+                              child: Text(
+                                capitalizeEachWord(che.displayName!),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        );
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
-              ExploreAllButtonSearch(text: 'Discover more Chefs', onTap:() =>
-                viewModel.toAllChefsScreen(chef),),
-              
-      ],
-    ): chef.isEmpty
-        ? SizedBox(
+              ExploreAllButtonSearch(
+                text: 'Discover more Chefs',
+                onTap: () => viewModel.toAllChefsScreen(chef),
+              ),
+            ],
+          )
+        : chef.isEmpty
+            ? SizedBox(
                 height: 500.h,
-              child:  Center(child: Text('No Chef Found',style: globalTextStyle(fontSize: 15.sp,color: kcPrimaryColor),)))
-        : Column(
-          children: [
-            SizedBox(
-                height: 500.h,
-                child: GridView.builder(
-                  itemCount: chef.length,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 1.0,
-                    mainAxisSpacing: 1.0,
-                    childAspectRatio: 191/250,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                   return GestureDetector(
+                child: Center(
+                    child: Text(
+                  'No Chef Found',
+                  style:
+                      globalTextStyle(fontSize: 15.sp, color: kcPrimaryColor),
+                )))
+            : Column(
+                children: [
+                  SizedBox(
+                    height: 500.h,
+                    child: GridView.builder(
+                      itemCount: chef.length,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 15.h),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 1.0,
+                        mainAxisSpacing: 1.0,
+                        childAspectRatio: 191 / 250,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
                           onTap: () {
                             viewModel.toChefProfile(chef);
                           },
@@ -146,7 +157,8 @@ class ChefScreen
                                 Padding(
                                   padding: EdgeInsets.all(8.0.dg),
                                   child: Text(
-                                    capitalizeEachWord(chef[index].displayName!),
+                                    capitalizeEachWord(
+                                        chef[index].displayName!),
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
@@ -157,13 +169,14 @@ class ChefScreen
                             ),
                           ),
                         );
-                  },
-                ),
-              ),
-               ExploreAllButtonSearch(text: 'Discover more Chefs', 
-                onTap:() =>
-                viewModel.toAllChefsScreen(chef),),
-          ],
-        );
+                      },
+                    ),
+                  ),
+                  ExploreAllButtonSearch(
+                    text: 'Discover more Chefs',
+                    onTap: () => viewModel.toAllChefsScreen(chef),
+                  ),
+                ],
+              );
   }
 }

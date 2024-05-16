@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -11,7 +10,6 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
-   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,7 +42,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final ingredient = viewModel.ingredientsList[index];
-                     
+
                       return Column(
                         children: [
                           Row(
@@ -116,7 +114,6 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.callIngredientsBottomSheet;
                       List<Ingredient> ingredients = viewModel.ingredientsList;
                       viewModel.addIngredients(ingredients);
-                     
                     },
                     child: Container(
                       height: 50.h,

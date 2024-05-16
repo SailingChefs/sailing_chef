@@ -88,8 +88,4 @@ class RecipeModel {
       tags: List<String>.from(data['tags'] ?? []),
     );
   }
-
-  
-
-
 }

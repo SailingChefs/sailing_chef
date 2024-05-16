@@ -65,7 +65,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               ),
               horizontalSpaceSmall,
               GestureDetector(
-                onTap:  viewModel.goToFollowingList,
+                onTap: viewModel.goToFollowingList,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +90,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               ),
               horizontalSpaceSmall,
               GestureDetector(
-                onTap:  viewModel.goToFollowingList,
+                onTap: viewModel.goToFollowingList,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,

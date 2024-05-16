@@ -119,12 +119,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                 ],
               )
             : GestureDetector(
-                onTap: (){
+                onTap: () {
                   viewModel.callCookingInstructionBottomSheet();
-                } ,
+                },
                 child: Container(
                   height: 50.h,
-                  
                   decoration: BoxDecoration(
                     color: kcVeryLightGrey.withOpacity(0.2),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
