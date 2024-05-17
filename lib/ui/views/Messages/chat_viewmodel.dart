@@ -4,17 +4,12 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 
-//  Stack(
-//   (ListOfMessages and expanded app bar as first child)
-// (collapsed app bar as second child only visible when screen is scrolled more than 300 pixels)
-//  )
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final TextEditingController textController = TextEditingController();
@@ -24,8 +19,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final String convoId;
   XFile? selectedImageFile;
   List<MessageModel> messages = List.empty(growable: true);
-  // bool uploadingFile = false;
-  // bool uploadingImage = false;
+
   bool isAtTop = false;
   bool isImageSending = false;
 
