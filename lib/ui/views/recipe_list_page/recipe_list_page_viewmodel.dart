@@ -11,7 +11,7 @@ class RecipeListPageViewModel extends BaseViewModel {
     setBusy(true);
     recipes =
         await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
-    notifyListeners();
+    
     setBusy(false);
   }
 

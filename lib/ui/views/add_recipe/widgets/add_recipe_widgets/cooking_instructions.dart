@@ -85,7 +85,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      viewModel.callCookingInstructionBottomSheet();
+                      // viewModel.callCookingInstructionBottomSheet();
                       List<String> methods = viewModel.methodsList;
                       viewModel.addMethods(methods);
                     },

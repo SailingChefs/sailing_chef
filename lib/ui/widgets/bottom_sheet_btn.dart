@@ -26,7 +26,7 @@ class SaveRecipeButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
-        width: double.infinity,
+        width:  310.w,
         child: TextButton(
           style: TextButton.styleFrom(
             backgroundColor: kcPrimaryColorDark,
@@ -37,9 +37,10 @@ class SaveRecipeButton extends StatelessWidget {
             children: [
               Icon(
                 prefix,
-                color: kcwhitecolor,
+                color: kcsgreycolor,
                 size: 20.sp,
               ),
+              horizontalSpaceSmall,
               Text(
                 buttonText,
                 style: globalTextStyle(
@@ -48,9 +49,10 @@ class SaveRecipeButton extends StatelessWidget {
                   fontWeight: fontWeight,
                 ),
               ),
+              horizontalSpaceSmall,
               Icon(
                 postfix,
-                color: kcwhitecolor,
+                color: kcsgreycolor,
                 size: 20.sp,
               ),
             ],

@@ -175,7 +175,7 @@ class ConversationService {
     final CollectionReference messagesCollection =
         conversationsCollection.doc(conversationId).collection('messages');
 
-    // message.type = message.content.runtimeType.toString();
+    
 
     if (imageUrl != null) {
       message.content = imageUrl;
@@ -193,7 +193,7 @@ class ConversationService {
       await conversationsCollection.doc(conversationId).update({
         'latestMessage': message.content,
         'latestMessageTime': FieldValue.serverTimestamp(),
-        'latestMessageType': message.runtimeType,
+        'latestMessageType': message.type,
       });
     } catch (error) {
       log('Error sending message: $error');

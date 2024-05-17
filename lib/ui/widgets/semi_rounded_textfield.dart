@@ -18,7 +18,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final int? maxLines;
   final double? size;
   final Widget? suffixIconData;
-
+    final MaxLengthEnforcement? maxLengthEnforcement;
 
   const SemiRoundedTranpaentTextField(
       {super.key,
@@ -36,7 +36,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.maxLines,
       this.size,
       this.suffixIcon,
-      this.prefixIcons});
+      this.prefixIcons, this.maxLengthEnforcement});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       prefixIconData: prefixIcon,
       suffixIcon: suffixIconData,
       suffixIconData: postfixIcon,
+      
       validator: validator,
       prefixIcon: prefixIcons,
       suffixIconbool: suffixIcon,
@@ -57,7 +58,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       fillColor: Colors.grey.withOpacity(0.2),
       borderRadius: borderRadius ?? 10.dg,
       textColor: Colors.black.withOpacity(0.6),
-      controller: controller,
+      controller: controller, maxLengthEnforcement: maxLengthEnforcement,
     );
   }
 }

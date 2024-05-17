@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -23,6 +21,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool? readOnly;
+  final MaxLengthEnforcement? maxLengthEnforcement;
   final List<TextInputFormatter>? inputFormatters;
   final Color? borderColor;
   final double? size;
@@ -39,7 +38,6 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.suffixIconbool = false,
     this.isPasswordVisible,
     this.onVisibilityToggle,
-    this.inputFormatters,
     this.validator,
     this.borderRadius,
     this.fillColor,
@@ -53,11 +51,12 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.maxLines,
     this.size,
     this.ispassvisible,
+    this.maxLengthEnforcement,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Will print error messages to the console.
     String close = 'assets/images/icons/eye_button_close.png';
     Widget closeEye = Image.asset(
       close,
@@ -72,6 +71,12 @@ class RoundedTransparentTextField extends StatelessWidget {
       width: 2.w,
       height: 6.h,
     );
+
+    List<TextInputFormatter>? inputFormattersList = inputFormatters ?? [];
+    if (maxLength != null) {
+      inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
+    }
+
     return TextFormField(
       readOnly: readOnly!,
       cursorColor: kcPrimaryColor,
@@ -79,32 +84,36 @@ class RoundedTransparentTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
       controller: controller,
       maxLength: maxLength,
       maxLines: maxLines ?? 1,
       validator: validator,
+      inputFormatters: inputFormattersList,
+      buildCounter: (
+        BuildContext context, {
+        required int currentLength,
+        required bool isFocused,
+        required int? maxLength,
+      }) {
+        return null;
+      },
       style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
-        labelStyle:
-            TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
+        labelStyle: TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

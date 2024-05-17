@@ -1,16 +1,10 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-<<<<<<< HEAD
-
-import 'addpindropshow_dialog_model.dart';
-
-=======
 
 
 import 'addpindropshow_dialog_model.dart';
 
 
->>>>>>> aebe0e788c85df8a466a5673865d0f0f53ec80ba
 
 class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
   final DialogRequest request;

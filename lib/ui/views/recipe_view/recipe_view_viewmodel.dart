@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as maths;
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +27,8 @@ class RecipeViewViewModel extends BaseViewModel {
   final List<String> prevImageUrls;
   final List<XFile> newImageUrls;
   final RecipeModel? recipe;
-
+  double volume = 0;
+  bool isMute = false;
   List<dynamic> get selectedImages => [...prevImageUrls, ...newImageUrls];
 
   Timer? _timer;
@@ -41,20 +43,29 @@ class RecipeViewViewModel extends BaseViewModel {
     this.path,
   });
 
+  String? formattedDuration;
   void onViewModelReady() async {
     isclicked = false;
     servings = recipe!.servingSize;
     setBusy(true);
     playerController = PlayerController();
-    
 
     await playerController.preparePlayer(
       path: path!,
       volume: 100,
     );
 
-    // duration = await playerController.getDuration(DurationType.values[0]);
-
+    if (path != null && waveFormData != null) {
+      waveFormData = await playerController.extractWaveformData(path: path!);
+      if (waveFormData!.isNotEmpty) {
+        Duration duration = Duration(
+            milliseconds: await playerController.getDuration(DurationType.max));
+        int minutes = duration.inMinutes;
+        int seconds = duration.inSeconds % 60;
+        formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+        log("here" + formattedDuration.toString());
+      }
+    }
     setBusy(false);
   }
 
@@ -154,6 +165,17 @@ class RecipeViewViewModel extends BaseViewModel {
       showToast(message: 'Something went wrong');
       log(e.toString());
     }
+  }
+
+  void onVolumeUpIconPressed() {
+    isMute = !isMute;
+    if (isMute) {
+      volume = 0;
+    } else {
+      volume = 100;
+    }
+    playerController.setVolume(volume);
+    notifyListeners();
   }
 
   void saveRecipeToPrivate(

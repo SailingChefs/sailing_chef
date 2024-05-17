@@ -51,7 +51,7 @@ class ChefNotesRecipeDetails
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.58,
+                          width: screenWidth(context) * 0.53,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
@@ -71,20 +71,20 @@ class ChefNotesRecipeDetails
                             ),
                           ),
                         ),
-                        horizontalSpaceSmall,
-                        // Text(
-                        //   '${viewModel.duration} ',
-                        //   style: globalTextStyle(
-                        //     fontSize: 12,
-                        //     fontWeight: FontWeight.w600,
-                        //     color: kcBlackColor,
-                        //   )
-                        // ),
+                        horizontalSpaceTiny,
+                         Text( viewModel.formattedDuration == null ? '0:00' : '${viewModel.formattedDuration}'),
                         IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.volume_up,
-                            ))
+                          onPressed: () {
+                            viewModel.onVolumeUpIconPressed();
+                          },
+                          icon: viewModel.isMute
+                              ? const Icon(
+                                  Icons.volume_down,
+                                )
+                              : const Icon(
+                                  Icons.volume_up,
+                                ),
+                        )
                       ],
                     ),
                   ],

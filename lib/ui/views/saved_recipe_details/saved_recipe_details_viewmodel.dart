@@ -49,7 +49,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final TextEditingController notesController = TextEditingController();
   bool isRecipeSaved = false;
   List<RecipeModel> myRecipes = [];
-
+  double volume = 0;
+  bool isMute = false;
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
@@ -76,7 +77,18 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  
+  void onVolumeUpIconPressed() {
+    isMute = !isMute;
+    if (isMute) {
+      volume = 0;
+    } else {
+      volume = 100;
+    }
+    playerController.setVolume(volume);
+
+    notifyListeners();
+  }
+
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
@@ -221,6 +233,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
+  String? formattedDuration;
+
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
@@ -233,8 +247,22 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         path: audioFile.path,
         volume: 100,
       );
-      log("Player Ready");
+      
     }
+    if (audioFile.path != null && waveFormData != null) {
+        waveFormData = await playerController.extractWaveformData(path: audioFile.path!);
+        if (waveFormData!.isNotEmpty) {
+          Duration duration = Duration(
+              milliseconds:
+                  await playerController.getDuration(DurationType.max));
+          int minutes = duration.inMinutes;
+          int seconds = duration.inSeconds % 60;
+          formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+          rebuildUi();
+          log("here " + formattedDuration.toString());
+        }
+      }
+
   }
 
   void startListening() async {
@@ -248,6 +276,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       // rebuildUi();
     });
     log("start Listening ends ${isPlaying.toString()}");
+    durationStop();
+  }
+
+  void durationStop() {
+    playerController.onCompletion.listen((event) {
+      stopListening();
+    });
   }
 
   void stopListening() async {
@@ -261,7 +296,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void onViewModelReady(int length, String recipeId, UserModel user) async {
     setBusy(true);
-   
 
     waveFormData = recipeModel.waveForm;
     await _savedRecipeService.init();

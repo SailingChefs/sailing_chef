@@ -9,6 +9,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+    log("duration: "+viewModel.duration.toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,7 +53,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.58,
+                          width: screenWidth(context) * 0.50,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
@@ -72,22 +73,20 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                             ),
                           ),
                         ),
-                        horizontalSpaceSmall,
-                        // Text(
-                        //   '${viewModel.duration} ',
-                        //   style: globalTextStyle(
-                        //     fontSize: 12,
-                        //     fontWeight: FontWeight.w600,
-                        //     color: kcBlackColor,
-                        //   )
-                        // ),
+                        horizontalSpaceTiny,
+                        viewModel.isBusy ? Container() : Text('${viewModel.formattedDuration!}'),
                         IconButton(
-                            onPressed: () {
-                              log(viewModel.waveFormData!.toString());
-                            },
-                            icon: const Icon(
-                              Icons.volume_up,
-                            ))
+                          onPressed: () {
+                            viewModel.onVolumeUpIconPressed();
+                          },
+                          icon: viewModel.isMute
+                              ? const Icon(
+                                  Icons.volume_down,
+                                )
+                              : const Icon(
+                                  Icons.volume_up,
+                                ),
+                        )
                       ],
                     ),
                   ],
