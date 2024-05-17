@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
@@ -23,7 +24,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         ),
       ),
       horizontalSpaceTiny,
-      Container(
+      recipe.user!.uid != userDetails!.uid ? Container(
         height: 30.0.h,
         width: 30.0.w,
         decoration: BoxDecoration(
@@ -41,7 +42,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 color: kcBlackColor.withOpacity(0.6),
                 size: 20.dg,
               ),
-      )
-    ]);
+      ):Container(),
+    ],);
   }
 }

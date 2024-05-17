@@ -27,11 +27,11 @@ class EditProfileViewModel extends BaseViewModel {
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
-  String ? address ;
+  String? address;
   bool isChange = false;
-  List<UserModel>? userList;
   void onViewModelReady() async {
     setBusy(true);
+<<<<<<< last
     // parseAddress(userDetails!.namedLocation!);
     userList = await userDataService.fetchUsersDocuments();
     nameController.text = userDetails!.displayName!;
@@ -41,6 +41,18 @@ class EditProfileViewModel extends BaseViewModel {
     location.text = userDetails!.namedLocation!;
     address = userDetails!.namedLocation!;
     boatController.text = userDetails!.boatName!;
+=======
+
+    nameController.text = userDetails!.displayName == null ? '' : userDetails!.displayName!;
+    emailController.text = userDetails!.email == null ? '' : userDetails!.email!;
+    linkController.text = userDetails!.link == null ? '' : userDetails!.link!;
+    bioController.text = userDetails!.bio == null ? '' : userDetails!.bio!;
+    location.text = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    address = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+
+    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    log(boatController.text);
+>>>>>>> latest_branch
     setBusy(false);
   }
 
@@ -151,33 +163,31 @@ class EditProfileViewModel extends BaseViewModel {
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
-       Map<String, dynamic> userData = {
-          'display_picture': imageLink,
-          'display_name': nameController.text,
-          'email': emailController.text,
-          'link': linkController.text,
-          'bio': bioController.text,
-          'boat_name': boatController.text,
-          'address': address,
-        };
-        userDataService.storeUserDetails(
-            userData, FirebaseAuth.instance.currentUser!.uid);
-        userDetails!.displayPicture = imageLink;
+      Map<String, dynamic> userData = {
+        'display_picture': imageLink,
+        'display_name': nameController.text,
+        'email': emailController.text,
+        'link': linkController.text,
+        'bio': bioController.text,
+        'boat_name': boatController.text,
+        'address': address,
+      };
+      userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
+      userDetails!.displayPicture = imageLink;
+    } else {
+      Map<String, dynamic> userData = {
+        'display_name': nameController.text,
+        'email': emailController.text,
+        'link': linkController.text,
+        'bio': bioController.text,
+        'boat_name': boatController.text,
+        'address': address,
+      };
+      userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
     }
-       else {
-        Map<String, dynamic> userData = {
-          'display_name': nameController.text,
-          'email': emailController.text,
-          'link': linkController.text,
-          'bio': bioController.text,
-          'boat_name': boatController.text,
-          'address': address,
-        };
-        userDataService.storeUserDetails(
-            userData, FirebaseAuth.instance.currentUser!.uid);
-      }
-    }
-  
+  }
 
   void saveEditDetailsGuest(String name, String bio) async {
     if (formKey.currentState!.validate()) {

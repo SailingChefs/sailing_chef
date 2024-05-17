@@ -24,6 +24,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
 
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
+        appBar: const TopBarProfileScreen(),
         body: Padding(
           padding: const EdgeInsets.only(
             left: 15.0,
@@ -33,8 +34,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TopBarProfileScreen(),
-                verticalSpace(35),
+                
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
                 verticalSpaceMedium,

@@ -110,7 +110,7 @@ void scrollToBottom() {
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
-      await addMessage(
+       addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,

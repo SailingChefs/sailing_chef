@@ -34,7 +34,6 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600),
                 ),
-          
                 Text('${user.recipes!.length} dishes',
 
                     style: globalTextStyle(

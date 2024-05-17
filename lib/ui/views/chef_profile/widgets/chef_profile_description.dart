@@ -46,7 +46,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      viewModel.chefRecipes!.length.toString(),
+                      user.recipes!.length.toString(),
                       style: globalTextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
@@ -38,7 +39,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
                 recipeModel: recipeModel,
                 recipeList: randomRecipeList,
               ),
-              Positioned(
+             Positioned(
                   top: 40,
                   right: 10,
                   child: SaveShare(
