@@ -26,15 +26,14 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
+          appBar: ChefProfileTopBar(uid: user.uid!,),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ChefProfileTopBar(
-                    uid: user.uid!,
-                  ),
+                  
                   Column(
                     children: [
                       ChefProfileDetailsDesc(

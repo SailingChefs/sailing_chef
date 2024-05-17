@@ -31,6 +31,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
             right: 15.0,
           ),
           child: SingleChildScrollView(
+            controller: viewModel.scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

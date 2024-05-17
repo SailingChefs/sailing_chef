@@ -18,7 +18,7 @@ class TopBarOnboardingScreen extends ViewModelWidget<OnboardingViewModel> {
           ),
         ),
         RoundedElevatedButton(
-          width: 103.dg,
+          // width: 103.dg,
           height: 34,
           textFontSize: 14.sp,
           textFontWeight: FontWeight.w600,

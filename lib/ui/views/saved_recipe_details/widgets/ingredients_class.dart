@@ -16,14 +16,17 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('${ingredient.quantity} ${ingredient.unit}',
-                    style: globalTextStyle(
-                      color: kcBlackColor.withOpacity(0.87),
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w300,
-                    )),
                 SizedBox(
-                  width: 200.0.w,
+                  width:    ingredient.quantity .length > 10 ? 100.w : 150.w,
+                  child: Text('${ingredient.quantity} ${ingredient.unit}',
+                      style: globalTextStyle(
+                        color: kcBlackColor.withOpacity(0.87),
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w300,
+                      )),
+                ),
+                SizedBox(
+                  width: ingredient.name.length > 10 ? 100.w : 150.w,
                   
                   child: Text(capitalizeEachWord(ingredient.name),
                   overflow: TextOverflow.ellipsis,

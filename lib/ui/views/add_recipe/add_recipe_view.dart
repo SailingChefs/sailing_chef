@@ -26,6 +26,7 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
               resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).colorScheme.background,
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 title: Text(
                   'Create Recipe',
                   style: globalTextStyle(

@@ -47,56 +47,59 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                   ),
                 ),
               )
-            : Row(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                        width: MediaQuery.of(context).size.width * 0.73,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) => Container(
-                            margin: EdgeInsets.symmetric(horizontal: 2.w),
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            decoration: BoxDecoration(
-                              color: const Color(0xff427536).withOpacity(0.16),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Center(
-                              child: Text(
-                                viewModel.tagsList[index],
-                                style: globalTextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
+            : FittedBox(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 50.h,
+                          width: MediaQuery.of(context).size.width * 0.73,
+                          child: ListView.builder(
+                            itemBuilder: (context, index) => Container(
+                              margin: EdgeInsets.symmetric(horizontal: 2.w),
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              decoration: BoxDecoration(
+                                color: const Color(0xff427536).withOpacity(0.16),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(25)),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  viewModel.tagsList[index],
+                                  style: globalTextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: kcBlackColor,
+                                  ),
                                 ),
                               ),
                             ),
+                            itemCount: viewModel.tagsList.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
                           ),
-                          itemCount: viewModel.tagsList.length,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 50.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff427536).withOpacity(0.16),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: IconButton(
+                        onPressed: () => viewModel.showTagsSheet(context),
+                        icon: const Icon(
+                          Icons.edit_rounded,
                         ),
                       ),
-                    ],
-                  ),
-                  Container(
-                    height: 50.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff427536).withOpacity(0.16),
-                      borderRadius: const BorderRadius.all(Radius.circular(25)),
                     ),
-                    child: IconButton(
-                      onPressed: () => viewModel.showTagsSheet(context),
-                      icon: const Icon(
-                        Icons.edit_rounded,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+            ),
       ],
     );
   }

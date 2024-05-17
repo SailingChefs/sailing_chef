@@ -26,7 +26,7 @@ class ChefService with ListenableServiceMixin {
             isEqualTo: 'chef',
           )
           .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
-          .limit(5)
+          // .orderBy('created_at', descending: true)
           .get();
       for (var doc in querySnapshot.docs) {
         UserModel? currUser = await _userService
@@ -46,7 +46,7 @@ class ChefService with ListenableServiceMixin {
         }
       }
 
-      return users;
+      // // return users;
       // for (var doc in querySnapshot.docs) {
       //   UserModel? currUser = await _userService
       //       .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
@@ -56,7 +56,7 @@ class ChefService with ListenableServiceMixin {
       //   }
       // }
 
-      // return users;
+      return users;
     } catch (error) {
       // Handle any errors
 

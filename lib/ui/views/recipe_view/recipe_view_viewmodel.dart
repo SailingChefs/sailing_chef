@@ -10,6 +10,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
@@ -46,12 +47,13 @@ class RecipeViewViewModel extends BaseViewModel {
     servings = recipe!.servingSize;
     setBusy(true);
     playerController = PlayerController();
-    
 
     await playerController.preparePlayer(
       path: path!,
       volume: 100,
     );
+
+    durationCalculate(File(path!));
 
     // duration = await playerController.getDuration(DurationType.values[0]);
 
@@ -74,6 +76,34 @@ class RecipeViewViewModel extends BaseViewModel {
     } else {
       servings--;
       rebuildUi();
+    }
+  }
+
+  void onVolumeUpIconPressed() {
+    isMute = !isMute;
+    if (isMute) {
+      volume = 0;
+    } else {
+      volume = 100;
+    }
+    playerController.setVolume(volume);
+    notifyListeners();
+  }
+
+  double volume = 0;
+  bool isMute = false;
+  String formattedDuration = '';
+  Future<void> durationCalculate(File path) async {
+    if (path.path.isNotEmpty && waveFormData != null) {
+      waveFormData =
+          await playerController.extractWaveformData(path: path.path);
+      if (waveFormData!.isNotEmpty) {
+        Duration duration = Duration(
+            milliseconds: await playerController.getDuration(DurationType.max));
+        int minutes = duration.inMinutes;
+        int seconds = duration.inSeconds % 60;
+        formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+      }
     }
   }
 
@@ -132,27 +162,37 @@ class RecipeViewViewModel extends BaseViewModel {
     try {
       log("id${recipe.docId!}");
       await _recipeService
-          .addRecipeToFirestore(RecipeModel(
-            visibility: recipe.visibility,
-            chefNote: chefNote,
-            coverImage: recipe.coverImage + imageUrls,
-            createdTime: Timestamp.now(),
-            ingredients: recipe.ingredients,
-            methods: recipe.methods,
-            prepTime: recipe.prepTime,
-            servingSize: servings,
-            status: 'published',
-            title: recipe.title,
-            tags: recipe.tags,
-            uid: recipe.uid,
-            docId: recipe.docId,
-            waveForm: waveFormData!,
-          ))
-          .then((value) => navigationService.replaceWithRecipeListPageView(
-              isFromProfileView: false));
+          .addRecipeToFirestore(
+            RecipeModel(
+              visibility: recipe.visibility,
+              chefNote: chefNote,
+              coverImage: recipe.coverImage + imageUrls,
+              createdTime: Timestamp.now(),
+              ingredients: recipe.ingredients,
+              methods: recipe.methods,
+              prepTime: recipe.prepTime,
+              servingSize: servings,
+              status: 'published',
+              title: recipe.title,
+              tags: recipe.tags,
+              uid: recipe.uid,
+              docId: recipe.docId,
+              waveForm: waveFormData!,
+            ),
+          )
+          .then(
+            (value) => navigationService.replaceWithTransition(
+              const RecipeListPageView(),
+              transitionStyle: Transition.fade,
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 400),
+            ),
+          );
     } catch (e) {
       showToast(message: 'Something went wrong');
-      log(e.toString());
+      log(
+        e.toString(),
+      );
     }
   }
 
@@ -179,8 +219,12 @@ class RecipeViewViewModel extends BaseViewModel {
             docId: '',
             waveForm: waveFormData!,
           ))
-          .then((value) => navigationService.replaceWithRecipeListPageView(
-              isFromProfileView: false));
+          .then((value) => navigationService.replaceWithTransition(
+                const RecipeListPageView(),
+                transitionStyle: Transition.fade,
+                curve: Curves.easeInOut,
+                duration: const Duration(milliseconds: 400),
+              ));
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(e.toString());
@@ -251,28 +295,28 @@ class RecipeViewViewModel extends BaseViewModel {
     _timer?.cancel();
   }
 
-  void showNextImage(int length) {
-    if (pageController.hasClients) {
-      int nextPage = (pageController.page!.toInt() + 1) % length;
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
+  // void showNextImage(int length) {
+  //   if (pageController.hasClients) {
+  //     int nextPage = (pageController.page!.toInt() + 1) % length;
+  //     pageController.animateToPage(
+  //       nextPage,
+  //       duration: const Duration(milliseconds: 400),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
 
-  void showPreviousImage(int length) {
-    if (pageController.hasClients) {
-      int previousPage = pageController.page!.toInt() - 1;
-      if (previousPage < 0) {
-        previousPage = length - 1;
-      }
-      pageController.animateToPage(
-        previousPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
+  // void showPreviousImage(int length) {
+  //   if (pageController.hasClients) {
+  //     int previousPage = pageController.page!.toInt() - 1;
+  //     if (previousPage < 0) {
+  //       previousPage = length - 1;
+  //     }
+  //     pageController.animateToPage(
+  //       previousPage,
+  //       duration: const Duration(milliseconds: 400),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
 }

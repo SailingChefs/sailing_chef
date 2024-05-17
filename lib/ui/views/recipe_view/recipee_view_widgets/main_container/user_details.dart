@@ -12,23 +12,15 @@ class ChefDetail extends ViewModelWidget<RecipeViewViewModel> {
         Container(
           height: 70.h,
           width: 70.w,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: kcVeryLightGrey,
             shape: BoxShape.circle,
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(50)),
-            child: userDetails!.displayPicture == ''
-                ? Image.asset(
-                    'assets/images/misc/blank_image.png',
-                    fit: BoxFit.cover,
-                  )
-                : Image.network(
-                    userDetails!.displayPicture!,
-                    fit: BoxFit.cover,
-                    height: 90,
-                    width: 90,
-                  ),
+            image: DecorationImage(
+              image: userDetails!.displayPicture!.isEmpty
+                  ? const AssetImage('assets/images/misc/blank_image.png')
+                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         horizontalSpaceMedium,

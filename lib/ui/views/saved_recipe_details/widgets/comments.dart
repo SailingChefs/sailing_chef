@@ -95,9 +95,7 @@ class CommentsDetailsScreen
             Row(
               children: [
                 Text(
-                  viewModel
-                      .calculateAverageRating(recipeModel.comment!)
-                      .toString(),
+                  viewModel.calculateAverageRating(recipeModel.comment!),
                   style: globalTextStyle(
                     color: kcBlackColor,
                     fontSize: 24.0.sp,

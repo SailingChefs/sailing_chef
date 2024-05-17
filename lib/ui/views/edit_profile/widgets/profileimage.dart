@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/gesturedector_edit.dart';
 

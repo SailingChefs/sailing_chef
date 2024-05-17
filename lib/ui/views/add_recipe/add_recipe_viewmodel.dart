@@ -57,6 +57,7 @@ class AddRecipeViewModel extends BaseViewModel {
   List<String> updatedMethodsList = [];
   List<String> tagsList = [];
   TimeOfDay? selectedTime;
+  String formattedDuration = '';
 
   bool isPlaying = false;
 
@@ -198,6 +199,19 @@ class AddRecipeViewModel extends BaseViewModel {
     path = '${directory.path}/recording.mpeg4';
     setBusy(false);
   }
+  void onVolumeUpIconPressed() {
+    isMute = !isMute;
+    if (isMute) {
+      volume = 0;
+    } else {
+      volume = 100;
+    }
+    playerController.setVolume(volume);
+    notifyListeners();
+  }
+
+double volume = 0;
+  bool isMute = false;
 
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
@@ -214,8 +228,21 @@ class AddRecipeViewModel extends BaseViewModel {
 
       log("Player Ready");
     }
+    durationCalculate(audioFile);
   }
-
+Future<void> durationCalculate(File path) async {
+    if (path.path.isNotEmpty && waveFormData != null) {
+      waveFormData = await playerController.extractWaveformData(path: path.path);
+      if (waveFormData!.isNotEmpty) {
+        Duration duration = Duration(
+            milliseconds: await playerController.getDuration(DurationType.max));
+        int minutes = duration.inMinutes;
+        int seconds = duration.inSeconds % 60;
+        formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+     
+      }
+    }
+  }
   void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();

@@ -72,22 +72,27 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                             ),
                           ),
                         ),
-                        horizontalSpaceSmall,
-                        // Text(
-                        //   '${viewModel.duration} ',
-                        //   style: globalTextStyle(
-                        //     fontSize: 12,
-                        //     fontWeight: FontWeight.w600,
-                        //     color: kcBlackColor,
-                        //   )
-                        // ),
+                        horizontalSpaceTiny,
+                        Text(
+                          '${viewModel.formattedDuration} ',
+                          style: globalTextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor,
+                          )
+                        ),
                         IconButton(
-                            onPressed: () {
-                              log(viewModel.waveFormData!.toString());
-                            },
-                            icon: const Icon(
-                              Icons.volume_up,
-                            ))
+                          onPressed: () {
+                            viewModel.onVolumeUpIconPressed();
+                          },
+                          icon: viewModel.isMute
+                              ? const Icon(
+                                  Icons.volume_off,
+                                )
+                              : const Icon(
+                                  Icons.volume_up,
+                                ),
+                        ),
                       ],
                     ),
                   ],

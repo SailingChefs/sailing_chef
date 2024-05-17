@@ -89,7 +89,7 @@ class CustomListTileComments extends StatelessWidget {
                                 rating: rating,
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
-                                  color: Color(0xFF2E3E5C),
+                                  color: Colors.amber,
                                 ),
                                 itemCount: 5,
                                 itemSize: 20.0,

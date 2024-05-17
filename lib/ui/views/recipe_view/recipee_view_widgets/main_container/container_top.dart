@@ -18,13 +18,12 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 25.0),
+    return SafeArea(
       child: Stack(
         children: [
           SizedBox(
             width: double.infinity,
-            height: 350,
+            height: MediaQuery.of(context).size.height * 0.44,
             child: PageView.builder(
               itemCount: viewModel.selectedImages.length,
               controller: viewModel.pageController,

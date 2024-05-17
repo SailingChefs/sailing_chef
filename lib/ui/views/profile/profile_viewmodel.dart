@@ -10,11 +10,13 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
   final _navigationService = locator<NavigationService>();
+  final ScrollController scrollController = ScrollController();
   final usrService = locator<UserServices>();
   final _recipeService = locator<RecipeService>();
 
@@ -22,14 +24,12 @@ class ProfileViewModel extends ReactiveViewModel {
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final CullinaryschoolService _cullinarySchoolService =
       locator<CullinaryschoolService>();
- 
 
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-
 
   List<RecipeModel> myRecipes = [];
 
@@ -41,7 +41,6 @@ class ProfileViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [_savedRecipeService, _cullinarySchoolService];
 
-  
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
     isMySelected = true;
@@ -93,39 +92,63 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
+
+  myRecipesList() async {
+    if (RecipeService.recipes.isEmpty) {
+      myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+    } else if (RecipeService.recipes.isNotEmpty) {
+      for (var recipes in RecipeService.recipes) {
+        if (recipes.uid == userDetails!.uid) {
+          myRecipes.add(recipes);
+        }
+      }
+    }
+  }
+
   void toFilterView() {
     _navigationService.navigateToFilterView();
   }
+
   List<Course> get courses => _cullinarySchoolService.courses;
   void onViewModelReady() async {
     setBusy(true);
-    // myRecipesList();
+    myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
-      _recipeService.initialized(),
+      // _recipeService.initialized(),
 
       // _recipeService.initialized(),
-    //  _followService.init(userDetails!.uid!, false),
-    _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
+      //  _followService.init(userDetails!.uid!, false),
 
-
-
-
+      userDetails!.userRole == 'cullinary'
+          ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
+          : ini(),
     ]);
-    myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
-
+    // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
 
     setBusy(false);
   }
 
+  Future<void> ini() async {}
+
   void toDishesScreen() {
-    _navigationService.navigateToRecipeListPageView(isFromProfileView: true);
+    scrollController.animateTo(
+      scrollController.position.devicePixelRatio * 100,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+    // _navigationService.navigateToRecipeListPageView(isFromProfileView: true);
   }
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {
-    _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: recipeModel,
-      randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, myRecipes),
+    _navigationService.navigateWithTransition(
+      SavedRecipeDetailsView(
+          recipeModel: recipeModel,
+          randomRecipeList:
+              IndexViewModel.getRandomDishes(recipeModel, RecipeService.recipes)),
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+      transitionStyle: Transition.downToUp,
     );
   }
 

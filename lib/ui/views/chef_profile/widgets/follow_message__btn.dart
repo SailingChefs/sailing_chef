@@ -14,9 +14,11 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return SizedBox(
-      width: 420,
+      width: double.maxFinite,
       height: 70,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
         children: [
           viewModel.followers.contains(firebaseAuth.currentUser!.uid)
               ? FollowBtuton(
@@ -31,7 +33,7 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
-          horizontalSpaceTiny,
+          // horizontalSpaceTiny,
           MessageBtuton(
             onPressed: () {
               viewModel.moveToChatScreen(user);

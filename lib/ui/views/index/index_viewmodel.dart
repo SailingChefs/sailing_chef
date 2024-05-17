@@ -9,6 +9,7 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -107,10 +108,22 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toDishDetailsScreen(index) {
-    _navigationService.navigateToSavedRecipeDetailsView(
-      recipeModel: dishes[index],
-      randomRecipeList: getRandomDishes(dishes[index], dishes),
+
+    _navigationService.navigateWithTransition(
+      SavedRecipeDetailsView(recipeModel:  dishes[index],
+        randomRecipeList: IndexViewModel.getRandomDishes( dishes[index], dishes)),
+     
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+      transitionStyle: Transition.downToUp,
+    
+     
+      
     );
+    // _navigationService.navigateToSavedRecipeDetailsView(
+    //   recipeModel: dishes[index],
+    //   randomRecipeList: getRandomDishes(dishes[index], dishes),
+    // );
   }
 
   void handleTab(int index) {

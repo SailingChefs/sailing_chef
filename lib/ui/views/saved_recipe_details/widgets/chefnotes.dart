@@ -49,9 +49,10 @@ class ChefNotesRecipeDetails
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.58,
+                          width: screenWidth(context) * 0.52,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
@@ -71,20 +72,27 @@ class ChefNotesRecipeDetails
                             ),
                           ),
                         ),
-                        horizontalSpaceSmall,
-                        // Text(
-                        //   '${viewModel.duration} ',
-                        //   style: globalTextStyle(
-                        //     fontSize: 12,
-                        //     fontWeight: FontWeight.w600,
-                        //     color: kcBlackColor,
-                        //   )
-                        // ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.volume_up,
-                            ))
+                      horizontalSpaceTiny,
+                        Text(
+                          viewModel.formattedDuration.isEmpty ? '0:00' : '${viewModel.formattedDuration} ',
+                          style: globalTextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor,
+                          )
+                        ),
+                       IconButton(
+                          onPressed: () {
+                            viewModel.onVolumeUpIconPressed();
+                          },
+                          icon: viewModel.isMute
+                              ? const Icon(
+                                  Icons.volume_off,
+                                )
+                              : const Icon(
+                                  Icons.volume_up,
+                                ),
+                        )
                       ],
                     ),
                   ],

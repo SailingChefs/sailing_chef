@@ -298,6 +298,7 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
+import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 
 class PinDropMapViewModel extends ReactiveViewModel {
@@ -307,6 +308,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   final bottomSheetService = locator<BottomSheetService>();
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
+  final _locationService = locator<LocationService>();
   late bool serviceEnabled;
   late LocationPermission permission;
   Position? currentPosition;
@@ -331,22 +333,23 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   Future<Position> getCurrentLocation() async {
     try {
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        return Future.error('Location services are disabled.');
-      }
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          return Future.error('Location permissions are denied');
-        }
-      }
+     currentPosition = await _locationService.determinePosition();     
+      // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      // if (!serviceEnabled) {
+      //   return Future.error('Location services are disabled.');
+      // }
+      // permission = await Geolocator.checkPermission();
+      // if (permission == LocationPermission.denied) {
+      //   permission = await Geolocator.requestPermission();
+      //   if (permission == LocationPermission.denied) {
+      //     return Future.error('Location permissions are denied');
+      //   }
+      // }
 
-      currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      log(currentPosition.toString());
-      rebuildUi();
+      // currentPosition = await Geolocator.getCurrentPosition(
+      //     desiredAccuracy: LocationAccuracy.high);
+      // log(currentPosition.toString());
+      // rebuildUi();
       return currentPosition!;
     } catch (e) {
       log(e.toString());

@@ -5,6 +5,7 @@ import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 class SavedRecipesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
@@ -85,8 +86,17 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   }
 
   void toDishDetailsScreen(RecipeModel recipe) {
-    _navigationService.navigateToSavedRecipeDetailsView(
-        recipeModel: recipe,
-        randomRecipeList: IndexViewModel.getRandomDishes(recipe, []));
+   
+    _navigationService.navigateWithTransition(
+      SavedRecipeDetailsView(recipeModel: recipe,
+        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes)),
+     
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+      transitionStyle: Transition.downToUp,
+    
+     
+      
+    );
   }
 }

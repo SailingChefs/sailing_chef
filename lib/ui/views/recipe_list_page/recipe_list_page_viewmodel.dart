@@ -15,9 +15,7 @@ class RecipeListPageViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void toHomeView(bool isFromProfileView) {
-    isFromProfileView
-        ? _navigationService.back()
-        : _navigationService.replaceWithBottomNavBarView();
+  void toHomeView() {
+    _navigationService.replaceWithBottomNavBarView();
   }
 }

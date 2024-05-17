@@ -131,6 +131,7 @@ class Routes {
   static const viewAllDraftsView = '/view-all-drafts-view';
 
 
+
   static const searchView = '/search-view';
 
   static const all = <String>{
@@ -400,10 +401,8 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i15.RecipeListPageView: (data) {
-      final args = data.getArgs<RecipeListPageViewArguments>(nullOk: false);
       return _i35.MaterialPageRoute<dynamic>(
-        builder: (context) => _i15.RecipeListPageView(
-            key: args.key, isFromProfileView: args.isFromProfileView),
+        builder: (context) => const _i15.RecipeListPageView(),
         settings: data,
       );
     },
@@ -636,33 +635,6 @@ class AddRecipeViewArguments {
   @override
   int get hashCode {
     return drafts.hashCode ^ key.hashCode;
-  }
-}
-
-class RecipeListPageViewArguments {
-  const RecipeListPageViewArguments({
-    this.key,
-    required this.isFromProfileView,
-  });
-
-  final _i36.Key? key;
-
-  final bool isFromProfileView;
-
-  @override
-  String toString() {
-    return '{"key": "$key", "isFromProfileView": "$isFromProfileView"}';
-  }
-
-  @override
-  bool operator ==(covariant RecipeListPageViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key && other.isFromProfileView == isFromProfileView;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode ^ isFromProfileView.hashCode;
   }
 }
 
@@ -1113,18 +1085,14 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToRecipeListPageView({
-    _i36.Key? key,
-    required bool isFromProfileView,
+  Future<dynamic> navigateToRecipeListPageView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return navigateTo<dynamic>(Routes.recipeListPageView,
-        arguments: RecipeListPageViewArguments(
-            key: key, isFromProfileView: isFromProfileView),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1420,6 +1388,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
+  
 
   Future<dynamic> navigateToSearchView({
     _i36.Key? key,
@@ -1633,18 +1602,14 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRecipeListPageView({
-    _i36.Key? key,
-    required bool isFromProfileView,
+  Future<dynamic> replaceWithRecipeListPageView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return replaceWith<dynamic>(Routes.recipeListPageView,
-        arguments: RecipeListPageViewArguments(
-            key: key, isFromProfileView: isFromProfileView),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1940,7 +1905,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-
+  
 
   Future<dynamic> replaceWithSearchView({
     _i36.Key? key,

@@ -21,21 +21,16 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               Container(
                 height: 90.h,
                 width: 90.w,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: kcVeryLightGrey,
                   shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: user.displayPicture!.isEmpty
+                        ? const AssetImage('assets/images/misc/blank_image.png')
+                        : NetworkImage(user.displayPicture!) as ImageProvider,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: user.displayPicture!.isEmpty
-                        ? Image.asset(
-                            'assets/images/misc/blank_image.png',
-                            fit: BoxFit.cover,
-                          )
-                        : Image.network(
-                            user.displayPicture!,
-                            fit: BoxFit.cover,
-                          )),
               ),
               horizontalSpaceSmall,
               verticalSpaceTiny,

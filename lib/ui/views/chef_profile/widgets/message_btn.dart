@@ -34,28 +34,31 @@ class MessageBtuton extends StatelessWidget {
             color: kcPrimaryColor,
           )),
           onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                prefix,
-                color: kcwhitecolor,
-                size: 20.sp,
-              ),
-              Text(
-                buttonText,
-                style: globalTextStyle(
-                  fontSize: fontSize.sp,
-                  color: kcPrimaryColor,
-                  fontWeight: fontWeight,
+          child: FittedBox(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  prefix,
+                  color: kcwhitecolor,
+                  size: 20.sp,
                 ),
-              ),
-              Icon(
-                postfix,
-                color: kcwhitecolor,
-                size: 20.sp,
-              ),
-            ],
+                Text(
+                  buttonText,
+                  style: globalTextStyle(
+                    fontSize: fontSize.sp,
+                    color: kcPrimaryColor,
+                    fontWeight: fontWeight,
+                  ),
+                ),
+                Icon(
+                  postfix,
+                  color: kcwhitecolor,
+                  size: 20.sp,
+                ),
+              ],
+            ),
           ),
         ),
       ),

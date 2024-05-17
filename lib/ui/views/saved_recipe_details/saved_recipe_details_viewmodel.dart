@@ -57,6 +57,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   late List<double>? waveFormData;
   bool isPlaying = false;
   bool seeComments = false;
+  double volume = 0;
+  bool isMute = false;
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -66,6 +68,19 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       recipeId: recipe.docId!,
     ));
   }
+  void onVolumeUpIconPressed() {
+    isMute = !isMute;
+    if (isMute) {
+      volume = 0;
+    } else {
+      volume = 100;
+    }
+    playerController.setVolume(volume);
+    notifyListeners();
+  }
+
+
+
 
   void checkSave(String recipeId) {
     for (SavedRecipeModel savedRecipe in savedRecipeList) {
@@ -96,6 +111,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
+
   String calculateAverageRating(List<CommentModel> comments) {
     if (comments.isEmpty) {
       return '0.0'; // Return 0 if there are no comments
@@ -108,10 +124,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       if (comment.rating != null) {
         totalRating += comment.rating!;
       }
+   
     }
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
+       notifyListeners();
+      rebuildUi();
     return averageRating.toStringAsFixed(1);
   }
 
@@ -220,6 +239,20 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
+   String formattedDuration = "";
+  Future<void> durationCalculate(File path) async {
+    if (path.path.isNotEmpty && waveFormData != null) {
+      waveFormData = await playerController.extractWaveformData(path: path.path);
+      if (waveFormData!.isNotEmpty) {
+        Duration duration = Duration(
+            milliseconds: await playerController.getDuration(DurationType.max));
+        int minutes = duration.inMinutes;
+        int seconds = duration.inSeconds % 60;
+        formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+     
+      }
+    }
+  }
 
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
@@ -228,15 +261,23 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     File audioFile = File("$tempPath/audio.mpeg4");
     if (response.statusCode == 200) {
       await audioFile.writeAsBytes(response.bodyBytes);
+
       log("Download Complete");
       await playerController.preparePlayer(
         path: audioFile.path,
         volume: 100,
       );
+
       log("Player Ready");
     }
+    durationCalculate(audioFile);
   }
-
+  void durationStop() {
+    playerController.onCompletion.listen((event) {
+      stopListening();
+    });
+   
+  }
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
@@ -244,10 +285,11 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     await playerController
         .startPlayer(finishMode: FinishMode.pause)
         .then((value) {
-      // isPlaying = false;
+      // 
       // rebuildUi();
     });
     log("start Listening ends ${isPlaying.toString()}");
+    durationStop();
   }
 
   void stopListening() async {

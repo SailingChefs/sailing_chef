@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
@@ -143,16 +144,18 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void showRecipeList() {
-    _navigationService.navigateToRecipeListPageView(
-      isFromProfileView: true,
-    );
+    // _navigationService.navigateToRecipeListPageView(
+    //   isFromProfileView: true,
+    // );
   }
 
   Future<void> onClickUrl(String url) async {
+    EasyLoading.show();
     Uri uri = Uri.parse("https://$url");
     // if (await canLaunchUrlString(url)) {
     //   launchUrlString(url, );
     // }
     await launchUrl(uri);
+    EasyLoading.dismiss();
   }
 }
