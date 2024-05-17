@@ -42,7 +42,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                       ),
                       verticalSpaceMedium,
                       Follow_Message_Btns(user: user),
-                      user.userRole != 'chef'
+                      user.userRole == 'chef'
                           ?viewModel.isBusy
                               ? const ShimmerLoaderChefView()
                               : DishListScreen(user: user)

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
@@ -10,7 +11,7 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return Stack(
       children: [
-        UserdataServiceService.user.displayPicture == null &&
+        userDetails!.displayPicture == null &&
                 viewModel.selectedImageFile == null
             ? Container(
                 height: MediaQuery.sizeOf(context).height * 0.12,
@@ -62,8 +63,8 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                     backgroundImage: viewModel.selectedImageFile != null
                         ? FileImage(viewModel.selectedImageFile!)
                             as ImageProvider<Object>?
-                        : NetworkImage(UserdataServiceService
-                            .user.displayPicture!
+                        : NetworkImage(
+                            userDetails!.displayPicture!
                             .toString()),
                   ),
                   const GestureDetectorEdit(65, 75),

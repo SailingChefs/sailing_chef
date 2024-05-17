@@ -19,7 +19,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          appBar: TopBarEditProfile('Edit Profile'),
+          appBar: const TopBarEditProfile('Edit Profile'),
           body: SingleChildScrollView(
             child: Column(
               children: [
