@@ -41,17 +41,7 @@ class ProfileViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [_savedRecipeService, _cullinarySchoolService];
 
-  // List<SavedRecipeModel> get fetchSavedRecipesList {
-  //   return _savedRecipeService.savedRecipes;
-  // }
-  void myRecipesList(){
-    for(var recipe in RecipeService.recipes){
-       if(recipe.user!.uid == userDetails!.uid){
-        myRecipes.add(recipe);
-       }
-    }
-  }
-
+  
   // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
   void myRecipeSelected() {
     isMySelected = true;
@@ -109,7 +99,7 @@ class ProfileViewModel extends ReactiveViewModel {
   List<Course> get courses => _cullinarySchoolService.courses;
   void onViewModelReady() async {
     setBusy(true);
-    myRecipesList();
+    // myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
       _recipeService.initialized(),
@@ -122,7 +112,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
 
     ]);
-    // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
+    myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
 
 
     setBusy(false);
