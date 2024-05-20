@@ -11,8 +11,8 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Row(children: [
       Container(
-        height: 30.0.h,
-        width: 30.0.w,
+        height: 35.h,
+        width: 35.w,
         decoration: BoxDecoration(
           color: kcWhiteColor.withOpacity(0.7),
           shape: BoxShape.circle,
@@ -25,8 +25,8 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       ),
       horizontalSpaceTiny,
       recipe.user!.uid != userDetails!.uid ? Container(
-        height: 30.0.h,
-        width: 30.0.w,
+         height: 35.h,
+        width: 35.w,
         decoration: BoxDecoration(
           color: kcWhiteColor.withOpacity(0.7),
           shape: BoxShape.circle,

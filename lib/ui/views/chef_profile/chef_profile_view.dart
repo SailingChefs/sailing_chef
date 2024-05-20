@@ -26,14 +26,15 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          appBar: ChefProfileTopBar(uid: user.uid!,),
+          appBar: ChefProfileTopBar(
+            uid: user.uid!,
+          ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   Column(
                     children: [
                       ChefProfileDetailsDesc(
@@ -42,7 +43,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                       verticalSpaceMedium,
                       Follow_Message_Btns(user: user),
                       user.userRole == 'chef'
-                          ?viewModel.isBusy
+                          ? viewModel.isBusy
                               ? const ShimmerLoaderChefView()
                               : DishListScreen(user: user)
                           : Container(),
@@ -60,8 +61,10 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                                         TabBarChefProfileScreen(user),
                                         viewModel.isMySelected
                                             ? const RecipesProfileScreen()
-                                            : SavedChefProfileScreen(user,
-                                                savedRecipes: const []),
+                                            : SavedChefProfileScreen(
+                                                user,
+                                                savedRecipes: const [],
+                                              ),
                                       ],
                                     )
                               : Container(),

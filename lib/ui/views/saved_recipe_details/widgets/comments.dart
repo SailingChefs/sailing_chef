@@ -12,25 +12,21 @@ class CommentsDetailsScreen
   final RecipeModel recipeModel;
   const CommentsDetailsScreen({super.key, required this.recipeModel});
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
-    recipeModel.comment = viewModel.commentService.comments;
+    // recipeModel.comment = viewModel.commentService.comments;
     recipeModel.comment!.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     log(recipeModel.comment.toString());
     if (recipeModel.comment != null) {
-      log('here');
-      List<CommentModel> comment = recipeModel.comment!;
-      return [
-        for (var comment in comment)
-          CustomListTileComments(
-            name: comment.userName,
-            date: comment.timestamp,
-            description: comment.content,
-            image: comment.userImageUrl,
-            ratingImages: comment.imageUrl!,
-            rating: comment.rating!,
-          ),
-      ];
-      // ignore: unnecessary_null_comparison
-    } else if (recipeModel.comment == []) {
+  log('here');
+  List<CommentModel> comments = recipeModel.comment!;
+  return comments.take(3).map((comment) => CustomListTileComments(
+    name: comment.userName,
+    date: comment.timestamp,
+    description: comment.content,
+    image: comment.userImageUrl,
+    ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
+    rating: comment.rating ?? 0, // use 0 if rating is null
+  )).toList();
+}else if (recipeModel.comment == []) {
       log('here2');
       return [
         Text(
@@ -87,9 +83,9 @@ class CommentsDetailsScreen
             Text(
               'Reviews',
               style: globalTextStyle(
-                fontSize: 17.0.sp,
+                fontSize: 15.0.sp,
+                fontWeight: FontWeight.w700,
                 color: kcBlackColor,
-                fontWeight: FontWeight.w600,
               ),
             ),
             Row(
@@ -97,9 +93,9 @@ class CommentsDetailsScreen
                 Text(
                   viewModel.calculateAverageRating(recipeModel.comment!),
                   style: globalTextStyle(
+                    fontSize: 18.0.sp,
+                    fontWeight: FontWeight.w700,
                     color: kcBlackColor,
-                    fontSize: 24.0.sp,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const Icon(
@@ -144,7 +140,9 @@ class CommentsDetailsScreen
                     border: InputBorder.none,
                     hintText: 'Add your Review',
                     hintStyle: globalTextStyle(
-                        fontSize: 15.0.sp,
+                        fontSize: 14.0.sp,
+                        letterSpacing: -0.3,
+
                         color: kcBlackColor.withOpacity(0.4),
                         fontWeight: FontWeight.w400),
                   ),

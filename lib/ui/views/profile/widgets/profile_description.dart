@@ -19,9 +19,7 @@ class ProfileDescriptionProfileScreen
         children: [
           verticalSpaceSmall,
           GestureDetector(
-            onTap: () {
-              viewModel.navigateToBlockScreen();
-            },
+            onTap: viewModel.navigateToBlockScreen,
             child: Text(
               userDetails!.displayName!.isEmpty
                   ? ''

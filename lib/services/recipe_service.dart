@@ -406,9 +406,9 @@ class RecipeService with ListenableServiceMixin {
         List<CommentModel> comments = commentsSnapshot.docs
             .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
             .toList();
+            log(comments.toString());
         recipe.comment = comments;
-
-        // Fetch user details by UID and assign it to the recipe
+        log(recipe.comment.toString());
         UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         recipe.user = user;
 

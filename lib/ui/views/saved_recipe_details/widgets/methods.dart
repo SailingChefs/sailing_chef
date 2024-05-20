@@ -34,18 +34,21 @@ class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 ),
                 horizontalSpaceSmall,
                 Flexible(
-                  child: Text(capitalizeEachWord(recipe.methods[i]),
-                      style: GoogleFonts.inter(
-                        textStyle: globalTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: kcBlackColor.withOpacity(0.5)),
-                      )),
+                  child: Text(
+                    capitalizeEachWord(recipe.methods[i]),
+                    textAlign: TextAlign.start,
+                    style: globalTextStyle(
+                      letterSpacing: -0.1,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
                 ),
               ],
             ),
             verticalSpaceMedium,
-            verticalSpaceSmall,
+            // verticalSpaceSmall,
           ],
         ),
     ];
@@ -56,13 +59,17 @@ class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Method",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          style: globalTextStyle(
+            fontSize: 15.0.sp,
+            fontWeight: FontWeight.w700,
+            color: kcBlackColor,
+          ),
         ),
         verticalSpaceMedium,
         ...createIngredientWidgets(),
-        verticalSpaceSmall,
+        // verticalSpaceSmall,
       ],
     );
   }

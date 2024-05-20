@@ -15,7 +15,7 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return SizedBox(
       width: double.maxFinite,
-      height: 70,
+      height: 70.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
@@ -24,13 +24,13 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
               ? FollowBtuton(
                   onPressed: () => viewModel.onFollow(user),
                   buttonText: 'Following',
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 )
               : FollowBtuton(
                   onPressed: () => viewModel.onFollow(user),
                   buttonText: 'Follow',
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 ),
           // horizontalSpaceTiny,
@@ -39,7 +39,7 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
               viewModel.moveToChatScreen(user);
             },
             buttonText: 'Message',
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),
         ],

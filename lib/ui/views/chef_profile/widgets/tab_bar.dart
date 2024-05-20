@@ -29,7 +29,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Myrecipes'
-                      ? kcPrimaryColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -41,7 +41,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Myrecipes'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -61,7 +61,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Saved'
-                      ? kcPrimaryColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -74,7 +74,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                               fontWeight: FontWeight.w600,
                               color: viewModel.selectedTab == 'Saved'
                                   ? kcVeryLightGrey
-                                  : kcPrimaryColor,
+                                  : kcBlackColor.withOpacity(0.5),
                             ),
                           )
                         : Text(
@@ -83,7 +83,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                               fontWeight: FontWeight.w600,
                               color: viewModel.selectedTab == 'Saved'
                                   ? kcVeryLightGrey
-                                  : kcPrimaryColor,
+                                  : kcBlackColor.withOpacity(0.5),
                             ),
                           ),
                   ],

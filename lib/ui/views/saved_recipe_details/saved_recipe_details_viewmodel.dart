@@ -130,8 +130,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-       notifyListeners();
-      rebuildUi();
+      
     return averageRating.toStringAsFixed(1);
   }
 

@@ -10,7 +10,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -25,20 +25,18 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
                 color: kcVeryLightGrey,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kcBlackColor,
-                size: 20.sp,
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: kcBlackColor,
+                  size: 18.sp,
+                ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () {
               viewModel.showBottomSheet(uid);
-              // viewModel.toSettings(
-              //   isCurrentUser!,
-              //   uid,
-              // );
             },
             child: Container(
               alignment: Alignment.center,
@@ -49,10 +47,12 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
                 color: kcVeryLightGrey,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                FlutterRemix.more_fill,
-                color: kcBlackColor,
-                size: 20.sp,
+              child: Center(
+                child: Icon(
+                  FlutterRemix.more_fill,
+                  color: kcBlackColor,
+                  size: 18.sp,
+                ),
               ),
             ),
           ),

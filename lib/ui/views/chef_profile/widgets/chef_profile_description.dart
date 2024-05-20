@@ -19,8 +19,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 90.h,
-                width: 90.w,
+                height: 80.h,
+                width: 80.w,
                 decoration: BoxDecoration(
                   color: kcVeryLightGrey,
                   shape: BoxShape.circle,
@@ -33,7 +33,6 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                 ),
               ),
               horizontalSpaceSmall,
-              verticalSpaceTiny,
               GestureDetector(
                 onTap: viewModel.showRecipeList,
                 child: Column(
@@ -43,17 +42,21 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     Text(
                       user.recipes!.length.toString(),
                       style: globalTextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                     verticalSpaceTiny,
                     Text(
                       'Dishes',
                       style: globalTextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                   ],
                 ),
@@ -68,17 +71,21 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     Text(
                       viewModel.followers.length.toString(),
                       style: globalTextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                     verticalSpaceTiny,
                     Text(
                       'Followers',
                       style: globalTextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                   ],
                 ),
@@ -93,17 +100,21 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     Text(
                       user.following!.length.toString(),
                       style: globalTextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                     verticalSpaceTiny,
                     Text(
                       'Following',
                       style: globalTextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                   ],
                 ),
@@ -120,6 +131,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   Text(
                     capitalizeEachWord(user.displayName!),
                     style: globalTextStyle(
+                        letterSpacing: -0.3,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: kcBlackColor),
@@ -135,7 +147,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                           : capitalizeEachWord(
                               '${user.boatName!}, ${user.namedLocation}'),
                   style: globalTextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
+                    letterSpacing: -0.3,
                     fontWeight: FontWeight.w600,
                     color: kcBlackColor,
                   ),
@@ -148,7 +161,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     Text(
                       user.bio!,
                       style: globalTextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
                         fontWeight: FontWeight.w400,
                         color: kcBlackColor,
                       ),
@@ -175,7 +189,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       child: Text(
                         user.link!.isEmpty ? ' ' : user.link!,
                         style: globalTextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
+                          letterSpacing: -0.3,
                           fontWeight: FontWeight.w400,
                           color: kcPrimaryColor,
                           decoration: TextDecoration.underline,
