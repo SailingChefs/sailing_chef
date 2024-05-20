@@ -39,6 +39,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     Flexible(
                       child: GoogleMap(
                         mapType: MapType.normal,
+                        zoomControlsEnabled: false,
                         
                         mapToolbarEnabled: false,
                         onTap: (value) async {

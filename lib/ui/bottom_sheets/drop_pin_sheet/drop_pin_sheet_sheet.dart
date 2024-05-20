@@ -27,7 +27,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 5,
+        horizontal: 3,
       ),
       decoration: const BoxDecoration(
         color: kcwhitecolor,

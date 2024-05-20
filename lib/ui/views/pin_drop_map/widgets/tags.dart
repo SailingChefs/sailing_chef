@@ -22,8 +22,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                 spreadRadius: 5,
               )
             ]),
-        // width: 400.w,
-        // height: 435.h,
+        width: MediaQuery.of(context).size.width*0.95,
+        height: MediaQuery.of(context).size.height*0.54,
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10),
           child: Column(

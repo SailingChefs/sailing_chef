@@ -26,7 +26,7 @@ class PindropDialogueboxDialog
 
     return GestureDetector(
       onTap: () {
-        //  completer(DialogResponse(confirmed: true));
+        
         viewModel.callDeatilsDialog();
       },
       child: Dialog(
@@ -47,8 +47,8 @@ class PindropDialogueboxDialog
                 child: Image.network(
                   pinnedLocation.picture.first,
                   fit: BoxFit.cover,
-                  height: 140,
-                  width: 97,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.26,
                 ),
               ),
             ),
