@@ -40,8 +40,6 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
 
                                rating: calculateAverageRating(recipe.comment!) ,
                                chefId: recipe.user!.uid!,
-
-                                savedRecipeList: viewModel.savedRecipes,
                                 recipeId: recipe.docId!,
                                 onTap: () =>
                                     viewModel.toDishDetailsScreen(recipe),
@@ -53,7 +51,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 duration: recipe.prepTime,
                                 chefImagePath: recipe.user!.displayPicture!);
                           },
-                          childCount: viewModel.searchRecipes(recipes).length,
+                          childCount: viewModel.searchRecipes(recipes).length >= 4 ? 4: viewModel.searchRecipes(recipes).length ,
                         ),
                       ),
                     ],
@@ -100,7 +98,6 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
 
                                   chefId: recipes[index].uid,
                                    rating: calculateAverageRating(recipes[index].comment!),
-                                    savedRecipeList: viewModel.savedRecipes,
                                     recipeId: recipes[index].docId!,
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),
@@ -115,7 +112,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                         recipes[index].user!.displayPicture!);
 
                               },
-                              childCount: 4,
+                              childCount: recipes.length >= 4 ? 4: recipes.length,
                             ),
                           ),
                         ],

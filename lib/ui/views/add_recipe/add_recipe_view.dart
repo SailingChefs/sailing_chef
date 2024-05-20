@@ -32,16 +32,21 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                   style: globalTextStyle(
                       fontSize: 18.0.dg,
                       color: kcBlackColor,
-                      fontWeight: FontWeight.w500),
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w500,
+                      ),
                 ),
                 centerTitle: true,
                 actions: [
-                  GestureDetector(
-                    onTap: viewModel.showDraftDialog,
-                    child: Icon(
-                      Icons.file_copy,
-                      color: kcPrimaryColor,
-                      size: 24.sp,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: viewModel.showDraftDialog,
+                      child: Icon(
+                        Icons.file_copy,
+                        color: kcPrimaryColor,
+                        size: 24.sp,
+                      ),
                     ),
                   ),
                 ],

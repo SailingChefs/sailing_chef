@@ -97,30 +97,28 @@ class CustomListTileComments extends StatelessWidget {
               ratingImages.isNotEmpty
                   ? SizedBox(
                       height: 100.h,
-                      child: Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: ratingImages.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () => openImagePreview(context, index),
-                              child: SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      ratingImages[index],
-                                      fit: BoxFit.cover,
-                                    ),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: ratingImages.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => openImagePreview(context, index),
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    ratingImages[index],
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     )
                   : const SizedBox(),

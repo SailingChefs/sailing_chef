@@ -83,7 +83,7 @@ class PinDropService with ListenableServiceMixin {
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
 
-    await FirebaseFirestore.instance.collection('pins').add(data);
+    await firebasestore.collection('pins').add(data);
   }
 
   Future<String> uploadImage(File imageFile, String fileName) async {
@@ -133,7 +133,7 @@ class PinDropService with ListenableServiceMixin {
   Future<List<PinnedLocation>> getPinsNearUserLocation(
       LatLng userLocation) async {
     final List<PinnedLocation> pins = [];
-    final ref = FirebaseFirestore.instance.collection('pins');
+    final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
       center: GeoFirePoint(
         GeoPoint(
@@ -161,7 +161,7 @@ class PinDropService with ListenableServiceMixin {
   Future<List<PinnedLocation>> getPinsUsingTags(
       LatLng userLocation, List<String> tags) async {
     final List<PinnedLocation> pins = [];
-    final ref = FirebaseFirestore.instance.collection('pins');
+    final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
       center: GeoFirePoint(
         GeoPoint(

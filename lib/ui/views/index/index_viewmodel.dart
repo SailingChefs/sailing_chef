@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
@@ -21,10 +20,13 @@ class IndexViewModel extends BaseViewModel {
   List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
   List<RecipeModel> get dishes => RecipeService.recipes;
-  bool isMySelected = true;
-  bool isSavedSelected = false;
+  bool ischefSelected = true;
+  bool isculinarySelected = false;
   String selectedTab = 'Yacht Chefs';
-  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  // List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+
+  // @override
+  //     bool get disposeViewModel => false;
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
@@ -51,23 +53,27 @@ class IndexViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-
-
-
+  bool? isInitialised;
+  bool showShimmer = false;
   void onViewModelReady() async {
-    setBusy(true);
-    await Future.wait([
-      _cullinaryService.culinaryInit(),
-      _chefService.chefInit(),
-      _savedRecipeService.init(),
-      _recipeService.initialized(),
+    if (isInitialised == null) {
+      // setBusy(true);
+      showShimmer = true;
+      await Future.wait([
+        _cullinaryService.culinaryInit(),
+        _chefService.chefInit(),
+        // _savedRecipeService.init(),
+        _recipeService.initialized(),
+      ]);
+      isInitialised = true;
+      showShimmer = false;
+      notifyListeners();
+      rebuildUi();
 
-
-
-    ]);
-    notifyListeners();
-    rebuildUi();
-    setBusy(false);
+      // setBusy(false);
+    } else if (isInitialised == true) {
+      return;
+    }
   }
 
   void toAllChefsView() {
@@ -77,16 +83,16 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void yatchSelected() {
-    isMySelected = true;
-    isSavedSelected = false;
+    ischefSelected = true;
+    isculinarySelected = false;
     notifyListeners();
     rebuildUi();
   }
 
   void savedSelected() async {
-    isSavedSelected = true;
+    isculinarySelected = true;
 
-    isMySelected = false;
+    ischefSelected = false;
     notifyListeners();
     rebuildUi();
   }
@@ -108,17 +114,14 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toDishDetailsScreen(index) {
-
     _navigationService.navigateWithTransition(
-      SavedRecipeDetailsView(recipeModel:  dishes[index],
-        randomRecipeList: IndexViewModel.getRandomDishes( dishes[index], dishes)),
-     
+      SavedRecipeDetailsView(
+          recipeModel: dishes[index],
+          randomRecipeList:
+              IndexViewModel.getRandomDishes(dishes[index], dishes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
-    
-     
-      
     );
     // _navigationService.navigateToSavedRecipeDetailsView(
     //   recipeModel: dishes[index],

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 
@@ -76,21 +75,24 @@ class ListViewCulinaryChool
                                   ? Column(
                                       children: [
                                         verticalSpace(5),
-                                        Text(
-                                          viewModel
-                                              .cullinary[index].namedLocation!,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: globalTextStyle(
-                                            letterSpacing: -0.3,
-                                            
-                                            fontSize: viewModel.cullinary[index]
-                                                        .namedLocation!.length >
-                                                    20
-                                                ? 12.sp
-                                                : 14.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: kcBlackColor,
+                                        SizedBox(
+                                          width: 170.w,
+                                          child: Text(
+                                            viewModel
+                                                .cullinary[index].namedLocation!,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: globalTextStyle(
+                                              letterSpacing: -0.3,
+                                              
+                                              fontSize: viewModel.cullinary[index]
+                                                          .namedLocation!.length >
+                                                      20
+                                                  ? 12.sp
+                                                  : 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: kcBlackColor,
+                                            ),
                                           ),
                                         ),
                                         verticalSpace(5),

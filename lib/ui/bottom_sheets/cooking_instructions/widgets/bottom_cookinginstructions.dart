@@ -19,7 +19,7 @@ class BottomCookingInstructions
             child: RoundedTransparentTextField(
               labelText: 'Add one or multiple steps',
               controller: viewModel.cookingInstructionController,
-              fillColor: Color(0xFF427536).withOpacity(0.04),
+              fillColor: const Color(0xFF427536).withOpacity(0.04),
               textColor: kcBlackColor.withOpacity(0.4),
               prefixIcon: true,
               prefixIconData: Icons.add,

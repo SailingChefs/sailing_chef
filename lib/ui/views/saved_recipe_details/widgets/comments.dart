@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -11,35 +10,23 @@ class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const CommentsDetailsScreen({super.key, required this.recipeModel});
-  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+ List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
     recipeModel.comment!.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    log(recipeModel.comment.toString());
+    List<CustomListTileComments> commentTiles = [];
     if (recipeModel.comment != null) {
-  log('here');
-  List<CommentModel> comments = recipeModel.comment!;
-  return comments.take(3).map((comment) => CustomListTileComments(
-    name: comment.userName,
-    date: comment.timestamp,
-    description: comment.content,
-    image: comment.userImageUrl,
-    ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
-    rating: comment.rating ?? 0, // use 0 if rating is null
-  )).toList();
-}else if (recipeModel.comment == []) {
-      log('here2');
-      return [
-        Text(
-          'No comments yet',
-          style: globalTextStyle(
-              fontSize: 14.0.sp,
-              color: kcBlackColor,
-              fontWeight: FontWeight.w300),
-        ),
-      ];
+        List<CommentModel> comments = recipeModel.comment!;
+        commentTiles = comments.map((comment) => CustomListTileComments(
+          name: comment.userName,
+          date: comment.timestamp,
+          description: comment.content,
+          image: comment.userImageUrl,
+          ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
+          rating: comment.rating ?? 0, // use 0 if rating is null
+        )).toList();
     }
-    return [];
-  }
+    return commentTiles;
+}
 
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
@@ -107,9 +94,6 @@ class CommentsDetailsScreen
             ),
           ],
         ),
-        // verticalSpaceSmall,
-        // ...createCommentWidgets(viewModel),
-        // verticalSpaceSmall,
         if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
         verticalSpaceSmall,
         Container(

@@ -14,9 +14,10 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Chef\'s Note',
           style: globalTextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: kcBlackColor),
+               fontSize: 16.sp,
+                  letterSpacing: -0.5,
+                  fontWeight: FontWeight.w600,
+                  color: kcBlackColor),
         ),
         verticalSpaceTiny,
         (drafts?.chefNote.isNotEmpty ?? false) &&

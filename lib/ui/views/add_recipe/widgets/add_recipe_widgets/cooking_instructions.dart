@@ -15,8 +15,9 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
           children: [
             Text(
               'Cooking Instructions(Method)',
-              style: globalTextStyle(
-                  fontSize: 18.sp,
+             style: globalTextStyle(
+               fontSize: 16.sp,
+                  letterSpacing: -0.5,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
@@ -108,7 +109,8 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           Text(
                             'Add one or multiple steps',
                             style: globalTextStyle(
-                                fontSize: 14,
+                                fontSize: 14.sp,
+                                letterSpacing: -0.5,
                                 fontWeight: FontWeight.w600,
                                 color: kcBlackColor.withOpacity(0.5)),
                           ),
@@ -140,7 +142,8 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       Text(
                         'Add one or multiple steps',
                         style: globalTextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
+                                letterSpacing: -0.5,
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor.withOpacity(0.5)),
                       ),

@@ -43,7 +43,8 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       letterSpacing: -0.3,
                       fontWeight: FontWeight.w400,
                       color: kcBlackColor.withOpacity(0.5),
-                    ))
+                    ),
+                    ),
               ],
             ),
           ],

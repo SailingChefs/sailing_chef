@@ -16,7 +16,7 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
       width: screenWidth(context) * 0.83,
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.all(Radius.circular(30.dg)),
+        borderRadius: BorderRadius.all(Radius.circular(30.dg),),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

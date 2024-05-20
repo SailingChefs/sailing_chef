@@ -11,25 +11,25 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
     return Row(
       children: [
         Container(
-          height: 45,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: kcPrimaryColor.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(15),
+            color: kcPrimaryColorDark.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(30),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Icon(
                 FlutterRemix.time_line,
                 color: kcBlackColor,
-                size: 21.dg,
+                size: 18.dg,
               ),
-              horizontalSpaceSmall,
+              // horizontalSpaceSmall,
               Text(
-                ' ${recipeModel.prepTime}',
+                ' ${recipeModel.prepTime.trim()}',
                 style: globalTextStyle(
-                  fontSize: 16.0.sp,
+                  fontSize: 12.0.sp,
                   color: kcBlackColor,
                   fontWeight: FontWeight.w400,
                 ),
@@ -37,47 +37,37 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
             ],
           ),
         ),
-        horizontalSpaceMedium,
+        horizontalSpaceSmall,
         Container(
-            width: 130,
-            height: 45,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: kcPrimaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  GestureDetector(
-                    onTap: viewModel.decrementServings,
-                    child: Container(
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        color: kcPrimaryColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: GestureDetector(
-                          onTap: viewModel.decrementServings,
-                          child: const Icon(
-                            FlutterRemix.subtract_fill,
-                            color: kcWhiteColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(' ${viewModel.servings} '),
-                  GestureDetector(
-                    onTap: viewModel.incrementServings,
-                    child: const Icon(
-                      FlutterRemix.add_circle_fill,
-                      color: kcPrimaryColor,
-                    ),
-                  ),
-                ])),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: BoxDecoration(
+            color: kcPrimaryColorDark.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Center(
+                child: Icon(
+                  FlutterRemix.group_line,
+                  color: kcPrimaryColor,
+                  size: 18.0,
+                ),
+              ),
+
+              // horizontalSpaceSmall,
+              Text(
+                ' ${recipeModel.servingSize} servings',
+                style: globalTextStyle(
+                  fontSize: 12.0.sp,
+                  color: kcBlackColor,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -65,7 +65,7 @@ class TimeAndServingRecipeShow extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                ])),
+                ],),),
       ],
     );
   }

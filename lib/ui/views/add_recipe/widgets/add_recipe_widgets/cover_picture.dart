@@ -60,12 +60,17 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 ),
                               ),
                               Positioned(
-                                  bottom: 10,
-                                  left: 10,
-                                  child: Text(
-                                    'video',
-                                    style: globalTextStyle(fontSize: 7.sp),
-                                  )),
+                                bottom: 10,
+                                left: 10,
+                                child: Text(
+                                  'video',
+                                  style: globalTextStyle(
+                                      fontSize: 8.sp,
+                                      letterSpacing: -0.5,
+                                      fontWeight: FontWeight.w600,
+                                      color: kcwhitecolor.withOpacity(0.5)),
+                                ),
+                              ),
                             ],
                           );
                         } else if (media.contains('.jpg') ||
@@ -374,21 +379,24 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                           Image.asset(
                             'assets/images/misc/Image.png',
                             height: 100.0.h,
-                            width: 100.0.w,
+                            // width: 100.0.w,
                           ),
                           Text(
                             'Add Cover Photo',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: globalTextStyle(
                               fontSize: 16.0.sp,
-                              fontWeight: FontWeight.bold,
+                              letterSpacing: -0.7,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
                             ),
                           ),
                           verticalSpaceTiny,
                           Text(
                             '(upto 12 Mb)',
-                            style: TextStyle(
+                            style: globalTextStyle(
                               fontSize: 14.0.sp,
+                              letterSpacing: -0.5,
                               color: Colors.grey,
                             ),
                           ),

@@ -31,8 +31,6 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
 
                   chefId: recipe.user!.uid!,
                   rating: calculateAverageRating(recipes[index].comment!),
-
-                    savedRecipeList: viewModel.savedRecipes,
                     recipeId: recipe.docId!,
                     onTap: () => viewModel.toDishDetailsScreen(recipe),
                     foodImagePath: recipe.coverImage

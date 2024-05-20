@@ -115,17 +115,11 @@ class ProfileViewModel extends ReactiveViewModel {
     myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
-      // _recipeService.initialized(),
-
-      // _recipeService.initialized(),
-      //  _followService.init(userDetails!.uid!, false),
 
       userDetails!.userRole == 'cullinary'
           ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
           : ini(),
     ]);
-    // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
-
     setBusy(false);
   }
 
@@ -137,7 +131,6 @@ class ProfileViewModel extends ReactiveViewModel {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
-    // _navigationService.navigateToRecipeListPageView(isFromProfileView: true);
   }
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {

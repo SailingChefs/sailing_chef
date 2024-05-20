@@ -17,10 +17,11 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
               children: [
                 Text(
                   'Cooking Time',
-                  style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor),
+                 style: globalTextStyle(
+               fontSize: 16.sp,
+                  letterSpacing: -0.5,
+                  fontWeight: FontWeight.w600,
+                  color: kcBlackColor),
                 ),
                 horizontalSpaceTiny,
                 Text('*',

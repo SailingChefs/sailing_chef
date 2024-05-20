@@ -17,8 +17,9 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
           children: [
             Text(
               'Ingredients',
-              style: globalTextStyle(
-                  fontSize: 18.sp,
+             style: globalTextStyle(
+               fontSize: 16.sp,
+                  letterSpacing: -0.5,
                   fontWeight: FontWeight.w600,
                   color: kcBlackColor),
             ),
@@ -69,7 +70,9 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                           '${ingredient.quantity} ${ingredient.unit}',
                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(
-                                              fontSize: 14,
+                                              fontSize: 14.sp,
+                                letterSpacing: -0.5,
+
                                               fontWeight: FontWeight.w600,
                                               color: kcBlackColor),
                                         ),
@@ -83,7 +86,9 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                           capitalizeEachWord(ingredient.name),
                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(
-                                              fontSize: 16,
+                                              fontSize: 16.sp,
+                                letterSpacing: -0.5,
+
                                               fontWeight: FontWeight.w400,
                                               color: kcBlackColor
                                                   .withOpacity(0.87)),
@@ -134,7 +139,9 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           Text(
                             'Add Ingredient',
                             style: globalTextStyle(
-                                fontSize: 14,
+                                fontSize: 14.sp,
+                                letterSpacing: -0.5,
+
                                 fontWeight: FontWeight.w600,
                                 color: kcBlackColor.withOpacity(0.5)),
                           ),
@@ -164,7 +171,9 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                       Text(
                         'Add Ingredient',
                         style: globalTextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
+                                letterSpacing: -0.5,
+
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor.withOpacity(0.5)),
                       ),

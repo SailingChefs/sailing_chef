@@ -12,10 +12,11 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
       children: [
         Text(
           'Add your filter',
-          style: globalTextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: kcBlackColor),
+        style: globalTextStyle(
+               fontSize: 16.sp,
+                  letterSpacing: -0.5,
+                  fontWeight: FontWeight.w600,
+                  color: kcBlackColor),
         ),
         verticalSpaceSmall,
         viewModel.tagsList.isEmpty

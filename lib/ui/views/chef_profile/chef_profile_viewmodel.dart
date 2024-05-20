@@ -33,6 +33,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<RecipeModel>? chefRecipes;
 
   List<String> get followers => _followService.followers;
+  final ScrollController scrollController = ScrollController();
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   List<SavedRecipeModel>? userSavedRecipe;
@@ -81,6 +82,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
     if (check) {
       isFollowing = true;
     }
+  }
+    void toDishesScreen() {
+    scrollController.animateTo(
+      scrollController.position.devicePixelRatio * 100,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   void goToFollowingList() {

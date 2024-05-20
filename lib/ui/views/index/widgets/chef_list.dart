@@ -82,13 +82,13 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-                                      height: 201.h,
+                                      height: 185.h,
                                     )
                                   : Image.network(
                                       chef.displayPicture!,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
-                                      height: 201.h,
+                                      height: 185.h,
                                     ),
                             ),
                             Padding(

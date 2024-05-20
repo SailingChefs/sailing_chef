@@ -10,11 +10,9 @@ class UserModel {
   final String? boatName;
   final DateTime? createdTime;
   String? displayPicture;
-  final String? dob;
   final List<String>? followers;
   final List<String>? following;
   final String? link;
-  final String? phoneNumber;
   final List<String>? savedRecipes;
   final List<String>? blockedAccounts;
   final List<String>? schoolCourses;
@@ -35,11 +33,9 @@ class UserModel {
     this.createdTime,
     this.displayPicture,
     this.userDocId,
-    this.dob,
     this.followers,
     this.following,
     this.link,
-    this.phoneNumber,
     this.savedRecipes,
     this.blockedAccounts,
   });
@@ -54,12 +50,10 @@ class UserModel {
       'boat_name': boatName,
       'created_time': createdTime,
       'display_picture': displayPicture,
-      'dob': dob,
       'followers': followers,
       'following': following,
       'link': link,
       'address': namedLocation,
-      'phone_number': phoneNumber,
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
@@ -78,11 +72,9 @@ class UserModel {
       boatName: data['boat_name'],
       createdTime: (data['created_time'] as Timestamp?)?.toDate(),
       displayPicture: data['display_picture'],
-      dob: data['dob'],
       followers: List<String>.from(data['followers'] ?? []),
       following: List<String>.from(data['following'] ?? []),
       link: data['link'],
-      phoneNumber: data['phone_number'],
       savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
       blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
       schoolCourses: List<String>.from(data['school_courses'] ?? []),

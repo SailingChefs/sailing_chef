@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
@@ -15,12 +18,12 @@ class SavedRecipeService with ListenableServiceMixin {
   // final _userService = locator<UserServices>();
 
   Future<void> init() async {
+    // if(isInitialised) return;
     savedRecipes = await _fetchSavedRecipes();
     isInitialised = true;
     notifyListeners();
   }
 
-  followingRecipe() {}
 
   Future<void> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
     try {
@@ -32,6 +35,8 @@ class SavedRecipeService with ListenableServiceMixin {
         'saved_Recipes': FieldValue.arrayUnion([savedRecipe.recipeId])
       });
       savedRecipes.add(savedRecipe);
+      userDetails!.savedRecipes!.add(savedRecipe.recipeId);
+      log(userDetails!.savedRecipes.toString());
       showToast(message: 'Recipe saved successfully');
       notifyListeners();
     } catch (e) {
@@ -50,6 +55,7 @@ class SavedRecipeService with ListenableServiceMixin {
       });
       showToast(message: 'Recipe removed successfully');
       savedRecipes.removeWhere((recipe) => recipe.recipeId == recipeId);
+      userDetails!.savedRecipes!.removeWhere((recipe) => recipe == recipeId);
       notifyListeners();
     } catch (e) {
       // Handle error as needed
@@ -58,11 +64,11 @@ class SavedRecipeService with ListenableServiceMixin {
 
   Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
     try {
-      if (!isInitialised) {
-        throw "Service not initialised";
-      }
+      // if (!isInitialised) {
+      //   throw "Service not initialised";
+      // }
 
-      if (savedRecipes.map((e) => e.recipeId).contains(savedRecipe.recipeId)) {
+      if (userDetails!.savedRecipes!.map((e) => e).contains(savedRecipe.recipeId)) {
         _removeSavedRecipe(savedRecipe.recipeId);
       } else {
         _addSavedRecipe(savedRecipe);

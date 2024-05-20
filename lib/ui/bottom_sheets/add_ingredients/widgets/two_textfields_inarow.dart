@@ -29,7 +29,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
-                    fillColor: Color(0xFF427536).withOpacity(0.04),
+                    fillColor: const Color(0xFF427536).withOpacity(0.04),
                     textColor: kcBlackColor.withOpacity(0.4),
                   ),
                 ),
