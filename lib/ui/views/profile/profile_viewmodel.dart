@@ -120,9 +120,8 @@ class ProfileViewModel extends ReactiveViewModel {
       // _recipeService.initialized(),
       //  _followService.init(userDetails!.uid!, false),
 
-      userDetails!.userRole == 'cullinary'
-          ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
-          : ini(),
+      _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
+         
     ]);
     // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
 

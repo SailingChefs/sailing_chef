@@ -24,7 +24,8 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
     Widget? child,
   ) {
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pop();
+      completer(DialogResponse(confirmed: true));
+      
     });
 
     return Dialog(

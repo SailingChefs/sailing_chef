@@ -1,3 +1,4 @@
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet_model.dart';
 
@@ -6,11 +7,11 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
       {required this.color,
       required this.hinttext,
       required this.controller,
-      required this.suffixIcon,
+       this.suffixIcon,
       super.key});
   final String hinttext;
   final Color color;
-  final IconData suffixIcon;
+  final Image? suffixIcon;
   final TextEditingController controller;
   @override
   Widget build(BuildContext context, CoursesSheetModel viewModel) {
@@ -40,7 +41,7 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
                 border: InputBorder.none,
                 hintText: hinttext,
                 hintStyle: TextStyle(color: color),
-                suffixIcon: Icon(suffixIcon),
+                suffixIcon:  Image.asset('assets/images/icons/link.png',),
               ),
             ),
           ),

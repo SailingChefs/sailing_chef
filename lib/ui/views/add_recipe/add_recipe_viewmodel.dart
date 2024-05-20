@@ -688,7 +688,6 @@ Future<void> durationCalculate(File path) async {
     if (value.isVideo) {
       controller = VideoPlayerController.file(value);
       controller.play();
-      notifyListeners();
     } else {}
   }
 

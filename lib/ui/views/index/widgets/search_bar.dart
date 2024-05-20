@@ -16,10 +16,12 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               viewModel.toSearch();
             },
             child: Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.05,
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  const EdgeInsets.only(left: 16.0),
               decoration: BoxDecoration(
-                color: kcsgreycolor,
+                color: kcbuttoncolor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
@@ -44,12 +46,13 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
             ),
           ),
         ),
-        horizontalSpaceTiny,
+        verticalSpaceMedium,
         IconButton(
           onPressed: viewModel.goToFilterView,
-          icon: const Icon(FlutterRemix.equalizer_line),
+          icon: const Icon(FlutterRemix.equalizer_line,color: filterIconColor,),
           color: kcPrimaryColor,
-          iconSize: 30.dg,
+          iconSize: 32.h,
+         
         ),
       ],
     );

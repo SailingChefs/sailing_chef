@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';

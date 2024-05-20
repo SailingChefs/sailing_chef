@@ -12,7 +12,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     screenHeight(context);
-    return Column(
+    return viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Column(
       children: [
         SizedBox(
           height: screenHeight(context) * 0.319,

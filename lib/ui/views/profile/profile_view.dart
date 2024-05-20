@@ -51,8 +51,8 @@ class ProfileView extends StackedView<ProfileViewModel> {
                               onPressed: viewModel.toFilterView,
                               icon: Icon(
                                 FlutterRemix.equalizer_line,
-                                color: kcPrimaryColor,
-                                size: 30.sp,
+                                color: filterIconColor,
+                                size: 25.sp,
                               ),
 
                             ),

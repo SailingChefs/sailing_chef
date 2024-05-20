@@ -1,5 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -42,7 +43,8 @@ class ProfileDescriptionProfileScreen
                           ? userDetails!.boatName!
                           : userDetails!.boatName == null
                               ? userDetails!.namedLocation!
-                              : '${userDetails!.boatName!} ,${userDetails!.namedLocation!}',
+
+                              :userDetails!.boatName!.isEmpty ? '${userDetails!.namedLocation!}, ${userDetails!.boatName!}' : '${userDetails!.namedLocation!}',
                       style: globalTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -67,11 +69,12 @@ class ProfileDescriptionProfileScreen
                   ? Container()
                   : Row(
                       children: [
-                        const Icon(
-                          Icons.link_outlined,
-                          color: kcPrimaryColor,
-                          size: 20,
-                        ),
+                        // const Icon(
+                        //   Icons.link_outlined,
+                        //   color: kcPrimaryColor,
+                        //   size: 20,
+                        // ),
+                        SvgPicture.asset('assets/images/icons/link.svg',width: 16,height: 16,color: kcBlackColor.withOpacity(0.6),),
                         horizontalSpaceSmall,
                         GestureDetector(
                           onTap: () {
@@ -84,8 +87,8 @@ class ProfileDescriptionProfileScreen
                             style: globalTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
-                              color: kcPrimaryColor,
-                              decoration: TextDecoration.underline,
+                              color: filterIconColor,
+                              decoration: TextDecoration.none,
                             ),
                           ),
                         ),

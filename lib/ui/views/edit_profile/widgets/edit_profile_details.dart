@@ -77,7 +77,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             labelText: '',
                             suffixIconData: IconButton(
                               icon: const Icon(Icons.edit_outlined),
-                              color: kcPrimaryColorDark,
+                              color: filterIconColor,
                               onPressed: () {
                                 viewModel.changeLocation();
                               },
@@ -235,7 +235,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 labelText: '',
                                 suffixIconData: IconButton(
                                   icon: const Icon(Icons.edit_outlined),
-                                  color: kcPrimaryColorDark,
+                                  color: filterIconColor,
                                   onPressed: () {
                                     viewModel.changeLocation();
                                   },

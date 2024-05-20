@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
@@ -18,11 +18,13 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             labelText: 'name',
                  onChanged:(value) => viewModel.rebuildUi(),
             validator: viewModel.validateName,
+            fillColor: filledcolorlogin.withOpacity(0.3),
             keyboardType: TextInputType.name,
           ),
           verticalSpace(MediaQuery.of(context).size.height * 0.020),
           RoundedTransparentTextField(
             controller: viewModel.emailController,
+            fillColor: filledcolorlogin.withOpacity(0.3),
             labelText: 'email',
                  onChanged:(value) => viewModel.rebuildUi(),
             validator: viewModel.validateEmail,
@@ -32,6 +34,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
           RoundedTransparentTextField(
             controller: viewModel.passwordController,
             labelText: 'password',
+            fillColor: filledcolorlogin.withOpacity(0.3),
             ispassvisible: viewModel.showPassword,
             keyboardType: TextInputType.visiblePassword,
             obscureText: !viewModel.showPassword,

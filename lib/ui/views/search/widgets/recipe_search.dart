@@ -115,7 +115,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                         recipes[index].user!.displayPicture!);
 
                               },
-                              childCount: 4,
+                              childCount: recipes.length > 4 ? 4 : recipes.length,
                             ),
                           ),
                         ],

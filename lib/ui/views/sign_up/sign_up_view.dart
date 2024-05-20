@@ -1,10 +1,8 @@
 import 'package:sailing_chefs/ui/views/sign_up/widget/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/views/sign_up/widget/sign_up_form.dart';
 import 'package:sailing_chefs/ui/views/sign_up/widget/topbar.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 import '../../../core/imports/core_imports.dart';
-import '../../widgets/rounded_elevated_button.dart';
 import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {

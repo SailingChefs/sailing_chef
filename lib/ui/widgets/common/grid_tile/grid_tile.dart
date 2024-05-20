@@ -44,9 +44,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
         break;
       }
     }
-
-    log('foodimagePath : $foodImagePath');
-
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -63,7 +60,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ],
           ),
-          child: Stack(children: [
+          child: Stack(
+            children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -110,32 +108,34 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
               ],
             ),
-            chefId==userDetails!.uid! ? Container() :  Positioned(
-              top: 5.dg,
-              right: 10.dg,
-              child: GestureDetector(
-                onTap: () => viewModel.onBookmarkTap(recipeId),
-                child: Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: kcBlackColor.withOpacity(0.6),
-                  ),
-                  child: isRecipeSaved
-                      ? Icon(
-                          Icons.bookmark,
-                          size: 18.dg,
-                          color: kcWhiteColor,
-                        )
-                      : Icon(
-                          Icons.bookmark_outline,
-                          size: 18.dg,
-                          color: kcWhiteColor,
+            chefId == userDetails!.uid!
+                ? Container()
+                : Positioned(
+                    top: 5.dg,
+                    right: 10.dg,
+                    child: GestureDetector(
+                      onTap: () => viewModel.onBookmarkTap(recipeId),
+                      child: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: kcBlackColor.withOpacity(0.6),
                         ),
-                ),
-              ),
-            ),
+                        child: isRecipeSaved
+                            ? Icon(
+                                Icons.bookmark,
+                                size: 18.dg,
+                                color: kcWhiteColor,
+                              )
+                            : Icon(
+                                Icons.bookmark_outline,
+                                size: 18.dg,
+                                color: kcWhiteColor,
+                              ),
+                      ),
+                    ),
+                  ),
             Positioned(
               left: 5.dg,
               bottom: 30.dg + 25.dg,
@@ -169,26 +169,27 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 30.dg ,
+              bottom: 30.dg,
               right: 10.dg,
-              child:     Container(
-          height: 32.h,
-          width: 32.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: kcWhiteColor,
-              width: 2.w,
-            ),
-            image: DecorationImage(
-              image: userDetails!.displayPicture!.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+              child: Container(
+                height: 32.h,
+                width: 32.w,
+                decoration: BoxDecoration(
+                  color: kcVeryLightGrey,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: kcWhiteColor,
+                    width: 2.w,
+                  ),
+                  image: DecorationImage(
+                    image: userDetails!.displayPicture!.isEmpty
+                        ? const AssetImage('assets/images/misc/blank_image.png')
+                        : NetworkImage(userDetails!.displayPicture!)
+                            as ImageProvider,
+                    fit: BoxFit.cover,  
+                  ),
+                ),
+              ),
             )
           ]),
         ));

@@ -27,7 +27,7 @@ class IndexView extends StackedView<IndexViewModel> {
           child: Column(
             children: [
               // const TopBarIndexScreen(),
-              verticalSpace(10),
+              verticalSpace(21),
               const TabBarIndexScreen(),
               verticalSpace(10),
               viewModel.isMySelected

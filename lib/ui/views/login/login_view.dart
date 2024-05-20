@@ -88,20 +88,21 @@ class LoginView extends StackedView<LoginViewModel> {
                       children: [
                         RoundedTransparentTextField(
                           controller: viewModel.emailController,
+                          fillColor: filledcolorlogin.withOpacity(0.3),
                           labelText: 'email',
                           validator: viewModel.validateEmail,
-                          onChanged:(value) => viewModel.rebuildUi(),
-
+                          onChanged: (value) => viewModel.rebuildUi(),
+                          
                           keyboardType: TextInputType.emailAddress,
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.027),
                         RoundedTransparentTextField(
                           controller: viewModel.passwordController,
-                          labelText: 'Password',
+                          labelText: 'password',
                           ispassvisible: viewModel.showPassword,
-                          onChanged:(value) => viewModel.rebuildUi(),
-
+                          onChanged: (value) => viewModel.rebuildUi(),
+                          fillColor: filledcolorlogin.withOpacity(0.3),
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: !viewModel.showPassword,
                           suffixIconbool: true,

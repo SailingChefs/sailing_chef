@@ -15,7 +15,7 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
             height: 42,
             width: 180,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: kcPrimaryColor),
+                borderRadius: BorderRadius.circular(30), color: filterIconColor),
             child: TextButton(
               onPressed: () {
                 completer!(SheetResponse(confirmed: true));

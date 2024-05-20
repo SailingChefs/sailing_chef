@@ -89,7 +89,6 @@ class RoundedTransparentTextField extends StatelessWidget {
       maxLines: maxLines ?? 1,
       validator: validator,
       inputFormatters: inputFormattersList,
-
       buildCounter: (
         BuildContext context, {
         required int currentLength,
@@ -98,24 +97,27 @@ class RoundedTransparentTextField extends StatelessWidget {
       }) {
         return null;
       },
-      style: globalTextStyle(fontSize: 18.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
       decoration: InputDecoration(
-        
         filled: true,
-        fillColor: fillColor == '' ? kcwhitecolor.withOpacity(0.3) : fillColor,
-        labelStyle: globalTextStyle(fontSize: 18.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+        fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
+        labelStyle:
+            TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? Colors.transparent),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? Colors.transparent),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? Colors.transparent),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -131,7 +133,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
-          horizontal: 29.0,
+          horizontal: 15.0,
         ),
         prefixIcon: prefixIcon == true
             ? Icon(
@@ -140,12 +142,12 @@ class RoundedTransparentTextField extends StatelessWidget {
                 size: size ?? 16,
               )
             : null,
-        suffixIcon: suffixIcon ?? (suffixIconbool == false
-            ? null
-            : GestureDetector(
-                onTap: onVisibilityToggle,
-                child: ispassvisible == true ? closeEye : openEye,)
-                ),
+        suffixIcon: suffixIcon ??
+            (suffixIconbool == false
+                ? null
+                : GestureDetector(
+                    onTap: onVisibilityToggle,
+                    child: ispassvisible == true ? openEye : closeEye)),
       ),
     );
   }

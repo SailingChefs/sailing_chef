@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/widgets/buttons.dart';
@@ -68,20 +69,14 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                     Divider(
                       color: kcBlackColor.withOpacity(0.08),
                     ),
-                    TextFieldLink(
-                      hinttext: 'Add link',
-                      suffixIcon: FlutterRemix.link_m,
-                      color: kclightgreencolor.withOpacity(0.8),
-                      controller: viewModel.link,
-                    ),
-                    Divider(
-                      color: kcBlackColor.withOpacity(0.08),
-                    ),
+                    
                     TextField(
                       controller: viewModel.desc,
+                      maxLines: 3,
                       decoration: InputDecoration(
                         hintText: 'Basic description',
                         counterText: '',
+                        
                         border: InputBorder.none,
                         hintStyle: globalTextStyle(
                           fontSize: 15,
@@ -90,7 +85,14 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                         ),
                       ),
                     ),
-                    verticalSpaceMedium,
+                    Divider(
+                      color: kcBlackColor.withOpacity(0.08),
+                    ),
+                    TextFieldLink(
+                      hinttext: 'Add link',
+                      color: kclightgreencolor.withOpacity(0.8),
+                      controller: viewModel.link,
+                    ),
                     Divider(
                       color: kcBlackColor.withOpacity(0.08),
                     ),
