@@ -20,7 +20,7 @@ class ChatView extends StackedView<ChatViewModel> {
       viewModelBuilder: () => ChatViewModel(convoId: conversationId),
       onModelReady: (viewModel) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          viewModel.scrollToBottom();
+          
         });
       },
       builder: (context, viewModel, child) {
@@ -48,11 +48,6 @@ class ChatView extends StackedView<ChatViewModel> {
     );
   }
 
-  @override
-  void onViewModelReady(ChatViewModel viewModel) {
-    viewModel.onViewModelReady();
-    super.onViewModelReady(viewModel);
-  }
 
   @override
   ChatViewModel viewModelBuilder(BuildContext context) =>
@@ -200,52 +195,49 @@ class _ExpandedAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      // visible: !viewModel.isAtTop,
-      child: SizedBox(
-        height: 180,
-        width: double.maxFinite,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            verticalSpaceSmall,
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10.0),
-            //   child: BackArrowWidget(onTap: () {
-            //     viewModel.getBack();
-            //   }),
-            // ),
-            Center(
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 80.w,
-                  height: 80.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(receiver.displayPicture!),
-                    ),
+    return SizedBox(
+      height: 180,
+      width: double.maxFinite,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          verticalSpaceSmall,
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 10.0),
+          //   child: BackArrowWidget(onTap: () {
+          //     viewModel.getBack();
+          //   }),
+          // ),
+          Center(
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 80.w,
+                height: 80.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(receiver.displayPicture!),
                   ),
                 ),
               ),
             ),
-            verticalSpaceTiny,
-            Center(
-              child: Text(
-               capitalizeEachWord( receiver.displayName ?? 'Chef Name'),
-                style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor,
-                ),
+          ),
+          verticalSpaceTiny,
+          Center(
+            child: Text(
+             capitalizeEachWord( receiver.displayName ?? 'Chef Name'),
+              style: globalTextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -263,40 +255,36 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
    
-    return Visibility(
-      maintainState: false,
-      // visible: viewModel.isAtTop,
-      child: Container(
-        // height: kToolbarHeight,
-        color: kcwhitecolor,
-        width: double.maxFinite,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, right: 10),
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            BackArrowWidget(onTap: () {
-              viewModel.getBack();
-            }),
-            Text(
-            capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
-              style: globalTextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: kcBlackColor,
+    return Container(
+      height: kToolbarHeight,
+      color: kcwhitecolor,
+      width: double.maxFinite,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          BackArrowWidget(onTap: () {
+            viewModel.getBack();
+          }),
+          Text(
+          capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
+            style: globalTextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: kcBlackColor,
+            ),
+          ),
+          Container(
+            width: 35.w,
+            height: 35.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(receiver.displayPicture!),
               ),
             ),
-            Container(
-              width: 35.w,
-              height: 35.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(receiver.displayPicture!),
-                ),
-              ),
-            ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }

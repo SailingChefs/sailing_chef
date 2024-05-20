@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
@@ -18,12 +19,14 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
             children: [
               horizontalSpaceSmall,
               SizedBox(
-                width: 190,
-                height: 50,
+                width: 190.w,
+                height: 50.h,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: RoundedTransparentTextField(
                     keyboardType: TextInputType.number,
+                    maxLength: 3,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
                     textColor: kcBlackColor.withOpacity(0.4),

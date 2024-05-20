@@ -49,7 +49,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final TextEditingController notesController = TextEditingController();
   bool isRecipeSaved = false;
   List<RecipeModel> myRecipes = [];
-
+  double volume = 0;
+  bool isMute = false;
   List<File> images = [];
   double rating = 3.0;
   List<RecipeModel> recipeList = [];
@@ -57,8 +58,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   late List<double>? waveFormData;
   bool isPlaying = false;
   bool seeComments = false;
-  double volume = 0;
-  bool isMute = false;
+  
 
   List<SavedRecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
@@ -91,7 +91,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  
+
+
   @override
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
@@ -254,6 +255,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
+
+
   Future<void> downloadAudio() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
@@ -268,6 +271,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         volume: 100,
       );
 
+
       log("Player Ready");
     }
     durationCalculate(audioFile);
@@ -277,6 +281,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       stopListening();
     });
    
+
   }
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
@@ -290,6 +295,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     });
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
+
   }
 
   void stopListening() async {
@@ -301,9 +307,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     log("stop Listening ends ${isPlaying.toString()}");
   }
 
-  void onViewModelReady(int length, String recipeId, UserModel user) async {
+  void onViewModelReady(String recipeId) async {
     setBusy(true);
-   
 
     waveFormData = recipeModel.waveForm;
     await _savedRecipeService.init();

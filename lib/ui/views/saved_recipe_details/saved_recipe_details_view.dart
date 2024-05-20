@@ -1,3 +1,4 @@
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
@@ -58,7 +59,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   @override
   void onViewModelReady(SavedRecipeDetailsViewModel viewModel) {
     viewModel.onViewModelReady(
-        recipeModel.coverImage.length, recipeModel.docId!,recipeModel.user!);
+      recipeModel.docId!,);
     super.onViewModelReady(viewModel);
   }
 

@@ -21,26 +21,26 @@ class ListViewCulinaryChool
                 onTap: () =>
                     viewModel.toUserDetails(viewModel.cullinary[index]),
                 child: Container(
-                  height: 113.h,
-                  margin: EdgeInsets.only(bottom: 10.h),
+                  height: 123.h,
+                  margin: EdgeInsets.only(bottom: 20.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: kcWhiteColor.withOpacity(0.97),
-                    boxShadow: [
-                      BoxShadow(
-                        color: kcBlackColor.withOpacity(0.09),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    color: Colors.green.withOpacity(0.06),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     // color: kcBlackColor.withOpacity(0.09),
+                    //     spreadRadius: 1,
+                    //     blurRadius: 1,
+                    //     offset: const Offset(0, 4),
+                    //   ),
+                    // ],
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 113.h,
-                        width: 113.w,
+                        height: 123.h,
+                        width: 100.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -48,7 +48,7 @@ class ListViewCulinaryChool
                           borderRadius: BorderRadius.circular(30),
                           child: viewModel
                                   .cullinary[index].displayPicture!.isEmpty
-                              ? const Icon(Icons.person)
+                              ? const Icon(Icons.school)
                               : Image.network(
                                   viewModel.cullinary[index].displayPicture!,
                                   fit: BoxFit.cover,

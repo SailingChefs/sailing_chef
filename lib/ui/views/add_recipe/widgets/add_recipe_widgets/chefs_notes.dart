@@ -76,6 +76,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                           ),
                         ),
+
                         horizontalSpaceTiny,
                         Text(
                           '${viewModel.formattedDuration} ',
@@ -85,13 +86,18 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             color: kcBlackColor,
                           )
                         ),
+
+
                         IconButton(
                           onPressed: () {
                             viewModel.onVolumeUpIconPressed();
                           },
                           icon: viewModel.isMute
                               ? const Icon(
+
                                   Icons.volume_off,
+
+
                                 )
                               : const Icon(
                                   Icons.volume_up,

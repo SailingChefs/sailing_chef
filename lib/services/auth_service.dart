@@ -48,11 +48,19 @@ class AuthService {
     }
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
+    EasyLoading.show();
     try {
+
       await FirebaseAuth.instance.signOut();
+      
       userDetails = null;
+
+      EasyLoading.dismiss();
+      showToast(message: 'Signed out successfully');
     } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: 'Failed to sign out');
       log("Error signing out: $e");
     }
   }

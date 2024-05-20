@@ -57,7 +57,9 @@ class AddRecipeViewModel extends BaseViewModel {
   List<String> updatedMethodsList = [];
   List<String> tagsList = [];
   TimeOfDay? selectedTime;
+
   String formattedDuration = '';
+
 
   bool isPlaying = false;
 
@@ -94,10 +96,8 @@ class AddRecipeViewModel extends BaseViewModel {
   Future<void> showCroppper(File value, context, index) async {
     int fileSizeInBytes = await File(value.path).length();
 
-    // Convert bytes to kilobytes
     double fileSizeInKB = fileSizeInBytes / 1024;
 
-    // Print the file size in kilobytes
     log(' File size is : $fileSizeInKB KB');
     CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: value.path,
@@ -248,6 +248,17 @@ Future<void> durationCalculate(File path) async {
       stopListening();
     });
   }
+
+  //   void onVolumeUpIconPressed() {
+  //   isMute = !isMute;
+  //   if (isMute) {
+  //     volume = 0;
+  //   } else {
+  //     volume = 100;
+  //   }
+  //   playerController.setVolume(volume);
+  //   notifyListeners();
+  // }
 
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");

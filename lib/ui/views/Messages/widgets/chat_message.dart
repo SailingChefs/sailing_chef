@@ -25,12 +25,20 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
         messageIndex + 1 < viewModel.messages.length &&
             viewModel.messages[messageIndex + 1].senderId == message.senderId;
 
-        final last =
-        messageIndex  < viewModel.messages.length &&
-            viewModel.messages[messageIndex].senderId == message.senderId;
+    final last = messageIndex < viewModel.messages.length &&
+        viewModel.messages[messageIndex].senderId == message.senderId;
+    final timestampInHours =
+        DateTime.now().difference(message.timestamp).inHours;
     final timestampInMinutes =
-        DateTime.now().difference(message.timestamp).inDays;
-
+        DateTime.now().difference(message.timestamp).inMinutes;
+    // final timestampInDays = DateTime.now().difference(message.timestamp).inDays;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.scrollController.animateTo(
+        viewModel.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+      );
+    });
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 3.0,
@@ -73,7 +81,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
-
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -81,66 +88,6 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                             MaterialPageRoute(
                               builder: (_) => ImageViewerScreen(
                                 imageUrl: message.content,
-// =======
-
-//                       viewModel.isBusy
-//                           ? Container(
-
-//                               color: Colors.amber,
-//                               child: ClipRRect(
-//                                 borderRadius: BorderRadius.only(
-//                                     topLeft: isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     bottomLeft: isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     topRight: !isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     bottomRight: !isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0)),
-//                                 // child: Image.network(
-//                                 //   '',
-//                                 //   width: 120.0,
-//                                 //   height: 178.0,
-//                                 //   fit: BoxFit.cover,
-//                                 // ),
-//                               ),
-//                             )
-//                           : GestureDetector(
-//                               onTap: () {
-//                                 Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                     builder: (_) => ImageViewerScreen(
-//                                       imageUrl: message.content,
-//                                     ),
-//                                   ),
-//                                 );
-//                               },
-//                               child: ClipRRect(
-//                                 borderRadius: BorderRadius.only(
-//                                     topLeft: isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     bottomLeft: isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     topRight: !isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0),
-//                                     bottomRight: !isCurrentUser
-//                                         ? const Radius.circular(20)
-//                                         : const Radius.circular(0)),
-//                                 child: Image.network(
-//                                   message.content,
-//                                   width: 120.0,
-//                                   height: 178.0,
-//                                   fit: BoxFit.cover,
-//                                 ),
-// >>>>>>> latest_branch
                               ),
                             ),
                           );
@@ -165,26 +112,24 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                             height: 178.0,
                             progressIndicatorBuilder:
                                 (context, url, progress) => Container(
-                              width: 120,
-                              height: 178,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              bottomLeft: isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              topRight: !isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0),
-                              bottomRight: !isCurrentUser
-                                  ? const Radius.circular(20)
-                                  : const Radius.circular(0)),
-                                  )),
-                            
-                        
+                                    width: 120,
+                                    height: 178,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          bottomLeft: isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          topRight: !isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          bottomRight: !isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0)),
+                                    )),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -233,29 +178,28 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                 ],
                               ),
                               child: ListTile(
-                                      title: const Text(
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          'File Name'),
-                                      subtitle: const Text(
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          'File Path'),
-                                      trailing: GestureDetector(
-                                          onTap: () async {
-                                           
-                                          },
-                                          child: const Icon(Icons.download,color: kcsgreycolor,)),
-                                      leading: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          child: Image.asset(
-                                            'assets/images/icons/unid.png',
-                                            width: 50.0,
-                                            height: 50.0,
-                                            fit: BoxFit.cover,
-                                          )))
-                            )
+                                  title: const Text(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Name'),
+                                  subtitle: const Text(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Path'),
+                                  trailing: GestureDetector(
+                                      onTap: () async {},
+                                      child: const Icon(
+                                        Icons.download,
+                                        color: kcsgreycolor,
+                                      )),
+                                  leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.asset(
+                                        'assets/images/icons/unid.png',
+                                        width: 50.0,
+                                        height: 50.0,
+                                        fit: BoxFit.cover,
+                                      ))))
                           : Container(
                               padding: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
@@ -380,7 +324,37 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                                     ),
                                                   ),
                                                 )
-                                              : Container(),
+                                              : ListTile(
+                                                  title: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      message.fileName
+                                                          .toString()),
+                                                  subtitle: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      message.content),
+                                                  trailing: GestureDetector(
+                                                      onTap: () async {
+                                                        await launch(
+                                                            message.content);
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.download)),
+                                                  leading: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    child: Image.asset(
+                                                      'assets/images/icons/gallary.png',
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
                             ),
                   ],
                 ),
@@ -416,8 +390,17 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                     horizontalSpaceSmall,
                     horizontalSpaceSmall,
                     horizontalSpaceTiny,
+                    // Text(
+                    //   '$timestampInMinutes days ago',
+                    //   style: globalTextStyle(
+                    //       fontSize: 12, color: kcBlackColor.withOpacity(0.4)),
+                    // ),
                     Text(
-                      '$timestampInMinutes days ago',
+                      timestampInMinutes < 60
+                          ? '$timestampInMinutes minutes ago'
+                          : timestampInHours < 24
+                              ? '${(timestampInHours)} hours ago'
+                              : '${(timestampInMinutes ~/ 60) ~/ 24} days ago',
                       style: globalTextStyle(
                           fontSize: 12, color: kcBlackColor.withOpacity(0.4)),
                     ),

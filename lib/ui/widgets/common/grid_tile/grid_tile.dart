@@ -171,33 +171,20 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             Positioned(
               bottom: 30.dg+10.dg,
               right: 10.dg,
-              child: Container(
-                height: 32.h,
-                width: 30.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kcWhiteColor,
-                  border: Border.all(
-                    color: kcWhiteColor,
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0.r),
-                  child: chefImagePath.isEmpty
-                      ? Image.asset(
-                          'assets/images/misc/blank_image.png',
-                          fit: BoxFit.contain,
-                          height: 32.h,
-                          width: 32.w,
-                        )
-                      : Image.network(
-                          chefImagePath,
-                          height: 32.h,
-                          width: 32.w,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-              ),
+              child:     Container(
+          height: 32.h,
+          width: 32.w,
+          decoration: BoxDecoration(
+            color: kcVeryLightGrey,
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: userDetails!.displayPicture!.isEmpty
+                  ? const AssetImage('assets/images/misc/blank_image.png')
+                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
             )
           ]),
         ));

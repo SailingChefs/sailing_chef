@@ -10,11 +10,6 @@ import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 
-//  Stack(
-//   (ListOfMessages and expanded app bar as first child)
-// (collapsed app bar as second child only visible when screen is scrolled more than 300 pixels)
-//  )
-
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final TextEditingController textController = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -23,8 +18,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final String convoId;
   XFile? selectedImageFile;
   List<MessageModel> messages = List.empty(growable: true);
-  // bool uploadingFile = false;
-  // bool uploadingImage = false;
+
   bool isAtTop = false;
   bool isImageSending = false;
 
@@ -38,7 +32,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       }
       rebuildUi();
     });
-     scrollToBottom();
+    
   }
 
   bool _uploadingImage = false;
@@ -46,8 +40,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   bool get uploadingImage => _uploadingImage;
   bool get uploadingFile => _uploadingFile;
-
-
 
   Stream<List<ConversationModel>> getConversation() {
     Stream<List<ConversationModel>> conversations =
@@ -58,64 +50,44 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   final messageController = TextEditingController();
 
-Future<void> getImage(ImageSource source, String receiverId, conversationId) async {
-  final pickedFile = await ImagePicker().pickImage(source: source);
+  Future<void> getImage(
+      ImageSource source, String receiverId, conversationId) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
-  if (pickedFile != null) {
-    selectedImageFile = pickedFile;
-    _uploadingImage = true;
-    rebuildUi();
+    if (pickedFile != null) {
+      selectedImageFile = pickedFile;
+      _uploadingImage = true;
+      rebuildUi();
 
+      String imageUrl = await _conversationService.uploadImage(
+          File(selectedImageFile!.path), selectedImageFile!.name);
 
+      await addMessage(
+          MessageModel(
+            content: imageUrl,
+            receiverId: receiverId,
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'image',
+            fileName: '',
+          ),
+          conversationId);
 
-    String imageUrl = await _conversationService.uploadImage(
-        File(selectedImageFile!.path), selectedImageFile!.name);
+      selectedImageFile = null;
+      _uploadingImage = false;
+      rebuildUi();
 
-   await  addMessage(
-        MessageModel(
-          content: imageUrl,
-          receiverId: receiverId,
-          senderId: FirebaseAuth.instance.currentUser!.uid,
-          timestamp: DateTime.now(),
-          type: 'image',
-          fileName: '',
-        ),
-        conversationId);
+    
 
-    selectedImageFile = null;
-    _uploadingImage = false;
-    rebuildUi();
-
-
-    scrollToBottom();
-// =======
- 
-
-//     scrollController.animateTo(
-//       scrollController.position.maxScrollExtent,
-//       duration: const Duration(milliseconds: 300),
-//       curve: Curves.easeOut,
-//     );
-// >>>>>>> latest_branch
+    }
   }
-}
-
-void scrollToBottom() {
-   Future.delayed(const Duration(milliseconds: 50),(){
-    scrollController.animateTo(
-    scrollController.position.maxScrollExtent,
-    duration: const Duration(milliseconds: 300),
-    curve: Curves.easeOut,
-  );
-   });
-}
 
 
 
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
-       addMessage(
+      addMessage(
           MessageModel(
             content: messageController.text,
             receiverId: receiverId,
@@ -127,11 +99,9 @@ void scrollToBottom() {
           conversationId);
     }
     if (imageUrl != null) {
-
-  _uploadingImage = true;
+      _uploadingImage = true;
       rebuildUi();
       await addMessage(
-
           MessageModel(
             content: imageUrl,
             receiverId: receiverId,
@@ -142,10 +112,8 @@ void scrollToBottom() {
           ),
           conversationId);
 
-  
-  _uploadingImage = false;
+      _uploadingImage = false;
       rebuildUi();
-
     }
 
     scrollController.animateTo(
@@ -156,17 +124,11 @@ void scrollToBottom() {
     messageController.clear();
   }
 
-
   Future<void> addMessage(MessageModel message, String conversationId) async {
-
-    log('STARTING...');
-
-
     await _conversationService.sendMessage(message, conversationId);
-  log('ENDINGGG...');
     messageController.clear();
     rebuildUi();
-    scrollToBottom();
+    
   }
 
   void moveBack() {
@@ -188,43 +150,41 @@ void scrollToBottom() {
   Stream<List<MessageModel>> get stream =>
       _conversationService.getMessages(convoId);
 
-void getFile(String receiverId, String conversationId) async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.custom,
-    allowedExtensions: ['zip', 'pdf', 'doc', 'docx'],
-  );
-  if (result != null) {
-    _uploadingFile = true;
-    rebuildUi();
-    pickFile = File(result.files.single.path!);
-    String fileName = result.files.single.path!.split('/').last;
-    Reference storageRef =
-        FirebaseStorage.instance.ref().child('files/$fileName');
-    UploadTask uploadTask = storageRef.putFile(pickFile!);
+  void getFile(String receiverId, String conversationId) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['zip', 'pdf', 'doc', 'docx'],
+    );
+    if (result != null) {
+      _uploadingFile = true;
+      rebuildUi();
+      pickFile = File(result.files.single.path!);
+      String fileName = result.files.single.path!.split('/').last;
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child('files/$fileName');
+      UploadTask uploadTask = storageRef.putFile(pickFile!);
 
-    TaskSnapshot taskSnapshot = await uploadTask;
+      TaskSnapshot taskSnapshot = await uploadTask;
 
-    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    
-    addMessage(
-        MessageModel(
-          content: downloadUrl,
-          receiverId: receiverId,
-          senderId: FirebaseAuth.instance.currentUser!.uid,
-          timestamp: DateTime.now(),
-          type: 'file',
-          fileName: fileName,
-        ),
-        conversationId);
-   
-    
-     _uploadingFile = false;
-    rebuildUi();
-  } else {
-    log("No file selected");
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      addMessage(
+          MessageModel(
+            content: downloadUrl,
+            receiverId: receiverId,
+            senderId: FirebaseAuth.instance.currentUser!.uid,
+            timestamp: DateTime.now(),
+            type: 'file',
+            fileName: fileName,
+          ),
+          conversationId);
+
+      _uploadingFile = false;
+      rebuildUi();
+    } else {
+      log("No file selected");
+    }
   }
-}
-
 
   void getBack() {
     _navigationLoactor.back();

@@ -13,7 +13,7 @@ class BottomCookingInstructions
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 55),
+          padding: const EdgeInsets.only(left: 25.0, right: 35),
           child: SizedBox(
             width: double.infinity,
             child: RoundedTransparentTextField(
@@ -21,13 +21,16 @@ class BottomCookingInstructions
               controller: viewModel.cookingInstructionController,
               textColor: kcBlackColor.withOpacity(0.4),
               prefixIcon: true,
+              prefixIconData: Icons.add,
+              
             ),
           ),
         ),
         SaveRecipeButton(
           onPressed: viewModel.addInstruction,
-          buttonText: 'Add step',
+          buttonText: 'Step',
           prefix: Icons.add,
+          
         ),
       ],
     );

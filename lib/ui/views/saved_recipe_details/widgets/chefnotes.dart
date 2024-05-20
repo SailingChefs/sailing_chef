@@ -53,6 +53,7 @@ class ChefNotesRecipeDetails
                       children: [
                         SizedBox(
                           width: screenWidth(context) * 0.52,
+
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
@@ -72,6 +73,7 @@ class ChefNotesRecipeDetails
                             ),
                           ),
                         ),
+
                       horizontalSpaceTiny,
                         Text(
                           viewModel.formattedDuration.isEmpty ? '0:00' : '${viewModel.formattedDuration} ',
@@ -82,12 +84,15 @@ class ChefNotesRecipeDetails
                           )
                         ),
                        IconButton(
+
                           onPressed: () {
                             viewModel.onVolumeUpIconPressed();
                           },
                           icon: viewModel.isMute
                               ? const Icon(
+
                                   Icons.volume_off,
+
                                 )
                               : const Icon(
                                   Icons.volume_up,

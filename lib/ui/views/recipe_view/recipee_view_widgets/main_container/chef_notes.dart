@@ -3,28 +3,33 @@ import 'dart:developer';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/shimmer_container.dart';
 
 class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
   const ChefNotes({super.key});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text("Chef Notes",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
         verticalSpaceSmall,
-        Container(
+         viewModel.isBusy
+              ? const ShimmerContainer(
+                height: 48,
+                width: double.maxFinite,
+              )
+              :Container(
           height: 48,
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: kcMediumGrey.withOpacity(0.2),
             borderRadius: BorderRadius.circular(50),
           ),
-          child: viewModel.isBusy
-              ? Container()
-              : Row(
+          child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -52,7 +57,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.58,
+                          width: screenWidth(context) * 0.50,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
@@ -73,26 +78,32 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                           ),
                         ),
                         horizontalSpaceTiny,
+
                         Text(
-                          '${viewModel.formattedDuration} ',
+                         viewModel.formattedDuration.isEmpty ? '0:00' : '${viewModel.formattedDuration} ',
                           style: globalTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor,
                           )
                         ),
+
                         IconButton(
                           onPressed: () {
                             viewModel.onVolumeUpIconPressed();
                           },
                           icon: viewModel.isMute
                               ? const Icon(
+
                                   Icons.volume_off,
+
                                 )
                               : const Icon(
                                   Icons.volume_up,
                                 ),
+
                         ),
+
                       ],
                     ),
                   ],

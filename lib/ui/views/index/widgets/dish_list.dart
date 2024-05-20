@@ -53,7 +53,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   : dishes[index].user!.displayPicture!,
                         );
                       },
-                      childCount: dishes.length,
+                      childCount: 10,
                     ),
                   ),
                 ],

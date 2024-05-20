@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,7 +28,8 @@ class RecipeViewViewModel extends BaseViewModel {
   final List<String> prevImageUrls;
   final List<XFile> newImageUrls;
   final RecipeModel? recipe;
-
+  double volume = 0;
+  bool isMute = false;
   List<dynamic> get selectedImages => [...prevImageUrls, ...newImageUrls];
 
   Timer? _timer;
@@ -42,6 +44,7 @@ class RecipeViewViewModel extends BaseViewModel {
     this.path,
   });
 
+  String formattedDuration = '';
   void onViewModelReady() async {
     isclicked = false;
     servings = recipe!.servingSize;
@@ -53,9 +56,8 @@ class RecipeViewViewModel extends BaseViewModel {
       volume: 100,
     );
 
-    durationCalculate(File(path!));
+    await durationCalculate(File(path!));
 
-    // duration = await playerController.getDuration(DurationType.values[0]);
 
     setBusy(false);
   }
@@ -90,9 +92,7 @@ class RecipeViewViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  double volume = 0;
-  bool isMute = false;
-  String formattedDuration = '';
+ 
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
       waveFormData =
@@ -195,6 +195,8 @@ class RecipeViewViewModel extends BaseViewModel {
       );
     }
   }
+
+
 
   void saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {

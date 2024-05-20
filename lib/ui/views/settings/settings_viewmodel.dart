@@ -40,8 +40,8 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToPrivacyPolicyView();
   }
 
-  void signOutUser() {
-    _authService.signOut();
-    _navigationService.clearTillFirstAndShowView(const LoginView());
+  void signOutUser() async {
+    await  _authService.signOut();
+    _navigationService.replaceWithLoginView();
   }
 }
