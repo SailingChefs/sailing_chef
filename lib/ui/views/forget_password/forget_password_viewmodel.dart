@@ -9,17 +9,27 @@ class ForgetPasswordViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   TextEditingController get emailController => _emailController;
+  void toLogin() {
+    navigationService.replaceWithLoginView();
+  }
+   bool isSignupButtonEnabled() {
+    return emailController.text.isNotEmpty ;
+        
+  }
 
-  String? validateEmail(String? value) {
-    if (value!.isEmpty || value.contains("@gmail.com") == false) {
+ String? validateEmail(String? value) {
+    if (value!.isEmpty) {
       return 'Please enter an email address';
-    } else {
-      return null;
     }
+
+    RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    return emailRegex.hasMatch(value)
+        ? null
+        : 'Please enter a valid email address';
   }
 
   void sendEmailLink({required String email}) async {
-    userService.clickOnForgetPassword(email: email);
+    await userService.clickOnForgetPassword(email: email);
     navigationService.back();
   }
 }

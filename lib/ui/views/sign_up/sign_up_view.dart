@@ -1,4 +1,6 @@
-import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/roleselector_compnent.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/sign_up_form.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/topbar.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 import '../../../core/imports/core_imports.dart';
@@ -41,30 +43,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                 padding:
                     EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
                 child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 150.w,
-                        height: 80.h,
-                        child: Image.asset(
-                          'assets/images/logo/SAILING CHEFS.png',
-                        ),
-                      ),
-                      RoundedElevatedButton(
-                        width: screenWidth(context) * 0.3,
-                        height: 34,
-                        textFontSize: 14.sp,
-                        textFontWeight: FontWeight.w600,
-                        textColor: kclightgreencolor,
-                        onPressed: () {
-                          viewModel.toLogin();
-                        },
-                        buttonText: 'login',
-                        isEnabled: true,
-                      ),
-                    ],
-                  ),
+                  const SignUpTopBar(),
                   verticalSpace(MediaQuery.of(context).size.height * 0.05),
                   SingleChildScrollView(
                     child: Column(
@@ -83,60 +62,10 @@ class SignUpView extends StackedView<SignUpViewModel> {
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.028),
-                        RoleSelector(viewModel: viewModel),
+                        const RoleSelector(),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.05),
-                        Form(
-                          key: viewModel.formKey,
-                          child: Column(
-                            children: [
-                              RoundedTransparentTextField(
-                                controller: viewModel.textController,
-                                labelText: 'Name',
-                                validator: viewModel.validateName,
-                                keyboardType: TextInputType.name,
-                              ),
-                              verticalSpace(
-                                  MediaQuery.of(context).size.height * 0.020),
-                              RoundedTransparentTextField(
-                                controller: viewModel.emailController,
-                                labelText: 'Email',
-                                validator: viewModel.validateEmail,
-                                keyboardType: TextInputType.emailAddress,
-                              ),
-                              verticalSpace(
-                                  MediaQuery.of(context).size.height * 0.020),
-                              RoundedTransparentTextField(
-                                controller: viewModel.passwordController,
-                                labelText: 'Password',
-                                ispassvisible: viewModel.showPassword,
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: !viewModel.showPassword,
-                                suffixIconbool: true,
-                                isPasswordVisible: viewModel.showPassword,
-                                onVisibilityToggle: () {
-                                  viewModel.passwordVisibility();
-                                  viewModel.showPassword;
-                                },
-                                validator: viewModel.validatePassword,
-                              ),
-                              verticalSpace(
-                                  MediaQuery.of(context).size.height * 0.040),
-                              RoundedElevatedButton(
-                                textFontSize: 12.sp,
-                                width: 240.w,
-                                height: 34.h,
-                                borderRadius: 30,
-                                textColor: kclightgreencolor,
-                                isEnabled: viewModel.isSignupButtonEnabled(),
-                                onPressed: () {
-                                  viewModel.signup();
-                                },
-                                buttonText: 'create account',
-                              ),
-                            ],
-                          ),
-                        ),
+                        const SignUpForm(),
                       ],
                     ),
                   ),

@@ -13,7 +13,7 @@ class RoundedElevatedButton extends StatelessWidget {
   final Color textColor;
   final FontWeight textFontWeight;
   final bool isEnabled;
-  final double? radius;
+  
   final String? font;
 
   const RoundedElevatedButton({
@@ -30,7 +30,7 @@ class RoundedElevatedButton extends StatelessWidget {
     this.textColor = kcTextColor,
     this.textFontWeight = FontWeight.w400,
     required this.isEnabled,
-    this.radius,
+   
     this.font,
   }) : super(key: key);
 
@@ -47,7 +47,7 @@ class RoundedElevatedButton extends StatelessWidget {
           ),
         ),
         backgroundColor: buttonColor ?? kcWhiteColor,
-        disabledBackgroundColor: kcPrimaryColor.withOpacity(0.2),
+        disabledBackgroundColor: kcWhiteColor.withOpacity(0.3),
         fixedSize: Size(width ?? 107.w, height ?? 34.h),
       ),
       child: Padding(
@@ -57,7 +57,7 @@ class RoundedElevatedButton extends StatelessWidget {
           maxLines: 1,
           style: globalTextStyle(
             fontSize: textFontSize.sp,
-            color: isEnabled ? textColor : kcPrimaryColor.withOpacity(0.5),
+            color: isEnabled ? textColor : kcWhiteColor.withOpacity(0.4),
             fontWeight: textFontWeight,
           ),
         ),

@@ -39,6 +39,28 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
                 recipeModel: recipeModel,
                 recipeList: randomRecipeList,
               ),
+              Positioned(
+            top: MediaQuery.of(context).size.height * 0.39,
+            right: 30,
+            child:     Container(
+          height: 70.h,
+          width: 70.w,
+          decoration: BoxDecoration(
+            color: kcVeryLightGrey,
+            border: Border.all(
+              color: kcWhiteColor,
+              width: 2.0,
+            ),
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: recipeModel.user!.displayPicture!.isEmpty
+                  ? const AssetImage('assets/images/misc/blank_image.png')
+                  : NetworkImage(recipeModel.user!.displayPicture!) as ImageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+          ),
              Positioned(
                   top: 40,
                   right: 10,

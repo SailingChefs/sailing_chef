@@ -15,21 +15,22 @@ class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => viewModel.getBack(),
+           
+            onTap:  viewModel.getBack,
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 8.0.dg),
               height: 36.h,
               width: 36.w,
-              decoration: const BoxDecoration(
-                color: kcVeryLightGrey,
+              decoration:  BoxDecoration(
+                color: const Color(0xff427536) .withOpacity(0.08),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: kcBlackColor,
-                size: 20.sp,
+                weight: 0.2.dg,
+                size: 22.sp,
               ),
             ),
           ),
@@ -37,7 +38,7 @@ class TopBarSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             title,
             style: globalTextStyle(
                 fontSize: 20.0.dg,
-                color: kcBlackColor,
+                color: kcBlackColor.withOpacity(0.87),
                 fontWeight: FontWeight.w600),
           ),
           horizontalSpaceSmall,

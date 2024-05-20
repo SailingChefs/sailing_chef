@@ -1,3 +1,4 @@
+import 'package:csc_picker/csc_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
@@ -21,43 +22,76 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                   SemiRoundedTranpaentTextField(
                       validator: (value) => viewModel.validateLink(value),
                       controller: viewModel.linkController,
+                      suffixIcon: false,
                       labelText: 'Link'),
                   verticalSpaceMedium,
                   SemiRoundedTranpaentTextField(
                       validator: (value) => viewModel.validateBoatName(value),
                       controller: viewModel.boatNameController,
+                      suffixIcon: false,
                       labelText: 'Boat Name'),
                   verticalSpaceMedium,
-                  GestureDetector(
-                      onTap: viewModel.getLocation,
-                      child: Container(
-                        height: 45.h,
-                        width: double.infinity,
-                        decoration: islocationempty == false
-                            ? BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(
-                                  color: Colors.red,
-                                ),
-                                color: Colors.grey.withOpacity(0.2),
-                              )
-                            : BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Colors.grey.withOpacity(0.2),
-                              ),
-                        child: Padding(
-                          padding: EdgeInsets.all(12.0.dg),
-                          child: Text(
-                            viewModel.locationController.text.isNotEmpty
-                                ? viewModel.locationController.text
-                                : 'Location',
-                            style: globalTextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: kcBlackColor.withOpacity(0.6)),
-                          ),
-                        ),
-                      )),
+                  CSCPicker(
+                    showStates: true,
+
+                    showCities: true,
+
+                    flagState: CountryFlag.DISABLE,
+
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey.withOpacity(0.2),
+                       ),
+
+                    disabledDropdownDecoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey.withOpacity(0.2),
+                       ),
+
+                    ///placeholders for dropdown search field
+                    countrySearchPlaceholder: "Country",
+                    stateSearchPlaceholder: "State",
+                    citySearchPlaceholder: "City",
+
+                    ///labels for dropdown
+                    countryDropdownLabel: "*Country",
+                    stateDropdownLabel: "*State",
+                    cityDropdownLabel: "*City",
+
+                    selectedItemStyle: globalTextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                      fontSize: 16,
+                    ),
+
+                    ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                    dropdownHeadingStyle: globalTextStyle(
+                        color: Colors.black.withOpacity(0.6),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+
+                    ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                    dropdownItemStyle: globalTextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                      fontSize: 17,
+                    ),
+
+                    dropdownDialogRadius: 10.0,
+
+                    searchBarRadius: 10.0,
+
+                    onCountryChanged: (value) =>
+                        viewModel.setCountryValue(value.toString()),
+
+                    ///triggers once state selected in dropdown
+                    onStateChanged: (value) =>
+                        viewModel.setStateValue(value.toString()),
+
+                    ///triggers once city selected in dropdown
+                    onCityChanged: (value) =>
+                        viewModel.setCityValue(value.toString()),
+                  ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
                     onPressed: () {

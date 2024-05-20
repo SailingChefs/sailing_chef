@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../core/imports/core_imports.dart';
@@ -13,6 +14,7 @@ import '../model/user_model.dart';
 
 class UserServices with ListenableServiceMixin {
   UserModel? currentUserDetails;
+  final _authService = AuthService();
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {
@@ -152,9 +154,16 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  void clickOnForgetPassword({required String email}) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-    showToast(message: "Forgot password link sent to $email");
+  Future<void> clickOnForgetPassword({required String email}) async {
+    try {
+      EasyLoading.show();
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      EasyLoading.dismiss();
+      showToast(message: "Forgot password link sent to $email");
+    } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: e.toString());
+    }
   }
 
   Future<bool> deleteUserAndDocument() async {
@@ -174,11 +183,13 @@ class UserServices with ListenableServiceMixin {
         for (var doc in querySnapshot.docs) {
           doc.reference.delete();
         }
-      });
+      },
+
+      );
 
       // Delete user from Firebase Authentication
       await FirebaseAuth.instance.currentUser!.delete();
-
+      await _authService.signOut();
       log('User account and document deleted successfully');
       return true;
     } catch (e) {

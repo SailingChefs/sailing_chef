@@ -30,10 +30,9 @@ class UserDetailsViewModel extends BaseViewModel {
   String cityValue = "";
   String? address ;
  
-  Position? location;
   File? selectedImageFile;
   String? selectedImagePath;
-  List<Placemark>? placemarks;
+
   
 
   Future<void> getImagefromGallery() async {
@@ -50,13 +49,7 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  getUserLocation(Position location) async {
-    placemarks =
-        await placemarkFromCoordinates(location.latitude, location.longitude);
-    locationController.text =
-        ' ${placemarks![0].street} - ${placemarks![0].locality},${placemarks![0].country}';
-  }
-
+ 
   // 
   void setCountryValue(String value) {
     countryValue = value;
@@ -123,16 +116,7 @@ class UserDetailsViewModel extends BaseViewModel {
     return null;
   }
 
-  String? validateLocation(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter a name';
-    }
-
-    // You can add additional validation criteria for the name here
-    // For example, checking if the name contains only alphabetic characters
-
-    return null;
-  }
+  
 
   void saveUserDetails() async {
     if (formKey.currentState!.validate()) {
@@ -147,6 +131,7 @@ class UserDetailsViewModel extends BaseViewModel {
         // }
         if(cityValue == '' || stateValue == '' || countryValue == ''){
         showToast(message: 'Please select your location to proceed');
+        return;
       }
       }
 

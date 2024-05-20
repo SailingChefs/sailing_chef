@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../add_ingredients_sheet_model.dart';
@@ -13,6 +14,7 @@ class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: viewModel.ingredientsList.length,
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             final ingredient = viewModel.ingredientsList[index];
             return Padding(
@@ -35,7 +37,7 @@ class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 30.0),
                             child: Text(
-                              ingredient.name,
+                              capitalizeEachWord(ingredient.name),
                               overflow: TextOverflow.ellipsis,
                               style: globalTextStyle(
                                   fontSize: 14,

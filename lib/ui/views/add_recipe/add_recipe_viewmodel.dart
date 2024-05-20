@@ -415,7 +415,7 @@ Future<void> durationCalculate(File path) async {
     } else if (hours == 0) {
       return '$remainingMinutes mins'; // If less than an hour, display only minutes
     } else {
-      return '$hours h $remainingMinutes mins'; // Otherwise, display hours and minutes
+      return '${hours}h${remainingMinutes}mins'; // Otherwise, display hours and minutes
     }
   }
 
@@ -456,6 +456,9 @@ Future<void> durationCalculate(File path) async {
   }
 
   void showDraftDialog() {
+    if(isPlaying){
+      stopListening();
+    }
     if (titleController.text.trim().isEmpty) {
       showToast(message: 'Title cannot be empty');
       return;
@@ -574,6 +577,9 @@ Future<void> durationCalculate(File path) async {
 
   void previewRecipe() async {
     log(prepreationTime.toString());
+    if(isPlaying){
+      stopListening();
+    }
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 

@@ -43,7 +43,9 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: viewModel.chefList.length >= 5
+                      ? 5
+                      : viewModel.chefList.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -54,6 +56,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       },
                       child: Container(
                         width: 160.w,
+                        height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
@@ -70,8 +73,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                                child: ClipRRect(
+                            ClipRRect(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r),
@@ -80,13 +82,15 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
+                                      height: 201.h,
                                     )
                                   : Image.network(
                                       chef.displayPicture!,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
+                                      height: 201.h,
                                     ),
-                            )),
+                            ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(

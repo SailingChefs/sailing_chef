@@ -31,10 +31,10 @@ class IndexView extends StackedView<IndexViewModel> {
               const TabBarIndexScreen(),
               verticalSpace(10),
               viewModel.isMySelected
-                  ? viewModel.chefList.isEmpty
+                  ? viewModel.isBusy
                       ? const ShimmerChef()
                       : const ChefListIndexScreen()
-                  : viewModel.cullinary.isEmpty
+                  : viewModel.isBusy
                       ? const ShimmerChef()
                       : const CullinaryListIndexScreen(),
               verticalSpace(10),
@@ -42,7 +42,8 @@ class IndexView extends StackedView<IndexViewModel> {
               verticalSpace(10),
               const DishListIndexScreen(),
               verticalSpaceMedium,
-              Center(
+              
+              viewModel.dishes.isNotEmpty ? Center(
                 child: TextButton(
                   onPressed: viewModel.toAllRecipesView,
                   child: Text(
@@ -50,7 +51,7 @@ class IndexView extends StackedView<IndexViewModel> {
                     style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),
                   ),
                 ),
-              ),
+              ): Container(),
             ],
           ),
         ),

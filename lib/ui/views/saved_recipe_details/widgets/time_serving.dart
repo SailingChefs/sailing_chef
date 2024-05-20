@@ -14,19 +14,20 @@ class TimeAndServingRecipeShow extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: kcPrimaryColorDark.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(30),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Icon(
                 FlutterRemix.time_line,
                 color: kcBlackColor,
                 size: 21.dg,
               ),
-              horizontalSpaceSmall,
+              // horizontalSpaceSmall,
               Text(
-                ' ${recipeModel.prepTime}',
+                ' ${recipeModel.prepTime.trim()}',
                 style: globalTextStyle(
                   fontSize: 16.0.sp,
                   color: kcBlackColor,
@@ -36,14 +37,14 @@ class TimeAndServingRecipeShow extends StatelessWidget {
             ],
           ),
         ),
-        horizontalSpaceMedium,
+        horizontalSpaceSmall,
         Container(
             width: 130,
             height: 45,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: kcPrimaryColorDark.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

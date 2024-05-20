@@ -90,6 +90,8 @@ class LoginView extends StackedView<LoginViewModel> {
                           controller: viewModel.emailController,
                           labelText: 'email',
                           validator: viewModel.validateEmail,
+                          onChanged:(value) => viewModel.rebuildUi(),
+
                           keyboardType: TextInputType.emailAddress,
                         ),
                         verticalSpace(
@@ -98,6 +100,8 @@ class LoginView extends StackedView<LoginViewModel> {
                           controller: viewModel.passwordController,
                           labelText: 'Password',
                           ispassvisible: viewModel.showPassword,
+                          onChanged:(value) => viewModel.rebuildUi(),
+
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: !viewModel.showPassword,
                           suffixIconbool: true,

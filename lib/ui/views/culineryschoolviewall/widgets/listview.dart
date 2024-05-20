@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 
@@ -23,6 +24,7 @@ class ListViewCulinaryChool
                 child: Container(
                   height: 123.h,
                   margin: EdgeInsets.only(bottom: 20.h),
+                  // padding: EdgeInsets.(10.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.green.withOpacity(0.06),
@@ -77,8 +79,9 @@ class ListViewCulinaryChool
                                         verticalSpace(5),
                                         Text(
                                            viewModel.cullinary[index].namedLocation!,
+                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(
-                                            fontSize: 17.sp,
+                                            fontSize: viewModel.cullinary[index].namedLocation!.length > 20 ? 12 : 16,
                                             fontWeight: FontWeight.w500,
                                             color: kcBlackColor,
                                           ),
