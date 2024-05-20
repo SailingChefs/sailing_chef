@@ -13,8 +13,18 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   Widget build(BuildContext context, IndexViewModel viewModel) {
     final List<RecipeModel> dishes = viewModel.dishes;
 
-    return viewModel.dishes.isEmpty
-        ? const ShimmerDishes()
+    return viewModel.isBusy ?
+      const ShimmerDishes():
+      viewModel.dishes.isEmpty
+        ? SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Center(
+              child: Text(
+                'No Dishes Found',
+                style: globalTextStyle(fontSize: 18.sp, color: kcPrimaryColor),
+              ),
+            ),
+        )
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -49,11 +59,11 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           duration: dishes[index].prepTime,
                           chefImagePath:
                               dishes[index].user!.displayPicture == null
-                                  ? ''
+                                  ? 'assets/images/misc/blank_image.png'
                                   : dishes[index].user!.displayPicture!,
                         );
                       },
-                      childCount: 10,
+                      childCount: dishes.length >= 10 ? 10 : dishes.length,
                     ),
                   ),
                 ],

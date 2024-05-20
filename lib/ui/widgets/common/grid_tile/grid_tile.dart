@@ -120,7 +120,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   height: 30.h,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: kcBlackColor.withOpacity(0.5),
+                    color: kcBlackColor.withOpacity(0.6),
                   ),
                   child: isRecipeSaved
                       ? Icon(
@@ -169,7 +169,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 30.dg+10.dg,
+              bottom: 30.dg ,
               right: 10.dg,
               child:     Container(
           height: 32.h,
@@ -177,6 +177,10 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
           decoration: BoxDecoration(
             color: kcVeryLightGrey,
             shape: BoxShape.circle,
+            border: Border.all(
+              color: kcWhiteColor,
+              width: 2.w,
+            ),
             image: DecorationImage(
               image: userDetails!.displayPicture!.isEmpty
                   ? const AssetImage('assets/images/misc/blank_image.png')

@@ -27,16 +27,18 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
         userDetails!.userRole == 'guest'
             ? Column(
                 children: [
-                  const Divider(),
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
                   ListTile(
                     contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
                     onTap: viewModel.getBecomeChef,
@@ -47,17 +49,19 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                           color: kcBlackColor,
                           fontWeight: FontWeight.w400),
                     ),
-                    trailing: const Icon(
+                    trailing: Icon(
                       Icons.arrow_forward_ios,
-                      color: kcBlackColor,
-                      size: 14,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 16.5.dg,
                     ),
                   ),
                 ],
               )
             : Column(
                 children: [
-                  const Divider(),
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
                   ListTile(
                     contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
                     onTap: viewModel.getAllDrafts,
@@ -68,32 +72,36 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                           color: kcBlackColor,
                           fontWeight: FontWeight.w400),
                     ),
-                    trailing: const Icon(
+                    trailing: Icon(
                       Icons.arrow_forward_ios,
-                      color: kcBlackColor,
-                      size: 14,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 16.5.dg,
                     ),
                   ),
                 ],
               ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: viewModel.getTerms,
           title: Text(
-            'Terms & Conditions',
+            'Terms & Policies',
             style: globalTextStyle(
                 fontSize: 16.0.dg,
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: viewModel.getBlockAcc,
@@ -104,13 +112,15 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {},
@@ -121,13 +131,15 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: viewModel.deleteAccount,
@@ -138,32 +150,34 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {
-            viewModel.signOutUser();
-          },
+          onTap: viewModel.signOutUser,
           title: Text(
-            'Logout',
+            'Sign Out',
             style: globalTextStyle(
                 fontSize: 16.0.dg,
                 color: kcBlackColor,
                 fontWeight: FontWeight.w400),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 16.5.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
       ],
     );
   }

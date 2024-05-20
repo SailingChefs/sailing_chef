@@ -3,12 +3,15 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class UserdataServiceService {
   static UserModel user = UserModel();
+  final _userService = UserServices();
   Future<List<UserModel>> fetchUsersDocuments() async {
     List<UserModel> users = [];
 
@@ -70,12 +73,15 @@ class UserdataServiceService {
         await usersCollection.doc(uid).update(userModel);
         EasyLoading.dismiss();
         showToast(message: 'User Data Uploaded successfully');
+        userDetails = await _userService.getUserDetails();
         return true;
       } else {
         EasyLoading.dismiss();
         await usersCollection.doc(uid).set(userModel);
+        userDetails = await _userService.getUserDetails();
         return true;
       }
+     
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());

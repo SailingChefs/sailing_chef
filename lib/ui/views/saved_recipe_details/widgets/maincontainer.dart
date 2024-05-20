@@ -42,9 +42,11 @@ class MainRecipeViewContainer
                 children: [
                   Text(
                     capitalizeEachWord(recipeModel.title),
+                    
                     style: globalTextStyle(
-                      fontSize: 26.45.sp,
-                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.5,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
                       color: kcBlackColor,
                     ),
                   ),

@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
-import 'rounded_tranparent_textfield.dart';
+import '../add_ingredients_sheet_model.dart';
+import '../../../widgets/rounded_tranparent_textfield.dart';
 
 class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
   const TwoTextFields({super.key});
@@ -29,6 +29,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
+                    fillColor: Color(0xFF427536).withOpacity(0.04),
                     textColor: kcBlackColor.withOpacity(0.4),
                   ),
                 ),
@@ -41,7 +42,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
               height: 50.h,
               width: 190.w,
               decoration: BoxDecoration(
-                color: kcVeryLightGrey.withOpacity(0.2),
+                color: const Color(0xFF427536).withOpacity(0.04),
                 borderRadius: const BorderRadius.all(Radius.circular(30)),
               ),
               child: Padding(

@@ -1,43 +1,43 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 
-class RoleSelector extends StatelessWidget {
-  final SignUpViewModel viewModel;
-  const RoleSelector({super.key, required this.viewModel});
+class RoleSelector extends ViewModelWidget<SignUpViewModel> {
+
+  const RoleSelector({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SignUpViewModel viewModel) {
     return Container(
       height: screenHeight(context) * 0.08,
       decoration: BoxDecoration(
-        color: kcPrimaryColor.withOpacity(0.2),
+        color: const Color(0xFFF4F8F7).withOpacity(0.3),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
-          Expanded(
+           Expanded(
             child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(0),
+              onTap: () => viewModel.handleSignUpAs(2),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
+                 
                   ),
-                  color: viewModel.selectedSignUpAs == 'guest'
-                      ? kcPrimaryColorDark
+                  color: viewModel.selectedSignUpAs == 'chef'
+                      ? kcPrimaryColor
                       : Colors.transparent,
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.person,
-                      color: kcWhiteColor,
+                    Image.asset(
+                      'assets/images/icons/chef.png',
                     ),
-                    SizedBox(height: 3),
-                    Text(
-                      'Guest',
+                    verticalSpaceTiny,
+                    const Text(
+                      'Chef',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: kcWhiteColor,
@@ -48,6 +48,7 @@ class RoleSelector extends StatelessWidget {
               ),
             ),
           ),
+          
           Expanded(
             flex: 2,
             child: GestureDetector(
@@ -65,7 +66,7 @@ class RoleSelector extends StatelessWidget {
                     ),
                   ),
                   color: viewModel.selectedSignUpAs == 'culinarySchool'
-                      ? kcPrimaryColorDark
+                      ? kcPrimaryColor
                       : Colors.transparent,
                 ),
                 child: const Column(
@@ -90,26 +91,29 @@ class RoleSelector extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(2),
+              onTap: () => viewModel.handleSignUpAs(0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
+                       topRight: Radius.circular(10),
                     bottomRight: Radius.circular(10),
+                    
                   ),
-                  color: viewModel.selectedSignUpAs == 'chef'
-                      ? kcPrimaryColorDark
+                  color: viewModel.selectedSignUpAs == 'guest'
+                      ? kcPrimaryColor
+                      
                       : Colors.transparent,
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/icons/chef.png',
+                    Icon(
+                      Icons.person,
+                      color: kcWhiteColor,
                     ),
-                    verticalSpaceTiny,
-                    const Text(
-                      'Chef',
+                    SizedBox(height: 3),
+                    Text(
+                      'Guest',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: kcWhiteColor,
@@ -120,6 +124,7 @@ class RoleSelector extends StatelessWidget {
               ),
             ),
           ),
+         
         ],
       ),
     );

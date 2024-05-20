@@ -43,7 +43,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: viewModel.cullinary.length > 5 ? 5 : viewModel.cullinary.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {

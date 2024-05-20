@@ -21,8 +21,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   child: Text('${ingredient.quantity} ${ingredient.unit}',
                       style: globalTextStyle(
                         color: kcBlackColor.withOpacity(0.87),
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w300,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
                       )),
                 ),
                 SizedBox(
@@ -33,8 +33,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   maxLines: 1,
                       style: globalTextStyle(
                         color: kcBlackColor.withOpacity(0.6),
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
                       ),),),
                 Container(
                   width: 20.0.h,

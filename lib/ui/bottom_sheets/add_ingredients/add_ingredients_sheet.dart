@@ -3,7 +3,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredien
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
-import 'package:sailing_chefs/ui/widgets/two_textfields_inarow.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/two_textfields_inarow.dart';
 import 'add_ingredients_sheet_model.dart';
 import 'widgets/listview_quantity_name.dart';
 
@@ -62,9 +62,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             const TwoTextFields(),
             verticalSpaceTiny,
             SaveRecipeButton(
-              onPressed: () {
-                viewModel.addIngredientToList();
-              },
+              onPressed: viewModel.addIngredientToList,
               buttonText: 'Add Ingredient',
               prefix: Icons.add,
             ),

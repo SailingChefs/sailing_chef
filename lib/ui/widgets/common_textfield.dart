@@ -27,6 +27,7 @@ class CommonTextField extends ViewModelWidget<AddIngredientsSheetModel> {
             padding: const EdgeInsets.only(right: 12.0),
             child: RoundedTransparentTextField(
               controller: viewModel.ingredientNameController,
+              fillColor: const Color(0xFF427536).withOpacity(0.04),
               labelText: '$hintText',
               textColor: kcBlackColor.withOpacity(0.4),
             ),

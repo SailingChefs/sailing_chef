@@ -29,7 +29,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
           BottomNavigationBarItem(
             activeIcon: Icon(
               FlutterRemix.home_fill,
-              color: kcDarkColor,
+            color: kcPrimaryColor,
             ),
             label: '',
             icon: Icon(
@@ -40,7 +40,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.pin_drop_sharp,
-              color: kcDarkColor,
+            color: kcPrimaryColor,
             ),
             label: '',
             icon: Icon(
@@ -51,20 +51,20 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
           BottomNavigationBarItem(
             activeIcon: Icon(
               FlutterRemix.add_circle_fill,
-              color: kcDarkColor,
+              color: kcPrimaryColor,
               size: 48,
             ),
             label: '',
             icon: Icon(
               FlutterRemix.add_circle_fill,
-              color: kcDarkColor,
+              color: kcPrimaryColor,
               size: 48,
             ),
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.chat_bubble_rounded,
-              color: kcDarkColor,
+             color: kcPrimaryColor,
             ),
             label: '',
             icon: Icon(
@@ -75,7 +75,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
           BottomNavigationBarItem(
             activeIcon: Icon(
               FlutterRemix.account_circle_fill,
-              color: kcDarkColor,
+              color: kcPrimaryColor,
             ),
             label: '',
             icon: Icon(

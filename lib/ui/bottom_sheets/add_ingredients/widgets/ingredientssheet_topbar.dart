@@ -22,7 +22,7 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
               style: globalTextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: kcPrimaryColor.withOpacity(0.5)),
+                  color: const Color(0xFF6C908D)),
             ),
           ),
         ],

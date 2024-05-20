@@ -42,6 +42,6 @@ class SettingsViewModel extends BaseViewModel {
 
   void signOutUser() async {
     await  _authService.signOut();
-    _navigationService.replaceWithLoginView();
+    _navigationService.clearStackAndShowView(const LoginView());
   }
 }
