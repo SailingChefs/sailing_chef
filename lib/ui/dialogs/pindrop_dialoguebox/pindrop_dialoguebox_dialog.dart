@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 
