@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
@@ -31,57 +30,62 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
             color: kcPrimaryColor,
           ))
         : Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             backgroundColor: kcBackgroundColor,
-            body: Stack(children: [
-              TopBarDetailsScreen(image: recipeModel.coverImage),
-              MainRecipeViewContainer(
-                recipeModel: recipeModel,
-                recipeList: randomRecipeList,
-              ),
-              Positioned(
-            top: MediaQuery.of(context).size.height * 0.39,
-            right: 30,
-            child:     Container(
-          height: 70.h,
-          width: 70.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            border: Border.all(
-              color: kcWhiteColor,
-              width: 2.0,
-            ),
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: recipeModel.user!.displayPicture!.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(recipeModel.user!.displayPicture!) as ImageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-          ),
-             Positioned(
+            body: SingleChildScrollView(
+              child: Stack(children: [
+                TopBarDetailsScreen(image: recipeModel.coverImage),
+                MainRecipeViewContainer(
+                  recipeModel: recipeModel,
+                  recipeList: randomRecipeList,
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.4,
+                  right: 30,
+                  child: Container(
+                    height: 60.h,
+                    width: 60.w,
+                    decoration: BoxDecoration(
+                      color: kcVeryLightGrey,
+                      border: Border.all(
+                        color: kcWhiteColor,
+                        width: 3.0,
+                      ),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: recipeModel.user!.displayPicture!.isEmpty
+                            ? const AssetImage(
+                                'assets/images/misc/blank_image.png')
+                            : NetworkImage(recipeModel.user!.displayPicture!)
+                                as ImageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: 40,
+                    right: 10,
+                    child: SaveShare(
+                      recipe: recipeModel,
+                    )),
+                Positioned(
                   top: 40,
-                  right: 10,
-                  child: SaveShare(
-                    recipe: recipeModel,
-                  )),
-              Positioned(
-                top: 40,
-                left: 10,
-                child: BackArrowWidget(onTap: () {
-                  viewModel.moveBack();
-                }),
-              ),
-            ]),
+                  left: 10,
+                  child: BackArrowWidget(onTap: () {
+                    viewModel.moveBack();
+                  }),
+                ),
+              ]),
+            ),
           );
   }
 
   @override
   void onViewModelReady(SavedRecipeDetailsViewModel viewModel) {
     viewModel.onViewModelReady(
-      recipeModel.docId!,);
+      recipeModel.docId!,
+    );
     super.onViewModelReady(viewModel);
   }
 

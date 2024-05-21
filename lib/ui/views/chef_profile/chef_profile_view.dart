@@ -34,44 +34,44 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             // padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
             padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 35),
             child: SingleChildScrollView(
+              controller: viewModel.scrollController,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+              
                 children: [
-                  Column(
-                    children: [
-                      ChefProfileDetailsDesc(
-                        user: user,
-                      ),
-                      ProfileDescriptionChefProfileScreen(
-                        user,
-                      ),
-                      Follow_Message_Btns(user: user),
-                      user.userRole == 'chef'
-                          ? viewModel.isBusy
-                              ? const ShimmerLoaderChefView()
-                              : DishListScreen(user: user)
-                          : Container(),
-                      verticalSpaceTiny,
-                      user.userRole == 'guest'
-                          ? viewModel.isBusy
-                              ? const ShimmerLoaderChefView()
-                              : SavedChefProfileScreen(user,
-                                  savedRecipes: viewModel.userSavedRecipe!)
-                          : user.userRole == 'culinarySchool'
-                              ? viewModel.isBusy
-                                  ? const ShimmerLoaderChefView()
-                                  : Column(
-                                      children: [
-                                        TabBarChefProfileScreen(user),
-                                        viewModel.isMySelected
-                                            ? const RecipesProfileScreen()
-                                            : SavedChefProfileScreen(user,
-                                                savedRecipes: const []),
-                                      ],
-                                    )
-                              : Container(),
-                    ],
+
+                  ChefProfileDetailsDesc(
+                    user: user,
                   ),
+                  verticalSpaceMedium,
+                  Follow_Message_Btns(user: user),
+                  user.userRole == 'chef'
+                      ? viewModel.isBusy
+                          ? const ShimmerLoaderChefView()
+                          : DishListScreen(user: user)
+                      : Container(),
+                  verticalSpaceTiny,
+                  user.userRole == 'guest'
+                      ? viewModel.isBusy
+                          ? const ShimmerLoaderChefView()
+                          : SavedChefProfileScreen(user,
+                              savedRecipes: viewModel.userSavedRecipe!)
+                      : user.userRole == 'culinarySchool'
+
+                          ? viewModel.isBusy
+                              ? const ShimmerLoaderChefView()
+                              : Column(
+                                  children: [
+                                    TabBarChefProfileScreen(user),
+                                    viewModel.isMySelected
+                                        ? const RecipesProfileScreen()
+                                        : SavedChefProfileScreen(
+                                            user,
+                                            savedRecipes: const [],
+                                          ),
+                                  ],
+                                )
+                          : Container(),
                 ],
               ),
             ),

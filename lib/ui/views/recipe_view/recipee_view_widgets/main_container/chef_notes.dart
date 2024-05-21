@@ -13,8 +13,12 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Chef Notes",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+       Text("Chef Notes",
+             style: globalTextStyle(
+            fontSize: 15.0.sp,
+            fontWeight: FontWeight.w700,
+            color: kcBlackColor,
+          ),),
         verticalSpaceSmall,
          viewModel.isBusy
               ? const ShimmerContainer(
@@ -84,18 +88,14 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor,
-                          )
+                          ),
                         ),
-
                         IconButton(
-                          onPressed: () {
-                            viewModel.onVolumeUpIconPressed();
-                          },
+                          onPressed: 
+                            viewModel.onVolumeUpIconPressed, 
                           icon: viewModel.isMute
                               ? const Icon(
-
                                   Icons.volume_off,
-
                                 )
                               : const Icon(
                                   Icons.volume_up,

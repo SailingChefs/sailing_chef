@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -11,7 +10,9 @@ class ChefService with ListenableServiceMixin {
   bool isInitialized = false;
 
   Future<void> chefInit() async {
+    if(isInitialized) return;
     chefs = await fetchChefDocuments();
+    isInitialized = true;
     notifyListeners();
   }
 
@@ -19,7 +20,7 @@ class ChefService with ListenableServiceMixin {
     List<UserModel> users = [];
 
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where(
             'user_role',
@@ -30,7 +31,7 @@ class ChefService with ListenableServiceMixin {
           .get();
       for (var doc in querySnapshot.docs) {
         UserModel? currUser = await _userService
-            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+            .fetchUserByUID(firebaseAuth.currentUser!.uid);
         UserModel user = UserModel.fromSnapshot(doc);
 
         // int recipeCount = await FirebaseFirestore.instance
@@ -68,7 +69,7 @@ class ChefService with ListenableServiceMixin {
     List<UserModel> users = [];
 
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await firebasestore
           .collection('recipes')
           .where(
             'uid',
@@ -79,7 +80,7 @@ class ChefService with ListenableServiceMixin {
 
       for (var doc in querySnapshot.docs) {
         UserModel? currUser = await _userService
-            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+            .fetchUserByUID(firebaseAuth.currentUser!.uid);
         user = UserModel.fromSnapshot(doc);
         if (!currUser.blockedAccounts!.contains(user.uid)) {
           users.add(user);

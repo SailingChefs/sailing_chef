@@ -171,13 +171,13 @@ class UserServices with ListenableServiceMixin {
       // Delete document with the user's UID from Firestore
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(firebaseAuth.currentUser!.uid)
           .delete();
 
       // Delete conversation Documents with user's uid from Firestore
       await FirebaseFirestore.instance
           .collection('conversations')
-          .where('users', arrayContains: FirebaseAuth.instance.currentUser!.uid)
+          .where('users', arrayContains: firebaseAuth.currentUser!.uid)
           .get()
           .then((querySnapshot) {
         for (var doc in querySnapshot.docs) {
@@ -188,7 +188,7 @@ class UserServices with ListenableServiceMixin {
       );
 
       // Delete user from Firebase Authentication
-      await FirebaseAuth.instance.currentUser!.delete();
+      await firebaseAuth.currentUser!.delete();
       await _authService.signOut();
       log('User account and document deleted successfully');
       return true;

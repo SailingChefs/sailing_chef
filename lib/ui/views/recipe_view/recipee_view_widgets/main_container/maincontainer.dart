@@ -46,40 +46,41 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                     Text(
                       capitalizeEachWord(recipeModel.title),
                       style: globalTextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: kcBlackColor,
-                      ),
+                      letterSpacing: -0.5,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kcBlackColor,
                     ),
-                    verticalSpaceSmall,
+                    ),
+                   verticalSpace(12.h),
                     TimeAndServing(
                       recipeModel: recipeModel,
                     ),
                     // const TabBarWidgets(),
-                    verticalSpaceMedium,
+                   verticalSpace(24.h),
                     // verticalSpaceTiny,
                     IngredientsClass(
                       recipeModel,
                     ),
-                    verticalSpaceLarge,
+                    verticalSpace(12),
                     Methods(
                       recipe: recipeModel,
                     ),
-                    verticalSpaceSmall,
+                verticalSpace(12),
                     TipsNotes(
                       viewModel: recipeModel,
                     ),
                     const ChefNotes(),
-                    verticalSpaceLarge,
+                    verticalSpace(24),
                     const ChefDetail(),
-                    verticalSpaceMedium,
+                   verticalSpace(12),
                     SaveRecipeButton(
                       onPressed: () {
                         viewModel.saveRecipe(recipeModel, selectedImages);
                       },
                       buttonText: 'Publish Recipe',
                     ),
-                    verticalSpaceMedium,
+                    verticalSpace(12),
 
                     PublishTextButton(
                       recipe: recipeModel,

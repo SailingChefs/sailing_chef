@@ -4,11 +4,15 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/model/reviews.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PindetailsDialogModel extends BaseViewModel {
+class PindetailsDialogModel extends ReactiveViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
+ final _reviewService = locator<PinDropService>();
+  List<ReviewsModel> get reviews => _reviewService.reviews;
   late bool serviceEnabled;
   late LocationPermission permission;
   Position? currentPosition;
@@ -19,6 +23,9 @@ class PindetailsDialogModel extends BaseViewModel {
   PageController pageController = PageController(viewportFraction: 1.0);
   List<String>? tags;
   final _dialogNavigation = locator<DialogService>();
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_reviewService];
 
   void showPreviousImage() {
     if (pageController.page! > 0) {
@@ -44,6 +51,24 @@ class PindetailsDialogModel extends BaseViewModel {
       throw 'Could not launch $url';
     }
   }
+  String calculateAverageRating(List<ReviewsModel> comments) {
+    if (comments.isEmpty) {
+      return "0.0"; // Return 0 if there are no comments
+    }
+
+    double totalRating = 0.0;
+
+    // Calculate the total rating
+    for (var comment in comments) {
+      if (comment.rating != null) {
+        totalRating += comment.rating!;
+      }
+    }
+
+    // Calculate the average rating
+    double averageRating = totalRating / comments.length;
+   return averageRating.toStringAsFixed(1);
+  }
 
   void onViewModelReady() async {
     setBusy(true);
@@ -51,7 +76,7 @@ class PindetailsDialogModel extends BaseViewModel {
     for (var i = 0; i < pinnedLocation.tags.length; i++) {
       tags = pinnedLocation.tags;
     }
-    log("${currentPosition!.longitude}");
+    await _reviewService.getReviews(pinnedLocation.id!);
     setBusy(false);
   }
 

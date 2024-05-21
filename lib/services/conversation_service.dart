@@ -18,9 +18,9 @@ class ConversationService {
 
   Future<String> createOrUpdateConversation(
       ConversationModel conversation) async {
-    final FirebaseFirestore db = FirebaseFirestore.instance;
+    // final FirebaseFirestore db = FirebaseFirestore.instance;
     final CollectionReference conversationsCollection =
-        db.collection('conversations');
+        firebasestore.collection('conversations');
 
     String conversationId = ''; // Initialize with a default value
 
@@ -59,28 +59,27 @@ class ConversationService {
     }
   }
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+ 
 
-  final String currentUserUid = firebaseAuth.currentUser!.uid;
+ 
 
   Stream<List<ConversationModel>> getConversations() {
     log(FirebaseAuth.instance.currentUser!.uid);
-    return _firestore
+    return firebasestore
         .collection('conversations')
-        .where('users', arrayContains: FirebaseAuth.instance.currentUser!.uid)
+        .where('users', arrayContains:firebaseAuth.currentUser!.uid)
         .snapshots()
         .asyncMap((QuerySnapshot querySnapshot) async {
       List<ConversationModel> conversations = [];
       for (var doc in querySnapshot.docs) {
         List<String> users = List<String>.from(doc.get('users'));
         String otherUserId = users
-            .firstWhere((id) => id != FirebaseAuth.instance.currentUser!.uid);
+            .firstWhere((id) => id != firebaseAuth.currentUser!.uid);
         UserModel? otherUser = await _userService.fetchUserByUID(otherUserId);
         conversations.add(ConversationModel.fromDocument(doc, otherUser));
       }
       return conversations;
     }).handleError((error) {
-      log('Error getting conversations for user $currentUserUid: $error');
       return [];
     });
   }
@@ -169,9 +168,8 @@ class ConversationService {
 
   Future<void> sendMessage(MessageModel message, String conversationId,
       {String? imageUrl, String? file}) async {
-    final FirebaseFirestore db = FirebaseFirestore.instance;
     final CollectionReference conversationsCollection =
-        db.collection('conversations');
+        firebasestore.collection('conversations');
     final CollectionReference messagesCollection =
         conversationsCollection.doc(conversationId).collection('messages');
 
@@ -223,7 +221,7 @@ class ConversationService {
   Stream<List<MessageModel>> getMessages(String conversationId) async* {
     try {
       EasyLoading.show();
-      final CollectionReference messagesCollection = FirebaseFirestore.instance
+      final CollectionReference messagesCollection = firebasestore
           .collection('conversations')
           .doc(conversationId)
           .collection('messages');

@@ -28,8 +28,6 @@ class FollowingSavedRecipesScreen
 
                   chefId: viewModel.followingRecipes![index].user!.uid!,
                   rating: calculateAverageRating(viewModel.followingRecipes![index].comment!) ,
-
-                    savedRecipeList: viewModel.savedRecipes,
                     recipeId: viewModel.followingRecipes![index].docId!,
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),

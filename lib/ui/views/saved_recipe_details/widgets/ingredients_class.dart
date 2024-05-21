@@ -17,35 +17,40 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  width:    ingredient.quantity .length > 10 ? 100.w : 150.w,
+                  width: ingredient.quantity.length > 10 ? 100.w : 150.w,
                   child: Text('${ingredient.quantity} ${ingredient.unit}',
                       style: globalTextStyle(
                         color: kcBlackColor.withOpacity(0.87),
+                        letterSpacing: -0.3,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       )),
                 ),
                 SizedBox(
                   width: ingredient.name.length > 10 ? 100.w : 150.w,
-                  
-                  child: Text(capitalizeEachWord(ingredient.name),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                      style: globalTextStyle(
-                        color: kcBlackColor.withOpacity(0.6),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),),),
-                Container(
-                  width: 20.0.h,
-                  height: 15.0.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: kcBlackColor.withOpacity(0.6),
+                  child: Text(
+                    capitalizeEachWord(ingredient.name),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: globalTextStyle(
+                      letterSpacing: -0.3,
+                      color: kcBlackColor.withOpacity(0.5),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
+                Container(
+                  width: 12.0.w,
+                  height: 12.0.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: kcBlackColor.withOpacity(0.8),
+                    ),
+                  ),
+                ),
+                horizontalSpaceTiny,
               ],
             ),
             verticalSpaceSmall,
@@ -64,19 +69,20 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Ingredients',
-                style: globalTextStyle(
-                  fontSize: 15.0.sp,
-                  fontWeight: FontWeight.w500,
-                  color: kcBlackColor,
-                )),
+            Text(
+              'Ingredients',
+              style: globalTextStyle(
+                fontSize: 15.0.sp,
+                fontWeight: FontWeight.w700,
+                color: kcBlackColor,
+              ),
+            ),
             Container(
-              height: 20.0.h,
-              // width: 150.0.w,
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
               decoration: BoxDecoration(
                 color: kcPrimaryColorDark.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(32.0.dg),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,13 +90,16 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   Text(
                     'add all to shopping list',
                     style: globalTextStyle(
-                        fontSize: 12,
-                        color: kcBlackColor,
-                        fontWeight: FontWeight.w400),
+                      fontSize: 12.sp,
+                      color: kcBlackColor,
+                      letterSpacing: -0.2,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  horizontalSpaceSmall,
+                  horizontalSpaceTiny,
                   Container(
-                    width: 10.0.h,
+                    width: 12.0.w,
+                    height: 12.0.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
@@ -104,15 +113,6 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           ],
         ),
         verticalSpaceMedium,
-        // Text(
-        //   '${recipeModel.ingredients.length} items',
-        //   style: GoogleFonts.poppins(
-        //     textStyle: TextStyle(
-        //       fontSize: 10.0.sp,
-        //       fontWeight: FontWeight.w300,
-        //     ),
-        //   ),
-        // ),
         ...allIngredients
       ],
     );

@@ -29,7 +29,7 @@ class SaveRecipeButton extends StatelessWidget {
         width:  310.w,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: kcPrimaryColorDark,
+            backgroundColor: kclightgreencolor,
           ),
           onPressed: onPressed,
           child: Row(
@@ -46,6 +46,7 @@ class SaveRecipeButton extends StatelessWidget {
                 style: globalTextStyle(
                   fontSize: fontSize.sp,
                   color: textColor,
+                  letterSpacing: -0.5,
                   fontWeight: fontWeight,
                 ),
               ),

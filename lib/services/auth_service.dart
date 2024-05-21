@@ -52,7 +52,7 @@ class AuthService {
     EasyLoading.show();
     try {
 
-      await FirebaseAuth.instance.signOut();
+      await firebaseAuth.signOut();
       
       userDetails = null;
 
@@ -103,43 +103,5 @@ class AuthService {
   }
 }
 
-//   static Future<bool> register({
-//     required String email,
-//     required String password,
-//     required String name,
-//     required String role,
-//   }) async {
-//     try {
-//       EasyLoading.show();
-//       final UserCredential user = await firebaseAuth
-//           .createUserWithEmailAndPassword(email: email, password: password);
-//       bool userStored = await UserServices.storeUserRoleAndName(
-//         uid: user.user!.uid,
-//         name: name,
-//         role: role,
-//       );
 
-//       EasyLoading.dismiss();
-//       if (userStored) {
-//         showToast(message: 'Registered successfully');
-//         return true;
-//       } else {
-//         showToast(message: 'Failed to register');
-//         return false;
-//       }
-//     } on FirebaseAuthException catch (e) {
-//       log(e.code.toString());
-//       switch (e.code) {
-//         case "email-already-in-use":
-//           showToast(message: 'Email already exists');
-//         default:
-//           showToast(message: 'Failed to register');
-//           break;
-//       }
-//       return false;
-//     } catch (e) {
-//       EasyLoading.dismiss();
 
-//       return false;
-//     }
-//   }

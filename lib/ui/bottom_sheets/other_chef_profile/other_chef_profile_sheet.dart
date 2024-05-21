@@ -56,6 +56,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
                         child: Text('Report Profile',
                             style: globalTextStyle(
                                 fontSize: 16.sp,
+                                letterSpacing: -0.3,
                                 fontWeight: FontWeight.w500,
                                 color: kcBlackColor)),
                       ),
@@ -76,6 +77,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
                         child: Text('Block Profile',
                             style: globalTextStyle(
                                 fontSize: 16.sp,
+                                letterSpacing: -0.3,
                                 fontWeight: FontWeight.w500,
                                 color: kcBlackColor)),
                       ),
@@ -100,6 +102,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
                 child: Text('Cancel',
                     style: globalTextStyle(
                         fontSize: 16.sp,
+                        letterSpacing: -0.3,
                         fontWeight: FontWeight.w500,
                         color: kcErrorColor)),
               ),

@@ -8,21 +8,32 @@ class TopBarSettingsProfile extends ViewModelWidget<SettingsViewModel> implement
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+
+      padding: const EdgeInsets.only(
+        left: 15.0,
+        right: 25.0,
+      ),
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
+
             behavior: HitTestBehavior.translucent,
             onTap: () => viewModel.getBack(),
             child: SvgPicture.asset('assets/images/icons/backbutton.svg')
+
           ),
           Text(
             title,
             style: globalTextStyle(
-                fontSize: 20.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w600),
+
+              fontSize: 16.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w500,
+            ),
+
           ),
           horizontalSpaceSmall,
         ],

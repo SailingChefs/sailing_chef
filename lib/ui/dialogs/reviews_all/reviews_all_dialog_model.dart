@@ -10,7 +10,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
   ReviewsAllDialogModel(
       {required this.pinnedLocation, required this.placeMark});
   final _reviewService = locator<PinDropService>();
-  List<Reviews> reviews = [];
+  List<ReviewsModel> reviews = [];
   void onViewModelReady() async {
     setBusy(true);
     await _reviewService.getReviews(pinnedLocation.id!);

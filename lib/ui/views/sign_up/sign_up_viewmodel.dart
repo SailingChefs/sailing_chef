@@ -77,11 +77,9 @@ class SignUpViewModel extends BaseViewModel {
             boatName: '',
             createdTime: DateTime.now(),
             displayPicture: '',
-            dob: '',
             followers: [],
             following: [],
             link: '',
-            phoneNumber: '',
             savedRecipes: [],
             blockedAccounts: [],
           ));

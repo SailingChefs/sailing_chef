@@ -10,8 +10,7 @@ class TimeAndServingRecipeShow extends StatelessWidget {
     return Row(
       children: [
         Container(
-          height: 45,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
           decoration: BoxDecoration(
             color: kcPrimaryColorDark.withOpacity(0.2),
             borderRadius: BorderRadius.circular(30),
@@ -23,13 +22,13 @@ class TimeAndServingRecipeShow extends StatelessWidget {
               Icon(
                 FlutterRemix.time_line,
                 color: kcBlackColor,
-                size: 21.dg,
+                size: 18.dg,
               ),
               // horizontalSpaceSmall,
               Text(
                 ' ${recipeModel.prepTime.trim()}',
                 style: globalTextStyle(
-                  fontSize: 16.0.sp,
+                  fontSize: 12.0.sp,
                   color: kcBlackColor,
                   fontWeight: FontWeight.w400,
                 ),
@@ -39,9 +38,8 @@ class TimeAndServingRecipeShow extends StatelessWidget {
         ),
         horizontalSpaceSmall,
         Container(
-            width: 130,
-            height: 45,
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+           
             decoration: BoxDecoration(
               color: kcPrimaryColorDark.withOpacity(0.2),
               borderRadius: BorderRadius.circular(30),
@@ -54,14 +52,20 @@ class TimeAndServingRecipeShow extends StatelessWidget {
                     child: Icon(
                       FlutterRemix.group_line,
                       color: kcPrimaryColor,
+                      size: 18.0,
                     ),
                   ),
 
                   // horizontalSpaceSmall,
                   Text(
                     ' ${recipeModel.servingSize} servings',
+                    style: globalTextStyle(
+                      fontSize: 12.0.sp,
+                      color: kcBlackColor,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ])),
+                ],),),
       ],
     );
   }

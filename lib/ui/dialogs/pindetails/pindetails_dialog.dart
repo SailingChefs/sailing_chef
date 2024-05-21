@@ -87,7 +87,19 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                         dotColor: kcwhitecolor.withOpacity(0.5),
                                         activeDotColor: kcwhitecolor,
                                       ),
-                                    ),
+
+                                      horizontalSpaceSmall,
+                                      Text(
+                                        viewModel.calculateAverageRating(viewModel.reviews)
+                                            .toString(),
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+
                                   ),
                                   verticalSpaceSmall,
                                 ],

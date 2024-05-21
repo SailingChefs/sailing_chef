@@ -42,8 +42,6 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
 
                           chefId: viewModel.chefRecipes![index].user!.uid!,
                           rating: calculateAverageRating(viewModel.chefRecipes![index].comment!),
-
-                          savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.chefRecipes![index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: viewModel

@@ -24,8 +24,9 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Text('All Followers',
                     style: globalTextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     )),
               ),
@@ -53,8 +54,9 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                             title: Text(
                                 viewModel.followersUsers[index].displayName!,
                                 style: globalTextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  letterSpacing: -0.5,
+                                  fontWeight: FontWeight.w600,
                                   color: kcBlackColor,
                                 )),
                             // trailing: SizedBox(

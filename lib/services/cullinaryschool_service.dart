@@ -1,6 +1,6 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -19,6 +19,7 @@ class CullinaryschoolService with ListenableServiceMixin {
   Future<void> culinaryInit() async {
     if (isInitialized) return;
     cullinaryscools = await _fetchCulinaryDocuments();
+    isInitialized = true;
     notifyListeners();
   }
 
@@ -66,18 +67,18 @@ class CullinaryschoolService with ListenableServiceMixin {
     List<UserModel> users = [];
 
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where(
             'user_role',
             isEqualTo: 'culinarySchool',
           )
-          .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser?.uid)
+          .where('uid', isNotEqualTo:firebaseAuth.currentUser?.uid)
           .get();
 
       for (var doc in querySnapshot.docs) {
         UserModel? currUser = await _userService
-            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+            .fetchUserByUID(firebaseAuth.currentUser!.uid);
         UserModel user = UserModel.fromSnapshot(doc);
         if (!currUser.blockedAccounts!.contains(user.uid)) {
           users.add(user);
@@ -92,11 +93,11 @@ class CullinaryschoolService with ListenableServiceMixin {
 
   Future<void> _addCourseToDatabase(Course course) async {
     try {
-      DocumentReference courseRef = await FirebaseFirestore.instance
+      DocumentReference courseRef = await firebasestore
           .collection('courses')
           .add(course.toMap());
       course.id = courseRef.id;
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('courses')
           .doc(course.id)
           .update({
@@ -104,7 +105,7 @@ class CullinaryschoolService with ListenableServiceMixin {
       });
     
 
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('users')
           .doc(userDetails!.uid)
           .update({
@@ -117,7 +118,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
   Future<List<Course>> _updateCourseToDatabase(Course course) async {
     try {
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('courses')
           .doc(course.id)
           .update(course.toMap());
@@ -137,7 +138,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
     try {
       DocumentSnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance
+          await firebasestore
               .collection('users')
               .doc(userId)
               .get();
@@ -148,7 +149,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
         for (String courseId in courseIds) {
           DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
-              await FirebaseFirestore.instance
+              await firebasestore
                   .collection('courses')
                   .doc(courseId)
                   .get();
@@ -172,12 +173,12 @@ class CullinaryschoolService with ListenableServiceMixin {
     required String courseId,
   }) async {
     try {
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('courses')
           .doc(courseId)
           .delete();
 
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      await firebasestore.collection('users').doc(userId).update({
         'school_courses': FieldValue.arrayRemove([courseId]),
       });
     } catch (e) {

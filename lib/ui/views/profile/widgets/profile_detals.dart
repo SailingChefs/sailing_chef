@@ -33,17 +33,21 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 Text(
                   viewModel.myRecipes.length.toString(),
                   style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Dishes',
-                  style: globalTextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6)),
+                 style: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
               ],
             ),
@@ -57,18 +61,22 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               children: [
                 Text(
                   userDetails!.followers!.length.toString(),
-                  style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor.withOpacity(0.6)),
+                   style: globalTextStyle(
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Followers',
                   style: globalTextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
               ],
             ),
@@ -83,17 +91,21 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 Text(
                   userDetails!.following!.length.toString(),
                   style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor.withOpacity(0.6)),
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Following',
-                  style: globalTextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6)),
+                 style: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                 ),
               ],
             ),

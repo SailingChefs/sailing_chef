@@ -43,6 +43,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: true,
+                          readOnly: true,
                           controller: viewModel.emailController,
                           borderRadius: 27.dg,
                           labelText: '',

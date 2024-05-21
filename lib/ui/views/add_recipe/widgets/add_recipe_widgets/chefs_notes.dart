@@ -14,9 +14,11 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         Text(
           'Chef\'s Note',
           style: globalTextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: kcBlackColor),
+            fontSize: 14.sp,
+            letterSpacing: -0.5,
+            fontWeight: FontWeight.w600,
+            color: kcBlackColor,
+          ),
         ),
         verticalSpaceTiny,
         (drafts?.chefNote.isNotEmpty ?? false) &&
@@ -25,7 +27,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                 height: 48,
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: kcMediumGrey.withOpacity(0.2),
+                  color: kcPrimaryColor.withOpacity(0.07),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Row(
@@ -76,28 +78,20 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             ),
                           ),
                         ),
-
                         horizontalSpaceTiny,
-                        Text(
-                          '${viewModel.formattedDuration} ',
-                          style: globalTextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: kcBlackColor,
-                          )
-                        ),
-
-
+                        Text('${viewModel.formattedDuration} ',
+                            style: globalTextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
+                            )),
                         IconButton(
                           onPressed: () {
                             viewModel.onVolumeUpIconPressed();
                           },
                           icon: viewModel.isMute
                               ? const Icon(
-
                                   Icons.volume_off,
-
-
                                 )
                               : const Icon(
                                   Icons.volume_up,
@@ -114,7 +108,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                   left: 10.dg,
                 ),
                 decoration: BoxDecoration(
-                  color: kcVeryLightGrey.withOpacity(0.2),
+                  color: kcPrimaryColor.withOpacity(0.07),
                   borderRadius: const BorderRadius.all(Radius.circular(30)),
                 ),
                 child: Row(
@@ -122,13 +116,18 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                   children: [
                     Expanded(
                       child: viewModel.shouldShowHint
-                          ? Text(
-                              'Add tips for this recipe',
-                              style: globalTextStyle(
-                                  fontSize: 14,
+                          ? Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Text(
+                                'Add tips for this recipe',
+                                style: globalTextStyle(
+                                  fontSize: 12.sp,
+                                  letterSpacing: -0.5,
                                   fontWeight: FontWeight.w600,
-                                  color: kcBlackColor.withOpacity(0.5)),
-                            )
+                                  color: kcBlackColor.withOpacity(0.5),
+                                ),
+                              ),
+                          )
                           : (drafts?.waveForm.isNotEmpty ?? false)
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -208,11 +207,11 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                               waveformData:
                                                   viewModel.waveFormData!,
                                               playerWaveStyle:
-                                                  const PlayerWaveStyle(
-                                                fixedWaveColor: Colors.black,
+                                                 PlayerWaveStyle(
+                                                fixedWaveColor: kcBlackColor.withOpacity(0.5),
                                                 liveWaveColor: kcPrimaryColor,
                                                 spacing: 8,
-                                                seekLineColor: Colors.black,
+                                                seekLineColor: kcBlackColor.withOpacity(0.5),
                                                 showSeekLine: false,
                                               ),
                                             ),
@@ -225,8 +224,8 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                       recorderController:
                                           viewModel.recorderController,
                                       enableGesture: true,
-                                      waveStyle: const WaveStyle(
-                                        waveColor: Colors.black,
+                                      waveStyle:  WaveStyle(
+                                        waveColor: kcBlackColor.withOpacity(0.5),
                                         showDurationLabel: false,
                                         spacing: 8.0,
                                         showBottom: false,
@@ -255,9 +254,10 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                       child: GestureDetector(
                         onLongPressStart: (_) => viewModel.startRecording(),
                         onLongPressEnd: (_) => viewModel.stopRecording(),
-                        child: const Icon(
+                        child:  Icon(
                           Icons.mic,
                           color: kcPrimaryColorDark,
+                          size: 18.0.dg,
                         ),
                       ),
                     ),

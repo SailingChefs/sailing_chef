@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -13,7 +13,7 @@ class SearchService {
   final _userService = locator<UserServices>();
 
   final CollectionReference pinsCollection =
-      FirebaseFirestore.instance.collection('pins');
+      firebasestore.collection('pins');
   Future<List<RecipeModel>> filterRecipes(String query) async {
     try {
       final QuerySnapshot querySnapshot = await recipesCollection
@@ -25,7 +25,7 @@ class SearchService {
       for (var doc in querySnapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
         UserModel? currUser = await _userService
-            .fetchUserByUID(FirebaseAuth.instance.currentUser!.uid);
+            .fetchUserByUID(firebaseAuth.currentUser!.uid);
         if (!currUser.blockedAccounts!.contains(recipe.uid)) {
           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;

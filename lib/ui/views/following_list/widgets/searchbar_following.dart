@@ -23,8 +23,8 @@ class SearchBarFollwoing extends ViewModelWidget<FollowingListViewModel> {
                   fontSize: 12.sp,
                 ),
                 fillColor: kcPrimaryColor.withOpacity(0.2),
-                labelStyle: TextStyle(
-                    fontSize: 17.sp, color: kcBlackColor.withOpacity(0.6)),
+                labelStyle: globalTextStyle(
+                    fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
                 labelText: 'Search',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0.r),

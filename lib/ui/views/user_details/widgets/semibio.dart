@@ -12,11 +12,13 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? postfixIcon;
   final Color? fillColor;
+  final Color? textColor;
 
   const SemiRoundedTranpaentTextFieldBio({
     super.key,
     this.validator,
     this.keyboardType,
+    this.textColor,
     this.fillColor,
     this.inputFormatters,
     this.readOnly = false,
@@ -35,10 +37,11 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
       suffixIconData: postfixIcon,
       validator: validator,
       keyboardType: keyboardType,
+      maxLength: 200,
       inputFormatters: inputFormatters,
       fillColor: fillColor ?? Colors.grey.withOpacity(0.2),
       borderRadius: 10.dg,
-      textColor: Colors.black.withOpacity(0.6),
+      textColor:textColor?? Colors.black.withOpacity(0.6),
       controller: controller,
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -28,9 +29,11 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
           title: Text(
             'Recipes',
             style: globalTextStyle(
-                fontSize: 25.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 16.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           centerTitle: true,
         ),
@@ -81,19 +84,19 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                               bottom: 10.dg,
                               left: 10.dg,
                               child: Container(
-                                  height: 45.h,
                                   decoration: BoxDecoration(
                                     color: Colors.black54.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(30.0.r),
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15.0.w, vertical: 8.h),
                                   child: Row(
                                     children: [
-                                      const Icon(
-                                        FlutterRemix.time_line,
-                                        size: 16,
+                                      SvgPicture.asset(
+                                        'assets/images/misc/clock.svg',
                                         color: kcWhiteColor,
+                                        height: 15.h,
+                                        width: 15.w,
                                       ),
                                       const SizedBox(
                                         width: 8,
@@ -112,25 +115,28 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                         // const SizedBox(width: 16.0),
                         verticalSpaceSmall,
                         SizedBox(
-                          width: 150.w,
-                          height: recipe.title.length > 20 ? 40.h : 50.h,
+                          width:screenWidth(context)* 0.8.w,
+                          // height: recipe.title.length > 20 ? 40.h : 50.h,
                           child: Text(
                             capitalizeEachWord(recipe.title),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: TextStyle(
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black.withOpacity(0.6),
+                            style: globalTextStyle(
+                              letterSpacing: -0.5,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w500,
+                              color: kcBlackColor,
                             ),
                           ),
                         ),
                         // const SizedBox(height: 4.0),
                         Row(
+
                           children: [
+
                             Container(
-                              height: 40.h,
-                              width: 40.w,
+                              height: 35.h,
+                              width: 35.w,
                               decoration: BoxDecoration(
                                 color: kcVeryLightGrey,
                                 shape: BoxShape.circle,
@@ -150,9 +156,12 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                             ),
                             Text(
                               userDetails!.displayName!,
-                              style: TextStyle(
-                                  fontSize: 15.0.sp,
-                                  color: kcBlackColor.withOpacity(0.5)),
+                              style: globalTextStyle(
+                              letterSpacing: -0.5,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w300,
+                              color: kcBlackColor.withOpacity(0.3),
+                            ),
                             ),
                           ],
                         ),
