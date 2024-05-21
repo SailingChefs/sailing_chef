@@ -121,7 +121,6 @@ class EditProfileViewModel extends BaseViewModel {
       Map<String, dynamic> userData = {
         'display_picture': imageLink,
         'display_name': nameController.text,
-        'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'address': address
@@ -133,13 +132,14 @@ class EditProfileViewModel extends BaseViewModel {
     } else {
       Map<String, dynamic> userData = {
         'display_name': nameController.text,
-        'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'address': address,
       };
-      userDataService.storeUserDetails(
+     await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
+            userDetails = await _userService.getUserDetails();
+            _navigationService.navigateToBottomNavBarView();
     }
   }
 
@@ -155,7 +155,6 @@ class EditProfileViewModel extends BaseViewModel {
       Map<String, dynamic> userData = {
         'display_picture': imageLink,
         'display_name': nameController.text,
-        'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'boat_name': boatController.text,
@@ -167,14 +166,15 @@ class EditProfileViewModel extends BaseViewModel {
     } else {
       Map<String, dynamic> userData = {
         'display_name': nameController.text,
-        'email': emailController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'boat_name': boatController.text,
         'address': address,
       };
-      userDataService.storeUserDetails(
+      await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
+           userDetails = await _userService.getUserDetails();
+            _navigationService.navigateToBottomNavBarView();
     }
   }
 
@@ -192,9 +192,10 @@ class EditProfileViewModel extends BaseViewModel {
           'display_name': name,
           'bio': bio,
         };
-        userDataService.storeUserDetails(
+       await userDataService.storeUserDetails(
             userData, FirebaseAuth.instance.currentUser!.uid);
-        userDetails!.displayPicture = imageLink;
+         userDetails = await _userService.getUserDetails();
+            _navigationService.navigateToBottomNavBarView();
         notifyListeners();
       }
     } else {

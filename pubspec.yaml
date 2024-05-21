@@ -83,22 +83,22 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/fonts/
+    # - assets/fonts/
     - assets/images/background/
     - assets/images/icons/
     - assets/images/logo/
     - assets/images/misc/
-fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-Light.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Bold.ttf
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/CaviarDreams.ttf
-        - asset: assets/fonts/CaviarDreams_Bold.ttf
-        - asset: assets/fonts/CaviarDreams_BoldItalic.ttf
-        - asset: assets/fonts/CaviarDreams_Italic.ttf
+# fonts:
+    # - family: Inter
+    #   fonts:
+    #     - asset: assets/fonts/Inter-Light.ttf
+    #     - asset: assets/fonts/Inter-Medium.ttf
+    #     - asset: assets/fonts/Inter-Regular.ttf
+    #     - asset: assets/fonts/Inter-Bold.ttf
+    # - family: Inter
+    #   fonts:
+    #     - asset: assets/fonts/CaviarDreams.ttf
+    #     - asset: assets/fonts/CaviarDreams_Bold.ttf
+    #     - asset: assets/fonts/CaviarDreams_BoldItalic.ttf
+    #     - asset: assets/fonts/CaviarDreams_Italic.ttf
 
