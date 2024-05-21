@@ -65,6 +65,7 @@ class IndexViewModel extends BaseViewModel {
         // _savedRecipeService.init(),
         _recipeService.initialized(),
       ]);
+     
       isInitialised = true;
       showShimmer = false;
       notifyListeners();

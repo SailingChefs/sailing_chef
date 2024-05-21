@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
 
 import 'pindrop_dialoguebox_dialog_model.dart';
 
@@ -35,7 +35,8 @@ class PindropDialogueboxDialog
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
         alignment: Alignment.bottomRight,
         backgroundColor: kcWhiteColor,
-        child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Row(
+        child: viewModel.isBusy ? const ShimmerDialog (): 
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

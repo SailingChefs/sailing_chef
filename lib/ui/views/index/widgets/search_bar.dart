@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -29,13 +31,14 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset('assets/images/icons/search.svg', color: searchIconColor,
-                    width: 20.dg,height: 20,),
+                    width: 18.dg,height: 18.h,),
                   
                   horizontalSpaceSmall,
                   Text(
                     'Search',
                     style: globalTextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
                       color: searchIconColor,
                       fontWeight: FontWeight.w600,
                     ),

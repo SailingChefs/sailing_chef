@@ -245,6 +245,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         int minutes = duration.inMinutes;
         int seconds = duration.inSeconds % 60;
         formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+        notifyListeners();
      
       }
     }
@@ -310,6 +311,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     playerController = PlayerController();
     downloadAudio();
     checkSave(recipeId);
+    
 
     setBusy(false);
   }
@@ -317,6 +319,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   @override
   void dispose() {
     pageController.dispose();
+    playerController.dispose();
+    commentController.dispose();
+    stopListening();
+
     super.dispose();
   }
 }

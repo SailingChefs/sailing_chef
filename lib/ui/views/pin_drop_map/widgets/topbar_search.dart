@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
@@ -28,7 +30,11 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
                 children: [
                   SvgPicture.asset(
                     'assets/images/icons/search.svg',
-                    color: searchIconColor,
+                    colorFilter: const ColorFilter.mode(
+                      searchIconColor,
+                      BlendMode.srcIn,
+                    ),
+                    // color: searchIconColor,
                     width: 20.dg,
                     height: 20,
                   ),

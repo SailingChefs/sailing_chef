@@ -25,8 +25,10 @@ class SettingsView extends StackedView<SettingsViewModel> {
 
         body:  SingleChildScrollView(
           child: Column(
-            children: [
-              TopBarSettingsProfile( 'Settings'),
+
+            children:  [
+              TopBarSettingsProfile(),
+
               SettingsListSettingsScreen(),
             ],
           ),

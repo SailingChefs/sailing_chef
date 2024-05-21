@@ -1,7 +1,5 @@
-import 'dart:ffi';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/widgets/buttons.dart';

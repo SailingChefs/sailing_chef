@@ -10,7 +10,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
       height: screenHeight(context) * 0.055,
       width: screenWidth(context) * 0.92,
       decoration: BoxDecoration(
-        color: kcPrimaryColor.withOpacity(0.2),
+        color: kcPrimaryColor.withOpacity(0.09),
         borderRadius: BorderRadius.all(Radius.circular(100.dg)),
       ),
       child: Row(
@@ -40,7 +40,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Yacht Chefs'
                             ? kcVeryLightGrey
-                            : kcBlackColor.withOpacity(0.4),
+                            : kcBlackColor.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -72,7 +72,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Culinary School'
                             ? kcVeryLightGrey
-                            : kcBlackColor.withOpacity(0.4),
+                            : kcBlackColor.withOpacity(0.5),
                       ),
                     ),
                   ],

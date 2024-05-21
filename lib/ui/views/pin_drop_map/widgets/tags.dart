@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/selectedtab.dart';
 

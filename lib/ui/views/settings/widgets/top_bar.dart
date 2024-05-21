@@ -3,8 +3,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
 class TopBarSettingsProfile extends ViewModelWidget<SettingsViewModel> implements PreferredSizeWidget {
-  const TopBarSettingsProfile(this.title, {super.key});
-  final String title;
+  const TopBarSettingsProfile( {super.key});
+
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
     return Padding(
@@ -25,7 +25,7 @@ class TopBarSettingsProfile extends ViewModelWidget<SettingsViewModel> implement
 
           ),
           Text(
-            title,
+            'Settings',
             style: globalTextStyle(
 
               fontSize: 16.0.dg,

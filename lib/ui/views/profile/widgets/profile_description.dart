@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, deprecated_member_use
 
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';

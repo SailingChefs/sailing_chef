@@ -31,8 +31,8 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             uid: user.uid!,
           ),
           body: Padding(
-            // padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
-            padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 35),
+            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+            // padding: const EdgeInsets.only(left: 5.0, right: 5.0),
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
@@ -41,8 +41,10 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   ChefProfileDetailsDesc(
                     user: user,
                   ),
-                  ProfileDescriptionChefProfileScreen(user,),
-                  verticalSpaceMedium,
+
+                  ProfileDescriptionChefProfileScreen(user),  
+                  verticalSpace(10.h),
+
                   Follow_Message_Btns(user: user),
                   user.userRole == 'chef'
                       ? viewModel.isBusy

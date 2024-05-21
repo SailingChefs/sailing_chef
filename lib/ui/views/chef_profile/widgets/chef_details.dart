@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, deprecated_member_use
 
 
 import 'package:flutter_svg/svg.dart';
@@ -28,6 +28,7 @@ class ProfileDescriptionChefProfileScreen
                   Text(
                     capitalizeEachWord(user.displayName!),
                     style: globalTextStyle(
+                        letterSpacing: -0.3,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: kcBlackColor),
@@ -43,7 +44,8 @@ class ProfileDescriptionChefProfileScreen
                           : capitalizeEachWord(
                               '${user.boatName!}, ${user.namedLocation}'),
                   style: globalTextStyle(
-                    fontSize: 16,
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
                     fontWeight: FontWeight.w600,
                     color: kcBlackColor,
                   ),
@@ -52,7 +54,7 @@ class ProfileDescriptionChefProfileScreen
               ? const SizedBox()
               : Column(
                   children: [
-                    verticalSpaceSmall,
+                   verticalSpaceTiny,
                     Text(
                       user.bio!,
                       style: globalTextStyle(

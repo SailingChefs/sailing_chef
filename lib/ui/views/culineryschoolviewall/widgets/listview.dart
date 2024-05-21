@@ -25,7 +25,15 @@ class ListViewCulinaryChool
                   // padding: EdgeInsets.(10.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.green.withOpacity(0.06),
+                    color: kcPrimaryColor.withOpacity(0.07),
+                     boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.04),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
                     // boxShadow: [
                     //   BoxShadow(
                     //     // color: kcBlackColor.withOpacity(0.09),
@@ -40,7 +48,7 @@ class ListViewCulinaryChool
                     children: [
                       Container(
                         height: 123.h,
-                        width: 100.w,
+                        width: 110.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                         ),

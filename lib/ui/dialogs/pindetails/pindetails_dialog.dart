@@ -89,6 +89,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                       ),
                                     ),
                                   ),
+
                                   horizontalSpaceSmall,
                                   Text(
                                     viewModel
@@ -101,7 +102,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  verticalSpaceSmall,
+
                                 ],
                               ),
                             ],
@@ -153,15 +154,15 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                           color: kclightgreencolor,
                                         ),
                                         horizontalSpaceSmall,
-                                        Text(
-                                          viewModel.pinnedLocation.rating
-                                              .toString(),
-                                          style: globalTextStyle(
-                                            color: kcBlackColor,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                       Text(
+                                        viewModel.calculateAverageRating(viewModel.reviews)
+                                            ,
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
                                         ),
+                                      ),
                                       ],
                                     ),
                                   ),

@@ -95,8 +95,10 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: globalTextStyle(
-                          fontSize: 13.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
+                          letterSpacing: -0.5,
+
                           color: kcBlackColor.withOpacity(0.6),
                         ),
                       ),
@@ -166,7 +168,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 30.dg,
+              bottom: 27.dg,
               right: 10.dg,
 
               child:     Container(

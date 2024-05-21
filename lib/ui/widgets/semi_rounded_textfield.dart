@@ -41,7 +41,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
-      readOnly: readOnly ?? false,
+      // readOnly: readOnly ,
       labelText: labelText!,
       maxLength: maxLength,
       maxLines: maxLines,

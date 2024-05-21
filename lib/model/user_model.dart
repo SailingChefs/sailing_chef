@@ -75,7 +75,7 @@ class UserModel {
       followers: List<String>.from(data['followers'] ?? []),
       following: List<String>.from(data['following'] ?? []),
       link: data['link'],
-      savedRecipes: List<String>.from(data['saved_recipes'] ?? []),
+      savedRecipes: List<String>.from(data['saved_Recipes'] ?? []),
       blockedAccounts: List<String>.from(data['blocked_accounts'] ?? []),
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
       recipes: List<String>.from(data['recipes'] ?? []),

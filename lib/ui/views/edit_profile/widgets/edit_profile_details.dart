@@ -33,22 +33,49 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
-                        SemiRoundedTranpaentTextFieldBio(
-                          // validator: (value) => viewModel.validateBio(value),
+
+                        SemiRoundedTranpaentTextField(
+                          suffixIcon: false,
+                          prefixIcons: false,
+                          borderRadius: 27.dg,
+                          maxLength: 200,
+
+                          maxLines: 5,
+                          
                           controller: viewModel.bioController,
 
                           labelText: 'Bio',
                         ),
                         const LablesText(text: 'Email'),
-                        SemiRoundedTranpaentTextField(
-                          suffixIcon: false,
-                          prefixIcons: true,
-                          readOnly: true,
-                          controller: viewModel.emailController,
-                          borderRadius: 27.dg,
-                          labelText: '',
-                          prefixIcon: Icons.email_outlined,
-                          size: 20,
+                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: kcPrimaryColor.withOpacity(0.07),
+                            borderRadius: BorderRadius.circular(27.dg),
+                            // border: Border.all(color: filterIconColor),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                
+                                 Icon(
+                                  Icons.email_outlined,
+                                  color: kcBlackColor.withOpacity(0.4),
+                                  size: 16.0.dg,
+                                ),
+                                horizontalSpaceSmall,
+                                Text(
+                                  viewModel.emailController.text,
+                                  style: globalTextStyle(
+                                    fontSize: 14.sp,
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w500,
+                                    color: kcBlackColor.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),),
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Link'),
@@ -87,49 +114,69 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         Visibility(
                           visible: viewModel.isChange == true,
                           child: CSCPicker(
-                            key: ValueKey(viewModel.countryValue),
-                            showStates: true,
-                            showCities: true,
-                            flagState: CountryFlag.DISABLE,
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
-                                color: Colors.grey.withOpacity(0.2),
-                                border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
-                            disabledDropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
-                                color: Colors.grey.withOpacity(0.2),
-                                border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
-                            countrySearchPlaceholder: "Country",
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
-                            countryDropdownLabel: "Country*",
-                            stateDropdownLabel: "State*",
-                            cityDropdownLabel: "City*",
-                            selectedItemStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 14,
-                            ),
-                            dropdownHeadingStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
-                            dropdownItemStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 14,
-                            ),
-                            dropdownDialogRadius: 10.0,
-                            searchBarRadius: 10.0,
-                            onCountryChanged: (value) =>
-                                viewModel.setCountryValue(value.toString()),
-                            onStateChanged: (value) =>
-                                viewModel.setStateValue(value.toString()),
-                            onCityChanged: (value) =>
-                                viewModel.setCityValue(value.toString()),
-                          ),
+                                showStates: true,
+
+                                showCities: true,
+
+                                flagState: CountryFlag.DISABLE,
+
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius:  BorderRadius.all(
+                                        Radius.circular(20.r)),
+                                    color: kcPrimaryColor.withOpacity(0.07),
+                                ),
+
+                                disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.r)),
+                                    color: kcPrimaryColor.withOpacity(0.07),
+                                    ),
+
+                                ///placeholders for dropdown search field
+                                countrySearchPlaceholder: "Country",
+                                stateSearchPlaceholder: "State",
+                                citySearchPlaceholder: "City",
+
+                                ///labels for dropdown
+                                countryDropdownLabel: 'country*',
+                                stateDropdownLabel: 'state*',
+                                cityDropdownLabel: 'city*',
+
+                                selectedItemStyle: globalTextStyle(
+                                  color:kcBlackColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400
+                                ),
+
+                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                                dropdownHeadingStyle: globalTextStyle(
+                                    color: kcBlackColor.withOpacity(0.6),
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w400,),
+
+                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                                dropdownItemStyle: globalTextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400
+                                ),
+
+                                dropdownDialogRadius: 10.0,
+
+                                searchBarRadius: 10.0,
+
+                                onCountryChanged: (value) =>
+                                    viewModel.setCountryValue(value.toString()),
+
+                                ///triggers once state selected in dropdown
+                                onStateChanged: (value) =>
+                                    viewModel.setStateValue(value.toString()),
+
+                                ///triggers once city selected in dropdown
+                                onCityChanged: (value) =>
+                                    viewModel.setCityValue(value.toString()),
+                              ),
+
                         ),
                       ],
                     ),
@@ -167,15 +214,36 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               labelText: 'Bio',
                             ),
                             const LablesText(text: 'Email'),
-                            SemiRoundedTranpaentTextField(
-                              suffixIcon: false,
-                              prefixIcons: true,
-                              controller: viewModel.emailController,
-                              borderRadius: 27.dg,
-                              labelText: '',
-                              prefixIcon: Icons.email_outlined,
-                              size: 20,
-                            ),
+                            Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: kcPrimaryColor.withOpacity(0.07),
+                            borderRadius: BorderRadius.circular(27.dg),
+                            // border: Border.all(color: filterIconColor),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                
+                                 Icon(
+                                  Icons.email_outlined,
+                                  color: kcBlackColor.withOpacity(0.4),
+                                  size: 16.0.dg,
+                                ),
+                                horizontalSpaceSmall,
+                                Text(
+                                  viewModel.emailController.text,
+                                  style: globalTextStyle(
+                                    fontSize: 14.sp,
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w500,
+                                    color: kcBlackColor.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),),
+                        ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
                             SemiRoundedTranpaentTextField(
@@ -228,18 +296,16 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 flagState: CountryFlag.DISABLE,
 
                                 dropdownDecoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                    borderRadius:  BorderRadius.all(
+                                        Radius.circular(20.r)),
+                                    color: kcPrimaryColor.withOpacity(0.07),
+                                ),
 
                                 disabledDropdownDecoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.r)),
+                                    color: kcPrimaryColor.withOpacity(0.07),
+                                    ),
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",
@@ -251,21 +317,23 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 stateDropdownLabel: 'state*',
                                 cityDropdownLabel: 'city*',
 
-                                selectedItemStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.6),
-                                  fontSize: 14,
+                                selectedItemStyle: globalTextStyle(
+                                  color:kcBlackColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400
                                 ),
 
                                 ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                                dropdownHeadingStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.6),
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
+                                dropdownHeadingStyle: globalTextStyle(
+                                    color: kcBlackColor.withOpacity(0.6),
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w400,),
 
                                 ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                                dropdownItemStyle: TextStyle(
+                                dropdownItemStyle: globalTextStyle(
                                   color: Colors.black.withOpacity(0.6),
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400
                                 ),
 
                                 dropdownDialogRadius: 10.0,
