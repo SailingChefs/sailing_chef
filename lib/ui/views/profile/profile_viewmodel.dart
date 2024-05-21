@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';

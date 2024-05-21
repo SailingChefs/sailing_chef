@@ -60,7 +60,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                           ],
                         ),
                     ),
-                userDetails!.userRole == 'guest'
+                userDetails!.userRole == 'guest' 
                     ? Column(
                         children: [
                           const SavedGuestButton(),
