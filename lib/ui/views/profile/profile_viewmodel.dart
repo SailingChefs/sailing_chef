@@ -120,6 +120,7 @@ class ProfileViewModel extends ReactiveViewModel {
           ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
           : ini(),
     ]);
+    userDetails = await usrService.getUserDetails();
     setBusy(false);
   }
 

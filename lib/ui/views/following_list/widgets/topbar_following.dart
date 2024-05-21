@@ -27,10 +27,12 @@ class TopBarFollowing extends ViewModelWidget<FollowingListViewModel>
             child: Text(
               textAlign: TextAlign.center,
               capitalizeEachWord(name),
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: kcBlackColor),
+             style: globalTextStyle(
+                      fontSize: 16.0.dg,
+                      color: kcBlackColor,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w500,
+                      ),
             ),
           ),
         ],

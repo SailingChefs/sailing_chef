@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 
@@ -34,9 +35,10 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 35.0),
                 child: Text(
-                  '${viewModel.followers.length} Followers',
+                  '${userDetails!.followers!.length} Followers',
                   style: globalTextStyle(
-                    fontSize: 16.0,
+                    fontSize: 14.0.sp,
+                    letterSpacing: -0.3,
                     fontWeight: FontWeight.bold,
                     color: kcBlackColor,
                   ),
@@ -64,9 +66,10 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                 child: Text(
-                  '${viewModel.following.length} Following',
-                  style: globalTextStyle(
-                    fontSize: 16.0,
+                  '${userDetails!.following!.length} Following',
+                   style: globalTextStyle(
+                    fontSize: 14.0.sp,
+                    letterSpacing: -0.3,
                     fontWeight: FontWeight.bold,
                     color: kcBlackColor,
                   ),
