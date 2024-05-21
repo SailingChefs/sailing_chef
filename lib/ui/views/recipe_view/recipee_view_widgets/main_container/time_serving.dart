@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
@@ -11,25 +12,25 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
     return Row(
       children: [
         Container(
-          height: 45,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
           decoration: BoxDecoration(
-            color: kcPrimaryColor.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(15),
+            color: kcPrimaryColorDark.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                FlutterRemix.time_line,
-                color: kcBlackColor,
-                size: 21.dg,
-              ),
-              horizontalSpaceSmall,
+             SvgPicture.asset(
+                'assets/images/misc/clock.svg',
+                width: 18,
+                height: 18,
+             ),
+              // horizontalSpaceSmall,
               Text(
                 ' ${recipeModel.prepTime}',
                 style: globalTextStyle(
-                  fontSize: 16.0.sp,
+                  fontSize: 12.0.sp,
                   color: kcBlackColor,
                   fontWeight: FontWeight.w400,
                 ),
@@ -37,25 +38,22 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
             ],
           ),
         ),
-        horizontalSpaceMedium,
+        horizontalSpaceSmall,
         Container(
-            width: 130,
-            height: 45,
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             decoration: BoxDecoration(
-              color: kcPrimaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(15),
+              color: kcPrimaryColorDark.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
                     onTap: viewModel.decrementServings,
                     child: Container(
-                      height: 20,
+                      padding: const EdgeInsets.all(1),
                       decoration: const BoxDecoration(
-                        color: kcPrimaryColor,
+                        color: kcPrimaryColorDark,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
@@ -64,17 +62,20 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
                           child: const Icon(
                             FlutterRemix.subtract_fill,
                             color: kcWhiteColor,
+                            size: 18,
                           ),
                         ),
                       ),
                     ),
                   ),
+                  horizontalSpaceSmall,
                   Text(' ${viewModel.servings} '),
+                  horizontalSpaceSmall,
                   GestureDetector(
                     onTap: viewModel.incrementServings,
                     child: const Icon(
                       FlutterRemix.add_circle_fill,
-                      color: kcPrimaryColor,
+                      color: kcPrimaryColorDark,
                     ),
                   ),
                 ])),

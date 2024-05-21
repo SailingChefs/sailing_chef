@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 
 import 'grid_tile_model.dart';
 
@@ -15,14 +14,12 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final void Function() onTap;
   final String recipeId;
   final double? rating;
-  final List<SavedRecipeModel> savedRecipeList;
   final String chefId;
 
   const PrimaryGridTile({
     super.key,
     required this.foodImagePath,
     required this.chefId,
-    required this.savedRecipeList,
     required this.chefImagePath,
     this.rating,
     required this.dishName,
@@ -38,8 +35,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     Widget? child,
   ) {
     bool isRecipeSaved = false;
-    for (SavedRecipeModel savedRecipe in savedRecipeList) {
-      if (savedRecipe.recipeId == recipeId) {
+    for (String savedRecipe in userDetails!.savedRecipes!) {
+      if (savedRecipe == recipeId) {
         isRecipeSaved = !isRecipeSaved;
         break;
       }
@@ -171,25 +168,26 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             Positioned(
               bottom: 30.dg,
               right: 10.dg,
-              child: Container(
-                height: 32.h,
-                width: 32.w,
-                decoration: BoxDecoration(
-                  color: kcVeryLightGrey,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: kcWhiteColor,
-                    width: 2.w,
-                  ),
-                  image: DecorationImage(
-                    image: userDetails!.displayPicture!.isEmpty
-                        ? const AssetImage('assets/images/misc/blank_image.png')
-                        : NetworkImage(userDetails!.displayPicture!)
-                            as ImageProvider,
-                    fit: BoxFit.cover,  
-                  ),
-                ),
-              ),
+
+              child:     Container(
+          height: 32.h,
+          width: 32.w,
+          decoration: BoxDecoration(
+            color: kcVeryLightGrey,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: kcWhiteColor,
+              width: 2.w,
+            ),
+            image: DecorationImage(
+              image: chefImagePath.isEmpty
+                  ? const AssetImage('assets/images/misc/blank_image.png')
+                  : NetworkImage(chefImagePath) as ImageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
             )
           ]),
         ));

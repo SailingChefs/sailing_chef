@@ -4,7 +4,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -16,85 +15,104 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     log('randomList : {$recipeList}');
     return recipeList.isEmpty
         ? Container()
-        : SizedBox(
-            // width: screenWidth(context),
-            height: screenHeight(context) * 0.32,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: recipeList.length,
-                itemBuilder: (context, index) {
-                  bool isRecipeSaved = false;
-                  for (SavedRecipeModel savedRecipe
-                      in viewModel.savedRecipeList) {
-                    if (savedRecipe.recipeId == recipeList[index].docId) {
-                      isRecipeSaved = !isRecipeSaved;
-                      break;
-                    }
-                  }
-                  return GestureDetector(
-                    onTap: () => viewModel.toRecipeDetails(recipeList[index]),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(0.dg, 30.dg, 0.dg, 30.dg),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Text(
+              'More Recipes',
+              style: globalTextStyle(
+                fontSize: 15.0.sp,
+                fontWeight: FontWeight.w700,
+                color: kcBlackColor,
+              ),
+            ),
+            SizedBox(
+                // width: screenWidth(context),
+                height: screenHeight(context) * 0.35,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: recipeList.length,
+                    itemBuilder: (context, index) {
+                      bool isRecipeSaved = false;
+                     
+                        if (userDetails!.savedRecipes!.contains(recipeList[index].docId)) {
+                          isRecipeSaved = !isRecipeSaved;
+                         
+                        }
+                    
+                      return Row(
                         children: [
-                          SizedBox(
-                            width: 129.w,
-                            height: 140.h,
-                            child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(22.7.dg)),
-                                child: Image.network(
-                                  recipeList[index]
-                                      .coverImage
-                                      .where(
-                                          (element) => element.contains('jpg'))
-                                      .first,
-                                  fit: BoxFit.cover,
-                                  width: 119.w,
-                                  height: 162.h,
-                                )),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 100.w,
-                                child: Text(
-                                    capitalizeEachWord(recipeList[index].title),
-                                    style: globalTextStyle(
-                                      fontSize: 10.sp,
-                                      color: kcBlackColor.withOpacity(0.6),
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                              ),
-                              recipeList[index].user!.uid != userDetails!.uid ?
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {
-                                  viewModel.addToSaveList(
-                                    recipeList[index],
-                                  );
-                                },
-                                icon: isRecipeSaved
-                                    ? Icon(
-                                        Icons.bookmark,
-                                        color: kcBlackColor.withOpacity(0.6),
-                                        size: 20.dg,
-                                      )
-                                    : Icon(
-                                        Icons.bookmark_border,
-                                        color: kcBlackColor.withOpacity(0.6),
-                                        size: 20.dg,
+                          GestureDetector(
+                            onTap: () => viewModel.toRecipeDetails(recipeList[index]),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0.dg, 10.dg, 0.dg, 30.dg),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 140.w,
+                                    height: 180.h,
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(22.7.dg)),
+                                        child: Image.network(
+                                          recipeList[index]
+                                              .coverImage
+                                              .where(
+                                                  (element) => element.contains('jpg'))
+                                              .first,
+                                          fit: BoxFit.cover,
+                                          width: 140.w,
+                                          height: 160.h,
+                                        )),
+                                  ),
+                                  verticalSpaceSmall,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 110.w,
+                                        child: Text(
+                                            capitalizeEachWord(recipeList[index].title),
+                                            style: globalTextStyle(
+                                              fontSize: 10.sp,
+                                              color: kcBlackColor.withOpacity(0.6),
+                                              letterSpacing: -0.3,
+                                              fontWeight: FontWeight.w500,
+                                            )),
                                       ),
-                              ): Container()
-                            ],
+                                      recipeList[index].user!.uid != userDetails!.uid ?
+                                      GestureDetector(
+
+                                        onTap: () {
+                                          viewModel.addToSaveList(
+                                            recipeList[index],
+                                          );
+                                        },
+                                        child: isRecipeSaved
+                                            ? Icon(
+                                                Icons.bookmark,
+                                                color: kcBlackColor.withOpacity(0.6),
+                                                size: 20.dg,
+                                              )
+                                            : Icon(
+                                                Icons.bookmark_border,
+                                                color: kcBlackColor.withOpacity(0.6),
+                                                size: 20.dg,
+                                              ),
+                                      ): Container()
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
+                          horizontalSpaceSmall,
                         ],
-                      ),
-                    ),
-                  );
-                }),
-          );
+                      );
+                    }),
+              ),
+          ],
+        );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
@@ -37,9 +36,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                 ),
                                 verticalSpaceMedium,
                                 GestureDetector(
-                                  onTap: () {
-                                    viewModel.callCourseNameBottomSheet();
-                                  },
+                                  onTap: viewModel.callCourseNameBottomSheet,
                                   child: Container(
                                     width: 165,
                                     height: 55,
@@ -106,7 +103,6 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           rating: calculateAverageRating(
                             savedRecipes[index].recipeModel!.comment!,
                           ),
-                          savedRecipeList: viewModel.savedRecipes,
                           recipeId: savedRecipes[index].recipeId,
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, savedRecipes[index].recipeModel!),

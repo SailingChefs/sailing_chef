@@ -9,18 +9,11 @@ class ChefDetail extends ViewModelWidget<RecipeViewViewModel> {
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
     return Row(
       children: [
-        Container(
-          height: 70.h,
-          width: 70.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: userDetails!.displayPicture!.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
-              fit: BoxFit.cover,
-            ),
+        CircleAvatar(
+          backgroundColor: kcBackgroundColor,
+          radius: 19.62.dg,
+          backgroundImage: NetworkImage(
+            userDetails!.displayPicture!,
           ),
         ),
         horizontalSpaceMedium,
@@ -31,24 +24,31 @@ class ChefDetail extends ViewModelWidget<RecipeViewViewModel> {
             Text(
               userDetails!.displayName!,
               style: globalTextStyle(
+                letterSpacing: -0.5,
                 fontSize: 18.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
                 color: kcBlackColor,
               ),
             ),
             viewModel.isBusy
-                ? Text(' recipes',
+                ? Text(
+                    ' recipes',
                     style: globalTextStyle(
                       fontSize: 14.sp,
+                      letterSpacing: -0.3,
                       fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6),
-                    ))
-                : Text('${userDetails!.recipes!.length} recipes',
+                      color: kcBlackColor.withOpacity(0.5),
+                    ),
+                  )
+                : Text(
+                    '${userDetails!.recipes!.length} recipes',
                     style: globalTextStyle(
                       fontSize: 14.sp,
+                      letterSpacing: -0.3,
                       fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6),
-                    ))
+                      color: kcBlackColor.withOpacity(0.5),
+                    ),
+                  ),
           ],
         ),
       ],

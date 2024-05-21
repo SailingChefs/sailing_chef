@@ -20,15 +20,16 @@ class PublishTextButton extends ViewModelWidget<RecipeViewViewModel> {
           Text(
             'Publish Recipe Privately',
             style: globalTextStyle(
-              fontSize: 14,
+              fontSize: 13.sp,
+              letterSpacing: -0.3,
               fontWeight: FontWeight.w600,
               color: const Color(0xFF46617A),
             ),
           ),
           const Divider(
-            color: kcPrimaryColor,
-            indent: 100,
-            endIndent: 100,
+            color: kclightgreencolor,
+            indent: 120,
+            endIndent: 120,
             thickness: 2,
           ),
         ],

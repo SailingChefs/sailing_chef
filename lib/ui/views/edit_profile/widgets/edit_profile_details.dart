@@ -37,6 +37,8 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                           suffixIcon: false,
                           prefixIcons: false,
                           borderRadius: 27.dg,
+                          maxLength: 200,
+
                           maxLines: 5,
                           maxLength: 500,
                           controller: viewModel.bioController,
@@ -46,6 +48,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: true,
+                          readOnly: true,
                           controller: viewModel.emailController,
                           borderRadius: 27.dg,
                           labelText: '',
@@ -181,7 +184,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               suffixIcon: false,
                               prefixIcons: false,
                               borderRadius: 27.dg,
-                              maxLength: 500,
+                              maxLength: 200,
                               maxLines: 5,
                               controller: viewModel.bioController,
                               labelText: '',

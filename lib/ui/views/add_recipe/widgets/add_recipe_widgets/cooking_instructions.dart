@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -16,9 +17,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Cooking Instructions(Method)',
               style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor),
+                fontSize: 14.sp,
+                letterSpacing: -0.5,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
+              ),
             ),
             horizontalSpaceTiny,
             Text(
@@ -38,51 +41,51 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                     shrinkWrap: true,
                     itemCount: viewModel.methodsList.length,
                     physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
                       final instruction = viewModel.methodsList[index];
                       return Padding(
-                        padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        padding:  EdgeInsets.only(top: 5.0.h, bottom: 5.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  // height: 100.h,
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.69,
-                                  decoration: BoxDecoration(
-                                    color: kcVeryLightGrey.withOpacity(0.2),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(30)),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Text(
-                                      instruction,
-                                      style: globalTextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          color: kcBlackColor.withOpacity(0.5)),
-                                    ),
+                            Container(
+                              width:
+                                  MediaQuery.sizeOf(context).width * 0.78,
+                              decoration: BoxDecoration(
+                                color: kcPrimaryColor.withOpacity(0.07),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(30)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  instruction,
+                                  style: globalTextStyle(
+                                    fontSize: 12.sp,
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: kcBlackColor.withOpacity(0.5),
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    viewModel.deleteMethod(index);
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete_outline,
-                                  ),
-                                ),
-                              ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                viewModel.deleteMethod(index);
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/misc/bin.svg',
+                                height: 16.h,
+                                width: 14.w,
+                              ),
                             ),
                           ],
                         ),
                       );
                     },
                   ),
+                  verticalSpaceTiny,
                   GestureDetector(
                     onTap: () {
                       // viewModel.callCookingInstructionBottomSheet();
@@ -90,9 +93,10 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.addMethods(methods);
                     },
                     child: Container(
-                      height: 50.h,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
-                        color: kcVeryLightGrey.withOpacity(0.2),
+                        color: kcPrimaryColor.withOpacity(0.07),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(30)),
                       ),
@@ -103,14 +107,17 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                               icon: Icon(
                                 Icons.add,
                                 color: kcBlackColor.withOpacity(0.5),
+                                size: 16.0.dg,
                               )),
                           horizontalSpaceSmall,
                           Text(
                             'Add one or multiple steps',
                             style: globalTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: kcBlackColor.withOpacity(0.5)),
+                              fontSize: 12.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor.withOpacity(0.5),
+                            ),
                           ),
                         ],
                       ),
@@ -123,9 +130,10 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                   viewModel.callCookingInstructionBottomSheet();
                 },
                 child: Container(
-                  height: 50.h,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
-                    color: kcVeryLightGrey.withOpacity(0.2),
+                    color: kcPrimaryColor.withOpacity(0.07),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
                   child: Row(
@@ -135,14 +143,17 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
+                            size: 16.0.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(
                         'Add one or multiple steps',
                         style: globalTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: kcBlackColor.withOpacity(0.5)),
+                          fontSize: 12.sp,
+                          letterSpacing: -0.5,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.5),
+                        ),
                       ),
                     ],
                   ),

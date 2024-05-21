@@ -14,7 +14,7 @@ class FollowingListViewModel extends BaseViewModel {
   List<UserModel> get followersUsers => _followService.usersFollowers;
   List<UserModel> get followingUsers => _followService.usersFollowing;
   void popBack() {
-    _navigationloactor.back();
+    _navigationloactor.navigateToBottomNavBarView();
   }
 
   void onViewModelReady(String userId) async {

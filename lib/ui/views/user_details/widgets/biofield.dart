@@ -15,6 +15,7 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
   final double? borderRadius;
   final Color? fillColor;
   final Color? textColor;
+  final int? maxLength;
   final Function(String)? onChanged;
   final Function()? onVisibilityToggle;
   final String? Function(String?)? validator;
@@ -26,6 +27,7 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
   const RoundedTransparentTextFieldBio({
     Key? key,
     this.controller,
+    this.maxLength,
     this.readOnly = false,
     required this.labelText,
     this.keyboardType,
@@ -47,6 +49,10 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<TextInputFormatter>? inputFormattersList = inputFormatters ?? [];
+    if (maxLength != null) {
+      inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
+    }
     return TextFormField(
       readOnly: readOnly!,
       onChanged: onChanged,
@@ -63,7 +69,7 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
         filled: true,
         fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
         labelStyle:
-            TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
+            globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500,letterSpacing: -0.4),
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

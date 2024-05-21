@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -11,39 +10,23 @@ class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const CommentsDetailsScreen({super.key, required this.recipeModel});
-  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
-    recipeModel.comment = viewModel.commentService.comments;
+ List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+    // recipeModel.comment = viewModel.commentService.comments;
     recipeModel.comment!.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    log(recipeModel.comment.toString());
+    List<CustomListTileComments> commentTiles = [];
     if (recipeModel.comment != null) {
-      log('here');
-      List<CommentModel> comment = recipeModel.comment!;
-      return [
-        for (var comment in comment)
-          CustomListTileComments(
-            name: comment.userName,
-            date: comment.timestamp,
-            description: comment.content,
-            image: comment.userImageUrl,
-            ratingImages: comment.imageUrl!,
-            rating: comment.rating!,
-          ),
-      ];
-      // ignore: unnecessary_null_comparison
-    } else if (recipeModel.comment == []) {
-      log('here2');
-      return [
-        Text(
-          'No comments yet',
-          style: globalTextStyle(
-              fontSize: 14.0.sp,
-              color: kcBlackColor,
-              fontWeight: FontWeight.w300),
-        ),
-      ];
+        List<CommentModel> comments = recipeModel.comment!;
+        commentTiles = comments.map((comment) => CustomListTileComments(
+          name: comment.userName,
+          date: comment.timestamp,
+          description: comment.content,
+          image: comment.userImageUrl,
+          ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
+          rating: comment.rating ?? 0, // use 0 if rating is null
+        )).toList();
     }
-    return [];
-  }
+    return commentTiles;
+}
 
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
@@ -87,9 +70,9 @@ class CommentsDetailsScreen
             Text(
               'Reviews',
               style: globalTextStyle(
-                fontSize: 17.0.sp,
+                fontSize: 15.0.sp,
+                fontWeight: FontWeight.w700,
                 color: kcBlackColor,
-                fontWeight: FontWeight.w600,
               ),
             ),
             Row(
@@ -97,9 +80,9 @@ class CommentsDetailsScreen
                 Text(
                   viewModel.calculateAverageRating(recipeModel.comment!),
                   style: globalTextStyle(
+                    fontSize: 18.0.sp,
+                    fontWeight: FontWeight.w700,
                     color: kcBlackColor,
-                    fontSize: 24.0.sp,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const Icon(
@@ -111,9 +94,6 @@ class CommentsDetailsScreen
             ),
           ],
         ),
-        // verticalSpaceSmall,
-        // ...createCommentWidgets(viewModel),
-        // verticalSpaceSmall,
         if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
         verticalSpaceSmall,
         Container(
@@ -144,7 +124,9 @@ class CommentsDetailsScreen
                     border: InputBorder.none,
                     hintText: 'Add your Review',
                     hintStyle: globalTextStyle(
-                        fontSize: 15.0.sp,
+                        fontSize: 14.0.sp,
+                        letterSpacing: -0.3,
+
                         color: kcBlackColor.withOpacity(0.4),
                         fontWeight: FontWeight.w400),
                   ),

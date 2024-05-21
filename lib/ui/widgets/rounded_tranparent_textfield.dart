@@ -26,12 +26,15 @@ class RoundedTransparentTextField extends StatelessWidget {
   final Color? borderColor;
   final double? size;
   final bool? ispassvisible;
+  final TextStyle? style;
+
 
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
+    this.style,
     this.suffixIcon,
-    this.readOnly = false,
+    this.readOnly,
     this.labelText,
     this.keyboardType,
     this.obscureText = false,
@@ -71,14 +74,12 @@ class RoundedTransparentTextField extends StatelessWidget {
       width: 2.w,
       height: 6.h,
     );
-
     List<TextInputFormatter>? inputFormattersList = inputFormatters ?? [];
     if (maxLength != null) {
       inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
     }
-
     return TextFormField(
-      readOnly: readOnly!,
+      readOnly: readOnly ?? false,
       cursorColor: kcPrimaryColor,
       showCursor: true,
       onChanged: onChanged,
@@ -97,13 +98,18 @@ class RoundedTransparentTextField extends StatelessWidget {
       }) {
         return null;
       },
-      style: TextStyle(fontSize: 12.sp, color: textColor ?? kcWhiteColor),
+
+      
+      style: style ?? globalTextStyle(fontSize: 13.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w400),
       decoration: InputDecoration(
+        
+        hintText: labelText,
+        hintStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
         filled: true,
-        fillColor: fillColor ?? kcVeryLightGrey.withOpacity(0.2),
-        labelStyle:
-            TextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor),
-        labelText: labelText,
+        fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
+        labelStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+        // labelText: labelText,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
           borderSide:
@@ -133,7 +139,9 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
+
           horizontal: 15.0,
+
         ),
         prefixIcon: prefixIcon == true
             ? Icon(

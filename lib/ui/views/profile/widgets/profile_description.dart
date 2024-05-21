@@ -18,19 +18,18 @@ class ProfileDescriptionProfileScreen
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () {
-              viewModel.navigateToBlockScreen();
-            },
-            child: Text(
-              userDetails!.displayName!.isEmpty
-                  ? ''
-                  : capitalizeEachWord(userDetails!.displayName!),
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: kcBlackColor),
-            ),
+
+          verticalSpaceSmall,
+          Text(
+            userDetails!.displayName!.isEmpty
+                ? ''
+                : capitalizeEachWord(userDetails!.displayName!),
+            style: globalTextStyle(
+                letterSpacing: -0.3,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w700,
+                color: kcBlackColor),
+
           ),
           userDetails!.userRole == 'guest'
               ? Container()
@@ -43,9 +42,11 @@ class ProfileDescriptionProfileScreen
                           : userDetails!.boatName == null
                               ? userDetails!.namedLocation!
 
-                              :userDetails!.boatName!.isEmpty ? '${userDetails!.namedLocation!}, ${userDetails!.boatName!}' : '${userDetails!.namedLocation!}',
+                              : '${userDetails!.boatName!},${userDetails!.namedLocation!}',
+
                       style: globalTextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
+                        letterSpacing: -0.3,
                         fontWeight: FontWeight.w600,
                         color: kcBlackColor,
                       ),
@@ -54,7 +55,8 @@ class ProfileDescriptionProfileScreen
           Text(
             userDetails!.bio!.isEmpty ? '' : userDetails!.bio!,
             style: globalTextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
+              letterSpacing: -0.3,
               fontWeight: FontWeight.w400,
               color: kcBlackColor,
             ),
@@ -80,7 +82,8 @@ class ProfileDescriptionProfileScreen
                                 ? ' '
                                 : userDetails!.link!,
                             style: globalTextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
+                              letterSpacing: -0.3,
                               fontWeight: FontWeight.w400,
                               color: filterIconColor,
                               decoration: TextDecoration.none,

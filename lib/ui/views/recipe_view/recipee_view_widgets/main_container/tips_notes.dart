@@ -14,11 +14,11 @@ class TipsNotes extends StatelessWidget {
             children: [
               Text(
                 'Tips & Notes',
-                style: globalTextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor,
-                ),
+               style: globalTextStyle(
+            fontSize: 15.0.sp,
+            fontWeight: FontWeight.w700,
+            color: kcBlackColor,
+          ),
               ),
               verticalSpaceMedium,
               SizedBox(

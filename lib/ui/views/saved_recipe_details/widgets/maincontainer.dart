@@ -42,7 +42,6 @@ class MainRecipeViewContainer
                 children: [
                   Text(
                     capitalizeEachWord(recipeModel.title),
-                    
                     style: globalTextStyle(
                       letterSpacing: -0.5,
                       fontSize: 18.sp,
@@ -52,45 +51,36 @@ class MainRecipeViewContainer
                   ),
                   verticalSpace(12),
                   TimeAndServingRecipeShow(recipeModel: recipeModel),
-                  verticalSpace(35),
-
-                  // verticalSpaceMedium,
-                  // const TabBarWidgets(),
-                  verticalSpaceSmall,
+                  verticalSpace(24.h),
                   IngredientsClass(
                     recipeModel: recipeModel,
                   ),
-                  verticalSpaceMedium,
+                  verticalSpace(12),
                   Methods(
                     recipe: recipeModel,
                   ),
-
                   recipeModel.tags!.isEmpty
                       ? Container()
                       : Column(
                           children: [
                             TipsNotesRecipeDetails(viewModel: recipeModel),
-                            verticalSpaceMedium,
+                            verticalSpace(12),
                           ],
                         ),
-
                   const ChefNotesRecipeDetails(),
-                  verticalSpaceMedium,
+                  verticalSpace(12),
                   SemiRoundedTranpaentTextFieldBio(
                     labelText: 'Add your own personal note...',
                     controller: viewModel.notesController,
                     fillColor: kcPrimaryColorDark.withOpacity(0.2),
+                    textColor: kcBlackColor.withOpacity(0.5),
                   ),
-                  verticalSpaceMedium,
+                  verticalSpace(12),
                   ViewProfileRow(
                     user: recipeModel.user!,
                   ),
                   CommentsDetailsScreen(recipeModel: recipeModel),
-
-                  // LeaveComment(
-                  //   recipeId: recipeModel.docId,
-                  // ),
-
+                  verticalSpace(12),
                   BottomSlider(
                     recipeList: recipeList,
                   ),

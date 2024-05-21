@@ -9,7 +9,8 @@ class LablesText extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10, top: 10),
       child: Text(text,
           style: globalTextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
+            letterSpacing: -0.5,
             fontWeight: FontWeight.w500,
             color: editTextColor,
           )),

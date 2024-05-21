@@ -6,12 +6,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
 import '../ui/common/show_toast.dart';
 
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
+  
   List<CommentModel> comments = [];
   // getComments(String recipeId) async {
   //   comments = await fetchCommentsByRecipeId(recipeId);
@@ -30,6 +32,7 @@ class CommentService with ListenableServiceMixin {
     }
 
     comments.add(comment);
+    RecipeService.recipes.where((recipe) => recipe.docId == comment.recipeId).first.comment!.add(comment);
 
     notifyListeners();
     return true;
@@ -62,7 +65,7 @@ class CommentService with ListenableServiceMixin {
       EasyLoading.show();
 
       // Get a reference to the comments subcollection of the specified recipe ID
-      CollectionReference commentsCollection = FirebaseFirestore.instance
+      CollectionReference commentsCollection = firebasestore
           .collection('recipes')
           .doc(comment.recipeId)
           .collection('comments');

@@ -17,7 +17,7 @@ class UserdataServiceService {
 
     try {
       EasyLoading.show();
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where('uid', isEqualTo: firebaseAuth.currentUser?.uid)
           .get();
@@ -47,7 +47,7 @@ class UserdataServiceService {
       log(filePath);
 
       // Get a reference to the file in Firebase Storage
-      Reference storageRef = FirebaseStorage.instance.ref().child(filePath);
+      Reference storageRef = firebaseStorage.ref().child(filePath);
 
       // Delete the file
       await storageRef.delete();
@@ -65,7 +65,7 @@ class UserdataServiceService {
     try {
       EasyLoading.show();
       CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('users');
+          firebasestore.collection('users');
 
       DocumentSnapshot userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());

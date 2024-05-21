@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Reviews {
+class ReviewsModel {
   String id;
   String userId;
   String userName;
@@ -10,7 +10,7 @@ class Reviews {
   Timestamp timestamp;
   double? rating;
 
-  Reviews({
+  ReviewsModel({
     required this.userId,
     required this.userName,
     required this.userImageUrl,
@@ -21,9 +21,9 @@ class Reviews {
     this.rating,
   });
 
-  factory Reviews.fromSnapshot(DocumentSnapshot snapshot) {
+  factory ReviewsModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    return Reviews(
+    return ReviewsModel(
       id: snapshot.id,
       userId: data['userId'],
       pindropId: data['pinId'] ?? '',

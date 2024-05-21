@@ -29,18 +29,22 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               children: [
                 Text(
                   user.displayName!,
-                  style: globalTextStyle(
-                      color: kcBlackColor,
+                   style: globalTextStyle(
+                      letterSpacing: -0.5,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w700,
+                      color: kcBlackColor,
+                    ),
                 ),
                 Text('${user.recipes!.length} dishes',
 
                     style: globalTextStyle(
                       fontSize: 14.sp,
+                      letterSpacing: -0.3,
                       fontWeight: FontWeight.w400,
                       color: kcBlackColor.withOpacity(0.5),
-                    ))
+                    ),
+                    ),
               ],
             ),
           ],

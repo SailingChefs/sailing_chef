@@ -12,7 +12,6 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
         ? SizedBox(
-
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +21,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       'Create your first recipe today',
                       style: globalTextStyle(
                           color: kcPrimaryColor,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600),
                     )),
                     verticalSpaceSmall,
@@ -58,7 +57,6 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           chefId: viewModel.myRecipes[index].user!.uid!,
                           rating: calculateAverageRating(viewModel.myRecipes[index].comment!),
 
-                          savedRecipeList: viewModel.savedRecipes,
                           recipeId: viewModel.myRecipes[index].docId!,
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, viewModel.myRecipes[index]),

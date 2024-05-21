@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 
@@ -33,8 +34,8 @@ class PindropDialogueboxDialog
         insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
         alignment: Alignment.bottomRight,
-        backgroundColor: Colors.white,
-        child: Row(
+        backgroundColor: kcWhiteColor,
+        child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -84,7 +85,7 @@ class PindropDialogueboxDialog
                             ),
                             horizontalSpaceSmall,
                             Text(
-                              pinnedLocation.rating.toString(),
+                             viewModel.calculateAverageRating( viewModel.reviews).toString(),
                               style: globalTextStyle(
                                 color: kcBlackColor,
                                 fontSize: 16,
@@ -132,6 +133,12 @@ class PindropDialogueboxDialog
         ),
       ),
     );
+  }
+  @override
+  void onViewModelReady(PindropDialogueboxDialogModel viewModel) {
+     viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+   
   }
 
   @override

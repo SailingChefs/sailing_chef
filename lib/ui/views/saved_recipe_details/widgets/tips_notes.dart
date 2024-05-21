@@ -15,19 +15,22 @@ class TipsNotesRecipeDetails extends StatelessWidget {
               Text(
                 'Tips & Notes',
                 style: globalTextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 15.0.sp,
+                  fontWeight: FontWeight.w700,
                   color: kcBlackColor,
                 ),
               ),
-              verticalSpaceMedium,
+              verticalSpaceSmall,
               SizedBox(
-                height: 40.h,
+                height: 35.h,
+               
                 width: screenWidth(context) - 50,
                 child: ListView.builder(
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) => Container(
                     margin: EdgeInsets.symmetric(horizontal: 2.w),
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(horizontal: 25.dg),
+                    
                     decoration: BoxDecoration(
                       color: const Color(0xff427536).withOpacity(0.16),
                       borderRadius: const BorderRadius.all(Radius.circular(25)),
@@ -36,8 +39,9 @@ class TipsNotesRecipeDetails extends StatelessWidget {
                       child: Text(
                         viewModel.tags![index],
                         style: globalTextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 12.sp,
+                          letterSpacing: -0.2,
+                          fontWeight: FontWeight.w500,
                           color: kcBlackColor,
                         ),
                       ),
@@ -48,7 +52,7 @@ class TipsNotesRecipeDetails extends StatelessWidget {
                   shrinkWrap: true,
                 ),
               ),
-              verticalSpaceMedium,
+              verticalSpaceSmall,
             ],
           );
   }

@@ -86,10 +86,12 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                       ),
                                     ],
                                   ),
-                                ),
-                              );
-                            },
-                            childCount: viewModel.searchUser(chef).length,
+
+                                );
+                              },
+                              childCount: viewModel.searchUser(chef).length >= 4 ? 4 : viewModel.searchUser(chef).length ,
+                            ),
+
                           ),
                         ),
                       ],
@@ -184,10 +186,10 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                       ),
                                     ],
                                   ),
-                                ),
-                              );
-                            },
-                            childCount: chef.length > 4 ? 4 : chef.length,
+                                );
+                              },
+                              childCount: chef.length >= 4 ? 4 : chef.length,
+                            ),
                           ),
                         ),
                       ],

@@ -62,6 +62,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
       recipeId: recipe.docId!,
     ));
+    isRecipeSaved = !isRecipeSaved;
+    notifyListeners();
   }
   void onVolumeUpIconPressed() {
     isMute = !isMute;
@@ -125,7 +127,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-     
     return averageRating.toStringAsFixed(1);
   }
 
@@ -309,7 +310,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     playerController = PlayerController();
     downloadAudio();
     checkSave(recipeId);
-    // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);
   }
