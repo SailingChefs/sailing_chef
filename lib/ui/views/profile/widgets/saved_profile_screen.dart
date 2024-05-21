@@ -12,8 +12,10 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     final savedRecipes = viewModel.savedRecipes;
-    return savedRecipes.isEmpty
-        ? userDetails!.userRole == 'culinarySchool'
+    return
+    
+    
+      userDetails!.userRole == 'culinarySchool'
             ? Center(
                 child: Container(
                   width: screenWidth(context) * 0.9,
@@ -23,6 +25,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      viewModel.isBusy ? const CircularProgressIndicator() :
                       userDetails!.schoolCourses!.isNotEmpty
                           ? const ListViewSavedCources()
                           : Column(
@@ -70,17 +73,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   ),
                 ),
               )
-            : SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: Center(
-                    child: Text(
-                  'Save your favorite recipes for later',
-                  style: globalTextStyle(
-                      color: kcPrimaryColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600),
-                )))
-        : Padding(
+            :  Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {

@@ -10,7 +10,7 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
   final bool? suffixIcon;
   final bool? prefixIcon;
   final Icon? suffixIconData;
-  final Icon? prefixIconData;
+  final Widget? prefixIconData;
   final bool? isPasswordVisible;
   final double? borderRadius;
   final Color? fillColor;
@@ -103,7 +103,7 @@ class RoundedTransparentTextFieldBio extends StatelessWidget {
           vertical: 25.0.dg,
           horizontal: 20.0.dg,
         ),
-        prefix: prefixIconData,
+        prefix: prefixIconData ,
         suffix: suffixIconData,
         suffixIcon: suffixIcon == false
             ? null

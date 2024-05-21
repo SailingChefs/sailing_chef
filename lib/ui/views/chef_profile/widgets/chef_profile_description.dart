@@ -3,7 +3,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
-
 class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
   const ChefProfileDetailsDesc({required this.user, super.key});
   final UserModel user;
@@ -12,6 +11,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
+
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
@@ -85,6 +85,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   ),
                 ],
               ),
+
             ),
             horizontalSpaceSmall,
             GestureDetector(

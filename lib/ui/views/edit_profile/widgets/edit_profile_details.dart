@@ -3,6 +3,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/edit_profile/widgets/description.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/lables_text.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
@@ -32,6 +33,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
+
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: false,
@@ -41,7 +43,8 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                           maxLines: 5,
                           
                           controller: viewModel.bioController,
-                          labelText: '',
+
+                          labelText: 'Bio',
                         ),
                         const LablesText(text: 'Email'),
                          Container(
@@ -76,6 +79,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Link'),
+                        
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: true,
@@ -172,6 +176,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 onCityChanged: (value) =>
                                     viewModel.setCityValue(value.toString()),
                               ),
+
                         ),
                       ],
                     ),
@@ -203,14 +208,10 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextField(
-                              suffixIcon: false,
-                              prefixIcons: false,
-                              borderRadius: 27.dg,
-                              maxLength: 200,
-                              maxLines: 5,
+                            SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              labelText: '',
+
+                              labelText: 'Bio',
                             ),
                             const LablesText(text: 'Email'),
                             Container(
@@ -380,14 +381,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextField(
-                              suffixIcon: false,
-                              prefixIcons: false,
-                              borderRadius: 27.dg,
-                              maxLength: 500,
-                              maxLines: 5,
+                            SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              labelText: '',
+                              labelText: 'Bio',
                             ),
                           ],
                         ),

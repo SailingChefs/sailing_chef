@@ -23,10 +23,12 @@ class SettingsView extends StackedView<SettingsViewModel> {
         
         backgroundColor: kcBackgroundColor,
 
-        body: SingleChildScrollView(
+        body:  SingleChildScrollView(
           child: Column(
+
             children:  [
               TopBarSettingsProfile(),
+
               SettingsListSettingsScreen(),
             ],
           ),

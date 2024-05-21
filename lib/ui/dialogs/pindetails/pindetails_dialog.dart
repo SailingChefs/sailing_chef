@@ -28,18 +28,18 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
       backgroundColor: kcwhitecolor,
       child: viewModel.isBusy
           ? SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: const Center(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: const Center(
                 child: CircularProgressIndicator(
                   color: kcPrimaryColor,
                 ),
               ),
-          )
+            )
           : SizedBox(
-            width: double.infinity,
-            child: SingleChildScrollView(
-              child: Column(
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,8 +75,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                     alignment: Alignment.bottomCenter,
                                     child: SmoothPageIndicator(
                                       controller: viewModel.pageController,
-                                      count:
-                                          viewModel.pinnedLocation.picture.length,
+                                      count: viewModel
+                                          .pinnedLocation.picture.length,
                                       axisDirection: Axis.horizontal,
                                       effect: WormEffect(
                                         spacing: 5.0,
@@ -90,12 +90,19 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                     ),
                                   ),
 
-                                      horizontalSpaceSmall,
-                                      
-                                    
-                             
-                                  
-                                  verticalSpaceSmall,
+                                  horizontalSpaceSmall,
+                                  Text(
+                                    viewModel
+                                        .calculateAverageRating(
+                                            viewModel.reviews)
+                                        .toString(),
+                                    style: globalTextStyle(
+                                      color: kcBlackColor,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+
                                 ],
                               ),
                             ],
@@ -122,7 +129,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                capitalizeEachWord(viewModel.pinnedLocation.name),
+                                capitalizeEachWord(
+                                    viewModel.pinnedLocation.name),
                                 style: globalTextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -263,8 +271,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                     verticalSpaceSmall,
                   ],
                 ),
+              ),
             ),
-          ),
     );
   }
 

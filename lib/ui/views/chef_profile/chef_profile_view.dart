@@ -41,8 +41,10 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   ChefProfileDetailsDesc(
                     user: user,
                   ),
+
                   ProfileDescriptionChefProfileScreen(user),  
                   verticalSpace(10.h),
+
                   Follow_Message_Btns(user: user),
                   user.userRole == 'chef'
                       ? viewModel.isBusy
