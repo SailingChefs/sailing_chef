@@ -17,14 +17,14 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class PinDropService with ListenableServiceMixin {
   final UserServices userService = UserServices();
-  List<Reviews> reviews = [];
+  List<ReviewsModel> reviews = [];
 
   Future<void> getReviews(String pinId) async {
     reviews = await fetchReviewsByPinId(pinId);
     notifyListeners();
   }
 
-  Future<List<Reviews>> fetchReviewsByPinId(String pinId) async {
+  Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
     log('pinId:$pinId');
     try {
       QuerySnapshot querySnapshot = await firebasestore
@@ -35,8 +35,8 @@ class PinDropService with ListenableServiceMixin {
           .orderBy('timestamp', descending: true)
           .get();
 
-      List<Reviews> reviews =
-          querySnapshot.docs.map((doc) => Reviews.fromSnapshot(doc)).toList();
+      List<ReviewsModel> reviews =
+          querySnapshot.docs.map((doc) => ReviewsModel.fromSnapshot(doc)).toList();
 
       return reviews;
     } catch (e) {
@@ -45,7 +45,7 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
-  Future<bool> addComment(Reviews comment) async {
+  Future<bool> addComment(ReviewsModel comment) async {
     bool uploaded = await addReviewsToFirestore(comment);
     if (!uploaded) {
       return false;
@@ -57,7 +57,7 @@ class PinDropService with ListenableServiceMixin {
     return true;
   }
 
-  Future<bool> addReviewsToFirestore(Reviews reviews) async {
+  Future<bool> addReviewsToFirestore(ReviewsModel reviews) async {
     try {
       EasyLoading.show();
       DocumentReference docRef = await firebasestore

@@ -29,7 +29,7 @@ class RateExperienceDialogModel extends BaseViewModel {
       log(pinnedLocation.id!);
       _reviewsService
           .addReviewsToFirestore(
-            Reviews(
+            ReviewsModel(
                 userId: userDetails!.uid!,
                 userName: userDetails!.displayName!,
                 userImageUrl: userDetails!.displayPicture!,

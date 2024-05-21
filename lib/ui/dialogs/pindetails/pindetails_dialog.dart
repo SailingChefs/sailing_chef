@@ -137,7 +137,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                       ),
                                       horizontalSpaceSmall,
                                       Text(
-                                        viewModel.pinnedLocation.rating
+                                        viewModel.calculateAverageRating(viewModel.reviews)
                                             .toString(),
                                         style: globalTextStyle(
                                           color: kcBlackColor,
