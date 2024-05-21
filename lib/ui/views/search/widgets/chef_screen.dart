@@ -8,7 +8,6 @@ import 'package:sailing_chefs/ui/views/search/widgets/explore_all_buttons.dart';
 class ChefScreen extends ViewModelWidget<SearchViewModel> {
   final List<UserModel> chef;
   const ChefScreen({super.key, required this.chef});
-
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
     return viewModel.searchControllerChef.text.isNotEmpty
@@ -35,63 +34,63 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                               final UserModel che =
                                   viewModel.searchUser(chef).elementAt(index);
                               return GestureDetector(
-                                onTap: () {
-                                  viewModel.toChefProfile(che);
-                                },
-                                child: Container(
-                                  width: 200.w,
-                                  decoration: BoxDecoration(
-                                    color: kcwhitecolor,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: const Offset(0, 3),
-                                      ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  margin: const EdgeInsets.all(8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                          child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.r),
-                                          topRight: Radius.circular(20.r),
+                                  onTap: () {
+                                    viewModel.toChefProfile(che);
+                                  },
+                                  child: Container(
+                                    width: 200.w,
+                                    decoration: BoxDecoration(
+                                      color: kcwhitecolor,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: const Offset(0, 3),
                                         ),
-                                        child: che.displayPicture! == ''
-                                            ? Image.asset(
-                                                'assets/images/misc/blank_image.png',
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.network(
-                                                che.displayPicture!,
-                                                fit: BoxFit.cover,
-                                                width: double.infinity,
-                                              ),
-                                      )),
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0.dg),
-                                        child: Text(
-                                          capitalizeEachWord(che.displayName!),
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold,
+                                      ],
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    margin: const EdgeInsets.all(8),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                            child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20.r),
+                                            topRight: Radius.circular(20.r),
+                                          ),
+                                          child: che.displayPicture! == ''
+                                              ? Image.asset(
+                                                  'assets/images/misc/blank_image.png',
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  che.displayPicture!,
+                                                  fit: BoxFit.cover,
+                                                  width: double.infinity,
+                                                ),
+                                        )),
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0.dg),
+                                          child: Text(
+                                            capitalizeEachWord(
+                                                che.displayName!),
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-
-                                );
-                              },
-                              childCount: viewModel.searchUser(chef).length >= 4 ? 4 : viewModel.searchUser(chef).length ,
-                            ),
-
+                                      ],
+                                    ),
+                                  ));
+                            },
+                            childCount: viewModel.searchUser(chef).length >= 4
+                                ? 4
+                                : viewModel.searchUser(chef).length,
                           ),
                         ),
                       ],
@@ -186,10 +185,10 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                       ),
                                     ],
                                   ),
-                                );
-                              },
-                              childCount: chef.length >= 4 ? 4 : chef.length,
-                            ),
+                                ),
+                              );
+                            },
+                            childCount: chef.length >= 4 ? 4 : chef.length,
                           ),
                         ),
                       ],

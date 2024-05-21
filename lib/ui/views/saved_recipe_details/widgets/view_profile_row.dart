@@ -53,10 +53,14 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       user.uid == userDetails!.uid!
           ? const SizedBox()
           : OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                
+                backgroundColor: kcsgreycolor
+              ),
               onPressed: () => viewModel.moveToChatScreen(user),
               child: const Icon(
-                Icons.message_outlined,
-                color: kcPrimaryColor,
+                FlutterRemix.chat_4_line,
+                color: kcBlackColor,
               ),
             )
     ]);

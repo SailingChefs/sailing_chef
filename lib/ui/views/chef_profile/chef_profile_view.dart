@@ -36,13 +36,12 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-              
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   ChefProfileDetailsDesc(
                     user: user,
                   ),
+                  ProfileDescriptionChefProfileScreen(user,),
                   verticalSpaceMedium,
                   Follow_Message_Btns(user: user),
                   user.userRole == 'chef'
@@ -57,7 +56,6 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                           : SavedChefProfileScreen(user,
                               savedRecipes: viewModel.userSavedRecipe!)
                       : user.userRole == 'culinarySchool'
-
                           ? viewModel.isBusy
                               ? const ShimmerLoaderChefView()
                               : Column(

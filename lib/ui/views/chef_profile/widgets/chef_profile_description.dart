@@ -1,10 +1,8 @@
-
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
-
-
-
 class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
   const ChefProfileDetailsDesc({required this.user, super.key});
   final UserModel user;
@@ -15,7 +13,6 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -118,92 +115,11 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       ),
                     ),
                   ],
-
                 ),
-              ],
             ),
-          ),
-
-          user.displayName!.isEmpty
-              ? const SizedBox()
-              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  verticalSpaceSmall,
-                  Text(
-                    capitalizeEachWord(user.displayName!),
-                    style: globalTextStyle(
-                        letterSpacing: -0.3,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: kcBlackColor),
-                  ),
-                ]),
-          user.namedLocation == null && user.boatName == null
-              ? Container()
-              : Text(
-                  user.namedLocation == null
-                      ? capitalizeEachWord(userDetails!.boatName!)
-                      : user.boatName!.isEmpty
-                          ? capitalizeEachWord(user.namedLocation!)
-                          : capitalizeEachWord(
-                              '${user.boatName!}, ${user.namedLocation}'),
-                  style: globalTextStyle(
-                    fontSize: 16.sp,
-                    letterSpacing: -0.3,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor,
-                  ),
-                ),
-          user.bio!.isEmpty
-              ? const SizedBox()
-              : Column(
-                  children: [
-                    verticalSpaceSmall,
-                    Text(
-                      user.bio!,
-                      style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                    ),
-                  ],
-                ),
-          verticalSpaceTiny,
-          user.link!.isEmpty
-              ? const SizedBox()
-              : Row(
-                  children: [
-                    const Icon(
-                      Icons.link_outlined,
-                      color: kcPrimaryColor,
-                      size: 20,
-                    ),
-                    horizontalSpaceSmall,
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.onClickUrl(user.link!);
-                      },
-                      child: Text(
-                        user.link!.isEmpty ? ' ' : user.link!,
-                        style: globalTextStyle(
-                          fontSize: 14.sp,
-                          letterSpacing: -0.3,
-                          fontWeight: FontWeight.w400,
-                          color: kcPrimaryColor,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ],
-
-                ),
-              ],
-            ),
-          ),
-         
+          
+            ],
+          )
         ],
       ),
     );

@@ -35,7 +35,7 @@ class PinDropService with ListenableServiceMixin {
 
   }
 
-  Future<List<Reviews>> fetchReviewsByPinId(String pinId) async {
+  Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
 
     log('pinId:$pinId');
     try {

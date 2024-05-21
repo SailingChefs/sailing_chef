@@ -1,4 +1,5 @@
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
@@ -35,12 +36,14 @@ class StartupView extends StackedView<StartupViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING.png',
+                      verticalSpaceLarge,
+                      verticalSpaceSmall,
+                      SvgPicture.asset(
+                        'assets/images/logo/SAILING.svg',
                       ),
                       verticalSpaceTiny,
-                      Image.asset(
-                        'assets/images/logo/CHEFS.png',
+                      SvgPicture.asset(
+                        'assets/images/logo/CHEFS.svg',
                       ),
                     ]),
               ),
