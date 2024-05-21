@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
@@ -27,17 +28,15 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    FlutterRemix.search_line,
-                    color: kcBlackColor.withOpacity(0.6),
-                    size: 20.dg,
-                  ),
+                  SvgPicture.asset('assets/images/icons/search.svg', color: searchIconColor,
+                    width: 20.dg,height: 20,),
+                  
                   horizontalSpaceSmall,
                   Text(
                     'Search',
                     style: globalTextStyle(
                       fontSize: 16.sp,
-                      color: kcBlackColor.withOpacity(0.6),
+                      color: searchIconColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -49,7 +48,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
         verticalSpaceMedium,
         IconButton(
           onPressed: viewModel.goToFilterView,
-          icon: const Icon(FlutterRemix.equalizer_line,color: filterIconColor,),
+          icon: SvgPicture.asset('assets/images/icons/filter.svg',color: filterIconColor,width: 30,height: 30,),
           color: kcPrimaryColor,
           iconSize: 32.h,
          

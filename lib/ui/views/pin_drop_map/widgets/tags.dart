@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/selectedtab.dart';
 
@@ -158,18 +159,15 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 GestureDetector(
                   onTap: () => viewModel.clearTags(),
-                  child: const DecoratedBox(
-                    decoration: BoxDecoration(
+                  child:  DecoratedBox(
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(width: 1.0, color: kcBlackColor),
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 5.0),
-                      child: Text(
-                        'Clear',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                    child: Text(
+                      'Clear',
+                      style: globalTextStyle(fontSize: 14.0,fontWeight: FontWeight.w500, color: kcBlackColor),
                     ),
                   ),
                 ),
@@ -181,7 +179,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                     width: 160,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: kcPrimaryColor),
+                        color: filterIconColor),
                     child: TextButton(
                       onPressed: () {
                         viewModel.totalFilters =

@@ -10,7 +10,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,10 +35,6 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
           GestureDetector(
             onTap: () {
               viewModel.showBottomSheet(uid);
-              // viewModel.toSettings(
-              //   isCurrentUser!,
-              //   uid,
-              // );
             },
             child: Container(
               alignment: Alignment.center,

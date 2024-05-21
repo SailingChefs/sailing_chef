@@ -11,7 +11,7 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
       super.key});
   final String hinttext;
   final Color color;
-  final IconData suffixIcon;
+  final Widget suffixIcon;
   final VoidCallback func;
   final TextEditingController contoll;
   @override
@@ -66,11 +66,7 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                                         fit: BoxFit.cover,
                                       )),
                                 )
-                              : Icon(
-                                  suffixIcon,
-                                  size: 30,
-                                  color: kcBlackColor.withOpacity(0.6),
-                                ),
+                              : suffixIcon,
                         ),
                       ),
                     ],

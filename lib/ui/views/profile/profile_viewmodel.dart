@@ -108,6 +108,7 @@ class ProfileViewModel extends ReactiveViewModel {
   void onViewModelReady() async {
     setBusy(true);
     myRecipesList();
+
     await Future.wait([
       _savedRecipeService.init(),
 

@@ -14,11 +14,10 @@ class ProfileDescriptionProfileScreen
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
+      padding: const EdgeInsets.only(left: 10.0,top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          verticalSpaceSmall,
           GestureDetector(
             onTap: () {
               viewModel.navigateToBlockScreen();
@@ -59,21 +58,17 @@ class ProfileDescriptionProfileScreen
               fontWeight: FontWeight.w400,
               color: kcBlackColor,
             ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 3,
+            textAlign: TextAlign.justify,
+            
           ),
-          verticalSpaceTiny,
+          verticalSpace(8),
           userDetails!.userRole == 'guest'
               ? Container()
               : userDetails!.link!.isEmpty
                   ? Container()
                   : Row(
                       children: [
-                        // const Icon(
-                        //   Icons.link_outlined,
-                        //   color: kcPrimaryColor,
-                        //   size: 20,
-                        // ),
+                       
                         SvgPicture.asset('assets/images/icons/link.svg',width: 16,height: 16,color: kcBlackColor.withOpacity(0.6),),
                         horizontalSpaceSmall,
                         GestureDetector(

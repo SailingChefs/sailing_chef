@@ -29,6 +29,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
           padding: const EdgeInsets.only(
             left: 15.0,
             right: 15.0,
+            top: 35
           ),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
@@ -38,7 +39,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                 
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
-                verticalSpaceMedium,
+                verticalSpace(MediaQuery.of(context).size.height * 0.04),
                 userDetails!.userRole == 'guest'
                     ? Container()
                     : FittedBox(

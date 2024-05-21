@@ -20,7 +20,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController description = TextEditingController();
-  double ratings = 3.0;
+  double ratings = 0;
   String? image;
   List<String>? imageUrls;
   void savePinDrop() async {

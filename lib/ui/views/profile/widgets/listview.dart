@@ -26,6 +26,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
               )
             : SizedBox(
                 height: screenHeight(context) * 0.319,
+                width: screenWidth(context) * 0.98,
                 child: ListView.builder(
                   itemCount: viewModel.courses.length,
                   itemBuilder: (context, index) {
@@ -34,7 +35,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      color: kcsgreycolor,
+                      color: kcbackgroundCourses,
                       child: InkWell(
                         onTap: () {},
                         child: SizedBox(

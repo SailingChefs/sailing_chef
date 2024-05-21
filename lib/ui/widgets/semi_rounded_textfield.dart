@@ -10,6 +10,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final String? labelText;
   final bool? readOnly;
   final IconData? prefixIcon;
+  final Widget? prefix;
   final IconData? postfixIcon;
   final bool? suffixIcon;
   final bool? prefixIcons;
@@ -36,10 +37,11 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.maxLines,
       this.size,
       this.suffixIcon,
-      this.prefixIcons, this.maxLengthEnforcement});
+      this.prefixIcons, this.maxLengthEnforcement, this.prefix});
 
   @override
   Widget build(BuildContext context) {
+
     return RoundedTransparentTextField(
       readOnly: readOnly!,
       labelText: labelText!,

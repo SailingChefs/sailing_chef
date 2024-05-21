@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_details.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_topbar.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/dish_list_screen.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/follow_message__btn.dart';
@@ -26,23 +27,27 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          appBar: ChefProfileTopBar(uid: user.uid!,),
+          appBar: ChefProfileTopBar(
+            uid: user.uid!,
+          ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+            // padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+            padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 35),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   Column(
                     children: [
                       ChefProfileDetailsDesc(
                         user: user,
                       ),
-                      verticalSpaceMedium,
+                      ProfileDescriptionChefProfileScreen(
+                        user,
+                      ),
                       Follow_Message_Btns(user: user),
                       user.userRole == 'chef'
-                          ?viewModel.isBusy
+                          ? viewModel.isBusy
                               ? const ShimmerLoaderChefView()
                               : DishListScreen(user: user)
                           : Container(),
