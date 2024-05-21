@@ -27,7 +27,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.keyboardType,
       this.borderRadius,
       this.inputFormatters,
-      this.readOnly = false,
+      this.readOnly ,
       this.controller,
       this.labelText,
       this.prefixIcon,
@@ -41,7 +41,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
-      readOnly: readOnly!,
+      readOnly: readOnly ?? false,
       labelText: labelText!,
       maxLength: maxLength,
       maxLines: maxLines,
@@ -55,7 +55,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       size: size,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      fillColor: Colors.grey.withOpacity(0.2),
+      fillColor: kcPrimaryColor.withOpacity(0.08),
       borderRadius: borderRadius ?? 10.dg,
       textColor: Colors.black.withOpacity(0.6),
       controller: controller, maxLengthEnforcement: maxLengthEnforcement,

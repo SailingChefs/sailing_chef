@@ -113,15 +113,6 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           ],
         ),
         verticalSpaceMedium,
-        // Text(
-        //   '${recipeModel.ingredients.length} items',
-        //   style: GoogleFonts.poppins(
-        //     textStyle: TextStyle(
-        //       fontSize: 10.0.sp,
-        //       fontWeight: FontWeight.w300,
-        //     ),
-        //   ),
-        // ),
         ...allIngredients
       ],
     );

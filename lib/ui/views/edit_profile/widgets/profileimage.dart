@@ -31,9 +31,10 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                 ),
                 child: Center(
                   child: Container(
-                      height: MediaQuery.sizeOf(context).height * 0.11,
-                      width: MediaQuery.sizeOf(context).height * 0.11,
+                      height: MediaQuery.sizeOf(context).height * 0.10,
+                      width: MediaQuery.sizeOf(context).height * 0.10,
                       decoration: BoxDecoration(
+                        color: kcWhiteColor,
                         shape: BoxShape.circle,
                         border: Border.all(color: kcWhiteColor, width: 4.0.w),
                         gradient: const LinearGradient(
@@ -58,7 +59,8 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
             : Stack(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: 48,
+                    backgroundColor: kcWhiteColor,
                     backgroundImage: viewModel.selectedImageFile != null
                         ? FileImage(viewModel.selectedImageFile!)
                             as ImageProvider<Object>?
@@ -66,7 +68,7 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                             userDetails!.displayPicture!
                             .toString()),
                   ),
-                  const GestureDetectorEdit(65, 75),
+                  const GestureDetectorEdit(68,68),
                 ],
               ),
         const GestureDetectorEdit(220, 70),

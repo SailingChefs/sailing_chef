@@ -21,12 +21,15 @@ class SettingsView extends StackedView<SettingsViewModel> {
   ) {
     return const SafeArea(
       child: Scaffold(
+        
         backgroundColor: kcBackgroundColor,
-        body: Column(
-          children: [
-            TopBarSettingsScreen(title: 'Settings'),
-            SettingsListSettingsScreen(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              TopBarSettingsScreen(title: 'Settings'),
+              SettingsListSettingsScreen(),
+            ],
+          ),
         ),
       ),
     );

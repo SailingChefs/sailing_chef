@@ -10,6 +10,7 @@ class ChefDetail extends ViewModelWidget<RecipeViewViewModel> {
     return Row(
       children: [
         CircleAvatar(
+          backgroundColor: kcBackgroundColor,
           radius: 19.62.dg,
           backgroundImage: NetworkImage(
             userDetails!.displayPicture!,

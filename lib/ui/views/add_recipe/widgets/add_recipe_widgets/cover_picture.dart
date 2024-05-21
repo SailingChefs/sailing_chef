@@ -472,15 +472,17 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                           Text(
                             'Add Images',
                             style: globalTextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w600,
-                                color: kcBlackColor),
+                              fontSize: 14.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
+                            ),
                           ),
                           horizontalSpaceTiny,
                           Text(
                             '*',
                             style: globalTextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                                 color: kcErrorColor),
                           ),

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -34,31 +33,34 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
         children: [
           TopBarRecipeView(selectedImages, draftUrls),
           MainRecipeViewContainer(recipeModel, selectedImages),
-         
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.39,
+            top: MediaQuery.of(context).size.height * 0.4,
             right: 30,
-            child:     Container(
-          height: 70.h,
-          width: 70.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: userDetails!.displayPicture!.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
-              fit: BoxFit.cover,
+            child: Container(
+              height: 60.h,
+              width: 60.w,
+              decoration: BoxDecoration(
+                color: kcVeryLightGrey,
+                border: Border.all(
+                  color: kcWhiteColor,
+                  width: 3.0,
+                ),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: userDetails!.displayPicture == null
+                      ? const AssetImage('assets/images/misc/blank_image.png')
+                      : NetworkImage(userDetails!.displayPicture!)
+                          as ImageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
-        ),
-          ),
-           Positioned(
+          Positioned(
             top: 40,
             left: 10,
             child: BackArrowWidget(
-              onTap: 
-              viewModel.moveBack,
+              onTap: viewModel.moveBack,
             ),
           ),
         ],

@@ -30,9 +30,9 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                 title: Text(
                   'Create Recipe',
                   style: globalTextStyle(
-                      fontSize: 18.0.dg,
+                      fontSize: 16.0.dg,
                       color: kcBlackColor,
-                      letterSpacing: -0.5,
+                      letterSpacing: -0.3,
                       fontWeight: FontWeight.w500,
                       ),
                 ),

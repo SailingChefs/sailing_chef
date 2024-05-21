@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -17,16 +18,17 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
               children: [
                 Text(
                   'Cooking Time',
-                 style: globalTextStyle(
-               fontSize: 16.sp,
-                  letterSpacing: -0.5,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor),
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.5,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor,
+                  ),
                 ),
                 horizontalSpaceTiny,
                 Text('*',
                     style: globalTextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: kcErrorColor)),
               ],
@@ -34,30 +36,33 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
             GestureDetector(
               onTap: () => viewModel.showCustomTimePickerDialog(context),
               child: Container(
-                height: 45.h,
-                width: 115.w,
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                // height: 45.h,
+                // width: 115.w,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0.r),
                   color: kcVeryLightGrey.withOpacity(0.2),
                 ),
-                child: viewModel.selectedTime != null
+                child: viewModel.selectedTime != null && viewModel.formattedDuration != '0h'
                     ? Center(
                         child: Text(
                           viewModel.formatDuration(),
-                          style: globalTextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kcPrimaryColor,
-                          ),
+                        style: globalTextStyle(
+                                fontSize: 12.sp,
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w600,
+                                color: kcPrimaryColorDark,
+                              ),
                         ),
                       )
                     : FittedBox(
                         child: Row(
                           children: [
-                            const Icon(
-                              FlutterRemix.time_line,
-                              color: kcBlackColor,
+                            SvgPicture.asset(
+                              'assets/images/misc/clock.svg',
+                              height: 13.0.dg,
+                              width: 13.0.dg,
                             ),
                             horizontalSpaceSmall,
                             Text(
@@ -65,9 +70,11 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                                   ? viewModel.prepreationTime!
                                   : 'Set Time',
                               style: globalTextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: kcPrimaryColor),
+                                fontSize: 12.sp,
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w600,
+                                color: kcPrimaryColorDark,
+                              ),
                             ),
                           ],
                         ),

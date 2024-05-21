@@ -179,9 +179,9 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               width: 2.w,
             ),
             image: DecorationImage(
-              image: userDetails!.displayPicture!.isEmpty
+              image: chefImagePath.isEmpty
                   ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
+                  : NetworkImage(chefImagePath) as ImageProvider,
               fit: BoxFit.cover,
             ),
           ),

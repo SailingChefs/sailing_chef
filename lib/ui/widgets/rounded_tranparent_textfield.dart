@@ -26,12 +26,15 @@ class RoundedTransparentTextField extends StatelessWidget {
   final Color? borderColor;
   final double? size;
   final bool? ispassvisible;
+  final TextStyle? style;
+
 
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
+    this.style,
     this.suffixIcon,
-    this.readOnly = false,
+    this.readOnly,
     this.labelText,
     this.keyboardType,
     this.obscureText = false,
@@ -76,7 +79,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
     }
     return TextFormField(
-      readOnly: readOnly!,
+      readOnly: readOnly ?? false,
       cursorColor: kcPrimaryColor,
       showCursor: true,
       onChanged: onChanged,
@@ -96,8 +99,10 @@ class RoundedTransparentTextField extends StatelessWidget {
       }) {
         return null;
       },
-      style: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w600),
+      
+      style: style ?? globalTextStyle(fontSize: 13.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w400),
       decoration: InputDecoration(
+        
         hintText: labelText,
         hintStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
         filled: true,
@@ -130,7 +135,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
-          horizontal: 29.0,
+          horizontal: 19.0,
         ),
         prefixIcon: prefixIcon == true
             ? Icon(

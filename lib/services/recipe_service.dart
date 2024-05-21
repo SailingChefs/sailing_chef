@@ -139,6 +139,7 @@ class RecipeService with ListenableServiceMixin {
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(docId);
+        recipes.add(recipe);
        
 
         showToast(message: 'Recipe added successfully');

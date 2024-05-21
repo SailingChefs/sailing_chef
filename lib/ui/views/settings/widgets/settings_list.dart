@@ -23,14 +23,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Edit Profile',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         userDetails!.userRole == 'guest'
@@ -45,14 +47,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                     title: Text(
                       'Become a Chef',
                       style: globalTextStyle(
-                          fontSize: 16.0.dg,
-                          color: kcBlackColor,
-                          fontWeight: FontWeight.w400),
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       color: kcBlackColor.withOpacity(0.87),
-                      size: 16.5.dg,
+                      size: 14.dg,
                     ),
                   ),
                 ],
@@ -68,14 +72,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                     title: Text(
                       'View all drafts',
                       style: globalTextStyle(
-                          fontSize: 16.0.dg,
-                          color: kcBlackColor,
-                          fontWeight: FontWeight.w400),
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       color: kcBlackColor.withOpacity(0.87),
-                      size: 16.5.dg,
+                      size: 14.dg,
                     ),
                   ),
                 ],
@@ -89,14 +95,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Terms & Policies',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         Divider(
@@ -108,14 +116,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Blocked Accounts',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         Divider(
@@ -127,14 +137,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Send Feedback',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         Divider(
@@ -146,14 +158,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Delete Account',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         Divider(
@@ -165,14 +179,16 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Sign Out',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: kcBlackColor.withOpacity(0.87),
-            size: 16.5.dg,
+            size: 14.dg,
           ),
         ),
         Divider(

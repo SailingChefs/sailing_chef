@@ -68,7 +68,7 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
         ),
         verticalSpaceMedium,
         ...createIngredientWidgets(),
-        verticalSpaceSmall,
+      
       ],
     );
   }

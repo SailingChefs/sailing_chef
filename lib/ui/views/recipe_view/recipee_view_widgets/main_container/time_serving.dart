@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
@@ -11,23 +12,23 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
           decoration: BoxDecoration(
             color: kcPrimaryColorDark.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                FlutterRemix.time_line,
-                color: kcBlackColor,
-                size: 18.dg,
-              ),
+             SvgPicture.asset(
+                'assets/images/misc/clock.svg',
+                width: 18,
+                height: 18,
+             ),
               // horizontalSpaceSmall,
               Text(
-                ' ${recipeModel.prepTime.trim()}',
+                ' ${recipeModel.prepTime}',
                 style: globalTextStyle(
                   fontSize: 12.0.sp,
                   color: kcBlackColor,
@@ -39,35 +40,45 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
         ),
         horizontalSpaceSmall,
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-          decoration: BoxDecoration(
-            color: kcPrimaryColorDark.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Center(
-                child: Icon(
-                  FlutterRemix.group_line,
-                  color: kcPrimaryColor,
-                  size: 18.0,
-                ),
-              ),
-
-              // horizontalSpaceSmall,
-              Text(
-                ' ${recipeModel.servingSize} servings',
-                style: globalTextStyle(
-                  fontSize: 12.0.sp,
-                  color: kcBlackColor,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            decoration: BoxDecoration(
+              color: kcPrimaryColorDark.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: viewModel.decrementServings,
+                    child: Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: const BoxDecoration(
+                        color: kcPrimaryColorDark,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: viewModel.decrementServings,
+                          child: const Icon(
+                            FlutterRemix.subtract_fill,
+                            color: kcWhiteColor,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  Text(' ${viewModel.servings} '),
+                  horizontalSpaceSmall,
+                  GestureDetector(
+                    onTap: viewModel.incrementServings,
+                    child: const Icon(
+                      FlutterRemix.add_circle_fill,
+                      color: kcPrimaryColorDark,
+                    ),
+                  ),
+                ])),
       ],
     );
   }

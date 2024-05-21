@@ -67,6 +67,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     _savedRecipeService.addSavedRecipe(SavedRecipeModel(
       recipeId: recipe.docId!,
     ));
+    isRecipeSaved = !isRecipeSaved;
+    notifyListeners();
   }
   void onVolumeUpIconPressed() {
     isMute = !isMute;
@@ -314,7 +316,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     playerController = PlayerController();
     downloadAudio();
     checkSave(recipeId);
-    // recipeList = await recipeService.fetchRandomRecipes(5, recipeId);
 
     setBusy(false);
   }
