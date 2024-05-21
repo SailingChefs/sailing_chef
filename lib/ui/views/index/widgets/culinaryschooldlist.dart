@@ -40,7 +40,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
               SizedBox(
                 height: screenHeight <= 690.0
                     ? MediaQuery.sizeOf(context).height * 0.3.h
-                    : MediaQuery.sizeOf(context).height * 0.25.h,
+                    : MediaQuery.sizeOf(context).height * 0.27.h,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.cullinary.length > 5
@@ -84,7 +84,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              56.h,
+                                              45.h,
                                     )
                                   : Image.network(
                                       cullinaruschools.displayPicture!,
@@ -93,7 +93,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              56.h,
+                                              45.h,
                                     ),
                             ),
                             Padding(

@@ -85,7 +85,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                           ),
                                         ),
 
-                                      ),
+                                      
                                     ],
                                   ),
 

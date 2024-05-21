@@ -75,7 +75,7 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
             ],
           );
         }),
-      ) : user.userRole == 'culinarySchool' ?   
+      ) : user.userRole == 'culinarySchool' && user.schoolCourses!.isEmpty ?   
        SizedBox(
             width: 400,
             height: 300,

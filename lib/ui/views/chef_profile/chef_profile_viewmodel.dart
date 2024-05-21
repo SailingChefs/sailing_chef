@@ -41,7 +41,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isFollowing = false;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_followService];
+  List<ListenableServiceMixin> get listenableServices => [_followService,_cullinarySchoolService,_savedRecipeService,];
   List<RecipeModel>? myRecipes;
 
   void myRecipeSelected() {
