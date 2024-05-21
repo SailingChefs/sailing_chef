@@ -1,9 +1,9 @@
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/edit_profile/widgets/description.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/lables_text.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
@@ -33,14 +33,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
-                        SemiRoundedTranpaentTextField(
-                          suffixIcon: false,
-                          prefixIcons: false,
-                          borderRadius: 27.dg,
-                          maxLines: 5,
-                          maxLength: 500,
+                        SemiRoundedTranpaentTextFieldBio(
+                          // validator: (value) => viewModel.validateBio(value),
                           controller: viewModel.bioController,
-                          labelText: '',
+
+                          labelText: 'Bio',
                         ),
                         const LablesText(text: 'Email'),
                         SemiRoundedTranpaentTextField(
@@ -54,6 +51,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Link'),
+                        
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: true,
@@ -90,59 +88,44 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                           child: CSCPicker(
                             key: ValueKey(viewModel.countryValue),
                             showStates: true,
-
                             showCities: true,
-
                             flagState: CountryFlag.DISABLE,
-
                             dropdownDecoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(20)),
                                 color: Colors.grey.withOpacity(0.2),
                                 border: Border.all(
                                     color: Colors.grey.shade300, width: 1)),
-
                             disabledDropdownDecoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(20)),
                                 color: Colors.grey.withOpacity(0.2),
                                 border: Border.all(
                                     color: Colors.grey.shade300, width: 1)),
-
-                           
                             countrySearchPlaceholder: "Country",
                             stateSearchPlaceholder: "State",
                             citySearchPlaceholder: "City",
-
                             countryDropdownLabel: "Country*",
                             stateDropdownLabel: "State*",
                             cityDropdownLabel: "City*",
-
                             selectedItemStyle: TextStyle(
                               color: Colors.black.withOpacity(0.6),
                               fontSize: 14,
                             ),
-
                             dropdownHeadingStyle: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
-
                             dropdownItemStyle: TextStyle(
                               color: Colors.black.withOpacity(0.6),
                               fontSize: 14,
                             ),
-
                             dropdownDialogRadius: 10.0,
-
                             searchBarRadius: 10.0,
-
                             onCountryChanged: (value) =>
                                 viewModel.setCountryValue(value.toString()),
-
                             onStateChanged: (value) =>
                                 viewModel.setStateValue(value.toString()),
-
                             onCityChanged: (value) =>
                                 viewModel.setCityValue(value.toString()),
                           ),
@@ -177,14 +160,10 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextField(
-                              suffixIcon: false,
-                              prefixIcons: false,
-                              borderRadius: 27.dg,
-                              maxLength: 500,
-                              maxLines: 5,
+                            SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              labelText: '',
+
+                              labelText: 'Bio',
                             ),
                             const LablesText(text: 'Email'),
                             SemiRoundedTranpaentTextField(
@@ -333,14 +312,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextField(
-                              suffixIcon: false,
-                              prefixIcons: false,
-                              borderRadius: 27.dg,
-                              maxLength: 500,
-                              maxLines: 5,
+                            SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              labelText: '',
+                              labelText: 'Bio',
                             ),
                           ],
                         ),

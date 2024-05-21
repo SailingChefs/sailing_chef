@@ -1,31 +1,45 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/user_details/widgets/biofield.dart';
 
-class Description extends ViewModelWidget<EditProfileViewModel> {
-  const Description({super.key, required this.text});
-  final String text;
+class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final String labelText;
+  final bool? readOnly;
+  final Icon? prefixIcon;
+  final Icon? postfixIcon;
+  final Color? fillColor;
+
+  const SemiRoundedTranpaentTextFieldBio({
+    super.key,
+    this.validator,
+    this.keyboardType,
+    this.fillColor,
+    this.inputFormatters,
+    this.readOnly = false,
+    this.controller,
+    required this.labelText,
+    this.prefixIcon,
+    this.postfixIcon,
+  });
+
   @override
-  Widget build(BuildContext context, EditProfileViewModel viewModel) {
-  
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10, top: 10),
-      child: TextFormField(
-        keyboardType: TextInputType.multiline,
-        maxLines: 500,
-        minLines: 5,
-        decoration: InputDecoration(
-          filled: true,
-          
-          hintText: text,
-          hintStyle: globalTextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
-            color: editTextColor,
-          ),
-          border: InputBorder.none,
-      
-        ),
-      ),
+  Widget build(BuildContext context) {
+    return RoundedTransparentTextFieldBio(
+      readOnly: readOnly!,
+      labelText: '',
+      prefixIconData: prefixIcon,
+      suffixIconData: postfixIcon,
+      validator: validator,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
+      fillColor: fillColor ?? Colors.grey.withOpacity(0.2),
+      borderRadius: 27.dg,
+      textColor: Colors.black.withOpacity(0.6),
+      controller: controller,
     );
   }
 }

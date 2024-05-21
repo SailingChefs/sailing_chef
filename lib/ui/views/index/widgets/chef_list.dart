@@ -40,7 +40,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
               SizedBox(
                 height: screenHeight <= 690.0
                     ? MediaQuery.sizeOf(context).height * 0.4.h
-                    : MediaQuery.sizeOf(context).height * 0.32.h,
+                    : MediaQuery.sizeOf(context).height * 0.3.h,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length >= 5
@@ -81,13 +81,13 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-                                      height: 201.h,
+                                      height: MediaQuery.sizeOf(context).height * 0.3.h - 56.h,
                                     )
                                   : Image.network(
                                       chef.displayPicture!,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
-                                      height: 201.h,
+                                      height:MediaQuery.sizeOf(context).height * 0.3.h - 56.h,
                                     ),
                             ),
                             Padding(
