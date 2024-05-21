@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
@@ -16,26 +19,27 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               viewModel.toSearch();
             },
             child: Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.05,
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  const EdgeInsets.only(left: 16.0),
               decoration: BoxDecoration(
-                color: kcsgreycolor,
+                color: kcbuttoncolor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    FlutterRemix.search_line,
-                    color: kcBlackColor.withOpacity(0.6),
-                    size: 20.dg,
-                  ),
+                  SvgPicture.asset('assets/images/icons/search.svg', color: searchIconColor,
+                    width: 18.dg,height: 18.h,),
+                  
                   horizontalSpaceSmall,
                   Text(
                     'Search',
                     style: globalTextStyle(
-                      fontSize: 16.sp,
-                      color: kcBlackColor.withOpacity(0.6),
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
+                      color: searchIconColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -44,12 +48,13 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
             ),
           ),
         ),
-        horizontalSpaceTiny,
+        verticalSpaceMedium,
         IconButton(
           onPressed: viewModel.goToFilterView,
-          icon: const Icon(FlutterRemix.equalizer_line),
+          icon: SvgPicture.asset('assets/images/icons/filter.svg',color: filterIconColor,width: 30,height: 30,),
           color: kcPrimaryColor,
-          iconSize: 30.dg,
+          iconSize: 32.h,
+         
         ),
       ],
     );

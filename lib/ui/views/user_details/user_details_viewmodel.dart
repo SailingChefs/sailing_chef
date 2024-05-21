@@ -233,7 +233,11 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   void skipToHome() {
-    _navigationService.navigateToIndexView();
+    if(userDetails!.userRole == 'guest'){
+      _navigationService.replaceWithBottomBarGuestView();
+    }else{
+      _navigationService.replaceWithBottomNavBarView();
+    }
   }
 
   void getBack() {

@@ -9,7 +9,7 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
   @override
   Widget build(BuildContext context, BecomechefViewModel viewModel) {
-    // bool islocationempty = true;
+
     return SingleChildScrollView(
       child: Column(
         children: [

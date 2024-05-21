@@ -22,7 +22,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   Text(
                     'Meet your Chef',
                     style: globalTextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                      letterSpacing: -0.5,
                       fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     ),
@@ -31,16 +32,15 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     onPressed: viewModel.toAllChefsView,
                     buttonText: 'View all',
                     textColor: kclightgreencolor,
-                    fontSize: 14,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
-              verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.4.h
-                    : MediaQuery.sizeOf(context).height * 0.3.h,
+                    ? MediaQuery.sizeOf(context).height * 0.3.h
+                    : MediaQuery.sizeOf(context).height * 0.25.h,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length >= 5
@@ -56,7 +56,6 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       },
                       child: Container(
                         width: 160.w,
-                        height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
@@ -82,22 +81,24 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-                                      height: 185.h,
+                                      height:  MediaQuery.sizeOf(context).height * 0.25.h - 56.h, 
                                     )
                                   : Image.network(
                                       chef.displayPicture!,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
-                                      height: 185.h,
+                                      height:  MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
                                     ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(
                                 capitalizeEachWord(chef.displayName!),
-                                style: TextStyle(
+                                style: globalTextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                  color: kcBlackColor,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

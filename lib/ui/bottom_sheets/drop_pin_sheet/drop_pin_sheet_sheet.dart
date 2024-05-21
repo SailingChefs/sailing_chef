@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/buttons.dart';
@@ -27,7 +30,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 5,
+        horizontal: 3,
       ),
       decoration: const BoxDecoration(
         color: kcwhitecolor,
@@ -49,7 +52,12 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                   viewModel.getPfpImage();
                 },
                 hinttext: 'Name',
-                suffixIcon: FlutterRemix.image_add_line,
+                suffixIcon: SvgPicture.asset(
+                'assets/images/icons/pinimage.svg',
+                width: 30,
+                height: 30,
+                color: kcBlackColor.withOpacity(0.87)
+              ),
                 color: kcBlackColor.withOpacity(0.6),
                 contoll: viewModel.name,
               ),
@@ -107,33 +115,41 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
               ),
               const Divider(),
               verticalSpaceLarge,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Add your Review',
-                    style: globalTextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.4),
-                    ),
+              SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(left:20.0,right:20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Add your Review',
+                        style: globalTextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.4),
+                        ),
+                      ),
+                      RatingBar.builder(
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        initialRating: viewModel.ratings,
+                        itemSize: 20,
+                        unratedColor: Colors.grey.shade400,
+                        
+                        itemCount: 5,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 0.005),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: kcPrimaryColor,
+                        ),
+                        onRatingUpdate: (double value) {
+                          viewModel.setRating(value);
+                        },
+                      )
+                    ],
                   ),
-                  RatingBar.builder(
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    initialRating: viewModel.ratings,
-                    itemSize: 20,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: kcPrimaryColor,
-                    ),
-                    onRatingUpdate: (double value) {
-                      viewModel.setRating(value);
-                    },
-                  )
-                ],
+                ),
               ),
               verticalSpaceLarge,
               ButtonsPindrop(completer: completer),

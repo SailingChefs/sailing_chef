@@ -18,7 +18,8 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
     Widget? child,
   ) {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.1,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -26,53 +27,56 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
             topRight: Radius.circular(0),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Container(
-                height: 42,
-                width: 170,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: kcbuttoncolor.withOpacity(0.1)),
-                child: TextButton(
-                  onPressed: () => completer == null
-                      ? Navigator.pop(context)
-                      : completer!(SheetResponse(data: false)),
-                  child: Text(
-                    'Cancel',
-                    style: globalTextStyle(
-                        fontSize: 14,
-                        color: kcBlackColor.withOpacity(0.6),
-                        fontWeight: FontWeight.w500),
+        child: Padding(
+          padding: const EdgeInsets.only(left:8.0,right:8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Container(
+                  height: 42,
+                  width: 185,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: kcbuttoncolor.withOpacity(0.1)),
+                  child: TextButton(
+                    onPressed: () => completer == null
+                        ? Navigator.pop(context)
+                        : completer!(SheetResponse(data: false)),
+                    child: Text(
+                      'Cancel',
+                      style: globalTextStyle(
+                          fontSize: 14,
+                          color: kcBlackColor.withOpacity(0.6),
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: Container(
-                height: 42,
-                width: 170,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: kcPrimaryColor),
-                child: TextButton(
-                  onPressed: () => completer == null
-                      ? Navigator.pop(context)
-                      : completer!(SheetResponse(data: true)),
-                  child: Text(
-                    'Drop Pin',
-                    style: globalTextStyle(
-                        fontSize: 14,
-                        color: kcwhitecolor,
-                        fontWeight: FontWeight.w500),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Container(
+                  height: 42,
+                  width: 185,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: filterIconColor),
+                  child: TextButton(
+                    onPressed: () => completer == null
+                        ? Navigator.pop(context)
+                        : completer!(SheetResponse(data: true)),
+                    child: Text(
+                      'Drop Pin',
+                      style: globalTextStyle(
+                          fontSize: 14,
+                          color: kcwhitecolor,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 

@@ -32,7 +32,9 @@ class FollowingSavedRecipesScreen
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),
                     foodImagePath:
-                        viewModel.followingRecipes![index].coverImage.first,
+                        viewModel.followingRecipes![index].coverImage.where(
+                                        (element) => element.contains('.jpg'))
+                                    .first,
                     dishName: viewModel.followingRecipes![index].title,
                     duration: viewModel.followingRecipes![index].prepTime,
                     chefImagePath: viewModel

@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/searchbar.dart';
@@ -15,26 +18,32 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               showSearch(context: context, delegate: PinsSearchDelegate());
             },
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.05,
+              padding: const EdgeInsets.only(left: 16.0),
               decoration: BoxDecoration(
-                color: kcsgreycolor,
+                color: kcbuttoncolor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    FlutterRemix.search_line,
-                    color: kcBlackColor.withOpacity(0.6),
-                    size: 20.dg,
+                  SvgPicture.asset(
+                    'assets/images/icons/search.svg',
+                    colorFilter: const ColorFilter.mode(
+                      searchIconColor,
+                      BlendMode.srcIn,
+                    ),
+                    // color: searchIconColor,
+                    width: 20.dg,
+                    height: 20,
                   ),
-                  horizontalSpaceTiny,
+                  horizontalSpaceSmall,
                   Text(
                     'Search',
                     style: globalTextStyle(
                       fontSize: 16.sp,
-                      color: kcBlackColor.withOpacity(0.6),
+                      color: searchIconColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -48,22 +57,27 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
           children: [
             IconButton(
               onPressed: viewModel.tagsIconSelected,
-              icon: const Icon(FlutterRemix.equalizer_line),
+              icon: SvgPicture.asset(
+                'assets/images/icons/filter.svg',
+                color: filterIconColor,
+                width: 30,
+                height: 30,
+              ),
               color: kcPrimaryColor,
-              iconSize: 30.dg,
+              iconSize: 32.h,
             ),
             Positioned(
-              top: 0,
+              top: 3,
               left: 25,
               child: Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: const BoxDecoration(
-                  color: kclightgreencolor,
+                  color: filterIconColor,
                   shape: BoxShape.circle,
                 ),
                 child: Text(
                   viewModel.totalFilters.toString(),
-                  style: globalTextStyle(fontSize: 12.sp, color: kcwhitecolor),
+                  style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
                 ),
               ),
             ),

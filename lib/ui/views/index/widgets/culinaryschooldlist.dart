@@ -22,7 +22,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   Text(
                     'Explore Culinary schools',
                     style: globalTextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                      letterSpacing: -0.5,
                       fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     ),
@@ -31,19 +32,20 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     onPressed: viewModel.toViewCullinarySchools,
                     buttonText: 'View all',
                     textColor: kclightgreencolor,
-                    fontSize: 14,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
-              verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.4.h
-                    : MediaQuery.sizeOf(context).height * 0.3.h,
+                    ? MediaQuery.sizeOf(context).height * 0.3.h
+                    : MediaQuery.sizeOf(context).height * 0.25.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.cullinary.length > 5 ? 5 : viewModel.cullinary.length,
+                  itemCount: viewModel.cullinary.length > 5
+                      ? 5
+                      : viewModel.cullinary.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -70,8 +72,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                                child: ClipRRect(
+                            ClipRRect(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r),
@@ -80,21 +81,31 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              56.h,
                                     )
                                   : Image.network(
                                       cullinaruschools.displayPicture!,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              56.h,
                                     ),
-                            )),
+                            ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(
                                 capitalizeEachWord(
                                     cullinaruschools.displayName!),
-                                style: TextStyle(
+                                style: globalTextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                  color: kcBlackColor,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

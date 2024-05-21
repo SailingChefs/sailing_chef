@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
@@ -41,9 +41,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
         break;
       }
     }
-
-    log('foodimagePath : $foodImagePath');
-
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -60,7 +57,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ],
           ),
-          child: Stack(children: [
+          child: Stack(
+            children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -97,8 +95,10 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: globalTextStyle(
-                          fontSize: 13.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
+                          letterSpacing: -0.5,
+
                           color: kcBlackColor.withOpacity(0.6),
                         ),
                       ),
@@ -107,32 +107,34 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
               ],
             ),
-            chefId==userDetails!.uid! ? Container() :  Positioned(
-              top: 5.dg,
-              right: 10.dg,
-              child: GestureDetector(
-                onTap: () => viewModel.onBookmarkTap(recipeId),
-                child: Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: kcBlackColor.withOpacity(0.6),
-                  ),
-                  child: isRecipeSaved
-                      ? Icon(
-                          Icons.bookmark,
-                          size: 18.dg,
-                          color: kcWhiteColor,
-                        )
-                      : Icon(
-                          Icons.bookmark_outline,
-                          size: 18.dg,
-                          color: kcWhiteColor,
+            chefId == userDetails!.uid!
+                ? Container()
+                : Positioned(
+                    top: 5.dg,
+                    right: 10.dg,
+                    child: GestureDetector(
+                      onTap: () => viewModel.onBookmarkTap(recipeId),
+                      child: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: kcBlackColor.withOpacity(0.6),
                         ),
-                ),
-              ),
-            ),
+                        child: isRecipeSaved
+                            ? Icon(
+                                Icons.bookmark,
+                                size: 18.dg,
+                                color: kcWhiteColor,
+                              )
+                            : Icon(
+                                Icons.bookmark_outline,
+                                size: 18.dg,
+                                color: kcWhiteColor,
+                              ),
+                      ),
+                    ),
+                  ),
             Positioned(
               left: 5.dg,
               bottom: 30.dg + 25.dg,
@@ -166,8 +168,9 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 30.dg ,
+              bottom: 27.dg,
               right: 10.dg,
+
               child:     Container(
           height: 32.h,
           width: 32.w,
@@ -186,6 +189,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             ),
           ),
         ),
+
             )
           ]),
         ));

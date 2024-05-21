@@ -31,7 +31,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                   'Allow chefs to book your courses',
                                   style: globalTextStyle(
                                       fontSize: 14.0.dg,
-                                      color: kcPrimaryColor,
+                                      color: filterIconColor,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 verticalSpaceMedium,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -10,12 +11,15 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
+import '../../../services/user_services.dart';
+
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
+  final _userService = locator<UserServices>();
   List<UserModel> get chefList => ChefService.chefs;
   List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
@@ -30,7 +34,7 @@ class IndexViewModel extends BaseViewModel {
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
+      [_savedRecipeService, _recipeService, _chefService];
 
   get toViewCullinarySchool => null;
 
@@ -65,6 +69,7 @@ class IndexViewModel extends BaseViewModel {
         // _savedRecipeService.init(),
         _recipeService.initialized(),
       ]);
+       userDetails = await _userService.getUserDetails();
       isInitialised = true;
       showShimmer = false;
       notifyListeners();

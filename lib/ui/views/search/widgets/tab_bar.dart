@@ -27,7 +27,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'All'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -39,7 +39,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'All'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],
@@ -59,7 +59,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Following'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -71,7 +71,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Following'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],

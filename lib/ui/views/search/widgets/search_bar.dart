@@ -12,7 +12,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
     return Row(
       children: [
         SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.75,
+          width: MediaQuery.sizeOf(context).width * 0.795,
           height: 40.dg,
           child: TextField(
             textAlign: TextAlign.start,
@@ -29,7 +29,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               filled: true,
               fillColor: kcWhiteColor,
               labelStyle: TextStyle(
-                  fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
+                  fontSize: 14.sp, color: kcBlackColor.withOpacity(0.6)),
               labelText: viewModel.isRecipeSelected
                   ? 'Find Recipes...'
                   : 'Find Chefs...',
@@ -65,17 +65,17 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               ),
               prefixIcon: Icon(
                 FlutterRemix.search_line,
-                color: kcBlackColor.withOpacity(0.6),
+                color: kcBlackColor.withOpacity(0.5),
                 size: 20,
               ),
             ),
           ),
         ),
-        horizontalSpaceSmall,
+     
         IconButton(
           onPressed: () => viewModel.toFilterScreen(recipes),
           icon: const Icon(FlutterRemix.equalizer_line),
-          color: kcPrimaryColor,
+          color: filterIconColor,
           iconSize: 30.dg,
         ),
       ],

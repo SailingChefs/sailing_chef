@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_details.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/chef_profile_topbar.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/dish_list_screen.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/widgets/follow_message__btn.dart';
@@ -30,17 +31,18 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             uid: user.uid!,
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+            // padding: const EdgeInsets.only(left: 5.0, right: 5.0),
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-              
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ChefProfileDetailsDesc(
                     user: user,
                   ),
-                  verticalSpaceMedium,
+                  ProfileDescriptionChefProfileScreen(user),  
+                  verticalSpace(10.h),
                   Follow_Message_Btns(user: user),
                   user.userRole == 'chef'
                       ? viewModel.isBusy

@@ -13,7 +13,7 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
         Flexible(
           child: Container(
             height: 42,
-            width: 150,
+            width: 185,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: kcbuttoncolor.withOpacity(0.1)),
@@ -35,9 +35,9 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
         Flexible(
           child: Container(
             height: 42,
-            width: 150,
+            width: 185,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: kcPrimaryColor),
+                borderRadius: BorderRadius.circular(30), color: filterIconColor),
             child: TextButton(
               onPressed: () {
                 viewModel.savePinDrop();

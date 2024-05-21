@@ -22,8 +22,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                 spreadRadius: 5,
               )
             ]),
-        // width: 400.w,
-        // height: 435.h,
+        width: MediaQuery.of(context).size.width*0.95,
+        height: MediaQuery.of(context).size.height*0.54,
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10),
           child: Column(
@@ -158,18 +158,15 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 GestureDetector(
                   onTap: () => viewModel.clearTags(),
-                  child: const DecoratedBox(
-                    decoration: BoxDecoration(
+                  child:  DecoratedBox(
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(width: 1.0, color: kcBlackColor),
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 5.0),
-                      child: Text(
-                        'Clear',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                    child: Text(
+                      'Clear',
+                      style: globalTextStyle(fontSize: 14.0,fontWeight: FontWeight.w500, color: kcBlackColor),
                     ),
                   ),
                 ),
@@ -181,7 +178,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                     width: 160,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: kcPrimaryColor),
+                        color: filterIconColor),
                     child: TextButton(
                       onPressed: () {
                         viewModel.totalFilters =

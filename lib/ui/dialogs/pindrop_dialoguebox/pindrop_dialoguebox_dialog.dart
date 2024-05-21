@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
 
 import 'pindrop_dialoguebox_dialog_model.dart';
 
@@ -26,7 +27,7 @@ class PindropDialogueboxDialog
 
     return GestureDetector(
       onTap: () {
-        //  completer(DialogResponse(confirmed: true));
+        
         viewModel.callDeatilsDialog();
       },
       child: Dialog(
@@ -34,7 +35,8 @@ class PindropDialogueboxDialog
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
         alignment: Alignment.bottomRight,
         backgroundColor: kcWhiteColor,
-        child: viewModel.isBusy ? const Center(child: CircularProgressIndicator()) : Row(
+        child: viewModel.isBusy ? const ShimmerDialog (): 
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,8 +49,8 @@ class PindropDialogueboxDialog
                 child: Image.network(
                   pinnedLocation.picture.first,
                   fit: BoxFit.cover,
-                  height: 140,
-                  width: 97,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.26,
                 ),
               ),
             ),

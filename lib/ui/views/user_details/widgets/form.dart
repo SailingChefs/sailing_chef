@@ -32,6 +32,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                           verticalSpaceSmall,
                           SemiRoundedTranpaentTextFieldBio(
                             validator: (value) => viewModel.validateBio(value),
+                             fillColor: kcPrimaryColor.withOpacity(0.09),
                             controller: viewModel.bioController,
                             labelText: 'Bio',
                           ),
@@ -130,6 +131,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               ),
                               verticalSpaceSmall,
                               SemiRoundedTranpaentTextFieldBio(
+                                fillColor: kcPrimaryColor.withOpacity(0.09),
                                   validator: (value) =>
                                       viewModel.validateBio(value),
                                   controller: viewModel.bioController,
@@ -218,6 +220,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               ),
                               verticalSpaceSmall,
                               SemiRoundedTranpaentTextFieldBio(
+                                 fillColor: kcPrimaryColor.withOpacity(0.09),
                                   validator: (value) =>
                                       viewModel.validateBio(value),
                                   controller: viewModel.bioController,

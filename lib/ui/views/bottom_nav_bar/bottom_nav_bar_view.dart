@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
@@ -25,63 +28,31 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.setIndex,
-        items: const [
+        items:  [
           BottomNavigationBarItem(
-            activeIcon: Icon(
-              FlutterRemix.home_fill,
-            color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
             label: '',
-            icon: Icon(
-              FlutterRemix.home_line,
-              color: kcMediumGrey,
-            ),
+            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(
-              Icons.pin_drop_sharp,
-            color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: kcPrimaryColor,),
             label: '',
-            icon: Icon(
-              Icons.pin_drop_outlined,
-              color: kcMediumGrey,
-            ),
+            icon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: Colors.grey[600],),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(
-              FlutterRemix.add_circle_fill,
-              color: kcPrimaryColor,
-              size: 48,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
             label: '',
-            icon: Icon(
-              FlutterRemix.add_circle_fill,
-              color: kcPrimaryColor,
-              size: 48,
-            ),
+            icon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(
-              Icons.chat_bubble_rounded,
-             color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
             label: '',
-            icon: Icon(
-              Icons.chat_bubble_outline_outlined,
-              color: kcMediumGrey,
-            ),
+            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(
-              FlutterRemix.account_circle_fill,
-              color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
             label: '',
-            icon: Icon(
-              FlutterRemix.account_circle_line,
-              color: kcMediumGrey,
-            ),
+            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
           ),
         ],
       ),

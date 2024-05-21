@@ -29,6 +29,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
           padding: const EdgeInsets.only(
             left: 15.0,
             right: 15.0,
+           
           ),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
@@ -38,7 +39,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                 
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
-                verticalSpaceMedium,
+                verticalSpace(MediaQuery.of(context).size.height * 0.04),
                 userDetails!.userRole == 'guest'
                     ? Container()
                     : FittedBox(
@@ -51,8 +52,8 @@ class ProfileView extends StackedView<ProfileViewModel> {
                               onPressed: viewModel.toFilterView,
                               icon: Icon(
                                 FlutterRemix.equalizer_line,
-                                color: kcPrimaryColor,
-                                size: 30.sp,
+                                color: filterIconColor,
+                                size: 25.sp,
                               ),
 
                             ),

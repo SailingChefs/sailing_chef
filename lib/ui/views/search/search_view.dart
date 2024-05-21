@@ -37,16 +37,16 @@ class SearchView extends StackedView<SearchViewModel> {
                         child: Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(left: 8.0.dg),
-                          height: 36.h,
-                          width: 36.w,
+                          height: 30.h,
+                          width: 30.w,
                           decoration: const BoxDecoration(
                             color: kcVeryLightGrey,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.arrow_back_ios,
-                            color: kcPrimaryColor,
-                            size: 18.sp,
+                            color: kcBlackColor.withOpacity(0.87),
+                            size: 20.sp,
                           ),
                         ),
                       ),

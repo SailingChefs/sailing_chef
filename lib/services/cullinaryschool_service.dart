@@ -17,29 +17,31 @@ class CullinaryschoolService with ListenableServiceMixin {
   bool isInitialized = false;
 
   Future<void> culinaryInit() async {
-    if(isInitialized) return;
+    if (isInitialized) return;
     cullinaryscools = await _fetchCulinaryDocuments();
     isInitialized = true;
     notifyListeners();
   }
 
   Future<void> cullinaryCoursesInit(String uid) async {
+    courses.clear();
     courses = await getCoursesFromDatabase(userId: uid);
     notifyListeners();
   }
 
   Future<void> cullinaryCoursesAdd(Course course) async {
     log(course.toString());
-    log(courses.toString());
     if (courses.any((element) => element.id == course.id)) {
       await _updateCourseToDatabase(course);
       notifyListeners();
     } else {
       await _addCourseToDatabase(course);
+      courses.add(course);
+      notifyListeners();
     }
-
     notifyListeners();
   }
+
 
   Future<void> deleteCullinaryCoursesData(
     String courseId,
@@ -101,7 +103,7 @@ class CullinaryschoolService with ListenableServiceMixin {
           .update({
         'id': course.id,
       });
-      courses.add(course);
+    
 
       await firebasestore
           .collection('users')

@@ -1,4 +1,6 @@
 
+
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
@@ -18,7 +20,7 @@ class ChatView extends StackedView<ChatViewModel> {
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
     return ViewModelBuilder<ChatViewModel>.reactive(
       viewModelBuilder: () => ChatViewModel(convoId: conversationId),
-      onModelReady: (viewModel) {
+      onViewModelReady: (viewModel) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           
         });

@@ -26,8 +26,7 @@ class IndexView extends StackedView<IndexViewModel> {
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: [
-              // const TopBarIndexScreen(),
-              verticalSpace(10),
+              verticalSpace(21),
               const TabBarIndexScreen(),
               verticalSpace(10),
               viewModel.ischefSelected
