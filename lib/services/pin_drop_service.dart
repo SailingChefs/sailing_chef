@@ -19,12 +19,24 @@ class PinDropService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<ReviewsModel> reviews = [];
 
+  List<PinnedLocation> pins = List<PinnedLocation>.empty(growable: true);
+
   Future<void> getReviews(String pinId) async {
     reviews = await fetchReviewsByPinId(pinId);
     notifyListeners();
   }
 
-  Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
+  Future<void> getPins(LatLng location) async {
+    pins.clear();
+    
+    pins = await getPinsNearUserLocation(location);
+   
+    notifyListeners();
+
+  }
+
+  Future<List<Reviews>> fetchReviewsByPinId(String pinId) async {
+
     log('pinId:$pinId');
     try {
       QuerySnapshot querySnapshot = await firebasestore
@@ -83,7 +95,11 @@ class PinDropService with ListenableServiceMixin {
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
 
-    await firebasestore.collection('pins').add(data);
+
+    await FirebaseFirestore.instance.collection('pins').add(data);
+    pins.add(pinnedLocation);
+    notifyListeners();
+
   }
 
   Future<String> uploadImage(File imageFile, String fileName) async {

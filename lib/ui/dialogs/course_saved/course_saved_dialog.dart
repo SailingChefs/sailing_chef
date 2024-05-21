@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
@@ -23,8 +25,9 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
     CourseSavedDialogModel viewModel,
     Widget? child,
   ) {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pop();
+    Future.delayed(const Duration(seconds: 2), () { 
+      completer(DialogResponse(confirmed: true));
+      log(viewModel.navigationService.courses.length.toString());
     });
 
     return Dialog(

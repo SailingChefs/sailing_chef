@@ -5,12 +5,9 @@ import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:just_audio/just_audio.dart';
-// import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -26,7 +23,6 @@ import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import '../../../core/imports/core_imports.dart';
-// import 'package:just_audio_cache/just_audio_cache.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
@@ -35,7 +31,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   final _navigationService = locator<NavigationService>();
 
-  // final PageController pageController = PageController();
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
   final SavedRecipeService _savedRecipeService = SavedRecipeService();
@@ -132,7 +127,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-      
     return averageRating.toStringAsFixed(1);
   }
 

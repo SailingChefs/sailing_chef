@@ -29,7 +29,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Myrecipes'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -41,7 +41,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Myrecipes'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],
@@ -61,7 +61,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Saved'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -74,7 +74,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               fontWeight: FontWeight.w600,
                               color: viewModel.selectedTab == 'Saved'
                                   ? kcVeryLightGrey
-                                  : kcPrimaryColor,
+                                  : kcBlackColor.withOpacity(0.6),
                             ),
                           )
                         : Text(
@@ -83,7 +83,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               fontWeight: FontWeight.w600,
                               color: viewModel.selectedTab == 'Saved'
                                   ? kcVeryLightGrey
-                                  : kcPrimaryColor,
+                                  : kcBlackColor.withOpacity(0.6),
                             ),
                           ),
                   ],

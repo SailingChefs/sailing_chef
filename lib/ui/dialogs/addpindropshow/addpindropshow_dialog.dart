@@ -22,6 +22,10 @@ class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
     AddpindropshowDialogModel viewModel,
     Widget? child,
   ) {
+
+    Future.delayed(const Duration(seconds: 1), () {
+      completer(DialogResponse(confirmed: true));
+    });
     
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),

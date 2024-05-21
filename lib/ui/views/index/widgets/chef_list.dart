@@ -40,7 +40,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
               SizedBox(
                 height: screenHeight <= 690.0
                     ? MediaQuery.sizeOf(context).height * 0.4.h
-                    : MediaQuery.sizeOf(context).height * 0.3.h,
+                    : MediaQuery.sizeOf(context).height * 0.32.h,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length >= 5
@@ -56,7 +56,6 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       },
                       child: Container(
                         width: 160.w,
-                        height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [

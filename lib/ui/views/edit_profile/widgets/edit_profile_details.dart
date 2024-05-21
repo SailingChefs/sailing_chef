@@ -1,4 +1,5 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
@@ -37,7 +38,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                           prefixIcons: false,
                           borderRadius: 27.dg,
                           maxLength: 200,
+
                           maxLines: 5,
+                          maxLength: 500,
                           controller: viewModel.bioController,
                           labelText: '',
                         ),
@@ -78,7 +81,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             labelText: '',
                             suffixIconData: IconButton(
                               icon: const Icon(Icons.edit_outlined),
-                              color: kcPrimaryColorDark,
+                              color: filterIconColor,
                               onPressed: () {
                                 viewModel.changeLocation();
                               },
@@ -109,12 +112,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 border: Border.all(
                                     color: Colors.grey.shade300, width: 1)),
 
-                            ///placeholders for dropdown search field
+                           
                             countrySearchPlaceholder: "Country",
                             stateSearchPlaceholder: "State",
                             citySearchPlaceholder: "City",
 
-                            ///labels for dropdown
                             countryDropdownLabel: "Country*",
                             stateDropdownLabel: "State*",
                             cityDropdownLabel: "City*",
@@ -124,13 +126,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               fontSize: 14,
                             ),
 
-                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                             dropdownHeadingStyle: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
 
-                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
                             dropdownItemStyle: TextStyle(
                               color: Colors.black.withOpacity(0.6),
                               fontSize: 14,
@@ -143,11 +143,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             onCountryChanged: (value) =>
                                 viewModel.setCountryValue(value.toString()),
 
-                            ///triggers once state selected in dropdown
                             onStateChanged: (value) =>
                                 viewModel.setStateValue(value.toString()),
 
-                            ///triggers once city selected in dropdown
                             onCityChanged: (value) =>
                                 viewModel.setCityValue(value.toString()),
                           ),
@@ -236,7 +234,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 labelText: '',
                                 suffixIconData: IconButton(
                                   icon: const Icon(Icons.edit_outlined),
-                                  color: kcPrimaryColorDark,
+                                  color: filterIconColor,
                                   onPressed: () {
                                     viewModel.changeLocation();
                                   },

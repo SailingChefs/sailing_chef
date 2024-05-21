@@ -316,7 +316,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   late PinnedLocation pinnedLocation;
   List<String> selectedTabSelections = [];
   List<bool> selections = [];
-  final pins = List<PinnedLocation>.empty(growable: true);
+  List<PinnedLocation> get pins => _navigationpinService.pins;
 
   List<String> tagTabSelections = [];
 
@@ -334,22 +334,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   Future<Position> getCurrentLocation() async {
     try {
      currentPosition = await _locationService.determinePosition();     
-      // serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      // if (!serviceEnabled) {
-      //   return Future.error('Location services are disabled.');
-      // }
-      // permission = await Geolocator.checkPermission();
-      // if (permission == LocationPermission.denied) {
-      //   permission = await Geolocator.requestPermission();
-      //   if (permission == LocationPermission.denied) {
-      //     return Future.error('Location permissions are denied');
-      //   }
-      // }
-
-      // currentPosition = await Geolocator.getCurrentPosition(
-      //     desiredAccuracy: LocationAccuracy.high);
-      // log(currentPosition.toString());
-      // rebuildUi();
+      
       return currentPosition!;
     } catch (e) {
       log(e.toString());
@@ -415,14 +400,12 @@ class PinDropMapViewModel extends ReactiveViewModel {
               data: pinnedLocation,
             );
 
-            notifyListeners();
             rebuildUi();
           }
         }
       },
       icon: locator<BitmapImageService>().getIcon(isSelected),
     );
-    log("logging the value: ${isClicked.toString()}");
 
     return marker;
   }
@@ -434,6 +417,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
   void onViewModelReady() async {
     setBusy(true);
     currentPosition = await getCurrentLocation();
+    await _navigationpinService.getPins(
+      LatLng(currentPosition!.latitude, currentPosition!.longitude),
+    );
     setBusy(false);
   }
 

@@ -1,9 +1,9 @@
-import 'package:sailing_chefs/core/global_uservariable.dart';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
-import '../../../../core/helpers/capitalize_first_fucntion.dart';
+
 
 class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
   const ChefProfileDetailsDesc({required this.user, super.key});
@@ -12,9 +12,10 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -117,13 +118,12 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       ),
                     ),
                   ],
+
                 ),
-              ),
-              // ChefProfileDetails(
-              //   user: user,
-              // ),
-            ],
+              ],
+            ),
           ),
+
           user.displayName!.isEmpty
               ? const SizedBox()
               : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -198,7 +198,12 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       ),
                     ),
                   ],
+
                 ),
+              ],
+            ),
+          ),
+         
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 
@@ -40,11 +41,15 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
                 border: InputBorder.none,
                 hintText: hinttext,
                 hintStyle: TextStyle(color: color),
-                suffixIcon: Icon(suffixIcon),
               ),
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(right:15.0),
+          child: SvgPicture.asset('assets/images/icons/link.svg',
+              width: 20, height: 20, color: kcBlackColor.withOpacity(0.87)),
+        )
       ],
     );
   }

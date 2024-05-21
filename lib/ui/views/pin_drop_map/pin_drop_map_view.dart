@@ -30,7 +30,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
               children: [
                 Column(
                   children: [
-                    verticalSpace(40),
+                    verticalSpace(MediaQuery.of(context).size.height * 0.05),
                     const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: SearchBarPinDrop(),
@@ -39,6 +39,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     Flexible(
                       child: GoogleMap(
                         mapType: MapType.normal,
+                        zoomControlsEnabled: false,
                         
                         mapToolbarEnabled: false,
                         onTap: (value) async {

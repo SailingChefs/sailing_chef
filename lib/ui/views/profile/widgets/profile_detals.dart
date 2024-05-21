@@ -25,7 +25,6 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           ),
         ),
           horizontalSpaceMedium,
-          horizontalSpaceSmall,
           GestureDetector(
             onTap: viewModel.toDishesScreen,
             child: Column(

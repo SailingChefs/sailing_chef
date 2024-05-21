@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/selectedwidget.dart';
@@ -15,8 +16,10 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
   @override
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {
     return SizedBox(
-      // width: 400,
-      // height: viewModel.isTagsVisible == true ? 420 : 70,
+      width: MediaQuery.of(context).size.width * 0.95,
+      height: viewModel.isTagsVisible == true
+          ? MediaQuery.of(context).size.height * 0.53
+          : MediaQuery.of(context).size.height * 0.08,
       child: Column(
         children: [
           GestureDetector(
@@ -47,14 +50,18 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: 
                       viewModel.isTagsVisible == true
-                          ? FlutterRemix.arrow_up_s_line
-                          : FlutterRemix.arrow_down_s_line,
-                      size: 25,
-                      color: kcBlackColor.withOpacity(0.6),
-                    ),
+                          ? SvgPicture.asset( 'assets/images/icons/up.svg',
+                              width: 10,
+                              height: 10,
+                              color: kcBlackColor)
+                          :SvgPicture.asset('assets/images/icons/downarrow.svg',
+                              width: 10,
+                              height: 10,
+                              color: kcBlackColor)
+                      
                   ),
                 ],
               ),
@@ -62,20 +69,27 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
           ),
           const Divider(),
           Container(
-            // height: viewModel.isTagsVisible == true ? 350 : 0,
-            // width: viewModel.isTagsVisible == true ? 400 : 0,
-            padding: const EdgeInsets.only(left:15.0,right: 15.0,top: 10.0,bottom: 5.0),
-            decoration: viewModel.isTagsVisible ? BoxDecoration(
-                color: Colors.white,
-                borderRadius:  BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 1,
-                    offset: const Offset(0, 3),
-                  )
-                ]) : null,
+            height: viewModel.isTagsVisible == true
+                ? MediaQuery.of(context).size.width * 0.94
+                : 0,
+            width: viewModel.isTagsVisible == true
+                ? MediaQuery.of(context).size.width * 0.95
+                : 0,
+            padding: const EdgeInsets.only(
+                left: 12.0, right: 9.0, top: 1.0, bottom: 15.0),
+            decoration: viewModel.isTagsVisible
+                ? BoxDecoration(
+                    color: kcwhitecolor,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset: const Offset(0, 3),
+                        )
+                      ])
+                : null,
             child: Visibility(
               visible: viewModel.isTagsVisible,
               child: Column(

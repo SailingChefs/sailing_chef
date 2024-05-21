@@ -39,7 +39,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
+                      childAspectRatio: 6.7 / 9,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
