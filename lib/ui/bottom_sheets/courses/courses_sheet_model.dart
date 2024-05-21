@@ -71,7 +71,7 @@ class CoursesSheetModel extends BaseViewModel {
         numOfDays.clear();
 
         _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
-        notifyListeners();
+        rebuildUi();
       } else {
         showToast(message: 'Please Provide a valid link!');
       }

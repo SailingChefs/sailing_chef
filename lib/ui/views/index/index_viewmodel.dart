@@ -28,7 +28,7 @@ class IndexViewModel extends BaseViewModel {
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
+      [_savedRecipeService, _recipeService, _chefService];
 
   get toViewCullinarySchool => null;
 

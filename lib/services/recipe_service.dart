@@ -26,7 +26,6 @@ class RecipeService with ListenableServiceMixin {
 
   Future<void> initialized() async {
     recipes = await fetchAllRecipes();
-
     notifyListeners();
   }
 

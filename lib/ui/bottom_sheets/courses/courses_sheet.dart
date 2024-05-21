@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
@@ -99,6 +102,13 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                     TextField(
                       controller: viewModel.numOfDays,
                       keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(3),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+
+                      ],
+                   
                       decoration: InputDecoration(
                           hintText: 'Number of Days',
                           hintStyle: globalTextStyle(

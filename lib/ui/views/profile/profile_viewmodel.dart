@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -30,19 +32,18 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isSavedSelected = false;
 
   List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<Course> get courses => _cullinarySchoolService.courses;
 
   List<RecipeModel> myRecipes = [];
 
   void navigateToBlockScreen() {
     _navigationService.navigateToBlockedAccountsView();
   }
+  
+   @override
+  List<ListenableServiceMixin> get listenableServices => [_savedRecipeService, _cullinarySchoolService];
 
-  @override
-  List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _cullinarySchoolService];
-
-  // A function to handle the selection of my recipe, updating the relevant flags and triggering UI updates.
-  void myRecipeSelected() {
+    void myRecipeSelected() {
     isMySelected = true;
     isSavedSelected = false;
     notifyListeners();
@@ -51,15 +52,11 @@ class ProfileViewModel extends ReactiveViewModel {
 
   Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
-    // if (await canLaunchUrlString(url)) {
-    //   launchUrlString(url, );
-    // }
+    
     await launchUrl(uri);
   }
 
-  // A function to set the isSavedSelected flag to true, isMySelected flag to false, notify listeners, and rebuild the UI.
-  void savedSelected() async {
-    // await _savedRecipeService.init();
+   void savedSelected() async {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -72,13 +69,11 @@ class ProfileViewModel extends ReactiveViewModel {
         arguments: FollowingListViewArguments(user: userDetails!));
   }
 
-  // A function that navigates to the settings view.
-  void toSettings() {
+    void toSettings() {
     _navigationService.navigateToSettingsView();
   }
 
-  // A function that handles the tab based on the given index.
-  void handleTab(int index) {
+   void handleTab(int index) {
     switch (index) {
       case 0:
         selectedTab = 'Myrecipes';
@@ -109,22 +104,20 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToFilterView();
   }
 
-  List<Course> get courses => _cullinarySchoolService.courses;
+  
   void onViewModelReady() async {
     setBusy(true);
     myRecipesList();
     await Future.wait([
       _savedRecipeService.init(),
-      // _recipeService.initialized(),
 
-      // _recipeService.initialized(),
-      //  _followService.init(userDetails!.uid!, false),
+      _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!),
 
-      _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
+      
+
          
     ]);
-    // myRecipes = await  _recipeService.fetchRecipesByUID(userDetails!.uid!);
-
+    log(courses.length.toString());
     setBusy(false);
   }
 
