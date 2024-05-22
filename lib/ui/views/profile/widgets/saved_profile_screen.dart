@@ -65,7 +65,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   ],
                 ),
               )
-            :  Padding(
+            :  viewModel.savedRecipes.isEmpty ? const Center(child: Text('No Saved Recipes')) : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
@@ -84,22 +84,22 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          chefId: savedRecipes[index].recipeModel!.user!.uid!,
+                          chefId: savedRecipes[index].user!.uid!,
                           rating: calculateAverageRating(
-                            savedRecipes[index].recipeModel!.comment!,
+                            savedRecipes[index].comment!,
                           ),
-                          recipeId: savedRecipes[index].recipeId,
+                          recipe: savedRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
-                              index, savedRecipes[index].recipeModel!),
+                              index, savedRecipes[index]),
                           foodImagePath: savedRecipes[index]
-                              .recipeModel!
+                             
                               .coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
-                          dishName: savedRecipes[index].recipeModel!.title,
-                          duration: savedRecipes[index].recipeModel!.prepTime,
+                          dishName: savedRecipes[index].title,
+                          duration: savedRecipes[index].prepTime,
                           chefImagePath: savedRecipes[index]
-                              .recipeModel!
+                             
                               .user!
                               .displayPicture!,
                         );

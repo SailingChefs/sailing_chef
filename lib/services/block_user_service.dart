@@ -6,9 +6,11 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 
 class BlockUserService with ListenableServiceMixin {
   final ChefService chefService = locator<ChefService>();
+  final CullinaryschoolService cullinaryschoolService = locator<CullinaryschoolService>();
   List<String> blockedAccounts = [];
 
   void onInit() {
@@ -33,10 +35,27 @@ class BlockUserService with ListenableServiceMixin {
             .doc(firebaseAuth.currentUser!.uid)
             .update(
                 {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
+                if(userDetails!.followers!.contains(blockedAccounts.first))
+              { await usersCollection
+            .doc(userDetails!.uid)
+            .update(
+                {'followers': FieldValue.arrayUnion(blockedAccounts)});  }
+
+                if(userDetails!.following!.contains(blockedAccounts.first)){
+                  await usersCollection.doc(userDetails!.uid).update({
+                    'following': FieldValue.arrayUnion(blockedAccounts),
+                  });
+                }
+
+        // Remove blocked accounts from the list of blocked accounts    
 
         blockedAccounts.add(blockedAccounts.last);
         ChefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));
+
+        cullinaryschoolService.cullinaryscools
+            .removeWhere((element) => blockedAccounts.contains(element.uid));
+
         notifyListeners();
       } else {
         // If the document doesn't exist, create it with the blocked_accounts field
@@ -59,6 +78,7 @@ class BlockUserService with ListenableServiceMixin {
         .doc(firebaseAuth.currentUser!.uid)
         .update(localModel.toJson());
     blockedAccounts.removeWhere((element) => blockedAccounts.contains(userId));
+    
     notifyListeners();
   }
 }

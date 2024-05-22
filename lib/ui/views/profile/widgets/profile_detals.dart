@@ -55,7 +55,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: viewModel.goTogoToProfileEditView,
+            onTap: viewModel.goToFollowerList,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -84,7 +84,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(
-            onTap: viewModel.goTogoToProfileEditView,
+            onTap: viewModel.goToFollowingList,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

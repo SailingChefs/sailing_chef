@@ -268,10 +268,12 @@ class RecipeService with ListenableServiceMixin {
 
   Future<List<RecipeModel>> fetchRecipesByUID(String uid) async {
     try {
+      // DocumentSnapshot document = await firebasestore.collection('recipes').doc('v46B0TZgmcqSragcJRMK').get();
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('uid', isEqualTo: uid)
           .where('status', isEqualTo: 'published')
+          .where('uid', isEqualTo: uid)
+          
           .get();
 
       List<RecipeModel> recipes = [];

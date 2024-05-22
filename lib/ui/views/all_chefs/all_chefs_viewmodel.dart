@@ -9,9 +9,7 @@ class AllChefsViewModel extends BaseViewModel {
   TextEditingController searchController = TextEditingController();
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
-    log("came to search func");
-    log("Searched query --------->  ${searchController.text}");
-    log("total cheffs --------->  ${chefs.length}");
+   
 
     for (var user in chefs) {
       if (user.displayName!

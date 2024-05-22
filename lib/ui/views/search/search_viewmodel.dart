@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
@@ -14,7 +13,7 @@ class SearchViewModel extends BaseViewModel {
   final TextEditingController searchControllerRecipe = TextEditingController();
   final TextEditingController searchControllerChef = TextEditingController();
 
-  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
 
   String selectedTab = 'All';
   bool isRecipeSelected = true;

@@ -100,7 +100,7 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: BottomBarGuestView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
-    MaterialRoute(page: ChatListView),
+    MaterialRoute(page: ChatListView,),
     MaterialRoute(page: EditProfileView),
 
     MaterialRoute(page: VideoPlayerView),
@@ -114,7 +114,6 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: CulineryschoolviewallView),
     MaterialRoute(page: ChatView),
     MaterialRoute(page: ExploreAllRecipesView),
-    MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: SearchView),
 // @stacked-route

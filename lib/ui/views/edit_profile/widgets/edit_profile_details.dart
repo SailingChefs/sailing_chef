@@ -34,18 +34,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
 
-                        SemiRoundedTranpaentTextField(
-                          suffixIcon: false,
-                          prefixIcons: false,
-                          borderRadius: 27.dg,
-                          maxLength: 200,
+                       SemiRoundedTranpaentTextFieldBio(
+                              controller: viewModel.bioController,
+                              fillColor:  kcPrimaryColor.withOpacity(0.08),
 
-                          maxLines: 5,
-                          
-                          controller: viewModel.bioController,
-
-                          labelText: 'Bio',
-                        ),
+                              labelText: 'Bio',
+                            ),
                         const LablesText(text: 'Email'),
                          Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -150,14 +144,16 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                                 ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                                 dropdownHeadingStyle: globalTextStyle(
-                                    color: kcBlackColor.withOpacity(0.6),
+                                    color: kcBlackColor.withOpacity(0.5),
                                     fontSize: 17.sp,
+                                    letterSpacing: -0.5,
                                     fontWeight: FontWeight.w400,),
 
                                 ///DropdownDialog Item style [OPTIONAL PARAMETER]
                                 dropdownItemStyle: globalTextStyle(
-                                  color: Colors.black.withOpacity(0.6),
+                                  color: Colors.black.withOpacity(0.4),
                                   fontSize: 14.sp,
+                                  letterSpacing: -0.5,
                                   fontWeight: FontWeight.w400
                                 ),
 
@@ -210,6 +206,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             const LablesText(text: 'Bio'),
                             SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
+                              fillColor:  kcPrimaryColor.withOpacity(0.08),
 
                               labelText: 'Bio',
                             ),
@@ -318,21 +315,23 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 cityDropdownLabel: 'city*',
 
                                 selectedItemStyle: globalTextStyle(
-                                  color:kcBlackColor.withOpacity(0.6),
+                                  color:kcBlackColor.withOpacity(0.5),
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400
                                 ),
 
                                 ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                                 dropdownHeadingStyle: globalTextStyle(
-                                    color: kcBlackColor.withOpacity(0.6),
+                                    color: kcBlackColor.withOpacity(0.5),
                                     fontSize: 17.sp,
+                                    letterSpacing: -0.5,
                                     fontWeight: FontWeight.w400,),
 
                                 ///DropdownDialog Item style [OPTIONAL PARAMETER]
                                 dropdownItemStyle: globalTextStyle(
-                                  color: Colors.black.withOpacity(0.6),
+                                  color: Colors.black.withOpacity(0.4),
                                   fontSize: 14.sp,
+                                  letterSpacing: -0.5,
                                   fontWeight: FontWeight.w400
                                 ),
 
@@ -381,8 +380,10 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextFieldBio(
+                             SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
+                              fillColor:  kcPrimaryColor.withOpacity(0.08),
+
                               labelText: 'Bio',
                             ),
                           ],
