@@ -39,9 +39,8 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30), color: filterIconColor),
             child: TextButton(
-              onPressed: () {
-                viewModel.savePinDrop();
-                completer!(SheetResponse(data: true));
+              onPressed: () async{
+                await viewModel.savePinDrop();
               },
               child: Text(
                 'Save',

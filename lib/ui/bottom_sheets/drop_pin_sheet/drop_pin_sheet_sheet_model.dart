@@ -7,7 +7,9 @@ import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class DropPinSheetSheetModel extends BaseViewModel {
-  DropPinSheetSheetModel({required this.location});
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final Function(SheetResponse response)? completer;
+  DropPinSheetSheetModel(this.completer, {required this.location});
   final LatLng location;
   final _navigationService = locator<NavigationService>();
   List<XFile>? selectedImageFile;
@@ -23,25 +25,13 @@ class DropPinSheetSheetModel extends BaseViewModel {
   double ratings = 0;
   String? image;
   List<String>? imageUrls;
-  void savePinDrop() async {
-    if (name.text.isEmpty) {
-      showToast(message: 'Please enter name!');
-    } else if (!(isLinkValid(link.text) == true)) {
-      showToast(
-          message: 'Please enter valid link having www.your website name.com!');
-    } else if (image == null) {
-      showToast(message: 'Please upload image!');
-    } else if (selectedTabSelections.isEmpty) {
-      showToast(message: 'Please select at least one tag!');
-    } else if (phone.text.length < 11) {
-      showToast(message: 'Please enter valid phone number!');
-    } else if (email.text.isEmpty || !(email.text.contains('@gmail.com'))) {
-      showToast(message: 'Please enter valid email!');
-    } else if (description.text.isEmpty) {
-      showToast(message: 'Please enter valid Description!');
-    } else if (description.text.isEmpty) {
-      showToast(message: 'Please enter valid Description!');
-    } else {
+  String? nameError;
+  String? linkError;
+  String? phoneError;
+  String? emailError;
+  String? descriptionError;
+  Future<void> savePinDrop() async {
+    if (formKey.currentState!.validate()) {
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
         createdTime: Timestamp.now(),
@@ -62,7 +52,16 @@ class DropPinSheetSheetModel extends BaseViewModel {
       description.text = '';
       selectedImagePath = '';
       selectedTabSelections = [];
-    }
+      imageUrls!.clear();
+      ratings = 0;
+      reset();
+      completer!(SheetResponse(data: true));
+    }else if (image == null) {
+      showToast(message: 'Please upload image!');
+    } else if (selectedTabSelections.isEmpty) {
+      showToast(message: 'Please select at least one tag!');
+    } else {}
+    
   }
 
   void toggleTagsVisibility() {
@@ -139,6 +138,31 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   void setRating(double value) {
     ratings = value;
+    notifyListeners();
+  }
+
+  void setNameError(String? s) {
+    nameError = s;
+    notifyListeners();
+  }
+
+  void setLinkError(String? s) {
+    linkError = s;
+    notifyListeners();
+  }
+
+  void setPhoneError(String? s) {
+    phoneError = s;
+    notifyListeners();
+  }
+
+  void setEmailError(String? s) {
+    emailError = s;
+    notifyListeners();
+  }
+
+  void setDescriptionError(String? s) {
+    descriptionError = s;
     notifyListeners();
   }
 }

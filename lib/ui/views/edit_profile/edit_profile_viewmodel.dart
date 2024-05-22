@@ -133,6 +133,7 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   void saveEditDetailsChef() async {
+
     // address = '$cityValue,$stateValue,$countryValue';
    
     log('Iam here');

@@ -23,8 +23,19 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
           child: SizedBox(
             width: 390,
             height: 40,
-            child: TextField(
+            child: TextFormField(
               controller: controller,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a link';
+                }
+                if (!RegExp(
+                  r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+                ).hasMatch(value)) {
+                  return 'Please enter a valid URL';
+                }
+                return null;
+              },
               onChanged: (value) {
                 if (value.isNotEmpty) {
                   viewModel.setLinkErrorMessage(viewModel.isLinkValid(value)
@@ -35,7 +46,8 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
                 }
               },
               style: globalTextStyle(
-                fontSize: 15,
+                fontSize: 14.sp,
+                letterSpacing: -0.5,
                 fontWeight: FontWeight.w400,
                 color: kclightgreencolor,
               ),
@@ -48,7 +60,7 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right:15.0),
+          padding: const EdgeInsets.only(right: 15.0),
           child: SvgPicture.asset('assets/images/icons/link.svg',
               width: 20, height: 20, color: kcBlackColor.withOpacity(0.87)),
         )

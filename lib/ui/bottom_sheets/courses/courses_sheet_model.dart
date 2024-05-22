@@ -3,10 +3,11 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class CoursesSheetModel extends BaseViewModel {
+  final Function(SheetResponse response)? completer;
   String? linkErrorMessage;
+  
   final TextEditingController name = TextEditingController();
   final TextEditingController link = TextEditingController();
   final TextEditingController desc = TextEditingController();
@@ -15,6 +16,10 @@ class CoursesSheetModel extends BaseViewModel {
       locator<CullinaryschoolService>();
   final DialogService _dialogSaved = locator<DialogService>();
   String id = '';
+
+  final GlobalKey<FormState> formKey= GlobalKey<FormState>();
+
+  CoursesSheetModel(this.completer);
   void onViewModelReady(Course? course) async {
     setBusy(true);
 
@@ -51,13 +56,8 @@ class CoursesSheetModel extends BaseViewModel {
   }
 
   void saveCourse() {
-    if (name.text.isEmpty ||
-        link.text.isEmpty ||
-        desc.text.isEmpty ||
-        numOfDays.text.isEmpty) {
-      showToast(message: 'Please enter all fields!');
-    } else {
-      if (isLinkValid(link.text)) {
+    if (formKey.currentState!.validate()) {
+            
         _cullinaryService.cullinaryCoursesAdd(Course(
             name: name.text,
             link: link.text,
@@ -69,13 +69,11 @@ class CoursesSheetModel extends BaseViewModel {
         link.clear();
         desc.clear();
         numOfDays.clear();
-
+        completer!(SheetResponse(confirmed: true));
         _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
         rebuildUi();
-      } else {
-        showToast(message: 'Please Provide a valid link!');
-      }
-    }
+    } else {}
+  
   }
 
   void deleteCourse(String courseId) {

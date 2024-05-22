@@ -18,7 +18,7 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
                 borderRadius: BorderRadius.circular(30), color: filterIconColor),
             child: TextButton(
               onPressed: () {
-                completer!(SheetResponse(confirmed: true));
+                
                 viewModel.saveCourse();
               },
               child: Text(
