@@ -4,7 +4,6 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/maincontainer.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'widgets/top_image.dart';
 
