@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class LoginViewModel extends BaseViewModel {
   final _emailController = TextEditingController();
@@ -68,8 +69,14 @@ class LoginViewModel extends BaseViewModel {
               userRole: userDetails!.userRole!);
         } else {
           if (userDetails!.userRole == 'guest') {
+            locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
             _navigationService.replaceWithBottomBarGuestView();
           } else {
+            locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
             _navigationService.replaceWithBottomNavBarView();
           }
         }

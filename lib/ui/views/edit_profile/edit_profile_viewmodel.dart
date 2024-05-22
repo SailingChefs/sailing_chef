@@ -66,17 +66,6 @@ class EditProfileViewModel extends BaseViewModel {
     address = '$cityValue,$stateValue,$countryValue';
     notifyListeners();
   }
-
-  // void parseAddress(String address) {
-  //   if(address.isEmpty) return;
-  //   final parsedAddress = address.split(',');
-  //   log(parsedAddress.toString());
-  //   cityValue = parsedAddress[0];
-  //   stateValue = parsedAddress[1];
-  //   countryValue = parsedAddress[2];
-  //   notifyListeners();
-  // }
-
   getBack() {
     _navigationService.back();
   }
@@ -109,7 +98,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   void saveEditDetailsCullinary() async {
     log('Iam here');
-    address = '$cityValue,$stateValue,$countryValue';
+    // address = '$cityValue,$stateValue,$countryValue';
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
@@ -144,13 +133,30 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   void saveEditDetailsChef() async {
+
+    // address = '$cityValue,$stateValue,$countryValue';
    
+    log('Iam here');
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
+      if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+      
+      
+
+       
+      
       Map<String, dynamic> userData = {
         'display_picture': imageLink,
         'display_name': nameController.text,
@@ -162,7 +168,8 @@ class EditProfileViewModel extends BaseViewModel {
       userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
-    } else {
+    } 
+    else {
       Map<String, dynamic> userData = {
         'display_name': nameController.text,
         'link': linkController.text,

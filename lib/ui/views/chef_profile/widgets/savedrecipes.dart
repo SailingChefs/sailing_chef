@@ -47,10 +47,10 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return PrimaryGridTile(
-                      chefId: viewModel.savedRecipes[index].recipeModel!.user!.uid! ,
+                      chefId: viewModel.savedRecipes[index].user!.uid! ,
                       rating: calculateAverageRating(savedRecipes[index]
                           .recipeModel!.comment!),
-                      recipeId: savedRecipes[index].recipeId,
+                      recipe: savedRecipes[index].recipeModel!,
                       onTap: () => viewModel.toDishDetailsScreen(index),
                       foodImagePath: savedRecipes[index]
                           .recipeModel!

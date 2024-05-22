@@ -29,7 +29,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
               return PrimaryGridTile(
                 chefId: recipes[index].user!.uid!,
                   rating: calculateAverageRating(recipes[index].comment!),
-                  recipeId: recipes[index].docId!,
+                  recipe: recipes[index],
                   onTap: () => viewModel
                       .toDishDetailsScreen(recipes[index]),
                   foodImagePath: recipes[index].coverImage

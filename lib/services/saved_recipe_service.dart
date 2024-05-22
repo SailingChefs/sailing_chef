@@ -7,35 +7,50 @@ import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
-  List<SavedRecipeModel> savedRecipes = [];
+  List<RecipeModel> savedRecipes = [];
+  final RecipeService _recipeService = locator<RecipeService>();
 
   bool isInitialised = false;
   // final _userService = locator<UserServices>();
 
   Future<void> init() async {
+    savedRecipes.clear();
+    await mySavedRecipes();
     // if(isInitialised) return;
-    savedRecipes = await _fetchSavedRecipes();
+    // savedRecipes = await _fetchSavedRecipes();
     isInitialised = true;
     notifyListeners();
   }
+Future< void> mySavedRecipes()async{
+    if (RecipeService.recipes.isEmpty) {
+        await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+      return;
+    }
+   
+    for(final recipe in RecipeService.recipes)
+    {if(userDetails!.savedRecipes!.any((element) => element == recipe.docId)){
+      savedRecipes.add(recipe);
+    }}
+   
+  }
 
-
-  Future<void> _addSavedRecipe(SavedRecipeModel savedRecipe) async {
+  Future<void> _addSavedRecipe(RecipeModel savedRecipe) async {
     try {
       await firebasestore
           .collection('users')
           .doc(firebaseAuth.currentUser!
               .uid) // Assuming currentUser contains the user's data
           .update({
-        'saved_Recipes': FieldValue.arrayUnion([savedRecipe.recipeId])
+        'saved_Recipes': FieldValue.arrayUnion([savedRecipe.docId])
       });
       savedRecipes.add(savedRecipe);
-      userDetails!.savedRecipes!.add(savedRecipe.recipeId);
+      userDetails!.savedRecipes!.add(savedRecipe.docId!);
       log(userDetails!.savedRecipes.toString());
       showToast(message: 'Recipe saved successfully');
       notifyListeners();
@@ -54,7 +69,7 @@ class SavedRecipeService with ListenableServiceMixin {
         'saved_Recipes': FieldValue.arrayRemove([recipeId])
       });
       showToast(message: 'Recipe removed successfully');
-      savedRecipes.removeWhere((recipe) => recipe.recipeId == recipeId);
+      savedRecipes.removeWhere((recipe) => recipe.docId == recipeId);
       userDetails!.savedRecipes!.removeWhere((recipe) => recipe == recipeId);
       notifyListeners();
     } catch (e) {
@@ -62,14 +77,14 @@ class SavedRecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<bool> addSavedRecipe(SavedRecipeModel savedRecipe) async {
+  Future<bool> addSavedRecipe(RecipeModel savedRecipe) async {
     try {
       // if (!isInitialised) {
       //   throw "Service not initialised";
       // }
 
-      if (userDetails!.savedRecipes!.map((e) => e).contains(savedRecipe.recipeId)) {
-        _removeSavedRecipe(savedRecipe.recipeId);
+      if (userDetails!.savedRecipes!.map((e) => e).contains(savedRecipe.docId!)) {
+        _removeSavedRecipe(savedRecipe.docId!);
       } else {
         _addSavedRecipe(savedRecipe);
       }
@@ -82,59 +97,59 @@ class SavedRecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<List<SavedRecipeModel>> _fetchSavedRecipes() async {
-    try {
-      String userId = firebaseAuth.currentUser!.uid;
-      DocumentSnapshot userDoc =
-          await firebasestore.collection('users').doc(userId).get();
+  // Future<List<SavedRecipeModel>> _fetchSavedRecipes() async {
+  //   try {
+  //     String userId = firebaseAuth.currentUser!.uid;
+  //     DocumentSnapshot userDoc =
+  //         await firebasestore.collection('users').doc(userId).get();
 
-      if (userDoc.exists) {
-        Map<String, dynamic> savedRecipeIds =
-            userDoc.data()! as Map<String, dynamic>;
-        List<SavedRecipeModel> savedRecipes = [];
-        if (savedRecipeIds.containsKey('saved_Recipes')) {
-          List<dynamic> savedRecipeIdsList =
-              savedRecipeIds['saved_Recipes'] as List<dynamic>;
-          for (var recipeId in savedRecipeIdsList) {
-            DocumentReference recipeRef =
-                firebasestore.collection('recipes').doc(recipeId);
-            DocumentSnapshot recipeDoc = await recipeRef.get();
-            if (recipeDoc.exists) {
-              RecipeModel recipeModel = RecipeModel.fromSnapshot(recipeDoc);
-              String recipeUserId = recipeModel.uid;
-              QuerySnapshot commentsSnapshot =
-                  await recipeDoc.reference.collection('comments').get();
+  //     if (userDoc.exists) {
+  //       Map<String, dynamic> savedRecipeIds =
+  //           userDoc.data()! as Map<String, dynamic>;
+  //       List<SavedRecipeModel> savedRecipes = [];
+  //       if (savedRecipeIds.containsKey('saved_Recipes')) {
+  //         List<dynamic> savedRecipeIdsList =
+  //             savedRecipeIds['saved_Recipes'] as List<dynamic>;
+  //         for (var recipeId in savedRecipeIdsList) {
+  //           DocumentReference recipeRef =
+  //               firebasestore.collection('recipes').doc(recipeId);
+  //           DocumentSnapshot recipeDoc = await recipeRef.get();
+  //           if (recipeDoc.exists) {
+  //             RecipeModel recipeModel = RecipeModel.fromSnapshot(recipeDoc);
+  //             String recipeUserId = recipeModel.uid;
+  //             QuerySnapshot commentsSnapshot =
+  //                 await recipeDoc.reference.collection('comments').get();
 
-                  if(commentsSnapshot.docs.isEmpty){
-                    recipeModel.comment = [];
-                  }
-              List<CommentModel> comments = commentsSnapshot.docs
-                  .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-                  .toList();
-              recipeModel.comment = comments;
+  //                 if(commentsSnapshot.docs.isEmpty){
+  //                   recipeModel.comment = [];
+  //                 }
+  //             List<CommentModel> comments = commentsSnapshot.docs
+  //                 .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+  //                 .toList();
+  //             recipeModel.comment = comments;
              
-              DocumentSnapshot userSnapshot = await firebasestore
-                  .collection('users')
-                  .doc(recipeUserId)
-                  .get();
+  //             DocumentSnapshot userSnapshot = await firebasestore
+  //                 .collection('users')
+  //                 .doc(recipeUserId)
+  //                 .get();
               
-              if (userSnapshot.exists) {
-                UserModel userModel = UserModel.fromSnapshot(userSnapshot);
-                recipeModel.user = userModel;
-                savedRecipes.add(SavedRecipeModel(
-                    recipeId: recipeModel.docId!, recipeModel: recipeModel));
-              }
-            }
-          }
-        }
-        return savedRecipes;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      return [];
-    }
-  }
+  //             if (userSnapshot.exists) {
+  //               UserModel userModel = UserModel.fromSnapshot(userSnapshot);
+  //               recipeModel.user = userModel;
+  //               savedRecipes.add(SavedRecipeModel(
+  //                   recipeId: recipeModel.docId!, recipeModel: recipeModel));
+  //             }
+  //           }
+  //         }
+  //       }
+  //       return savedRecipes;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (e) {
+  //     return [];
+  //   }
+  // }
 
   Future<List<SavedRecipeModel>> fetchUserSavedRecipes(String userId) async {
     try {

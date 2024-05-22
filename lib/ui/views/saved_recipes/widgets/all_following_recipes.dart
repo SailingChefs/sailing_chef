@@ -28,7 +28,7 @@ class FollowingSavedRecipesScreen
 
                   chefId: viewModel.followingRecipes![index].user!.uid!,
                   rating: calculateAverageRating(viewModel.followingRecipes![index].comment!) ,
-                    recipeId: viewModel.followingRecipes![index].docId!,
+                    recipe: viewModel.followingRecipes![index],
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),
                     foodImagePath:
