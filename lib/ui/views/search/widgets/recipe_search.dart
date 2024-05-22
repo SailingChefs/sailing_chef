@@ -40,7 +40,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
 
                                rating: calculateAverageRating(recipe.comment!) ,
                                chefId: recipe.user!.uid!,
-                                recipeId: recipe.docId!,
+                                recipe: recipe,
                                 onTap: () =>
                                     viewModel.toDishDetailsScreen(recipe),
                                 foodImagePath: recipe.coverImage
@@ -98,7 +98,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
 
                                   chefId: recipes[index].uid,
                                    rating: calculateAverageRating(recipes[index].comment!),
-                                    recipeId: recipes[index].docId!,
+                                    recipe: recipes[index],
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),
                                     foodImagePath: recipes[index]

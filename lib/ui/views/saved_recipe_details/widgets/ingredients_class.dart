@@ -7,7 +7,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const IngredientsClass({super.key, required this.recipeModel});
 
-  List<Widget> createIngredientWidgets() {
+ List<Widget> createIngredientWidgets() {
     return [
       for (var ingredient in recipeModel.ingredients)
         Column(
@@ -27,7 +27,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       )),
                 ),
                 SizedBox(
-                  width: ingredient.name.length > 10 ? 100.w : 150.w,
+                  // width: ingredient.name.length > 10 ? 100.w : 150.w,
+                  width: 150.w,
                   child: Text(
                     capitalizeEachWord(ingredient.name),
                     overflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/explore_all_button.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -34,26 +34,26 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            final SavedRecipeModel recipe = viewModel
+                            final RecipeModel recipe = viewModel
                                 .searchRecipes(viewModel.savedRecipes,
                                     viewModel.searchSavedController.text)
                                 .elementAt(index);
                             return PrimaryGridTile(
 
                               chefId: viewModel.savedRecipes[index]
-                                    .recipeModel!.user!.uid!,
-                               rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
-                                recipeId: recipe.recipeId,
+                                    .user!.uid!,
+                               rating: calculateAverageRating(viewModel.savedRecipes[index].comment!),
+                                recipe: recipe,
                                 onTap: () => viewModel
-                                    .toDishDetailsScreen(recipe.recipeModel!),
-                                foodImagePath: recipe.recipeModel!.coverImage
+                                    .toDishDetailsScreen(recipe),
+                                foodImagePath: recipe.coverImage
                                     .where(
                                         (element) => element.contains('.jpg'))
                                     .first,
-                                dishName: recipe.recipeModel!.title,
-                                duration: recipe.recipeModel!.prepTime,
+                                dishName: recipe.title,
+                                duration: recipe.prepTime,
                                 chefImagePath:
-                                    recipe.recipeModel!.user!.displayPicture!);
+                                    recipe.user!.displayPicture!);
                           },
                           childCount: viewModel
                               .searchRecipes(viewModel.savedRecipes,
@@ -94,23 +94,23 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                           (BuildContext context, int index) {
                             return PrimaryGridTile(
                               chefId:viewModel.savedRecipes[index]
-                                    .recipeModel!.user!.uid! ,
-                              rating: calculateAverageRating(viewModel.savedRecipes[index].recipeModel!.comment!),
-                                recipeId:
-                                    viewModel.savedRecipes[index].recipeId,
+                                    .user!.uid! ,
+                              rating: calculateAverageRating(viewModel.savedRecipes[index].comment!),
+                                recipe:
+                                    viewModel.savedRecipes[index],
                                 onTap: () => viewModel.toDishDetailsScreen(
-                                    viewModel.savedRecipes[index].recipeModel!),
+                                    viewModel.savedRecipes[index]),
                                 foodImagePath: viewModel
-                                    .savedRecipes[index].recipeModel!.coverImage
+                                    .savedRecipes[index].coverImage
                                     .where(
                                         (element) => element.contains('.jpg'))
                                     .first,
                                 dishName: viewModel
-                                    .savedRecipes[index].recipeModel!.title,
+                                    .savedRecipes[index].title,
                                 duration: viewModel
-                                    .savedRecipes[index].recipeModel!.prepTime,
+                                    .savedRecipes[index].prepTime,
                                 chefImagePath: viewModel.savedRecipes[index]
-                                    .recipeModel!.user!.displayPicture!);
+                                    .user!.displayPicture!);
                           },
                           childCount: viewModel.savedRecipes.length,
                         ),

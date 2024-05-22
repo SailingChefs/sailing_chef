@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -13,6 +14,8 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserServices _userService = locator<UserServices>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
+  final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
+  
   final userService = locator<UserServices>();
   List<String> get blockedUsers => _blockUserService.blockedAccounts;
 
@@ -29,6 +32,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
 
   void unblockUser({required UserModel user}) async {
     userDetails!.blockedAccounts!.remove(user.uid);
+
     if (user.userRole == 'chef') {
       if (ChefService.chefs.contains(user)) {
         notifyListeners();
@@ -36,9 +40,14 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
       ChefService.chefs.add(user);
       notifyListeners();
     }
+    else if(user.userRole == 'culinarySchool'){
+      _cullinarySchoolService.cullinaryscools.add(user);
+    }
 
     _blockUserService.updateCurrentUserModel(
         localModel: userDetails!, userId: user.uid!);
+
+
 
     notifyListeners();
     rebuildUi();

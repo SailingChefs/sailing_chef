@@ -3,7 +3,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 
 class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
-  const TabBarsFollowing({super.key});
+ 
+  const TabBarsFollowing({super.key });
 
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {

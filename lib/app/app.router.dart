@@ -130,8 +130,6 @@ class Routes {
 
   static const viewAllDraftsView = '/view-all-drafts-view';
 
-
-
   static const searchView = '/search-view';
 
   static const all = <String>{
@@ -302,10 +300,6 @@ class StackedRouter extends _i1.RouterBase {
       page: _i33.ViewAllDraftsView,
     ),
     _i1.RouteDef(
-      Routes.viewAllDraftsView,
-      page: _i33.ViewAllDraftsView,
-    ),
-    _i1.RouteDef(
       Routes.searchView,
       page: _i34.SearchView,
     ),
@@ -415,8 +409,10 @@ class StackedRouter extends _i1.RouterBase {
     _i17.FollowingListView: (data) {
       final args = data.getArgs<FollowingListViewArguments>(nullOk: false);
       return _i35.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i17.FollowingListView(key: args.key, user: args.user),
+        builder: (context) => _i17.FollowingListView(
+            key: args.key,
+            user: args.user,
+            isfromFollowing: args.isfromFollowing),
         settings: data,
       );
     },
@@ -642,26 +638,31 @@ class FollowingListViewArguments {
   const FollowingListViewArguments({
     this.key,
     required this.user,
+    required this.isfromFollowing,
   });
 
   final _i36.Key? key;
 
   final _i38.UserModel user;
 
+  final bool isfromFollowing;
+
   @override
   String toString() {
-    return '{"key": "$key", "user": "$user"}';
+    return '{"key": "$key", "user": "$user", "isfromFollowing": "$isfromFollowing"}';
   }
 
   @override
   bool operator ==(covariant FollowingListViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.user == user;
+    return other.key == key &&
+        other.user == user &&
+        other.isfromFollowing == isfromFollowing;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ user.hashCode;
+    return key.hashCode ^ user.hashCode ^ isfromFollowing.hashCode;
   }
 }
 
@@ -1116,6 +1117,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
   Future<dynamic> navigateToFollowingListView({
     _i36.Key? key,
     required _i38.UserModel user,
+    required bool isfromFollowing,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1123,7 +1125,8 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.followingListView,
-        arguments: FollowingListViewArguments(key: key, user: user),
+        arguments: FollowingListViewArguments(
+            key: key, user: user, isfromFollowing: isfromFollowing),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1388,8 +1391,6 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  
-
   Future<dynamic> navigateToSearchView({
     _i36.Key? key,
     required List<_i37.RecipeModel> recipeModel,
@@ -1633,6 +1634,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
   Future<dynamic> replaceWithFollowingListView({
     _i36.Key? key,
     required _i38.UserModel user,
+    required bool isfromFollowing,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1640,7 +1642,8 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.followingListView,
-        arguments: FollowingListViewArguments(key: key, user: user),
+        arguments: FollowingListViewArguments(
+            key: key, user: user, isfromFollowing: isfromFollowing),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1904,8 +1907,6 @@ extension NavigatorStateExtension on _i40.NavigationService {
         parameters: parameters,
         transition: transition);
   }
-
-  
 
   Future<dynamic> replaceWithSearchView({
     _i36.Key? key,

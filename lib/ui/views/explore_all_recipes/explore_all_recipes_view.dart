@@ -21,9 +21,9 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
   ) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: kcBackgroundColor,
+      backgroundColor: kcWhiteColor,
       appBar: AppBar(
-        backgroundColor: kcBackgroundColor,
+        backgroundColor: kcWhiteColor,
         elevation: 0,
         title: Text('Explore All Recipes',
             style: globalTextStyle(

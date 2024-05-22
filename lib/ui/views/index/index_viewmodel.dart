@@ -62,7 +62,6 @@ class IndexViewModel extends BaseViewModel {
       await Future.wait([
         _cullinaryService.culinaryInit(),
         _chefService.chefInit(),
-        // _savedRecipeService.init(),
         _recipeService.initialized(),
       ]);
      

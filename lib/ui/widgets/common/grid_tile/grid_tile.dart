@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 
 import 'grid_tile_model.dart';
 
@@ -12,7 +13,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String dishName;
   final String duration;
   final void Function() onTap;
-  final String recipeId;
+  final RecipeModel recipe;
   final double? rating;
   final String chefId;
 
@@ -25,7 +26,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     required this.dishName,
     required this.duration,
     required this.onTap,
-    required this.recipeId,
+    required this.recipe,
   });
 
   @override
@@ -36,7 +37,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   ) {
     bool isRecipeSaved = false;
     for (String savedRecipe in userDetails!.savedRecipes!) {
-      if (savedRecipe == recipeId) {
+      if (savedRecipe == recipe.docId) {
         isRecipeSaved = !isRecipeSaved;
         break;
       }
@@ -113,7 +114,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     top: 5.dg,
                     right: 10.dg,
                     child: GestureDetector(
-                      onTap: () => viewModel.onBookmarkTap(recipeId),
+                      onTap: () => viewModel.onBookmarkTap(recipe),
                       child: Container(
                         width: 30.w,
                         height: 30.h,

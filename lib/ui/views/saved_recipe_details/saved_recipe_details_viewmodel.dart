@@ -12,7 +12,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
@@ -55,13 +54,11 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   bool seeComments = false;
   
 
-  List<SavedRecipeModel> get savedRecipeList =>
+  List<RecipeModel> get savedRecipeList =>
       _savedRecipeService.savedRecipes;
 
   void addToSaveList(RecipeModel recipe) {
-    _savedRecipeService.addSavedRecipe(SavedRecipeModel(
-      recipeId: recipe.docId!,
-    ));
+    _savedRecipeService.addSavedRecipe(recipe);
     isRecipeSaved = !isRecipeSaved;
     notifyListeners();
   }
@@ -80,8 +77,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
 
   void checkSave(String recipeId) {
-    for (SavedRecipeModel savedRecipe in savedRecipeList) {
-      if (savedRecipe.recipeId == recipeId) {
+    for (RecipeModel savedRecipe in savedRecipeList) {
+      if (savedRecipe.docId == recipeId) {
         isRecipeSaved = !isRecipeSaved;
         break;
       }
@@ -307,7 +304,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(true);
 
     waveFormData = recipeModel.waveForm;
-    await _savedRecipeService.init();
+    // await _savedRecipeService.init();
     playerController = PlayerController();
     downloadAudio();
     checkSave(recipeId);

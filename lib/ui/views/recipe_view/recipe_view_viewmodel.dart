@@ -91,7 +91,15 @@ class RecipeViewViewModel extends BaseViewModel {
     playerController.setVolume(volume);
     notifyListeners();
   }
-
+@override
+  void dispose() {
+    playerController.dispose();
+    stopListening();
+    _timer?.cancel();
+    pageController.dispose();
+    formattedDuration = '';
+    super.dispose();
+  }
  
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
@@ -181,12 +189,7 @@ class RecipeViewViewModel extends BaseViewModel {
             ),
           )
           .then(
-            (value) => navigationService.replaceWithTransition(
-              const RecipeListPageView(),
-              transitionStyle: Transition.fade,
-              curve: Curves.easeInOut,
-              duration: const Duration(milliseconds: 400),
-            ),
+            (value) => navigationService.navigateToRecipeListPageView()
           );
     } catch (e) {
       showToast(message: 'Something went wrong');
@@ -221,12 +224,9 @@ class RecipeViewViewModel extends BaseViewModel {
             docId: '',
             waveForm: waveFormData!,
           ))
-          .then((value) => navigationService.replaceWithTransition(
-                const RecipeListPageView(),
-                transitionStyle: Transition.fade,
-                curve: Curves.easeInOut,
-                duration: const Duration(milliseconds: 400),
-              ));
+          .then((value) =>  navigationService.navigateToRecipeListPageView()
+               
+            );
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(e.toString());

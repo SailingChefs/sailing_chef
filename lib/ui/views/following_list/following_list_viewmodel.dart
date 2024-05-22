@@ -4,6 +4,8 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 
 class FollowingListViewModel extends BaseViewModel {
+  final bool isFromFollowing;
+  FollowingListViewModel({required this.isFromFollowing});
   final _navigationloactor = locator<NavigationService>();
   final FollowService _followService = locator<FollowService>();
   final TextEditingController searchController = TextEditingController();
@@ -20,6 +22,9 @@ class FollowingListViewModel extends BaseViewModel {
   void onViewModelReady(String userId) async {
     setBusy(true);
     await _followService.init(userId, true);
+    isFollowing = isFromFollowing;
+    isFollower = !isFromFollowing;
+    notifyListeners();
     setBusy(false);
   }
 

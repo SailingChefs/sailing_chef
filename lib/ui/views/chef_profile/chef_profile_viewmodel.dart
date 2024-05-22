@@ -35,7 +35,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<String> get followers => _followService.followers;
   final ScrollController scrollController = ScrollController();
 
-  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   List<SavedRecipeModel>? userSavedRecipe;
   List<Course> get courses => _cullinarySchoolService.courses;
   bool isFollowing = false;
@@ -61,12 +61,16 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await _followService.init(user.uid!, false);
-    chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
-    userSavedRecipe =
-        await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
-    _savedRecipeService.init();
-    _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
-    log(courses.length.toString());
+    if (user.userRole != 'guest') {
+      chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+      if (user.userRole == 'culinarySchool') {
+        _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
+      }
+    } else if (user.userRole == 'guest') {
+      userSavedRecipe =
+          await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
+    }
+
     setBusy(false);
   }
 
@@ -81,7 +85,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
       isFollowing = true;
     }
   }
-    void toDishesScreen() {
+
+  void toDishesScreen() {
     scrollController.animateTo(
       scrollController.position.devicePixelRatio * 100,
       duration: const Duration(milliseconds: 300),
@@ -92,9 +97,6 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void goToFollowingList() {
     showToast(message: 'You cannot see Others following/followers list');
   }
-
-
- 
 
   Future<void> moveToChatScreen(
     UserModel chef,

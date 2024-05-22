@@ -5,7 +5,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
@@ -30,9 +29,9 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   List<Course> get courses => _cullinarySchoolService.courses;
-
+  // List<RecipeModel> savedRecipes =[];
   List<RecipeModel> myRecipes = [];
 
   void navigateToBlockScreen() {
@@ -48,6 +47,7 @@ class ProfileViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
+  
 
   Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
@@ -63,9 +63,13 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void goTogoToProfileEditView() {
+  void goToFollowerList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails!));
+        arguments: FollowingListViewArguments(user: userDetails!,isfromFollowing: false));
+  }
+    void goToFollowingList() {
+    _navigationService.navigateTo(Routes.followingListView,
+        arguments: FollowingListViewArguments(user: userDetails!,isfromFollowing: true));
   }
 
     void toSettings() {
@@ -90,6 +94,7 @@ class ProfileViewModel extends ReactiveViewModel {
   myRecipesList() async {
     if (RecipeService.recipes.isEmpty) {
       myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+      return;
     } else if (RecipeService.recipes.isNotEmpty) {
       for (var recipes in RecipeService.recipes) {
         if (recipes.uid == userDetails!.uid) {
@@ -107,6 +112,7 @@ class ProfileViewModel extends ReactiveViewModel {
   void onViewModelReady() async {
     setBusy(true);
     myRecipesList();
+    // mySavedRecipes();
 
     await Future.wait([
       _savedRecipeService.init(),

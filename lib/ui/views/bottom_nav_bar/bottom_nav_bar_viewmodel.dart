@@ -1,4 +1,10 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:stacked/stacked.dart';
 
-class BottomNavBarViewModel extends IndexTrackingViewModel {}
+
+class BottomNavBarViewModel extends IndexTrackingViewModel {
+
+
+  
+}
+//  locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+    // locator.registerLazySingleton<BottomNavBarViewModel>(()=>BottomNavBarViewModel());

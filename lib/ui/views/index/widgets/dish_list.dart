@@ -49,7 +49,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           rating: calculateAverageRating(dishes[index].comment!),
 
                           
-                          recipeId: dishes[index].docId!,
+                          recipe: dishes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: dishes[index]
                               .coverImage
