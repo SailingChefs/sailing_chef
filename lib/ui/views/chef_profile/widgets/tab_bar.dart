@@ -11,7 +11,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
       height: screenHeight(context) * 0.05,
       width: screenWidth(context) * 0.9,
       decoration: BoxDecoration(
-        color: kcPrimaryColor.withOpacity(0.2),
+        color: kcPrimaryColor.withOpacity(0.09),
         borderRadius: BorderRadius.all(Radius.circular(30.dg)),
       ),
       child: Row(

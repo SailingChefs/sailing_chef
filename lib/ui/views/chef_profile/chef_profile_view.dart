@@ -59,13 +59,12 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                           : SavedChefProfileScreen(user,
                               savedRecipes: viewModel.userSavedRecipe!)
                       : user.userRole == 'culinarySchool'
-                          ? viewModel.isBusy
-                              ? const ShimmerLoaderChefView()
-                              : Column(
+                          ? Column(
                                   children: [
                                     TabBarChefProfileScreen(user),
-                                    viewModel.isMySelected
-                                        ? const RecipesProfileScreen()
+                                    viewModel.isMySelected ?
+                                      viewModel.isBusy ? const ShimmerLoaderChefView() :
+                                         const RecipesProfileScreen()
                                         : SavedChefProfileScreen(
                                             user,
                                             savedRecipes: const [],

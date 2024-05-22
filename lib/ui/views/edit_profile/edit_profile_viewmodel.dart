@@ -144,8 +144,7 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   void saveEditDetailsChef() async {
-    // address = '$cityValue,$stateValue,$countryValue';
-    log('Iam here');
+   
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(

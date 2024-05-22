@@ -94,8 +94,6 @@ class PinDropService with ListenableServiceMixin {
 
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     Map<String, dynamic> data = pinnedLocation.toMap();
-
-
     await FirebaseFirestore.instance.collection('pins').add(data);
     pins.add(pinnedLocation);
     notifyListeners();

@@ -20,46 +20,51 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                       fontWeight: FontWeight.w500,
                       color: kcBlackColor)),
             ))
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-              return ShrinkWrappingViewport(
-                offset: ViewportOffset.zero(),
-                axisDirection: AxisDirection.down,
-                slivers: [
-                  SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15.0,
-                      mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return PrimaryGridTile(
-
-                          chefId: viewModel.chefRecipes![index].user!.uid!,
-                          rating: calculateAverageRating(viewModel.chefRecipes![index].comment!),
-                          recipeId: viewModel.chefRecipes![index].docId!,
-                          onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: viewModel
-                              .chefRecipes![index].coverImage
-                              .where((element) => element.contains('.jpg'))
-                              .first,
-                          dishName: viewModel.chefRecipes![index].title,
-                          duration: viewModel.chefRecipes![index].prepTime,
-                          chefImagePath: viewModel
-                              .chefRecipes![index].user!.displayPicture!,
-                        );
-                      },
-                      childCount: viewModel.chefRecipes!.length,
-                    ),
-                  ),
-                ],
-              );
-            }),
-          );
+        : Column(
+          children: [
+            verticalSpaceSmall,
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return PrimaryGridTile(
+            
+                              chefId: viewModel.chefRecipes![index].user!.uid!,
+                              rating: calculateAverageRating(viewModel.chefRecipes![index].comment!),
+                              recipeId: viewModel.chefRecipes![index].docId!,
+                              onTap: () => viewModel.toDishDetailsScreen(index),
+                              foodImagePath: viewModel
+                                  .chefRecipes![index].coverImage
+                                  .where((element) => element.contains('.jpg'))
+                                  .first,
+                              dishName: viewModel.chefRecipes![index].title,
+                              duration: viewModel.chefRecipes![index].prepTime,
+                              chefImagePath: viewModel
+                                  .chefRecipes![index].user!.displayPicture!,
+                            );
+                          },
+                          childCount: viewModel.chefRecipes!.length,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+          ],
+        );
   }
 }

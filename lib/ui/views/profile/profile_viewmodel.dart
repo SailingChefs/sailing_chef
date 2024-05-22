@@ -112,7 +112,7 @@ class ProfileViewModel extends ReactiveViewModel {
       _savedRecipeService.init(),
 
 
-      userDetails!.userRole == 'cullinary'
+      userDetails!.userRole == 'culinarySchool'
           ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
           : ini(),
     ]);

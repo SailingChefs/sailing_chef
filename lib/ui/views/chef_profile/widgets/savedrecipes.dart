@@ -17,17 +17,13 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    return user.userRole == 'culinarySchool' && user.schoolCourses!.isNotEmpty
-        ? Center(
+    return user.userRole == 'culinarySchool' 
+        ? viewModel.isBusy && viewModel.courses.isEmpty ? const Center(child: CircularProgressIndicator(color: kcPrimaryColor,)) : Center(
             child: Container(
               width: screenWidth(context) * 0.9,
               height: screenHeight(context) * 0.4,
               alignment: Alignment.center,
-              child: viewModel.isBusy
-                  ? const CircularProgressIndicator(
-                      color: kcPrimaryColor,
-                    )
-                  : const ListViewChefSavedCources(),
+              child: const ListViewChefSavedCources(),
             ),
           )
 

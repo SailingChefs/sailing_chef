@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet_model.dart';
 
@@ -7,7 +6,7 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
       {required this.color,
       required this.hinttext,
       required this.controller,
-       this.suffixIcon,
+      this.suffixIcon,
       super.key});
   final String hinttext;
   final Color color;
@@ -18,30 +17,39 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
     return Row(
       children: [
         Expanded(
-          child: SizedBox(
-            width: 390,
-            height: 40,
-            child: TextField(
-              controller: viewModel.link,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  viewModel.setLinkErrorMessage(viewModel.isLinkValid(value)
-                      ? null
-                      : "Please enter a valid link");
-                } else {
-                  viewModel.setLinkErrorMessage(null);
-                }
-              },
-              style: globalTextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: kclightgreencolor,
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: hinttext,
-                hintStyle: TextStyle(color: color),
-                suffixIcon:  Image.asset('assets/images/icons/link.png',),
+          child: TextFormField(
+            controller: viewModel.link,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a link';
+              }
+              if (!RegExp(
+                r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+              ).hasMatch(value)) {
+                return 'Please enter a valid URL';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                viewModel.setLinkErrorMessage(viewModel.isLinkValid(value)
+                    ? null
+                    : "Please enter a valid link");
+              } else {
+                viewModel.setLinkErrorMessage(null);
+              }
+            },
+            style: globalTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: kclightgreencolor,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hinttext,
+              hintStyle: TextStyle(color: color),
+              suffixIcon: Image.asset(
+                'assets/images/icons/link.png',
               ),
             ),
           ),

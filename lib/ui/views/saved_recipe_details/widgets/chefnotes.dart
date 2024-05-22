@@ -58,7 +58,7 @@ class ChefNotesRecipeDetails
                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.52,
+                          width: screenWidth(context) * 0.51,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(
