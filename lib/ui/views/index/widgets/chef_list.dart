@@ -41,7 +41,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 height: screenHeight <= 690.0
 
                     ? MediaQuery.sizeOf(context).height * 0.3.h
-                    : MediaQuery.sizeOf(context).height * 0.25.h,
+                    : MediaQuery.sizeOf(context).height * 0.27.h,
 
                 width: double.maxFinite,
                 child: ListView.builder(

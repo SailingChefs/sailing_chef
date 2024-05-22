@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_cropper/image_cropper.dart';
-// import 'package:croppy/croppy.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
@@ -380,6 +379,7 @@ Future<void> durationCalculate(File path) async {
               colorScheme: themeData.colorScheme.copyWith(
                 primary: kcPrimaryColor,
                 onPrimary: kcWhiteColor,
+                onBackground: kcPrimaryColor,
                 // onSurface: kcPrimaryColor,
                 // surface: kcPrimaryColor,
               ),
@@ -387,7 +387,7 @@ Future<void> durationCalculate(File path) async {
               dialogBackgroundColor: kcPrimaryColor,
               hoverColor: kcPrimaryColor,
               focusColor: kcPrimaryColor,
-              fontFamily: 'Poppins',
+              fontFamily: 'Inter',
               dialogTheme: DialogTheme(
                 backgroundColor: kcWhiteColor,
                 shape: RoundedRectangleBorder(

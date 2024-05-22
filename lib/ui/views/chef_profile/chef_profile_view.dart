@@ -31,13 +31,14 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
             uid: user.uid!,
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+            padding: EdgeInsets.only(left: 10.0.w,right: 10.w),
             // padding: const EdgeInsets.only(left: 5.0, right: 5.0),
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  verticalSpace(30.h),
                   ChefProfileDetailsDesc(
                     user: user,
                   ),

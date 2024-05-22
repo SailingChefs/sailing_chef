@@ -58,7 +58,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          width: screenWidth(context) * 0.56,
+                          width: screenWidth(context) * 0.47.w,
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: AudioFileWaveforms(

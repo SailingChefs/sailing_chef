@@ -29,7 +29,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
           padding: const EdgeInsets.only(
             left: 15.0,
             right: 15.0,
-           
+           top: 30
           ),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
