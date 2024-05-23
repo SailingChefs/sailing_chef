@@ -52,7 +52,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
                       ),
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: recipeModel.user!.displayPicture!.isEmpty
+                        image:  recipeModel.user!.displayPicture == null 
                             ? const AssetImage(
                                 'assets/images/misc/blank_image.png')
                             : NetworkImage(recipeModel.user!.displayPicture!)

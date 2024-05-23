@@ -35,7 +35,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                   viewModel.searchUser(chef).elementAt(index);
                               return GestureDetector(
                                   onTap: () {
-                                    viewModel.toChefProfile(che);
+                                    viewModel.toChefProfile(che );
                                   },
                                   child: Container(
                                     width: 200.w,
@@ -138,7 +138,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                             (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  viewModel.toChefProfile(chef);
+                                  viewModel.toChefProfile(chef[index]);
                                 },
                                 child: Container(
                                   width: 200.w,

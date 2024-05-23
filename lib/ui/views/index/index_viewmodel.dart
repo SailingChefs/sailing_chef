@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -54,19 +55,27 @@ class IndexViewModel extends BaseViewModel {
 
 
   void onViewModelReady() async {
-    setBusy(true);
-    await Future.wait([
-      _cullinaryService.culinaryInit(),
-      _chefService.chefInit(),
-      _savedRecipeService.init(),
-      recipeService.initialized(),
 
+    if (isInitialised == null) {
+      // setBusy(true);
+      showShimmer = true;
+      await Future.wait([
+        _cullinaryService.culinaryInit(),
+        _chefService.chefInit(),
+        _recipeService.initialized(),
+      ]);
+      matchAndAssignUsersToDishes();
 
+      isInitialised = true;
+      showShimmer = false;
+      notifyListeners();
+      rebuildUi();
 
-    ]);
-    notifyListeners();
-    rebuildUi();
-    setBusy(false);
+      // setBusy(false);
+    } else if (isInitialised == true) {
+      return;
+    }
+
   }
 
   void toAllChefsView() {
@@ -96,6 +105,58 @@ class IndexViewModel extends BaseViewModel {
     );
   }
 
+  // void setUserProfile() {
+  //   if (chefList.isEmpty) {
+  //     _chefService.chefInit();
+  //   } else {
+  //     for (var chef in chefList) {
+  //       // Iterate through each recipe associated with the chef
+  //       for (var chefRecipe in chef.recipes!) {
+  //         // Find the matching recipe in the recipesList by doc_id
+  //         var matchingRecipe = dishes.firstWhere(
+  //           (recipe) => recipe.docId == chefRecipe.toString(),
+  //         );
+
+  //         // If a matching recipe is found
+  //         if (matchingRecipe != null) {
+  //           // Assign the ChefModel to the user model of the matching recipe
+  //           if (matchingRecipe.user == null) {
+  //             matchingRecipe.user =
+  //                 chef; // Provide appropriate name for UserModel
+  //           } else {
+  //             matchingRecipe.user = chef;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  void matchAndAssignUsersToDishes() {
+  // Combine both user lists into one for easier searching
+  List<UserModel> allUsers = [...chefList, ...cullinary];
+
+  for (int i = 0 ; i<dishes.length; i++) {
+
+    if (dishes[i].user == null) {
+      // Find the matching user in the allUsers list
+      UserModel? matchingUser = allUsers.firstWhere(
+        (user) => user.uid == dishes[i].uid,
+        orElse: () => UserModel(uid: ''),
+      );
+      if (matchingUser.uid != null) {
+        // Assign the matching user to the corresponding dish
+        dishes[i].user = matchingUser;
+        if(userDetails!.uid == dishes[i].uid){
+        dishes[i].user = userDetails!;
+      }
+
+      }
+    }
+  }
+  }
+
+
+
   void toChefProfile(UserModel chef) {
     if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
       _navigationService.navigateToChefProfileView(user: chef);
@@ -119,10 +180,6 @@ class IndexViewModel extends BaseViewModel {
      
       
     );
-    // _navigationService.navigateToSavedRecipeDetailsView(
-    //   recipeModel: dishes[index],
-    //   randomRecipeList: getRandomDishes(dishes[index], dishes),
-    // );
   }
 
   void handleTab(int index) {

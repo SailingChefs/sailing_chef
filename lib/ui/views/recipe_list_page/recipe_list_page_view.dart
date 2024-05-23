@@ -20,8 +20,8 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
     Widget? child,
   ) {
     return PopScope(
-      canPop: false,
-      onPopInvoked: (_)=>viewModel.toHomeView(),
+      canPop: true,
+      onPopInvoked: viewModel.onPopInvoked,
       child: Scaffold(
           backgroundColor: kcwhitecolor,
           appBar: AppBar(

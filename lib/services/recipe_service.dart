@@ -25,7 +25,7 @@ class RecipeService with ListenableServiceMixin {
   Future<void> initialized() async {
     if (isInitialized) return;
     recipes = await fetchAllRecipes();
-
+    
     isInitialized = true;
 
     notifyListeners();
@@ -196,6 +196,7 @@ class RecipeService with ListenableServiceMixin {
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(docId);
+        recipe.user = userDetails;
         recipes.add(recipe);
 
         showToast(message: 'Recipe added successfully');
@@ -406,27 +407,30 @@ class RecipeService with ListenableServiceMixin {
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        UserModel? currUser =
-            await _userService.fetchUserByUID(firebaseAuth.currentUser!.uid);
-        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
-          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-          recipe.user = user;
+
+        if (!userDetails!.blockedAccounts!.contains(recipe.uid)) {
+          // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          // recipe.user = user;
+
           // recipes.add(recipe);
+           recipes.add(recipe);
+          // break;
         }
 
         // Fetch comments for the current recipe
-        QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').limit(3).get();
-        List<CommentModel> comments = commentsSnapshot.docs
-            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-            .toList();
-        log(comments.toString());
-        recipe.comment = comments;
-        log(recipe.comment.toString());
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
 
-        recipes.add(recipe);
+        // QuerySnapshot commentsSnapshot =
+        //     await doc.reference.collection('comments').limit(3).get();
+        // List<CommentModel> comments = commentsSnapshot.docs
+        //     .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+        //     .toList();
+        //     log(comments.toString());
+        // recipe.comment = comments;
+        // log(recipe.comment.toString());
+        // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+
+
+       
       }
 
       return recipes;

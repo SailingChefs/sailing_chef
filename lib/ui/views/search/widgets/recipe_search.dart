@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
@@ -38,7 +37,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .elementAt(index);
                             return PrimaryGridTile(
 
-                               rating: calculateAverageRating(recipe.comment!) ,
+                               rating: recipe.rating! ,
                                chefId: recipe.user!.uid!,
                                 recipe: recipe,
                                 onTap: () =>
@@ -97,7 +96,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 return PrimaryGridTile(
 
                                   chefId: recipes[index].uid,
-                                   rating: calculateAverageRating(recipes[index].comment!),
+                                   rating: recipes[index].rating!,
                                     recipe: recipes[index],
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),

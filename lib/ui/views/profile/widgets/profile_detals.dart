@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -11,19 +12,29 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
       child: Row(
         children: [
           Container(
-          height: 90.h,
-          width: 90.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: userDetails!.displayPicture!.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(userDetails!.displayPicture!) as ImageProvider,
-              fit: BoxFit.cover,
+            height: 90.h,
+            width: 90.w,
+            decoration: const BoxDecoration(
+              color: kcVeryLightGrey,
+              shape: BoxShape.circle,
             ),
+            child: userDetails!.displayPicture!.isEmpty
+                  ? const Image(image: AssetImage('assets/images/misc/blank_image.png')):
+             ClipRRect(
+               borderRadius: BorderRadius.circular(90),
+               child: CachedNetworkImage(
+                imageUrl: userDetails!.displayPicture!,
+                height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                fit: BoxFit.cover,
+                width: double.maxFinite,
+                progressIndicatorBuilder: (context, url, progress) => Container(
+                  decoration: const BoxDecoration(
+                    color: kcsgreycolor,
+                  ),
+                ),
+                           ),
+             ),
           ),
-        ),
           horizontalSpaceMedium,
           GestureDetector(
             onTap: viewModel.toDishesScreen,
@@ -33,21 +44,21 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 Text(
                   viewModel.myRecipes.length.toString(),
                   style: globalTextStyle(
-                        fontSize: 18.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                    fontSize: 18.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Dishes',
-                 style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
               ],
             ),
@@ -61,22 +72,22 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               children: [
                 Text(
                   userDetails!.followers!.length.toString(),
-                   style: globalTextStyle(
-                        fontSize: 18.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                  style: globalTextStyle(
+                    fontSize: 18.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Followers',
                   style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
               ],
             ),
@@ -91,21 +102,21 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 Text(
                   userDetails!.following!.length.toString(),
                   style: globalTextStyle(
-                        fontSize: 18.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                    fontSize: 18.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
                 verticalSpaceTiny,
                 Text(
                   'Following',
-                 style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
               ],
             ),

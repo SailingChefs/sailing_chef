@@ -10,7 +10,8 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
 
-    return Column(
+    return viewModel.path!.isEmpty ? Container() :
+     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
        Text("Chef Notes",
@@ -20,6 +21,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
             color: kcBlackColor,
           ),),
         verticalSpaceSmall,
+        
          viewModel.isBusy
               ? const ShimmerContainer(
                 height: 48,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -70,8 +71,9 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                                child: ClipRRect(
+
+                             ClipRRect(
+
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r),
@@ -80,11 +82,27 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
+
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              50.h,
                                     )
-                                  : Image.network(
-                                      cullinaruschools.displayPicture!,
+                                  : CachedNetworkImage(
+                                      imageUrl: cullinaruschools.displayPicture!,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              50.h,
                                       fit: BoxFit.cover,
-                                      width: double.infinity,
+                                      width: double.maxFinite,
+                                      progressIndicatorBuilder:
+                                          (context, url, progress) => Container(
+                                        decoration: const BoxDecoration(
+                                          color: kcsgreycolor,
+                                        ),
+                                      ),
+
                                     ),
                             )),
                             Padding(

@@ -54,17 +54,62 @@ class EditProfileViewModel extends BaseViewModel {
     log('stateValue : $stateValue');
   }
 
-  void setStateValue(String value) {
-    stateValue = value;
+  void setStateValue(String? value) {
+     log(value.runtimeType.toString());
+    log(value.toString());
+    if (value == 'state*') {
+      stateValue = '';
     cityValue = '';
-    notifyListeners();
+      
+   
+      rebuildUi();
+    
+    }
+    else if( value == 'null'){
+
+      stateValue = '';  
+
+      rebuildUi();
+    }
+    else{
+      stateValue = value!;
+      cityValue = '';
+      rebuildUi();
+    }
+    
+
     rebuildUi();
   }
 
-  void setCityValue(String value) {
-    cityValue = value;
-    address = '$cityValue,$stateValue,$countryValue';
-    notifyListeners();
+  void setCityValue(String? value) {
+    log(value.runtimeType.toString());
+    log(value.toString());
+    if (value == 'city*') {
+      cityValue = '';
+      rebuildUi(); 
+    }
+    else if( value == 'null'){
+      cityValue = '';
+      rebuildUi();
+    }
+    else{
+      cityValue = value!;
+      rebuildUi();
+    }
+    if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+
+      log('address : $address');
+    // isChange = false;
+
+    rebuildUi();
   }
   getBack() {
     _navigationService.back();
@@ -114,9 +159,10 @@ class EditProfileViewModel extends BaseViewModel {
         'bio': bioController.text,
         'address': address
       };
-      userDataService.storeUserDetails(
+      await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
+        _navigationService.navigateToBottomNavBarView();
       notifyListeners();
     } else {
       Map<String, dynamic> userData = {
@@ -143,20 +189,7 @@ class EditProfileViewModel extends BaseViewModel {
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
-      if(countryValue != '' && stateValue == '' && cityValue == ''){
-        address = countryValue;
-      }
-      if(countryValue != '' && stateValue != '' && cityValue == ''){
-        address = '$stateValue,$countryValue';
-      }
-      if(cityValue != '' && stateValue != '' && countryValue != ''){
-        address = '$cityValue,$stateValue,$countryValue';
-      }
-      
-      
 
-       
-      
       Map<String, dynamic> userData = {
         'display_picture': imageLink,
         'display_name': nameController.text,
@@ -165,9 +198,10 @@ class EditProfileViewModel extends BaseViewModel {
         'boat_name': boatController.text,
         'address': address,
       };
-      userDataService.storeUserDetails(
+     await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
+        _navigationService.navigateToBottomNavBarView();
     } 
     else {
       Map<String, dynamic> userData = {
@@ -209,8 +243,9 @@ class EditProfileViewModel extends BaseViewModel {
         'display_name': name,
         'bio': bio,
       };
-      userDataService.storeUserDetails(
+     await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
+            _navigationService.navigateToBottomNavBarView();
     }
   }
 

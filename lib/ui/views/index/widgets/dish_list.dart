@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -45,8 +44,8 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
 
-                          chefId: dishes[index].user!.uid!,
-                          rating: calculateAverageRating(dishes[index].comment!),
+                          chefId: dishes[index].user == null ? '' : dishes[index].user!.uid!,
+                          rating: dishes[index].rating,
 
                           
                           onTap: () => viewModel.toDishDetailsScreen(index),
@@ -56,10 +55,12 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               .first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
-                          chefImagePath:
+                          chefImagePath:dishes[index].user == null ? '' :
                               dishes[index].user!.displayPicture == null
-                                  ? 'assets/images/misc/blank_image.png'
-                                  : dishes[index].user!.displayPicture!, recipe: dishes[index],
+
+                                  ? ''
+                                  : dishes[index].user!.displayPicture!,
+
                         );
                       },
                       childCount: dishes.length >= 10 ? 10 : dishes.length,

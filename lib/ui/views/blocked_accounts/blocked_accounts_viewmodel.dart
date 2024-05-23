@@ -4,6 +4,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -19,6 +20,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   
   final userService = locator<UserServices>();
   List<String> get blockedUsers => _blockUserService.blockedAccounts;
+  final _recipeService = locator<RecipeService>();
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_userService];
@@ -47,7 +49,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
 
     _blockUserService.updateCurrentUserModel(
         localModel: userDetails!, userId: user.uid!);
-
+        await _recipeService.initialized();
 
 
     notifyListeners();

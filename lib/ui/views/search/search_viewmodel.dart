@@ -99,7 +99,9 @@ class SearchViewModel extends BaseViewModel {
             IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
   }
 
-  void toChefProfile(chef) {}
+  void toChefProfile(UserModel chef) {
+    _navigationService.navigateToChefProfileView(user: chef);
+  }
 
   void toAllChefsScreen(List<UserModel> chefList) {
     _navigationService.navigateToAllChefsView(chefList: chefList);

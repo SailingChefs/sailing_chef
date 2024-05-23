@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/listview.dart';
@@ -92,9 +91,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           chefId: savedRecipes[index].user!.uid!,
-                          rating: calculateAverageRating(
-                            savedRecipes[index].comment!,
-                          ),
+                          rating: savedRecipes[index].rating,
                           recipe: savedRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, savedRecipes[index]),
