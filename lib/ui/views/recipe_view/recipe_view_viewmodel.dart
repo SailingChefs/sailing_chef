@@ -122,14 +122,24 @@ class RecipeViewViewModel extends BaseViewModel {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
     rebuildUi();
-    await playerController
-        .startPlayer(finishMode: FinishMode.pause)
-        .then((value) {
-      // isPlaying = false;
-      // rebuildUi();
+    playerController.onCurrentDurationChanged.listen((positionData) {
+      Duration position = Duration(milliseconds: positionData);
+      updateDuration(position);
     });
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause);
+        
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
+  }
+
+
+  void updateDuration(Duration position) async {
+    if (position > Duration.zero) {
+      formattedDuration =
+          "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
+      notifyListeners();
+    } 
   }
 
   void stopListening() async {

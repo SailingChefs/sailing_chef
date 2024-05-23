@@ -298,7 +298,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     log("stop Listening ends ${isPlaying.toString()}");
   }
 
-  double currentDuration = 0.0;
 
   void onViewModelReady(String recipeId) async {
     setBusy(true);
