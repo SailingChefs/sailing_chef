@@ -28,7 +28,7 @@ class SearchView extends StackedView<SearchViewModel> {
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
                   resizeToAvoidBottomInset: false,
-                  backgroundColor: kcBackgroundColor,
+                  backgroundColor: kcWhiteColor,
                   appBar: AppBar(
                     leading: Padding(
                       padding: const EdgeInsets.all(8.0),

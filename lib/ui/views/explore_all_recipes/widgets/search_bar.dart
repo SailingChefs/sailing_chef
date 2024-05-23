@@ -29,7 +29,7 @@ class SearchBarAllRecipesScreen
                   fontSize: 12.sp,
                 ),
                 filled: true,
-                fillColor: kcPrimaryColor.withOpacity(0.2),
+                fillColor: kcPrimaryColor.withOpacity(0.09),
                 labelStyle: TextStyle(
                     fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
                 labelText: 'Search',

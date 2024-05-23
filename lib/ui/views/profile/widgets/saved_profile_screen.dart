@@ -93,9 +93,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
                           chefId: savedRecipes[index].user!.uid!,
-                          rating: calculateAverageRating(
-                            savedRecipes[index].comment!,
-                          ),
+                          rating: savedRecipes[index].rating,
                           recipe: savedRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, savedRecipes[index]),

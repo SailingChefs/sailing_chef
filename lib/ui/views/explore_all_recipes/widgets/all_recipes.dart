@@ -15,6 +15,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
         : SizedBox(
             height: screenHeight(context) * 0.77,
             child: GridView.builder(
+              shrinkWrap: true,
               itemCount: recipes.length,
               padding: EdgeInsets.symmetric(vertical: 15.h),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -28,7 +29,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             itemBuilder: (BuildContext context, int index) {
               return PrimaryGridTile(
                 chefId: recipes[index].user!.uid!,
-                  rating: calculateAverageRating(recipes[index].comment!),
+                  rating: recipes[index].rating!,
                   recipe: recipes[index],
                   onTap: () => viewModel
                       .toDishDetailsScreen(recipes[index]),

@@ -25,7 +25,7 @@ class RecipeService with ListenableServiceMixin {
   Future<void> initialized() async {
     if(isInitialized)return;
     recipes = await fetchAllRecipes();
-
+    
     isInitialized = true;
 
 
@@ -355,25 +355,24 @@ class RecipeService with ListenableServiceMixin {
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        UserModel? currUser = await _userService
-            .fetchUserByUID(firebaseAuth.currentUser!.uid);
-        if (!currUser.blockedAccounts!.contains(recipe.uid)) {
-          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-          recipe.user = user;
-          // recipes.add(recipe);
-        }
+      
+        // if (!userDetails!.blockedAccounts!.contains(recipe.uid)) {
+        //   UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+        //   recipe.user = user;
+        //   // recipes.add(recipe);
+        // }
 
         // Fetch comments for the current recipe
-        QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').limit(3).get();
-        List<CommentModel> comments = commentsSnapshot.docs
-            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-            .toList();
-            log(comments.toString());
-        recipe.comment = comments;
-        log(recipe.comment.toString());
-        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        recipe.user = user;
+        // QuerySnapshot commentsSnapshot =
+        //     await doc.reference.collection('comments').limit(3).get();
+        // List<CommentModel> comments = commentsSnapshot.docs
+        //     .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+        //     .toList();
+        //     log(comments.toString());
+        // recipe.comment = comments;
+        // log(recipe.comment.toString());
+        // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+        // recipe.user = user;
 
         recipes.add(recipe);
       }

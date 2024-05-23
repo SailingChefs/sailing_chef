@@ -15,11 +15,11 @@ class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   
   List<CommentModel> comments = [];
-  // getComments(String recipeId) async {
-  //   comments = await fetchCommentsByRecipeId(recipeId);
+  getComments(String recipeId) async {
+    comments = await fetchCommentsByRecipeId(recipeId);
 
-  //   notifyListeners();
-  // }
+    notifyListeners();
+  }
 
   clearComments() {
     comments.clear();
@@ -32,7 +32,7 @@ class CommentService with ListenableServiceMixin {
     }
 
     comments.add(comment);
-    RecipeService.recipes.where((recipe) => recipe.docId == comment.recipeId).first.comment!.add(comment);
+    // RecipeService.recipes.where((recipe) => recipe.docId == comment.recipeId).first.comment!.add(comment);
 
     notifyListeners();
     return true;
@@ -83,25 +83,28 @@ class CommentService with ListenableServiceMixin {
     }
   }
 
-  // Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
-  //   log('recipeId:$recipeId');
-  //   try {
-  //     QuerySnapshot querySnapshot = await firebasestore
-  //         .collection('comments')
-  //         .where('recipeId', isEqualTo: recipeId)
-  //         .orderBy('timestamp', descending: true)
-  //         .get();
+ Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+  try {
+    // Access the subcollection 'comments' within the specific 'recipe' document
+    QuerySnapshot querySnapshot = await firebasestore
+        .collection('recipes')
+        .doc(recipeId)
+        .collection('comments')
+        .orderBy('timestamp', descending: true)
+        .get();
 
-  //     List<CommentModel> comments = querySnapshot.docs
-  //         .map((doc) => CommentModel.fromSnapshot(doc))
-  //         .toList();
+    // Convert the querySnapshot documents to a list of CommentModel
+    List<CommentModel> comments = querySnapshot.docs
+        .map((doc) => CommentModel.fromSnapshot(doc))
+        .toList();
 
-  //     return comments;
-  //   } catch (e) {
-  //     log('Error fetching comments: $e');
-  //     return [];
-  //   }
-  // }
+    return comments;
+  } catch (e) {
+    // Handle errors and return an empty list
+    return [];
+  }
+}
+
 
   Future<List<String>> uploadImagesToFirebase(List<File> images) async {
     List<String> imageUrls = [];

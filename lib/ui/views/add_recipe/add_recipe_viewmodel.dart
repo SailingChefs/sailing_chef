@@ -59,7 +59,6 @@ class AddRecipeViewModel extends BaseViewModel {
 
   String formattedDuration = '';
 
-
   bool isPlaying = false;
 
   bool isclicked = false;
@@ -198,6 +197,7 @@ class AddRecipeViewModel extends BaseViewModel {
     path = '${directory.path}/recording.mpeg4';
     setBusy(false);
   }
+
   void onVolumeUpIconPressed() {
     isMute = !isMute;
     if (isMute) {
@@ -209,7 +209,7 @@ class AddRecipeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-double volume = 0;
+  double volume = 0;
   bool isMute = false;
 
   Future<void> downloadAudio() async {
@@ -229,19 +229,21 @@ double volume = 0;
     }
     durationCalculate(audioFile);
   }
-Future<void> durationCalculate(File path) async {
+
+  Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
-      waveFormData = await playerController.extractWaveformData(path: path.path);
+      waveFormData =
+          await playerController.extractWaveformData(path: path.path);
       if (waveFormData!.isNotEmpty) {
         Duration duration = Duration(
             milliseconds: await playerController.getDuration(DurationType.max));
         int minutes = duration.inMinutes;
         int seconds = duration.inSeconds % 60;
         formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-     
       }
     }
   }
+
   void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
@@ -456,7 +458,7 @@ Future<void> durationCalculate(File path) async {
   }
 
   void showDraftDialog() {
-    if(isPlaying){
+    if (isPlaying) {
       stopListening();
     }
     if (titleController.text.trim().isEmpty) {
@@ -577,7 +579,8 @@ Future<void> durationCalculate(File path) async {
 
   void previewRecipe() async {
     log(prepreationTime.toString());
-    if(isPlaying){
+    log('to Preview');
+    if (isPlaying) {
       stopListening();
     }
     if (titleController.text.trim().isNotEmpty &&
@@ -594,59 +597,75 @@ Future<void> durationCalculate(File path) async {
         showToast(message: 'Please add at least one image');
         return;
       } else {
-        recipeModel != null
-            ? _navigationService.navigateToRecipeViewView(
-                recipeModel: RecipeModel(
-                  visibility: selectedValue,
-                  chefNote: '',
-                  coverImage: alreadySelectedImages.isNotEmpty
-                      ? alreadySelectedImages
-                      : [],
-                  createdTime: Timestamp.now(),
-                  ingredients: ingredientsList,
-                  methods: methodsList,
-                  tags: tagsList,
-                  prepTime: prepreationTime == ''
-                      ? formatDuration()
-                      : prepreationTime!,
-                  servingSize: selectedQuantity,
-                  status: 'draft',
-                  title: titleController.text.trim().toLowerCase(),
-                  uid: firebaseAuth.currentUser!.uid,
-                  docId: recipeModel!.docId,
-                  waveForm: waveFormData!,
-                ),
-                selectedImages: selectedImages,
-                path: path,
-                waveFormData: waveFormData,
-                draftUrls: alreadySelectedImages,
-              )
-            : _navigationService.navigateToRecipeViewView(
-                recipeModel: RecipeModel(
-                  visibility: selectedValue,
-                  chefNote: '',
-                  coverImage: alreadySelectedImages.isNotEmpty
-                      ? alreadySelectedImages
-                      : [],
-                  createdTime: Timestamp.now(),
-                  ingredients: ingredientsList,
-                  methods: methodsList,
-                  tags: tagsList,
-                  prepTime: prepreationTime == ''
-                      ? formatDuration()
-                      : prepreationTime!,
-                  servingSize: selectedQuantity,
-                  status: '',
-                  title: titleController.text.trim().toLowerCase(),
-                  uid: firebaseAuth.currentUser!.uid,
-                  docId: '',
-                  waveForm: waveFormData!,
-                ),
-                selectedImages: selectedImages,
-                path: path,
-                waveFormData: waveFormData,
-                draftUrls: alreadySelectedImages,
-              );
+        if (recipeModel != null) {
+          _navigationService.navigateToRecipeViewView(
+            recipeModel: RecipeModel(
+              visibility: selectedValue,
+              chefNote: '',
+              coverImage:
+                  alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+              createdTime: Timestamp.now(),
+              ingredients: ingredientsList,
+              methods: methodsList,
+              tags: tagsList,
+              prepTime:
+                  prepreationTime == '' ? formatDuration() : prepreationTime!,
+              servingSize: selectedQuantity,
+              status: 'draft',
+              title: titleController.text.trim().toLowerCase(),
+              uid: firebaseAuth.currentUser!.uid,
+              docId: recipeModel!.docId,
+              waveForm: waveFormData!,
+            ),
+            selectedImages: selectedImages,
+            path: path,
+            waveFormData: waveFormData,
+            draftUrls: alreadySelectedImages,
+          );
+        } else {
+          final shouldClear = await _navigationService.navigateToRecipeViewView(
+            recipeModel: RecipeModel(
+              visibility: selectedValue,
+              chefNote: '',
+              coverImage:
+                  alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+              createdTime: Timestamp.now(),
+              ingredients: ingredientsList,
+              methods: methodsList,
+              tags: tagsList,
+              prepTime:
+                  prepreationTime == '' ? formatDuration() : prepreationTime!,
+              servingSize: selectedQuantity,
+              status: '',
+              title: titleController.text.trim().toLowerCase(),
+              uid: firebaseAuth.currentUser!.uid,
+              docId: '',
+              waveForm: waveFormData!,
+            ),
+            selectedImages: selectedImages,
+            path: path,
+            waveFormData: waveFormData,
+            draftUrls: alreadySelectedImages,
+          );
+          log("shouldClear $shouldClear");
+          if (shouldClear) {
+            recorderController.dispose();
+            playerController.dispose();
+            titleController.text = '';
+            alreadySelectedImages = [];
+
+
+            selectedImages = [];
+            ingredientsList = [];
+            methodsList = [];
+            selectedTimeMethod = '';
+            selectedQuantity = 1;
+            selectedValue = 'public';
+            count = 0;
+            path = '';
+            waveFormData = [];
+          }
+        }
       }
     } else {
       showToast(message: 'Please fill all fields');
@@ -674,9 +693,9 @@ Future<void> durationCalculate(File path) async {
     ingredientsList = [];
     methodsList = [];
     selectedTimeMethod = '';
-    selectedQuantity = 0;
+    selectedQuantity = 1;
     selectedValue = 'public';
-    count = 0;
+    count = 1;
     path = '';
     waveFormData = [];
     super.dispose();

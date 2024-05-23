@@ -41,7 +41,7 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                         return PrimaryGridTile(
 
                           chefId: viewModel.chefRecipes![index].user!.uid!,
-                          rating: calculateAverageRating(viewModel.chefRecipes![index].comment!),
+                          rating: viewModel.chefRecipes![index].rating,
                           recipe: viewModel.chefRecipes![index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: viewModel

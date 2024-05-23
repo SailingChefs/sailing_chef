@@ -18,6 +18,7 @@ class RecipeModel {
   String? docId;
   List<double> waveForm;
   UserModel? user;
+  double? rating;
   List<String>? tags;
   List<CommentModel>? comment;
 
@@ -29,6 +30,7 @@ class RecipeModel {
     required this.coverImage,
     required this.createdTime,
     required this.ingredients,
+    this.rating,
     required this.methods,
     required this.prepTime,
     required this.servingSize,
@@ -53,6 +55,7 @@ class RecipeModel {
       'prep_time': prepTime,
       'serving_size': servingSize,
       'status': status,
+
       'title': title,
       'uid': uid,
       'waveForm': waveForm,
@@ -80,6 +83,7 @@ class RecipeModel {
       title: data['title'] ?? '',
       waveForm: List<double>.from(data['waveForm'] ?? []),
       uid: data['uid'] ?? '',
+      rating: data['rating'] ?? 0.0,
       comment: data['comment'] != null
           ? (data['comment'] as List<dynamic>)
               .map((comment) => CommentModel.fromSnapshot(comment))

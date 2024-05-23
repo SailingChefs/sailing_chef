@@ -163,6 +163,7 @@ class RecipeViewViewModel extends BaseViewModel {
   }
 
   void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
+    log("to Recipe List");
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     final String chefNote =
@@ -189,7 +190,10 @@ class RecipeViewViewModel extends BaseViewModel {
             ),
           )
           .then(
-            (value) => navigationService.navigateToRecipeListPageView()
+            (value) async{
+              final result = await navigationService.navigateToRecipeListPageView();
+              log("result: $result");
+            }
           );
     } catch (e) {
       showToast(message: 'Something went wrong');

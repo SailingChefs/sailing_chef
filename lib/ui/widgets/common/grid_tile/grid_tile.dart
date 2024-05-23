@@ -1,9 +1,10 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/common/app_colors.dart';
 
 import 'grid_tile_model.dart';
 
@@ -58,22 +59,28 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ],
           ),
-          child: Stack(
-            children: [
+          child: Stack(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.0.r),
-                        topRight: Radius.circular(15.0.r),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0.r),
+                      topRight: Radius.circular(15.0.r),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: foodImagePath,
+                      fit: BoxFit.cover,
+                      width: double.maxFinite,
+                      progressIndicatorBuilder: (context, url, progress) =>
+                          Container(
+                        decoration: const BoxDecoration(
+                          color: kcsgreycolor,
+                        ),
                       ),
-                      child: Image.network(
-                        foodImagePath,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )),
+                    ),
+                  ),
                 ),
                 verticalSpaceTiny,
                 Padding(
@@ -99,7 +106,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           letterSpacing: -0.5,
-
                           color: kcBlackColor.withOpacity(0.6),
                         ),
                       ),
@@ -171,26 +177,34 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             Positioned(
               bottom: 27.dg,
               right: 10.dg,
-
-              child:     Container(
-          height: 32.h,
-          width: 32.w,
-          decoration: BoxDecoration(
-            color: kcVeryLightGrey,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: kcWhiteColor,
-              width: 2.w,
-            ),
-            image: DecorationImage(
-              image: chefImagePath.isEmpty
-                  ? const AssetImage('assets/images/misc/blank_image.png')
-                  : NetworkImage(chefImagePath) as ImageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-
+              child: Container(
+                height: 32.h,
+                width: 32.w,
+                decoration: BoxDecoration(
+                  color: kcVeryLightGrey,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: kcWhiteColor,
+                    width: 2.w,
+                  ),
+                ),
+                child: chefImagePath.isEmpty
+                        ? ClipRRect(borderRadius: BorderRadius.circular(50.r),child: const Image(image: AssetImage('assets/images/misc/blank_image.png'))):
+                 ClipRRect(
+                  borderRadius: BorderRadius.circular(50.r),
+                  child: CachedNetworkImage(
+                        imageUrl: chefImagePath,
+                        fit: BoxFit.cover,
+                        width: double.maxFinite,
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            Container(
+                          decoration: const BoxDecoration(
+                            color: kcsgreycolor,
+                          ),
+                        ),
+                      ),
+                ) ,
+              ),
             )
           ]),
         ));

@@ -27,7 +27,7 @@ class FollowingSavedRecipesScreen
                 return PrimaryGridTile(
 
                   chefId: viewModel.followingRecipes![index].user!.uid!,
-                  rating: calculateAverageRating(viewModel.followingRecipes![index].comment!) ,
+                  rating: viewModel.followingRecipes![index].rating!,
                     recipe: viewModel.followingRecipes![index],
                     onTap: () => viewModel.toDishDetailsScreen(
                         viewModel.followingRecipes![index]),

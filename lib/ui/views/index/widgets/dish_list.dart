@@ -45,8 +45,8 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
 
-                          chefId: dishes[index].user!.uid!,
-                          rating: calculateAverageRating(dishes[index].comment!),
+                          chefId: dishes[index].user == null ? '' : dishes[index].user!.uid!,
+                          rating: dishes[index].rating,
 
                           
                           recipe: dishes[index],
@@ -57,9 +57,9 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               .first,
                           dishName: dishes[index].title,
                           duration: dishes[index].prepTime,
-                          chefImagePath:
+                          chefImagePath:dishes[index].user == null ? '' :
                               dishes[index].user!.displayPicture == null
-                                  ? 'assets/images/misc/blank_image.png'
+                                  ? ''
                                   : dishes[index].user!.displayPicture!,
                         );
                       },

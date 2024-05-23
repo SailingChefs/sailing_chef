@@ -12,10 +12,10 @@ class CommentsDetailsScreen
   const CommentsDetailsScreen({super.key, required this.recipeModel});
  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
-    recipeModel.comment!.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     List<CustomListTileComments> commentTiles = [];
-    if (recipeModel.comment != null) {
-        List<CommentModel> comments = recipeModel.comment!;
+    if (viewModel.commentsList.isNotEmpty) {
+        List<CommentModel> comments = viewModel.commentsList!;
         commentTiles = comments.map((comment) => CustomListTileComments(
           name: comment.userName,
           date: comment.timestamp,
@@ -78,7 +78,7 @@ class CommentsDetailsScreen
             Row(
               children: [
                 Text(
-                  viewModel.calculateAverageRating(recipeModel.comment!),
+                  viewModel.calculateAverageRating(viewModel.commentsList),
                   style: globalTextStyle(
                     fontSize: 18.0.sp,
                     fontWeight: FontWeight.w700,
@@ -165,7 +165,7 @@ class CommentsDetailsScreen
             ? Column(
                 children: [
                   ...createCommentWidgets(viewModel),
-                  if (recipeModel.comment!.isEmpty)
+                  if (viewModel.commentsList.isEmpty)
                     const Center(
                       child: Text(
                         'No comments yet',

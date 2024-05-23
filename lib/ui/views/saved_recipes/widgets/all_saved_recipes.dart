@@ -42,7 +42,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
 
                               chefId: viewModel.savedRecipes[index]
                                     .user!.uid!,
-                               rating: calculateAverageRating(viewModel.savedRecipes[index].comment!),
+                               rating: viewModel.savedRecipes[index].rating!,
                                 recipe: recipe,
                                 onTap: () => viewModel
                                     .toDishDetailsScreen(recipe),

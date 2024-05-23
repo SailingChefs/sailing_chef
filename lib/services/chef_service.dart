@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -30,8 +31,8 @@ class ChefService with ListenableServiceMixin {
           // .orderBy('created_at', descending: true)
           .get();
       for (var doc in querySnapshot.docs) {
-        UserModel? currUser = await _userService
-            .fetchUserByUID(firebaseAuth.currentUser!.uid);
+        // UserModel? currUser = await _userService
+        //     .fetchUserByUID(firebaseAuth.currentUser!.uid);
         UserModel user = UserModel.fromSnapshot(doc);
 
         // int recipeCount = await FirebaseFirestore.instance
@@ -42,7 +43,7 @@ class ChefService with ListenableServiceMixin {
 
         // user.recipeCount = recipeCount;
 
-        if (!currUser.blockedAccounts!.contains(user.uid)) {
+        if (!userDetails!.blockedAccounts!.contains(user.uid)) {
           users.add(user);
         }
       }

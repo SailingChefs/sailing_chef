@@ -33,6 +33,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
   final SavedRecipeService _savedRecipeService = SavedRecipeService();
+
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
   final TextEditingController commentController = TextEditingController();
@@ -52,6 +53,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   late List<double>? waveFormData;
   bool isPlaying = false;
   bool seeComments = false;
+   List<CommentModel> get commentsList => commentService.comments;
   
 
   List<RecipeModel> get savedRecipeList =>
@@ -304,9 +306,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(true);
 
     waveFormData = recipeModel.waveForm;
-    // await _savedRecipeService.init();
+    await commentService.getComments(recipeId);
     playerController = PlayerController();
-    downloadAudio();
+   await  downloadAudio();
     checkSave(recipeId);
     
 

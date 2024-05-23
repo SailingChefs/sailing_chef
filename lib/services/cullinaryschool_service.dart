@@ -77,10 +77,9 @@ class CullinaryschoolService with ListenableServiceMixin {
           .get();
 
       for (var doc in querySnapshot.docs) {
-        UserModel? currUser = await _userService
-            .fetchUserByUID(firebaseAuth.currentUser!.uid);
+        
         UserModel user = UserModel.fromSnapshot(doc);
-        if (!currUser.blockedAccounts!.contains(user.uid)) {
+        if (!userDetails!.blockedAccounts!.contains(user.uid)) {
           users.add(user);
         }
       }

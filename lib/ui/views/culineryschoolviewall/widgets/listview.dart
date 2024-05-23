@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 
@@ -57,10 +58,17 @@ class ListViewCulinaryChool
                           child: viewModel
                                   .cullinary[index].displayPicture!.isEmpty
                               ? const Icon(Icons.school)
-                              : Image.network(
-                                  viewModel.cullinary[index].displayPicture!,
-                                  fit: BoxFit.cover,
-                                ),
+                              :   CachedNetworkImage(
+                               imageUrl: viewModel.cullinary[index].displayPicture!,
+                               height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                               fit: BoxFit.cover,
+                               width: double.maxFinite,
+                               progressIndicatorBuilder: (context, url, progress) => Container(
+                                 decoration: const BoxDecoration(
+                                   color: kcsgreycolor,
+                                 ),
+                               ),
+                                          ),
                         ),
                       ),
                       Padding(

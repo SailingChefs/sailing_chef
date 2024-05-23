@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
@@ -50,19 +51,71 @@ class UserDetailsViewModel extends BaseViewModel {
 
  
   // 
-  void setCountryValue(String value) {
+ void setCountryValue(String value) {
     countryValue = value;
-    notifyListeners();
+
+    //
+    rebuildUi();
+    log('cityValue : $cityValue');
+    log('stateValue : $stateValue');
   }
 
-  void setStateValue(String value) {
-    stateValue = value;
-    notifyListeners();
+  void setStateValue(String? value) {
+     log(value.runtimeType.toString());
+    log(value.toString());
+    if (value == 'state*') {
+      stateValue = '';
+    cityValue = '';
+      
+   
+      rebuildUi();
+    
+    }
+    else if( value == 'null'){
+
+      stateValue = '';  
+
+      rebuildUi();
+    }
+    else{
+      stateValue = value!;
+      cityValue = '';
+      rebuildUi();
+    }
+    
+
+    rebuildUi();
   }
 
-  void setCityValue(String value) {
-    cityValue = value;
-    notifyListeners();
+  void setCityValue(String? value) {
+    log(value.runtimeType.toString());
+    log(value.toString());
+    if (value == 'city*') {
+      cityValue = '';
+      rebuildUi(); 
+    }
+    else if( value == 'null'){
+      cityValue = '';
+      rebuildUi();
+    }
+    else{
+      cityValue = value!;
+      rebuildUi();
+    }
+    if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+
+      log('address : $address');
+    // isChange = false;
+
+    rebuildUi();
   }
 
   String? validateLink(String? value) {
@@ -87,9 +140,6 @@ class UserDetailsViewModel extends BaseViewModel {
       return 'Please enter a bio';
     }
 
-    // You can add additional validation criteria for the bio here
-    // For example, checking if the bio length is within a certain range
-
     return null;
   }
 
@@ -97,10 +147,6 @@ class UserDetailsViewModel extends BaseViewModel {
     if (value == null || value.isEmpty) {
       return 'Please enter a name';
     }
-
-    // You can add additional validation criteria for the name here
-    // For example, checking if the name contains only alphabetic characters
-
     return null;
   }
 
@@ -108,10 +154,6 @@ class UserDetailsViewModel extends BaseViewModel {
     if (value == null || value.isEmpty) {
       return 'Please enter a name';
     }
-
-    // You can add additional validation criteria for the name here
-    // For example, checking if the name contains only alphabetic characters
-
     return null;
   }
 
@@ -128,7 +170,7 @@ class UserDetailsViewModel extends BaseViewModel {
         //   showToast(message: 'Please select your location to proceed');
         //   return;
         // }
-        if(cityValue == '' || stateValue == '' || countryValue == ''){
+        if( countryValue == ''){
         showToast(message: 'Please select your location to proceed');
         return;
       }
@@ -140,7 +182,7 @@ class UserDetailsViewModel extends BaseViewModel {
         selectedImageFile!.path.split('/').last,
       );
       
-      address = '$cityValue,$stateValue,$countryValue';
+    
       
 
       bool userDetailsStatus = await _userService.storeUserDetails(
@@ -248,45 +290,7 @@ class UserDetailsViewModel extends BaseViewModel {
     _navigationService.navigateToPinDropMapView();
   }
 
-  late bool serviceEnabled;
-  late LocationPermission permission;
-  // Position? currentPosition;
-  // Future<Position> getCurrentLocation() async {
-  //   try {
-  //     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //     if (!serviceEnabled) {
-  //       return Future.error('Location services are disabled.');
-  //     }
-  //     permission = await Geolocator.checkPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       permission = await Geolocator.requestPermission();
-  //       if (permission == LocationPermission.denied) {
-  //         return Future.error('Location permissions are denied');
-  //       }
-  //     }
+ 
 
-  //     currentPosition = await Geolocator.getCurrentPosition(
-  //         desiredAccuracy: LocationAccuracy.high);
-  //     log(currentPosition.toString());
-  //     rebuildUi();
-  //     return currentPosition!;
-  //   } catch (e) {
-  //     log(e.toString());
-  //     return Future.error(e.toString());
-  //   }
-  // }
-
-  // String? longitude;
-  // String? latitude;
-
-  // void onLocationChanged(Prediction prediction) {
-  //   locationController.text = prediction.description ?? "";
-  //   latitude = prediction.lat!.toString();
-  //   longitude = prediction.lng!.toString();
-  // }
-
-  // void onLocationItemClicked(Prediction prediction) {
-  //   onLocationChanged(prediction);
-  // }
 
 }

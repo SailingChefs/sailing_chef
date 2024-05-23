@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -39,10 +40,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
               ),
               SizedBox(
                 height: screenHeight <= 690.0
-
                     ? MediaQuery.sizeOf(context).height * 0.3.h
                     : MediaQuery.sizeOf(context).height * 0.27.h,
-
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length >= 5
@@ -83,17 +82,25 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-
-                                      height:  MediaQuery.sizeOf(context).height * 0.25.h - 56.h, 
-
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              50.h,
                                     )
-                                  : Image.network(
-                                      chef.displayPicture!,
+                                  : CachedNetworkImage(
+                                      imageUrl: chef.displayPicture!,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                                  0.25.h -
+                                              50.h,
                                       fit: BoxFit.cover,
-                                      width: double.infinity,
-
-                                      height:  MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
-
+                                      width: double.maxFinite,
+                                      progressIndicatorBuilder:
+                                          (context, url, progress) => Container(
+                                        decoration: const BoxDecoration(
+                                          color: kcsgreycolor,
+                                        ),
+                                      ),
                                     ),
                             ),
                             Padding(

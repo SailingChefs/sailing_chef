@@ -2,6 +2,7 @@
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -57,7 +58,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         return PrimaryGridTile(
 
                           chefId: viewModel.myRecipes[index].user!.uid!,
-                          rating: calculateAverageRating(viewModel.myRecipes[index].comment!),
+                          rating: viewModel.myRecipes[index].rating ,
 
                           recipe: viewModel.myRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
@@ -68,11 +69,10 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           dishName: viewModel.myRecipes[index].title,
                           duration: viewModel.myRecipes[index].prepTime,
                           chefImagePath:
-                              viewModel.myRecipes[index].user!.displayPicture ==
+                             userDetails!.displayPicture ==
                                       null
                                   ? ''
-                                  : viewModel
-                                      .myRecipes[index].user!.displayPicture!,
+                                  : userDetails!.displayPicture!, 
                         );
                       },
                       childCount: viewModel.myRecipes.length,
