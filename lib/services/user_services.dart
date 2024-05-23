@@ -123,6 +123,8 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
+
+
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
       DocumentSnapshot snapshot =

@@ -21,47 +21,53 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     viewModel.isBusy ? const CircularProgressIndicator() :
                     viewModel.courses.isNotEmpty
                         ?  ListViewSavedCources(courses: viewModel.courses,)
-                        : Column(
-                            children: [
-                              Text(
-                                'Allow chefs to book your courses',
-                                style: globalTextStyle(
-                                    fontSize: 14.0.dg,
-                                    color: filterIconColor,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              verticalSpaceMedium,
-                              GestureDetector(
-                                onTap: viewModel.callCourseNameBottomSheet,
-                                child: Container(
-                                  width: 165,
-                                  height: 55,
-                                  decoration: BoxDecoration(
-                                    color: kcPrimaryColor,
-                                    borderRadius: BorderRadius.circular(38),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.add_circle,
-                                        color: kcwhitecolor,
-                                        size: 26,
-                                      ),
-                                      horizontalSpaceTiny,
-                                      Text(
-                                        'Add courses',
-                                        style: globalTextStyle(
-                                            fontSize: 14,
-                                            color: kcwhitecolor),
-                                      )
-                                    ],
-                                  ),
+                        : SizedBox(
+                            height: screenHeight(context) * 0.31,
+                            width: screenWidth(context) * 0.98,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Allow chefs to book your courses',
+                                  style: globalTextStyle(
+                                      fontSize: 14.0.dg,
+                                      color: filterIconColor,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                              )
-                            ],
-                          ),
+                                verticalSpaceMedium,
+                                GestureDetector(
+                                  onTap: viewModel.callCourseNameBottomSheet,
+                                  child: Container(
+                                    width: 165,
+                                    height: 55,
+                                    decoration: BoxDecoration(
+                                      color: kcPrimaryColor,
+                                      borderRadius: BorderRadius.circular(38),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.add_circle,
+                                          color: kcwhitecolor,
+                                          size: 26,
+                                        ),
+                                        horizontalSpaceTiny,
+                                        Text(
+                                          'Add courses',
+                                          style: globalTextStyle(
+                                              fontSize: 14,
+                                              color: kcwhitecolor),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                        ),
                   ],
                 ),
               )

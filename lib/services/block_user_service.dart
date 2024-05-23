@@ -50,7 +50,7 @@ class BlockUserService with ListenableServiceMixin {
         // Remove blocked accounts from the list of blocked accounts    
 
         blockedAccounts.add(blockedAccounts.last);
-        ChefService.chefs
+        chefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));
 
         cullinaryschoolService.cullinaryscools

@@ -2,8 +2,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
-import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
-import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class RecipeListPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();

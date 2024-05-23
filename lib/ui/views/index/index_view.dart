@@ -30,9 +30,7 @@ class IndexView extends StackedView<IndexViewModel> {
               const TabBarIndexScreen(),
               verticalSpace(10),
               viewModel.ischefSelected
-                  ? viewModel.showShimmer
-                      ? const ShimmerChef()
-                      : const ChefListIndexScreen()
+                  ? const ChefListIndexScreen()
                   : viewModel.isBusy
                       ? const ShimmerChef()
                       : const CullinaryListIndexScreen(),
