@@ -29,7 +29,6 @@ dependencies:
   syncfusion_flutter_core: ^24.2.9
   dotted_border: ^2.1.0
   firebase_storage: ^11.6.11
-  audioplayers: ^6.0.0
   audio_waveforms: ^1.0.5
   map_location_picker: ^1.2.1
   geolocator: ^9.0.1

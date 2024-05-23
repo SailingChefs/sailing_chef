@@ -12,7 +12,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
-  List<RecipeModel> savedRecipes = [];
+  List<RecipeModel>savedRecipes = [];
   final RecipeService _recipeService = locator<RecipeService>();
 
   bool isInitialised = false;

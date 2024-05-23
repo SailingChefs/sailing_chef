@@ -12,7 +12,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   Widget build(BuildContext context, IndexViewModel viewModel) {
     final List<RecipeModel> dishes = viewModel.dishes;
 
-    return viewModel.showShimmer ?
+    return viewModel.isBusy ?
       const ShimmerDishes():
       viewModel.dishes.isEmpty
         ? SizedBox(
@@ -38,7 +38,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
-                      childAspectRatio: 6.7 / 9,
+                      childAspectRatio: 7.4 / 9,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
@@ -48,7 +48,6 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           rating: dishes[index].rating,
 
                           
-                          recipe: dishes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: dishes[index]
                               .coverImage
@@ -58,8 +57,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           duration: dishes[index].prepTime,
                           chefImagePath:dishes[index].user == null ? '' :
                               dishes[index].user!.displayPicture == null
+
                                   ? ''
                                   : dishes[index].user!.displayPicture!,
+
                         );
                       },
                       childCount: dishes.length >= 10 ? 10 : dishes.length,

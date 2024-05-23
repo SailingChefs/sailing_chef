@@ -11,7 +11,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class FilterViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-
+    final ChefService _chefService = locator<ChefService>();
   String selectedTabMainCourse = '';
   String selectedTabSub = '';
   String selectedTabMainDietaryNeed = '';
@@ -285,7 +285,7 @@ class FilterViewModel extends BaseViewModel {
 
     values = const SfRangeValues(0.0, 5.0);
      _navigationService.replaceWithSearchView(
-        recipeModel: RecipeService.recipes, chefList: ChefService.chefs);
+        recipeModel: RecipeService.recipes, chefList:_chefService.chefs);
     notifyListeners();
     rebuildUi();
   }
@@ -312,7 +312,7 @@ class FilterViewModel extends BaseViewModel {
     }).toList();
 
     _navigationService.replaceWithSearchView(
-        recipeModel: filteredRecipes, chefList: ChefService.chefs);
+        recipeModel: filteredRecipes, chefList: _chefService.chefs);
   }
 
   int _parsePrepTime(String prepTimeString) {

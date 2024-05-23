@@ -21,11 +21,16 @@ class RecipeModel {
   double? rating;
   List<String>? tags;
   List<CommentModel>? comment;
+  
+  double? rating;
+  double? ratingCount;
 
   RecipeModel({
     required this.visibility,
     required this.chefNote,
     this.tags,
+    this.rating,
+    this.ratingCount,
     this.docId,
     required this.coverImage,
     required this.createdTime,
@@ -49,8 +54,7 @@ class RecipeModel {
       'cover_image': coverImage,
       'tags': tags,
       'created_time': createdTime,
-      'ingredients':
-          ingredients.map((ingredient) => ingredient.toMap()).toList(),
+      'ingredients': ingredients.map((ingredient) => ingredient.toMap()).toList(),
       'methods': methods,
       'prep_time': prepTime,
       'serving_size': servingSize,
@@ -60,6 +64,8 @@ class RecipeModel {
       'uid': uid,
       'waveForm': waveForm,
       'doc_id': docId,
+      'rating': rating,
+      'ratingCount': ratingCount,
     };
   }
 
@@ -84,12 +90,18 @@ class RecipeModel {
       waveForm: List<double>.from(data['waveForm'] ?? []),
       uid: data['uid'] ?? '',
       rating: data['rating'] ?? 0.0,
+
+      ratingCount: data['ratingCount'] ?? 0.0,
+
       comment: data['comment'] != null
           ? (data['comment'] as List<dynamic>)
               .map((comment) => CommentModel.fromSnapshot(comment))
               .toList()
           : null,
       tags: List<String>.from(data['tags'] ?? []),
+      
     );
   }
+
+
 }

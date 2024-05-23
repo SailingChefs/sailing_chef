@@ -32,7 +32,7 @@ class CommentModel {
       content: data['content'] ?? '',
       userName: data['userName'] ?? '',
       userImageUrl: data['userImageUrl'] ?? '',
-      timestamp: data['created_time'] ?? Timestamp.now(),
+      timestamp: data['timestamp'] ?? Timestamp.now(),
       imageUrl: List<String>.from(data['imageUrl'] ?? []),
       rating: (data['rating'] != null)
           ? double.tryParse(data['rating'].toString()) ?? 0.0

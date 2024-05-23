@@ -23,8 +23,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   Text(
                     'Meet your Chef',
                     style: globalTextStyle(
-                      fontSize: 16.sp,
-                      letterSpacing: -0.5,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     ),
@@ -33,15 +32,18 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     onPressed: viewModel.toAllChefsView,
                     buttonText: 'View all',
                     textColor: kclightgreencolor,
-                    fontSize: 12.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
+              verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0
+
                     ? MediaQuery.sizeOf(context).height * 0.3.h
                     : MediaQuery.sizeOf(context).height * 0.27.h,
+
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length >= 5
@@ -57,6 +59,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       },
                       child: Container(
                         width: 160.w,
+                        height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
@@ -82,10 +85,12 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
+
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
                                               50.h,
+
                                     )
                                   : CachedNetworkImage(
                                       imageUrl: chef.displayPicture!,
@@ -94,6 +99,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                                   0.25.h -
                                               50.h,
                                       fit: BoxFit.cover,
+
                                       width: double.maxFinite,
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
@@ -101,17 +107,16 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                           color: kcsgreycolor,
                                         ),
                                       ),
+
                                     ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(
                                 capitalizeEachWord(chef.displayName!),
-                                style: globalTextStyle(
+                                style: TextStyle(
                                   fontSize: 14.sp,
-                                  letterSpacing: -0.5,
-                                  color: kcBlackColor,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),

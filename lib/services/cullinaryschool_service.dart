@@ -43,6 +43,20 @@ class CullinaryschoolService with ListenableServiceMixin {
   }
 
 
+  Stream<List<UserModel>> cullinaryInitt() {
+  
+  return FirebaseFirestore.instance
+      .collection('users')
+      .where(
+        'user_role',
+        isEqualTo: 'culinarySchool',
+      )
+      .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
+      .snapshots()
+      .map((querySnapshot) => querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList());
+}
+
+
   Future<void> deleteCullinaryCoursesData(
     String courseId,
   ) async {

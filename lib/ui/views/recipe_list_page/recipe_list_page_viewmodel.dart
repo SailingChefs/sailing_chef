@@ -6,7 +6,6 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 
 
-
 class RecipeListPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final RecipeService _recipeService = locator<RecipeService>();

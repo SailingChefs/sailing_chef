@@ -413,7 +413,7 @@ class AddRecipeViewModel extends BaseViewModel {
 
     int remainingMinutes = minutes % 60;
     if (remainingMinutes == 0) {
-      return '{$hours}h'; // If no remaining minutes, only display hours
+      return '${hours}h'; // If no remaining minutes, only display hours
     } else if (hours == 0) {
       return '$remainingMinutes mins'; // If less than an hour, display only minutes
     } else {

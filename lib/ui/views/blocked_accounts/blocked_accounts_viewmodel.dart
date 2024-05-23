@@ -15,6 +15,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserServices _userService = locator<UserServices>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
+    final ChefService _chefService = locator<ChefService>();
   final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
   
   final userService = locator<UserServices>();
@@ -36,10 +37,10 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
     userDetails!.blockedAccounts!.remove(user.uid);
 
     if (user.userRole == 'chef') {
-      if (ChefService.chefs.contains(user)) {
+      if (_chefService.chefs.contains(user)) {
         notifyListeners();
       }
-      ChefService.chefs.add(user);
+      _chefService.chefs.add(user);
       notifyListeners();
     }
     else if(user.userRole == 'culinarySchool'){

@@ -21,13 +21,12 @@ class RecipeService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
-
+ Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    if(isInitialized)return;
+    if (isInitialized) return;
     recipes = await fetchAllRecipes();
     
     isInitialized = true;
-
 
     notifyListeners();
   }
@@ -55,13 +54,73 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  
+   Stream<List<RecipeModel>> fetchRecipesAsStream() {
+    return firebasestore
+        .collection('recipes')
+        .where('visibility', isEqualTo: 'Public')
+        .where('status', isEqualTo: 'published')
+        .snapshots()
+        .asyncMap((snapshot) async {
+      List<RecipeModel> recipes = [];
+      for (var doc in snapshot.docs) {
+        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
+
+        if (userCache.containsKey(recipe.uid)) {
+          recipe.user = userCache[recipe.uid];
+        } else {
+          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          if (user != null) {
+            userCache[recipe.uid] = user;
+          }
+        }
+
+        QuerySnapshot commentsSnapshot =
+            await doc.reference.collection('comments').get();
+        List<CommentModel> comments = commentsSnapshot.docs
+            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+            .toList();
+        recipe.comment = comments;
+
+        recipes.add(recipe);
+      }
+      return recipes;
+    });
+  }
+
+  // Stream<QuerySnapshot> fetchRecipesAsStream() {
+  //   return firebasestore
+  //       .collection('recipes')
+  //       .where('visibility', isEqualTo: 'Public')
+  //       .where('status', isEqualTo: 'published')
+  //       .snapshots();
+    
+  // }
+
+  // Stream<List<CommentModel>> fetchCommentsAsStream(String recipeId) {
+  //   return FirebaseFirestore.instance
+  //       .collection('recipes')
+  //       .doc(recipeId)
+  //       .collection('comments')
+  //       .snapshots()
+  //       .map((snapshot) => snapshot.docs
+  //           .map((doc) => CommentModel.fromSnapshot(doc))
+  //           .toList());
+  // }
+
+  // Future<double> fetchRecipeRating(String recipeId) async {
+  //   DocumentSnapshot snapshot = await FirebaseFirestore.instance
+  //       .collection('recipes')
+  //       .doc(recipeId)
+  //       .get();
+
+  //   return snapshot.get('rating') ?? 0.0;
+  // }
 
   Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
       // Get the DocumentReference of the document
-      CollectionReference collection =
-         firebasestore.collection('recipes');
+      CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
 
       // Delete the image from the document
@@ -81,8 +140,6 @@ class RecipeService with ListenableServiceMixin {
 
       log(draftExists.toString());
       if (draftExists) {
-    
-
         DocumentReference docRef =
             firebasestore.collection('recipes').doc(recipe.docId);
 
@@ -91,9 +148,8 @@ class RecipeService with ListenableServiceMixin {
         showToast(message: 'Draft updated successfully');
       } else {
         // Add new draft
-        DocumentReference docRef = await firebasestore
-            .collection('recipes')
-            .add(recipe.toMap());
+        DocumentReference docRef =
+            await firebasestore.collection('recipes').add(recipe.toMap());
 
         String docId = docRef.id;
 
@@ -127,9 +183,8 @@ class RecipeService with ListenableServiceMixin {
 
         showToast(message: 'Recipe updated successfully');
       } else {
-        DocumentReference docRef = await firebasestore
-            .collection('recipes')
-            .add(recipe.toMap());
+        DocumentReference docRef =
+            await firebasestore.collection('recipes').add(recipe.toMap());
 
         String docId = docRef.id;
 
@@ -143,7 +198,6 @@ class RecipeService with ListenableServiceMixin {
         userDetails!.recipes!.add(docId);
         recipe.user = userDetails;
         recipes.add(recipe);
-       
 
         showToast(message: 'Recipe added successfully');
       }
@@ -155,7 +209,6 @@ class RecipeService with ListenableServiceMixin {
       return false;
     }
   }
-
 
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     try {
@@ -220,8 +273,7 @@ class RecipeService with ListenableServiceMixin {
   Future<void> deleteAudioFromDocument(String id) async {
     try {
       // Get the DocumentReference of the document
-      CollectionReference collection =
-          firebasestore.collection('recipes');
+      CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
 
       // Get the audio file reference from the document
@@ -274,7 +326,6 @@ class RecipeService with ListenableServiceMixin {
           .collection('recipes')
           .where('status', isEqualTo: 'published')
           .where('uid', isEqualTo: uid)
-          
           .get();
 
       List<RecipeModel> recipes = [];
@@ -356,16 +407,18 @@ class RecipeService with ListenableServiceMixin {
       List<RecipeModel> recipes = [];
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-      
+
         if (!userDetails!.blockedAccounts!.contains(recipe.uid)) {
           // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           // recipe.user = user;
+
           // recipes.add(recipe);
            recipes.add(recipe);
           // break;
         }
 
         // Fetch comments for the current recipe
+
         // QuerySnapshot commentsSnapshot =
         //     await doc.reference.collection('comments').limit(3).get();
         // List<CommentModel> comments = commentsSnapshot.docs
@@ -375,7 +428,7 @@ class RecipeService with ListenableServiceMixin {
         // recipe.comment = comments;
         // log(recipe.comment.toString());
         // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        // recipe.user = user;
+
 
        
       }

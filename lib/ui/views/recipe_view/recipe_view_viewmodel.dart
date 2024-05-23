@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -124,14 +122,24 @@ class RecipeViewViewModel extends BaseViewModel {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
     rebuildUi();
-    await playerController
-        .startPlayer(finishMode: FinishMode.pause)
-        .then((value) {
-      // isPlaying = false;
-      // rebuildUi();
+    playerController.onCurrentDurationChanged.listen((positionData) {
+      Duration position = Duration(milliseconds: positionData);
+      updateDuration(position);
     });
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause);
+        
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
+  }
+
+
+  void updateDuration(Duration position) async {
+    if (position > Duration.zero) {
+      formattedDuration =
+          "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
+      notifyListeners();
+    } 
   }
 
   void stopListening() async {

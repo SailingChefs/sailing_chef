@@ -7,7 +7,8 @@ import 'package:sailing_chefs/services/user_services.dart';
 
 class ChefService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
-  static List<UserModel> chefs = [];
+   List<UserModel> chefs = [];
+ List<UserModel> chefslist = [];
   bool isInitialized = false;
 
   Future<void> chefInit() async {
@@ -16,6 +17,22 @@ class ChefService with ListenableServiceMixin {
     isInitialized = true;
     notifyListeners();
   }
+
+
+  
+  
+Stream<List<UserModel>> chefInitt() {
+  
+  return FirebaseFirestore.instance
+      .collection('users')
+      .where(
+        'user_role',
+        isEqualTo: 'chef',
+      )
+      .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
+      .snapshots()
+      .map((querySnapshot) => querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList());
+}
 
   Future<List<UserModel>> fetchChefDocuments() async {
     List<UserModel> users = [];
