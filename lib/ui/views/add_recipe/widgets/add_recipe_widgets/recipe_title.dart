@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -8,6 +10,7 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
   final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
+    log('Rebulinding Recipe Title');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

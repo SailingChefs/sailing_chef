@@ -74,7 +74,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                         ? const ShimmerLoaderChefView()
                         : Column(
                             children: [
-                              verticalSpaceMedium,
+                                 verticalSpaceMedium,
                               viewModel.isMySelected
                                   ? const MyRecipesProfileScreen()
                                   : const SavedProfileScreen(),

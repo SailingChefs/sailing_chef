@@ -22,13 +22,20 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
           child: SizedBox(
             width: 390,
             height: 50,
-            child: TextField(
+            child: TextFormField(
               controller: contoll,
               style: globalTextStyle(
-                fontSize: 18,
+                fontSize: 15.sp,
+                letterSpacing: -0.5,
                 fontWeight: FontWeight.w500,
                 color: kcBlackColor.withOpacity(0.87),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a name';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: hinttext,

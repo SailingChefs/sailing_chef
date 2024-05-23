@@ -1,9 +1,7 @@
-// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -31,6 +29,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Center(
                       child: SvgPicture.asset(
                         'assets/images/icons/arrow.svg',
+                        // ignore: deprecated_member_use
                         color: kcPrimaryColor,
                       ),
                     )

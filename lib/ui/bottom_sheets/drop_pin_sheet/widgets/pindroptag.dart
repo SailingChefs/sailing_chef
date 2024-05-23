@@ -41,30 +41,28 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                       overflow: TextOverflow.ellipsis,
                       style: viewModel.selectedTabSelections.isEmpty
                           ? globalTextStyle(
-                              fontSize: 15,
+                              fontSize: 14.sp,
+                              letterSpacing: -0.5,
                               fontWeight: FontWeight.w400,
                               color: kcBlackColor.withOpacity(0.6))
                           : globalTextStyle(
-                              fontSize: 18,
+                              fontSize: 16.sp,
+                              letterSpacing: -0.5,
                               fontWeight: FontWeight.w500,
                               color: kcBlackColor.withOpacity(0.8),
                             ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: 
-                      viewModel.isTagsVisible == true
-                          ? SvgPicture.asset( 'assets/images/icons/up.svg',
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: viewModel.isTagsVisible == true
+                          ? SvgPicture.asset('assets/images/icons/up.svg',
+                              width: 10, height: 10, color: kcBlackColor)
+                          : SvgPicture.asset(
+                              'assets/images/icons/downarrow.svg',
                               width: 10,
                               height: 10,
-                              color: kcBlackColor)
-                          :SvgPicture.asset('assets/images/icons/downarrow.svg',
-                              width: 10,
-                              height: 10,
-                              color: kcBlackColor)
-                      
-                  ),
+                              color: kcBlackColor)),
                 ],
               ),
             ),

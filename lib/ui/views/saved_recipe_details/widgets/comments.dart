@@ -15,7 +15,7 @@ class CommentsDetailsScreen
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     List<CustomListTileComments> commentTiles = [];
     if (viewModel.commentsList.isNotEmpty) {
-        List<CommentModel> comments = viewModel.commentsList!;
+        List<CommentModel> comments = viewModel.commentsList;
         commentTiles = comments.map((comment) => CustomListTileComments(
           name: comment.userName,
           date: comment.timestamp,

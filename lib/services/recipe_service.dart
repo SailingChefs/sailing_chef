@@ -141,6 +141,7 @@ class RecipeService with ListenableServiceMixin {
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(docId);
+        recipe.user = userDetails;
         recipes.add(recipe);
        
 
@@ -356,11 +357,13 @@ class RecipeService with ListenableServiceMixin {
       for (var doc in snapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
       
-        // if (!userDetails!.blockedAccounts!.contains(recipe.uid)) {
-        //   UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-        //   recipe.user = user;
-        //   // recipes.add(recipe);
-        // }
+        if (!userDetails!.blockedAccounts!.contains(recipe.uid)) {
+          // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          // recipe.user = user;
+          // recipes.add(recipe);
+           recipes.add(recipe);
+          // break;
+        }
 
         // Fetch comments for the current recipe
         // QuerySnapshot commentsSnapshot =
@@ -374,7 +377,7 @@ class RecipeService with ListenableServiceMixin {
         // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
         // recipe.user = user;
 
-        recipes.add(recipe);
+       
       }
 
       return recipes;

@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
-import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
 import '../ui/common/show_toast.dart';

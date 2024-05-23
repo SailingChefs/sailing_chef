@@ -415,9 +415,9 @@ class AddRecipeViewModel extends BaseViewModel {
     if (remainingMinutes == 0) {
       return '{$hours}h'; // If no remaining minutes, only display hours
     } else if (hours == 0) {
-      return '${remainingMinutes}mins'; // If less than an hour, display only minutes
+      return '$remainingMinutes mins'; // If less than an hour, display only minutes
     } else {
-      return '${hours}h${remainingMinutes}mins'; // Otherwise, display hours and minutes
+      return '$hours h$remainingMinutes mins'; // Otherwise, display hours and minutes
     }
   }
 
@@ -598,7 +598,7 @@ class AddRecipeViewModel extends BaseViewModel {
         return;
       } else {
         if (recipeModel != null) {
-          _navigationService.navigateToRecipeViewView(
+         final shouldClear = await _navigationService.navigateToRecipeViewView(
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -622,7 +622,38 @@ class AddRecipeViewModel extends BaseViewModel {
             waveFormData: waveFormData,
             draftUrls: alreadySelectedImages,
           );
+           if (shouldClear == true) {
+            log(" Clearing");
+            recorderController.dispose();
+            playerController.dispose();
+            titleController.dispose();
+            alreadySelectedImages.clear();
+            hasRecordedAudio = false;
+            
+            formattedDuration = '';
+            selectedImages.clear();
+            ingredientsList.clear();
+            thumbnails.clear();
+            methodsList.clear();
+            selectedTimeMethod = '';
+            selectedQuantity = 1;
+            selectedValue = 'public';
+            count = 0;
+            waveFormData!.clear();
+            prepreationTime = '';
+            tagsList.clear();
+          
+            rebuildUi();
+             titleController = TextEditingController();
+            recorderController = RecorderController();
+             playerController = PlayerController();
+            _initialiseController();
+           
+            
+            rebuildUi();
+          }
         } else {
+         
           final shouldClear = await _navigationService.navigateToRecipeViewView(
             recipeModel: RecipeModel(
               visibility: selectedValue,
@@ -648,22 +679,35 @@ class AddRecipeViewModel extends BaseViewModel {
             draftUrls: alreadySelectedImages,
           );
           log("shouldClear $shouldClear");
-          if (shouldClear) {
+          if (shouldClear == true) {
+            log(" Clearing");
             recorderController.dispose();
             playerController.dispose();
-            titleController.text = '';
-            alreadySelectedImages = [];
-
-
-            selectedImages = [];
-            ingredientsList = [];
-            methodsList = [];
+            titleController.dispose();
+            alreadySelectedImages.clear();
+            hasRecordedAudio = false;
+            
+            formattedDuration = '';
+            selectedImages.clear();
+            ingredientsList.clear();
+            thumbnails.clear();
+            methodsList.clear();
             selectedTimeMethod = '';
             selectedQuantity = 1;
             selectedValue = 'public';
             count = 0;
-            path = '';
-            waveFormData = [];
+            waveFormData!.clear();
+            prepreationTime = '';
+            tagsList.clear();
+          
+            rebuildUi();
+             titleController = TextEditingController();
+            recorderController = RecorderController();
+             playerController = PlayerController();
+            _initialiseController();
+           
+            
+            rebuildUi();
           }
         }
       }

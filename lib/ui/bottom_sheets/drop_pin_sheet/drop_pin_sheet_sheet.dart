@@ -43,118 +43,151 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
         dragStartBehavior: DragStartBehavior.down,
         child: Container(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpace(20),
-              DopPinTextFields(
-                func: () {
-                  viewModel.getPfpImage();
-                },
-                hinttext: 'Name',
-                suffixIcon: SvgPicture.asset(
-                'assets/images/icons/pinimage.svg',
-                width: 30,
-                height: 30,
-                color: kcBlackColor.withOpacity(0.87)
-              ),
-                color: kcBlackColor.withOpacity(0.6),
-                contoll: viewModel.name,
-              ),
-              const Divider(),
-              TagsSelectionWidget(
-                completer: completer,
-                request: request,
-              ),
-              DopPinTextFieldLink(
-                hinttext: 'Link*',
-                suffixIcon: FlutterRemix.link_m,
-                color: kcBlackColor.withOpacity(0.4),
-                controller: viewModel.link,
-              ),
-              const Divider(),
-              TextField(
-                controller: viewModel.phone,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                    hintText: 'Contact Number*',
+          child: Form(
+            key: viewModel.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpace(20),
+                DopPinTextFields(
+                  func: () {
+                    viewModel.getPfpImage();
+                  },
+                  hinttext: 'Name',
+                  suffixIcon: SvgPicture.asset(
+                      'assets/images/icons/pinimage.svg',
+                      width: 30,
+                      height: 30,
+                      color: kcBlackColor.withOpacity(0.87)),
+                  color: kcBlackColor.withOpacity(0.6),
+                  contoll: viewModel.name,
+                ),
+                const Divider(),
+                TagsSelectionWidget(
+                  completer: completer,
+                  request: request,
+                ),
+                verticalSpace(14.h),
+                DopPinTextFieldLink(
+                  hinttext: 'Link*',
+                  suffixIcon: FlutterRemix.link_m,
+                  color: kcBlackColor.withOpacity(0.4),
+                  controller: viewModel.link,
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: viewModel.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter phone number';
+                    }
+                    if (!RegExp(r'^\d{11}$').hasMatch(value)) {
+                      return 'Enter valid phone number';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                      hintText: 'Contact Number*',
+                      hintStyle: globalTextStyle(
+                            fontSize: 14.sp,
+                      letterSpacing: -0.5,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.4),
+                      ),
+                      border: InputBorder.none),
+                ),
+                const Divider(),
+                verticalSpaceTiny,
+                TextFormField(
+                  controller: viewModel.email,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return 'Enter valid email';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Email*',
+                    border: InputBorder.none,
                     hintStyle: globalTextStyle(
-                      fontSize: 16,
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
                       fontWeight: FontWeight.w400,
                       color: kcBlackColor.withOpacity(0.4),
                     ),
-                    border: InputBorder.none),
-              ),
-              const Divider(),
-              verticalSpaceTiny,
-              TextField(
-                controller: viewModel.email,
-                decoration: InputDecoration(
-                  hintText: 'Email*',
-                  border: InputBorder.none,
-                  hintStyle: globalTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.4),
                   ),
                 ),
-              ),
-              const Divider(),
-              verticalSpaceTiny,
-              TextField(
-                controller: viewModel.description,
-                decoration: InputDecoration(
-                  hintText: 'Description',
-                  border: InputBorder.none,
-                  hintStyle: globalTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6),
+                const Divider(),
+                verticalSpaceTiny,
+                TextFormField(
+                  controller: viewModel.description,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter Description';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Description',
+                    border: InputBorder.none,
+                    hintStyle: globalTextStyle(
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
                   ),
                 ),
-              ),
-              const Divider(),
-              verticalSpaceLarge,
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.only(left:20.0,right:20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Add your Review',
-                        style: globalTextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.4),
+                const Divider(),
+                verticalSpaceLarge,
+                SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Add your Review',
+                          style: globalTextStyle(
+                            fontSize: 14.sp,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w400,
+                            color: kcBlackColor.withOpacity(0.4),
+                          ),
                         ),
-                      ),
-                      RatingBar.builder(
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        initialRating: viewModel.ratings,
-                        itemSize: 20,
-                        unratedColor: Colors.grey.shade400,
-                        
-                        itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 0.005),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: kcPrimaryColor,
-                        ),
-                        onRatingUpdate: (double value) {
-                          viewModel.setRating(value);
-                        },
-                      )
-                    ],
+                        RatingBar.builder(
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          initialRating: viewModel.ratings,
+                          itemSize: 20,
+                          unratedColor: Colors.grey.shade400,
+                          itemCount: 5,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 0.005),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: kcPrimaryColor,
+                          ),
+                          onRatingUpdate: (double value) {
+                            viewModel.setRating(value);
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              verticalSpaceLarge,
-              ButtonsPindrop(completer: completer),
-              verticalSpaceSmall,
-            ],
+                verticalSpaceLarge,
+                ButtonsPindrop(completer: completer),
+                verticalSpaceSmall,
+              ],
+            ),
           ),
         ),
       ),
@@ -163,5 +196,5 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
 
   @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
-      DropPinSheetSheetModel(location: request.data as LatLng);
+      DropPinSheetSheetModel(location: request.data as LatLng,completer);
 }

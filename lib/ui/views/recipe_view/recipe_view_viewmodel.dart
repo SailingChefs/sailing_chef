@@ -11,7 +11,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeViewViewModel extends BaseViewModel {

@@ -23,13 +23,22 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               itemBuilder: (context, index) {
                 return Center(
                   child: image[index].contains('mp4')
-                      ? CustomVideoPlayer.network(
-                          url: image[index],
-                        )
-                      : Image.network(
-                          image[index],
-                          fit: BoxFit.cover,
+                      ? SizedBox(
                           width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.44,
+                          child: CustomVideoPlayer.network(
+                            url: image[index],
+                          ),
+                        )
+                      : SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.44,
+                          child: Image.network(
+                            image[index],
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.high,
+                            width: double.infinity,
+                          ),
                         ),
                 );
               }),

@@ -4,7 +4,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/common/app_colors.dart';
 
 import 'grid_tile_model.dart';
 
@@ -89,7 +88,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RatingBarIndicator(
-                        rating: rating!,
+                        rating: rating ?? 0,
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,

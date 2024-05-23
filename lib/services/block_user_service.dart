@@ -27,7 +27,7 @@ class BlockUserService with ListenableServiceMixin {
       final DocumentSnapshot document = await usersCollection
           .doc(firebaseAuth.currentUser!.uid)
           .get();
-      userDetails = UserModel.fromSnapshot(document);
+      
 
       if (document.exists) {
         // If the document exists, update the blocked_accounts field
@@ -39,16 +39,16 @@ class BlockUserService with ListenableServiceMixin {
               { await usersCollection
             .doc(userDetails!.uid)
             .update(
-                {'followers': FieldValue.arrayUnion(blockedAccounts)});  }
+                {'followers': FieldValue.arrayRemove(blockedAccounts)});  }
 
                 if(userDetails!.following!.contains(blockedAccounts.first)){
                   await usersCollection.doc(userDetails!.uid).update({
-                    'following': FieldValue.arrayUnion(blockedAccounts),
+                    'following': FieldValue.arrayRemove(blockedAccounts),
                   });
                 }
 
         // Remove blocked accounts from the list of blocked accounts    
-
+userDetails = UserModel.fromSnapshot(document);
         blockedAccounts.add(blockedAccounts.last);
         ChefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));

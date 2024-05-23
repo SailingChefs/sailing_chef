@@ -72,13 +72,13 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                       TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                      color: kcPrimaryColor
+                                                      color: kcBlackColor
                                                           .withOpacity(0.5)),
                                                 )
                                               : Text(
                                                   'Sent an attachement',
                                                   style: TextStyle(
-                                                      color: kcPrimaryColor
+                                                      color: kcBlackColor
                                                           .withOpacity(0.5)),
                                                 ),
                                           leading: CircleAvatar(

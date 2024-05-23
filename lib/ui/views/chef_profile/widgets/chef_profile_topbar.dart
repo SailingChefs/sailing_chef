@@ -9,57 +9,62 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    return Padding(
-
-      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: viewModel.moveBack,
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 8.0.dg),
-              height: 36.h,
-              width: 36.w,
-              decoration: const BoxDecoration(
-                color: kcVeryLightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: kcBlackColor,
-                  size: 18.sp,
+    return Column(
+      children: [
+        verticalSpaceSmall,
+        Padding(
+        
+          padding: const EdgeInsets.symmetric(horizontal: 19),
+        
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: viewModel.moveBack,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(left: 8.0.dg),
+                  height: 36.h,
+                  width: 36.w,
+                  decoration: const BoxDecoration(
+                    color: kcVeryLightGrey,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: kcBlackColor,
+                      size: 18.sp,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              viewModel.showBottomSheet(uid);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 2.0.dg),
-              height: 36.h,
-              width: 36.w,
-              decoration: const BoxDecoration(
-                color: kcVeryLightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Icon(
-                  FlutterRemix.more_fill,
-                  color: kcBlackColor,
-                  size: 18.sp,
+              GestureDetector(
+                onTap: () {
+                  viewModel.showBottomSheet(uid);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(left: 2.0.dg),
+                  height: 36.h,
+                  width: 36.w,
+                  decoration: const BoxDecoration(
+                    color: kcVeryLightGrey,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      FlutterRemix.more_fill,
+                      color: kcBlackColor,
+                      size: 18.sp,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
   

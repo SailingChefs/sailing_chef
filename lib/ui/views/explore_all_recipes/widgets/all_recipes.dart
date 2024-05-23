@@ -1,4 +1,3 @@
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
@@ -38,8 +37,8 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                       .first,
                   dishName: recipes[index].title,
                   duration: recipes[index].prepTime,
-                  chefImagePath:
-                     recipes[index].user!.displayPicture!);
+                  chefImagePath:recipes[index].user!.displayPicture != null ? 
+                     recipes[index].user!.displayPicture! : '');
             },
           ),
         );
