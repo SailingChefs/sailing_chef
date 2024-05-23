@@ -41,7 +41,7 @@ class ProfileViewModel extends ReactiveViewModel {
    @override
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService, _cullinarySchoolService];
 
-    void myRecipeSelected() {
+  void myRecipeSelected() {
     isMySelected = true;
     isSavedSelected = false;
     notifyListeners();
@@ -116,14 +116,12 @@ class ProfileViewModel extends ReactiveViewModel {
 
     await Future.wait([
       _savedRecipeService.init(),
-
-
-      userDetails!.userRole == 'culinarySchool'
-          ? _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
-          : ini(),
+      _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
+      
     ]);
+    notifyListeners();
     userDetails = await usrService.getUserDetails();
-
+    notifyListeners();
     setBusy(false);
   }
 

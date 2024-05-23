@@ -19,7 +19,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     viewModel.isBusy ? const CircularProgressIndicator() :
-                    viewModel.courses.isNotEmpty
+                    userDetails!.schoolCourses!.isNotEmpty
                         ?  ListViewSavedCources(courses: viewModel.courses,)
                         : SizedBox(
                             height: screenHeight(context) * 0.31,
@@ -28,6 +28,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                
                                 Text(
                                   'Allow chefs to book your courses',
                                   style: globalTextStyle(

@@ -10,42 +10,24 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
-class IndexViewModel extends StreamViewModel<List<UserModel>> {
+class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final chefService = locator<ChefService>();
+  final _chefService = locator<ChefService>();
   final recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
-  final cullinaryService = locator<CullinaryschoolService>();
-  List<UserModel> get chefList => chefService.chefs;
-  List<UserModel> get cullinary => cullinaryService.cullinaryscools;
-
-
-  Stream<List<UserModel>> getChefs() {
-    return chefService.chefInitt();
-  }
-
-  @override
-  Stream<List<UserModel>> get stream => getChefs();
-
-    Stream<List<UserModel>> getCullinary() {
-    return cullinaryService.cullinaryInitt();
-  }
-
-  @override
-  Stream<List<UserModel>> get culllinary => getChefs();
+  final _cullinaryService = locator<CullinaryschoolService>();
+  List<UserModel> get chefList => _chefService.chefs;
+  List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
 
   List<RecipeModel> get dishes => RecipeService.recipes;
-  bool ischefSelected = true;
-  bool isculinarySelected = false;
+  bool isMySelected = true;
+  bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
-  // List<SavedRecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
-
-  // @override
-  //     bool get disposeViewModel => false;
+  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, recipeService, chefService];
+      [_savedRecipeService, recipeService, _cullinaryService, _chefService];
 
   get toViewCullinarySchool => null;
 
@@ -68,29 +50,23 @@ class IndexViewModel extends StreamViewModel<List<UserModel>> {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-  bool? isInitialised;
-  bool showShimmer = false;
-  void onViewModelReady() async {
-    if (isInitialised == null) {
-      // setBusy(true);
-      showShimmer = true;
-      chefService.chefInitt();
-      cullinaryService.cullinaryInitt();
-      await Future.wait([
-        // _cullinaryService.culinaryInit(),
-        
-        recipeService.initialized(),
-      ]);
-     
-      isInitialised = true;
-      showShimmer = false;
-      notifyListeners();
-      rebuildUi();
 
-      // setBusy(false);
-    } else if (isInitialised == true) {
-      return;
-    }
+
+
+  void onViewModelReady() async {
+    setBusy(true);
+    await Future.wait([
+      _cullinaryService.culinaryInit(),
+      _chefService.chefInit(),
+      _savedRecipeService.init(),
+      recipeService.initialized(),
+
+
+
+    ]);
+    notifyListeners();
+    rebuildUi();
+    setBusy(false);
   }
 
   void toAllChefsView() {
@@ -100,16 +76,16 @@ class IndexViewModel extends StreamViewModel<List<UserModel>> {
   }
 
   void yatchSelected() {
-    ischefSelected = true;
-    isculinarySelected = false;
+    isMySelected = true;
+    isSavedSelected = false;
     notifyListeners();
     rebuildUi();
   }
 
   void savedSelected() async {
-    isculinarySelected = true;
+    isSavedSelected = true;
 
-    ischefSelected = false;
+    isMySelected = false;
     notifyListeners();
     rebuildUi();
   }
@@ -130,15 +106,18 @@ class IndexViewModel extends StreamViewModel<List<UserModel>> {
     }
   }
 
-  void toDishDetailsScreen(RecipeModel recipe) {
+  void toDishDetailsScreen(index) {
+
     _navigationService.navigateWithTransition(
-      SavedRecipeDetailsView(
-          recipeModel: recipe,
-          randomRecipeList:
-              IndexViewModel.getRandomDishes(recipe, dishes)),
+      SavedRecipeDetailsView(recipeModel:  dishes[index],
+        randomRecipeList: IndexViewModel.getRandomDishes( dishes[index], dishes)),
+     
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
+    
+     
+      
     );
     // _navigationService.navigateToSavedRecipeDetailsView(
     //   recipeModel: dishes[index],

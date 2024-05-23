@@ -1,5 +1,5 @@
-
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -11,23 +11,24 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    return StreamBuilder<List<RecipeModel>>(
-      stream: viewModel.recipeService.fetchRecipesAsStream(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
+    final List<RecipeModel> dishes = viewModel.dishes;
 
-        if (!snapshot.hasData) {
-          return const ShimmerDishes();
-        }
-
-        List<RecipeModel> recipes = snapshot.data!;
-
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
+    return viewModel.isBusy ?
+      const ShimmerDishes():
+      viewModel.dishes.isEmpty
+        ? SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Center(
+              child: Text(
+                'No Dishes Found',
+                style: globalTextStyle(fontSize: 18.sp, color: kcPrimaryColor),
+              ),
+            ),
+        )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
                 axisDirection: AxisDirection.down,
@@ -38,35 +39,35 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
-                      childAspectRatio: 6.7 / 9,
+                      childAspectRatio: 7.4 / 9,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-                          chefId: recipes[index].uid,
-                          rating: recipes[index].rating,
-                          recipe: recipes[index],
-                          onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
-                          foodImagePath: recipes[index]
+
+                          chefId: dishes[index].user!.uid!,
+                          rating: calculateAverageRating(dishes[index].comment!),
+
+                          
+                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          foodImagePath: dishes[index]
                               .coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
-                          dishName: recipes[index].title,
-                          duration: recipes[index].prepTime,
-                          chefImagePath: recipes[index].user != null
-                              ? recipes[index].user!.displayPicture ?? ''
-                              : '',
+                          dishName: dishes[index].title,
+                          duration: dishes[index].prepTime,
+                          chefImagePath:
+                              dishes[index].user!.displayPicture == null
+                                  ? 'assets/images/misc/blank_image.png'
+                                  : dishes[index].user!.displayPicture!, recipe: dishes[index],
                         );
                       },
-                      childCount: recipes.length,
+                      childCount: dishes.length >= 10 ? 10 : dishes.length,
                     ),
                   ),
                 ],
               );
-            },
-          ),
-        );
-      },
-    );
+            }),
+          );
   }
 }

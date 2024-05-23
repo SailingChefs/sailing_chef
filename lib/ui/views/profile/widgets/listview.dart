@@ -5,17 +5,16 @@ import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
   final List<Course> courses;
   const ListViewSavedCources({super.key, required this.courses});
-  List<Widget> createCourseWidgets( ProfileViewModel viewModel) {
+  List<Widget> createCourseWidgets(ProfileViewModel viewModel) {
     return [
-      for (var course in courses)
+      for (var course in viewModel.courses)
         Card(
-          
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           color: kcbackgroundCourses,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -45,8 +44,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    viewModel.callCourseNameBottomSheett(
-                        course);
+                    viewModel.callCourseNameBottomSheett(course);
                   },
                   child: Container(
                     height: 40,
@@ -74,25 +72,11 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-
     return Column(
       children: [
-        viewModel.courses.isEmpty
-            ? Column(
-                children: [
-                  Text(
-                    'Allow chefs to book your courses',
-                    style: globalTextStyle(
-                        fontSize: 14.0.dg,
-                        color: filterIconColor,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  verticalSpaceMedium,
-                ],
-              )
-            : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                ...createCourseWidgets(viewModel),
-              ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          ...createCourseWidgets(viewModel),
+        ]),
         // : SizedBox(
         //     height: screenHeight(context) * 0.319,
         //     width: screenWidth(context) * 0.98,
@@ -104,35 +88,86 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
         //       },
         //     ),
         //   ),
-        verticalSpaceMedium,
-        GestureDetector(
-          onTap: () {
-            viewModel.callCourseNameBottomSheet();
-          },
-          child: Container(
-            width: 165,
-            height: 55,
-            decoration: BoxDecoration(
-              color: kcPrimaryColor,
-              borderRadius: BorderRadius.circular(38),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.add_circle,
-                  color: kcwhitecolor,
-                  size: 26,
+        viewModel.courses.isNotEmpty
+            ? Column(
+                children: [
+                  verticalSpaceMedium,
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.callCourseNameBottomSheet();
+                    },
+                    child: Container(
+                      width: 165,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: kcPrimaryColor,
+                        borderRadius: BorderRadius.circular(38),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.add_circle,
+                            color: kcwhitecolor,
+                            size: 26,
+                          ),
+                          horizontalSpaceTiny,
+                          Text(
+                            'Add courses',
+                            style: globalTextStyle(
+                                fontSize: 14, color: kcwhitecolor),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : SizedBox(
+                height: screenHeight(context) * 0.31,
+                width: screenWidth(context) * 0.98,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Allow chefs to book your courses',
+                      style: globalTextStyle(
+                          fontSize: 14.0.dg,
+                          color: filterIconColor,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    verticalSpaceMedium,
+                    GestureDetector(
+                      onTap: viewModel.callCourseNameBottomSheet,
+                      child: Container(
+                        width: 165,
+                        height: 55,
+                        decoration: BoxDecoration(
+                          color: kcPrimaryColor,
+                          borderRadius: BorderRadius.circular(38),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.add_circle,
+                              color: kcwhitecolor,
+                              size: 26,
+                            ),
+                            horizontalSpaceTiny,
+                            Text(
+                              'Add courses',
+                              style: globalTextStyle(
+                                  fontSize: 14, color: kcwhitecolor),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                horizontalSpaceTiny,
-                Text(
-                  'Add courses',
-                  style: globalTextStyle(fontSize: 14, color: kcwhitecolor),
-                )
-              ],
-            ),
-          ),
-        )
+              ),
       ],
     );
   }
