@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,7 +12,7 @@ class StartupViewModel extends BaseViewModel {
   bool isFirstTime = false;
   final _navigationService = locator<NavigationService>();
   final _userService = locator<UserServices>();
-
+  final IndexViewModel viewmodel = IndexViewModel();
   Future<bool> checkFirstTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFirstTime = prefs.getBool('first_time') ?? true;
@@ -38,16 +37,12 @@ class StartupViewModel extends BaseViewModel {
         } else {
           userDetails = await _userService.getUserDetails();
           if (userDetails!.userRole == 'guest') {
-            // if (userDetails!.bio!.isNotEmpty) {
+            viewmodel.initialised;
             _navigationService.replaceWithBottomBarGuestView();
-            // }
-            // _navigationService.replaceWithUserDetailsView();
           } else {
-            // if (userDetails!.bio!.isNotEmpty) {
-            log('bio: ${userDetails!.bio!}');
+            viewmodel.initialised;
+            // _navigationService.replaceWithUserDetailsView(userRole: userDetails!.userRole!);
             _navigationService.replaceWithBottomNavBarView();
-            // }
-            // _navigationService.replaceWithUserDetailsView();
           }
 
           //

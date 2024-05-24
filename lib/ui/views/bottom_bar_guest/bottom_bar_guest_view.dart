@@ -1,5 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
@@ -23,60 +25,36 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
         resizeToAvoidBottomInset: false,
         body: getViewForIndex(viewModel.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: kcWhiteColor,
-          selectedItemColor: kcPrimaryColor,
-          unselectedIconTheme: const IconThemeData(color: Colors.white),
-          selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
-          unselectedLabelStyle: const TextStyle(color: Colors.white),
-          selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: kcWhiteColor,
+        selectedItemColor: kcPrimaryColor,
+        unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
+        selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
+        unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
+        selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
           currentIndex: viewModel.currentIndex,
           onTap: viewModel.setIndex,
-          items: const [
+          items:  [
             BottomNavigationBarItem(
-              activeIcon: Icon(
-                FlutterRemix.home_fill,
-                color: kcDarkColor,
-              ),
-              label: '',
-              icon: Icon(
-                FlutterRemix.home_line,
-                color: kcMediumGrey,
-              ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                FlutterRemix.bookmark_fill,
-                color: kcDarkColor,
-              ),
-              label: '',
-              icon: Icon(
-                Icons.bookmark_border_outlined,
-                color: kcMediumGrey,
-              ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.chat_bubble_rounded,
-                color: kcDarkColor,
-              ),
-              label: '',
-              icon: Icon(
-                Icons.chat_bubble_outline_outlined,
-                color: kcMediumGrey,
-              ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                FlutterRemix.account_circle_fill,
-                color: kcDarkColor,
-              ),
-              label: '',
-              icon: Icon(
-                FlutterRemix.account_circle_line,
-                color: kcMediumGrey,
-              ),
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
+            label: '',
+            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
+          ),
+             BottomNavigationBarItem(
+            activeIcon: SvgPicture.asset('assets/images/misc/bookmark.svg',color: kcPrimaryColor,),
+            label: '',
+            icon: SvgPicture.asset('assets/images/misc/bookmark.svg',color: Colors.grey[600],),
+          ),
+           BottomNavigationBarItem(
+            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
+            label: '',
+            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
+          ),
+          BottomNavigationBarItem(
+            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
+            label: '',
+            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
+          ),
           ],
         ),
       ),

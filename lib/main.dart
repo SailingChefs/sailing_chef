@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/firebase_options.dart';
+import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -20,7 +23,7 @@ Future<void> main() async {
 
   await setupLocator();
   setupDialogUi();
-
+  await MediaCacheManager.instance.init();
   setupBottomSheetUi();
   EasyLoading.instance
     ..textStyle = globalTextStyle(fontSize: 12, color: Colors.white)
@@ -35,7 +38,11 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
-  runApp(const MainApp());
+  await locator<BitmapImageService>().initialise();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MainApp());
+  });
 }
 
 class MainApp extends StatelessWidget {
@@ -56,6 +63,8 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
+            // locale: DevicePreview.locale(context),
+            // // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(

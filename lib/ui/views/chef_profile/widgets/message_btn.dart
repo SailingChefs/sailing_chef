@@ -31,31 +31,34 @@ class MessageBtuton extends StatelessWidget {
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
               side: BorderSide(
-            color: kcPrimaryColor,
+            color: filterIconColor,
           )),
           onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                prefix,
-                color: kcwhitecolor,
-                size: 20.sp,
-              ),
-              Text(
-                buttonText,
-                style: globalTextStyle(
-                  fontSize: fontSize.sp,
-                  color: kcPrimaryColor,
-                  fontWeight: fontWeight,
+          child: FittedBox(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  prefix,
+                  color: kcwhitecolor,
+                  size: 20.sp,
                 ),
-              ),
-              Icon(
-                postfix,
-                color: kcwhitecolor,
-                size: 20.sp,
-              ),
-            ],
+                Text(
+                  buttonText,
+                  style: globalTextStyle(
+                    fontSize: fontSize.sp,
+                    color: filterIconColor,
+                    fontWeight: fontWeight,
+                  ),
+                ),
+                Icon(
+                  postfix,
+                  color: kcwhitecolor,
+                  size: 20.sp,
+                ),
+              ],
+            ),
           ),
         ),
       ),

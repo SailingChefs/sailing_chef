@@ -1,7 +1,18 @@
 import 'package:sailing_chefs/services/auth_service.dart';
+
+import 'package:sailing_chefs/services/bitmap_image_service.dart';
+import 'package:sailing_chefs/services/block_user_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+
+import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
+import 'package:sailing_chefs/services/search_service.dart';
+
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,7 +22,6 @@ import 'package:sailing_chefs/ui/views/login/login_view.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
-import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_view.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
@@ -34,9 +44,38 @@ import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
-import 'package:sailing_chefs/services/dishes_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
+import 'package:sailing_chefs/services/comment_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
+
+import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart';
+
+import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
+
+import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
+import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
+import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
+import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
+import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
+import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/pindetails/pindetails_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/rate_experience/rate_experience_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/reviews_all/reviews_all_dialog.dart';
+import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
+import 'package:sailing_chefs/ui/views/search/search_view.dart';
+import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
+import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -48,7 +87,6 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     MaterialRoute(page: UserDetailsView),
     MaterialRoute(page: BottomNavBarView),
     MaterialRoute(page: SavedRecipesView),
-    MaterialRoute(page: ChatView),
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: SettingsView),
     MaterialRoute(page: FilterView),
@@ -62,8 +100,22 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     MaterialRoute(page: BottomBarGuestView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
-    MaterialRoute(page: ChatListView),
+    MaterialRoute(page: ChatListView,),
     MaterialRoute(page: EditProfileView),
+
+    MaterialRoute(page: VideoPlayerView),
+
+    MaterialRoute(page: AllChefsView),
+
+    MaterialRoute(page: ForgetPasswordView),
+    MaterialRoute(page: BlockedAccountsView),
+    MaterialRoute(page: BecomechefView),
+    MaterialRoute(page: PrivacyPolicyView),
+    MaterialRoute(page: CulineryschoolviewallView),
+    MaterialRoute(page: ChatView),
+    MaterialRoute(page: ExploreAllRecipesView),
+    MaterialRoute(page: ViewAllDraftsView),
+    MaterialRoute(page: SearchView),
 // @stacked-route
   ],
   dependencies: [
@@ -76,8 +128,19 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     LazySingleton(classType: LocationService),
     LazySingleton(classType: ConversationService),
     LazySingleton(classType: ChefService),
-    LazySingleton(classType: DishesService),
+
     LazySingleton(classType: UserdataServiceService),
+    LazySingleton(classType: BottomNavBarViewModel),
+    LazySingleton(classType: CommentService),
+    LazySingleton(classType: SavedRecipeService),
+    LazySingleton(classType: BlockUserService),
+
+    LazySingleton(classType: BitmapImageService),
+    LazySingleton(classType: FollowService),
+    LazySingleton(classType: SearchService),
+    LazySingleton(classType: CullinaryschoolService),
+    LazySingleton(classType: PinDropService),
+
 // @stacked-service
   ],
   bottomsheets: [
@@ -85,11 +148,26 @@ import 'package:sailing_chefs/services/userdata_service_service.dart';
     StackedBottomsheet(classType: AddIngredientsSheet),
     StackedBottomsheet(classType: CookingInstructionsSheet),
     StackedBottomsheet(classType: DropPinSheetSheet),
+    StackedBottomsheet(classType: DropPinButtonsSheet),
+    StackedBottomsheet(classType: OtherChefProfileSheet),
+    StackedBottomsheet(classType: CoursesSheet),
+    StackedBottomsheet(classType: TagsSheet),
+    StackedBottomsheet(classType: DiscardSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: SaveDraftAlertboxDialog),
+    StackedDialog(classType: PindropDialogueboxDialog),
+    StackedDialog(classType: DeleteAccountDialog),
+    StackedDialog(classType: BlockAccountDialog),
+    StackedDialog(classType: CourseSavedDialog),
+    StackedDialog(classType: DeleteconfirmationDialog),
+    StackedDialog(classType: PindetailsDialog),
+    StackedDialog(classType: RateExperienceDialog),
+    StackedDialog(classType: ReviewsAllDialog),
+    StackedDialog(classType: SuccessDialog),
+    StackedDialog(classType: AddpindropshowDialog),
 // @stacked-dialog
   ],
 )

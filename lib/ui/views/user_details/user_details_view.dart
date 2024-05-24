@@ -6,7 +6,8 @@ import 'package:sailing_chefs/ui/views/user_details/widgets/top_bar.dart';
 import 'user_details_viewmodel.dart';
 
 class UserDetailsView extends StackedView<UserDetailsViewModel> {
-  const UserDetailsView({Key? key}) : super(key: key);
+  const UserDetailsView({Key? key, required this.userRole}) : super(key: key);
+  final String userRole;
 
   @override
   Widget builder(
@@ -17,7 +18,6 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          
           extendBodyBehindAppBar: true,
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Padding(
@@ -29,7 +29,9 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
                   verticalSpaceMedium,
                   const ProfilePictureUserDetailsScreen(),
                   verticalSpaceMedium,
-                  const FormUserDetailsScrenn(),
+                  viewModel.isBusy ? const CircularProgressIndicator() : FormUserDetailsScrenn(
+                    userRole: userRole,
+                  ),
                   verticalSpaceMedium,
                 ],
               ),
@@ -48,5 +50,5 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
   UserDetailsViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      UserDetailsViewModel();
+      UserDetailsViewModel(userRole);
 }

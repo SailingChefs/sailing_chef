@@ -1,4 +1,4 @@
-
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
@@ -11,38 +11,72 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      SizedBox(
-        height: 40.h,
-        width: 150.w,
+      Container(
+        padding: EdgeInsets.all(8.0.dg),
+        // width: 150.w,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             CircleAvatar(
-              backgroundImage: NetworkImage(user.displayPicture!),
+            Container(
+              height: 60.h,
+              width: 60.w,
+              decoration: BoxDecoration(
+                color: kcVeryLightGrey,
+                border: Border.all(
+                  color: kcWhiteColor,
+                  width: 3.0,
+                ),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: user.displayPicture == null
+                      ? const AssetImage('assets/images/misc/blank_image.png')
+                      : NetworkImage(user.displayPicture!) as ImageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             horizontalSpaceSmall,
-            Text(
-              user.displayName!,
-              style:  TextStyle(
-                  color: kcBlackColor,
-                  fontSize: getResponsiveFontSize(context,fontSize: 30.sp,max:40),
-                  fontWeight: FontWeight.w600),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.displayName == null ? 'Blocked User' : user.displayName!,
+                  style: globalTextStyle(
+                    letterSpacing: -0.5,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    color: kcBlackColor,
+                  ),
+                ),
+                Text(
+                  user.recipes == null
+                      ? 'No dishes '
+                      : '${user.recipes!.length} dishes',
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.5),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
-      OutlinedButton(
-        onPressed: () {
-          viewModel.moveToChefProfileView();
-        },
-        child: const Text(
-          'View',
-          style: TextStyle(
-            color: kcPrimaryColor,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      )
+      user.uid == userDetails!.uid!
+          ? const SizedBox()
+          : user.userRole == null
+              ? const SizedBox()
+              : OutlinedButton(
+                  style:
+                      OutlinedButton.styleFrom(backgroundColor: kcsgreycolor),
+                  onPressed: () => viewModel.moveToChatScreen(user),
+                  child: const Icon(
+                    FlutterRemix.chat_4_line,
+                    color: kcBlackColor,
+                  ),
+                )
     ]);
   }
 }

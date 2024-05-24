@@ -7,36 +7,60 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
-  final String labelText;
+  final String? labelText;
   final bool? readOnly;
-  final Icon? prefixIcon;
-  final Icon? postfixIcon;
+  final IconData? prefixIcon;
+  final IconData? postfixIcon;
+  final bool? suffixIcon;
+  final bool? prefixIcons;
+  final double? borderRadius;
+  final int? maxLength;
+  final int? maxLines;
+  final Color? fillColor;
+  final double? size;
+  final Widget? suffixIconData;
+    final MaxLengthEnforcement? maxLengthEnforcement;
 
   const SemiRoundedTranpaentTextField(
       {super.key,
       this.validator,
+      this.fillColor,
+      this.suffixIconData,
       this.keyboardType,
+      this.borderRadius,
       this.inputFormatters,
-      this.readOnly = false,
+      this.readOnly ,
       this.controller,
-      required this.labelText,
+      this.labelText,
       this.prefixIcon,
-      this.postfixIcon});
+      this.postfixIcon,
+      this.maxLength,
+      this.maxLines,
+      this.size,
+      this.suffixIcon,
+
+      this.prefixIcons, this.maxLengthEnforcement});
 
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
-      readOnly: readOnly!,
-      labelText: labelText,
+      // readOnly: readOnly ,
+      labelText: labelText!,
+      maxLength: maxLength,
+      maxLines: maxLines,
       prefixIconData: prefixIcon,
+      suffixIcon: suffixIconData,
       suffixIconData: postfixIcon,
       validator: validator,
+      prefixIcon: prefixIcons,
+      suffixIconbool: suffixIcon,
+      size: size,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      fillColor: Colors.grey.withOpacity(0.2),
-      borderRadius: 10.dg,
+      fillColor: kcPrimaryColor.withOpacity(0.08),
+      borderRadius: borderRadius ?? 10.dg,
       textColor: Colors.black.withOpacity(0.6),
-      controller: controller,
+      controller: controller, maxLengthEnforcement: maxLengthEnforcement,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
@@ -28,19 +29,19 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Myrecipes'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'My Recipes',
+                      'Recipes',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Myrecipes'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],
@@ -60,21 +61,31 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Saved'
-                      ? kcPrimaryColor
+                      ? filterIconColor
                       : Colors.transparent,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Saved',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: viewModel.selectedTab == 'Saved'
-                            ? kcVeryLightGrey
-                            : kcPrimaryColor,
-                      ),
-                    ),
+                    userDetails!.userRole == 'culinarySchool'
+                        ? Text(
+                            'Courses',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: viewModel.selectedTab == 'Saved'
+                                  ? kcVeryLightGrey
+                                  : kcBlackColor.withOpacity(0.6),
+                            ),
+                          )
+                        : Text(
+                            'Saved',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: viewModel.selectedTab == 'Saved'
+                                  ? kcVeryLightGrey
+                                  : kcBlackColor.withOpacity(0.6),
+                            ),
+                          ),
                   ],
                 ),
               ),

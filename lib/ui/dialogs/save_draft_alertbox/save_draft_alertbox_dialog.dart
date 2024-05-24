@@ -1,15 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'save_draft_alertbox_dialog_model.dart';
-
-// ignore: unused_element
-const double _graphicSize = 60;
 
 class SaveDraftAlertboxDialog
     extends StackedView<SaveDraftAlertboxDialogModel> {
@@ -28,77 +26,77 @@ class SaveDraftAlertboxDialog
     SaveDraftAlertboxDialogModel viewModel,
     Widget? child,
   ) {
+    final RecipeModel recipe = request!.data['model'];
+    final images = request!.data['images'];
+    final path = request!.data['path'];
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        request!.title ?? 'Do You Want to save it for later?',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      verticalSpaceTiny,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              viewModel.yesButton();
-                            },
-                            child: const Text(
-                              'Yes',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: kcDarkColor,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'No',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (request!.description != null) ...[
-                        verticalSpaceTiny,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      backgroundColor: kcWhiteColor,
+      child: SizedBox(
+        width: 338,
+        height: 125,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Text(
-                          request!.description!,
+                          request!.title ?? 'Do You Want to save it for later?',
                           style: const TextStyle(
-                            fontSize: 14,
-                            color: kcMediumGrey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
-                          maxLines: 3,
-                          softWrap: true,
+                        ),
+                        verticalSpaceTiny,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                viewModel.yesButton(recipe, images, path);
+                                completer!(DialogResponse(confirmed: true));
+                              },
+                              child: const Text(
+                                'Yes',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: kcDarkColor,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                viewModel.noButton(recipe, images, path);
+                                // completer!(DialogResponse(confirmed: true));
+                              },
+                              child: Text(
+                                'No',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,10 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/saved_guest_button.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/saved_profile_screen.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/tab_bar.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
 
@@ -18,44 +21,70 @@ class ProfileView extends StackedView<ProfileViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator(
-            color: kcWhiteColor,
-          ))
-          : Scaffold(
-              backgroundColor: kcBackgroundColor,
-              body: Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TopBarProfileScreen(),
-                    verticalSpaceMedium,
-                    const ProfileDetailsProfileScreen(),
-                    verticalSpaceSmall,
-                    const ProfileDescriptionProfileScreen(),
-                    verticalSpaceMedium,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TabBarProfileScreen(),
-                        Icon(
-                          FlutterRemix.equalizer_line,
-                          color: kcPrimaryColor,
-                          size: 30.sp,
+
+      child: Scaffold(
+        backgroundColor: kcBackgroundColor,
+        appBar: const TopBarProfileScreen(),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            left: 15.0,
+            right: 15.0,
+           top: 30
+          ),
+          child: SingleChildScrollView(
+            controller: viewModel.scrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                
+                const ProfileDetailsProfileScreen(),
+                const ProfileDescriptionProfileScreen(),
+                verticalSpace(MediaQuery.of(context).size.height * 0.04),
+                userDetails!.userRole == 'guest'
+                    ? Container()
+                    : FittedBox(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const TabBarProfileScreen(),
+                            IconButton(
+                              onPressed: viewModel.toFilterView,
+                              icon: Icon(
+                                FlutterRemix.equalizer_line,
+                                color: filterIconColor,
+                                size: 25.sp,
+                              ),
+
+                            ),
+                          ],
                         ),
-                      ],
                     ),
-                    verticalSpaceMedium,
-                    viewModel.isMySelected
-                        ? const MyRecipesProfileScreen()
-                        : const SavedProfileScreen(),
-                  ],
-                ),
-              )),
+                userDetails!.userRole == 'guest' 
+                    ? Column(
+                        children: [
+                          const SavedGuestButton(),
+                          verticalSpaceMedium,
+                          viewModel.isBusy
+                              ? const ShimmerLoaderChefView()
+                              : const SavedProfileScreen(),
+                        ],
+                      )
+                    : viewModel.isBusy
+                        ? const ShimmerLoaderChefView()
+                        : Column(
+                            children: [
+                                viewModel.myRecipes.isEmpty ? const SizedBox() : verticalSpaceMedium,
+                              viewModel.isMySelected
+                                  ? const MyRecipesProfileScreen()
+                                  : const SavedProfileScreen(),
+                            ],
+                          ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

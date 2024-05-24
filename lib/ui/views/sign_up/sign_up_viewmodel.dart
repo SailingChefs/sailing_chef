@@ -22,7 +22,9 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   TextEditingController get textController => _nameController;
+
   TextEditingController get passwordController => _passwordController;
+
   TextEditingController get emailController => _emailController;
 
   final _navigationService = locator<NavigationService>();
@@ -39,7 +41,6 @@ class SignUpViewModel extends BaseViewModel {
       return 'Please enter an email address';
     }
 
-    // Use a regular expression for basic email validation
     RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     return emailRegex.hasMatch(value)
         ? null
@@ -58,7 +59,6 @@ class SignUpViewModel extends BaseViewModel {
       return 'Please enter a password';
     }
 
-    // Password should be at least 8 characters long
     return value.length >= 8
         ? null
         : 'Password must be at least 8 characters long';
@@ -77,19 +77,18 @@ class SignUpViewModel extends BaseViewModel {
             boatName: '',
             createdTime: DateTime.now(),
             displayPicture: '',
-            dob: '',
             followers: [],
             following: [],
             link: '',
-            phoneNumber: '',
             savedRecipes: [],
+            blockedAccounts: [],
           ));
       if (userRegistered) {
-        _navigationService.replaceWithUserDetailsView();
+        _navigationService.replaceWithUserDetailsView(
+            userRole: selectedSignUpAs);
       } else {
         _navigationService.replaceWithSignUpView();
       }
-      // _navigationService.;
     } else {
       _navigationService.replaceWithSignUpView();
     }
@@ -121,7 +120,6 @@ class SignUpViewModel extends BaseViewModel {
       default:
         break;
     }
-
     rebuildUi();
   }
 }

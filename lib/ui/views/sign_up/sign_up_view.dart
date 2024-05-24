@@ -1,9 +1,8 @@
-import 'package:sailing_chefs/ui/views/sign_up/component/roleselector_compnent.dart';
-import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import 'package:sailing_chefs/ui/widgets/or_design.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/roleselector_compnent.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/sign_up_form.dart';
+import 'package:sailing_chefs/ui/views/sign_up/widget/topbar.dart';
 
 import '../../../core/imports/core_imports.dart';
-import '../../widgets/rounded_elevated_button.dart';
 import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {
@@ -20,18 +19,18 @@ class SignUpView extends StackedView<SignUpViewModel> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: Stack(children: [
-            Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/background/back_screen.png'),
-                      fit: BoxFit.fill)),
-            ),
-            Positioned.fill(
-                child: Container(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image:
+                        AssetImage('assets/images/background/back_screen.png'),
+                    fit: BoxFit.fill)),
+          ),
+          Positioned.fill(
+            child: Container(
               height: screenHeight(context),
               width: screenWidth(context),
               decoration: const BoxDecoration(
@@ -42,100 +41,38 @@ class SignUpView extends StackedView<SignUpViewModel> {
                 padding:
                     EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
                 child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/logo/SAILING CHEFS.png',
-                        width: 130.w,
-                        height: 70.h,
-                      ),
-                      RoundedElevatedButton(
-                        width: 80.w,
-                        height: 14.h,
-
-                        onPressed: () {
-                          viewModel.toLogin();
-                        },
-                        buttonText: 'Login',
-                        isEnabled: true,
-                        // other optional parameters can be provided here
-                      ),
-                    ],
-                  ),
-                  verticalSpaceMedium,
-                  verticalSpaceSmall,
-                  Text(
-                    'Let\'s Create Your Account ',
-                    style: globalTextStyle(
-                        fontSize: 20.sp, fontWeight: FontWeight.w700),
-                  ),
-                  verticalSpaceSmall,
-                  Text(
-                    'Sign up as',
-                    style: globalTextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.w400),
-                  ),
-                  verticalSpaceMedium,
-                  RoleSelector(viewModel: viewModel),
-                  verticalSpaceLarge,
-                  Form(
-                    key: viewModel.formKey,
+                  const SignUpTopBar(),
+                  verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                  SingleChildScrollView(
                     child: Column(
                       children: [
-                        RoundedTransparentTextField(
-                          controller: viewModel.textController,
-                          labelText: 'Name',
-                          validator: viewModel.validateName,
-                          keyboardType: TextInputType.name,
+                        Text(
+                          'Lets create your account',
+                          style: globalTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600),
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
-                        RoundedTransparentTextField(
-                          controller: viewModel.emailController,
-                          labelText: 'Email',
-                          validator: viewModel.validateEmail,
-                          keyboardType: TextInputType.emailAddress,
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.010),
+                        Text(
+                          'sign up as',
+                          style: globalTextStyle(
+                              fontSize: 16.sp, fontWeight: FontWeight.w400),
                         ),
-                        verticalSpaceSmall,
-                        verticalSpaceTiny,
-                        RoundedTransparentTextField(
-                          controller: viewModel.passwordController,
-                          labelText: 'Password',
-                          obscureText: !viewModel.showPassword,
-                          suffixIcon: true,
-                          isPasswordVisible: viewModel.showPassword,
-                          onVisibilityToggle: () {
-                            viewModel.passwordVisibility();
-                          },
-                          validator: viewModel.validatePassword,
-                        ),
-                        verticalSpaceMedium,
-                        verticalSpaceSmall,
-                        RoundedElevatedButton(
-                          textFontSize: 12.sp,
-                          width: 240.w,
-                          height: 40.h,
-                          borderRadius: 30,
-                          isEnabled: viewModel.isSignupButtonEnabled(),
-                          onPressed: () {
-                            viewModel.signup();
-                          },
-                          buttonText: 'Create Account',
-                          // other optional parameters can be provided here
-                        ),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.028),
+                        const RoleSelector(),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.05),
+                        const SignUpForm(),
                       ],
                     ),
                   ),
-                  verticalSpaceLarge,
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: OrDesign(),
-                  ),
                 ]),
               ),
-            )),
-          ])),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 

@@ -9,7 +9,7 @@ class TabBarSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
     return Container(
       height: screenHeight(context) * 0.05,
       decoration: BoxDecoration(
-        color: kcPrimaryColor.withOpacity(0.2),
+        color: kcPrimaryColor.withOpacity(0.07),
         borderRadius: BorderRadius.all(Radius.circular(30.dg)),
       ),
       child: Row(
@@ -27,7 +27,7 @@ class TabBarSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'All'
-                      ? kcPrimaryColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -39,7 +39,7 @@ class TabBarSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'All'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],
@@ -59,7 +59,7 @@ class TabBarSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Following'
-                      ? kcPrimaryColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -71,7 +71,7 @@ class TabBarSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         fontWeight: FontWeight.w600,
                         color: viewModel.selectedTab == 'Following'
                             ? kcVeryLightGrey
-                            : kcPrimaryColor,
+                            : kcBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ],

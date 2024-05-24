@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable
 
-
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,8 +48,21 @@ class AuthService {
     }
   }
 
-  static Future<void> signout() {
-    return firebaseAuth.signOut();
+  Future<void> signOut() async {
+    EasyLoading.show();
+    try {
+
+      await firebaseAuth.signOut();
+      
+      userDetails = null;
+
+      EasyLoading.dismiss();
+      showToast(message: 'Signed out successfully');
+    } catch (e) {
+      EasyLoading.dismiss();
+      showToast(message: 'Failed to sign out');
+      log("Error signing out: $e");
+    }
   }
 
   Future<bool> signUp({
@@ -66,7 +78,8 @@ class AuthService {
         password: password,
       );
       userModel.uid = userCredential.user!.uid;
-      userDetails?.displayName = userModel.displayName;
+      userDetails = userModel;
+      userDetails!.displayName = userModel.displayName;
       // Store user details in Firestore
       bool userStored = await UserServices.storeUserRoleAndName(
         userModel: userModel,
@@ -90,43 +103,5 @@ class AuthService {
   }
 }
 
-//   static Future<bool> register({
-//     required String email,
-//     required String password,
-//     required String name,
-//     required String role,
-//   }) async {
-//     try {
-//       EasyLoading.show();
-//       final UserCredential user = await firebaseAuth
-//           .createUserWithEmailAndPassword(email: email, password: password);
-//       bool userStored = await UserServices.storeUserRoleAndName(
-//         uid: user.user!.uid,
-//         name: name,
-//         role: role,
-//       );
 
-//       EasyLoading.dismiss();
-//       if (userStored) {
-//         showToast(message: 'Registered successfully');
-//         return true;
-//       } else {
-//         showToast(message: 'Failed to register');
-//         return false;
-//       }
-//     } on FirebaseAuthException catch (e) {
-//       log(e.code.toString());
-//       switch (e.code) {
-//         case "email-already-in-use":
-//           showToast(message: 'Email already exists');
-//         default:
-//           showToast(message: 'Failed to register');
-//           break;
-//       }
-//       return false;
-//     } catch (e) {
-//       EasyLoading.dismiss();
 
-//       return false;
-//     }
-//   }

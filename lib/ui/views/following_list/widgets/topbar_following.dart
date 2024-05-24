@@ -6,7 +6,8 @@ import '../../../widgets/back_arrow.dart';
 
 class TopBarFollowing extends ViewModelWidget<FollowingListViewModel>
     implements PreferredSizeWidget {
-  const TopBarFollowing({super.key});
+  final String name;
+  const TopBarFollowing({super.key, required this.name});
 
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
@@ -25,11 +26,13 @@ class TopBarFollowing extends ViewModelWidget<FollowingListViewModel>
             width: 300,
             child: Text(
               textAlign: TextAlign.center,
-              capitalizeEachWord('Danica Nel'),
-              style: globalTextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: kcBlackColor),
+              capitalizeEachWord(name),
+             style: globalTextStyle(
+                      fontSize: 16.0.dg,
+                      color: kcBlackColor,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w500,
+                      ),
             ),
           ),
         ],

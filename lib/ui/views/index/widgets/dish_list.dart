@@ -1,45 +1,74 @@
+import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/grid_view.dart';
+import 'package:sailing_chefs/ui/views/index/widgets/shimmer_dishes.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const DishListIndexScreen({super.key});
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-   double itemHeight =
-        7.4 / 9 * 140.h; 
-    final int itemCount = viewModel.dishes!.length;
-    double totalHeight = itemHeight * itemCount;
-    final List<RecipeModel> dishes = viewModel.dishes!;
+    final List<RecipeModel> dishes = viewModel.dishes;
 
-    return viewModel.dishes!.isEmpty ? Text(
-          'No Dish Found',
-          style: Theme.of(context).textTheme.titleMedium,
-    ) :
-    SizedBox(
-      height: totalHeight.h,
-      child: GridView.builder(
-        itemCount: dishes.length,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.h),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 15.0,
-          mainAxisSpacing: 18.0,
-          childAspectRatio: 7.4 / 9,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return PrimaryGridViewCard(
-              onTap: () => viewModel.toDishDetailsScreen(index),
-              foodImagePath: dishes[index].coverImage.first,
-              dishName: dishes[index].title,
-              duration: dishes[index].prepTime,
-              chefImagePath: dishes[index].user!.displayPicture!
-            );
-        },
-      ),
-    );
+    return viewModel.showShimmer ?
+      const ShimmerDishes():
+      viewModel.dishes.isEmpty
+        ? SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Center(
+              child: Text(
+                'No Dishes Found',
+                style: globalTextStyle(fontSize: 18.sp, color: kcPrimaryColor),
+              ),
+            ),
+        )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return ShrinkWrappingViewport(
+                offset: ViewportOffset.zero(),
+                axisDirection: AxisDirection.down,
+                slivers: [
+                  SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15.0,
+                      mainAxisSpacing: 18.0,
+                      childAspectRatio: 7.4 / 9,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return PrimaryGridTile(
+
+                          chefId: dishes[index].user == null ? '' : dishes[index].user!.uid!,
+                          rating: dishes[index].rating,
+
+                          recipe: dishes[index],
+                          onTap: () => viewModel.toDishDetailsScreen(index),
+                          foodImagePath: dishes[index]
+                              .coverImage
+                              .where((element) => element.contains('.jpg'))
+                              .first,
+                          dishName: dishes[index].title,
+                          duration: dishes[index].prepTime,
+                          chefImagePath:dishes[index].user == null ? '' :
+                              dishes[index].user!.displayPicture == null
+
+                                  ? ''
+                                  : dishes[index].user!.displayPicture!,
+
+                        );
+                      },
+                      childCount: dishes.length >= 10 ? 10 : dishes.length,
+                    ),
+                  ),
+                ],
+              );
+            }),
+          );
   }
 }

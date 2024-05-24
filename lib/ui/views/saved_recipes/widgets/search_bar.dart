@@ -13,6 +13,10 @@ class SearchBarSavedRecipesScreen
           width: MediaQuery.sizeOf(context).width * 0.75,
           height: 40.dg,
           child: TextField(
+            controller: viewModel.searchSavedController,
+            onEditingComplete: () => viewModel.rebuildUi(),
+            onSubmitted: (value) => viewModel.rebuildUi(),
+            onChanged: (value) => viewModel.rebuildUi(),
             textAlign: TextAlign.start,
             decoration: InputDecoration(
               hintStyle: TextStyle(
@@ -20,7 +24,7 @@ class SearchBarSavedRecipesScreen
                 fontSize: 12.sp,
               ),
               filled: true,
-              fillColor: kcPrimaryColor.withOpacity(0.2),
+              fillColor: kcPrimaryColor.withOpacity(0.08),
               labelStyle: TextStyle(
                   fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
               labelText: 'Search',
@@ -64,7 +68,7 @@ class SearchBarSavedRecipesScreen
         ),
         horizontalSpaceSmall,
         IconButton(
-          onPressed: () {},
+          onPressed: viewModel.toFilterScreen,
           icon: const Icon(FlutterRemix.equalizer_line),
           color: kcPrimaryColor,
           iconSize: 30.dg,

@@ -1,14 +1,12 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 
 import 'widgets/ingredients_class.dart';
 
 class AddIngredientsSheetModel extends BaseViewModel {
-
   final Function(SheetResponse response)? completer;
 
-  AddIngredientsSheetModel(this.completer) ;
+  AddIngredientsSheetModel(this.completer);
 
   final _navigationService = locator<NavigationService>();
   String selectedValue = '---';
@@ -35,12 +33,12 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void onSaved() {
-
-    if(completer != null) {
-      completer!(SheetResponse(confirmed: true,data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
+    if (completer != null) {
+      completer!(SheetResponse(
+          confirmed: true,
+          data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
     }
   }
-
 
   void addIngredientToList() {
     if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {
@@ -60,8 +58,6 @@ class AddIngredientsSheetModel extends BaseViewModel {
   void popBack() {
     _navigationService.back();
   }
-
-
 
   void addIngredients(String name, String quantity, int index) {
     ingredientsList.insert(

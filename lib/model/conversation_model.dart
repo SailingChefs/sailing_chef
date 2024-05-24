@@ -1,21 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 class ConversationModel {
-  String name;
-  List<String> imageTitle; 
-  bool isOnline;
-  String lastActive;
+  DateTime lastActive;
   String latestMessage;
-  String latestMessageTime;
+  DateTime latestMessageTime;
   String latestMessageType;
   String uid;
   List<String> users;
+  UserModel? user;
 
   ConversationModel({
-    required this.name,
-    required this.imageTitle,
-    required this.isOnline,
+    this.user,
     required this.lastActive,
     required this.latestMessage,
     required this.latestMessageTime,
@@ -23,29 +19,24 @@ class ConversationModel {
     required this.uid,
     required this.users,
   });
-
-  factory ConversationModel.fromDocument(DocumentSnapshot doc) {
+  factory ConversationModel.fromDocument(
+      DocumentSnapshot doc, UserModel? otherUser) {
     return ConversationModel(
-      name: doc['Name'],
-      imageTitle: List<String>.from(doc['imageTitle']),
-      isOnline: doc['isOnline'],
-      lastActive: doc['lastActive'],
-      latestMessage: doc['latestMessage'],
-      latestMessageTime: doc['latestMessageTime'],
-      latestMessageType: doc['latestMessageType'],
+      lastActive: (doc.get('lastActive') as Timestamp).toDate(),
+      latestMessage: doc.get('latestMessage'),
+      latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
+      latestMessageType: doc.get('latestMessageType'),
       uid: doc.id,
-      users: List<String>.from(doc['users']),
+      users: List<String>.from(doc.get('users')),
+      user: otherUser,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Name': name,
-      'imageTitle': List<dynamic>.from(imageTitle),
-      'isOnline': isOnline,
       'lastActive': lastActive,
       'latestMessage': latestMessage,
-      'latestMessageTime': DateFormat.jm().format(latestMessageTime as DateTime).toString(),
+      'latestMessageTime': latestMessageTime,
       'latestMessageType': latestMessageType,
       'uid': uid,
       'users': List<dynamic>.from(users),

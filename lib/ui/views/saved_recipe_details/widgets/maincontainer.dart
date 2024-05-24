@@ -1,148 +1,97 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/chefnotes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/leave_comment_bottom.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tab_bars_recipe.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
+import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const MainRecipeViewContainer({Key? key, required this.recipeModel})
+  final List<RecipeModel> recipeList;
+  const MainRecipeViewContainer(
+      {Key? key, required this.recipeModel, required this.recipeList})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 250.h),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: kcwhitecolor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35.r),
-                    topRight: Radius.circular(35.r),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.44,
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.56,
+          decoration: const BoxDecoration(
+            color: kcwhitecolor,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    capitalizeEachWord(recipeModel.title),
+                    style: globalTextStyle(
+                      letterSpacing: -0.5,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kcBlackColor,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      verticalSpaceMedium,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            capitalizeEachWord(recipeModel.title),
-                            style: globalTextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: kcBlackColor,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                FlutterRemix.time_line,
-                                size: 12,
-                                color: kcBlackColor.withOpacity(0.5),
-                              ),
-                              horizontalSpaceTiny,
-                              Text(
-                                recipeModel.prepTime,
-                                style: const TextStyle(
-                                  fontSize: 10.0,
-                                  color: kcBlackColor,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      // Padding(
-                      //   padding:
-                      //       const EdgeInsets.only(left: 10.0, right: 10, top: 2),
-                      //   child: Text(
-                      //     'This Healthy Taco Salad is the universal delight of taco night',
-                      //     style: globalTextStyle(
-                      //       fontSize: 16,
-                      //       fontWeight: FontWeight.w300,
-                      //       color: kcBlackColor,
-                      //     ),
-                      //   ),
-                      // ),
-                      verticalSpaceMedium,
-
-                      ViewProfileRow(
-                        user: recipeModel.user!,
-                      ),
-                      verticalSpaceMedium,
-                      const TabBarWidgets(),
-                      verticalSpaceTiny,
-                      viewModel.isIngredientsSelected
-                          ? IngredientsClass(
-                              recipeModel: recipeModel,
-                            )
-                          : Methods(
-                              recipe: recipeModel,
-                            ),
-                      verticalSpaceSmall,
-                      verticalSpaceMedium,
-                      const Text("Chef Notes",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500)),
-                      verticalSpaceMedium,
-                      Container(
-                        height: 48,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: kcMediumGrey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Row(
+                  verticalSpace(12),
+                  TimeAndServingRecipeShow(recipeModel: recipeModel),
+                  verticalSpace(24.h),
+                  IngredientsClass(
+                    recipeModel: recipeModel,
+                  ),
+                  verticalSpace(12),
+                  Methods(
+                    recipe: recipeModel,
+                  ),
+                  recipeModel.tags!.isEmpty
+                      ? Container()
+                      : Column(
                           children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                shape: const CircleBorder(),
-                                backgroundColor: kcPrimaryColor,
-                              ),
-                              onPressed: () {},
-                              child: const Icon(
-                                Icons.play_arrow,
-                                color: kcwhitecolor,
-                              ),
-                            ),
-                            horizontalSpaceTiny,
-                            const Icon(Icons.multitrack_audio, opticalSize: 25),
-                            const Spacer(),
-                            const Text("0:05",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400)),
-                            horizontalSpaceTiny,
-                            Icon(Icons.volume_up,
-                                size: 24, color: Colors.black.withOpacity(0.5)),
-                            horizontalSpaceSmall,
+                            TipsNotesRecipeDetails(viewModel: recipeModel),
+                            verticalSpace(12),
                           ],
                         ),
-                      ),
-                      const CommentsDetailsScreen(),
-                      const LeaveComment(),
-                      horizontalSpaceSmall,
-                    ],
+                  const ChefNotesRecipeDetails(),
+                  verticalSpace(24.h),
+                  SemiRoundedTranpaentTextField(
+                    borderRadius: 24.dg,
+                    labelText: 'Add your own personal note...',
+                    inputFormatters: [LengthLimitingTextInputFormatter(200)],
+                    maxLines: 5,
+                    suffixIcon: false,
+                    controller: viewModel.notesController,
+
+                    fillColor: kcPrimaryColorDark.withOpacity(0.2),
                   ),
-                ),
+                  verticalSpace(24.h),
+                  ViewProfileRow(
+                    user: recipeModel.user!,
+                  ),
+                  CommentsDetailsScreen(recipeModel: recipeModel),
+                  verticalSpace(12),
+                  BottomSlider(
+                    recipeList: recipeList,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ],

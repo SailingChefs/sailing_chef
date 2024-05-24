@@ -1,5 +1,5 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/gesturedector_edit.dart';
 
@@ -8,10 +8,10 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
 
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
-    
     return Stack(
       children: [
-        UserdataServiceService.user.displayPicture == null
+        userDetails!.displayPicture == null &&
+                viewModel.selectedImageFile == null
             ? Container(
                 height: MediaQuery.sizeOf(context).height * 0.12,
                 decoration: const BoxDecoration(
@@ -31,9 +31,10 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                 ),
                 child: Center(
                   child: Container(
-                      height: MediaQuery.sizeOf(context).height * 0.11,
-                      width: MediaQuery.sizeOf(context).height * 0.11,
+                      height: MediaQuery.sizeOf(context).height * 0.10,
+                      width: MediaQuery.sizeOf(context).height * 0.10,
                       decoration: BoxDecoration(
+                        color: kcWhiteColor,
                         shape: BoxShape.circle,
                         border: Border.all(color: kcWhiteColor, width: 4.0.w),
                         gradient: const LinearGradient(
@@ -58,12 +59,16 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
             : Stack(
                 children: [
                   CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(
-                        UserdataServiceService
-                          .user.displayPicture!
-                          .toString())),
-                  const GestureDetectorEdit(75, 75),
+                    radius: 48,
+                    backgroundColor: kcWhiteColor,
+                    backgroundImage: viewModel.selectedImageFile != null
+                        ? FileImage(viewModel.selectedImageFile!)
+                            as ImageProvider<Object>?
+                        : NetworkImage(
+                            userDetails!.displayPicture!
+                            .toString()),
+                  ),
+                  const GestureDetectorEdit(68,68),
                 ],
               ),
         const GestureDetectorEdit(220, 70),

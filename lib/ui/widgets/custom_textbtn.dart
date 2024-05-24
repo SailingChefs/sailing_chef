@@ -11,7 +11,7 @@ class CustomTextButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.buttonText,
-    this.fontSize = 12,
+    this.fontSize = 14,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.w600,
   }) : super(key: key);

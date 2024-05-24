@@ -1,115 +1,75 @@
 
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
-class Methods extends StatelessWidget {
-  final RecipeModel recipeModel;
-  const Methods({super.key, required this.recipeModel});
+class Methods extends ViewModelWidget<RecipeViewViewModel> {
+  final RecipeModel recipe;
 
-  @override
-  Widget build(BuildContext context) {
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Instructions",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-
-            height: recipeModel.methods.length * 100.h,
-            child: ListView.builder(
-              itemCount: recipeModel.methods.length,
-              //physics: const,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
-                  child: Row(
-
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: CircleAvatar(
-                          minRadius: double.minPositive + 13,
-                          backgroundColor: Colors.blueGrey,
-                          child: Text(
-                            '${index + 1}',
-                            style: const TextStyle(color: kcwhitecolor, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          width: 300.w,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              recipeModel.methods[index],
-                              style: globalTextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor.withOpacity(0.5)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          verticalSpaceMedium,
-          const Text("Chef Notes",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-          verticalSpaceMedium,
-          Container(
-            height: 48,
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: kcMediumGrey.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Row(
+  const Methods({super.key, required this.recipe});
+  List<Widget> createIngredientWidgets() {
+    return [
+      for (int i = 0; i < recipe.methods.length; i++)
+        Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    shape: const CircleBorder(),
-                    backgroundColor: kcPrimaryColor,
+                Container(
+                  height: 25,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2E3E5C),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: kcwhitecolor,
+                  child: Center(
+                    child: Text(
+                      '${i + 1}',
+                      style: globalTextStyle(color: kcwhitecolor, fontSize: 12),
+                    ),
                   ),
                 ),
-                horizontalSpaceTiny,
-                const Icon(Icons.multitrack_audio, opticalSize: 25),
-                const Spacer(),
-                const Text("0:05",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                horizontalSpaceTiny,
-                Icon(Icons.volume_up,
-                    size: 24, color: Colors.black.withOpacity(0.5)),
                 horizontalSpaceSmall,
+                Flexible(
+                  child: Text(
+                    capitalizeEachWord(recipe.methods[i]),
+                    textAlign: TextAlign.start,
+                    style: globalTextStyle(
+                      letterSpacing: -0.1,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
+                ),
               ],
             ),
+            verticalSpaceMedium,
+            // verticalSpaceSmall,
+          ],
+        ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context, RecipeViewViewModel viewModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+         Text(
+          "Method",
+          style: globalTextStyle(
+            fontSize: 15.0.sp,
+            fontWeight: FontWeight.w700,
+            color: kcBlackColor,
           ),
-          verticalSpaceLarge,
-          // Save_Recipe_Button(
-          //   onPressed: () {},
-          //   buttonText: 'Submit Recipe',
-          // ),
-          // horizontalSpaceSmall,
-        ],
-      ),
+        ),
+        verticalSpaceMedium,
+        ...createIngredientWidgets(),
+      
+      ],
     );
   }
 }

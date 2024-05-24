@@ -1,11 +1,17 @@
+import 'dart:developer';
+
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 
 class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
-  const SettingsListSettingsScreen({super.key});
+  const SettingsListSettingsScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
+    log(userDetails!.userRole!);
     return Column(
       children: [
         verticalSpaceMedium,
@@ -17,139 +23,177 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           title: Text(
             'Edit Profile',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
+        userDetails!.userRole == 'guest'
+            ? Column(
+                children: [
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.getBecomeChef,
+                    title: Text(
+                      'Become a Chef',
+                      style: globalTextStyle(
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 14.dg,
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.getAllDrafts,
+                    title: Text(
+                      'View all drafts',
+                      style: globalTextStyle(
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 14.dg,
+                    ),
+                  ),
+                ],
+              ),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
+          onTap: viewModel.getTerms,
           title: Text(
-            'Become a Chef',
+            'Terms & Policies',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
-        ListTile(
-          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
-          title: Text(
-            'Terms & Conditions',
-            style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
-          ),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
         ),
-        const Divider(),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
+          onTap: viewModel.getBlockAcc,
           title: Text(
             'Blocked Accounts',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {},
           title: Text(
             'Send Feedback',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
+          onTap: viewModel.deleteAccount,
           title: Text(
             'Delete Account',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {
-            viewModel.signoutUser();
-          },
+          onTap: viewModel.signOutUser,
           title: Text(
-            'Logout',
+            'Sign Out',
             style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                fontWeight: FontWeight.w400),
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios,
-            color: kcBlackColor,
-            size: 14,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
           ),
         ),
-        const Divider(),
-        // ListTile(
-        //   contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-        //   onTap: () {
-        //     viewModel.getToMap();
-        //   },
-        //   title: Text(
-        //     'Show Map',
-        //     style: globalTextStyle(
-        //         fontSize: 16.0.dg,
-        //         color: kcBlackColor,
-        //         fontWeight: FontWeight.w400),
-        //   ),
-        //   trailing: const Icon(
-        //     Icons.arrow_forward_ios,
-        //     color: kcBlackColor,
-        //     size: 14,
-        //   ),
-        // ),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
       ],
     );
   }

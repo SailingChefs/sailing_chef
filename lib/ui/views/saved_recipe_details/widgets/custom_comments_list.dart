@@ -1,122 +1,249 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class CustomListTileComments extends StatelessWidget {
   final String name;
-  final String date;
+  final Timestamp date;
   final String description;
   final String image;
+  final List<String> ratingImages;
+  final double rating;
 
   const CustomListTileComments({
     super.key,
     required this.name,
+    required this.rating,
     required this.date,
+    required this.ratingImages,
     required this.description,
     required this.image,
   });
+  void openImagePreview(BuildContext context, int initialIndex) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: PhotoViewGallery.builder(
+          itemCount: ratingImages.length,
+          builder: (context, index) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: NetworkImage(ratingImages[index]),
+              minScale: PhotoViewComputedScale.contained * 0.6,
+              maxScale: PhotoViewComputedScale.covered * 2,
+            );
+          },
+          pageController: PageController(initialPage: initialIndex),
+          scrollPhysics: const BouncingScrollPhysics(),
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          gaplessPlayback: false,
+          loadingBuilder: (context, progress) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          SizedBox(
-            width: 350,
-            height: 270,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext contex, int index) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: 120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(image),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    name,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    date,
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(5),
-                                      width: 250,
-                                      child: Text(
-                                        description,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black.withOpacity(0.5),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
-                    ],
-                  );
-                },
-                itemCount: 2),
+    String formattedDate = DateFormat('dd-MM-yyyy').format(date.toDate());
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(image),
           ),
-          verticalSpaceMedium,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Text(
+            name,
+            style: globalTextStyle(
+              color: Colors.black,
+              fontSize: 16.sp,
+              letterSpacing: -0.5,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Tap to Rate:',
+                formattedDate,
                 style: globalTextStyle(
-                  fontSize: 15,
-                  color: kcBlackColor,
+                  color: Colors.grey,
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              RatingBarIndicator(
-                rating: 0,
-                itemBuilder: (context, index) => Icon(
-                  Icons.star,
-                  color: Colors.grey.withOpacity(0.5),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6.w,
+                child: Text(
+                  description,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: globalTextStyle(
+                    letterSpacing: -0.1,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
                 ),
-                itemCount: 5,
-                itemSize: 20,
-                unratedColor: Colors.grey[400],
-                direction: Axis.horizontal,
               ),
+              verticalSpaceSmall,
+              ratingImages.isNotEmpty
+                  ? SizedBox(
+                      height: 100.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: ratingImages.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => openImagePreview(context, index),
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    ratingImages[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : const SizedBox(),
             ],
-          )
-        ],
-      ),
+          ),
+          trailing: RatingBarIndicator(
+            rating: rating,
+            itemBuilder: (context, index) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            itemCount: 5,
+            itemSize: 20.0,
+          ),
+        ),
+        Divider(
+          color: Colors.grey.withOpacity(0.2),
+          height: 0,
+        ),
+      ],
     );
+
+    // return Column(
+    //   children: [
+    //     verticalSpaceSmall,
+    //     IntrinsicHeight(
+    //       child: SizedBox(
+    //         width: MediaQuery.of(context).size.width,
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             CircleAvatar(
+    //               backgroundImage: NetworkImage(image),
+    //             ),
+
+    //             Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                   children: [
+    //                     Text(
+    //                       name,
+    //                       style: globalTextStyle(
+    //                         color: Colors.black,
+    //                         fontSize: 16.sp,
+    //                         letterSpacing: -0.5,
+    //                         fontWeight: FontWeight.w500,
+    //                       ),
+    //                     ),
+    //                     RatingBarIndicator(
+    //                       rating: rating,
+    //                       itemBuilder: (context, index) => const Icon(
+    //                         Icons.star,
+    //                         color: Colors.amber,
+    //                       ),
+    //                       itemCount: 5,
+    //                       itemSize: 20.0,
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 Text(
+    //                   formattedDate,
+    //                   style: globalTextStyle(
+    //                     color: Colors.grey,
+    //                     fontSize: 11.sp,
+    //                     fontWeight: FontWeight.w500,
+    //                   ),
+    //                 ),
+    //                 SizedBox(
+    //                   width: MediaQuery.of(context).size.width * 0.6.w,
+    //                   child: Text(
+    //                     description,
+    //                     maxLines: 3,
+    //                     overflow: TextOverflow.ellipsis,
+    //                     style: globalTextStyle(
+    //                       letterSpacing: -0.1,
+    //                       fontSize: 13.sp,
+    //                       fontWeight: FontWeight.w500,
+    //                       color: kcBlackColor.withOpacity(0.6),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //     verticalSpaceSmall,
+    //     ratingImages.isNotEmpty
+    //         ? SizedBox(
+    //             height: 100.h,
+    //             child: Expanded(
+    //               child: ListView.builder(
+    //                 scrollDirection: Axis.horizontal,
+    //                 itemCount: ratingImages.length,
+    //                 itemBuilder: (context, index) {
+    //                   return GestureDetector(
+    //                     onTap: () => openImagePreview(context, index),
+    //                     child: SizedBox(
+    //                       width: 100.w,
+    //                       height: 100.h,
+    //                       child: Padding(
+    //                         padding: const EdgeInsets.all(8.0),
+    //                         child: ClipRRect(
+    //                           borderRadius: BorderRadius.circular(10),
+    //                           child: Image.network(
+    //                             ratingImages[index],
+    //                             fit: BoxFit.cover,
+    //                           ),
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   );
+    //                 },
+    //               ),
+    //             ),
+    //           )
+    //         : const SizedBox(),
+    //     Divider(
+    //       color: Colors.grey.withOpacity(0.2),
+    //     ),
+    //   ],
+    // );
   }
 }

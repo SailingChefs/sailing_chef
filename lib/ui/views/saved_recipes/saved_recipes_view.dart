@@ -1,14 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_following_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_saved_recipes.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/tab_bar.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/widgets/top_bar.dart';
 
 import 'saved_recipes_viewmodel.dart';
 
 class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
-  const SavedRecipesView({Key? key}) : super(key: key);
+  const SavedRecipesView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget builder(
@@ -17,32 +17,53 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: Column(
-                children: [
-                  const TopBarSavedRecipesScreen(),
-                  verticalSpaceLarge,
-                  const TabBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  const SearchBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  viewModel.isAllSelected
-                      ? const AllSavedRecipesScreen()
-                      : const FollowingSavedRecipesScreen(),
-                ],
-              ),
-            )),
-      ),
+      child: viewModel.isBusy
+          ? const Center(child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+          ))
+          : GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  backgroundColor: kcWhiteColor,
+                  appBar: AppBar(
+                    backgroundColor: kcWhiteColor,
+                    elevation: 0,
+                    title: Text('Saved Recipes',
+                        style: globalTextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor)),
+                    centerTitle: true,
+                    
+                  ),
+
+                  body: SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                      left: 15.0,
+                      right: 15.0,
+                    ),
+                    child: Column(
+                      children: [
+                         verticalSpaceMedium,
+                        const TabBarSavedRecipesScreen(),
+                        verticalSpaceMedium,
+                        // const SearchBarSavedRecipesScreen(),
+                        
+                        viewModel.isAllSelected
+                            ? const AllSavedRecipesScreen()
+                            : const FollowingSavedRecipesScreen(),
+                      ],
+                    ),
+                  )),
+            ),
     );
+  }
+
+  @override
+  void onViewModelReady(SavedRecipesViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

@@ -16,22 +16,23 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
     EditProfileViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              verticalSpaceMedium,
-              const TopBarEditProfile('Edit Profile'),
-              verticalSpaceLarge,
-              const EditProfileImage(),
-              verticalSpaceSmall,
-              const EditProfileForm(),
-              verticalSpaceMedium,
-              
-            ],
-          ),
-        ));
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          appBar: const TopBarEditProfile('Edit Profile'),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                
+                verticalSpaceMedium,
+                const EditProfileImage(),
+                verticalSpaceSmall,
+                 EditProfileForm(key: ValueKey(viewModel.countryValue),),
+                verticalSpaceMedium,
+              ],
+            ),
+          )),
+    );
   }
 
   @override

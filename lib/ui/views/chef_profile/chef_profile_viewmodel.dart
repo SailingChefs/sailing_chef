@@ -1,31 +1,48 @@
-
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:intl/intl.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
-import 'package:sailing_chefs/model/dish_model.dart';
+import 'package:sailing_chefs/model/cullinary_cources.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
-import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
 
-class ChefProfileViewModel extends BaseViewModel {
+class ChefProfileViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
+  final _cullinarySchoolService = locator<CullinaryschoolService>();
+  final _recipeService = locator<RecipeService>();
+  final _savedRecipeService = locator<SavedRecipeService>();
+  final FollowService _followService = locator<FollowService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
   bool isSavedSelected = false;
-  List<Placemark>? placemarks;
-  
-  List<DishModel> dishes=[
-    DishModel(
-         dishId: '1', dishName: 'Healthy Taco Salad', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '20', dishChefImage:'assets/images/icons/dp.jpg',),
-    DishModel(
-         dishId: '2', dishName: 'Healthy Sandwich', dishImagePath: 'assets/images/icons/chef.jpg', dishPreparationTime: '30', dishChefImage:'assets/images/icons/dp.jpg',),
-  ];
+
+  List<RecipeModel> chefRecipes =[];
+
+  List<String> get followers => _followService.followers;
+  final ScrollController scrollController = ScrollController();
+
+  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<SavedRecipeModel>? userSavedRecipe;
+  List<Course> get courses => _cullinarySchoolService.courses;
+  bool isFollowing = false;
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_followService,_cullinarySchoolService,_savedRecipeService,];
+  List<RecipeModel>? myRecipes;
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -40,49 +57,86 @@ class ChefProfileViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
+  chefRecipesList(UserModel user){
+    if(RecipeService.recipes.isEmpty){
+      _recipeService.initialized();
+    }
+    else{
+      for (var recipe in RecipeService.recipes) {
+        if(user.recipes!.contains(recipe.docId)){
+          chefRecipes.add(recipe);
+          
+        }
+      }
+      
+    }
+  }
 
-   void onViewModelReady(UserModel user) async {
+  void onViewModelReady(UserModel user) async {
     setBusy(true);
-    await getUserLocation(user);
+    await _followService.init(user.uid!, false);
+    if (user.userRole != 'guest') {
+      chefRecipesList(user);
+            // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+      if (user.userRole == 'culinarySchool') {
+        _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
+      }
+    } else if (user.userRole == 'guest') {
+      userSavedRecipe =
+          await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
+    }
+
     setBusy(false);
   }
 
-  void goTogoToProfileEditView(String name) {
-    _navigationService.navigateTo(Routes.followingListView,
-        arguments: const FollowingListView());
+  void showBottomSheet(UserModel user) {
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.otherChefProfile, data: user);
   }
 
-  getUserLocation(UserModel user) async {
-    log(user.displayName.toString());
-    placemarks =
-        await placemarkFromCoordinates(user.location!['latitude'],user.location!['longitude']);
-        log(placemarks.toString());
+  void onFollow(UserModel user) async {
+    bool check = await _followService.addFollower(user);
+    if (check) {
+      isFollowing = true;
+    }
   }
 
-  Future<void> moveToChatScreen(UserModel chef,) async {
+  void toDishesScreen() {
+    scrollController.animateTo(
+      scrollController.position.devicePixelRatio * 100,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void goToFollowingList() {
+    showToast(message: 'You cannot see Others following/followers list');
+  }
+
+  Future<void> moveToChatScreen(
+    UserModel chef,
+  ) async {
     var conversationModel = ConversationModel(
-      isOnline: true,
-      name: chef.displayName!,
-      imageTitle: [
-        chef.displayPicture!,
-        userDetails!.displayPicture!,
-      ],
       latestMessage: '',
       users: [
+        FirebaseAuth.instance.currentUser!.uid,
         chef.uid!,
-        FirebaseAuth.instance.currentUser!.uid, 
       ],
       latestMessageType: 'text',
-      latestMessageTime: DateFormat.jm().format(DateTime.now()),
-      lastActive: DateFormat.jm().format(DateTime.now()),
-      uid: "blahblah"
+      latestMessageTime: DateTime.now(),
+      lastActive: DateTime.now(),
+      uid: "",
     );
-    String conversationId = await _serviceConversations.createConversation(conversationModel);
-    _navigationService.navigateToChatView(user:chef, conversationId:conversationId);
+    String conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
+    log('conversationId: $conversationId');
+    _navigationService.navigateToChatView(
+        receiver: chef, conversationId: conversationId);
   }
-  
-  void toSettings() {
-    _navigationService.navigateToSettingsView();
+
+  void toSettings(bool isCurrentUser, String uid) {
+    _navigationService.navigateToSettingsView(
+        isCurrentUser: isCurrentUser, uid: uid);
   }
 
   void moveBack() {
@@ -105,15 +159,26 @@ class ChefProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-
-  void toDishDetailsScreen() {
-   // _navigationService.navigateToSavedRecipeDetailsView();
+  void toDishDetailsScreen(index) {
+    _navigationService.navigateToSavedRecipeDetailsView(
+        recipeModel: chefRecipes[index],
+        randomRecipeList: IndexViewModel.getRandomDishes(
+            chefRecipes[index], RecipeService.recipes));
   }
 
   void showRecipeList() {
-    _navigationService.navigateToRecipeListPageView(
-      isFromProfileView: true,
-    );
+    // _navigationService.navigateToRecipeListPageView(
+    //   isFromProfileView: true,
+    // );
   }
 
+  Future<void> onClickUrl(String url) async {
+    EasyLoading.show();
+    Uri uri = Uri.parse("https://$url");
+    // if (await canLaunchUrlString(url)) {
+    //   launchUrlString(url, );
+    // }
+    await launchUrl(uri);
+    EasyLoading.dismiss();
+  }
 }

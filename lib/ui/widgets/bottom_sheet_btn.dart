@@ -2,7 +2,7 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-class Save_Recipe_Button extends StatelessWidget {
+class SaveRecipeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final double fontSize;
@@ -10,7 +10,7 @@ class Save_Recipe_Button extends StatelessWidget {
   final FontWeight fontWeight;
   final IconData? prefix, postfix;
 
-  const Save_Recipe_Button({
+  const SaveRecipeButton({
     Key? key,
     required this.onPressed,
     required this.buttonText,
@@ -26,10 +26,10 @@ class Save_Recipe_Button extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
-        width: double.infinity,
+        width:  310.w,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: kcPrimaryColor,
+            backgroundColor: kclightgreencolor,
           ),
           onPressed: onPressed,
           child: Row(
@@ -37,20 +37,23 @@ class Save_Recipe_Button extends StatelessWidget {
             children: [
               Icon(
                 prefix,
-                color: kcwhitecolor,
+                color: kcsgreycolor,
                 size: 20.sp,
               ),
+              horizontalSpaceSmall,
               Text(
                 buttonText,
                 style: globalTextStyle(
                   fontSize: fontSize.sp,
                   color: textColor,
+                  letterSpacing: -0.5,
                   fontWeight: fontWeight,
                 ),
               ),
+              horizontalSpaceSmall,
               Icon(
                 postfix,
-                color: kcwhitecolor,
+                color: kcsgreycolor,
                 size: 20.sp,
               ),
             ],
