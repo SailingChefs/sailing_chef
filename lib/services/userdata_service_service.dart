@@ -48,7 +48,7 @@ class UserdataServiceService {
 
       // Get a reference to the file in Firebase Storage
       Reference storageRef = firebaseStorage.ref().child(filePath);
-
+        
       // Delete the file
       await storageRef.delete();
       EasyLoading.dismiss();

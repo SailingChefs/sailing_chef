@@ -89,20 +89,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                       ),
                                     ),
                                   ),
-
-                                  horizontalSpaceSmall,
-                                  Text(
-                                    viewModel
-                                        .calculateAverageRating(
-                                            viewModel.reviews)
-                                        .toString(),
-                                    style: globalTextStyle(
-                                      color: kcBlackColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-
+                                  verticalSpaceSmall
                                 ],
                               ),
                             ],
@@ -154,15 +141,24 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                           color: kclightgreencolor,
                                         ),
                                         horizontalSpaceSmall,
-                                       Text(
-                                        viewModel.calculateAverageRating(viewModel.reviews)
-                                            ,
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
+                                        Text(
+                                          viewModel
+                                                      .calculateAverageRating(
+                                                          viewModel.reviews)
+                                                      .toString() ==
+                                                  '0.0'
+                                              ? viewModel.pinnedLocation.rating
+                                                  .toString()
+                                              : viewModel
+                                                  .calculateAverageRating(
+                                                      viewModel.reviews)
+                                                  .toString(),
+                                          style: globalTextStyle(
+                                            color: kcBlackColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
                                       ],
                                     ),
                                   ),
@@ -279,6 +275,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
   @override
   void onViewModelReady(PindetailsDialogModel viewModel) {
     viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

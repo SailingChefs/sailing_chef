@@ -58,27 +58,30 @@ class IndexViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
 
+
     
     if (isInitialised == null) {
       // setBusy(true);
       showShimmer = true;
+
       await Future.wait([
         _cullinaryService.culinaryInit(),
         _chefService.chefInit(),
-        _recipeService.initialized(),
+        recipeService.initialized(),
       ]);
     
 
-      isInitialised = true;
-      showShimmer = false;
+   
       notifyListeners();
       rebuildUi();
+
 
       // setBusy(false);
     } else if (isInitialised == true) {
       return;
     }
       matchAndAssignUsersToDishes();
+
 
   }
 

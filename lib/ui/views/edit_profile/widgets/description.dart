@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/user_details/widgets/biofield.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   final String? Function(String?)? validator;
@@ -28,11 +28,10 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RoundedTransparentTextFieldBio(
+    return RoundedTransparentTextField(
       readOnly: readOnly!,
       labelText: '',
-      prefixIconData: prefixIcon,
-      suffixIconData: postfixIcon,
+    
       validator: validator,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,

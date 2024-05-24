@@ -9,7 +9,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
-import 'package:sailing_chefs/ui/views/user_details/widgets/semibio.dart';
+import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
@@ -69,11 +69,10 @@ class MainRecipeViewContainer
                         ),
                   const ChefNotesRecipeDetails(),
                   verticalSpace(12),
-                  SemiRoundedTranpaentTextFieldBio(
+                  SemiRoundedTranpaentTextField(
                     labelText: 'Add your own personal note...',
                     controller: viewModel.notesController,
                     fillColor: kcPrimaryColorDark.withOpacity(0.2),
-                    textColor: kcBlackColor.withOpacity(0.5),
                   ),
                   verticalSpace(12),
                   ViewProfileRow(

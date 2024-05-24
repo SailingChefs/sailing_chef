@@ -15,7 +15,24 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return user.userRole == 'culinarySchool' 
-        ? viewModel.isBusy && viewModel.courses.isEmpty ? const Center(child: CircularProgressIndicator(color: kcPrimaryColor,)) : Center(
+        ? viewModel.isBusy ? Container(
+              width: screenWidth(context) * 0.9,
+              height: screenHeight(context) * 0.4,
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(color: kcPrimaryColor,),
+            ) :  viewModel.courses.isEmpty ? SizedBox(
+                    width: 400,
+                    height: 300,
+                    child: Center(
+                      child: Text(
+                        'No Courses yet',
+                        style: globalTextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor),
+                      ),
+                    ),
+                  ): Center(
             child: Container(
               width: screenWidth(context) * 0.9,
               height: screenHeight(context) * 0.4,
@@ -26,54 +43,59 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
         : user.userRole == 'guest'
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return ShrinkWrappingViewport(
-                      offset: ViewportOffset.zero(),
-                      axisDirection: AxisDirection.down,
-                      slivers: [
-                        SliverGrid(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 15.0,
-                            mainAxisSpacing: 18.0,
-                            childAspectRatio: 7.4 / 9,
-                          ),
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              return PrimaryGridTile(
-                                chefId:
-                                    viewModel.savedRecipes[index].user!.uid!,
-                                rating: viewModel.savedRecipes[index].rating,
-                                recipe: savedRecipes[index].recipeModel!,
-                                onTap: () =>
-                                    viewModel.toDishDetailsScreen(index),
-                                foodImagePath: savedRecipes[index]
-                                    .recipeModel!
-                                    .coverImage
-                                    .where(
-                                        (element) => element.contains('.jpg'))
-                                    .first,
-                                dishName:
-                                    savedRecipes[index].recipeModel!.title,
-                                duration:
-                                    savedRecipes[index].recipeModel!.prepTime,
-                                chefImagePath: savedRecipes[index]
-                                    .recipeModel!
-                                    .user!
-                                    .displayPicture!,
-                              );
-                            },
-                            childCount: savedRecipes.length,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                child: Column(
+                  children: [
+                    verticalSpaceSmall,
+                    LayoutBuilder(
+                      builder: (BuildContext context, BoxConstraints constraints) {
+                        return ShrinkWrappingViewport(
+                          offset: ViewportOffset.zero(),
+                          axisDirection: AxisDirection.down,
+                          slivers: [
+                            SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 15.0,
+                                mainAxisSpacing: 18.0,
+                                childAspectRatio: 7.4 / 9,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                                  return PrimaryGridTile(
+                                    chefId:
+                                        viewModel.savedRecipes[index].user!.uid!,
+                                    rating: viewModel.savedRecipes[index].rating,
+                                    recipe: savedRecipes[index].recipeModel!,
+                                    onTap: () =>
+                                        viewModel.toDishDetailsScreen(index),
+                                    foodImagePath: savedRecipes[index]
+                                        .recipeModel!
+                                        .coverImage
+                                        .where(
+                                            (element) => element.contains('.jpg'))
+                                        .first,
+                                    dishName:
+                                        savedRecipes[index].recipeModel!.title,
+                                    duration:
+                                        savedRecipes[index].recipeModel!.prepTime,
+                                    chefImagePath: savedRecipes[index]
+                                        .recipeModel!
+                                        .user!
+                                        .displayPicture!,
+                                  );
+                                },
+                                childCount: savedRecipes.length,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
                 ),
               )
-            : user.userRole == 'culinarySchool' && user.schoolCourses!.isEmpty
+            :  user.schoolCourses!.isEmpty
                 ? SizedBox(
                     width: 400,
                     height: 300,

@@ -16,12 +16,15 @@ class RecipeListPageViewModel extends BaseViewModel {
   List<RecipeModel> recipes =[];
   void onViewModelReady() async {
     setBusy(true);
+
     //  myRecipesList();
+
     recipes =
         await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
     
     setBusy(false);
   }
+
   // myRecipesList() async {
   //   if (RecipeService.recipes.isEmpty) {
   //     recipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
@@ -34,7 +37,6 @@ class RecipeListPageViewModel extends BaseViewModel {
   //     }
   //   }
   // }
-
   void toHomeView() async {
     if(isFromDraft){
       _navigationService.clearStackAndShowView(const BottomNavBarView());

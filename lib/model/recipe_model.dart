@@ -22,6 +22,7 @@ class RecipeModel {
   var rating;
   List<String>? tags;
   List<CommentModel>? comment;
+
   double? ratingCount;
 
   RecipeModel({

@@ -86,7 +86,7 @@ class PindropDialogueboxDialog
                             ),
                             horizontalSpaceSmall,
                             Text(
-                             viewModel.calculateAverageRating( viewModel.reviews).toString(),
+                           viewModel.calculateAverageRating(viewModel.reviews).toString() == '0.0' ? pinnedLocation.rating.toString() : viewModel.calculateAverageRating(viewModel.reviews).toString(),
                               style: globalTextStyle(
                                 color: kcBlackColor,
                                 fontSize: 16,

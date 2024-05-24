@@ -35,6 +35,7 @@ class CullinaryschoolService with ListenableServiceMixin {
     } else {
       await _addCourseToDatabase(course);
       courses.add(course);
+      userDetails!.schoolCourses!.add(course.id!);
       notifyListeners();
     }
     notifyListeners();

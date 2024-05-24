@@ -379,8 +379,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
       ),
       onTap: () async {
         tapPosition = location;
-        final place = await getCityCountry(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude);
+       
 
         List<PinnedLocation> pins =
             await _navigationpinService.getPinsNearUserLocation(
@@ -394,6 +393,8 @@ class PinDropMapViewModel extends ReactiveViewModel {
             allMarkers[markerId] = newMarker;
 
             pinnedLocation = pinInList;
+             final place = await getCityCountry(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude);
             _dialogService.showCustomDialog(
               variant: DialogType.pindropDialoguebox,
               title: place,
