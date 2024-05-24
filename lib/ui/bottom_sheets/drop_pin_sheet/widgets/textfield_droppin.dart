@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 
@@ -57,7 +59,7 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: GestureDetector(
                           onTap: func,
-                          child: viewModel.image != null
+                          child: viewModel.selectedImagePath != null
                               ? Container(
                                   height: 40.h,
                                   width: 40.w,
@@ -68,8 +70,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                                   child: ClipRRect(
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(50)),
-                                      child: Image.network(
-                                        viewModel.image!,
+                                      child: Image.file(
+                                        File(viewModel.selectedImagePath
+                                            .toString()),
                                         fit: BoxFit.cover,
                                       )),
                                 )

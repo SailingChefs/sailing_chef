@@ -59,7 +59,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               dishes[index].user!.displayPicture == null
 
                                   ? ''
-                                  : dishes[index].user!.displayPicture!,
+                                  : dishes[index].user!.displayPicture!, recipe: dishes[index],
 
                         );
                       },

@@ -68,8 +68,8 @@ class AddRecipeViewModel extends BaseViewModel {
   bool get isRecording => recorderController.isRecording;
 
   bool get shouldShowHint {
-    return !hasRecordedAudio && !isRecording;
-  }
+    return !hasRecordedAudio && !isRecording ;
+   }
 
   bool get isWaveformAndChefNoteEmpty {
     return (waveFormData?.length ?? 0) == 0 &&
@@ -211,38 +211,47 @@ class AddRecipeViewModel extends BaseViewModel {
 
   double volume = 0;
   bool isMute = false;
-
-  Future<void> downloadAudio() async {
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    final response = await http.get(Uri.parse(recipeModel!.chefNote));
-    File audioFile = File("$tempPath/audio.mpeg4");
-    if (response.statusCode == 200) {
-      await audioFile.writeAsBytes(response.bodyBytes);
-      log("Download Complete");
-      await playerController.preparePlayer(
-        path: audioFile.path,
-        volume: 100,
-      );
-
-      log("Player Ready");
-    }
-    durationCalculate(audioFile);
-  }
-
-  Future<void> durationCalculate(File path) async {
-    if (path.path.isNotEmpty && waveFormData != null) {
-      waveFormData =
-          await playerController.extractWaveformData(path: path.path);
-      if (waveFormData!.isNotEmpty) {
-        Duration duration = Duration(
+Future<void> downloadAudio() async {
+  Directory tempDir = await getTemporaryDirectory();
+  String tempPath = tempDir.path;
+  final response = await http.get(Uri.parse(recipeModel!.chefNote));
+  File audioFile = File("$tempPath/audio.mpeg4");
+  if (response.statusCode == 200) {
+    await audioFile.writeAsBytes(response.bodyBytes);
+    log("Download Complete");
+    playerController.preparePlayer(
+      path: audioFile.path,
+      volume: 100,
+    );
+    log("Player Ready");
+    // Calculate duration here
+    Duration duration = Duration(
             milliseconds: await playerController.getDuration(DurationType.max));
-        int minutes = duration.inMinutes;
-        int seconds = duration.inSeconds % 60;
-        formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-      }
-    }
+    int minutes = duration.inMinutes;
+    int seconds = duration.inSeconds % 60;
+    formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+    notifyListeners();
   }
+}
+
+  // Future<void> downloadAudio() async {
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   String tempPath = tempDir.path;
+  //   final response = await http.get(Uri.parse(recipeModel!.chefNote));
+  //   File audioFile = File("$tempPath/audio.mpeg4");
+  //   if (response.statusCode == 200) {
+  //     await audioFile.writeAsBytes(response.bodyBytes);
+  //     log("Download Complete");
+  //      playerController.preparePlayer(
+  //       path: audioFile.path,
+  //       volume: 100,
+  //     );
+      
+  //     log("Player Ready");
+  //   }
+  //   durationCalculate(audioFile);
+  // }
+
 
   void durationStop() {
     playerController.onCompletion.listen((event) {
@@ -250,25 +259,29 @@ class AddRecipeViewModel extends BaseViewModel {
     });
   }
 
-  //   void onVolumeUpIconPressed() {
-  //   isMute = !isMute;
-  //   if (isMute) {
-  //     volume = 0;
-  //   } else {
-  //     volume = 100;
-  //   }
-  //   playerController.setVolume(volume);
-  //   notifyListeners();
-  // }
 
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
     isPlaying = true;
     rebuildUi();
-    await playerController.startPlayer(finishMode: FinishMode.pause);
 
+    playerController.onCurrentDurationChanged.listen((positionData) {
+      Duration position = Duration(milliseconds: positionData);
+      updateDuration(position);
+    });
+
+    await playerController.startPlayer(finishMode: FinishMode.pause);
+    
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
+  }
+
+    void updateDuration(Duration position) async {
+    if (position > Duration.zero) {
+      formattedDuration =
+          "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
+      notifyListeners();
+    } 
   }
 
   void stopListening() async {
@@ -327,17 +340,37 @@ class AddRecipeViewModel extends BaseViewModel {
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
+    
 
     await playerController.preparePlayer(
       path: path,
       volume: 100,
     );
+     playerController.onCurrentDurationChanged.listen((positionData) {
+      Duration position = Duration(milliseconds: positionData);
+      updateDuration(position);
+    });
+    rebuildUi();
+  }
+
+  void deleteaddrecipeCurrentRecording() {
+   
+    formattedDuration = "0:00";
+    hasRecordedAudio = false;
+    recorderController.reset();
+    playerController.release();
     rebuildUi();
   }
 
   void deleteCurrentRecording() {
     hasRecordedAudio = false;
-    // _recipeService.deleteAudioFromDocument(recipeModel!.docId!);
+    if(recipeModel!.chefNote.isNotEmpty){
+      _recipeService.deleteAudioFromDocument(recipeModel!.docId!,recipeModel!.chefNote);
+      formattedDuration = "0:00";
+     recipeModel!.chefNote = "";
+     recipeModel!.waveForm.clear();
+      rebuildUi();
+    }
     recorderController.reset();
     playerController.release();
     rebuildUi();

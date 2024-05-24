@@ -270,32 +270,56 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<void> deleteAudioFromDocument(String id) async {
+  Future<void> deleteAudioFromDocument(String id,String url) async {
     try {
-      // Get the DocumentReference of the document
       CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
+      EasyLoading.show();
+      String filePath = Uri.decodeFull(Uri.parse(url).path);
 
-      // Get the audio file reference from the document
-      DocumentSnapshot documentSnapshot = await documentReference.get();
-      String audioFilePath = documentSnapshot.get('chef_note') ?? '';
+      filePath = filePath.substring(38);
+      log(filePath);
 
-      Reference audioFileReference = firebaseStorage.ref().child(
-          'audio/${DateTime.parse(audioFilePath).toString().split(' ')[0]}.mpeg');
-      await audioFileReference.delete();
+      Reference storageRef = firebaseStorage.ref().child(filePath);
+
+      await storageRef.delete();
+      
 
       await documentReference.update({
         'chef_note': FieldValue.delete(),
+        'waveForm' : FieldValue.delete(),
       });
-
-      // Show a success toast
+      EasyLoading.dismiss();
       showToast(message: 'Audio file deleted successfully');
     } catch (error) {
-      // Show an error toast
       showToast(message: 'Error deleting audio file from document: $error');
       log('Error deleting audio file from document: $error');
     }
   }
+
+  //   Future<void> deleteAudioFromDocument(String downloadUrl) async {
+  //   try {
+  //     EasyLoading.show();
+  //     // Extract the file path from the download URL
+  //     String filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
+
+  //     // Remove the leading '/' from the file path
+  //     filePath = filePath.substring(38);
+  //     log(filePath);
+
+  //     // Get a reference to the file in Firebase Storage
+  //     Reference storageRef = firebaseStorage.ref().child(filePath);
+
+  //     // Delete the file
+  //     await storageRef.delete();
+  //     EasyLoading.dismiss();
+  //     log('File deleted successfully');
+  //   } catch (error) {
+  //     EasyLoading.dismiss();
+  //     log('Error deleting file: $error');
+  //     // Handle error as needed
+  //   }
+  // }
 
   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
     List<String> imageUrls = [];

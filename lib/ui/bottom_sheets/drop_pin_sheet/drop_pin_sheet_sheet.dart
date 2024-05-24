@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -77,6 +78,9 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 const Divider(),
                 TextFormField(
                   controller: viewModel.phone,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(11),
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter phone number';

@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
@@ -30,7 +31,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
               children: [
                 Column(
                   children: [
-                    verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                    verticalSpace(40),
                     const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: SearchBarPinDrop(),
@@ -39,7 +40,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     Flexible(
                       child: GoogleMap(
                         mapType: MapType.normal,
-                        zoomControlsEnabled: false,
                         
                         mapToolbarEnabled: false,
                         onTap: (value) async {

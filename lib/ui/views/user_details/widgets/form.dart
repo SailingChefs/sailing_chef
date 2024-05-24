@@ -1,7 +1,7 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/user_details/widgets/semibio.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 
@@ -30,7 +30,12 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             suffixIcon: false,
                           ),
                           verticalSpaceSmall,
-                          SemiRoundedTranpaentTextFieldBio(
+                          SemiRoundedTranpaentTextField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(200)
+                                ],
+                                maxLines: 5,
+                                suffixIcon: false,
                             validator: (value) => viewModel.validateBio(value),
                              fillColor: kcPrimaryColor.withOpacity(0.09),
                             controller: viewModel.bioController,
@@ -62,18 +67,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             flagState: CountryFlag.DISABLE,
 
                             dropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                color: Colors.grey.withOpacity(0.2),
-                                border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                     color: kcPrimaryColor.withOpacity(0.09),
+                                  ),
 
-                            disabledDropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                color: Colors.grey.withOpacity(0.2),
-                                border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
+                                disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: kcPrimaryColor.withOpacity(0.09),
+                                ),
 
                             ///placeholders for dropdown search field
                             countrySearchPlaceholder: "Country",
@@ -130,8 +133,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 suffixIcon: false,
                               ),
                               verticalSpaceSmall,
-                              SemiRoundedTranpaentTextFieldBio(
+                              SemiRoundedTranpaentTextField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(200)
+                                ],
+                                maxLines: 5,
+                                suffixIcon: false,
                                 fillColor: kcPrimaryColor.withOpacity(0.09),
+                                
                                   validator: (value) =>
                                       viewModel.validateBio(value),
                                   controller: viewModel.bioController,
@@ -154,16 +163,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 dropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                     color: kcPrimaryColor.withOpacity(0.09),
+                                  ),
 
                                 disabledDropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                    color: kcPrimaryColor.withOpacity(0.09),
+                                ),
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",
@@ -219,7 +226,12 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 suffixIcon: false,
                               ),
                               verticalSpaceSmall,
-                              SemiRoundedTranpaentTextFieldBio(
+                              SemiRoundedTranpaentTextField(
+                                 inputFormatters: [
+                                  LengthLimitingTextInputFormatter(200)
+                                ],
+                                maxLines: 5,
+                                suffixIcon: false,
                                  fillColor: kcPrimaryColor.withOpacity(0.09),
                                   validator: (value) =>
                                       viewModel.validateBio(value),

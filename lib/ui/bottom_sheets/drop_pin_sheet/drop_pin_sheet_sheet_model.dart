@@ -32,6 +32,8 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? descriptionError;
   Future<void> savePinDrop() async {
     if (formKey.currentState!.validate()) {
+      imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
+      image = imageUrls!.first;
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
         createdTime: Timestamp.now(),
@@ -56,7 +58,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
       ratings = 0;
       reset();
       completer!(SheetResponse(data: true));
-    }else if (image == null) {
+    }else if (imageUrls == null) {
       showToast(message: 'Please upload image!');
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
@@ -92,8 +94,8 @@ class DropPinSheetSheetModel extends BaseViewModel {
     // ignore: unnecessary_null_comparison
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
-      image = imageUrls!.first;
+      
+      selectedImagePath = selectedImageFile!.first.path;
       notifyListeners();
       rebuildUi();
     } else {

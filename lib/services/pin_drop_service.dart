@@ -19,7 +19,7 @@ class PinDropService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<ReviewsModel> reviews = [];
 
-  List<PinnedLocation> pins = List<PinnedLocation>.empty(growable: true);
+  List<PinnedLocation> pins=[];
 
   Future<void> getReviews(String pinId) async {
     reviews = await fetchReviewsByPinId(pinId);

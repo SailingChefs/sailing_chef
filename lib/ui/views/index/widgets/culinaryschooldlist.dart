@@ -104,7 +104,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       ),
 
                                     ),
-                            )),
+                           
+                            ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(

@@ -55,6 +55,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
   }
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
+      log(pinnedLocation.rating.toString());
       return "0.0"; // Return 0 if there are no comments
     }
 
@@ -69,6 +70,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
+    log(averageRating.toString());
    return averageRating.toStringAsFixed(1);
   }
 
