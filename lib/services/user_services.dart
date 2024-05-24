@@ -7,7 +7,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
-import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../core/imports/core_imports.dart';
@@ -15,7 +14,7 @@ import '../model/user_model.dart';
 
 class UserServices with ListenableServiceMixin {
   UserModel? currentUserDetails;
-  final _authService = AuthService();
+
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {

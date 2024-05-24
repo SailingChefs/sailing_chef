@@ -70,8 +70,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                             disabledDropdownDecoration: BoxDecoration(
                                color: kcPrimaryColor.withOpacity(0.09),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                               
                                
                                ),
 
@@ -154,16 +153,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 dropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                         color: kcPrimaryColor.withOpacity(0.09), width: 1)),
+                                    color: kcPrimaryColor.withOpacity(0.09),
+                                    ),
 
                                 disabledDropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
-                                    color: Colors.grey.withOpacity(0.2),
-                                    border: Border.all(
-                                         color: kcPrimaryColor.withOpacity(0.09), width: 1)),
+                                    color: kcPrimaryColor.withOpacity(0.09),
+                                    ),
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",

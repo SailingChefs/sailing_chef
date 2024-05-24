@@ -7,6 +7,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 
 import 'grid_tile_model.dart';
 
+// ignore: must_be_immutable
 class PrimaryGridTile extends StackedView<GridTileModel> {
   final String foodImagePath;
   final String chefImagePath;
@@ -14,10 +15,11 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String duration;
   final void Function() onTap;
   final RecipeModel recipe;
-  final double? rating;
+  // ignore: prefer_typing_uninitialized_variables
+  var rating;
   final String chefId;
 
-  const PrimaryGridTile({
+  PrimaryGridTile({
     super.key,
     required this.foodImagePath,
     required this.chefId,
@@ -88,7 +90,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RatingBarIndicator(
-                        rating: rating ?? 0,
+                        rating: rating.toDouble() ?? 0,
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
