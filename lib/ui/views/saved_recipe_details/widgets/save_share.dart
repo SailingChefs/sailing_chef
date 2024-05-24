@@ -28,7 +28,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         recipe.user!.uid != userDetails!.uid
             ? GestureDetector(
                 onTap: () {
-                  viewModel.addToSaveList(
+                  viewModel.thisRecipeSaved(
                     recipe,
                   );
                 },
@@ -39,7 +39,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     color: kcsgreycolor,
                     shape: BoxShape.circle,
                   ),
-                  child: viewModel.isRecipeSaved
+                  child: viewModel.isRecipeSave
                       ? Icon(
                           Icons.bookmark,
                           color: kcBlackColor,

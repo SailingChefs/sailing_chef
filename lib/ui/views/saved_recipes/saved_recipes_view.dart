@@ -1,9 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_following_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_saved_recipes.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/tab_bar.dart';
-import 'package:sailing_chefs/ui/views/saved_recipes/widgets/top_bar.dart';
 
 import 'saved_recipes_viewmodel.dart';
 
@@ -20,12 +18,26 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+          ))
           : GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
                   resizeToAvoidBottomInset: false,
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: kcWhiteColor,
+                  appBar: AppBar(
+                    backgroundColor: kcWhiteColor,
+                    elevation: 0,
+                    title: Text('Saved Recipes',
+                        style: globalTextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor)),
+                    centerTitle: true,
+                    
+                  ),
+
                   body: SingleChildScrollView(
                     padding: const EdgeInsets.only(
                       left: 15.0,
@@ -33,12 +45,11 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                     ),
                     child: Column(
                       children: [
-                        const TopBarSavedRecipesScreen(),
-                        verticalSpaceLarge,
+                         verticalSpaceMedium,
                         const TabBarSavedRecipesScreen(),
                         verticalSpaceMedium,
-                        const SearchBarSavedRecipesScreen(),
-                        verticalSpaceMedium,
+                        // const SearchBarSavedRecipesScreen(),
+                        
                         viewModel.isAllSelected
                             ? const AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),

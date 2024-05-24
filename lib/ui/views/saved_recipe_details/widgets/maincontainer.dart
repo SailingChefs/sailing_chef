@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -68,13 +69,18 @@ class MainRecipeViewContainer
                           ],
                         ),
                   const ChefNotesRecipeDetails(),
-                  verticalSpace(12),
+                  verticalSpace(24.h),
                   SemiRoundedTranpaentTextField(
+                    borderRadius: 24.dg,
                     labelText: 'Add your own personal note...',
+                    inputFormatters: [LengthLimitingTextInputFormatter(200)],
+                    maxLines: 5,
+                    suffixIcon: false,
                     controller: viewModel.notesController,
+
                     fillColor: kcPrimaryColorDark.withOpacity(0.2),
                   ),
-                  verticalSpace(12),
+                  verticalSpace(24.h),
                   ViewProfileRow(
                     user: recipeModel.user!,
                   ),

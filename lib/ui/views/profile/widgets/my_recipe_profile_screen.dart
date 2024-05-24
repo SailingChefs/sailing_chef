@@ -1,4 +1,3 @@
-
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -13,29 +12,27 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
         ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                        child: Text(
-                      'Create your first recipe today',
-                      style: globalTextStyle(
-                          color: kcPrimaryColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600),
-                    )),
-                    verticalSpaceSmall,
-                    Center(
-                      child: SvgPicture.asset(
-                        'assets/images/icons/arrow.svg',
-                        // ignore: deprecated_member_use
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Create your first recipe today',
+                    style: globalTextStyle(
                         color: kcPrimaryColor,
-                      ),
-                    )
-                  ],
-                ))
-
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  verticalSpaceSmall,
+                  SvgPicture.asset(
+                    'assets/images/icons/arrow.svg',
+                    // ignore: deprecated_member_use
+                    color: kcPrimaryColor,
+                  )
+                ],
+              ),
+            ))
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
@@ -55,10 +52,8 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-
                           chefId: userDetails!.uid!,
-                          rating: viewModel.myRecipes[index].rating ,
-
+                          rating: viewModel.myRecipes[index].rating,
                           recipe: viewModel.myRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, viewModel.myRecipes[index]),
@@ -67,11 +62,9 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               .first,
                           dishName: viewModel.myRecipes[index].title,
                           duration: viewModel.myRecipes[index].prepTime,
-                          chefImagePath:
-                             userDetails!.displayPicture ==
-                                      null
-                                  ? ''
-                                  : userDetails!.displayPicture!, 
+                          chefImagePath: userDetails!.displayPicture == null
+                              ? ''
+                              : userDetails!.displayPicture!,
                         );
                       },
                       childCount: viewModel.myRecipes.length,

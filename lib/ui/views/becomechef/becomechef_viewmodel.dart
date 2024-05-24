@@ -61,17 +61,74 @@ class BecomechefViewModel extends BaseViewModel {
   }
   void setCountryValue(String value) {
     countryValue = value;
-    notifyListeners();
+
+    //
+    rebuildUi();
+   
   }
 
-  void setStateValue(String value) {
-    stateValue = value;
-    notifyListeners();
+  void setStateValue(String? value) {
+     
+    if (value == 'state*') {
+      stateValue = '';
+    cityValue = '';
+      
+   
+      rebuildUi();
+    
+    }
+    else if( value == 'null'){
+
+      stateValue = '';  
+
+      rebuildUi();
+    }
+    else if(value == null){
+
+      stateValue = '';
+
+      rebuildUi();
+    }
+    else{
+      stateValue = value!;
+      cityValue = '';
+      rebuildUi();
+    }
+    
+
+    rebuildUi();
   }
 
-  void setCityValue(String value) {
-    cityValue = value;
-    notifyListeners();
+  void setCityValue(String? value) {
+   
+    if (value == 'city*') {
+      cityValue = '';
+      rebuildUi(); 
+    }
+    else if( value == 'null'){
+      cityValue = '';
+      rebuildUi();
+    }
+    else if(value == null){
+      cityValue = '';
+      rebuildUi();
+    }
+    else{
+      cityValue = value;
+      rebuildUi();
+    }
+    if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+
+
+    rebuildUi();
   }
 
 
@@ -80,7 +137,7 @@ class BecomechefViewModel extends BaseViewModel {
   void saveEditDetails() async {
     address = "$cityValue,$stateValue,$countryValue".trim();
     if (formKey.currentState!.validate()) {
-       if(cityValue == '' || stateValue == '' || countryValue == ''){
+       if(countryValue == ''){
         showToast(message: 'Please select your location to proceed');
         return;
       }

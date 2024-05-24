@@ -11,6 +11,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> randomRecipeList;
 
+
   const SavedRecipeDetailsView({
     Key? key,
     required this.recipeModel,

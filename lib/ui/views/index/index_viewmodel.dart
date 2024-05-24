@@ -32,7 +32,7 @@ class IndexViewModel extends BaseViewModel {
 
   get toViewCullinarySchool => null;
   bool ? isInitialised ;
-     bool ?  showShimmer ;
+     bool  showShimmer =false;
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
@@ -67,11 +67,13 @@ class IndexViewModel extends BaseViewModel {
       await Future.wait([
         _cullinaryService.culinaryInit(),
         _chefService.chefInit(),
-        recipeService.initialized(),
+        _recipeService.initialized(),
       ]);
     
 
-   
+      showShimmer = false;
+      isInitialised = true;
+
       notifyListeners();
       rebuildUi();
 

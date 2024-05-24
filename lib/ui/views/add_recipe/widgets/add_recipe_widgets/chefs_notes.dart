@@ -2,7 +2,7 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/add_recipe/widgets/chefnotes_new.dart';
+import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/addrecipe_chefnnote.dart';
 
 class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
   const ChefsNote(this.drafts, {super.key});
@@ -118,7 +118,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                     ),
                   ],
                 ),
-              ) : const ChefsNoteNew()
+              ) : const AddRecipeChefsNote()
             
       ],
     );

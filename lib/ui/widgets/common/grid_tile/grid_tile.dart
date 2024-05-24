@@ -37,6 +37,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
+    
     bool isRecipeSaved = false;
     for (String savedRecipe in userDetails!.savedRecipes!) {
       if (savedRecipe == recipe.docId) {
@@ -90,7 +91,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RatingBarIndicator(
-                        rating: rating.toDouble() ?? 0,
+                        rating: rating != null ? rating : 0.0,
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,

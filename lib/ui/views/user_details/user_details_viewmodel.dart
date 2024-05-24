@@ -56,13 +56,11 @@ class UserDetailsViewModel extends BaseViewModel {
 
     //
     rebuildUi();
-    log('cityValue : $cityValue');
-    log('stateValue : $stateValue');
+   
   }
 
   void setStateValue(String? value) {
-     log(value.runtimeType.toString());
-    log(value.toString());
+     
     if (value == 'state*') {
       stateValue = '';
     cityValue = '';
@@ -77,6 +75,12 @@ class UserDetailsViewModel extends BaseViewModel {
 
       rebuildUi();
     }
+    else if(value == null){
+
+      stateValue = '';
+
+      rebuildUi();
+    }
     else{
       stateValue = value!;
       cityValue = '';
@@ -88,8 +92,7 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   void setCityValue(String? value) {
-    log(value.runtimeType.toString());
-    log(value.toString());
+   
     if (value == 'city*') {
       cityValue = '';
       rebuildUi(); 
@@ -98,8 +101,12 @@ class UserDetailsViewModel extends BaseViewModel {
       cityValue = '';
       rebuildUi();
     }
+    else if(value == null){
+      cityValue = '';
+      rebuildUi();
+    }
     else{
-      cityValue = value!;
+      cityValue = value;
       rebuildUi();
     }
     if(countryValue != '' && stateValue == '' && cityValue == ''){
@@ -112,8 +119,6 @@ class UserDetailsViewModel extends BaseViewModel {
         address = '$cityValue,$stateValue,$countryValue';
       }
 
-      log('address : $address');
-    // isChange = false;
 
     rebuildUi();
   }

@@ -26,7 +26,7 @@ import '../../../core/imports/core_imports.dart';
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
 
-  SavedRecipeDetailsViewModel({required this.recipeModel});
+  SavedRecipeDetailsViewModel({required this.recipeModel}); 
 
   final _navigationService = locator<NavigationService>();
 
@@ -53,6 +53,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   late List<double>? waveFormData;
   bool isPlaying = false;
   bool seeComments = false;
+  bool isRecipeSave = false;
 
    List<CommentModel> get commentsList => commentService.comments;
   
@@ -60,6 +61,11 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   List<RecipeModel> get savedRecipeList => _savedRecipeService.savedRecipes;
 
+  void thisRecipeSaved(RecipeModel recipe) {
+    _savedRecipeService.addSavedRecipe(recipe);
+    isRecipeSave = !isRecipeSave;
+    notifyListeners();
+  }
   void addToSaveList(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(recipe);
     isRecipeSaved = !isRecipeSaved;
@@ -121,6 +127,12 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
+   
+      
+  
+  
+   
+
     return averageRating.toStringAsFixed(1);
   }
 
@@ -183,8 +195,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       commentController.clear();
       images.clear();
       rating = rating;
+      RecipeService.recipes.where((element) => element.docId == recipeId).first.rating = calculateAverageRating(commentService.comments) as double;
       rebuildUi();
-      notifyListeners();
+   
       showToast(message: 'Comment Added');
     }
   }
@@ -194,6 +207,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         SavedRecipeDetailsView(
           recipeModel: recipe,
           randomRecipeList: IndexViewModel.getRandomDishes(recipe, []),
+         
         ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);

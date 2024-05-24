@@ -41,13 +41,13 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                     dropdownDecoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: kcPrimaryColor.withOpacity(0.09),
                        ),
 
                     disabledDropdownDecoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: kcPrimaryColor.withOpacity(0.09),
                        ),
 
                     ///placeholders for dropdown search field
@@ -61,20 +61,22 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                     cityDropdownLabel: "*City",
 
                     selectedItemStyle: globalTextStyle(
-                      color: Colors.black.withOpacity(0.6),
-                      fontSize: 16,
+                      color: kcBlackColor.withOpacity(0.6),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
 
                     ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                     dropdownHeadingStyle: globalTextStyle(
-                        color: Colors.black.withOpacity(0.6),
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
+                        color: kcBlackColor.withOpacity(0.6),
+                        fontSize: 14.sp,
+                       fontWeight: FontWeight.w500,),
 
                     ///DropdownDialog Item style [OPTIONAL PARAMETER]
                     dropdownItemStyle: globalTextStyle(
-                      color: Colors.black.withOpacity(0.6),
-                      fontSize: 17,
+                      color: kcBlackColor.withOpacity(0.6),
+                        fontSize: 14.sp,
+                       fontWeight: FontWeight.w500,
                     ),
 
                     dropdownDialogRadius: 10.0,

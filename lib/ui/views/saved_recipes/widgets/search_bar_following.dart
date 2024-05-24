@@ -1,9 +1,9 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 
-class SearchBarSavedRecipesScreen
+class SearchBarSavedRecipesFollowingScreen
     extends ViewModelWidget<SavedRecipesViewModel> {
-  const SearchBarSavedRecipesScreen({super.key});
+  const SearchBarSavedRecipesFollowingScreen({super.key});
 
   @override
   Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
@@ -13,10 +13,11 @@ class SearchBarSavedRecipesScreen
           width: MediaQuery.sizeOf(context).width * 0.75,
           height: 40.dg,
           child: TextField(
-            controller: viewModel.searchSavedController,
+            controller:  viewModel.searchFollowingController,
             onEditingComplete: () => viewModel.rebuildUi(),
             onSubmitted: (value) => viewModel.rebuildUi(),
             onChanged: (value) => viewModel.rebuildUi(),
+
             textAlign: TextAlign.start,
             decoration: InputDecoration(
               hintStyle: TextStyle(

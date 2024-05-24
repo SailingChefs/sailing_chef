@@ -1,9 +1,9 @@
 import 'package:flutter/rendering.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/explore_all_button.dart';
+import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
@@ -13,9 +13,15 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipesViewModel viewModel) {
-    return viewModel.searchSavedController.text.isNotEmpty
+    return Column(
+
+      children: [
+         const SearchBarSavedRecipesScreen(),
+              verticalSpaceMedium,
+        viewModel.searchSavedController.text.isNotEmpty
         ? Column(
             children: [
+             
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: LayoutBuilder(builder:
@@ -35,8 +41,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             final RecipeModel recipe = viewModel
-                                .searchRecipes(viewModel.savedRecipes,
-                                    viewModel.searchSavedController.text)
+                                .searchRecipes()
                                 .elementAt(index);
                             return PrimaryGridTile(
 
@@ -56,8 +61,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                     recipe.user!.displayPicture!);
                           },
                           childCount: viewModel
-                              .searchRecipes(viewModel.savedRecipes,
-                                  viewModel.searchSavedController.text)
+                              .searchRecipes()
                               .length,
                         ),
                       ),
@@ -95,7 +99,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                             return PrimaryGridTile(
                               chefId:viewModel.savedRecipes[index]
                                     .user!.uid! ,
-                              rating: calculateAverageRating(viewModel.savedRecipes[index].comment!),
+                              rating: viewModel.savedRecipes[index].rating!,
                                 recipe:
                                     viewModel.savedRecipes[index],
                                 onTap: () => viewModel.toDishDetailsScreen(
@@ -122,7 +126,10 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
               verticalSpace(90),
                const ExploreAllButton(),
             ],
-          );
+          )
+      ]
+    );
+     
 
   }
 }

@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 
 class GridTileModel extends ReactiveViewModel {
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
+  double rating = 0.0;
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
@@ -14,6 +15,9 @@ class GridTileModel extends ReactiveViewModel {
     _savedRecipeService.addSavedRecipe(recipe);
     notifyListeners();
   }
+  void intToDouble(int number) {
+  rating = number.toDouble();
+}
 // String formatTimeString(String timeString) {
 //   int minutes = int.tryParse(timeString) ?? 0; // Parsing string to integer, defaulting to 0 if parsing fails
 

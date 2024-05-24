@@ -173,6 +173,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                           itemSize: 20,
                           unratedColor: Colors.grey.shade400,
                           itemCount: 5,
+                          
                           itemPadding:
                               const EdgeInsets.symmetric(horizontal: 0.005),
                           itemBuilder: (context, _) => const Icon(

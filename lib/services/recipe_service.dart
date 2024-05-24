@@ -23,7 +23,7 @@ class RecipeService with ListenableServiceMixin {
   bool isInitialized = false;
  Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    // if (isInitialized) return;
+    if (isInitialized) return;
     recipes = await fetchAllRecipes();
     
     isInitialized = true;

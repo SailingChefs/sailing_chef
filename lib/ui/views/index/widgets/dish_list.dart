@@ -12,7 +12,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   Widget build(BuildContext context, IndexViewModel viewModel) {
     final List<RecipeModel> dishes = viewModel.dishes;
 
-    return viewModel.isBusy ?
+    return viewModel.showShimmer ?
       const ShimmerDishes():
       viewModel.dishes.isEmpty
         ? SizedBox(
@@ -59,7 +59,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               dishes[index].user!.displayPicture == null
 
                                   ? ''
-                                  : dishes[index].user!.displayPicture!, recipe: dishes[index],
+                                  : dishes[index].user!.displayPicture!,
 
                         );
                       },

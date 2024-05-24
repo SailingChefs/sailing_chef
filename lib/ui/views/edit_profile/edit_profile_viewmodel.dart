@@ -45,18 +45,16 @@ class EditProfileViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void setCountryValue(String value) {
+ void setCountryValue(String value) {
     countryValue = value;
 
     //
     rebuildUi();
-    log('cityValue : $cityValue');
-    log('stateValue : $stateValue');
+   
   }
 
   void setStateValue(String? value) {
-     log(value.runtimeType.toString());
-    log(value.toString());
+     
     if (value == 'state*') {
       stateValue = '';
     cityValue = '';
@@ -71,6 +69,12 @@ class EditProfileViewModel extends BaseViewModel {
 
       rebuildUi();
     }
+    else if(value == null){
+
+      stateValue = '';
+
+      rebuildUi();
+    }
     else{
       stateValue = value!;
       cityValue = '';
@@ -82,8 +86,7 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   void setCityValue(String? value) {
-    log(value.runtimeType.toString());
-    log(value.toString());
+   
     if (value == 'city*') {
       cityValue = '';
       rebuildUi(); 
@@ -92,8 +95,12 @@ class EditProfileViewModel extends BaseViewModel {
       cityValue = '';
       rebuildUi();
     }
+    else if(value == null){
+      cityValue = '';
+      rebuildUi();
+    }
     else{
-      cityValue = value!;
+      cityValue = value;
       rebuildUi();
     }
     if(countryValue != '' && stateValue == '' && cityValue == ''){
@@ -106,8 +113,6 @@ class EditProfileViewModel extends BaseViewModel {
         address = '$cityValue,$stateValue,$countryValue';
       }
 
-      log('address : $address');
-    // isChange = false;
 
     rebuildUi();
   }

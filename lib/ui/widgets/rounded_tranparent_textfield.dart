@@ -155,7 +155,7 @@ class RoundedTransparentTextField extends StatelessWidget {
                 ? null
                 : GestureDetector(
                     onTap: onVisibilityToggle,
-                    child: ispassvisible == true ? openEye : closeEye)),
+                    child: ispassvisible == true ?   closeEye : openEye)),
       ),
     );
   }
