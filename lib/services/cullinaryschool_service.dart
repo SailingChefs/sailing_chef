@@ -6,12 +6,10 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/user_model.dart';
-import 'package:sailing_chefs/services/user_services.dart';
 
 import '../ui/common/show_toast.dart';
 
 class CullinaryschoolService with ListenableServiceMixin {
-  final _userService = locator<UserServices>();
   List<UserModel> cullinaryscools = [];
   List<Course> courses = [];
   bool isInitialized = false;

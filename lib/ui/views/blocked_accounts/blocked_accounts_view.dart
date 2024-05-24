@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'blocked_accounts_viewmodel.dart';
 
@@ -20,19 +21,14 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
             appBar: AppBar(
               leadingWidth: 70,
               leading: Padding(
-                padding: EdgeInsets.only(top: 10.h),
-                child: CircleAvatar(
-                  radius: 15.r,
-                  backgroundColor: Colors.grey.shade300,
-                  child: Center(
-                    child: IconButton(
-                        onPressed: viewModel.back,
-                        icon: Icon(
-                          Icons.arrow_back_ios_new,
-                          size: 16.r,
-                        )),
-                  ),
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
+                child:   GestureDetector(
+
+            behavior: HitTestBehavior.translucent,
+            onTap:  viewModel.back,
+            child: SvgPicture.asset('assets/images/icons/backbutton.svg',height: 20.h,width: 20.w,)
+
+          ),
               ),
               centerTitle: true,
               title: Text(
@@ -85,15 +81,22 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                   ),
                                   title: Text(
                                     blockUser.displayName ?? '',
-                                    style: TextStyle(
+                                    style: globalTextStyle(
                                         fontSize: 12.sp,
-                                        fontWeight: FontWeight.bold),
+                                        color: kcBlackColor,
+                                        fontWeight: FontWeight.w700),
                                   ),
-                                  subtitle: Text(
-                                    blockUser.bio ?? '',
-                                    style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.bold),
+                                  subtitle: SizedBox(
+                                    height: 20.h,
+                                    child: Text(
+                                      blockUser.bio ?? '',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: globalTextStyle(
+                                          fontSize: 12.sp,
+                                          color: kcBlackColor,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                   trailing: PopupMenuButton<String>(
                                     onSelected: (value) {

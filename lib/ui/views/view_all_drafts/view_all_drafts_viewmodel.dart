@@ -7,7 +7,7 @@ class ViewAllDraftsViewModel extends BaseViewModel {
   final _draftService = locator<RecipeService>();
   List<RecipeModel> get draft => _draftService.drafts;
   void settingsView() {
-    _navigatorService.back();
+    _navigatorService.navigateToSettingsView();
   }
 
   void onViewModelReady() async {

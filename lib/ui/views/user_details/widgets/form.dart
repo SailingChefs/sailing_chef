@@ -67,6 +67,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             flagState: CountryFlag.DISABLE,
 
                             dropdownDecoration: BoxDecoration(
+
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
                                      color: kcPrimaryColor.withOpacity(0.09),
@@ -77,6 +78,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                         Radius.circular(10)),
                                     color: kcPrimaryColor.withOpacity(0.09),
                                 ),
+
 
                             ///placeholders for dropdown search field
                             countrySearchPlaceholder: "Country",
@@ -163,14 +165,18 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 dropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
+
                                      color: kcPrimaryColor.withOpacity(0.09),
                                   ),
+
 
                                 disabledDropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
                                     color: kcPrimaryColor.withOpacity(0.09),
+
                                 ),
+
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",

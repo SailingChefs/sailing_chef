@@ -18,7 +18,7 @@ class DiscardSheetModel extends BaseViewModel {
     recipe.chefNote = chefNote;
 
     await _recipeService.addRecipeToFirestore(recipe);
-    _navigatorlocator.replaceWithSettingsView();
+    _navigatorlocator.replaceWithViewAllDraftsView();
   }
 
   void discardButton() {

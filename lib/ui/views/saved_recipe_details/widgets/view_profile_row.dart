@@ -17,10 +17,22 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 19.62.dg,
-              backgroundImage: NetworkImage(
-                user.displayPicture!,
+            Container(
+              height: 60.h,
+              width: 60.w,
+              decoration: BoxDecoration(
+                color: kcVeryLightGrey,
+                border: Border.all(
+                  color: kcWhiteColor,
+                  width: 3.0,
+                ),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: user.displayPicture == null
+                      ? const AssetImage('assets/images/misc/blank_image.png')
+                      : NetworkImage(user.displayPicture!) as ImageProvider,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             horizontalSpaceSmall,
@@ -28,23 +40,25 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user.displayName!,
-                   style: globalTextStyle(
-                      letterSpacing: -0.5,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: kcBlackColor,
-                    ),
+                  user.displayName == null ? 'Blocked User' : user.displayName!,
+                  style: globalTextStyle(
+                    letterSpacing: -0.5,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    color: kcBlackColor,
+                  ),
                 ),
-                Text('${user.recipes!.length} dishes',
-
-                    style: globalTextStyle(
-                      fontSize: 14.sp,
-                      letterSpacing: -0.3,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.5),
-                    ),
-                    ),
+                Text(
+                  user.recipes == null
+                      ? 'No dishes '
+                      : '${user.recipes!.length} dishes',
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.5),
+                  ),
+                ),
               ],
             ),
           ],
@@ -52,17 +66,17 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       ),
       user.uid == userDetails!.uid!
           ? const SizedBox()
-          : OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                
-                backgroundColor: kcsgreycolor
-              ),
-              onPressed: () => viewModel.moveToChatScreen(user),
-              child: const Icon(
-                FlutterRemix.chat_4_line,
-                color: kcBlackColor,
-              ),
-            )
+          : user.userRole == null
+              ? const SizedBox()
+              : OutlinedButton(
+                  style:
+                      OutlinedButton.styleFrom(backgroundColor: kcsgreycolor),
+                  onPressed: () => viewModel.moveToChatScreen(user),
+                  child: const Icon(
+                    FlutterRemix.chat_4_line,
+                    color: kcBlackColor,
+                  ),
+                )
     ]);
   }
 }

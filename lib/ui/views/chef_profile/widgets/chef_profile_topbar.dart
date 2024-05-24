@@ -1,11 +1,12 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
 class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implements PreferredSizeWidget {
   final bool? isCurrentUser;
-  final String uid;
+  final UserModel user;
 
-  const ChefProfileTopBar({super.key, this.isCurrentUser, required this.uid});
+  const ChefProfileTopBar({super.key, this.isCurrentUser, required this.user});
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
@@ -41,7 +42,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implement
               ),
               GestureDetector(
                 onTap: () {
-                  viewModel.showBottomSheet(uid);
+                  viewModel.showBottomSheet(user);
                 },
                 child: Container(
                   alignment: Alignment.center,

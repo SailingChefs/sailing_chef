@@ -9,8 +9,9 @@ import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'recipe_list_page_viewmodel.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
+  final bool isFromDraft;
   const RecipeListPageView({
-    Key? key,
+    Key? key, required this.isFromDraft,
   }) : super(key: key);
 
   @override
@@ -48,9 +49,9 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                   color: kcPrimaryColor,
                 ))
               : ListView.builder(
-                  itemCount: viewModel.recipes!.length,
+                  itemCount: viewModel.recipes.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final RecipeModel recipe = viewModel.recipes![index];
+                    final RecipeModel recipe = viewModel.recipes[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 10),
@@ -188,5 +189,5 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
   RecipeListPageViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      RecipeListPageViewModel();
+      RecipeListPageViewModel(isFromDraft: isFromDraft);
 }

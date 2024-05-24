@@ -7,6 +7,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
   final String userrole;
@@ -200,8 +201,14 @@ class UserDetailsViewModel extends BaseViewModel {
       if (userDetailsStatus) {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
+           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomBarGuestView();
         } else {
+           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {

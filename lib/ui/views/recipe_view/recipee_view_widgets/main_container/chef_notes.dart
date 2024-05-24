@@ -10,7 +10,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
 
-    return viewModel.path!.isEmpty ? Container() :
+    return viewModel.path!.isEmpty || viewModel.waveFormData == null ? Container() :
      Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,7 +71,7 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                               size: const Size(
                                   double.maxFinite, double.maxFinite),
                               playerController: viewModel.playerController,
-                              waveformData: viewModel.waveFormData!,
+                              waveformData: viewModel.waveFormData == null?  [] : viewModel.waveFormData!,
                               playerWaveStyle: PlayerWaveStyle(
                                 fixedWaveColor: Colors.black,
                                 liveWaveColor: kcBlackColor.withOpacity(0.5),

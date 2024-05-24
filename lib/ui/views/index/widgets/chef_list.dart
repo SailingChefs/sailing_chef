@@ -59,7 +59,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       },
                       child: Container(
                         width: 160.w,
-                        height: 230.h,
+                        // height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [

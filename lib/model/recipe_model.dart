@@ -18,10 +18,11 @@ class RecipeModel {
   String? docId;
   List<double> waveForm;
   UserModel? user;
-  double? rating;
+  // ignore: prefer_typing_uninitialized_variables
+  var rating;
   List<String>? tags;
   List<CommentModel>? comment;
-  
+
   double? ratingCount;
 
   RecipeModel({

@@ -11,14 +11,14 @@ import 'recipe_view_viewmodel.dart';
 
 class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
-
+  final bool isFromDraft;
   final List<XFile> selectedImages;
   final List<String> draftUrls;
   final List<double>? waveFormData;
   final String? path;
 
   const RecipeViewView(this.recipeModel, this.selectedImages, this.draftUrls,
-      {Key? key, this.waveFormData, this.path})
+      {Key? key, this.waveFormData, this.path,required this.isFromDraft})
       : super(key: key);
 
   @override
@@ -93,6 +93,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
         waveFormData: waveFormData,
         path: path,
         recipeModel,
+        isFromDraft: isFromDraft,
       );
 
   @override

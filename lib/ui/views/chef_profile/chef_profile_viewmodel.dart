@@ -30,7 +30,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<RecipeModel>? chefRecipes;
+  List<RecipeModel> chefRecipes =[];
 
   List<String> get followers => _followService.followers;
   final ScrollController scrollController = ScrollController();
@@ -57,12 +57,27 @@ class ChefProfileViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
+  chefRecipesList(UserModel user){
+    if(RecipeService.recipes.isEmpty){
+      _recipeService.initialized();
+    }
+    else{
+      for (var recipe in RecipeService.recipes) {
+        if(user.recipes!.contains(recipe.docId)){
+          chefRecipes.add(recipe);
+          
+        }
+      }
+      
+    }
+  }
 
   void onViewModelReady(UserModel user) async {
     setBusy(true);
     await _followService.init(user.uid!, false);
     if (user.userRole != 'guest') {
-      chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+      chefRecipesList(user);
+            // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
       if (user.userRole == 'culinarySchool') {
         _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
       }
@@ -74,9 +89,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  void showBottomSheet(String uid) {
+  void showBottomSheet(UserModel user) {
     _bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.otherChefProfile, data: uid);
+        variant: BottomSheetType.otherChefProfile, data: user);
   }
 
   void onFollow(UserModel user) async {
@@ -146,9 +161,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   void toDishDetailsScreen(index) {
     _navigationService.navigateToSavedRecipeDetailsView(
-        recipeModel: chefRecipes![index],
+        recipeModel: chefRecipes[index],
         randomRecipeList: IndexViewModel.getRandomDishes(
-            chefRecipes![index], RecipeService.recipes));
+            chefRecipes[index], RecipeService.recipes));
   }
 
   void showRecipeList() {

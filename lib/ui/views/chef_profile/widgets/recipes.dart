@@ -8,7 +8,7 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    return viewModel.chefRecipes!.isEmpty
+    return viewModel.chefRecipes.isEmpty
         ? SizedBox(
             width: 400,
             height: 325,
@@ -90,21 +90,21 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
 
-                          chefId: viewModel.chefRecipes![index].user!.uid!,
-                          rating: viewModel.chefRecipes![index].rating,
-                          recipe: viewModel.chefRecipes![index],
+                          chefId: viewModel.chefRecipes[index].user!.uid!,
+                          rating: viewModel.chefRecipes[index].rating,
+                          recipe: viewModel.chefRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: viewModel
-                              .chefRecipes![index].coverImage
+                              .chefRecipes[index].coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
-                          dishName: viewModel.chefRecipes![index].title,
-                          duration: viewModel.chefRecipes![index].prepTime,
+                          dishName: viewModel.chefRecipes[index].title,
+                          duration: viewModel.chefRecipes[index].prepTime,
                           chefImagePath: viewModel
-                              .chefRecipes![index].user!.displayPicture!,
+                              .chefRecipes[index].user!.displayPicture!,
                         );
                       },
-                      childCount: viewModel.chefRecipes!.length,
+                      childCount: viewModel.chefRecipes.length,
                     ),
                   ),
                 ],

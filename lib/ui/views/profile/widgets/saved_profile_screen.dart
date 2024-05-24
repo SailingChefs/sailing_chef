@@ -10,24 +10,25 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-    final savedRecipes = viewModel.savedRecipes;
     return userDetails!.userRole == 'culinarySchool'
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    viewModel.isBusy ? const CircularProgressIndicator() :
-                    userDetails!.schoolCourses!.isNotEmpty
-                        ?  ListViewSavedCources(courses: viewModel.courses,)
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                viewModel.isBusy
+                    ? const CircularProgressIndicator()
+                    : userDetails!.schoolCourses!.isNotEmpty
+                        ? ListViewSavedCources(
+                            courses: viewModel.courses,
+                          )
                         : SizedBox(
                             height: screenHeight(context) * 0.31,
                             width: screenWidth(context) * 0.98,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                
                                 Text(
                                   'Allow chefs to book your courses',
                                   style: globalTextStyle(
@@ -67,53 +68,67 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                 )
                               ],
                             ),
-                        ),
-                  ],
-                ),
-              )
-            :  viewModel.savedRecipes.isEmpty ? const Center(child: Text('No Saved Recipes')) : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-              return ShrinkWrappingViewport(
-                offset: ViewportOffset.zero(),
-                axisDirection: AxisDirection.down,
-                slivers: [
-                  SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15.0,
-                      mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return PrimaryGridTile(
-                          chefId: savedRecipes[index].user!.uid!,
-                          rating: savedRecipes[index].rating,
-                          recipe: savedRecipes[index],
-                          onTap: () => viewModel.toDishDetailsScreen(
-                              index, savedRecipes[index]),
-                          foodImagePath: savedRecipes[index]
-                             
-                              .coverImage
-                              .where((element) => element.contains('.jpg'))
-                              .first,
-                          dishName: savedRecipes[index].title,
-                          duration: savedRecipes[index].prepTime,
-                          chefImagePath: savedRecipes[index]
-                             
-                              .user!
-                              .displayPicture!,
-                        );
-                      },
-                      childCount: savedRecipes.length,
-                    ),
+                          ),
+              ],
+            ),
+          )
+        : viewModel.savedRecipes.isEmpty
+            ? SizedBox(
+                height: screenHeight(context) * 0.31,
+                child: Center(
+                    child: Text(
+                  'Save your favorite recipes for later',
+                  style: globalTextStyle(
+                    fontSize: 14,
+                    color: kcPrimaryColor,
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
+                )),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return ShrinkWrappingViewport(
+                    offset: ViewportOffset.zero(),
+                    axisDirection: AxisDirection.down,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return PrimaryGridTile(
+                              chefId: viewModel.savedRecipes[index].user!.uid!,
+                              rating: viewModel.savedRecipes[index].rating,
+                              recipe: viewModel.savedRecipes[index],
+                              onTap: () => viewModel.toDishDetailsScreen(
+                                  index, viewModel.savedRecipes[index]),
+                              foodImagePath: viewModel
+                                  .savedRecipes[index].coverImage
+                                  .where((element) => element.contains('.jpg'))
+                                  .first,
+                              dishName: viewModel.savedRecipes[index].title,
+                              duration: viewModel.savedRecipes[index].prepTime,
+                              chefImagePath: viewModel.savedRecipes[index].user!
+                                          .displayPicture ==
+                                      null
+                                  ? ''
+                                  : viewModel.savedRecipes[index].user!
+                                      .displayPicture!,
+                            );
+                          },
+                          childCount: viewModel.savedRecipes.length,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               );
-            }),
-          );
   }
 }

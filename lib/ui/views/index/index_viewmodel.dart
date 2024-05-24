@@ -14,7 +14,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
-  final recipeService = locator<RecipeService>();
+  final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
   List<UserModel> get chefList => _chefService.chefs;
@@ -28,9 +28,11 @@ class IndexViewModel extends BaseViewModel {
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, recipeService, _cullinaryService, _chefService];
+      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
 
   get toViewCullinarySchool => null;
+  bool ? isInitialised ;
+     bool ?  showShimmer ;
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
@@ -56,19 +58,30 @@ class IndexViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
 
+
+    
+    if (isInitialised == null) {
+      // setBusy(true);
+      showShimmer = true;
+
       await Future.wait([
         _cullinaryService.culinaryInit(),
         _chefService.chefInit(),
         recipeService.initialized(),
       ]);
-      matchAndAssignUsersToDishes();
+    
 
    
       notifyListeners();
       rebuildUi();
 
-      
-   
+
+      // setBusy(false);
+    } else if (isInitialised == true) {
+      return;
+    }
+      matchAndAssignUsersToDishes();
+
 
   }
 
@@ -143,7 +156,6 @@ class IndexViewModel extends BaseViewModel {
         if(userDetails!.uid == dishes[i].uid){
         dishes[i].user = userDetails!;
       }
-
       }
     }
   }

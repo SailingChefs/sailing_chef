@@ -47,7 +47,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           chefId: dishes[index].user == null ? '' : dishes[index].user!.uid!,
                           rating: dishes[index].rating,
 
-                          
+                          recipe: dishes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: dishes[index]
                               .coverImage

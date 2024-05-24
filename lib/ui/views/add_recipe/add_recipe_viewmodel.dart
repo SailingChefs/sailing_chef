@@ -632,6 +632,7 @@ Future<void> downloadAudio() async {
       } else {
         if (recipeModel != null) {
          final shouldClear = await _navigationService.navigateToRecipeViewView(
+          isFromDraft: true,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -648,7 +649,7 @@ Future<void> downloadAudio() async {
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
-              waveForm: waveFormData!,
+            waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,
@@ -688,6 +689,7 @@ Future<void> downloadAudio() async {
         } else {
          
           final shouldClear = await _navigationService.navigateToRecipeViewView(
+            isFromDraft: false,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -704,7 +706,7 @@ Future<void> downloadAudio() async {
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: '',
-              waveForm: waveFormData!,
+              waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,
