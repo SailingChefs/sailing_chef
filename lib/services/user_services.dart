@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -170,14 +171,15 @@ class UserServices with ListenableServiceMixin {
 
   Future<bool> deleteUserAndDocument() async {
     try {
+      EasyLoading.show();
       // Delete document with the user's UID from Firestore
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .delete();
 
       // Delete conversation Documents with user's uid from Firestore
-      await FirebaseFirestore.instance
+      await firebasestore
           .collection('conversations')
           .where('users', arrayContains: firebaseAuth.currentUser!.uid)
           .get()
@@ -186,15 +188,48 @@ class UserServices with ListenableServiceMixin {
           doc.reference.delete();
         }
       },
+     
 
       );
+       await firebasestore.collection('recipes').where('uid', isEqualTo: firebaseAuth.currentUser!.uid).get().then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }},);
+     await firebasestore
+    .collection('recipes')
+    .get()
+    .then((recipesSnapshot) async {
+  for (var recipeDoc in recipesSnapshot.docs) {
+    await FirebaseFirestore.instance
+        .collection('recipes')
+        .doc(recipeDoc.id)
+        .collection('comments')
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((querySnapshot) {
+      for (var commentDoc in querySnapshot.docs) {
+        commentDoc.reference.delete();
+      }
+    });
+  }
+});
+if(userDetails!.userRole == 'culinarySchool'){
+  for(var courseId in userDetails!.schoolCourses!){
+    await firebasestore.collection('courses').doc(courseId).delete();
+    
+  }
+}
+
 
       // Delete user from Firebase Authentication
       await firebaseAuth.currentUser!.delete();
-      await _authService.signOut();
+      userDetails = null;
+     
+      EasyLoading.dismiss();
       log('User account and document deleted successfully');
       return true;
     } catch (e) {
+      EasyLoading.dismiss();
       log('Error deleting user and document: $e');
       return false;
     }

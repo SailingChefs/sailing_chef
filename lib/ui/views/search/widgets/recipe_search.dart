@@ -50,7 +50,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 duration: recipe.prepTime,
                                 chefImagePath: recipe.user!.displayPicture!);
                           },
-                          childCount: viewModel.searchRecipes(recipes).length >= 4 ? 4: viewModel.searchRecipes(recipes).length ,
+                          childCount: viewModel.searchRecipes(recipes).length ,
                         ),
                       ),
                     ],

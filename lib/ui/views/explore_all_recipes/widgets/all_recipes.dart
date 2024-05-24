@@ -28,7 +28,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
             itemBuilder: (BuildContext context, int index) {
               return PrimaryGridTile(
                 chefId: recipes[index].user!.uid!,
-                  rating: recipes[index].rating!,
+                  rating: recipes[index].rating,
                   recipe: recipes[index],
                   onTap: () => viewModel
                       .toDishDetailsScreen(recipes[index]),

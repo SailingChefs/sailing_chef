@@ -12,6 +12,8 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
+  final bool isFromDraft;
+
   PageController pageController = PageController(viewportFraction: 1.0);
   late final PlayerController playerController;
   late VideoPlayerController controller;
@@ -39,6 +41,7 @@ class RecipeViewViewModel extends BaseViewModel {
     this.recipe, {
     this.waveFormData,
     this.path,
+    required this.isFromDraft,
   });
 
   String formattedDuration = '';
@@ -173,8 +176,12 @@ class RecipeViewViewModel extends BaseViewModel {
     log("to Recipe List");
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
-    final String chefNote =
+    String chefNote = '';
+    if(path!.isNotEmpty){
+       chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    }
+    
     try {
       log("id${recipe.docId!}");
       await _recipeService
@@ -193,12 +200,14 @@ class RecipeViewViewModel extends BaseViewModel {
               tags: recipe.tags,
               uid: recipe.uid,
               docId: recipe.docId,
-              waveForm: waveFormData!,
+              waveForm: waveFormData == null ? [] : waveFormData!,
             ),
           )
           .then(
             (value) async{
-              final result = await navigationService.navigateToRecipeListPageView();
+              final result = await navigationService.navigateToRecipeListPageView(
+                isFromDraft: isFromDraft,
+              );
               log("result: $result");
             }
           );
@@ -216,8 +225,11 @@ class RecipeViewViewModel extends BaseViewModel {
       RecipeModel recipe, List<XFile?> selectedImages) async {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
-    final String chefNote =
+    String chefNote = '';
+    if(path!.isNotEmpty){
+       chefNote =
         await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    }
     try {
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
@@ -233,9 +245,11 @@ class RecipeViewViewModel extends BaseViewModel {
             title: recipe.title,
             uid: recipe.uid,
             docId: '',
-            waveForm: waveFormData!,
+            waveForm: waveFormData == null ? [] : waveFormData!,
           ))
-          .then((value) =>  navigationService.navigateToRecipeListPageView()
+          .then((value) =>  navigationService.navigateToRecipeListPageView(
+            isFromDraft: isFromDraft,
+          )
                
             );
     } catch (e) {

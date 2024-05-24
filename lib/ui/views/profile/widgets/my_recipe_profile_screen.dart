@@ -56,7 +56,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
 
-                          chefId: viewModel.myRecipes[index].user!.uid!,
+                          chefId: userDetails!.uid!,
                           rating: viewModel.myRecipes[index].rating ,
 
                           recipe: viewModel.myRecipes[index],

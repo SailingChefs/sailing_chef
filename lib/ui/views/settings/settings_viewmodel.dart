@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/ui/views/login/login_view.dart';
@@ -9,7 +10,13 @@ class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void getBack() {
-    _navigationService.back();
+    if(userDetails!.userRole == 'chef' || userDetails!.userRole == 'culinarySchool'){
+      _navigationService.navigateToBottomNavBarView();
+    }
+    else{
+      _navigationService.navigateToBottomBarGuestView();
+    }
+    
   }
 
   void deleteAccount() {

@@ -25,7 +25,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     bool saved = await _recipeService.addOrUpdateDraft(recipe);
 
     if (saved) {
-      _navigatorlocator.replaceWithSettingsView();
+      _navigatorlocator.replaceWithViewAllDraftsView();
     } else {
       showToast(message: 'Error saving draft recipe');
     }

@@ -58,6 +58,9 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
       ),
     );
   }
+  
+  @override  
+  bool get disposeViewModel => false;
 
   @override
   BottomNavBarViewModel viewModelBuilder(BuildContext context) =>

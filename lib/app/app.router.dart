@@ -395,8 +395,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i15.RecipeListPageView: (data) {
+      final args = data.getArgs<RecipeListPageViewArguments>(nullOk: false);
       return _i35.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i15.RecipeListPageView(),
+        builder: (context) => _i15.RecipeListPageView(
+            key: args.key, isFromDraft: args.isFromDraft),
         settings: data,
       );
     },
@@ -421,7 +423,10 @@ class StackedRouter extends _i1.RouterBase {
       return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i18.RecipeViewView(
             args.recipeModel, args.selectedImages, args.draftUrls,
-            key: args.key, waveFormData: args.waveFormData, path: args.path),
+            key: args.key,
+            waveFormData: args.waveFormData,
+            path: args.path,
+            isFromDraft: args.isFromDraft),
         settings: data,
       );
     },
@@ -634,6 +639,33 @@ class AddRecipeViewArguments {
   }
 }
 
+class RecipeListPageViewArguments {
+  const RecipeListPageViewArguments({
+    this.key,
+    required this.isFromDraft,
+  });
+
+  final _i36.Key? key;
+
+  final bool isFromDraft;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "isFromDraft": "$isFromDraft"}';
+  }
+
+  @override
+  bool operator ==(covariant RecipeListPageViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.isFromDraft == isFromDraft;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ isFromDraft.hashCode;
+  }
+}
+
 class FollowingListViewArguments {
   const FollowingListViewArguments({
     this.key,
@@ -674,6 +706,7 @@ class RecipeViewViewArguments {
     this.key,
     this.waveFormData,
     this.path,
+    required this.isFromDraft,
   });
 
   final _i37.RecipeModel recipeModel;
@@ -688,9 +721,11 @@ class RecipeViewViewArguments {
 
   final String? path;
 
+  final bool isFromDraft;
+
   @override
   String toString() {
-    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "draftUrls": "$draftUrls", "key": "$key", "waveFormData": "$waveFormData", "path": "$path"}';
+    return '{"recipeModel": "$recipeModel", "selectedImages": "$selectedImages", "draftUrls": "$draftUrls", "key": "$key", "waveFormData": "$waveFormData", "path": "$path", "isFromDraft": "$isFromDraft"}';
   }
 
   @override
@@ -701,7 +736,8 @@ class RecipeViewViewArguments {
         other.draftUrls == draftUrls &&
         other.key == key &&
         other.waveFormData == waveFormData &&
-        other.path == path;
+        other.path == path &&
+        other.isFromDraft == isFromDraft;
   }
 
   @override
@@ -711,7 +747,8 @@ class RecipeViewViewArguments {
         draftUrls.hashCode ^
         key.hashCode ^
         waveFormData.hashCode ^
-        path.hashCode;
+        path.hashCode ^
+        isFromDraft.hashCode;
   }
 }
 
@@ -1086,14 +1123,18 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToRecipeListPageView([
+  Future<dynamic> navigateToRecipeListPageView({
+    _i36.Key? key,
+    required bool isFromDraft,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.recipeListPageView,
+        arguments:
+            RecipeListPageViewArguments(key: key, isFromDraft: isFromDraft),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1140,6 +1181,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
     _i36.Key? key,
     List<double>? waveFormData,
     String? path,
+    required bool isFromDraft,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1153,7 +1195,8 @@ extension NavigatorStateExtension on _i40.NavigationService {
             draftUrls: draftUrls,
             key: key,
             waveFormData: waveFormData,
-            path: path),
+            path: path,
+            isFromDraft: isFromDraft),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1603,14 +1646,18 @@ extension NavigatorStateExtension on _i40.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRecipeListPageView([
+  Future<dynamic> replaceWithRecipeListPageView({
+    _i36.Key? key,
+    required bool isFromDraft,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.recipeListPageView,
+        arguments:
+            RecipeListPageViewArguments(key: key, isFromDraft: isFromDraft),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1657,6 +1704,7 @@ extension NavigatorStateExtension on _i40.NavigationService {
     _i36.Key? key,
     List<double>? waveFormData,
     String? path,
+    required bool isFromDraft,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1670,7 +1718,8 @@ extension NavigatorStateExtension on _i40.NavigationService {
             draftUrls: draftUrls,
             key: key,
             waveFormData: waveFormData,
-            path: path),
+            path: path,
+            isFromDraft: isFromDraft),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

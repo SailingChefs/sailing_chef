@@ -10,7 +10,8 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 
 class BlockUserService with ListenableServiceMixin {
   final ChefService chefService = locator<ChefService>();
-  final CullinaryschoolService cullinaryschoolService = locator<CullinaryschoolService>();
+  final CullinaryschoolService cullinaryschoolService =
+      locator<CullinaryschoolService>();
   List<String> blockedAccounts = [];
 
   void onInit() {
@@ -18,37 +19,48 @@ class BlockUserService with ListenableServiceMixin {
   }
 
   // chefService.chefs.removeWhere((element) => blockedAccounts.contains(element.uid));
-  Future<bool> updateBlockedAccounts(List<String> blockedAccounts) async {
+  Future<bool> updateBlockedAccounts(List<String> blockedAccounts,UserModel user) async {
     final CollectionReference usersCollection =
         firebasestore.collection('users');
 
     try {
       // Check if the document exists
-      final DocumentSnapshot document = await usersCollection
-          .doc(firebaseAuth.currentUser!.uid)
-          .get();
-      
+      final DocumentSnapshot document =
+          await usersCollection.doc(firebaseAuth.currentUser!.uid).get();
 
       if (document.exists) {
         // If the document exists, update the blocked_accounts field
-        await usersCollection
-            .doc(firebaseAuth.currentUser!.uid)
-            .update(
-                {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
-                if(userDetails!.followers!.contains(blockedAccounts.first))
-              { await usersCollection
-            .doc(userDetails!.uid)
-            .update(
-                {'followers': FieldValue.arrayRemove(blockedAccounts)});  }
+        await usersCollection.doc(firebaseAuth.currentUser!.uid).update(
+            {'blocked_accounts': FieldValue.arrayUnion(blockedAccounts)});
+        if (userDetails!.followers!.contains(blockedAccounts.first)) {
+          await usersCollection
+              .doc(userDetails!.uid)
+              .update({'followers': FieldValue.arrayRemove(blockedAccounts)});
 
-                if(userDetails!.following!.contains(blockedAccounts.first)){
-                  await usersCollection.doc(userDetails!.uid).update({
-                    'following': FieldValue.arrayRemove(blockedAccounts),
-                  });
-                }
+          userDetails!.followers!.removeWhere((element) => blockedAccounts.contains(element));
+        }
+         if (userDetails!.following!.contains(blockedAccounts.first)) {
+          await usersCollection.doc(userDetails!.uid).update({
+            'following': FieldValue.arrayRemove(blockedAccounts),
+          });
 
-        // Remove blocked accounts from the list of blocked accounts    
-userDetails = UserModel.fromSnapshot(document);
+          userDetails!.following!.removeWhere((element) => blockedAccounts.contains(element));
+        }
+        if(user.followers!.contains(blockedAccounts.first)){
+          
+          await usersCollection
+              .doc(user.uid)
+              .update({'followers': FieldValue.arrayRemove(blockedAccounts)});
+        }
+       if(user.following!.contains(blockedAccounts.first)){
+          await usersCollection
+              .doc(user.uid)
+              .update({'following': FieldValue.arrayRemove(blockedAccounts)});
+        }
+       
+
+        // Remove blocked accounts from the list of blocked accounts
+        
         blockedAccounts.add(blockedAccounts.last);
         chefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));
@@ -78,7 +90,7 @@ userDetails = UserModel.fromSnapshot(document);
         .doc(firebaseAuth.currentUser!.uid)
         .update(localModel.toJson());
     blockedAccounts.removeWhere((element) => blockedAccounts.contains(userId));
-    
+
     notifyListeners();
   }
 }

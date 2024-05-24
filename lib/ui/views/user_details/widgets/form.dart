@@ -64,16 +64,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             dropdownDecoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
-                                color: Colors.grey.withOpacity(0.2),
+                                color: kcPrimaryColor.withOpacity(0.09),
                                 border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
+                                     color: kcPrimaryColor.withOpacity(0.09), width: 1)),
 
                             disabledDropdownDecoration: BoxDecoration(
+                               color: kcPrimaryColor.withOpacity(0.09),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
-                                color: Colors.grey.withOpacity(0.2),
-                                border: Border.all(
-                                    color: Colors.grey.shade300, width: 1)),
+                               
+                               ),
 
                             ///placeholders for dropdown search field
                             countrySearchPlaceholder: "Country",
@@ -156,14 +156,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                         Radius.circular(10)),
                                     color: Colors.grey.withOpacity(0.2),
                                     border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                         color: kcPrimaryColor.withOpacity(0.09), width: 1)),
 
                                 disabledDropdownDecoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
                                     color: Colors.grey.withOpacity(0.2),
                                     border: Border.all(
-                                        color: Colors.grey.shade300, width: 1)),
+                                         color: kcPrimaryColor.withOpacity(0.09), width: 1)),
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",

@@ -5,6 +5,8 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
@@ -22,6 +24,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   final bottomsheetService = locator<BottomSheetService>();
   final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
+  final _chefService = locator<ChefService>();
   final CullinaryschoolService _cullinarySchoolService =
       locator<CullinaryschoolService>();
 
@@ -29,8 +32,10 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel>  savedRecipes = [];
   List<Course> get courses => _cullinarySchoolService.courses;
+  List<UserModel> get cullinary => _cullinarySchoolService.cullinaryscools;
+  List<UserModel> get chefs => _chefService.chefs;
   // List<RecipeModel> savedRecipes =[];
   List<RecipeModel> myRecipes = [];
 
@@ -90,8 +95,8 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
-
-  myRecipesList() async {
+ 
+  Future<void> myRecipesList() async {
     if (RecipeService.recipes.isEmpty) {
       myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
       return;
@@ -103,19 +108,55 @@ class ProfileViewModel extends ReactiveViewModel {
       }
     }
   }
+  Future<void> matchAndAssignUsersToDishes() async{
+  // Combine both user lists into one for easier searching
+  List<UserModel> allUsers = [...chefs, ...cullinary];
+
+  for (int i = 0 ; i<savedRecipes.length; i++) {
+
+    if (savedRecipes[i].user == null) {
+      // Find the matching user in the allUsers list
+      UserModel? matchingUser = allUsers.firstWhere(
+        (user) => user.uid == savedRecipes[i].uid,
+        orElse: () => UserModel(uid: ''),
+      );
+      if (matchingUser.uid != null) {
+        // Assign the matching user to the corresponding dish
+        savedRecipes[i].user = matchingUser;
+        if(userDetails!.uid == savedRecipes[i].uid){
+        savedRecipes[i].user = userDetails!;
+      }
+      }
+    }
+  }
+  }
 
   void toFilterView() {
     _navigationService.navigateToFilterView();
   }
-
+  Future<void> mySavedRecipes() async {
+   if(RecipeService.recipes.isEmpty){
+      await _recipeService.initialized();
+     return;
+   }
+   else{
+    for(var recipe in RecipeService.recipes)
+    {
+      if(userDetails!.savedRecipes!.any((element) => element == recipe.docId)){
+        savedRecipes.add(recipe);
+      }
+    }
+   }
+  }
   
   void onViewModelReady() async {
     setBusy(true);
-    myRecipesList();
-    // mySavedRecipes();
+   await myRecipesList();
+    await mySavedRecipes();
+    await matchAndAssignUsersToDishes();
 
     await Future.wait([
-      _savedRecipeService.init(),
+      // _savedRecipeService.init(),
       _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
       
     ]);

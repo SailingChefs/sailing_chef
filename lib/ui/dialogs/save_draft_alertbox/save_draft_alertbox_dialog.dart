@@ -77,7 +77,7 @@ class SaveDraftAlertboxDialog
                             TextButton(
                               onPressed: () {
                                 viewModel.noButton(recipe, images, path);
-                                completer!(DialogResponse(confirmed: true));
+                                // completer!(DialogResponse(confirmed: true));
                               },
                               child: Text(
                                 'No',

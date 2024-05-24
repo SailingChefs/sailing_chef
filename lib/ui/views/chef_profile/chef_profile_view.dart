@@ -28,7 +28,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           appBar: ChefProfileTopBar(
-            uid: user.uid!,
+            user: user,
           ),
           body: Padding(
             padding: EdgeInsets.only(left: 10.0.w,right: 10.w),

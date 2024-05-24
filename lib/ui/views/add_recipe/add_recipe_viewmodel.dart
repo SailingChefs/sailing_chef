@@ -599,6 +599,7 @@ class AddRecipeViewModel extends BaseViewModel {
       } else {
         if (recipeModel != null) {
          final shouldClear = await _navigationService.navigateToRecipeViewView(
+          isFromDraft: true,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -615,7 +616,7 @@ class AddRecipeViewModel extends BaseViewModel {
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
-              waveForm: waveFormData!,
+            waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,
@@ -655,6 +656,7 @@ class AddRecipeViewModel extends BaseViewModel {
         } else {
          
           final shouldClear = await _navigationService.navigateToRecipeViewView(
+            isFromDraft: false,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -671,7 +673,7 @@ class AddRecipeViewModel extends BaseViewModel {
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: '',
-              waveForm: waveFormData!,
+              waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,

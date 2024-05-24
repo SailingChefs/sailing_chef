@@ -49,6 +49,7 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
 
     _blockUserService.updateCurrentUserModel(
         localModel: userDetails!, userId: user.uid!);
+        _recipeService.isInitialized = false;
         await _recipeService.initialized();
 
 

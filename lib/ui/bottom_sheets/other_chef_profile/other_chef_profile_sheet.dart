@@ -115,5 +115,5 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
 
   @override
   OtherChefProfileSheetModel viewModelBuilder(BuildContext context) =>
-      OtherChefProfileSheetModel();
+      OtherChefProfileSheetModel(completer: completer);
 }

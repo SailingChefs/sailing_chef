@@ -23,7 +23,7 @@ class RecipeService with ListenableServiceMixin {
   bool isInitialized = false;
  Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    if (isInitialized) return;
+    // if (isInitialized) return;
     recipes = await fetchAllRecipes();
     
     isInitialized = true;
@@ -70,10 +70,8 @@ class RecipeService with ListenableServiceMixin {
         } else {
           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;
-          if (user != null) {
-            userCache[recipe.uid] = user;
-          }
-        }
+          userCache[recipe.uid] = user;
+                }
 
         QuerySnapshot commentsSnapshot =
             await doc.reference.collection('comments').get();
@@ -180,6 +178,18 @@ class RecipeService with ListenableServiceMixin {
             FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
+         String docId = docRef.id;
+
+        await docRef.update({'doc_id': docId});
+        await firebasestore
+            .collection('users')
+            .doc(firebaseAuth.currentUser!.uid)
+            .update({
+          'recipes': FieldValue.arrayUnion([docId])
+        });
+         userDetails!.recipes!.add(recipe.docId!);
+        recipe.user = userDetails;
+        recipes.add(recipe);
 
         showToast(message: 'Recipe updated successfully');
       } else {

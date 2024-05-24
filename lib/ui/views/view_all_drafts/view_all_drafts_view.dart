@@ -37,7 +37,7 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
             verticalSpaceSmall,
             viewModel.isBusy
                 ? const CircularProgressIndicator(
-                    color: kcWhiteColor,
+                    color: kcPrimaryColor,
                   )
                 : viewModel.draft.isEmpty
                     ? SizedBox(

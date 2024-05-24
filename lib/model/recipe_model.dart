@@ -21,8 +21,6 @@ class RecipeModel {
   double? rating;
   List<String>? tags;
   List<CommentModel>? comment;
-  
-  double? rating;
   double? ratingCount;
 
   RecipeModel({
@@ -35,7 +33,6 @@ class RecipeModel {
     required this.coverImage,
     required this.createdTime,
     required this.ingredients,
-    this.rating,
     required this.methods,
     required this.prepTime,
     required this.servingSize,

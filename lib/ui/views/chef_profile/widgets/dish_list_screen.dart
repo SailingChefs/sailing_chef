@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -12,7 +11,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    final List<RecipeModel> recipes = viewModel.chefRecipes!;
+    final List<RecipeModel> recipes = viewModel.chefRecipes;
     return recipes.isNotEmpty
         ? user.userRole != 'culinarySchool' && user.userRole == 'chef'
             ? Padding(
@@ -35,8 +34,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                           (BuildContext context, int index) {
                             return PrimaryGridTile(
                               chefId: recipes[index].user!.uid!,
-                              rating: calculateAverageRating(
-                                  recipes[index].comment!),
+                              rating: recipes[index].rating,
                               recipe: recipes[index],
                               onTap: () => viewModel.toDishDetailsScreen(index),
                               foodImagePath: recipes[index]
