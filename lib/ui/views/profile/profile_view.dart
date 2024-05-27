@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
@@ -50,11 +53,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                             const TabBarProfileScreen(),
                             IconButton(
                               onPressed: viewModel.toFilterView,
-                              icon: Icon(
-                                FlutterRemix.equalizer_line,
-                                color: filterIconColor,
-                                size: 25.sp,
-                              ),
+                              icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
 
                             ),
                           ],

@@ -38,8 +38,8 @@ class FollowingListViewModel extends BaseViewModel {
 
   void onFollowTap(UserModel user) async {
     await _followService.removeFollowing(user);
-    // notifyListeners();
-    // rebuildUi();
+    notifyListeners();
+    rebuildUi();
   }
 
   void deleteFollower(UserModel user) async {

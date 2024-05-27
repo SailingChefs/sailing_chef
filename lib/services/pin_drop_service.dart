@@ -10,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
-import 'package:sailing_chefs/model/pindrop_review.dart';
 import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -18,7 +17,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 class PinDropService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<ReviewsModel> reviews = [];
-
+  bool isInitialized = false;
   List<PinnedLocation> pins=[];
 
   Future<void> getReviews(String pinId) async {
@@ -26,14 +25,13 @@ class PinDropService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  Future<void> getPins(LatLng location) async {
-    pins.clear();
-    
-    pins = await getPinsNearUserLocation(location);
-   
-    notifyListeners();
+  // Future<void> getPins(LatLng location) async {
+  //   // pins.clear();
+  //   if(isInitialized) return;
+  //   pins = await getPinsNearUserLocation(location);   
+  //   notifyListeners();
 
-  }
+  // }
 
   Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
 
@@ -81,7 +79,7 @@ class PinDropService with ListenableServiceMixin {
       String docId = docRef.id;
 
       await docRef.update({'doc_id': docId});
-
+      pins.where((element) => element.id == reviews.pindropId).first.reviews!.add(reviews);
       EasyLoading.dismiss();
       showToast(message: 'review added successfully');
       return true;
@@ -134,19 +132,20 @@ class PinDropService with ListenableServiceMixin {
     return downloadUrls;
   }
 
-  Future<void> addReview(String pinId, Review review) async {
-    final CollectionReference pinsCollection =
-        FirebaseFirestore.instance.collection('pins');
-    final DocumentReference pinDoc = pinsCollection.doc(pinId);
-    final CollectionReference reviewsCollection = pinDoc.collection('reviews');
-    final DocumentReference reviewDoc = reviewsCollection.doc();
+  // Future<void> addReview(String pinId, Review review) async {
+  //   final CollectionReference pinsCollection =
+  //       FirebaseFirestore.instance.collection('pins');
+  //   final DocumentReference pinDoc = pinsCollection.doc(pinId);
+  //   final CollectionReference reviewsCollection = pinDoc.collection('reviews');
+  //   final DocumentReference reviewDoc = reviewsCollection.doc();
 
-    await reviewDoc.set(review.toFirestore());
-  }
+  //   await reviewDoc.set(review.toFirestore());
+  // }
 
   Future<List<PinnedLocation>> getPinsNearUserLocation(
       LatLng userLocation) async {
-    final List<PinnedLocation> pins = [];
+        pins.clear();
+    final List<PinnedLocation> pin = [];
     final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
       center: GeoFirePoint(
@@ -164,12 +163,14 @@ class PinDropService with ListenableServiceMixin {
     );
 
     for (final doc in query) {
-      final PinnedLocation pin =
-          PinnedLocation.fromSnapshot(doc.documentSnapshot);
-      pins.add(pin);
+        log(query.length.toString());
+      
+         PinnedLocation pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
+          pin.reviews = await fetchReviewsByPinId(pin.id!);
+          pins.add(pin);
     }
     log(pins.toString());
-    return pins;
+    return pin;
   }
 
   Future<List<PinnedLocation>> getPinsUsingTags(

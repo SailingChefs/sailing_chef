@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
@@ -74,7 +77,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
      
         IconButton(
           onPressed: () => viewModel.toFilterScreen(recipes),
-          icon: const Icon(FlutterRemix.equalizer_line),
+          icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
           color: filterIconColor,
           iconSize: 30.dg,
         ),

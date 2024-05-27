@@ -23,35 +23,48 @@ class IndexView extends StackedView<IndexViewModel> {
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarIndexScreen(),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: [
               // const TopBarIndexScreen(),
-              verticalSpace(10),
-              const TabBarIndexScreen(),
-              verticalSpace(10),
-              viewModel.isMySelected
-                  ? viewModel.showShimmer
-                      ? const ShimmerChef()
-                      : const ChefListIndexScreen()
-                  : viewModel.showShimmer
-                      ? const ShimmerChef()
-                      : const CullinaryListIndexScreen(),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Column(
+                  children: [
+                    verticalSpace(10),
+                    const TabBarIndexScreen(),
+                    verticalSpace(10),
+                    viewModel.isMySelected
+                        ? viewModel.showShimmer
+                            ? const ShimmerChef()
+                            : const ChefListIndexScreen()
+                        : viewModel.showShimmer
+                            ? const ShimmerChef()
+                            : const CullinaryListIndexScreen(),
+                  ],
+                ),
+              ),
               verticalSpace(10),
               const SearchBarIndexView(),
               verticalSpace(10),
-              const DishListIndexScreen(),
+              const Padding(
+                padding: EdgeInsets.all(6.0),
+                child: DishListIndexScreen(),
+              ),
               verticalSpaceMedium,
-              
-              viewModel.dishes.isNotEmpty ? Center(
-                child: TextButton(
-                  onPressed: viewModel.toAllRecipesView,
-                  child: Text(
-                    'View All Recipes',
-                    style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),
-                  ),
-                ),
-              ): Container(),
+
+              viewModel.dishes.isNotEmpty
+                  ? Center(
+                      child: TextButton(
+                        onPressed: viewModel.toAllRecipesView,
+                        child: Text(
+                          'View All Recipes',
+                          style: globalTextStyle(
+                              fontSize: 14, color: kcPrimaryColor),
+                        ),
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ),

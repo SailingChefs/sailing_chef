@@ -12,7 +12,6 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    log('randomList : {$recipeList}');
     return recipeList.isEmpty
         ? Container()
         : Column(
@@ -43,7 +42,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       return Row(
                         children: [
                           GestureDetector(
-                            onTap: () => viewModel.toRecipeDetails(recipeList[index]),
+                            onTap: () => viewModel.toRecipeDetails(recipeList[index],),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0.dg, 10.dg, 0.dg, 30.dg),
                               child: Column(
@@ -54,7 +53,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                     height: 180.h,
                                     child: ClipRRect(
                                         borderRadius:
-                                            BorderRadius.all(Radius.circular(22.7.dg)),
+                                            BorderRadius.all(Radius.circular(22.7.dg),),
                                         child: Image.network(
                                           recipeList[index]
                                               .coverImage
@@ -64,18 +63,20 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                           fit: BoxFit.cover,
                                           width: 140.w,
                                           height: 160.h,
-                                        )),
+                                        ),),
                                   ),
-                                  verticalSpaceSmall,
+                                  verticalSpaceTiny,
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
+                                      horizontalSpaceSmall,
                                       SizedBox(
-                                        width: 110.w,
+                                        width: 100.w,
                                         child: Text(
                                             capitalizeEachWord(recipeList[index].title),
                                             style: globalTextStyle(
-                                              fontSize: 10.sp,
+                                              fontSize: 13.sp,
                                               color: kcBlackColor.withOpacity(0.6),
                                               letterSpacing: -0.3,
                                               fontWeight: FontWeight.w500,
@@ -100,7 +101,8 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                                 color: kcBlackColor.withOpacity(0.6),
                                                 size: 20.dg,
                                               ),
-                                      ): Container()
+                                      ): Container(),
+                                      horizontalSpaceTiny,
                                     ],
                                   ),
                                 ],

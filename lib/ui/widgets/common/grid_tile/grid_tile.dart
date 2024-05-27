@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -54,7 +53,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
             color: kcWhiteColor,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 1,
                 offset: const Offset(0, 3),
@@ -87,31 +86,19 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 verticalSpaceTiny,
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RatingBarIndicator(
-                        rating: rating != null ? rating : 0.0,
-                        itemBuilder: (context, index) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 20.0,
-                        direction: Axis.horizontal,
+                  child: SizedBox(
+                    width: 120.w,
+                    child: Text(
+                      capitalizeEachWord(dishName),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: globalTextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -0.5,
+                        color: kcBlackColor.withOpacity(0.6),
                       ),
-                      Text(
-                        capitalizeEachWord(dishName),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: globalTextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: -0.5,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -146,14 +133,14 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   ),
             Positioned(
               left: 5.dg,
-              bottom: 30.dg + 25.dg,
+              bottom: 30.dg ,
               child: Container(
                 // width: 90.w,
                 height: 25.h,
                 padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: kcBlackColor.withOpacity(0.5),
+                  color: kcBlackColor.withOpacity(0.4),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.r),
                   ),
@@ -177,7 +164,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 27.dg,
+              bottom: 10.dg,
               right: 10.dg,
               child: Container(
                 height: 32.h,

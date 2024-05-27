@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,7 +81,7 @@ class UserDetailsViewModel extends BaseViewModel {
       rebuildUi();
     }
     else{
-      stateValue = value!;
+      stateValue = value;
       cityValue = '';
       rebuildUi();
     }

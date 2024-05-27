@@ -38,17 +38,14 @@ class AddRecipeViewModel extends BaseViewModel {
   late Directory directory;
   late String path;
   String selectedValue = 'Public';
-  int selectedQuantity = 1;
+  TextEditingController selectedQuantity = TextEditingController();
   List<XFile> selectedImages = [];
   String? prepreationTime;
   List<XFile> thumbnails = [];
   List<String> alreadySelectedImages = [];
   TextEditingController titleController = TextEditingController();
-  int count = 0;
   List<String> values = ['Public', 'Private'];
-  List<String> quantity = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  List<String> timeMethod = ['secs', 'mins', 'hrs'];
-  String selectedTimeMethod = 'secs';
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<Ingredient> updatedIngredientsList = [];
@@ -61,15 +58,15 @@ class AddRecipeViewModel extends BaseViewModel {
 
   bool isPlaying = false;
 
-  bool isclicked = false;
+
 
   List<double>? waveFormData;
 
   bool get isRecording => recorderController.isRecording;
 
   bool get shouldShowHint {
-    return !hasRecordedAudio && !isRecording ;
-   }
+    return !hasRecordedAudio && !isRecording;
+  }
 
   bool get isWaveformAndChefNoteEmpty {
     return (waveFormData?.length ?? 0) == 0 &&
@@ -78,25 +75,42 @@ class AddRecipeViewModel extends BaseViewModel {
 
   bool hasRecordedAudio = false;
 
-  Future<void> showTagsSheet(context) async {
-    final result =
-        await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
+  /// Shows a custom bottom sheet to select tags and updates the `tagsList` with the selected tags.
+  ///
+  /// The function takes a `BuildContext` object as a parameter and returns a `Future<void>`.
+  /// It uses the `_bottomSheetService` to show a custom bottom sheet with the variant `BottomSheetType.tags`.
+  /// If the user selects tags, the `tagsList` is updated with the selected tags.
+  /// After updating the `tagsList`, the UI is rebuilt and the listeners are notified.
+  Future<void> showTagsSheet(BuildContext context) async {
+    final result = await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
       variant: BottomSheetType.tags,
     );
     if (result == null) return;
     tagsList = result.data.tags;
-
     log("tagsList: $tagsList");
     rebuildUi();
     notifyListeners();
   }
 
+
+  /// Shows an image cropper for the given [value] file.
+  ///
+  /// The [value] parameter is the file to be cropped.
+  /// The [context] parameter is the build context.
+  /// The [index] parameter is the index of the file in the [selectedImages] list.
+  ///
+  /// Returns a [Future] that completes when the cropping is done.
   Future<void> showCroppper(File value, context, index) async {
+    // Calculate the file size in bytes
     int fileSizeInBytes = await File(value.path).length();
 
+    // Convert bytes to kilobytes
     double fileSizeInKB = fileSizeInBytes / 1024;
 
+    // Print the file size in kilobytes
     log(' File size is : $fileSizeInKB KB');
+
+    // Show the image cropper
     CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: value.path,
       aspectRatioPresets: [
@@ -122,16 +136,21 @@ class AddRecipeViewModel extends BaseViewModel {
         ),
       ],
     );
+
     if (croppedImage != null) {
-      // ! we need "a value of File Type" so here we are converting the from CropperdFile to File
+      // Convert the cropped image to a File type
       final XFile croppedFile = XFile(
         croppedImage.path,
       );
 
+      // Update the selected image at the given index
       selectedImages[index] = croppedFile;
 
+      // Rebuild the UI and notify listeners
       rebuildUi();
       notifyListeners();
+
+      // Calculate the file size in bytes
       int fileSizeInBytes = await File(croppedFile.path).length();
 
       // Convert bytes to kilobytes
@@ -142,8 +161,8 @@ class AddRecipeViewModel extends BaseViewModel {
     } else {
       log("cropped image is null");
     }
-    // = CroppedFile(croppedFile!.path) as XFile;
   }
+  
 
   String? validatePrepTime(String? value) {
     if (value == null || value.isEmpty) {
@@ -189,7 +208,7 @@ class AddRecipeViewModel extends BaseViewModel {
         prepreationTime = recipeModel!.prepTime;
       }
 
-      selectedQuantity = recipeModel!.servingSize;
+      selectedQuantity.text = recipeModel!.servingSize.toString();
 
       // selectedImages = recipeModel!.coverImage;
     }
@@ -211,28 +230,28 @@ class AddRecipeViewModel extends BaseViewModel {
 
   double volume = 0;
   bool isMute = false;
-Future<void> downloadAudio() async {
-  Directory tempDir = await getTemporaryDirectory();
-  String tempPath = tempDir.path;
-  final response = await http.get(Uri.parse(recipeModel!.chefNote));
-  File audioFile = File("$tempPath/audio.mpeg4");
-  if (response.statusCode == 200) {
-    await audioFile.writeAsBytes(response.bodyBytes);
-    log("Download Complete");
-    playerController.preparePlayer(
-      path: audioFile.path,
-      volume: 100,
-    );
-    log("Player Ready");
-    // Calculate duration here
-    Duration duration = Duration(
-            milliseconds: await playerController.getDuration(DurationType.max));
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds % 60;
-    formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-    notifyListeners();
+  Future<void> downloadAudio() async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    final response = await http.get(Uri.parse(recipeModel!.chefNote));
+    File audioFile = File("$tempPath/audio.mpeg4");
+    if (response.statusCode == 200) {
+      await audioFile.writeAsBytes(response.bodyBytes);
+      log("Download Complete");
+      playerController.preparePlayer(
+        path: audioFile.path,
+        volume: 100,
+      );
+      log("Player Ready");
+      // Calculate duration here
+      Duration duration = Duration(
+          milliseconds: await playerController.getDuration(DurationType.max));
+      int minutes = duration.inMinutes;
+      int seconds = duration.inSeconds % 60;
+      formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+      notifyListeners();
+    }
   }
-}
 
   // Future<void> downloadAudio() async {
   //   Directory tempDir = await getTemporaryDirectory();
@@ -246,19 +265,17 @@ Future<void> downloadAudio() async {
   //       path: audioFile.path,
   //       volume: 100,
   //     );
-      
+
   //     log("Player Ready");
   //   }
   //   durationCalculate(audioFile);
   // }
-
 
   void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
     });
   }
-
 
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
@@ -271,17 +288,17 @@ Future<void> downloadAudio() async {
     });
 
     await playerController.startPlayer(finishMode: FinishMode.pause);
-    
+
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
   }
 
-    void updateDuration(Duration position) async {
+  void updateDuration(Duration position) async {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
       notifyListeners();
-    } 
+    }
   }
 
   void stopListening() async {
@@ -340,13 +357,12 @@ Future<void> downloadAudio() async {
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
-    
 
     await playerController.preparePlayer(
       path: path,
       volume: 100,
     );
-     playerController.onCurrentDurationChanged.listen((positionData) {
+    playerController.onCurrentDurationChanged.listen((positionData) {
       Duration position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -354,7 +370,6 @@ Future<void> downloadAudio() async {
   }
 
   void deleteaddrecipeCurrentRecording() {
-   
     formattedDuration = "0:00";
     hasRecordedAudio = false;
     recorderController.reset();
@@ -364,11 +379,12 @@ Future<void> downloadAudio() async {
 
   void deleteCurrentRecording() {
     hasRecordedAudio = false;
-    if(recipeModel!.chefNote.isNotEmpty){
-      _recipeService.deleteAudioFromDocument(recipeModel!.docId!,recipeModel!.chefNote);
+    if (recipeModel!.chefNote.isNotEmpty) {
+      _recipeService.deleteAudioFromDocument(
+          recipeModel!.docId!, recipeModel!.chefNote);
       formattedDuration = "0:00";
-     recipeModel!.chefNote = "";
-     recipeModel!.waveForm.clear();
+      recipeModel!.chefNote = "";
+      recipeModel!.waveForm.clear();
       rebuildUi();
     }
     recorderController.reset();
@@ -520,7 +536,7 @@ Future<void> downloadAudio() async {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: selectedQuantity,
+                servingSize: int.parse(selectedQuantity.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -544,7 +560,7 @@ Future<void> downloadAudio() async {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: selectedQuantity,
+                servingSize: int.parse(selectedQuantity.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -586,26 +602,6 @@ Future<void> downloadAudio() async {
     notifyListeners();
   }
 
-  void updateQuantity(int value) {
-    selectedQuantity = value;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void increment() {
-    count++;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void decrement() {
-    if (count > 0) {
-      count--;
-      notifyListeners();
-      rebuildUi();
-    }
-  }
-
   String mergeStrings(String time, String method) {
     return '$time $method';
   }
@@ -631,8 +627,8 @@ Future<void> downloadAudio() async {
         return;
       } else {
         if (recipeModel != null) {
-         final shouldClear = await _navigationService.navigateToRecipeViewView(
-          isFromDraft: true,
+          final shouldClear = await _navigationService.navigateToRecipeViewView(
+            isFromDraft: true,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -644,50 +640,46 @@ Future<void> downloadAudio() async {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: selectedQuantity,
+              servingSize: int.parse(selectedQuantity.text),
               status: 'draft',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
-            waveForm: waveFormData == null ? [] : waveFormData!,
+              waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,
             waveFormData: waveFormData,
             draftUrls: alreadySelectedImages,
           );
-           if (shouldClear == true) {
+          if (shouldClear == true) {
             log(" Clearing");
             recorderController.dispose();
             playerController.dispose();
             titleController.dispose();
             alreadySelectedImages.clear();
             hasRecordedAudio = false;
-            
+
             formattedDuration = '';
             selectedImages.clear();
             ingredientsList.clear();
             thumbnails.clear();
             methodsList.clear();
-            selectedTimeMethod = '';
-            selectedQuantity = 1;
             selectedValue = 'public';
-            count = 0;
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
-          
+
             rebuildUi();
-             titleController = TextEditingController();
+            titleController = TextEditingController();
             recorderController = RecorderController();
-             playerController = PlayerController();
+            selectedQuantity = TextEditingController();
+            playerController = PlayerController();
             _initialiseController();
-           
-            
+
             rebuildUi();
           }
         } else {
-         
           final shouldClear = await _navigationService.navigateToRecipeViewView(
             isFromDraft: false,
             recipeModel: RecipeModel(
@@ -701,7 +693,7 @@ Future<void> downloadAudio() async {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: selectedQuantity,
+              servingSize: int.parse(selectedQuantity.text),
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -721,27 +713,25 @@ Future<void> downloadAudio() async {
             titleController.dispose();
             alreadySelectedImages.clear();
             hasRecordedAudio = false;
-            
+
             formattedDuration = '';
             selectedImages.clear();
             ingredientsList.clear();
             thumbnails.clear();
             methodsList.clear();
-            selectedTimeMethod = '';
-            selectedQuantity = 1;
             selectedValue = 'public';
-            count = 0;
+
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
-          
+
             rebuildUi();
-             titleController = TextEditingController();
+            titleController = TextEditingController();
             recorderController = RecorderController();
-             playerController = PlayerController();
+            selectedQuantity = TextEditingController();
+            playerController = PlayerController();
             _initialiseController();
-           
-            
+
             rebuildUi();
           }
         }
@@ -767,20 +757,33 @@ Future<void> downloadAudio() async {
     recorderController.dispose();
     playerController.dispose();
     titleController.dispose();
+    alreadySelectedImages.clear();
+    hasRecordedAudio = false;
+    formattedDuration = '';
+    selectedImages.clear();
+    ingredientsList.clear();
+    thumbnails.clear();
+    methodsList.clear();
+
+    selectedValue = 'public';
+
+    waveFormData?.clear();
+    prepreationTime = '';
+    tagsList.clear();
+    selectedQuantity.dispose();
 
     selectedImages = [];
     ingredientsList = [];
     methodsList = [];
-    selectedTimeMethod = '';
-    selectedQuantity = 1;
+
     selectedValue = 'public';
-    count = 1;
+
     path = '';
     waveFormData = [];
     super.dispose();
   }
 
-  void deleteInstruction(int index) {}
+
 
   void updateVideoSource(File value) {
     if (value.isVideo) {
@@ -788,33 +791,4 @@ Future<void> downloadAudio() async {
       controller.play();
     } else {}
   }
-
-  late List<String> imageUrls;
-
-  // navigateToRecipeViewView() async {
-  //   imageUrls = selectedImages.isNotEmpty
-  //       ? await _recipeService.uploadMediaToFirebase(selectedImages,
-  //           FirebaseFirestore.instance.collection('recipes').doc().id)
-  //       : [];
-
-  //   _navigationService.navigateToRecipeViewView(
-  //       recipeModel: RecipeModel(
-  //         visibility: selectedValue,
-  //         chefNote: 'recorderController',
-  //         coverImage: imageUrls,
-  //         createdTime: Timestamp.now(),
-  //         ingredients: ingredientsList,
-  //         methods: methodsList,
-  //         tags: tagsList,
-  //         prepTime:
-  //             mergeStrings(prepTimeController.text.trim(), selectedTimeMethod),
-  //         servingSize: selectedQuantity,
-  //         status: 'draft',
-  //         title: titleController.text.trim().toLowerCase(),
-  //         uid: firebaseAuth.currentUser!.uid,
-  //         docId: '',
-  //         waveForm: waveFormData!,
-  //       ),
-  //       selectedImages: selectedImages);
-  // }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -21,7 +22,6 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
         ),
         verticalSpaceSmall,
         Container(
-          // height: 50.h,
           width: 105.w,
           padding: EdgeInsets.symmetric(
             horizontal: 10.0.w,
@@ -32,38 +32,70 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
           ),
           child: Row(
             children: [
-              Icon(FlutterRemix.group_line,
-                  color: kcBlackColor.withOpacity(0.5), size: 16.0.dg),
-              horizontalSpaceMedium,
               Expanded(
-                flex: 1,
-                child: DropdownButton<int>(
-                  isExpanded: true,
-                  dropdownColor: kcWhiteColor,
-                  underline: const SizedBox(),
-                  style: globalTextStyle(
-                    fontSize: 14.sp,
-                    letterSpacing: -0.5,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6),
+                child: TextField(
+    
+                  keyboardType: TextInputType.number,
+                  cursorColor: kcPrimaryColor,
+                  //  maxLength: 3,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(
+                        3
+                      )
+                    ],
+                  decoration: InputDecoration(
+                    hintText: '1',
+                    hintStyle: globalTextStyle(
+                      fontSize: 14.sp,
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w300,
+                      color: kcBlackColor.withOpacity(0.5),
+                    ),
+                    
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      FlutterRemix.group_line,
+                      color: kcBlackColor.withOpacity(0.5),
+                      size: 16.0.dg,
+                    ),
+                    // contentPadding: EdgeInsets.only(l),
                   ),
-                  icon: Icon(FlutterRemix.arrow_down_s_line,
-                      color: kcBlackColor.withOpacity(0.5), size: 24.0.dg),
-                  value: viewModel.selectedQuantity,
-                  onChanged: (int? newValue) {
-                    viewModel.updateQuantity(newValue!);
-                  },
-                  items: List.generate(5, (index) {
-                    return DropdownMenuItem<int>(
-                      value: index + 1,
-                      child: Text('${index + 1}'),
-                    );
-                  }),
                 ),
               ),
             ],
           ),
-        ),
+        )
+
+        // Expanded(
+        //   flex: 1,
+        //   child: DropdownButton<int>(
+        //     isExpanded: true,
+        //     dropdownColor: kcWhiteColor,
+        //     underline: const SizedBox(),
+        //     style: globalTextStyle(
+        //       fontSize: 14.sp,
+        //       letterSpacing: -0.5,
+        //       fontWeight: FontWeight.w600,
+        //       color: kcBlackColor.withOpacity(0.6),
+        //     ),
+        //     icon: Icon(FlutterRemix.arrow_down_s_line,
+        //         color: kcBlackColor.withOpacity(0.5), size: 24.0.dg),
+        //     value: viewModel.selectedQuantity,
+        //     onChanged: (int? newValue) {
+        //       viewModel.updateQuantity(newValue!);
+        //     },
+        //     items: List.generate(5, (index) {
+        //       return DropdownMenuItem<int>(
+        //         value: index + 1,
+        //         child: Text('${index + 1}'),
+        //       );
+        //     }),
+        //   ),
+        // ),
+        // ],
+        //   ),
+        // ),
       ],
     );
   }

@@ -90,7 +90,7 @@ class BecomechefViewModel extends BaseViewModel {
       rebuildUi();
     }
     else{
-      stateValue = value!;
+      stateValue = value;
       cityValue = '';
       rebuildUi();
     }

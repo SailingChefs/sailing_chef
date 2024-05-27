@@ -30,7 +30,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   Text(
                     'Explore Culinary schools',
                     style: globalTextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                      letterSpacing: -0.5,
                       fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     ),
@@ -38,8 +39,9 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   CustomTextButton(
                     onPressed: viewModel.toViewCullinarySchools,
                     buttonText: 'View all',
-                    textColor: kclightgreencolor,
-                    fontSize: 14,
+                    textColor: kcPrimaryColorDark,
+                    fontSize: 12.sp,
+                    
                     fontWeight: FontWeight.w600,
                   ),
                 ],
@@ -47,8 +49,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
               verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.3.h
-                    : MediaQuery.sizeOf(context).height * 0.27.h,
+                    ? MediaQuery.sizeOf(context).height * 0.27.h
+                    : MediaQuery.sizeOf(context).height * 0.25.h,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.cullinary.length > 5 ? 5 : viewModel.cullinary.length,
@@ -61,13 +63,13 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         viewModel.toChefProfile(cullinaruschools);
                       },
                       child: Container(
-                        width: 160.w,
+                        width: 150.w,
                         // height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withOpacity(0.1),
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset: const Offset(0, 3),
@@ -75,7 +77,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           ],
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        margin: const EdgeInsets.all(8),
+                        margin:  EdgeInsets.only(right:12.dg,bottom: 8.dg),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -92,7 +94,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
+                                              48.h,
 
                                     )
                                   : CachedNetworkImage(
@@ -100,7 +102,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
+                                              48.h,
                                       fit: BoxFit.cover,
 
                                       width: double.maxFinite,
@@ -121,7 +123,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     cullinaruschools.displayName!),
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

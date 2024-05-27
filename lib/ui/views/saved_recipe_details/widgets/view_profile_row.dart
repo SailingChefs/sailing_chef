@@ -76,7 +76,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     FlutterRemix.chat_4_line,
                     color: kcBlackColor,
                   ),
-                )
-    ]);
+                ),
+    ],);
   }
 }

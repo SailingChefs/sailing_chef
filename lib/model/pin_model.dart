@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_geohash/dart_geohash.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/model/reviews.dart';
 
 class PinnedLocation {
   final String? id;
@@ -15,11 +16,13 @@ class PinnedLocation {
   final List<String> tags;
   final double rating;
   List<Placemark>? placemarks;
+  List<ReviewsModel>? reviews = [];
 
   PinnedLocation({
     this.id,
     this.placemarks,
     required this.contactNumber,
+    this.reviews,
     required this.rating,
     required this.createdTime,
     required this.description,
@@ -77,6 +80,7 @@ class PinnedLocation {
         tags: map['tags'],
         picture: map['picture'],
         name: map['name'],
+        reviews: map['reviews'] ?? [],
         link: map['link']);
   }
 }

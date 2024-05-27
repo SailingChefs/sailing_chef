@@ -1,7 +1,7 @@
-
 import 'dart:developer';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sailing_chefs/app/app.bottomsheets.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/bottom_buttons.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/pin_detail_list.dart';
 import 'package:uuid/uuid.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -38,46 +38,40 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     ),
                     verticalSpace(10),
                     Flexible(
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        
-                        mapToolbarEnabled: false,
-                        onTap: (value) async {
-                          
-                          final res = await viewModel.bottomSheetService
-                              .showCustomSheet(
-                            variant: BottomSheetType.dropPinButtons,
-                          );
-                          if (res?.data == null || res?.data == false) return;
-                          final res2 = await viewModel.bottomSheetService
-                              .showCustomSheet(
-                                  variant: BottomSheetType.dropPinSheet,
-                                  data: LatLng(
-                                      value.latitude,
-                                      value.longitude));
-                          if (res?.data == null ||
-                              res?.data == false && res2?.data == false ||
-                              res2?.data == null) return;
-                          viewModel.addMarkers(
-                            markerId,
-                            value,
-                          );
-                          log(value.toString());
-                        },
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(
-                              viewModel.currentPosition!.latitude,
-                              viewModel.currentPosition!.longitude,
-                            ),
-                            zoom: 14),
-                        onMapCreated: (controller) {
-                          viewModel.controllermap = controller;
+                      child: Stack(
+                        children: [
+                          GoogleMap(
+                            onTap: (argument) => viewModel.onMapTap(),
+                            mapType: MapType.normal,
+                            zoomControlsEnabled: false,
+                            mapToolbarEnabled: false,
+                            onCameraMove: (position) {
+                              log('onCameraMove: $position');
+                              //  viewModel.showAllMarkers(markerId);
+                              viewModel.onCameraMove(position);
+                            },
+                            onCameraIdle: () async {
+                              viewModel.showBottomSheet();
+                            },
+                            initialCameraPosition:
+                                viewModel.initialCameraPosition!,
+                            onMapCreated: (controller) {
+                              viewModel.controllermap = controller;
 
-                          log(viewModel.currentPosition!.latitude.toString());
-                          log(viewModel.currentPosition!.longitude.toString());
-                          viewModel.showAllMarkers(markerId);
-                        },
-                        markers: viewModel.allMarkers.values.toSet(),
+                              viewModel.showAllMarkers(markerId);
+                            },
+                            markers: viewModel.allMarkers.values.toSet(),
+                          ),
+                          viewModel.showMarker
+                              ? Center(
+                                  child: SvgPicture.asset(
+                                    'assets/images/misc/location.svg',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                )
+                              : Container(),
+                        ],
                       ),
                     ),
                   ],
@@ -88,13 +82,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          // viewModel.addMarkers(
-                          //     markerId,
-                          //     LatLng(viewModel.currentPosition!.latitude,
-                          //         viewModel.currentPosition!.longitude));
-                          viewModel.showPindropDialogueBox();
-                        },
+                        onTap:
+                          viewModel.showPindropDialogueBox,
                         child: SvgPicture.asset(
                           'assets/images/icons/icon_add.svg',
                           width: 40,
@@ -102,15 +91,35 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                         ),
                       ),
                       verticalSpaceMedium,
-                      SvgPicture.asset(
-                        'assets/images/icons/share.svg',
-                        width: 40,
-                        height: 40,
+                      GestureDetector(
+                        onTap: viewModel.showMyLocation,
+                        child: SvgPicture.asset(
+                          'assets/images/icons/share.svg',
+                          width: 40,
+                          height: 40,
+                        ),
                       ),
                       verticalSpaceLarge,
                     ],
                   ),
                 ),
+                viewModel.showBottomButtons == true &&
+                        viewModel.showMarker == true
+                    ? const Positioned(
+                        bottom: 0,
+                        child: BottomButtonPinsDropView(),
+                      )
+                    : Container(),
+                viewModel.showList == true
+                    ? Positioned(
+                        bottom: 10,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 150,
+                          child: const PinDetailList(),
+                        ),
+                      )
+                    : Container(),
                 viewModel.isSelected
                     ? Container()
                     : TagsSelectionWidget(

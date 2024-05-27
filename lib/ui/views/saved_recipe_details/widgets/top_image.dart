@@ -1,4 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
 import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -6,8 +8,10 @@ import '../saved_recipe_details_viewmodel.dart';
 
 class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<String> image;
+  final RecipeModel reciepmodel;
   const TopBarDetailsScreen({
     required this.image,
+    required this.reciepmodel,
     super.key,
   });
   @override
@@ -61,6 +65,35 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             ),
           ),
         ),
+          Positioned(
+                  top: 40,
+                  left: 10,
+                  child: GestureDetector(
+                    onTap: () => viewModel.moveBack(),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(left: 8.0.dg),
+                      height: 36.h,
+                      width: 36.w,
+                      decoration: const BoxDecoration(
+                        color: kcVeryLightGrey,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: kcBlackColor,
+                        size: 18.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: 40,
+                    right: 10,
+                    child: SaveShare(
+                      recipe:    reciepmodel,
+
+                    ),),
       ],
     );
   }

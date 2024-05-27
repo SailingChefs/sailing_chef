@@ -206,7 +206,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     _navigationService.replaceWithTransition(
         SavedRecipeDetailsView(
           recipeModel: recipe,
-          randomRecipeList: IndexViewModel.getRandomDishes(recipe, []),
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
          
         ),
         transitionStyle: Transition.fade,

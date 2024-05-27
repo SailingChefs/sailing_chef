@@ -21,9 +21,10 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Meet your Chef',
+                    'Meet your Chefs',
                     style: globalTextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                      letterSpacing: -0.5,
                       fontWeight: FontWeight.w600,
                       color: kcBlackColor,
                     ),
@@ -31,8 +32,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   CustomTextButton(
                     onPressed: viewModel.toAllChefsView,
                     buttonText: 'View all',
-                    textColor: kclightgreencolor,
-                    fontSize: 14,
+                    textColor: kcPrimaryColorDark,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ],
@@ -40,31 +41,28 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
               verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0
-
-                    ? MediaQuery.sizeOf(context).height * 0.3.h
-                    : MediaQuery.sizeOf(context).height * 0.27.h,
-
+                    ? MediaQuery.sizeOf(context).height * 0.27.h
+                    : MediaQuery.sizeOf(context).height * 0.25.h,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.chefList.length >= 5
+                  itemCount: viewModel.chefList.length > 5
                       ? 5
                       : viewModel.chefList.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final chef = viewModel.chefList[index];
                     return GestureDetector(
                       onTap: () {
-                        viewModel.toChefProfile(chef);
+                        viewModel.toChefProfile(viewModel.chefList[index]);
                       },
                       child: Container(
-                        width: 160.w,
+                        width: 150.w,
                         // height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withOpacity(0.1),
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset: const Offset(0, 3),
@@ -72,7 +70,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           ],
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        margin: const EdgeInsets.all(8),
+                        margin: EdgeInsets.only(right: 12.dg, bottom: 8.dg),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -81,25 +79,24 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r),
                               ),
-                              child: chef.displayPicture == ''
+                              child: viewModel.chefList[index].displayPicture ==
+                                      ''
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
-
+                                              48.h,
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: chef.displayPicture!,
+                                      imageUrl: viewModel
+                                          .chefList[index].displayPicture!,
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
+                                              48.h,
                                       fit: BoxFit.cover,
-
                                       width: double.maxFinite,
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
@@ -107,16 +104,16 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                           color: kcsgreycolor,
                                         ),
                                       ),
-
                                     ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(8.0.dg),
                               child: Text(
-                                capitalizeEachWord(chef.displayName!),
+                                capitalizeEachWord(
+                                    viewModel.chefList[index].displayName!),
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

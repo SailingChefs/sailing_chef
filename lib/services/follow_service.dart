@@ -157,8 +157,8 @@ class FollowService with ListenableServiceMixin {
       await firebasestore.collection('users').doc(user.uid).update({
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
-      following.removeWhere((element) => element == user.uid);
-
+       userDetails!. following!.removeWhere((element) => element == user.uid);
+    
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

@@ -23,78 +23,61 @@ class MainRecipeViewContainer
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.44,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.56,
-          decoration: const BoxDecoration(
-            color: kcwhitecolor,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    capitalizeEachWord(recipeModel.title),
-                    style: globalTextStyle(
-                      letterSpacing: -0.5,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: kcBlackColor,
-                    ),
-                  ),
-                  verticalSpace(12),
-                  TimeAndServingRecipeShow(recipeModel: recipeModel),
-                  verticalSpace(24.h),
-                  IngredientsClass(
-                    recipeModel: recipeModel,
-                  ),
-                  verticalSpace(12),
-                  Methods(
-                    recipe: recipeModel,
-                  ),
-                  recipeModel.tags!.isEmpty
-                      ? Container()
-                      : Column(
-                          children: [
-                            TipsNotesRecipeDetails(viewModel: recipeModel),
-                            verticalSpace(12),
-                          ],
-                        ),
-                  const ChefNotesRecipeDetails(),
-                  verticalSpace(24.h),
-                  SemiRoundedTranpaentTextField(
-                    borderRadius: 24.dg,
-                    labelText: 'Add your own personal note...',
-                    inputFormatters: [LengthLimitingTextInputFormatter(200)],
-                    maxLines: 5,
-                    suffixIcon: false,
-                    controller: viewModel.notesController,
-
-                    fillColor: kcPrimaryColorDark.withOpacity(0.2),
-                  ),
-                  verticalSpace(24.h),
-                  ViewProfileRow(
-                    user: recipeModel.user!,
-                  ),
-                  CommentsDetailsScreen(recipeModel: recipeModel),
-                  verticalSpace(12),
-                  BottomSlider(
-                    recipeList: recipeList,
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            capitalizeEachWord(recipeModel.title),
+            style: globalTextStyle(
+              letterSpacing: -0.5,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w700,
+              color: kcBlackColor,
             ),
           ),
-        ),
-      ],
+          verticalSpace(12),
+          TimeAndServingRecipeShow(recipeModel: recipeModel),
+          verticalSpace(24.h),
+          IngredientsClass(
+            recipeModel: recipeModel,
+          ),
+          verticalSpace(12),
+          Methods(
+            recipe: recipeModel,
+          ),
+          recipeModel.tags!.isEmpty
+              ? Container()
+              : Column(
+                  children: [
+                    TipsNotesRecipeDetails(viewModel: recipeModel),
+                    verticalSpace(12),
+                  ],
+                ),
+          const ChefNotesRecipeDetails(),
+          verticalSpace(24.h),
+          SemiRoundedTranpaentTextField(
+            borderRadius: 24.dg,
+            labelText: 'Add your own personal note...',
+            inputFormatters: [LengthLimitingTextInputFormatter(200)],
+            maxLines: 5,
+            suffixIcon: false,
+            controller: viewModel.notesController,
+      
+            fillColor: kcPrimaryColorDark.withOpacity(0.2),
+          ),
+          verticalSpace(24.h),
+          ViewProfileRow(
+            user: recipeModel.user!,
+          ),
+          CommentsDetailsScreen(recipeModel: recipeModel),
+          verticalSpace(12),
+          BottomSlider(
+            recipeList: recipeList,
+          ),
+        ],
+      ),
     );
   }
 }

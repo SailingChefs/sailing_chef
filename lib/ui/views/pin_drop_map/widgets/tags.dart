@@ -36,7 +36,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                   Text(
                     'Select one or more',
                     style: globalTextStyle(
-                        fontSize: 18.0.dg,
+                        fontSize: 16.0.dg,
+                        letterSpacing: -0.5,
                         color: kcBlackColor,
                         fontWeight: FontWeight.w500),
                   ),
@@ -166,7 +167,9 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                     ),
                     child: Text(
                       'Clear',
-                      style: globalTextStyle(fontSize: 14.0,fontWeight: FontWeight.w500, color: kcBlackColor),
+                      style: globalTextStyle(fontSize: 14.0.sp,
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w500, color: kcBlackColor),
                     ),
                   ),
                 ),
@@ -189,7 +192,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                       child: Text(
                         'Apply Filter',
                         style: globalTextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
+                            letterSpacing: -0.5,
                             color: kcwhitecolor,
                             fontWeight: FontWeight.w500),
                       ),
