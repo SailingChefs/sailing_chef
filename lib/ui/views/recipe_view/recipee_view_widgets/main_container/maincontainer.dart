@@ -27,69 +27,61 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.44,
-        ),
-        Container(
-            height: MediaQuery.of(context).size.height * 0.56,
-            decoration: const BoxDecoration(
-              color: kcwhitecolor,
-            ),
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      capitalizeEachWord(recipeModel.title),
-                      style: globalTextStyle(
-                      letterSpacing: -0.5,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: kcBlackColor,
-                    ),
-                    ),
-                   verticalSpace(12.h),
-                    TimeAndServing(
-                      recipeModel: recipeModel,
-                    ),
-                    
-                   verticalSpace(24.h),
-                
-                    IngredientsClass(
-                      recipeModel,
-                    ),
-                    verticalSpace(12),
-                    Methods(
-                      recipe: recipeModel,
-                    ),
-                verticalSpace(12),
-                    TipsNotes(
-                      viewModel: recipeModel,
-                    ),
-                    const ChefNotes(),
-                    verticalSpace(24),
-                    const ChefDetail(),
-                   verticalSpace(12),
-                    SaveRecipeButton(
-                      onPressed: () {
-                        viewModel.saveRecipe(recipeModel, selectedImages);
-                      },
-                      buttonText: 'Publish Recipe',
-                    ),
-                    verticalSpace(12),
 
-                    PublishTextButton(
-                      recipe: recipeModel,
-                      selectedImages: selectedImages,
-                    ),
-                  ],
-                ),
+        
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                capitalizeEachWord(recipeModel.title),
+                style: globalTextStyle(
+                letterSpacing: -0.5,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w700,
+                color: kcBlackColor,
               ),
-            )),
+              ),
+             verticalSpace(12.h),
+              TimeAndServing(
+                recipeModel: recipeModel,
+              ),
+              // const TabBarWidgets(),
+             verticalSpace(24.h),
+              // verticalSpaceTiny,
+              IngredientsClass(
+                recipeModel,
+
+              ),
+              verticalSpace(12),
+              Methods(
+                recipe: recipeModel,
+              ),
+          verticalSpace(12),
+              TipsNotes(
+                viewModel: recipeModel,
+              ),
+              const ChefNotes(),
+              verticalSpace(24),
+              const ChefDetail(),
+             verticalSpace(12),
+              SaveRecipeButton(
+                onPressed: () {
+                  viewModel.saveRecipe(recipeModel, selectedImages);
+                },
+                buttonText: 'Publish Recipe',
+              ),
+              verticalSpace(12),
+          
+              PublishTextButton(
+                recipe: recipeModel,
+                selectedImages: selectedImages,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -12,10 +12,12 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
   Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        log('pins length ${viewModel.pins.length}');
+        log('pins length ${viewModel.pins.last.picture.length}');
+    final pin = viewModel.filteredPins.isEmpty ? viewModel.pins[index] : viewModel.filteredPins[index];
+
         //  int actualIndex = (index + viewModel.startIndex) % viewModel.pins.length.toInt();
         return GestureDetector(
-          onTap: () =>viewModel.callDeatilsDialog (viewModel.pins[index]),
+          onTap: () =>viewModel.callDetailsDialog (viewModel.pins[index]),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -37,7 +39,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                               topLeft: Radius.circular(27),
                               bottomLeft: Radius.circular(27)),
                           child: Image.network(
-                            viewModel.pins[index].picture.first,
+                          pin.picture.first,
                             fit: BoxFit.cover,
                             height: MediaQuery.of(context).size.height * 0.18,
                             width: MediaQuery.of(context).size.width * 0.26,
@@ -46,80 +48,84 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                       ),
                       horizontalSpaceTiny,
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 15),
-                                  child: Text(
-                                    viewModel.pins[index].tags[0],
-                                    style: globalTextStyle(
-                                      color: kcBlackColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                                horizontalSpaceMedium,
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
-                                        color: kclightgreencolor,
-                                      ),
-                                      horizontalSpaceSmall,
-                                        Text(
-                                       viewModel.calculateAverageRating(viewModel.pins[index].reviews ?? []).toString() == '0.0' ?viewModel.pins[index] .rating.toString() : viewModel.calculateAverageRating(viewModel.pins[index].reviews ?? []).toString(),
-                                          style: globalTextStyle(
-                                            color: kcBlackColor,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(left: 8, top: 6),
-                              width: 230,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {},
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only( top: 15),
                                     child: Text(
-                                      viewModel.pins[index].name,
+                                     pin.tags[0],
                                       style: globalTextStyle(
                                         color: kcBlackColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),
-                                  // Text(
-                                  //   viewModel.placeMark,
-                                  //   overflow: TextOverflow.ellipsis,
-                                  //   style: globalTextStyle(
-                                  //     color: kcBlackColor.withOpacity(0.4),
-                                  //     fontSize: 15,
-                                  //     fontWeight: FontWeight.w400,
-                                  //   ),
-                                  // ),
+                                  horizontalSpaceMedium,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: kclightgreencolor,
+                                        ),
+                                        horizontalSpaceSmall,
+                                          Text(
+                                         viewModel.calculateAverageRating(pin.reviews ?? []).toString() == '0.0' ?pin.rating.toString() : viewModel.calculateAverageRating(pin.reviews ?? []).toString(),
+                                            style: globalTextStyle(
+                                              color: kcBlackColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                // padding: const EdgeInsets.only(left: 8, top: 6),
+                                width: 230,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Text(
+                                        pin.name,
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                          
+                                    Text(
+                                     pin.place,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: globalTextStyle(
+                                        color: kcBlackColor.withOpacity(0.4),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -128,7 +134,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
         );
       },
       scrollDirection: Axis.horizontal,
-      itemCount: viewModel.pins.length,
+      itemCount:viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
      
       shrinkWrap: true,
     );

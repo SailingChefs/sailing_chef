@@ -65,11 +65,15 @@ class ChefProfileViewModel extends ReactiveViewModel {
       _recipeService.initialized();
     }
     else{
+      log("chefRecipes ${RecipeService.recipes.length}");
       for (var recipe in RecipeService.recipes) {
-        if(user.recipes!.contains(recipe.docId)){
+        log(recipe.uid);
+        log('user.uid ${user.uid!}');
+        if(recipe.uid == user.uid!){
           chefRecipes.add(recipe);
           
         }
+        log("chefRecipes ${chefRecipes.length}");
       }
       
     }

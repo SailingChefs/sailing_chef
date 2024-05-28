@@ -38,7 +38,7 @@ class AddRecipeViewModel extends BaseViewModel {
   late Directory directory;
   late String path;
   String selectedValue = 'Public';
-  TextEditingController selectedQuantity = TextEditingController();
+  TextEditingController servingSize = TextEditingController();
   List<XFile> selectedImages = [];
   String? prepreationTime;
   List<XFile> thumbnails = [];
@@ -208,7 +208,7 @@ class AddRecipeViewModel extends BaseViewModel {
         prepreationTime = recipeModel!.prepTime;
       }
 
-      selectedQuantity.text = recipeModel!.servingSize.toString();
+      servingSize.text = recipeModel!.servingSize.toString();
 
       // selectedImages = recipeModel!.coverImage;
     }
@@ -537,7 +537,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: int.parse(selectedQuantity.text),
+                servingSize: int.parse(servingSize.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -561,7 +561,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: int.parse(selectedQuantity.text),
+                servingSize: int.parse(servingSize.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -612,7 +612,10 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
-    if (titleController.text.trim().isNotEmpty &&
+    if(formKey.currentState!.validate()){
+      showToast(message: 'Please fill all the required fields');
+    }
+    else if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 
         (prepreationTime != null) &&
@@ -640,7 +643,7 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: int.parse(selectedQuantity.text),
+              servingSize: int.parse(servingSize.text),
               status: 'draft',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -673,7 +676,7 @@ class AddRecipeViewModel extends BaseViewModel {
             rebuildUi();
             titleController = TextEditingController();
             recorderController = RecorderController();
-            selectedQuantity = TextEditingController();
+            servingSize = TextEditingController();
             playerController = PlayerController();
             _initialiseController();
 
@@ -693,7 +696,9 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
+
                 servingSize: selectedQuantity.text.isNotEmpty ? int.parse(selectedQuantity.text) : 0, 
+
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -728,7 +733,7 @@ class AddRecipeViewModel extends BaseViewModel {
             rebuildUi();
             titleController = TextEditingController();
             recorderController = RecorderController();
-            selectedQuantity = TextEditingController();
+            servingSize = TextEditingController();
             playerController = PlayerController();
             _initialiseController();
 
@@ -770,7 +775,7 @@ class AddRecipeViewModel extends BaseViewModel {
     waveFormData?.clear();
     prepreationTime = '';
     tagsList.clear();
-    selectedQuantity.dispose();
+    servingSize.dispose();
 
     selectedImages = [];
     ingredientsList = [];

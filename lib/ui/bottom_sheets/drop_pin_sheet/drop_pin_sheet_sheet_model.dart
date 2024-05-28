@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -32,19 +33,21 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? descriptionError;
   Future<void> savePinDrop() async {
     if (formKey.currentState!.validate()) {
+      final place = await getCityCountry(location.latitude, location.longitude);
       imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
-      image = imageUrls!.first;
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
+        place: place,
         createdTime: Timestamp.now(),
         description: description.text,
         email: email.text,
         link: link.text,
         name: name.text,
-        picture: imageUrls!,
+        picture: imageUrls ?? [],
         tags: selectedTabSelections,
         location: GeoPoint(location.latitude, location.longitude),
         rating: ratings,
+        // place: place,
       );
       await _navigationpinService.savePinnedLocation(pinnedLocation);
       name.text = '';
@@ -54,7 +57,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
       description.text = '';
       selectedImagePath = '';
       selectedTabSelections = [];
-      imageUrls!.clear();
+      // imageUrls!.clear();
       ratings = 0;
       reset();
       completer!(SheetResponse(data: true));
@@ -64,6 +67,21 @@ class DropPinSheetSheetModel extends BaseViewModel {
       showToast(message: 'Please select at least one tag!');
     } else {}
     
+  }
+   Future<String> getCityCountry(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      // ignore: unnecessary_null_comparison
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        return ' ${placemark.locality}, ${placemark.country}';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
+      return 'Unknown';
+    }
   }
 
   void toggleTagsVisibility() {

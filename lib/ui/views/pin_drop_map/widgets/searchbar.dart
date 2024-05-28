@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/search_service.dart';
 
-class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
+class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>>   {
   final SearchService _searchService = SearchService();
   @override
   String get searchFieldLabel => 'Search Pinned Locations';
@@ -73,24 +73,35 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
         return ListView.builder(
           itemCount: pins.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              leading: Container(
-                height: 50.h,
-                width: 50.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(pins[index].picture.first),
-                    fit: BoxFit.cover,
+            return Column(
+              children: [
+                ListTile(
+                  leading: Container(
+                    height: 50.h,
+                    width: 50.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(pins[index].picture.first),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
+                  title: Text(capitalizeEachWord(pins[index].name)),
+                  // trailing: const Icon(Icons.chevron_right),
+                  subtitle: Text(pins[index].description),
+                  onTap: () {
+                        
+                  },
                 ),
-              ),
-              title: Text(capitalizeEachWord(pins[index].name)),
-              // trailing: const Icon(Icons.chevron_right),
-              subtitle: Text(pins[index].description),
-              // onTap: () {
-
-              // },
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0.5,
+                  height: 1,
+                  indent: 15,
+                  endIndent: 15,
+                ),
+              ],
             );
           },
         );

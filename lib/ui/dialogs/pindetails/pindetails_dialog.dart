@@ -166,42 +166,40 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                               ),
                             ],
                           ),
-                          FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 230,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 230,
+                                child: Text(
+                                  viewModel.tags!.join(', '),
+                                  style: globalTextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: kcBlackColor,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.showRatingsExperience();
+                                },
+                                child: Container(
+                                  decoration: const UnderlineTabIndicator(
+                                      borderSide:
+                                          BorderSide(color: kcPrimaryColor)),
                                   child: Text(
-                                    viewModel.tags!.join(', '),
+                                    'Add review',
                                     style: globalTextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
                                       color: kcBlackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    viewModel.showRatingsExperience();
-                                  },
-                                  child: Container(
-                                    decoration: const UnderlineTabIndicator(
-                                        borderSide:
-                                            BorderSide(color: kcPrimaryColor)),
-                                    child: Text(
-                                      'Add review',
-                                      style: globalTextStyle(
-                                        color: kcBlackColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

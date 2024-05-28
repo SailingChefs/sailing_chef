@@ -33,17 +33,24 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
           child: Row(
             children: [
               Expanded(
-                child: TextField(
-                  controller: viewModel.selectedQuantity,
+
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter serving quantity';
+                    }
+                    return null;
+                  },
+                  controller: viewModel.servingSize,
+
+
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
                   //  maxLength: 3,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(
-                        3
-                      )
-                    ],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(3)
+                  ],
                   decoration: InputDecoration(
                     hintText: '1',
                     hintStyle: globalTextStyle(
@@ -52,8 +59,33 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                       fontWeight: FontWeight.w300,
                       color: kcBlackColor.withOpacity(0.5),
                     ),
-                    
-                    border: InputBorder.none,
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0.r),
+                      borderSide: BorderSide(
+                        color: kcPrimaryColor.withOpacity(0.01),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0.r),
+                        borderSide: BorderSide(
+                          color: kcPrimaryColor.withOpacity(0.01),
+                        )),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0.r),
+                      borderSide: const BorderSide(
+                        color: kcErrorColor,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0.r),
+                      borderSide: const BorderSide(
+                        color: kcErrorColor,
+                      ),
+                    ),
                     prefixIcon: Icon(
                       FlutterRemix.group_line,
                       color: kcBlackColor.withOpacity(0.5),
