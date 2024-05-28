@@ -23,10 +23,11 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    log("mainrecipeview: ${recipeModel.docId}");
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         
         Padding(
           padding:
@@ -52,6 +53,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
               // verticalSpaceTiny,
               IngredientsClass(
                 recipeModel,
+
               ),
               verticalSpace(12),
               Methods(

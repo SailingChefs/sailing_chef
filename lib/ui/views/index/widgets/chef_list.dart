@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
 class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const ChefListIndexScreen({super.key});
@@ -17,27 +16,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           )
         : Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Meet your Chefs',
-                    style: globalTextStyle(
-                      fontSize: 16.sp,
-                      letterSpacing: -0.5,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor,
-                    ),
-                  ),
-                  CustomTextButton(
-                    onPressed: viewModel.toAllChefsView,
-                    buttonText: 'View all',
-                    textColor: kcPrimaryColorDark,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
+             
               verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0

@@ -8,6 +8,7 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
@@ -57,13 +58,27 @@ class RecipeViewViewModel extends BaseViewModel {
     );
 
     await durationCalculate(File(path!));
-
+  
 
     setBusy(false);
   }
 
   int servings = 0;
+   int updatedQuantity =0;
 
+
+ List<Ingredient> getUpdatedIngredients() {
+    if (recipe == null) return [];
+    return recipe!.ingredients.map((ingredient) {
+      int baseQuantity = int.parse(ingredient.quantity);
+      updatedQuantity = baseQuantity * servings;
+      return Ingredient(
+        name: ingredient.name,
+        quantity: updatedQuantity.toStringAsFixed(0), 
+        unit: ingredient.unit,
+      );
+    }).toList();
+  }
   void incrementServings() {
     servings += 1;
     rebuildUi();
@@ -191,8 +206,9 @@ class RecipeViewViewModel extends BaseViewModel {
               chefNote: chefNote,
               coverImage: recipe.coverImage + imageUrls,
               createdTime: Timestamp.now(),
-              ingredients: recipe.ingredients,
+              ingredients: getUpdatedIngredients(),
               methods: recipe.methods,
+
               prepTime: recipe.prepTime,
               servingSize: servings,
               status: 'published',
@@ -237,10 +253,11 @@ class RecipeViewViewModel extends BaseViewModel {
             chefNote: chefNote,
             coverImage: recipe.coverImage + imageUrls,
             createdTime: Timestamp.now(),
-            ingredients: recipe.ingredients,
+            ingredients: getUpdatedIngredients(),
             methods: recipe.methods,
             prepTime: recipe.prepTime,
             servingSize: servings,
+            tags: recipe.tags,
             status: 'published',
             title: recipe.title,
             uid: recipe.uid,

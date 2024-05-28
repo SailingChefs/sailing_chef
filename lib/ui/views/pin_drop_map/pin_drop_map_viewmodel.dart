@@ -127,7 +127,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
       [bool isSelected = false]) {
     var marker = Marker(
       markerId: MarkerId(markerId),
-      // draggable: true,
+
+      draggable: false,
+
       position: location,
       infoWindow: InfoWindow(
         title: location.latitude.toString(),

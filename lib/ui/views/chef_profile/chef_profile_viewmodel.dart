@@ -12,7 +12,6 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -103,10 +102,18 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void onFollow(UserModel user) async {
+
     bool check = await _followService.addFollower(user);
-    if (check) {
+    
+    if (check==true) {
+      user.followers!.add(userDetails.uid!);
       isFollowing = true;
+      return;
     }
+  
+    isFollowing = false;
+     user.followers!.remove(userDetails.uid!);
+    return;
   }
 
   void toDishesScreen() {

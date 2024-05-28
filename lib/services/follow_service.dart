@@ -87,14 +87,17 @@ class FollowService with ListenableServiceMixin {
       if (followers.contains(firebaseAuth.currentUser!.uid)) {
         log('true');
         _removeFollower(user);
+        notifyListeners();
+
+        EasyLoading.dismiss();
+        return false;
       } else {
         _addFollower(user, firebaseAuth.currentUser!.uid);
-      }
-      notifyListeners();
+        notifyListeners();
 
-      EasyLoading.dismiss(); // Dismiss loading indicator
-      // Show success message
-      return true;
+        EasyLoading.dismiss();
+        return true;
+      }
     } catch (error) {
       EasyLoading.dismiss(); // Dismiss loading indicator
       showToast(message: 'Error saving recipe: $error'); // Show error message
@@ -157,8 +160,8 @@ class FollowService with ListenableServiceMixin {
       await firebasestore.collection('users').doc(user.uid).update({
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
-       userDetails!. following!.removeWhere((element) => element == user.uid);
-    
+      userDetails!.following!.removeWhere((element) => element == user.uid);
+
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

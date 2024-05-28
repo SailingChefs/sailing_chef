@@ -76,7 +76,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    viewModel.followers.length.toString(),
+                   user.followers!.length.toString() ,
                     style: globalTextStyle(
                       fontSize: 18.sp,
                       letterSpacing: -0.3,
@@ -106,7 +106,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    user.following!.length.toString(),
+                     user.following!.length.toString() ,
                     style: globalTextStyle(
                       fontSize: 18.sp,
                       letterSpacing: -0.3,

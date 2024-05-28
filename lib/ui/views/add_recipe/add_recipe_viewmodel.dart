@@ -354,6 +354,7 @@ class AddRecipeViewModel extends BaseViewModel {
   void stopRecording() async {
     await recorderController.stop();
     log("Path=> $path");
+    
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
@@ -607,8 +608,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void previewRecipe() async {
-    log(prepreationTime.toString());
-    log('to Preview');
+   
     if (isPlaying) {
       stopListening();
     }
@@ -696,7 +696,9 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: int.parse(servingSize.text),
+
+                servingSize: selectedQuantity.text.isNotEmpty ? int.parse(selectedQuantity.text) : 0, 
+
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,

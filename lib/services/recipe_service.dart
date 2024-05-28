@@ -189,8 +189,9 @@ class RecipeService with ListenableServiceMixin {
         });
          userDetails!.recipes!.add(recipe.docId!);
         recipe.user = userDetails;
-        recipes.add(recipe);
-
+        if(recipe.visibility != 'private'){
+           recipes.add(recipe);
+        }
         showToast(message: 'Recipe updated successfully');
       } else {
         DocumentReference docRef =
@@ -358,7 +359,7 @@ class RecipeService with ListenableServiceMixin {
       // DocumentSnapshot document = await firebasestore.collection('recipes').doc('v46B0TZgmcqSragcJRMK').get();
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('status', isEqualTo: 'published')
+          .where('status', isNotEqualTo: 'draft')
           .where('uid', isEqualTo: uid)
           .get();
 

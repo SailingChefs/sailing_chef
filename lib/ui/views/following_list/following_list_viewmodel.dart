@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class FollowingListViewModel extends BaseViewModel {
   final bool isFromFollowing;
   FollowingListViewModel({required this.isFromFollowing});
   final _navigationloactor = locator<NavigationService>();
   final FollowService _followService = locator<FollowService>();
+  final UserServices _userService = locator<UserServices>();
   final TextEditingController searchController = TextEditingController();
   bool isFollowing = false;
   bool isFollower = true;
@@ -27,6 +29,8 @@ class FollowingListViewModel extends BaseViewModel {
     notifyListeners();
     setBusy(false);
   }
+
+
 
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
     for (var user in users) {
@@ -76,4 +80,10 @@ class FollowingListViewModel extends BaseViewModel {
     notifyListeners();
     rebuildUi();
   }
+
+  Future<UserModel> getUserById(String followerId)async {
+    
+    return await _userService.fetchUserByUID(followerId);
+  }
+
 }

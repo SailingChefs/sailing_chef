@@ -72,7 +72,10 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
                   Text(' ${viewModel.servings} '),
                   horizontalSpaceSmall,
                   GestureDetector(
-                    onTap: viewModel.incrementServings,
+                    onTap:(){
+                      viewModel.incrementServings();
+                      viewModel.getUpdatedIngredients();
+                    },
                     child: const Icon(
                       FlutterRemix.add_circle_fill,
                       color: kcPrimaryColorDark,
