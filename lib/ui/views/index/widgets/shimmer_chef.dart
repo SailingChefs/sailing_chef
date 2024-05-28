@@ -8,7 +8,7 @@ class ShimmerChef extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
-        height: MediaQuery.sizeOf(context).height * 0.3.h,
+        height: MediaQuery.sizeOf(context).height * 0.25.h,
         width: double.maxFinite,
         child: ListView.builder(
           itemCount: 4,
@@ -19,7 +19,7 @@ class ShimmerChef extends StatelessWidget {
               baseColor: Colors.grey.withOpacity(0.2),
               highlightColor: Colors.white,
               child: Container(
-                width: 160.w,
+                width: 150.w,
                 decoration: BoxDecoration(
                   color: kcwhitecolor,
                   boxShadow: [

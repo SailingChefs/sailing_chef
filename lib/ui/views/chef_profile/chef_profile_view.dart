@@ -90,5 +90,5 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
   ChefProfileViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ChefProfileViewModel();
+      ChefProfileViewModel(userDetails: user);
 }
