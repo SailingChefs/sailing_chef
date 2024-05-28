@@ -15,10 +15,12 @@ class BitmapImageService {
 
   Future initialise() async {
     _icon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(24, 24)),
+        const ImageConfiguration(size: Size(40, 40)),
         'assets/images/icons/location.png');
     _selectedIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(24, 24)),
+        const ImageConfiguration(size: Size(40, 40)),
         'assets/images/icons/green.png');
   }
+ 
+  
 }

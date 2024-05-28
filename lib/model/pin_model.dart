@@ -15,6 +15,7 @@ class PinnedLocation {
   final List<String> picture;
   final List<String> tags;
   final double rating;
+  final String place;
   List<Placemark>? placemarks;
   List<ReviewsModel>? reviews = [];
 
@@ -23,6 +24,7 @@ class PinnedLocation {
     this.placemarks,
     required this.contactNumber,
     this.reviews,
+    required this.place,
     required this.rating,
     required this.createdTime,
     required this.description,
@@ -38,6 +40,7 @@ class PinnedLocation {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return PinnedLocation(
       id: snapshot.id,
+      place: data['place'] ?? '',
       contactNumber: data['contact_number'] ?? '',
       createdTime: data['created_time'] ?? Timestamp.now(),
       description: data['description'] ?? '',
@@ -57,6 +60,7 @@ class PinnedLocation {
       'contact_number': contactNumber,
       'created_time': createdTime,
       'description': description,
+      'place': place,
       'email': email,
       'link': link,
       'location': location,
@@ -71,6 +75,7 @@ class PinnedLocation {
 
   static PinnedLocation fromMap(Map<String, dynamic> map) {
     return PinnedLocation(
+      place:map['place'] ?? '',
         location: map['location'] ?? const GeoPoint(0.0, 0.0),
         contactNumber: map['contact_number'],
         rating: map['ratings'],

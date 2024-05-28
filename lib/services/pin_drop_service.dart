@@ -91,11 +91,16 @@ class PinDropService with ListenableServiceMixin {
   }
 
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
-    Map<String, dynamic> data = pinnedLocation.toMap();
-    await FirebaseFirestore.instance.collection('pins').add(data);
-    pins.add(pinnedLocation);
+    try{
+    await FirebaseFirestore.instance.collection('pins').add(pinnedLocation.toMap());
+    log('pinnedLocation.picture.length.toString():${pinnedLocation.picture.length.toString()}');
+    
+    pins.add(PinnedLocation.fromMap(pinnedLocation.toMap()));
+    log('pins.length.toString():${pins.last.picture.length.toString()}');
     notifyListeners();
-
+    }catch(e){
+      log(e.toString());
+    }
   }
 
   Future<String> uploadImage(File imageFile, String fileName) async {
@@ -144,6 +149,7 @@ class PinDropService with ListenableServiceMixin {
 
   Future<List<PinnedLocation>> getPinsNearUserLocation(
       LatLng userLocation) async {
+    if(isInitialized) return pins;
         pins.clear();
     final List<PinnedLocation> pin = [];
     final ref = firebasestore.collection('pins');
@@ -170,6 +176,7 @@ class PinDropService with ListenableServiceMixin {
           pins.add(pin);
     }
     log(pins.toString());
+    isInitialized = true;
     return pin;
   }
 

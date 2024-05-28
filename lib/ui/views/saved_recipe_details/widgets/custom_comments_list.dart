@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
@@ -110,9 +111,19 @@ class CustomListTileComments extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    ratingImages[index],
+                                  child: CachedNetworkImage(
+                                    imageUrl: ratingImages[index],
+                                    height: MediaQuery.sizeOf(context).height *
+                                            0.25.h -
+                                        56.h,
                                     fit: BoxFit.cover,
+                                    width: double.maxFinite,
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) => Container(
+                                      decoration: const BoxDecoration(
+                                        color: kcsgreycolor,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
