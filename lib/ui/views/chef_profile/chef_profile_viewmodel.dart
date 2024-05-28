@@ -19,6 +19,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/imports/core_imports.dart';
 
 class ChefProfileViewModel extends ReactiveViewModel {
+  UserModel userDetails;
+
+  ChefProfileViewModel({required this.userDetails});
+  
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
   final _cullinarySchoolService = locator<CullinaryschoolService>();
@@ -109,8 +113,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
     );
   }
 
-  void goToFollowingList() {
-    showToast(message: 'You cannot see Others following/followers list');
+  void goToFollowerList() {
+    _navigationService.navigateTo(Routes.followingListView,
+        arguments: FollowingListViewArguments(user: userDetails,isfromFollowing: false));
+  }
+    void goToFollowingList() {
+    _navigationService.navigateTo(Routes.followingListView,
+        arguments: FollowingListViewArguments(user: userDetails,isfromFollowing: true));
   }
 
   Future<void> moveToChatScreen(
