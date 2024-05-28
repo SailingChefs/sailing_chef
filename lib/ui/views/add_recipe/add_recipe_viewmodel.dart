@@ -612,10 +612,11 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
-    if(formKey.currentState!.validate()){
-      showToast(message: 'Please fill all the required fields');
-    }
-    else if (titleController.text.trim().isNotEmpty &&
+    // if(formKey.currentState!.validate()){
+    //   showToast(message: 'Please fill all the required fields');
+    // }
+    // else
+     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 
         (prepreationTime != null) &&
@@ -697,7 +698,7 @@ class AddRecipeViewModel extends BaseViewModel {
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
 
-                servingSize: selectedQuantity.text.isNotEmpty ? int.parse(selectedQuantity.text) : 0, 
+                servingSize: servingSize.text.isNotEmpty ? int.parse(servingSize.text) : 0, 
 
               status: '',
               title: titleController.text.trim().toLowerCase(),

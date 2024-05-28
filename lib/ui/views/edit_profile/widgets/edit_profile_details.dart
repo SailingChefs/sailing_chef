@@ -40,37 +40,37 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                               labelText: 'Bio',
                             ),
-                        const LablesText(text: 'Email'),
-                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: kcPrimaryColor.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(27.dg),
-                            // border: Border.all(color: filterIconColor),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
+                        // const LablesText(text: 'Email'),
+                        //  Container(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        //   decoration: BoxDecoration(
+                        //     color: kcPrimaryColor.withOpacity(0.07),
+                        //     borderRadius: BorderRadius.circular(27.dg),
+                        //     // border: Border.all(color: filterIconColor),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(left: 10),
+                        //     child: Row(
+                        //       children: [
                                 
-                                 Icon(
-                                  Icons.email_outlined,
-                                  color: kcBlackColor.withOpacity(0.4),
-                                  size: 16.0.dg,
-                                ),
-                                horizontalSpaceSmall,
-                                Text(
-                                  viewModel.emailController.text,
-                                  style: globalTextStyle(
-                                    fontSize: 14.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w500,
-                                    color: kcBlackColor.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
-                            ),),
-                        ),
+                        //          Icon(
+                        //           Icons.email_outlined,
+                        //           color: kcBlackColor.withOpacity(0.4),
+                        //           size: 16.0.dg,
+                        //         ),
+                        //         horizontalSpaceSmall,
+                        //         Text(
+                        //           viewModel.emailController.text,
+                        //           style: globalTextStyle(
+                        //             fontSize: 14.sp,
+                        //             letterSpacing: -0.5,
+                        //             fontWeight: FontWeight.w500,
+                        //             color: kcBlackColor.withOpacity(0.5),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),),
+                        // ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Link'),
                         
@@ -210,37 +210,37 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                               labelText: 'Bio',
                             ),
-                            const LablesText(text: 'Email'),
-                            Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: kcPrimaryColor.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(27.dg),
-                            // border: Border.all(color: filterIconColor),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
+                        //     const LablesText(text: 'Email'),
+                        //     Container(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        //   decoration: BoxDecoration(
+                        //     color: kcPrimaryColor.withOpacity(0.07),
+                        //     borderRadius: BorderRadius.circular(27.dg),
+                        //     // border: Border.all(color: filterIconColor),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(left: 10),
+                        //     child: Row(
+                        //       children: [
                                 
-                                 Icon(
-                                  Icons.email_outlined,
-                                  color: kcBlackColor.withOpacity(0.4),
-                                  size: 16.0.dg,
-                                ),
-                                horizontalSpaceSmall,
-                                Text(
-                                  viewModel.emailController.text,
-                                  style: globalTextStyle(
-                                    fontSize: 14.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w500,
-                                    color: kcBlackColor.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
-                            ),),
-                        ),
+                        //          Icon(
+                        //           Icons.email_outlined,
+                        //           color: kcBlackColor.withOpacity(0.4),
+                        //           size: 16.0.dg,
+                        //         ),
+                        //         horizontalSpaceSmall,
+                        //         Text(
+                        //           viewModel.emailController.text,
+                        //           style: globalTextStyle(
+                        //             fontSize: 14.sp,
+                        //             letterSpacing: -0.5,
+                        //             fontWeight: FontWeight.w500,
+                        //             color: kcBlackColor.withOpacity(0.5),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),),
+                        // ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
                             SemiRoundedTranpaentTextField(
