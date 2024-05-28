@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 
@@ -32,6 +33,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                 fontWeight: FontWeight.w500,
                 color: kcBlackColor.withOpacity(0.87),
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z!@#' \$]")),
+              ],
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a name';

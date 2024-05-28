@@ -23,7 +23,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-    log("mainrecipeview: ${recipeModel.docId}");
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,9 +56,9 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                     TimeAndServing(
                       recipeModel: recipeModel,
                     ),
-                    // const TabBarWidgets(),
+                    
                    verticalSpace(24.h),
-                    // verticalSpaceTiny,
+                
                     IngredientsClass(
                       recipeModel,
                     ),

@@ -19,8 +19,7 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 0.0,
                 mainAxisSpacing: 5.0,
-                childAspectRatio: 190 / 270,
-                mainAxisExtent: 270,
+                childAspectRatio: 7.5 / 9,
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
@@ -29,7 +28,7 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                       viewModel.toChefProfile(chefList[index]);
                     },
                     child: Container(
-                      width: 190.w,
+                      width: 150.w,
                       decoration: BoxDecoration(
                         color: kcwhitecolor,
                         boxShadow: [

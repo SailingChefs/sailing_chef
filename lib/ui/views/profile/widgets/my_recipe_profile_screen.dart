@@ -12,11 +12,12 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
         ? SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.29,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                   verticalSpaceLarge,
                   Text(
                     'Create your first recipe today',
                     style: globalTextStyle(
@@ -24,9 +25,10 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600),
                   ),
-                  verticalSpaceSmall,
+                  verticalSpaceTiny,
                   SvgPicture.asset(
                     'assets/images/icons/arrow.svg',
+                    height: 150.h,
                     // ignore: deprecated_member_use
                     color: kcPrimaryColor,
                   )

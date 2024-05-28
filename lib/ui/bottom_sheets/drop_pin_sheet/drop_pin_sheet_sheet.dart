@@ -80,22 +80,14 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                   controller: viewModel.phone,
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(11),
+                    FilteringTextInputFormatter.digitsOnly
                   ],
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter phone number';
-                    }
-                    if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                      return 'Enter valid phone number';
-                    }
-                    return null;
-                  },
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                       hintText: 'Contact Number*',
                       hintStyle: globalTextStyle(
-                            fontSize: 14.sp,
-                      letterSpacing: -0.5,
+                        fontSize: 14.sp,
+                        letterSpacing: -0.5,
                         fontWeight: FontWeight.w400,
                         color: kcBlackColor.withOpacity(0.4),
                       ),
@@ -105,17 +97,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 verticalSpaceTiny,
                 TextFormField(
                   controller: viewModel.email,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter email';
-                    }
-                    if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return 'Enter valid email';
-                    }
-                    return null;
-                  },
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'Email*',
                     border: InputBorder.none,
@@ -131,9 +113,13 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 verticalSpaceTiny,
                 TextFormField(
                   controller: viewModel.description,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                    FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter Description';
+                      return 'Please enter a description';
                     }
                     return null;
                   },
@@ -173,7 +159,6 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                           itemSize: 20,
                           unratedColor: Colors.grey.shade400,
                           itemCount: 5,
-                          
                           itemPadding:
                               const EdgeInsets.symmetric(horizontal: 0.005),
                           itemBuilder: (context, _) => const Icon(
@@ -201,5 +186,5 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
 
   @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
-      DropPinSheetSheetModel(location: request.data as LatLng,completer);
+      DropPinSheetSheetModel(location: request.data as LatLng, completer);
 }

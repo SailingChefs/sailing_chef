@@ -34,7 +34,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
             children: [
               Expanded(
                 child: TextField(
-    
+                  controller: viewModel.selectedQuantity,
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
                   //  maxLength: 3,

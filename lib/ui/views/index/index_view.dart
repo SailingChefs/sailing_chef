@@ -6,6 +6,7 @@ import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_chef.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
 import 'index_viewmodel.dart';
 
@@ -34,6 +35,33 @@ class IndexView extends StackedView<IndexViewModel> {
                     verticalSpace(10),
                     const TabBarIndexScreen(),
                     verticalSpace(10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          viewModel.selectedTab == 'Yacht Chefs'
+                              ? 'Meet your Chefs'
+                              : 'Explore Cullinary schools',
+                          style: globalTextStyle(
+                            fontSize: 16.sp,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor,
+                          ),
+                        ),
+                        CustomTextButton(
+                          onPressed: viewModel.isBusy
+                              ? () {}
+                              : viewModel.selectedTab == 'Yacht Chefs'
+                                  ? viewModel.toAllChefsView
+                                  : viewModel.toViewCullinarySchools,
+                          buttonText: 'View all',
+                          textColor: kcPrimaryColorDark,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
                     viewModel.isMySelected
                         ? viewModel.showShimmer
                             ? const ShimmerChef()
