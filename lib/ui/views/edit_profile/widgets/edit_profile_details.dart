@@ -34,12 +34,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
 
-                       SemiRoundedTranpaentTextFieldBio(
-                              controller: viewModel.bioController,
-                              fillColor:  kcPrimaryColor.withOpacity(0.08),
-
-                              labelText: 'Bio',
-                            ),
+                        SemiRoundedTranpaentTextFieldBio(
+                          controller: viewModel.bioController,
+                          fillColor: kcPrimaryColor.withOpacity(0.08),
+                          labelText: 'Bio',
+                        ),
                         // const LablesText(text: 'Email'),
                         //  Container(
                         //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -52,7 +51,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         //     padding: const EdgeInsets.only(left: 10),
                         //     child: Row(
                         //       children: [
-                                
+
                         //          Icon(
                         //           Icons.email_outlined,
                         //           color: kcBlackColor.withOpacity(0.4),
@@ -73,7 +72,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         // ),
                         verticalSpaceTiny,
                         const LablesText(text: 'Link'),
-                        
+
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           prefixIcons: true,
@@ -108,71 +107,69 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         Visibility(
                           visible: viewModel.isChange == true,
                           child: CSCPicker(
-                                showStates: true,
+                            showStates: true,
 
-                                showCities: true,
+                            showCities: true,
 
-                                flagState: CountryFlag.DISABLE,
+                            flagState: CountryFlag.DISABLE,
 
-                                dropdownDecoration: BoxDecoration(
-                                    borderRadius:  BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                    color: kcPrimaryColor.withOpacity(0.07),
-                                ),
+                            dropdownDecoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.r)),
+                              color: kcPrimaryColor.withOpacity(0.07),
+                            ),
 
-                                disabledDropdownDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                    color: kcPrimaryColor.withOpacity(0.07),
-                                    ),
+                            disabledDropdownDecoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.r)),
+                              color: kcPrimaryColor.withOpacity(0.07),
+                            ),
 
-                                ///placeholders for dropdown search field
-                                countrySearchPlaceholder: "Country",
-                                stateSearchPlaceholder: "State",
-                                citySearchPlaceholder: "City",
+                            ///placeholders for dropdown search field
+                            countrySearchPlaceholder: "Country",
+                            stateSearchPlaceholder: "State",
+                            citySearchPlaceholder: "City",
 
-                                ///labels for dropdown
-                                countryDropdownLabel: 'country*',
-                                stateDropdownLabel: 'state*',
-                                cityDropdownLabel: 'city*',
+                            ///labels for dropdown
+                            countryDropdownLabel: 'country*',
+                            stateDropdownLabel: 'state*',
+                            cityDropdownLabel: 'city*',
 
-                                selectedItemStyle: globalTextStyle(
-                                  color:kcBlackColor.withOpacity(0.6),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400
-                                ),
+                            selectedItemStyle: globalTextStyle(
+                                color: kcBlackColor.withOpacity(0.6),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400),
 
-                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                                dropdownHeadingStyle: globalTextStyle(
-                                    color: kcBlackColor.withOpacity(0.5),
-                                    fontSize: 17.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w400,),
+                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                            dropdownHeadingStyle: globalTextStyle(
+                              color: kcBlackColor.withOpacity(0.5),
+                              fontSize: 17.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w400,
+                            ),
 
-                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                                dropdownItemStyle: globalTextStyle(
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 14.sp,
-                                  letterSpacing: -0.5,
-                                  fontWeight: FontWeight.w400
-                                ),
+                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                            dropdownItemStyle: globalTextStyle(
+                                color: Colors.black.withOpacity(0.4),
+                                fontSize: 14.sp,
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w400),
 
-                                dropdownDialogRadius: 10.0,
+                            dropdownDialogRadius: 10.0,
 
-                                searchBarRadius: 10.0,
+                            searchBarRadius: 10.0,
 
-                                onCountryChanged: (value) =>
-                                    viewModel.setCountryValue(value.toString()),
+                            onCountryChanged: (value) =>
+                                viewModel.setCountryValue(value.toString()),
 
-                                ///triggers once state selected in dropdown
-                                onStateChanged: (value) =>
-                                    viewModel.setStateValue(value.toString()),
+                            ///triggers once state selected in dropdown
+                            onStateChanged: (value) =>
+                                viewModel.setStateValue(value.toString()),
 
-                                ///triggers once city selected in dropdown
-                                onCityChanged: (value) =>
-                                    viewModel.setCityValue(value.toString()),
-                              ),
-
+                            ///triggers once city selected in dropdown
+                            onCityChanged: (value) =>
+                                viewModel.setCityValue(value.toString()),
+                          ),
                         ),
                       ],
                     ),
@@ -206,41 +203,40 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             const LablesText(text: 'Bio'),
                             SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              fillColor:  kcPrimaryColor.withOpacity(0.08),
-
+                              fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
                             ),
-                        //     const LablesText(text: 'Email'),
-                        //     Container(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        //   decoration: BoxDecoration(
-                        //     color: kcPrimaryColor.withOpacity(0.07),
-                        //     borderRadius: BorderRadius.circular(27.dg),
-                        //     // border: Border.all(color: filterIconColor),
-                        //   ),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.only(left: 10),
-                        //     child: Row(
-                        //       children: [
-                                
-                        //          Icon(
-                        //           Icons.email_outlined,
-                        //           color: kcBlackColor.withOpacity(0.4),
-                        //           size: 16.0.dg,
-                        //         ),
-                        //         horizontalSpaceSmall,
-                        //         Text(
-                        //           viewModel.emailController.text,
-                        //           style: globalTextStyle(
-                        //             fontSize: 14.sp,
-                        //             letterSpacing: -0.5,
-                        //             fontWeight: FontWeight.w500,
-                        //             color: kcBlackColor.withOpacity(0.5),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),),
-                        // ),
+                            //     const LablesText(text: 'Email'),
+                            //     Container(
+                            //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            //   decoration: BoxDecoration(
+                            //     color: kcPrimaryColor.withOpacity(0.07),
+                            //     borderRadius: BorderRadius.circular(27.dg),
+                            //     // border: Border.all(color: filterIconColor),
+                            //   ),
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(left: 10),
+                            //     child: Row(
+                            //       children: [
+
+                            //          Icon(
+                            //           Icons.email_outlined,
+                            //           color: kcBlackColor.withOpacity(0.4),
+                            //           size: 16.0.dg,
+                            //         ),
+                            //         horizontalSpaceSmall,
+                            //         Text(
+                            //           viewModel.emailController.text,
+                            //           style: globalTextStyle(
+                            //             fontSize: 14.sp,
+                            //             letterSpacing: -0.5,
+                            //             fontWeight: FontWeight.w500,
+                            //             color: kcBlackColor.withOpacity(0.5),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),),
+                            // ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
                             SemiRoundedTranpaentTextField(
@@ -293,16 +289,16 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 flagState: CountryFlag.DISABLE,
 
                                 dropdownDecoration: BoxDecoration(
-                                    borderRadius:  BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                    color: kcPrimaryColor.withOpacity(0.07),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.r)),
+                                  color: kcPrimaryColor.withOpacity(0.07),
                                 ),
 
                                 disabledDropdownDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                    color: kcPrimaryColor.withOpacity(0.07),
-                                    ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.r)),
+                                  color: kcPrimaryColor.withOpacity(0.07),
+                                ),
 
                                 ///placeholders for dropdown search field
                                 countrySearchPlaceholder: "Country",
@@ -315,25 +311,24 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 cityDropdownLabel: 'city*',
 
                                 selectedItemStyle: globalTextStyle(
-                                  color:kcBlackColor.withOpacity(0.5),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400
-                                ),
+                                    color: kcBlackColor.withOpacity(0.5),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400),
 
                                 ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                                 dropdownHeadingStyle: globalTextStyle(
-                                    color: kcBlackColor.withOpacity(0.5),
-                                    fontSize: 17.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w400,),
+                                  color: kcBlackColor.withOpacity(0.5),
+                                  fontSize: 17.sp,
+                                  letterSpacing: -0.5,
+                                  fontWeight: FontWeight.w400,
+                                ),
 
                                 ///DropdownDialog Item style [OPTIONAL PARAMETER]
                                 dropdownItemStyle: globalTextStyle(
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 14.sp,
-                                  letterSpacing: -0.5,
-                                  fontWeight: FontWeight.w400
-                                ),
+                                    color: Colors.black.withOpacity(0.4),
+                                    fontSize: 14.sp,
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w400),
 
                                 dropdownDialogRadius: 10.0,
 
@@ -380,10 +375,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                             SemiRoundedTranpaentTextFieldBio(
+                            SemiRoundedTranpaentTextFieldBio(
                               controller: viewModel.bioController,
-                              fillColor:  kcPrimaryColor.withOpacity(0.08),
-
+                              fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
                             ),
                           ],

@@ -28,7 +28,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left:8.0,right:8),
+          padding: const EdgeInsets.only(left: 8.0, right: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

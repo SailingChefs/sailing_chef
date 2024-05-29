@@ -23,11 +23,12 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                
                 verticalSpaceMedium,
                 const EditProfileImage(),
                 verticalSpaceSmall,
-                 EditProfileForm(key: ValueKey(viewModel.countryValue),),
+                EditProfileForm(
+                  key: ValueKey(viewModel.countryValue),
+                ),
                 verticalSpaceMedium,
               ],
             ),

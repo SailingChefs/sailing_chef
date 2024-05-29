@@ -81,28 +81,28 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
             ),
           ),
         ),
-         Positioned(
-            top: 40,
-            left: 10,
-            child: GestureDetector(
-              onTap: () => viewModel.moveBack(),
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(left: 8.0.dg),
-                height: 36.h,
-                width: 36.w,
-                decoration: const BoxDecoration(
-                  color: kcVeryLightGrey,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: kcBlackColor,
-                  size: 18.sp,
-                ),
+        Positioned(
+          top: 40,
+          left: 10,
+          child: GestureDetector(
+            onTap: () => viewModel.moveBack(),
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 8.0.dg),
+              height: 36.h,
+              width: 36.w,
+              decoration: const BoxDecoration(
+                color: kcVeryLightGrey,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: kcBlackColor,
+                size: 18.sp,
               ),
             ),
           ),
+        ),
       ],
     );
   }

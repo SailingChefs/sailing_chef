@@ -92,7 +92,6 @@ class LoginView extends StackedView<LoginViewModel> {
                           labelText: 'email',
                           validator: viewModel.validateEmail,
                           onChanged: (value) => viewModel.rebuildUi(),
-                          
                           keyboardType: TextInputType.emailAddress,
                         ),
                         verticalSpace(

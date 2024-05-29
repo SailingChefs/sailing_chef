@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 
@@ -32,7 +31,7 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<RecipeModel>  savedRecipes = [];
+  List<RecipeModel> savedRecipes = [];
   List<Course> get courses => _cullinarySchoolService.courses;
   List<UserModel> get cullinary => _cullinarySchoolService.cullinaryscools;
   List<UserModel> get chefs => _chefService.chefs;
@@ -42,9 +41,10 @@ class ProfileViewModel extends ReactiveViewModel {
   void navigateToBlockScreen() {
     _navigationService.navigateToBlockedAccountsView();
   }
-  
-   @override
-  List<ListenableServiceMixin> get listenableServices => [_savedRecipeService, _cullinarySchoolService];
+
+  @override
+  List<ListenableServiceMixin> get listenableServices =>
+      [_savedRecipeService, _cullinarySchoolService];
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -52,15 +52,14 @@ class ProfileViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
-  
 
   Future<void> onClickUrl(String url) async {
     Uri uri = Uri.parse("https://$url");
-    
+
     await launchUrl(uri);
   }
 
-   void savedSelected() async {
+  void savedSelected() async {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -70,18 +69,21 @@ class ProfileViewModel extends ReactiveViewModel {
 
   void goToFollowerList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails!,isfromFollowing: false));
-  }
-    void goToFollowingList() {
-    _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails!,isfromFollowing: true));
+        arguments: FollowingListViewArguments(
+            user: userDetails!, isfromFollowing: false));
   }
 
-    void toSettings() {
+  void goToFollowingList() {
+    _navigationService.navigateTo(Routes.followingListView,
+        arguments: FollowingListViewArguments(
+            user: userDetails!, isfromFollowing: true));
+  }
+
+  void toSettings() {
     _navigationService.navigateToSettingsView();
   }
 
-   void handleTab(int index) {
+  void handleTab(int index) {
     switch (index) {
       case 0:
         selectedTab = 'Myrecipes';
@@ -95,7 +97,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
     rebuildUi();
   }
- 
+
   Future<void> myRecipesList() async {
     if (RecipeService.recipes.isEmpty) {
       myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
@@ -108,57 +110,56 @@ class ProfileViewModel extends ReactiveViewModel {
       }
     }
   }
-  Future<void> matchAndAssignUsersToDishes() async{
-  // Combine both user lists into one for easier searching
-  List<UserModel> allUsers = [...chefs, ...cullinary];
 
-  for (int i = 0 ; i<savedRecipes.length; i++) {
+  Future<void> matchAndAssignUsersToDishes() async {
+    // Combine both user lists into one for easier searching
+    List<UserModel> allUsers = [...chefs, ...cullinary];
 
-    if (savedRecipes[i].user == null) {
-      // Find the matching user in the allUsers list
-      UserModel? matchingUser = allUsers.firstWhere(
-        (user) => user.uid == savedRecipes[i].uid,
-        orElse: () => UserModel(uid: ''),
-      );
-      if (matchingUser.uid != null) {
-        // Assign the matching user to the corresponding dish
-        savedRecipes[i].user = matchingUser;
-        if(userDetails!.uid == savedRecipes[i].uid){
-        savedRecipes[i].user = userDetails!;
-      }
+    for (int i = 0; i < savedRecipes.length; i++) {
+      if (savedRecipes[i].user == null) {
+        // Find the matching user in the allUsers list
+        UserModel? matchingUser = allUsers.firstWhere(
+          (user) => user.uid == savedRecipes[i].uid,
+          orElse: () => UserModel(uid: ''),
+        );
+        if (matchingUser.uid != null) {
+          // Assign the matching user to the corresponding dish
+          savedRecipes[i].user = matchingUser;
+          if (userDetails!.uid == savedRecipes[i].uid) {
+            savedRecipes[i].user = userDetails!;
+          }
+        }
       }
     }
-  }
   }
 
   void toFilterView() {
     _navigationService.navigateToFilterView();
   }
+
   Future<void> mySavedRecipes() async {
-   if(RecipeService.recipes.isEmpty){
+    if (RecipeService.recipes.isEmpty) {
       await _recipeService.initialized();
-     return;
-   }
-   else{
-    for(var recipe in RecipeService.recipes)
-    {
-      if(userDetails!.savedRecipes!.any((element) => element == recipe.docId)){
-        savedRecipes.add(recipe);
+      return;
+    } else {
+      for (var recipe in RecipeService.recipes) {
+        if (userDetails!.savedRecipes!
+            .any((element) => element == recipe.docId)) {
+          savedRecipes.add(recipe);
+        }
       }
     }
-   }
   }
-  
+
   void onViewModelReady() async {
     setBusy(true);
-   await myRecipesList();
+    await myRecipesList();
     await mySavedRecipes();
     await matchAndAssignUsersToDishes();
 
     await Future.wait([
       // _savedRecipeService.init(),
       _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
-      
     ]);
     notifyListeners();
     userDetails = await usrService.getUserDetails();
@@ -180,8 +181,8 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
           recipeModel: recipeModel,
-          randomRecipeList:
-              IndexViewModel.getRandomDishes(recipeModel, RecipeService.recipes)),
+          randomRecipeList: IndexViewModel.getRandomDishes(
+              recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,

@@ -11,6 +11,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -21,11 +22,11 @@ class RecipeService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
- Map<String, UserModel> userCache = {};
+  Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
     if (isInitialized) return;
     recipes = await fetchAllRecipes();
-    
+
     isInitialized = true;
 
     notifyListeners();
@@ -54,7 +55,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-   Stream<List<RecipeModel>> fetchRecipesAsStream() {
+  Stream<List<RecipeModel>> fetchRecipesAsStream() {
     return firebasestore
         .collection('recipes')
         .where('visibility', isEqualTo: 'Public')
@@ -71,7 +72,7 @@ class RecipeService with ListenableServiceMixin {
           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;
           userCache[recipe.uid] = user;
-                }
+        }
 
         QuerySnapshot commentsSnapshot =
             await doc.reference.collection('comments').get();
@@ -92,7 +93,7 @@ class RecipeService with ListenableServiceMixin {
   //       .where('visibility', isEqualTo: 'Public')
   //       .where('status', isEqualTo: 'published')
   //       .snapshots();
-    
+
   // }
 
   // Stream<List<CommentModel>> fetchCommentsAsStream(String recipeId) {
@@ -178,19 +179,20 @@ class RecipeService with ListenableServiceMixin {
             FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
-         String docId = docRef.id;
+        String docId = docRef.id;
+        List<Ingredient> ingredients = [];
 
-        await docRef.update({'doc_id': docId});
+        await docRef.update({'doc_id': docId, 'ingredients': ingredients});
         await firebasestore
             .collection('users')
             .doc(firebaseAuth.currentUser!.uid)
             .update({
           'recipes': FieldValue.arrayUnion([docId])
         });
-         userDetails!.recipes!.add(recipe.docId!);
+        userDetails!.recipes!.add(recipe.docId!);
         recipe.user = userDetails;
-        if(recipe.visibility != 'private'){
-           recipes.add(recipe);
+        if (recipe.visibility != 'private') {
+          recipes.add(recipe);
         }
         showToast(message: 'Recipe updated successfully');
       } else {
@@ -281,7 +283,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<void> deleteAudioFromDocument(String id,String url) async {
+  Future<void> deleteAudioFromDocument(String id, String url) async {
     try {
       CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
@@ -294,11 +296,10 @@ class RecipeService with ListenableServiceMixin {
       Reference storageRef = firebaseStorage.ref().child(filePath);
 
       await storageRef.delete();
-      
 
       await documentReference.update({
         'chef_note': FieldValue.delete(),
-        'waveForm' : FieldValue.delete(),
+        'waveForm': FieldValue.delete(),
       });
       EasyLoading.dismiss();
       showToast(message: 'Audio file deleted successfully');
@@ -448,7 +449,7 @@ class RecipeService with ListenableServiceMixin {
           // recipe.user = user;
 
           // recipes.add(recipe);
-           recipes.add(recipe);
+          recipes.add(recipe);
           // break;
         }
 
@@ -463,9 +464,6 @@ class RecipeService with ListenableServiceMixin {
         // recipe.comment = comments;
         // log(recipe.comment.toString());
         // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-
-
-       
       }
 
       return recipes;

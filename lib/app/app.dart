@@ -7,6 +7,7 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/services/search_service.dart';
+import 'package:sailing_chefs/services/shopping_list_service.dart';
 
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
@@ -76,6 +77,7 @@ import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/search/search_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
+import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -100,7 +102,9 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: BottomBarGuestView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
-    MaterialRoute(page: ChatListView,),
+    MaterialRoute(
+      page: ChatListView,
+    ),
     MaterialRoute(page: EditProfileView),
 
     MaterialRoute(page: VideoPlayerView),
@@ -116,6 +120,7 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: ExploreAllRecipesView),
     MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: SearchView),
+    MaterialRoute(page: ShoppingListView),
 // @stacked-route
   ],
   dependencies: [
@@ -128,6 +133,7 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     LazySingleton(classType: LocationService),
     LazySingleton(classType: ConversationService),
     LazySingleton(classType: ChefService),
+    LazySingleton(classType: ShoppingListService),
 
     LazySingleton(classType: UserdataServiceService),
     LazySingleton(classType: BottomNavBarViewModel),

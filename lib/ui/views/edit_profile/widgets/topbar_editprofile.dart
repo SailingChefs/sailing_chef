@@ -1,7 +1,8 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 
-class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> implements PreferredSizeWidget {
+class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel>
+    implements PreferredSizeWidget {
   const TopBarEditProfile(this.title, {super.key});
   final String title;
   @override
@@ -12,7 +13,7 @@ class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> implements
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding:  EdgeInsets.only(left: 8.0.w),
+            padding: EdgeInsets.only(left: 8.0.w),
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () => viewModel.getBack(),
@@ -30,7 +31,7 @@ class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> implements
           ),
           Text(
             title,
-           style: globalTextStyle(
+            style: globalTextStyle(
               fontSize: 16.0.dg,
               color: kcBlackColor,
               letterSpacing: -0.3,
@@ -42,7 +43,7 @@ class TopBarEditProfile extends ViewModelWidget<EditProfileViewModel> implements
       ),
     );
   }
-  
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

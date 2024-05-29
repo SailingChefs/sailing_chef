@@ -8,7 +8,7 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
@@ -58,27 +58,26 @@ class RecipeViewViewModel extends BaseViewModel {
     );
 
     await durationCalculate(File(path!));
-  
 
     setBusy(false);
   }
 
   int servings = 0;
-   int updatedQuantity =0;
+  int updatedQuantity = 0;
 
-
- List<Ingredient> getUpdatedIngredients() {
+  List<Ingredient> getUpdatedIngredients() {
     if (recipe == null) return [];
     return recipe!.ingredients.map((ingredient) {
       int baseQuantity = int.parse(ingredient.quantity);
       updatedQuantity = baseQuantity * servings;
       return Ingredient(
         name: ingredient.name,
-        quantity: updatedQuantity.toStringAsFixed(0), 
+        quantity: updatedQuantity.toStringAsFixed(0),
         unit: ingredient.unit,
       );
     }).toList();
   }
+
   void incrementServings() {
     servings += 1;
     rebuildUi();
@@ -106,7 +105,8 @@ class RecipeViewViewModel extends BaseViewModel {
     playerController.setVolume(volume);
     notifyListeners();
   }
-@override
+
+  @override
   void dispose() {
     playerController.dispose();
     stopListening();
@@ -115,7 +115,7 @@ class RecipeViewViewModel extends BaseViewModel {
     formattedDuration = '';
     super.dispose();
   }
- 
+
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
       waveFormData =
@@ -144,20 +144,18 @@ class RecipeViewViewModel extends BaseViewModel {
       Duration position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
-    await playerController
-        .startPlayer(finishMode: FinishMode.pause);
-        
+    await playerController.startPlayer(finishMode: FinishMode.pause);
+
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
   }
-
 
   void updateDuration(Duration position) async {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
       notifyListeners();
-    } 
+    }
   }
 
   void stopListening() async {
@@ -192,41 +190,37 @@ class RecipeViewViewModel extends BaseViewModel {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     String chefNote = '';
-    if(path!.isNotEmpty){
-       chefNote =
-        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    if (path!.isNotEmpty) {
+      chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
-    
+
     try {
       log("id${recipe.docId!}");
       await _recipeService
           .addRecipeToFirestore(
-            RecipeModel(
-              visibility: recipe.visibility,
-              chefNote: chefNote,
-              coverImage: recipe.coverImage + imageUrls,
-              createdTime: Timestamp.now(),
-              ingredients: getUpdatedIngredients(),
-              methods: recipe.methods,
-
-              prepTime: recipe.prepTime,
-              servingSize: servings,
-              status: 'published',
-              title: recipe.title,
-              tags: recipe.tags,
-              uid: recipe.uid,
-              docId: recipe.docId,
-              waveForm: waveFormData == null ? [] : waveFormData!,
-            ),
-          )
-          .then(
-            (value) async{
-              final result = await navigationService.navigateToRecipeListPageView(
-                isFromDraft: isFromDraft,
-              );
-              log("result: $result");
-            }
-          );
+        RecipeModel(
+          visibility: recipe.visibility,
+          chefNote: chefNote,
+          coverImage: recipe.coverImage + imageUrls,
+          createdTime: Timestamp.now(),
+          ingredients: getUpdatedIngredients(),
+          methods: recipe.methods,
+          prepTime: recipe.prepTime,
+          servingSize: servings,
+          status: 'published',
+          title: recipe.title,
+          tags: recipe.tags,
+          uid: recipe.uid,
+          docId: recipe.docId,
+          waveForm: waveFormData == null ? [] : waveFormData!,
+        ),
+      )
+          .then((value) async {
+        final result = await navigationService.navigateToRecipeListPageView(
+          isFromDraft: isFromDraft,
+        );
+        log("result: $result");
+      });
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(
@@ -235,16 +229,13 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
-
-
   void saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     String chefNote = '';
-    if(path!.isNotEmpty){
-       chefNote =
-        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    if (path!.isNotEmpty) {
+      chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
     try {
       await _recipeService
@@ -264,11 +255,9 @@ class RecipeViewViewModel extends BaseViewModel {
             docId: '',
             waveForm: waveFormData == null ? [] : waveFormData!,
           ))
-          .then((value) =>  navigationService.navigateToRecipeListPageView(
-            isFromDraft: isFromDraft,
-          )
-               
-            );
+          .then((value) => navigationService.navigateToRecipeListPageView(
+                isFromDraft: isFromDraft,
+              ));
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(e.toString());

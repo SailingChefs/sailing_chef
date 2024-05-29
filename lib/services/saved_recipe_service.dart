@@ -12,7 +12,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import '../model/user_model.dart';
 
 class SavedRecipeService with ListenableServiceMixin {
-  List<RecipeModel>savedRecipes = [];
+  List<RecipeModel> savedRecipes = [];
   final RecipeService _recipeService = locator<RecipeService>();
 
   bool isInitialised = false;
@@ -26,17 +26,19 @@ class SavedRecipeService with ListenableServiceMixin {
     isInitialised = true;
     notifyListeners();
   }
-Future< void> mySavedRecipes()async{
+
+  Future<void> mySavedRecipes() async {
     if (RecipeService.recipes.isEmpty) {
-        await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+      await _recipeService.fetchRecipesByUID(userDetails!.uid!);
       return;
     }
-   
-    for(final recipe in RecipeService.recipes)
-    {if(userDetails!.savedRecipes!.any((element) => element == recipe.docId)){
-      savedRecipes.add(recipe);
-    }}
-   
+
+    for (final recipe in RecipeService.recipes) {
+      if (userDetails!.savedRecipes!
+          .any((element) => element == recipe.docId)) {
+        savedRecipes.add(recipe);
+      }
+    }
   }
 
   Future<void> _addSavedRecipe(RecipeModel savedRecipe) async {
@@ -82,7 +84,9 @@ Future< void> mySavedRecipes()async{
       //   throw "Service not initialised";
       // }
 
-      if (userDetails!.savedRecipes!.map((e) => e).contains(savedRecipe.docId!)) {
+      if (userDetails!.savedRecipes!
+          .map((e) => e)
+          .contains(savedRecipe.docId!)) {
         _removeSavedRecipe(savedRecipe.docId!);
       } else {
         _addSavedRecipe(savedRecipe);
@@ -126,12 +130,12 @@ Future< void> mySavedRecipes()async{
   //                 .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
   //                 .toList();
   //             recipeModel.comment = comments;
-             
+
   //             DocumentSnapshot userSnapshot = await firebasestore
   //                 .collection('users')
   //                 .doc(recipeUserId)
   //                 .get();
-              
+
   //             if (userSnapshot.exists) {
   //               UserModel userModel = UserModel.fromSnapshot(userSnapshot);
   //               recipeModel.user = userModel;

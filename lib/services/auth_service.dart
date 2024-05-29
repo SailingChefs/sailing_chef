@@ -51,9 +51,8 @@ class AuthService {
   Future<void> signOut() async {
     EasyLoading.show();
     try {
-
       await firebaseAuth.signOut();
-      
+
       userDetails = null;
 
       EasyLoading.dismiss();
@@ -102,6 +101,3 @@ class AuthService {
     }
   }
 }
-
-
-

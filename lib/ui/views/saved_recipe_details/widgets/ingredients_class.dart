@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -7,7 +8,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const IngredientsClass({super.key, required this.recipeModel});
 
- List<Widget> createIngredientWidgets() {
+  List<Widget> createIngredientWidgets(SavedRecipeDetailsViewModel viewModel) {
     return [
       for (var ingredient in recipeModel.ingredients)
         Column(
@@ -41,13 +42,22 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     ),
                   ),
                 ),
-                Container(
-                  width: 12.0.w,
-                  height: 12.0.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: kcBlackColor.withOpacity(0.8),
+                GestureDetector(
+                  onTap: () {
+                    log("tapped");
+                    viewModel.addOneItemToCart(ingredient);
+                  },
+                  child: Container(
+                    width: 12.0.w,
+                    height: 12.0.h,
+                    decoration: BoxDecoration(
+                      color: viewModel.checkShoppingList(ingredient)
+                          ? kcPrimaryColorDark
+                          : Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: kcPrimaryColorDark,
+                      ),
                     ),
                   ),
                 ),
@@ -62,7 +72,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    var allIngredients = createIngredientWidgets();
+    var allIngredients = createIngredientWidgets(viewModel);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,37 +88,43 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 color: kcBlackColor,
               ),
             ),
-            Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
-              decoration: BoxDecoration(
-                color: kcPrimaryColorDark.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(32.0.dg),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'add all to shopping list',
-                    style: globalTextStyle(
-                      fontSize: 12.sp,
-                      color: kcBlackColor,
-                      letterSpacing: -0.2,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  horizontalSpaceTiny,
-                  Container(
-                    width: 12.0.w,
-                    height: 12.0.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: kcBlackColor.withOpacity(0.8),
+            GestureDetector(
+              onTap: () => viewModel.addAllItemsToCart(recipeModel),
+              child: Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
+                decoration: BoxDecoration(
+                  color: kcPrimaryColorDark.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(32.0.dg),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'add all to shopping list',
+                      style: globalTextStyle(
+                        fontSize: 12.sp,
+                        color: kcBlackColor,
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
-                ],
+                    horizontalSpaceTiny,
+                    Container(
+                      width: 12.0.w,
+                      height: 12.0.h,
+                      decoration: BoxDecoration(
+                        color: viewModel.checkShoppingListAll(viewModel.recipeModel)
+                            ? kcBlackColor.withOpacity(0.8)
+                            : Colors.transparent,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: kcBlackColor.withOpacity(0.8),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

@@ -75,7 +75,7 @@ class PinnedLocation {
 
   static PinnedLocation fromMap(Map<String, dynamic> map) {
     return PinnedLocation(
-      place:map['place'] ?? '',
+        place: map['place'] ?? '',
         location: map['location'] ?? const GeoPoint(0.0, 0.0),
         contactNumber: map['contact_number'],
         rating: map['ratings'],

@@ -18,7 +18,6 @@ class UserModel {
   final List<String>? schoolCourses;
   final List<String>? recipes;
   final String? namedLocation;
- 
 
   UserModel({
     this.schoolCourses,

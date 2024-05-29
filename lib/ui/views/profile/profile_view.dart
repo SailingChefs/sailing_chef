@@ -24,42 +24,40 @@ class ProfileView extends StackedView<ProfileViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarProfileScreen(),
         body: Padding(
-          padding: const EdgeInsets.only(
-            left: 15.0,
-            right: 15.0,
-           top: 30
-          ),
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 30),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
                 verticalSpace(MediaQuery.of(context).size.height * 0.04),
                 userDetails!.userRole == 'guest'
                     ? Container()
                     : FittedBox(
-                      child: Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const TabBarProfileScreen(),
                             IconButton(
                               onPressed: viewModel.toFilterView,
-                              icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
-
+                              icon: SvgPicture.asset(
+                                'assets/images/misc/equilizer.svg',
+                                color: filterIconColor,
+                                width: 30.dg,
+                                height: 30.dg,
+                              ),
                             ),
                           ],
                         ),
-                    ),
-                userDetails!.userRole == 'guest' 
+                      ),
+                userDetails!.userRole == 'guest'
                     ? Column(
                         children: [
                           const SavedGuestButton(),
@@ -73,7 +71,9 @@ class ProfileView extends StackedView<ProfileViewModel> {
                         ? const ShimmerLoaderChefView()
                         : Column(
                             children: [
-                                viewModel.myRecipes.isEmpty ? const SizedBox() : verticalSpaceMedium,
+                              viewModel.myRecipes.isEmpty
+                                  ? const SizedBox()
+                                  : verticalSpaceMedium,
                               viewModel.isMySelected
                                   ? const MyRecipesProfileScreen()
                                   : const SavedProfileScreen(),

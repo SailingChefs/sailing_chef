@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/search_service.dart';
 
-class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>>   {
+class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
   final SearchService _searchService = SearchService();
   @override
   String get searchFieldLabel => 'Search Pinned Locations';
@@ -90,9 +90,7 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>>   {
                   title: Text(capitalizeEachWord(pins[index].name)),
                   // trailing: const Icon(Icons.chevron_right),
                   subtitle: Text(pins[index].description),
-                  onTap: () {
-                        
-                  },
+                  onTap: () {},
                 ),
                 const Divider(
                   color: Colors.grey,

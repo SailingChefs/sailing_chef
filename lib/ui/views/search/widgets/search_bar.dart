@@ -74,10 +74,14 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
             ),
           ),
         ),
-     
         IconButton(
           onPressed: () => viewModel.toFilterScreen(recipes),
-          icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
+          icon: SvgPicture.asset(
+            'assets/images/misc/equilizer.svg',
+            color: filterIconColor,
+            width: 30.dg,
+            height: 30.dg,
+          ),
           color: filterIconColor,
           iconSize: 30.dg,
         ),

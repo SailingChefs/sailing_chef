@@ -19,7 +19,7 @@ class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
           elevation: 0,
           title: Text(
             'Terms and Conditions',
-             style: globalTextStyle(
+            style: globalTextStyle(
               fontSize: 16.0.dg,
               color: kcBlackColor,
               letterSpacing: -0.3,
@@ -31,7 +31,7 @@ class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: BackArrowWidget(
-              onTap:viewModel.getBack,
+              onTap: viewModel.getBack,
             ),
           ),
         ),

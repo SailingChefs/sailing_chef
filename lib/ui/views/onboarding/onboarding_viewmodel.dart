@@ -12,9 +12,9 @@ class OnboardingViewModel extends BaseViewModel {
   OnboardingViewModel() : pages = _initializeOnboardPages();
   static List<String> descriptions = [
     '@Follow@ your favorite chefs, @save@ recipes and @connect@ with those that inspire you.',
-    '@Upload@ and share your recipes. @Connect@ with @crew@, @guests and provisioners@. Showcase your creations and @make it what you want@.',
-    '@Promote@ your courses and recruit new \nstudents. ',
-    'Seeking @inspiration@ for your next meal or looking to @recruit@ the best chefs.',
+    '@Upload@ and share your recipes. @Connect@ with @crew@, @guests and provisioners@. Showcase \n your creations and @make it what you want@.',
+    '@Promote@ your courses and recruit new \nstudents to your school. ',
+    'Seeking @inspiration@ for your next meal or \nlooking to @recruit@ the best chefs.',
   ];
 
   static List<OnboardModel> _initializeOnboardPages() {

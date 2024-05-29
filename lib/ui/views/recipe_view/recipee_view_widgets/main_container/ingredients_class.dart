@@ -1,8 +1,7 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
@@ -15,7 +14,6 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
 
   List<Widget> createIngredientWidgets(List<Ingredient> ingredients) {
     return ingredients.map((ingredient) {
-     
       return Column(
         children: [
           Row(
@@ -67,10 +65,10 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {
-     var updatedIngredients = viewModel.getUpdatedIngredients();
+    var updatedIngredients = viewModel.getUpdatedIngredients();
     var allIngredients = createIngredientWidgets(updatedIngredients);
 
-   return Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(

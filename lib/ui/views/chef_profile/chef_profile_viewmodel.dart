@@ -21,7 +21,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   UserModel userDetails;
 
   ChefProfileViewModel({required this.userDetails});
-  
+
   final _navigationService = locator<NavigationService>();
   final _serviceConversations = locator<ConversationService>();
   final _cullinarySchoolService = locator<CullinaryschoolService>();
@@ -33,7 +33,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isMySelected = false;
   bool isSavedSelected = true;
 
-  List<RecipeModel> chefRecipes =[];
+  List<RecipeModel> chefRecipes = [];
 
   List<String> get followers => _followService.followers;
   final ScrollController scrollController = ScrollController();
@@ -44,7 +44,11 @@ class ChefProfileViewModel extends ReactiveViewModel {
   bool isFollowing = false;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_followService,_cullinarySchoolService,_savedRecipeService,];
+  List<ListenableServiceMixin> get listenableServices => [
+        _followService,
+        _cullinarySchoolService,
+        _savedRecipeService,
+      ];
   List<RecipeModel>? myRecipes;
 
   void myRecipeSelected() {
@@ -60,22 +64,20 @@ class ChefProfileViewModel extends ReactiveViewModel {
     notifyListeners();
     rebuildUi();
   }
-  chefRecipesList(UserModel user){
-    if(RecipeService.recipes.isEmpty){
+
+  chefRecipesList(UserModel user) {
+    if (RecipeService.recipes.isEmpty) {
       _recipeService.initialized();
-    }
-    else{
+    } else {
       log("chefRecipes ${RecipeService.recipes.length}");
       for (var recipe in RecipeService.recipes) {
         log(recipe.uid);
         log('user.uid ${user.uid!}');
-        if(recipe.uid == user.uid!){
+        if (recipe.uid == user.uid!) {
           chefRecipes.add(recipe);
-          
         }
         log("chefRecipes ${chefRecipes.length}");
       }
-      
     }
   }
 
@@ -84,7 +86,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _followService.init(user.uid!, false);
     if (user.userRole != 'guest') {
       chefRecipesList(user);
-            // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
+      // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
       if (user.userRole == 'culinarySchool') {
         _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
       }
@@ -102,17 +104,16 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void onFollow(UserModel user) async {
-
     bool check = await _followService.addFollower(user);
-    
-    if (check==true) {
+
+    if (check == true) {
       user.followers!.add(userDetails.uid!);
       isFollowing = true;
       return;
     }
-  
+
     isFollowing = false;
-     user.followers!.remove(userDetails.uid!);
+    user.followers!.remove(userDetails.uid!);
     return;
   }
 
@@ -126,11 +127,14 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   void goToFollowerList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails,isfromFollowing: false));
+        arguments: FollowingListViewArguments(
+            user: userDetails, isfromFollowing: false));
   }
-    void goToFollowingList() {
+
+  void goToFollowingList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails,isfromFollowing: true));
+        arguments: FollowingListViewArguments(
+            user: userDetails, isfromFollowing: true));
   }
 
   Future<void> moveToChatScreen(

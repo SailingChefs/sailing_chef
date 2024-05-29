@@ -23,14 +23,12 @@ class TipsNotesRecipeDetails extends StatelessWidget {
               verticalSpaceSmall,
               SizedBox(
                 height: 35.h,
-               
                 width: screenWidth(context) - 50,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) => Container(
                     margin: EdgeInsets.symmetric(horizontal: 2.w),
                     padding: EdgeInsets.symmetric(horizontal: 25.dg),
-                    
                     decoration: BoxDecoration(
                       color: const Color(0xff427536).withOpacity(0.16),
                       borderRadius: const BorderRadius.all(Radius.circular(25)),

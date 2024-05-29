@@ -18,9 +18,10 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
   ) {
     return SafeArea(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator(
+          ? const Center(
+              child: CircularProgressIndicator(
               color: kcPrimaryColor,
-          ))
+            ))
           : GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
@@ -35,9 +36,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                             fontWeight: FontWeight.w600,
                             color: kcBlackColor)),
                     centerTitle: true,
-                    
                   ),
-
                   body: SingleChildScrollView(
                     padding: const EdgeInsets.only(
                       left: 15.0,
@@ -45,11 +44,11 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                     ),
                     child: Column(
                       children: [
-                         verticalSpaceMedium,
+                        verticalSpaceMedium,
                         const TabBarSavedRecipesScreen(),
                         verticalSpaceMedium,
                         // const SearchBarSavedRecipesScreen(),
-                        
+
                         viewModel.isAllSelected
                             ? const AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),

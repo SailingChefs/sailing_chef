@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -10,7 +9,6 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
-import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
@@ -64,7 +62,7 @@ class MainRecipeViewContainer
           //   maxLines: 5,
           //   suffixIcon: false,
           //   controller: viewModel.notesController,
-      
+
           //   fillColor: kcPrimaryColorDark.withOpacity(0.2),
           // ),
           verticalSpace(16.h),

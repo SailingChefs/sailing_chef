@@ -41,20 +41,19 @@ class CullinaryschoolService with ListenableServiceMixin {
     notifyListeners();
   }
 
-
   Stream<List<UserModel>> cullinaryInitt() {
-  
-  return FirebaseFirestore.instance
-      .collection('users')
-      .where(
-        'user_role',
-        isEqualTo: 'culinarySchool',
-      )
-      .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
-      .snapshots()
-      .map((querySnapshot) => querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList());
-}
-
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where(
+          'user_role',
+          isEqualTo: 'culinarySchool',
+        )
+        .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => UserModel.fromSnapshot(doc))
+            .toList());
+  }
 
   Future<void> deleteCullinaryCoursesData(
     String courseId,
@@ -86,11 +85,10 @@ class CullinaryschoolService with ListenableServiceMixin {
             'user_role',
             isEqualTo: 'culinarySchool',
           )
-          .where('uid', isNotEqualTo:firebaseAuth.currentUser?.uid)
+          .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
       for (var doc in querySnapshot.docs) {
-        
         UserModel user = UserModel.fromSnapshot(doc);
         if (!userDetails!.blockedAccounts!.contains(user.uid)) {
           users.add(user);
@@ -105,22 +103,14 @@ class CullinaryschoolService with ListenableServiceMixin {
 
   Future<void> _addCourseToDatabase(Course course) async {
     try {
-      DocumentReference courseRef = await firebasestore
-          .collection('courses')
-          .add(course.toMap());
+      DocumentReference courseRef =
+          await firebasestore.collection('courses').add(course.toMap());
       course.id = courseRef.id;
-      await firebasestore
-          .collection('courses')
-          .doc(course.id)
-          .update({
+      await firebasestore.collection('courses').doc(course.id).update({
         'id': course.id,
       });
-    
 
-      await firebasestore
-          .collection('users')
-          .doc(userDetails!.uid)
-          .update({
+      await firebasestore.collection('users').doc(userDetails!.uid).update({
         'school_courses': FieldValue.arrayUnion([course.id]),
       });
     } catch (e) {
@@ -150,10 +140,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
     try {
       DocumentSnapshot<Map<String, dynamic>> querySnapshot =
-          await firebasestore
-              .collection('users')
-              .doc(userId)
-              .get();
+          await firebasestore.collection('users').doc(userId).get();
 
       if (querySnapshot.exists) {
         List<String> courseIds =
@@ -161,10 +148,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
         for (String courseId in courseIds) {
           DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
-              await firebasestore
-                  .collection('courses')
-                  .doc(courseId)
-                  .get();
+              await firebasestore.collection('courses').doc(courseId).get();
 
           if (courseSnapshot.exists) {
             Map<String, dynamic> courseData = courseSnapshot.data()!;
@@ -185,10 +169,7 @@ class CullinaryschoolService with ListenableServiceMixin {
     required String courseId,
   }) async {
     try {
-      await firebasestore
-          .collection('courses')
-          .doc(courseId)
-          .delete();
+      await firebasestore.collection('courses').doc(courseId).delete();
 
       await firebasestore.collection('users').doc(userId).update({
         'school_courses': FieldValue.arrayRemove([courseId]),

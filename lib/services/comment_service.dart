@@ -12,7 +12,7 @@ import '../ui/common/show_toast.dart';
 
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
-  
+
   List<CommentModel> comments = [];
   getComments(String recipeId) async {
     comments = await fetchCommentsByRecipeId(recipeId);
@@ -82,28 +82,27 @@ class CommentService with ListenableServiceMixin {
     }
   }
 
- Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
-  try {
-    // Access the subcollection 'comments' within the specific 'recipe' document
-    QuerySnapshot querySnapshot = await firebasestore
-        .collection('recipes')
-        .doc(recipeId)
-        .collection('comments')
-        .orderBy('timestamp', descending: true)
-        .get();
+  Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+    try {
+      // Access the subcollection 'comments' within the specific 'recipe' document
+      QuerySnapshot querySnapshot = await firebasestore
+          .collection('recipes')
+          .doc(recipeId)
+          .collection('comments')
+          .orderBy('timestamp', descending: true)
+          .get();
 
-    // Convert the querySnapshot documents to a list of CommentModel
-    List<CommentModel> comments = querySnapshot.docs
-        .map((doc) => CommentModel.fromSnapshot(doc))
-        .toList();
+      // Convert the querySnapshot documents to a list of CommentModel
+      List<CommentModel> comments = querySnapshot.docs
+          .map((doc) => CommentModel.fromSnapshot(doc))
+          .toList();
 
-    return comments;
-  } catch (e) {
-    // Handle errors and return an empty list
-    return [];
+      return comments;
+    } catch (e) {
+      // Handle errors and return an empty list
+      return [];
+    }
   }
-}
-
 
   Future<List<String>> uploadImagesToFirebase(List<File> images) async {
     List<String> imageUrls = [];

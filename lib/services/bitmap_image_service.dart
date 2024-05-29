@@ -21,6 +21,4 @@ class BitmapImageService {
         const ImageConfiguration(size: Size(40, 40)),
         'assets/images/icons/green.png');
   }
- 
-  
 }

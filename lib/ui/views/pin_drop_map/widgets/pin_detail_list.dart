@@ -5,7 +5,6 @@ import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dar
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 
 class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
-  
   const PinDetailList({super.key});
 
   @override
@@ -13,11 +12,13 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
     return ListView.builder(
       itemBuilder: (context, index) {
         log('pins length ${viewModel.pins.last.picture.length}');
-    final pin = viewModel.filteredPins.isEmpty ? viewModel.pins[index] : viewModel.filteredPins[index];
+        final pin = viewModel.filteredPins.isEmpty
+            ? viewModel.pins[index]
+            : viewModel.filteredPins[index];
 
         //  int actualIndex = (index + viewModel.startIndex) % viewModel.pins.length.toInt();
         return GestureDetector(
-          onTap: () =>viewModel.callDetailsDialog (viewModel.pins[index]),
+          onTap: () => viewModel.callDetailsDialog(viewModel.pins[index]),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -39,7 +40,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                               topLeft: Radius.circular(27),
                               bottomLeft: Radius.circular(27)),
                           child: Image.network(
-                          pin.picture.first,
+                            pin.picture.first,
                             fit: BoxFit.cover,
                             height: MediaQuery.of(context).size.height * 0.18,
                             width: MediaQuery.of(context).size.width * 0.26,
@@ -58,10 +59,9 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.only( top: 15),
+                                    padding: const EdgeInsets.only(top: 15),
                                     child: Text(
-                                     pin.tags[0],
+                                      pin.tags[0],
                                       style: globalTextStyle(
                                         color: kcBlackColor,
                                         fontSize: 16,
@@ -81,14 +81,23 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                           color: kclightgreencolor,
                                         ),
                                         horizontalSpaceSmall,
-                                          Text(
-                                         viewModel.calculateAverageRating(pin.reviews ?? []).toString() == '0.0' ?pin.rating.toString() : viewModel.calculateAverageRating(pin.reviews ?? []).toString(),
-                                            style: globalTextStyle(
-                                              color: kcBlackColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                        Text(
+                                          viewModel
+                                                      .calculateAverageRating(
+                                                          pin.reviews ?? [])
+                                                      .toString() ==
+                                                  '0.0'
+                                              ? pin.rating.toString()
+                                              : viewModel
+                                                  .calculateAverageRating(
+                                                      pin.reviews ?? [])
+                                                  .toString(),
+                                          style: globalTextStyle(
+                                            color: kcBlackColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
                                           ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -111,9 +120,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                         ),
                                       ),
                                     ),
-                          
                                     Text(
-                                     pin.place,
+                                      pin.place,
                                       overflow: TextOverflow.ellipsis,
                                       style: globalTextStyle(
                                         color: kcBlackColor.withOpacity(0.4),
@@ -134,8 +142,9 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
         );
       },
       scrollDirection: Axis.horizontal,
-      itemCount:viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
-     
+      itemCount: viewModel.filteredPins.isEmpty
+          ? viewModel.pins.length
+          : viewModel.filteredPins.length,
       shrinkWrap: true,
     );
   }

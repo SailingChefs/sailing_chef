@@ -57,9 +57,8 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                       height: 35.h,
-               
-                width: screenWidth(context) - 50,
+                      height: 35.h,
+                      width: screenWidth(context) - 50,
                       child: ListView.builder(
                         itemBuilder: (context, index) => Container(
                           margin: EdgeInsets.symmetric(horizontal: 2.w),
@@ -89,19 +88,18 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                     Container(
                       // height: 50.h,
                       // width: 50.w,
-                      padding: EdgeInsets.symmetric(horizontal: 15.0.w,vertical: 10.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.0.w, vertical: 10.h),
                       decoration: BoxDecoration(
                         color: kcPrimaryColor.withOpacity(0.06),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(25)),
                       ),
                       child: GestureDetector(
-                        onTap: () => viewModel.showTagsSheet(context),
-                        child: SvgPicture.asset(
-                          'assets/images/misc/edit.svg',
-                          
-                        )
-                      ),
+                          onTap: () => viewModel.showTagsSheet(context),
+                          child: SvgPicture.asset(
+                            'assets/images/misc/edit.svg',
+                          )),
                     ),
                   ],
                 ),

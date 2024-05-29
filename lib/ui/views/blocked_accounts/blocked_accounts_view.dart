@@ -21,14 +21,16 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
             appBar: AppBar(
               leadingWidth: 70,
               leading: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
-                child:   GestureDetector(
-
-            behavior: HitTestBehavior.translucent,
-            onTap:  viewModel.back,
-            child: SvgPicture.asset('assets/images/icons/backbutton.svg',height: 20.h,width: 20.w,)
-
-          ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: viewModel.back,
+                    child: SvgPicture.asset(
+                      'assets/images/icons/backbutton.svg',
+                      height: 20.h,
+                      width: 20.w,
+                    )),
               ),
               centerTitle: true,
               title: Text(

@@ -30,8 +30,6 @@ class FollowingListViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-
-
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
     for (var user in users) {
       if (user.displayName!.toLowerCase().contains(query.toLowerCase())) {
@@ -81,9 +79,7 @@ class FollowingListViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  Future<UserModel> getUserById(String followerId)async {
-    
+  Future<UserModel> getUserById(String followerId) async {
     return await _userService.fetchUserByUID(followerId);
   }
-
 }

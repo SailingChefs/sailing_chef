@@ -1,4 +1,3 @@
-
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
@@ -10,23 +9,26 @@ class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const CommentsDetailsScreen({super.key, required this.recipeModel});
- List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     List<CustomListTileComments> commentTiles = [];
     if (viewModel.commentsList.isNotEmpty) {
-        List<CommentModel> comments = viewModel.commentsList;
-        commentTiles = comments.map((comment) => CustomListTileComments(
-          name: comment.userName,
-          date: comment.timestamp,
-          description: comment.content,
-          image: comment.userImageUrl,
-          ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
-          rating: comment.rating ?? 0, // use 0 if rating is null
-        )).toList();
+      List<CommentModel> comments = viewModel.commentsList;
+      commentTiles = comments
+          .map((comment) => CustomListTileComments(
+                name: comment.userName,
+                date: comment.timestamp,
+                description: comment.content,
+                image: comment.userImageUrl,
+                ratingImages: comment.imageUrl ??
+                    [], // use an empty list if imageUrl is null
+                rating: comment.rating ?? 0, // use 0 if rating is null
+              ))
+          .toList();
     }
     return commentTiles;
-}
+  }
 
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
@@ -63,7 +65,6 @@ class CommentsDetailsScreen
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpaceMedium,
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -126,7 +127,6 @@ class CommentsDetailsScreen
                     hintStyle: globalTextStyle(
                         fontSize: 14.0.sp,
                         letterSpacing: -0.3,
-
                         color: kcBlackColor.withOpacity(0.4),
                         fontWeight: FontWeight.w400),
                   ),
@@ -160,7 +160,6 @@ class CommentsDetailsScreen
                     fontWeight: FontWeight.w500),
               )),
         ),
-
         viewModel.seeComments
             ? Column(
                 children: [

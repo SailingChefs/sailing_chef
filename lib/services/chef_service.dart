@@ -7,32 +7,30 @@ import 'package:sailing_chefs/services/user_services.dart';
 
 class ChefService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
-   List<UserModel> chefs = [];
- List<UserModel> chefslist = [];
+  List<UserModel> chefs = [];
+  List<UserModel> chefslist = [];
   bool isInitialized = false;
 
   Future<void> chefInit() async {
-    if(isInitialized) return;
+    if (isInitialized) return;
     chefs = await fetchChefDocuments();
     isInitialized = true;
     notifyListeners();
   }
 
-
-  
-  
-Stream<List<UserModel>> chefInitt() {
-  
-  return FirebaseFirestore.instance
-      .collection('users')
-      .where(
-        'user_role',
-        isEqualTo: 'chef',
-      )
-      .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
-      .snapshots()
-      .map((querySnapshot) => querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList());
-}
+  Stream<List<UserModel>> chefInitt() {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where(
+          'user_role',
+          isEqualTo: 'chef',
+        )
+        .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => UserModel.fromSnapshot(doc))
+            .toList());
+  }
 
   Future<List<UserModel>> fetchChefDocuments() async {
     List<UserModel> users = [];
@@ -97,8 +95,8 @@ Stream<List<UserModel>> chefInitt() {
           .get();
 
       for (var doc in querySnapshot.docs) {
-        UserModel? currUser = await _userService
-            .fetchUserByUID(firebaseAuth.currentUser!.uid);
+        UserModel? currUser =
+            await _userService.fetchUserByUID(firebaseAuth.currentUser!.uid);
         user = UserModel.fromSnapshot(doc);
         if (!currUser.blockedAccounts!.contains(user.uid)) {
           users.add(user);

@@ -11,12 +11,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/services/shopping_list_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
@@ -26,13 +29,14 @@ import '../../../core/imports/core_imports.dart';
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
 
-  SavedRecipeDetailsViewModel({required this.recipeModel}); 
+  SavedRecipeDetailsViewModel({required this.recipeModel});
 
   final _navigationService = locator<NavigationService>();
 
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
   final SavedRecipeService _savedRecipeService = SavedRecipeService();
+  final ShoppingListService _shoppingListService = ShoppingListService();
 
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
@@ -42,6 +46,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final ImagePicker _picker = ImagePicker();
   final _serviceConversations = locator<ConversationService>();
   final TextEditingController notesController = TextEditingController();
+  List<ShoppingList> get shoppingList => _shoppingListService.shoppingList;
   bool isRecipeSaved = false;
   List<RecipeModel> myRecipes = [];
   double volume = 0;
@@ -55,9 +60,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   bool seeComments = false;
   bool isRecipeSave = false;
 
-   List<CommentModel> get commentsList => commentService.comments;
-  
-
+  List<CommentModel> get commentsList => commentService.comments;
 
   List<RecipeModel> get savedRecipeList => _savedRecipeService.savedRecipes;
 
@@ -66,6 +69,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     isRecipeSave = !isRecipeSave;
     notifyListeners();
   }
+
   void addToSaveList(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(recipe);
     isRecipeSaved = !isRecipeSaved;
@@ -96,6 +100,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
         _savedRecipeService,
+        _shoppingListService,
       ];
 
   void pickImage() async {
@@ -127,11 +132,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-   
-      
-  
-  
-   
 
     return averageRating.toStringAsFixed(1);
   }
@@ -195,19 +195,62 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       commentController.clear();
       images.clear();
       rating = rating;
-      RecipeService.recipes.where((element) => element.docId == recipeId).first.rating = calculateAverageRating(commentService.comments) as double;
+      RecipeService.recipes
+          .where((element) => element.docId == recipeId)
+          .first
+          .rating = calculateAverageRating(commentService.comments) as double;
       rebuildUi();
-   
+
       showToast(message: 'Comment Added');
     }
+  }
+
+  void addOneItemToCart(Ingredient ingredient) {
+    _shoppingListService.addOrRemoveFromShoppingList(ShoppingList(
+        ingredientName: ingredient.name,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit,
+        id: '',
+        recipeId: recipeModel.docId!,
+        ingredientId: ingredient.id!));
+    rebuildUi();
+  }
+
+  void addAllItemsToCart(RecipeModel recipe) async {
+    List<ShoppingList> shoppingList = [];
+    for (var ingredient in recipe.ingredients) {
+      shoppingList.add(ShoppingList(
+          ingredientName: ingredient.name,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit,
+          id: '',
+          recipeId: recipe.docId!,
+          ingredientId: ingredient.id!));
+    }
+    _shoppingListService.addOrRemoveAllFromShoppingList(shoppingList, recipe);
+
+    rebuildUi();
+  }
+
+  bool checkShoppingList(Ingredient ingredient) {
+    if (shoppingList.any((element) => element.ingredientId == ingredient.id)) {
+      return true;
+    }
+    return false;
+  }
+
+  bool checkShoppingListAll(RecipeModel recipeModel) {
+    
+    return shoppingList.where((element) => element.recipeId == recipeModel.docId).length == recipeModel.ingredients.length;
+    
   }
 
   void toRecipeDetails(RecipeModel recipe) {
     _navigationService.replaceWithTransition(
         SavedRecipeDetailsView(
           recipeModel: recipe,
-          randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
-         
+          randomRecipeList:
+              IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
         ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);
@@ -305,7 +348,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
       notifyListeners();
-    } 
+    }
   }
 
   void stopListening() async {
@@ -317,15 +360,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     log("stop Listening ends ${isPlaying.toString()}");
   }
 
-
   void onViewModelReady(String recipeId) async {
     setBusy(true);
 
     waveFormData = recipeModel.waveForm;
     await commentService.getComments(recipeId);
     playerController = PlayerController();
+    await _shoppingListService.getShoppingList();
 
-   await  downloadAudio();
+    await downloadAudio();
 
     checkSave(recipeId);
     setBusy(false);
