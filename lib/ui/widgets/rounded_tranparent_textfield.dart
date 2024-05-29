@@ -28,7 +28,6 @@ class RoundedTransparentTextField extends StatelessWidget {
   final bool? ispassvisible;
   final TextStyle? style;
 
-
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
@@ -98,16 +97,23 @@ class RoundedTransparentTextField extends StatelessWidget {
       }) {
         return null;
       },
-
-      
-      style: style ?? globalTextStyle(fontSize: 13.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w400),
+      style: style ??
+          globalTextStyle(
+              fontSize: 13.sp,
+              color: textColor ?? kcWhiteColor,
+              fontWeight: FontWeight.w400),
       decoration: InputDecoration(
-        
         hintText: labelText,
-        hintStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+        hintStyle: globalTextStyle(
+            fontSize: 14.sp,
+            color: textColor ?? kcWhiteColor,
+            fontWeight: FontWeight.w500),
         filled: true,
         fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
-        labelStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+        labelStyle: globalTextStyle(
+            fontSize: 14.sp,
+            color: textColor ?? kcWhiteColor,
+            fontWeight: FontWeight.w500),
         // labelText: labelText,
 
         border: OutlineInputBorder(
@@ -139,9 +145,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
-
           horizontal: 15.0,
-
         ),
         prefixIcon: prefixIcon == true
             ? Icon(
@@ -155,7 +159,7 @@ class RoundedTransparentTextField extends StatelessWidget {
                 ? null
                 : GestureDetector(
                     onTap: onVisibilityToggle,
-                    child: ispassvisible == true ?   closeEye : openEye)),
+                    child: ispassvisible == true ? closeEye : openEye)),
       ),
     );
   }

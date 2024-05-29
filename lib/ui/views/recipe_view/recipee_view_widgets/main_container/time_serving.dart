@@ -21,11 +21,11 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-             SvgPicture.asset(
+              SvgPicture.asset(
                 'assets/images/misc/clock.svg',
                 width: 18,
                 height: 18,
-             ),
+              ),
               // horizontalSpaceSmall,
               Text(
                 ' ${recipeModel.prepTime}',
@@ -72,7 +72,7 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
                   Text(' ${viewModel.servings} '),
                   horizontalSpaceSmall,
                   GestureDetector(
-                    onTap:(){
+                    onTap: () {
                       viewModel.incrementServings();
                       viewModel.getUpdatedIngredients();
                     },

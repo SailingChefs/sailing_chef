@@ -26,8 +26,8 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
             height: 40,
             child: TextFormField(
               controller: controller,
-             inputFormatters: [
-                 FilteringTextInputFormatter.allow(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
                   RegExp(r"[a-zA-Z0-9-._~:/?#\[\]@!$&'()*+,;=%]"),
                 ),
               ],

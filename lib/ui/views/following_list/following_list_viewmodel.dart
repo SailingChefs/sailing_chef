@@ -13,12 +13,10 @@ class FollowingListViewModel extends BaseViewModel {
   final TextEditingController searchController = TextEditingController();
   bool isFollowing = false;
   bool isFollower = true;
-  List<String> get following => _followService.following;
-  List<String> get followers => _followService.followers;
   List<UserModel> get followersUsers => _followService.usersFollowers;
   List<UserModel> get followingUsers => _followService.usersFollowing;
   void popBack() {
-    _navigationloactor.navigateToBottomNavBarView();
+    _navigationloactor.back();
   }
 
   void onViewModelReady(String userId) async {
@@ -29,8 +27,6 @@ class FollowingListViewModel extends BaseViewModel {
     notifyListeners();
     setBusy(false);
   }
-
-
 
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
     for (var user in users) {
@@ -81,9 +77,7 @@ class FollowingListViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  Future<UserModel> getUserById(String followerId)async {
-    
+  Future<UserModel> getUserById(String followerId) async {
     return await _userService.fetchUserByUID(followerId);
   }
-
 }

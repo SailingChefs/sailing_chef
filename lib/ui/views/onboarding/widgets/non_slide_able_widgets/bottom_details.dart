@@ -11,7 +11,6 @@ class BottomDetailsOnboardingScreen
   @override
   Widget build(BuildContext context, OnboardingViewModel viewModel) {
     return Column(
-
       children: [
         SmoothPageIndicator(
           controller: viewModel.pageController,

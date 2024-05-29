@@ -1,5 +1,3 @@
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 
@@ -7,13 +5,12 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 
-
 class RecipeListPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final bool isFromDraft;
   RecipeListPageViewModel({required this.isFromDraft});
   final RecipeService _recipeService = locator<RecipeService>();
-  List<RecipeModel> recipes =[];
+  List<RecipeModel> recipes = [];
   void onViewModelReady() async {
     setBusy(true);
 
@@ -21,7 +18,7 @@ class RecipeListPageViewModel extends BaseViewModel {
 
     recipes =
         await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
-    
+
     setBusy(false);
   }
 
@@ -38,7 +35,7 @@ class RecipeListPageViewModel extends BaseViewModel {
   //   }
   // }
   void toHomeView() async {
-    if(isFromDraft){
+    if (isFromDraft) {
       _navigationService.clearStackAndShowView(const BottomNavBarView());
       // _navigationService.replaceWithBottomNavBarView();
       return;
@@ -47,10 +44,8 @@ class RecipeListPageViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-
-
   void onPopInvoked(bool didPop) async {
-    if(isFromDraft){
+    if (isFromDraft) {
       _navigationService.clearStackAndShowView(const BottomNavBarView());
       return;
     }

@@ -20,8 +20,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
             },
             child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
-              margin:  EdgeInsets.symmetric(horizontal: 16.0.dg),
-              
+              margin: EdgeInsets.symmetric(horizontal: 16.0.dg),
               decoration: BoxDecoration(
                 color: kcPrimaryColor.withOpacity(0.09),
                 borderRadius: BorderRadius.circular(30.0),
@@ -29,9 +28,12 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/icons/search.svg', color: searchIconColor,
-                    width: 16.w,height: 16.h,),
-                  
+                  SvgPicture.asset(
+                    'assets/images/icons/search.svg',
+                    color: searchIconColor,
+                    width: 16.w,
+                    height: 16.h,
+                  ),
                   horizontalSpaceSmall,
                   Text(
                     'Search',
@@ -47,13 +49,16 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
             ),
           ),
         ),
-       
         IconButton(
           onPressed: viewModel.goToFilterView,
-          icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
+          icon: SvgPicture.asset(
+            'assets/images/misc/equilizer.svg',
+            color: filterIconColor,
+            width: 30.dg,
+            height: 30.dg,
+          ),
           color: kcPrimaryColor,
           iconSize: 32.h,
-         
         ),
         horizontalSpaceSmall,
       ],

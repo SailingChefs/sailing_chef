@@ -37,9 +37,10 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
             height: 42,
             width: 185,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: filterIconColor),
+                borderRadius: BorderRadius.circular(30),
+                color: filterIconColor),
             child: TextButton(
-              onPressed: () async{
+              onPressed: () async {
                 await viewModel.savePinDrop();
               },
               child: Text(

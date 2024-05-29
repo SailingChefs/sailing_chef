@@ -8,15 +8,12 @@ class ShimmerLoaderChefView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       verticalSpaceSmall,
-      
       GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 10,
             crossAxisSpacing: 2,
-            childAspectRatio: 7.5/9
-            
-            ),
+            childAspectRatio: 7.5 / 9),
         itemBuilder: (context, index) =>
             ShimmerContainer(height: 30.h, width: 20.w),
         itemCount: 6,

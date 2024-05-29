@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 class PindetailsDialogModel extends ReactiveViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
- final _reviewService = locator<PinDropService>();
+  final _reviewService = locator<PinDropService>();
   List<ReviewsModel> get reviews => _reviewService.reviews;
   late bool serviceEnabled;
   late LocationPermission permission;
@@ -53,6 +53,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
       throw 'Could not launch $url';
     }
   }
+
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
       log(pinnedLocation.rating.toString());
@@ -71,7 +72,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
     log(averageRating.toString());
-   return averageRating.toStringAsFixed(1);
+    return averageRating.toStringAsFixed(1);
   }
 
   void onViewModelReady() async {

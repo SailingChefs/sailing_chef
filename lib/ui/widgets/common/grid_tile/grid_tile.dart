@@ -36,11 +36,10 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
-    
     bool isRecipeSaved = false;
     for (String savedRecipe in userDetails!.savedRecipes!) {
       if (savedRecipe == recipe.docId) {
-        isRecipeSaved = !isRecipeSaved;
+        isRecipeSaved = true;
         break;
       }
     }
@@ -133,7 +132,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   ),
             Positioned(
               left: 5.dg,
-              bottom: 30.dg ,
+              bottom: 30.dg,
               child: Container(
                 // width: 90.w,
                 height: 25.h,
@@ -178,21 +177,25 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   ),
                 ),
                 child: chefImagePath.isEmpty
-                        ? ClipRRect(borderRadius: BorderRadius.circular(50.r),child: const Image(image: AssetImage('assets/images/misc/blank_image.png'))):
-                 ClipRRect(
-                  borderRadius: BorderRadius.circular(50.r),
-                  child: CachedNetworkImage(
-                        imageUrl: chefImagePath,
-                        fit: BoxFit.cover,
-                        width: double.maxFinite,
-                        progressIndicatorBuilder: (context, url, progress) =>
-                            Container(
-                          decoration: const BoxDecoration(
-                            color: kcsgreycolor,
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(50.r),
+                        child: const Image(
+                            image: AssetImage(
+                                'assets/images/misc/blank_image.png')))
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(50.r),
+                        child: CachedNetworkImage(
+                          imageUrl: chefImagePath,
+                          fit: BoxFit.cover,
+                          width: double.maxFinite,
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              Container(
+                            decoration: const BoxDecoration(
+                              color: kcsgreycolor,
+                            ),
                           ),
                         ),
                       ),
-                ) ,
               ),
             )
           ]),

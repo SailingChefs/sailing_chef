@@ -61,14 +61,14 @@ class DropPinSheetSheetModel extends BaseViewModel {
       ratings = 0;
       reset();
       completer!(SheetResponse(data: true));
-    }else if (imageUrls == null) {
+    } else if (imageUrls == null) {
       showToast(message: 'Please upload image!');
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
     } else {}
-    
   }
-   Future<String> getCityCountry(double latitude, double longitude) async {
+
+  Future<String> getCityCountry(double latitude, double longitude) async {
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latitude, longitude);
@@ -112,7 +112,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
     // ignore: unnecessary_null_comparison
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      
+
       selectedImagePath = selectedImageFile!.first.path;
       notifyListeners();
       rebuildUi();

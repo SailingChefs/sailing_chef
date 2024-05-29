@@ -33,7 +33,6 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
           child: Row(
             children: [
               Expanded(
-
                 child: TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -42,7 +41,6 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                     return null;
                   },
                   controller: viewModel.servingSize,
-
 
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,

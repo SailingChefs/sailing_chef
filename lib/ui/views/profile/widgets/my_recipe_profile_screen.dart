@@ -17,7 +17,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   verticalSpaceLarge,
+                  verticalSpaceLarge,
                   Text(
                     'Create your first recipe today',
                     style: globalTextStyle(

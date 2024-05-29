@@ -16,7 +16,6 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
           )
         : Column(
             children: <Widget>[
-             
               verticalSpaceSmall,
               SizedBox(
                 height: screenHeight <= 690.0

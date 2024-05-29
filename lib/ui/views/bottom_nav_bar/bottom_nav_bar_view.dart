@@ -28,38 +28,66 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.setIndex,
-        items:  [
+        items: [
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/homeselected.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/homeselected.svg',
+              color: Colors.grey[500],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/locationIcon.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/locationIcon.svg',
+              color: Colors.grey[600],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/centerplus.svg',
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
+            icon: SvgPicture.asset(
+              'assets/images/icons/centerplus.svg',
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/chat.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/chat.svg',
+              color: Colors.grey[600],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/profile.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/profile.svg',
+              color: Colors.grey[600],
+            ),
           ),
         ],
       ),
     );
   }
-  
-  @override  
+
+  @override
   bool get disposeViewModel => false;
 
   @override

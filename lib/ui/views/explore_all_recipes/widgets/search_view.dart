@@ -27,9 +27,8 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 final RecipeModel recipe =
                     viewModel.searchRecipes(recipes).elementAt(index);
                 return PrimaryGridTile(
-
-                  chefId: recipe.user!.uid!,
-                  rating: recipe.rating,
+                    chefId: recipe.user!.uid!,
+                    rating: recipe.rating,
                     recipe: recipe,
                     onTap: () => viewModel.toDishDetailsScreen(recipe),
                     foodImagePath: recipe.coverImage

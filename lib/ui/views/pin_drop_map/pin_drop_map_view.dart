@@ -11,14 +11,14 @@ import 'widgets/tags.dart';
 
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
   const PinDropMapView({Key? key}) : super(key: key);
- 
+
   @override
   Widget builder(
     BuildContext context,
     PinDropMapViewModel viewModel,
     Widget? child,
   ) {
-   String markerId = const Uuid().v4();
+    String markerId = const Uuid().v4();
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
@@ -46,10 +46,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                             mapToolbarEnabled: false,
                             myLocationEnabled: true,
                             buildingsEnabled: false,
-                            
                             myLocationButtonEnabled: false,
                             onCameraMove: (position) {
-                             
                               viewModel.onCameraMove(position);
                             },
                             onCameraIdle: () async {
@@ -59,7 +57,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                                 viewModel.initialCameraPosition!,
                             onMapCreated: (controller) {
                               viewModel.controllermap = controller;
-
                             },
                             markers: viewModel.allMarkers.values.toSet(),
                           ),
@@ -83,8 +80,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap:
-                          viewModel.showPindropDialogueBox,
+                        onTap: viewModel.showPindropDialogueBox,
                         child: SvgPicture.asset(
                           'assets/images/icons/icon_add.svg',
                           width: 40,
@@ -133,9 +129,9 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
 
   @override
   void onViewModelReady(PinDropMapViewModel viewModel) {
-   String markerId = const Uuid().v4();
+    String markerId = const Uuid().v4();
 
-    viewModel.onViewModelReady( markerId);
+    viewModel.onViewModelReady(markerId);
     super.onViewModelReady(viewModel);
   }
 

@@ -19,11 +19,11 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               'Recipe Title',
               style: globalTextStyle(
-                  fontSize: 14.sp,
-                  letterSpacing: -0.5,
-                  fontWeight: FontWeight.w600,
-                  color: kcBlackColor,
-                  ),
+                fontSize: 14.sp,
+                letterSpacing: -0.5,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
+              ),
             ),
             horizontalSpaceTiny,
             Text(
@@ -40,10 +40,13 @@ class RecipeTitle extends ViewModelWidget<AddRecipeViewModel> {
           controller: viewModel.titleController,
           labelText: 'Give your recipe a name',
           validator: viewModel.validateTitle,
-          style: globalTextStyle(fontSize: 12.dg,color: kcBlackColor.withOpacity(0.8.dg),fontWeight: FontWeight.w500,letterSpacing: -0.5),
-        
-          fillColor:   kcPrimaryColor.withOpacity(0.08),
-          textColor: kcBlackColor.withOpacity(0.6), 
+          style: globalTextStyle(
+              fontSize: 12.dg,
+              color: kcBlackColor.withOpacity(0.8.dg),
+              fontWeight: FontWeight.w500,
+              letterSpacing: -0.5),
+          fillColor: kcPrimaryColor.withOpacity(0.08),
+          textColor: kcBlackColor.withOpacity(0.6),
         ),
       ],
     );

@@ -8,7 +8,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
   Widget build(BuildContext context, IndexViewModel viewModel) {
     return Container(
       height: screenHeight(context) * 0.055,
-      width: screenWidth(context) ,
+      width: screenWidth(context),
       margin: EdgeInsets.only(right: 12.dg),
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.09),

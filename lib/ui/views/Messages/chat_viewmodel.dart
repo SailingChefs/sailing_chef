@@ -32,7 +32,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       }
       rebuildUi();
     });
-    
   }
 
   bool _uploadingImage = false;
@@ -76,13 +75,8 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       selectedImageFile = null;
       _uploadingImage = false;
       rebuildUi();
-
-    
-
     }
   }
-
-
 
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
@@ -128,7 +122,6 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     await _conversationService.sendMessage(message, conversationId);
     messageController.clear();
     rebuildUi();
-    
   }
 
   void moveBack() {

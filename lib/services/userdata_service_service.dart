@@ -48,7 +48,7 @@ class UserdataServiceService {
 
       // Get a reference to the file in Firebase Storage
       Reference storageRef = firebaseStorage.ref().child(filePath);
-        
+
       // Delete the file
       await storageRef.delete();
       EasyLoading.dismiss();
@@ -64,8 +64,7 @@ class UserdataServiceService {
       Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
-      CollectionReference usersCollection =
-          firebasestore.collection('users');
+      CollectionReference usersCollection = firebasestore.collection('users');
 
       DocumentSnapshot userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());
@@ -81,7 +80,6 @@ class UserdataServiceService {
         userDetails = await _userService.getUserDetails();
         return true;
       }
-     
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());

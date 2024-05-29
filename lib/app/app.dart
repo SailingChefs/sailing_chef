@@ -76,6 +76,8 @@ import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/search/search_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
+import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_view.dart';
+import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -100,7 +102,9 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: BottomBarGuestView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
-    MaterialRoute(page: ChatListView,),
+    MaterialRoute(
+      page: ChatListView,
+    ),
     MaterialRoute(page: EditProfileView),
 
     MaterialRoute(page: VideoPlayerView),
@@ -116,6 +120,8 @@ import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.da
     MaterialRoute(page: ExploreAllRecipesView),
     MaterialRoute(page: ViewAllDraftsView),
     MaterialRoute(page: SearchView),
+    MaterialRoute(page: CullinarySavedrecipesView),
+    MaterialRoute(page: PrivateRecipesView),
 // @stacked-route
   ],
   dependencies: [

@@ -1,4 +1,3 @@
-
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
@@ -9,24 +8,28 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comme
 class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const CommentsDetailsScreen({super.key, required this.recipeModel});
- List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
+    final bool isFromPrivateProfile;
+  const CommentsDetailsScreen({super.key, required this.isFromPrivateProfile, required this.recipeModel});
+  List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     List<CustomListTileComments> commentTiles = [];
     if (viewModel.commentsList.isNotEmpty) {
-        List<CommentModel> comments = viewModel.commentsList;
-        commentTiles = comments.map((comment) => CustomListTileComments(
-          name: comment.userName,
-          date: comment.timestamp,
-          description: comment.content,
-          image: comment.userImageUrl,
-          ratingImages: comment.imageUrl ?? [], // use an empty list if imageUrl is null
-          rating: comment.rating ?? 0, // use 0 if rating is null
-        )).toList();
+      List<CommentModel> comments = viewModel.commentsList;
+      commentTiles = comments
+          .map((comment) => CustomListTileComments(
+                name: comment.userName,
+                date: comment.timestamp,
+                description: comment.content,
+                image: comment.userImageUrl,
+                ratingImages: comment.imageUrl ??
+                    [], // use an empty list if imageUrl is null
+                rating: comment.rating ?? 0, // use 0 if rating is null
+              ))
+          .toList();
     }
     return commentTiles;
-}
+  }
 
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
@@ -59,11 +62,10 @@ class CommentsDetailsScreen
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Column(
+    return isFromPrivateProfile==false ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpaceMedium,
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -94,7 +96,7 @@ class CommentsDetailsScreen
             ),
           ],
         ),
-        if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
+       viewModel.images.isNotEmpty ? _buildImagePreview(viewModel) : Container(),
         verticalSpaceSmall,
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
@@ -126,7 +128,6 @@ class CommentsDetailsScreen
                     hintStyle: globalTextStyle(
                         fontSize: 14.0.sp,
                         letterSpacing: -0.3,
-
                         color: kcBlackColor.withOpacity(0.4),
                         fontWeight: FontWeight.w400),
                   ),
@@ -149,7 +150,7 @@ class CommentsDetailsScreen
             ],
           ),
         ),
-        Center(
+         Center(
           child: TextButton(
               onPressed: viewModel.seeCommentsAll,
               child: Text(
@@ -159,9 +160,8 @@ class CommentsDetailsScreen
                     fontSize: 14.0.sp,
                     fontWeight: FontWeight.w500),
               )),
-        ),
-
-        viewModel.seeComments
+        ) ,
+       viewModel.seeComments 
             ? Column(
                 children: [
                   ...createCommentWidgets(viewModel),
@@ -176,6 +176,6 @@ class CommentsDetailsScreen
             : const SizedBox(),
         const Divider(),
       ],
-    );
+    ) : Container();
   }
 }

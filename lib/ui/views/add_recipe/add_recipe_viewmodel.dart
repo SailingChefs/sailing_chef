@@ -58,8 +58,6 @@ class AddRecipeViewModel extends BaseViewModel {
 
   bool isPlaying = false;
 
-
-
   List<double>? waveFormData;
 
   bool get isRecording => recorderController.isRecording;
@@ -82,7 +80,8 @@ class AddRecipeViewModel extends BaseViewModel {
   /// If the user selects tags, the `tagsList` is updated with the selected tags.
   /// After updating the `tagsList`, the UI is rebuilt and the listeners are notified.
   Future<void> showTagsSheet(BuildContext context) async {
-    final result = await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
+    final result =
+        await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
       variant: BottomSheetType.tags,
     );
     if (result == null) return;
@@ -91,7 +90,6 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
     notifyListeners();
   }
-
 
   /// Shows an image cropper for the given [value] file.
   ///
@@ -162,7 +160,6 @@ class AddRecipeViewModel extends BaseViewModel {
       log("cropped image is null");
     }
   }
-  
 
   String? validatePrepTime(String? value) {
     if (value == null || value.isEmpty) {
@@ -354,7 +351,7 @@ class AddRecipeViewModel extends BaseViewModel {
   void stopRecording() async {
     await recorderController.stop();
     log("Path=> $path");
-    
+
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
@@ -608,7 +605,6 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void previewRecipe() async {
-   
     if (isPlaying) {
       stopListening();
     }
@@ -616,7 +612,7 @@ class AddRecipeViewModel extends BaseViewModel {
     //   showToast(message: 'Please fill all the required fields');
     // }
     // else
-     if (titleController.text.trim().isNotEmpty &&
+    if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 
         (prepreationTime != null) &&
@@ -697,9 +693,8 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-
-                servingSize: servingSize.text.isNotEmpty ? int.parse(servingSize.text) : 0, 
-
+              servingSize:
+                  servingSize.text.isNotEmpty ? int.parse(servingSize.text) : 0,
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -788,8 +783,6 @@ class AddRecipeViewModel extends BaseViewModel {
     waveFormData = [];
     super.dispose();
   }
-
-
 
   void updateVideoSource(File value) {
     if (value.isVideo) {
