@@ -113,10 +113,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 verticalSpaceTiny,
                 TextFormField(
                   controller: viewModel.description,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
-                    FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                  ],
+                  
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a description';

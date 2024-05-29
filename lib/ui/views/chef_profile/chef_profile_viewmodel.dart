@@ -29,9 +29,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
   final _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
   final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
-  String selectedTab = 'Myrecipes';
-  bool isMySelected = true;
-  bool isSavedSelected = false;
+  String selectedTab = 'Saved';
+  bool isMySelected = false;
+  bool isSavedSelected = true;
 
   List<RecipeModel> chefRecipes =[];
 

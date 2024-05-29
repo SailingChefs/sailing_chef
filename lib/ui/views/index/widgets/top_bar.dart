@@ -25,11 +25,14 @@ class TopBarIndexScreen extends ViewModelWidget<IndexViewModel> implements Prefe
         ),
         Padding(
           padding: const EdgeInsets.only(right:20.0),
-          child: SvgPicture.asset(
-            'assets/images/icons/Menu.svg',
-            width: 24.w,
-            height: 24.h,
-            color: kcBlackColor,
+          child: GestureDetector(
+            onTap: viewModel.goToSettings,
+            child: SvgPicture.asset(
+              'assets/images/icons/Menu.svg',
+              width: 24.w,
+              height: 24.h,
+              color: kcBlackColor,
+            ),
           ),
         ),
       ],

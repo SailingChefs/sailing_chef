@@ -216,4 +216,8 @@ class IndexViewModel extends BaseViewModel {
       recipeModel: dishes,
     );
   }
+
+  void goToSettings() {
+    _navigationService.navigateToSettingsView();
+  }
 }

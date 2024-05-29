@@ -41,7 +41,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                         children: [
                           GoogleMap(
                             onTap: (argument) => viewModel.onMapTap(),
-                            mapType: MapType.terrain,
+                            mapType: MapType.normal,
                             zoomControlsEnabled: false,
                             mapToolbarEnabled: false,
                             myLocationEnabled: true,

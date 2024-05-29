@@ -131,9 +131,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
       draggable: false,
 
       position: location,
-      infoWindow: InfoWindow(
-        title: location.latitude.toString(),
-      ),
+      
       onTap: () async {
         tapPosition = location;
         showList = true;
