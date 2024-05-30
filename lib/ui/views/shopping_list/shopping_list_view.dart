@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
@@ -45,6 +44,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                         Padding(
                           padding: const EdgeInsets.only(right: 30.0),
                           child: Text(
+                            textAlign: TextAlign.right,
                             capitalizeEachWord(ingredient.ingredientName),
                             overflow: TextOverflow.ellipsis,
                             style: globalTextStyle(

@@ -9,6 +9,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
+    recipes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
     return recipes.isEmpty
         ? const Center(child: Text('No Recipe Found'))
         : SizedBox(

@@ -55,12 +55,15 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
+  
   Future<void> addOrRemoveAllFromShoppingList(
       List<ShoppingList> items, RecipeModel recipe) async {
+      EasyLoading.show();
     if (checkShoppingListAll(recipe)) {
-      for (var element in items) {
+      for (var element in shoppingList) {
         _removeFromShoppingList(element);
       }
+       EasyLoading.dismiss();
     } else {
      for (var item in items) {
       if (shoppingList
@@ -69,7 +72,9 @@ class ShoppingListService with ListenableServiceMixin {
       } else {
         _saveShoppingList(item);
       }
+       EasyLoading.dismiss();
     }
+
     }
    
   }

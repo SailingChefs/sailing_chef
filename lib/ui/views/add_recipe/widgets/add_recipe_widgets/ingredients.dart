@@ -87,6 +87,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                         padding:
                                             const EdgeInsets.only(right: 30.0),
                                         child: Text(
+                                           textAlign: TextAlign.right,
                                           capitalizeEachWord(ingredient.name),
                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(

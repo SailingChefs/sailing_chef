@@ -162,12 +162,12 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-  void toDishDetailsScreen(index) {
+  void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
-          recipeModel: dishes[index],
+          recipeModel: recipe,
           randomRecipeList:
-              IndexViewModel.getRandomDishes(dishes[index], dishes)),
+              IndexViewModel.getRandomDishes(recipe, dishes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,

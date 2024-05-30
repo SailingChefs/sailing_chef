@@ -217,7 +217,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void addAllItemsToCart(RecipeModel recipe) async {
-    List<ShoppingList> shoppingList = [];
+   
+
+     List<ShoppingList> shoppingList = [];
     for (var ingredient in recipe.ingredients) {
       shoppingList.add(ShoppingList(
           ingredientName: ingredient.name,
