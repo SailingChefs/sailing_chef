@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
@@ -63,8 +64,7 @@ class CullinarySavedrecipesView
                                     index, viewModel.savedRecipes[index]),
                                 foodImagePath: viewModel
                                     .savedRecipes[index].coverImage
-                                    .where(
-                                        (element) => element.contains('.jpg'))
+                                  .where((element) => element.isFirebaseImageUrl)
                                     .first,
                                 dishName: viewModel.savedRecipes[index].title,
                                 duration:
@@ -86,7 +86,6 @@ class CullinarySavedrecipesView
                 )),
     );
   }
-
 
   @override
   CullinarySavedrecipesViewModel viewModelBuilder(

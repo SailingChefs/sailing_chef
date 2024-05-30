@@ -54,6 +54,7 @@ class AuthService {
       await firebaseAuth.signOut();
 
       userDetails = null;
+      savedRecipesGlobal = [];
 
       EasyLoading.dismiss();
       showToast(message: 'Signed out successfully');

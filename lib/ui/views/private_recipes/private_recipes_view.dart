@@ -25,19 +25,23 @@ class PrivateRecipesView extends StackedView<PrivateRecipesViewModel> {
               ? SizedBox(
                   height: screenHeight(context) * 0.9,
                   child: const Center(
-                      child: CircularProgressIndicator(color: kcPrimaryColor,) ),)
+                      child: CircularProgressIndicator(
+                    color: kcPrimaryColor,
+                  )),
+                )
               : viewModel.privateRecipe!.isEmpty
                   ? SizedBox(
                       height: screenHeight(context) * 0.9,
                       child: Center(
-                          child: Text(
-                        'No Private Recipes Yet!',
-                        style: globalTextStyle(
-                          fontSize: 14,
-                          color: kcPrimaryColor,
-                          fontWeight: FontWeight.w600,
+                        child: Text(
+                          'No Private Recipes Yet!',
+                          style: globalTextStyle(
+                            fontSize: 14,
+                            color: kcPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      )),
+                      ),
                     )
                   : Padding(
                       padding: const EdgeInsets.only(

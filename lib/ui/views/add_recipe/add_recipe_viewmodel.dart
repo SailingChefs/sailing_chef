@@ -638,7 +638,7 @@ class AddRecipeViewModel extends BaseViewModel {
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
               servingSize: int.parse(servingSize.text),
-              status: 'draft',
+              status: 'published',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
@@ -755,19 +755,22 @@ class AddRecipeViewModel extends BaseViewModel {
     recorderController.dispose();
     playerController.dispose();
     titleController.dispose();
-    alreadySelectedImages.clear();
+
+    alreadySelectedImages = [];
     hasRecordedAudio = false;
     formattedDuration = '';
-    selectedImages.clear();
-    ingredientsList.clear();
-    thumbnails.clear();
-    methodsList.clear();
+
+    selectedImages = [];
+    ingredientsList = [];
+    thumbnails = [];
+    methodsList = [];
 
     selectedValue = 'public';
 
-    waveFormData?.clear();
+    waveFormData = [];
     prepreationTime = '';
-    tagsList.clear();
+
+    tagsList = [];
     servingSize.dispose();
 
     selectedImages = [];

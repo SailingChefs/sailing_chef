@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -10,7 +9,7 @@ class PrivateRecipesViewModel extends BaseViewModel {
   final RecipeService _recipeService = locator<RecipeService>();
   final NavigationService _navigationService = locator<NavigationService>();
   List<RecipeModel>? privateRecipe;
-  void onViewModelReady() async{
+  void onViewModelReady() async {
     setBusy(true);
     privateRecipe = await _recipeService.fetchPrivateRecipes(userDetails!.uid!);
     setBusy(false);
@@ -32,6 +31,4 @@ class PrivateRecipesViewModel extends BaseViewModel {
       transitionStyle: Transition.downToUp,
     );
   }
-
-
 }

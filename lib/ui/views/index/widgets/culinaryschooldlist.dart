@@ -13,11 +13,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
         ? Center(
             child: Text(
               'No Cullinary School Found',
-              style: globalTextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-                color: kcPrimaryColor,
-              ),
+              style: globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor,letterSpacing: -0.5),
             ),
           )
         : Column(

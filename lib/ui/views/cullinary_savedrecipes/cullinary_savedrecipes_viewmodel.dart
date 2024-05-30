@@ -15,15 +15,12 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
   List<RecipeModel> savedRecipes = savedRecipesGlobal;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [
-       _savedRecipeService
-      ];
+  List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
 
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateWithTransition(
-      
       SavedRecipeDetailsView(
-          isFromPrivateProfile:false,
+          isFromPrivateProfile: false,
           recipeModel: recipeModel,
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),

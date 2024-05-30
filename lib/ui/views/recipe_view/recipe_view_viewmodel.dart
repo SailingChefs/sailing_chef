@@ -65,18 +65,18 @@ class RecipeViewViewModel extends BaseViewModel {
   int servings = 0;
   int updatedQuantity = 0;
 
-  List<Ingredient> getUpdatedIngredients() {
-    if (recipe == null) return [];
-    return recipe!.ingredients.map((ingredient) {
-      int baseQuantity = int.parse(ingredient.quantity);
-      updatedQuantity = baseQuantity * servings;
-      return Ingredient(
-        name: ingredient.name,
-        quantity: updatedQuantity.toStringAsFixed(0),
-        unit: ingredient.unit,
-      );
-    }).toList();
-  }
+  // List<Ingredient> getUpdatedIngredients() {
+  //   if (recipe == null) return [];
+  //   return recipe!.ingredients.map((ingredient) {
+  //     int baseQuantity = int.parse(ingredient.quantity);
+  //     updatedQuantity = baseQuantity * servings;
+  //     return Ingredient(
+  //       name: ingredient.name,
+  //       quantity: updatedQuantity.toStringAsFixed(0),
+  //       unit: ingredient.unit,
+  //     );
+  //   }).toList();
+  // }
 
   void incrementServings() {
     servings += 1;
@@ -203,7 +203,7 @@ class RecipeViewViewModel extends BaseViewModel {
           chefNote: chefNote,
           coverImage: recipe.coverImage + imageUrls,
           createdTime: Timestamp.now(),
-          ingredients: getUpdatedIngredients(),
+          ingredients: recipe.ingredients,
           methods: recipe.methods,
           prepTime: recipe.prepTime,
           servingSize: servings,
@@ -244,7 +244,7 @@ class RecipeViewViewModel extends BaseViewModel {
             chefNote: chefNote,
             coverImage: recipe.coverImage + imageUrls,
             createdTime: Timestamp.now(),
-            ingredients: getUpdatedIngredients(),
+            ingredients: recipe.ingredients,
             methods: recipe.methods,
             prepTime: recipe.prepTime,
             servingSize: servings,
@@ -252,7 +252,7 @@ class RecipeViewViewModel extends BaseViewModel {
             status: 'published',
             title: recipe.title,
             uid: recipe.uid,
-            docId: '',
+            docId: recipe.docId,
             waveForm: waveFormData == null ? [] : waveFormData!,
           ))
           .then((value) => navigationService.navigateToRecipeListPageView(

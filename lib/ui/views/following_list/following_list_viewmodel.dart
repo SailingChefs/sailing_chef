@@ -4,7 +4,7 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
-class FollowingListViewModel extends BaseViewModel {
+class FollowingListViewModel extends ReactiveViewModel {
   final bool isFromFollowing;
   FollowingListViewModel({required this.isFromFollowing});
   final _navigationloactor = locator<NavigationService>();
@@ -15,6 +15,9 @@ class FollowingListViewModel extends BaseViewModel {
   bool isFollower = true;
   List<UserModel> get followersUsers => _followService.usersFollowers;
   List<UserModel> get followingUsers => _followService.usersFollowing;
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_followService];
   void popBack() {
     _navigationloactor.back();
   }

@@ -20,8 +20,6 @@ import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
-
 import 'package:sailing_chefs/services/shopping_list_service.dart';
 
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -139,7 +137,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   String calculateAverageRating(List<CommentModel> comments) {
     if (comments.isEmpty) {
-      return '0.0'; 
+      return '0.0';
     }
 
     double totalRating = 0.0;
@@ -236,9 +234,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void addAllItemsToCart(RecipeModel recipe) async {
-   
-
-     List<ShoppingList> shoppingList = [];
+    List<ShoppingList> shoppingList = [];
     for (var ingredient in recipe.ingredients) {
       shoppingList.add(ShoppingList(
           ingredientName: ingredient.name,
@@ -253,7 +249,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  bool checkShoppingList(Ingredient ingredient) {
+  bool  checkShoppingList(Ingredient ingredient) {
     if (shoppingList.any((element) => element.ingredientId == ingredient.id)) {
       return true;
     }
@@ -261,9 +257,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   bool checkShoppingListAll(RecipeModel recipeModel) {
-    
-    return shoppingList.where((element) => element.recipeId == recipeModel.docId).length == recipeModel.ingredients.length;
-    
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.docId)
+            .length ==
+        recipeModel.ingredients.length;
   }
 
   void toRecipeDetails(RecipeModel recipe) {
@@ -394,7 +391,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     servings = recipeModel.servingSize;
 
-
     checkSave(recipeId);
     setBusy(false);
   }
@@ -403,7 +399,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   int updatedQuantity = 0;
 
   List<Ingredient> getUpdatedIngredients() {
-    if (recipeModel == null) return [];
     return recipeModel.ingredients.map((ingredient) {
       int baseQuantity = int.parse(ingredient.quantity);
       updatedQuantity = baseQuantity * servings;
@@ -411,6 +406,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         name: ingredient.name,
         quantity: updatedQuantity.toStringAsFixed(0),
         unit: ingredient.unit,
+        id: ingredient.id,
       );
     }).toList();
   }
@@ -428,7 +424,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> publicRecipe(RecipeModel recipe) async {
     bool saved = await recipeService.updatePrivateRecipe(recipe);
     if (saved == true) {
-      _navigationService.replaceWithIndexView();
+      RecipeService.recipes.add(recipe);
+      _navigationService.replaceWithBottomNavBarView();
     } else {
       showToast(message: 'Error saving recipe publically');
     }

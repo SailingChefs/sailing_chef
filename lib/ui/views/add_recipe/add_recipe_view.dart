@@ -21,7 +21,10 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
     List<Ingredient>? ingredientsList;
     return SizedBox(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+            ))
           : Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).colorScheme.background,

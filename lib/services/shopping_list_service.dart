@@ -55,28 +55,25 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
-  
   Future<void> addOrRemoveAllFromShoppingList(
       List<ShoppingList> items, RecipeModel recipe) async {
-      EasyLoading.show();
+    EasyLoading.show();
     if (checkShoppingListAll(recipe)) {
       for (var element in shoppingList) {
         _removeFromShoppingList(element);
       }
-       EasyLoading.dismiss();
+      EasyLoading.dismiss();
     } else {
-     for (var item in items) {
-      if (shoppingList
-              .any((element) => element.ingredientId == item.ingredientId) &&
-          item.recipeId == recipe.docId) {
-      } else {
-        _saveShoppingList(item);
+      for (var item in items) {
+        if (shoppingList
+                .any((element) => element.ingredientId == item.ingredientId) &&
+            item.recipeId == recipe.docId) {
+        } else {
+          _saveShoppingList(item);
+        }
+        EasyLoading.dismiss();
       }
-       EasyLoading.dismiss();
     }
-
-    }
-   
   }
 
   bool checkShoppingListAll(RecipeModel recipeModel) {
@@ -90,7 +87,7 @@ class ShoppingListService with ListenableServiceMixin {
     try {
       log(item.id);
       await firebasestore.collection('shopping_list').doc(item.id).delete();
-      
+
       log('before : ${shoppingList.length.toString()}');
       shoppingList.removeWhere((element) => element.id == item.id);
       log('after : ${shoppingList.length.toString()}');

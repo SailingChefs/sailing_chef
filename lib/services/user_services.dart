@@ -166,39 +166,98 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  Future<bool> deleteUserAndDocument() async {
+  Future<bool> checkPassword(String password) async {
+    try {
+      // Get the current user
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        return false;
+      }
+
+      // Create credentials with the provided email and password
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: user.email!, password: password);
+
+      // Re-authenticate the user with the provided credentials
+      await user.reauthenticateWithCredential(credential);
+      log('User re-authenticated successfully : ${user.email}');
+      // If re-authentication is successful, the password is correct
+      return true;
+    } catch (e) {
+      log(e.toString());
+      // If an error occurs, the password is incorrect
+      return false;
+    }
+  }
+
+  Future<bool> deleteUserAndDocument(String passworde) async {
     try {
       EasyLoading.show();
-      // Delete document with the user's UID from Firestore
-      await firebasestore
-          .collection('users')
-          .doc(firebaseAuth.currentUser!.uid)
-          .delete();
 
-      // Delete conversation Documents with user's uid from Firestore
-      await firebasestore
+      // Re-authenticate the user
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        EasyLoading.dismiss();
+        return false;
+      }
+
+      // Assuming you have a way to get the user's email and password, prompt the user for these credentials.
+      String email = userDetails!.email!; // Get the user's email
+      String password = passworde; // Get the user's password
+
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+      await user.reauthenticateWithCredential(credential);
+      // Proceed with the deletion after re-authentication
+      
+       QuerySnapshot followingSnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .where('following', arrayContains: user.uid)
+      .get();
+  for (var doc in followingSnapshot.docs) {
+    await doc.reference.update({
+      'following': FieldValue.arrayRemove([user.uid])
+    });
+  }
+
+  // Find all documents where the user UID is in the followers array
+  QuerySnapshot followersSnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .where('followers', arrayContains:user. uid)
+      .get();
+  for (var doc in followersSnapshot.docs) {
+    await doc.reference.update({
+      'followers': FieldValue.arrayRemove([user.uid])
+    });
+  }
+      await FirebaseFirestore.instance
           .collection('conversations')
-          .where('users', arrayContains: firebaseAuth.currentUser!.uid)
+          .where('users', arrayContains: user.uid)
           .get()
-          .then(
-        (querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            doc.reference.delete();
-          }
-        },
-      );
-      await firebasestore
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }
+      });
+
+      await FirebaseFirestore.instance
           .collection('recipes')
-          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+          .where('uid', isEqualTo: user.uid)
           .get()
-          .then(
-        (querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            doc.reference.delete();
-          }
-        },
-      );
-      await firebasestore
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }
+      });
+      QuerySnapshot shopping = await FirebaseFirestore.instance
+      .collection('shopping_list')
+      .where('user_id', isEqualTo: user.uid)
+      .get();
+  for (var doc in shopping.docs) {
+    await doc.reference.delete();
+  }
+
+      await FirebaseFirestore.instance
           .collection('recipes')
           .get()
           .then((recipesSnapshot) async {
@@ -207,7 +266,7 @@ class UserServices with ListenableServiceMixin {
               .collection('recipes')
               .doc(recipeDoc.id)
               .collection('comments')
-              .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .where('uid', isEqualTo: user.uid)
               .get()
               .then((querySnapshot) {
             for (var commentDoc in querySnapshot.docs) {
@@ -216,15 +275,24 @@ class UserServices with ListenableServiceMixin {
           });
         }
       });
-      if (userDetails!.userRole == 'culinarySchool') {
-        for (var courseId in userDetails!.schoolCourses!) {
-          await firebasestore.collection('courses').doc(courseId).delete();
-        }
-      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .delete();
+
+      // if (userDetails!.userRole == 'culinarySchool') {
+      //   for (var courseId in userDetails!.schoolCourses!) {
+      //     await FirebaseFirestore.instance
+      //         .collection('courses')
+      //         .doc(courseId)
+      //         .delete();
+      //   }
+      // }
 
       // Delete user from Firebase Authentication
-      await firebaseAuth.currentUser!.delete();
+      await user.delete();
       userDetails = null;
+      savedRecipesGlobal = [];
 
       EasyLoading.dismiss();
       log('User account and document deleted successfully');

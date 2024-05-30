@@ -14,7 +14,7 @@ class SearchViewModel extends BaseViewModel {
   final TextEditingController searchControllerRecipe = TextEditingController();
   final TextEditingController searchControllerChef = TextEditingController();
 
-  List<RecipeModel> get savedRecipes => savedRecipesGlobal!;
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
 
   String selectedTab = 'All';
   bool isRecipeSelected = true;
@@ -95,7 +95,7 @@ class SearchViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
-      isFromPrivateProfile:false,
+        isFromPrivateProfile: false,
         recipeModel: recipe,
         randomRecipeList:
             IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));

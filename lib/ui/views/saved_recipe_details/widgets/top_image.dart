@@ -93,9 +93,7 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           top: 40,
           right: 10,
           child: SaveShare(
-
-            isFromPrivateProfile:isFromPrivateProfile,
-
+            isFromPrivateProfile: isFromPrivateProfile,
             recipe: reciepmodel,
           ),
         ),

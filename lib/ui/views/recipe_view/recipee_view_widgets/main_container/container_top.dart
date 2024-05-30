@@ -34,11 +34,11 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
             itemBuilder: (context, index) {
               var media = viewModel.selectedImages[index];
               if (media is String) {
-                if (media.contains('.mp4')) {
+                if (media.isFirebaseVideoUrl) {
                   return CustomVideoPlayer.network(
                     url: media,
                   );
-                } else if (media.contains('.jpg')) {
+                } else if (media.isFirebaseImageUrl) {
                   return Image.network(
                     media,
                     fit: BoxFit.cover,

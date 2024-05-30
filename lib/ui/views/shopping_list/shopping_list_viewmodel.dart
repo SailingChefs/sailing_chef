@@ -22,10 +22,9 @@ class ShoppingListViewModel extends ReactiveViewModel {
   void back() {
     _navigationService.back();
   }
+
   void removeRecipe(ShoppingList shoppingList) async {
-    
     await _shoppingListService.addOrRemoveFromShoppingList(shoppingList);
     rebuildUi();
-    
   }
 }

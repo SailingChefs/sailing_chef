@@ -10,7 +10,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> randomRecipeList;
   final bool isFromPrivateProfile;
-  const SavedRecipeDetailsView( {
+  const SavedRecipeDetailsView({
     Key? key,
     required this.recipeModel,
     required this.isFromPrivateProfile,
@@ -36,7 +36,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
               child: Column(
                 children: [
                   TopBarDetailsScreen(
-                    isFromPrivateProfile:isFromPrivateProfile,
+                    isFromPrivateProfile: isFromPrivateProfile,
                     image: recipeModel.coverImage,
                     reciepmodel: recipeModel,
                   ),

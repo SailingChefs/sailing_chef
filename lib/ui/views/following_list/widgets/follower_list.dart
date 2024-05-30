@@ -59,7 +59,6 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   fontWeight: FontWeight.w600,
                                   color: kcBlackColor,
                                 )),
-                            
                           );
                         },
                       ),

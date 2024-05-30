@@ -9,8 +9,11 @@ class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
 
-    final bool isFromPrivateProfile;
-  const CommentsDetailsScreen({super.key, required this.isFromPrivateProfile, required this.recipeModel});
+  final bool isFromPrivateProfile;
+  const CommentsDetailsScreen(
+      {super.key,
+      required this.isFromPrivateProfile,
+      required this.recipeModel});
 
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
@@ -64,122 +67,126 @@ class CommentsDetailsScreen
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return isFromPrivateProfile==false ? Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        verticalSpaceMedium,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Reviews',
-              style: globalTextStyle(
-                fontSize: 15.0.sp,
-                fontWeight: FontWeight.w700,
-                color: kcBlackColor,
-              ),
-            ),
-            Row(
-              children: [
-                Text(
-                  viewModel.calculateAverageRating(viewModel.commentsList),
-                  style: globalTextStyle(
-                    fontSize: 18.0.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kcBlackColor,
-                  ),
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 16,
-                ),
-              ],
-            ),
-          ],
-        ),
-       viewModel.images.isNotEmpty ? _buildImagePreview(viewModel) : Container(),
-        verticalSpaceSmall,
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0.dg),
-            ),
-            border: Border.all(
-              color: kcBlackColor.withOpacity(0.2),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return isFromPrivateProfile == false
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                  onPressed: viewModel.pickImage,
-                  icon: const Icon(
-                    Icons.camera_alt_outlined,
-                    size: 25,
-                  )),
-              Expanded(
-                child: TextField(
-                  controller: viewModel.commentController,
-                  onSubmitted: (value) =>
-                      viewModel.addComment(recipeModel.docId!),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Add your Review',
-                    hintStyle: globalTextStyle(
-                        fontSize: 14.0.sp,
-                        letterSpacing: -0.3,
-                        color: kcBlackColor.withOpacity(0.4),
-                        fontWeight: FontWeight.w400),
+              verticalSpaceMedium,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Reviews',
+                    style: globalTextStyle(
+                      fontSize: 15.0.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kcBlackColor,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        viewModel
+                            .calculateAverageRating(viewModel.commentsList),
+                        style: globalTextStyle(
+                          fontSize: 18.0.sp,
+                          fontWeight: FontWeight.w700,
+                          color: kcBlackColor,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              viewModel.images.isNotEmpty
+                  ? _buildImagePreview(viewModel)
+                  : Container(),
+              verticalSpaceSmall,
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0.dg),
+                  ),
+                  border: Border.all(
+                    color: kcBlackColor.withOpacity(0.2),
                   ),
                 ),
-              ),
-              RatingBar.builder(
-                initialRating: viewModel.rating,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 15.0.dg,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) => viewModel.addRating(rating),
-              ),
-            ],
-          ),
-        ),
-         Center(
-          child: TextButton(
-              onPressed: viewModel.seeCommentsAll,
-              child: Text(
-                'See All Reviews',
-                style: globalTextStyle(
-                    color: kcPrimaryColor,
-                    fontSize: 14.0.sp,
-                    fontWeight: FontWeight.w500),
-              )),
-
-        ) ,
-       viewModel.seeComments 
-
-            ? Column(
-                children: [
-                  ...createCommentWidgets(viewModel),
-                  if (viewModel.commentsList.isEmpty)
-                    const Center(
-                      child: Text(
-                        'No comments yet',
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: viewModel.pickImage,
+                        icon: const Icon(
+                          Icons.camera_alt_outlined,
+                          size: 25,
+                        )),
+                    Expanded(
+                      child: TextField(
+                        controller: viewModel.commentController,
+                        onSubmitted: (value) =>
+                            viewModel.addComment(recipeModel.docId!),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Add your Review',
+                          hintStyle: globalTextStyle(
+                              fontSize: 14.0.sp,
+                              letterSpacing: -0.3,
+                              color: kcBlackColor.withOpacity(0.4),
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
                     ),
-                ],
-              )
-            : const SizedBox(),
-        const Divider(),
-      ],
-    ) : Container();
+                    RatingBar.builder(
+                      initialRating: viewModel.rating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 15.0.dg,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) => viewModel.addRating(rating),
+                    ),
+                  ],
+                ),
+              ),
+              Center(
+                child: TextButton(
+                    onPressed: viewModel.seeCommentsAll,
+                    child: Text(
+                      'See All Reviews',
+                      style: globalTextStyle(
+                          color: kcPrimaryColor,
+                          fontSize: 14.0.sp,
+                          fontWeight: FontWeight.w500),
+                    )),
+              ),
+              viewModel.seeComments
+                  ? Column(
+                      children: [
+                        ...createCommentWidgets(viewModel),
+                        if (viewModel.commentsList.isEmpty)
+                          const Center(
+                            child: Text(
+                              'No comments yet',
+                            ),
+                          ),
+                      ],
+                    )
+                  : const SizedBox(),
+              const Divider(),
+            ],
+          )
+        : Container();
   }
 }

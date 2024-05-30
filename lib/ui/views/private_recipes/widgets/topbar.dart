@@ -1,8 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_viewmodel.dart';
 
-class TopBarPrivateRecipes
-    extends ViewModelWidget<PrivateRecipesViewModel>
+class TopBarPrivateRecipes extends ViewModelWidget<PrivateRecipesViewModel>
     implements PreferredSizeWidget {
   const TopBarPrivateRecipes({super.key});
 

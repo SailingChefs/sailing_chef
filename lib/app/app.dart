@@ -83,6 +83,7 @@ import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_view.dart
 
 import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
 
+import 'package:sailing_chefs/ui/dialogs/enter_pass/enter_pass_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -184,6 +185,7 @@ import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
     StackedDialog(classType: ReviewsAllDialog),
     StackedDialog(classType: SuccessDialog),
     StackedDialog(classType: AddpindropshowDialog),
+    StackedDialog(classType: EnterPassDialog),
 // @stacked-dialog
   ],
 )

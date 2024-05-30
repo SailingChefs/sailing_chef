@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter_svg/svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -22,7 +23,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
     Widget? child,
   ) {
     return PopScope(
-      canPop: true,
+      canPop: false,
       onPopInvoked: viewModel.onPopInvoked,
       child: Scaffold(
           backgroundColor: kcwhitecolor,
@@ -79,8 +80,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                   image: DecorationImage(
                                     image: NetworkImage(
                                       recipe.coverImage
-                                          .where((element) =>
-                                              element.contains('.jpg'))
+                                         .where((element) => element.isFirebaseImageUrl)
                                           .first,
                                     ),
                                     fit: BoxFit.cover,

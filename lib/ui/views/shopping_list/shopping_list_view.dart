@@ -1,13 +1,12 @@
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'shopping_list_viewmodel.dart';
 
 class ShoppingListView extends StackedView<ShoppingListViewModel> {
-  List<Widget> createShoppingListWidgets(ShoppingListViewModel viewModel ,context) {
+  List<Widget> createShoppingListWidgets(
+      ShoppingListViewModel viewModel, context) {
     return [
       for (var ingredient in viewModel.shoppingList)
         Column(
@@ -85,42 +84,51 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
     ShoppingListViewModel viewModel,
     Widget? child,
   ) {
-    return 
-         Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              elevation: 0,
-              title: Text(
-                'Shopping List',
-                style: globalTextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor),
-              ),
-              centerTitle: true,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BackArrowWidget(
-                  onTap: viewModel.back,
-                ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        elevation: 0,
+        title: Text(
+          'Shopping List',
+          style: globalTextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
+        ),
+        centerTitle: true,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 8.0.w),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: viewModel.back,
+            child: Container(
+              alignment: Alignment.center,
+              height: 26.h,
+              width: 26.w,
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: kcBlackColor,
+                size: 18.sp,
               ),
             ),
-            body: viewModel.isBusy
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: kcPrimaryColor,
-            ),
-          ):SingleChildScrollView(
+          ),
+        ),
+      ),
+      body: viewModel.isBusy
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: kcPrimaryColor,
+              ),
+            )
+          : SingleChildScrollView(
               child: Container(
                   padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                   child: Column(
                     children: [
-                      ...createShoppingListWidgets(viewModel,context),
+                      ...createShoppingListWidgets(viewModel, context),
                     ],
                   )),
             ),
-          );
+    );
   }
 
   @override

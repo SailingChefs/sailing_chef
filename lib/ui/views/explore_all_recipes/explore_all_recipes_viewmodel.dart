@@ -41,7 +41,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
 
   toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
-      isFromPrivateProfile:false,
+      isFromPrivateProfile: false,
       recipeModel: recip,
       randomRecipeList:
           IndexViewModel.getRandomDishes(recip, RecipeService.recipes),

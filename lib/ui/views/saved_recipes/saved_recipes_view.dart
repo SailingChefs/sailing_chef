@@ -30,8 +30,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                   appBar: AppBar(
                     backgroundColor: kcWhiteColor,
                     elevation: 0,
-                    title: Text(
-                      'Saved Recipes',
+                    title: Text('Saved Recipes',
                         style: globalTextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
@@ -48,7 +47,6 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                         verticalSpaceMedium,
                         const TabBarSavedRecipesScreen(),
                         verticalSpaceMedium,
-
                         viewModel.isAllSelected
                             ? const AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),

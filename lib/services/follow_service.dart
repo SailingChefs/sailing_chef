@@ -6,6 +6,8 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -147,6 +149,7 @@ class FollowService with ListenableServiceMixin {
       log(e.toString());
     }
   }
+  
 
   Future<void> removeFollowing(UserModel user) async {
     try {
@@ -161,7 +164,16 @@ class FollowService with ListenableServiceMixin {
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
       userDetails!.following!.removeWhere((element) => element == user.uid);
-
+      if(user.userRole == 'chef'){
+       
+        
+            user.followers!.remove(userDetails!.uid!);
+         
+        
+      }
+      else if(user.userRole == 'culinary'){
+       user.followers!.remove(userDetails!.uid!);
+      }
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

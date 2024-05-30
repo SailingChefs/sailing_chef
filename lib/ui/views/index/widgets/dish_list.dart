@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -16,12 +17,12 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
         ? const ShimmerDishes()
         : viewModel.dishes.isEmpty
             ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: Center(
                   child: Text(
                     'No Dishes Found',
                     style:
-                        globalTextStyle(fontSize: 18.sp, color: kcPrimaryColor),
+                        globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor,letterSpacing: -0.5),
                   ),
                 ),
               )
@@ -29,8 +30,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 padding: const EdgeInsets.all(8.0),
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
-
-                      dishes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
+                  dishes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
 
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
@@ -52,12 +52,11 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   : dishes[index].user!.uid!,
                               rating: dishes[index].rating,
                               recipe: dishes[index],
-
-                              onTap: () => viewModel.toDishDetailsScreen(dishes[index]),
-
+                              onTap: () =>
+                                  viewModel.toDishDetailsScreen(dishes[index]),
                               foodImagePath: dishes[index]
                                   .coverImage
-                                  .where((element) => element.contains('.jpg'))
+                                  .where((element) => element.isFirebaseImageUrl)
                                   .first,
                               dishName: dishes[index].title,
                               duration: dishes[index].prepTime,

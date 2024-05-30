@@ -48,9 +48,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
-
-      [_savedrecipeService, _cullinarySchoolService,_followService];
-
+      [_savedrecipeService, _cullinarySchoolService, _followService];
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -106,7 +104,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   Future<void> myRecipesList() async {
     if (RecipeService.recipes.isEmpty) {
-      myRecipes = await _recipeService.fetchRecipesByUID(userDetails!.uid!);
+      await _recipeService.initialized();
       return;
     } else if (RecipeService.recipes.isNotEmpty) {
       for (var recipes in RecipeService.recipes) {
@@ -117,38 +115,37 @@ class ProfileViewModel extends ReactiveViewModel {
     }
   }
 
-  Future<void> matchAndAssignUsersToDishes() async {
-    // Combine both user lists into one for easier searching
-    List<UserModel> allUsers = [...chefs, ...cullinary];
+  // Future<void> matchAndAssignUsersToDishes() async {
+  //   // Combine both user lists into one for easier searching
+  //   List<UserModel> allUsers = [...chefs, ...cullinary];
 
-    for (int i = 0; i < savedRecipes.length; i++) {
-      if (savedRecipes[i].user == null) {
-        // Find the matching user in the allUsers list
-        UserModel? matchingUser = allUsers.firstWhere(
-          (user) => user.uid == savedRecipes[i].uid,
-          orElse: () => UserModel(uid: ''),
-        );
-        if (matchingUser.uid != null) {
-          // Assign the matching user to the corresponding dish
-          savedRecipes[i].user = matchingUser;
-          if (userDetails!.uid == savedRecipes[i].uid) {
-            savedRecipes[i].user = userDetails!;
-          }
-        }
-      }
-    }
-  }
+  //   for (int i = 0; i < savedRecipes.length; i++) {
+  //     if (savedRecipes[i].user == null) {
+  //       // Find the matching user in the allUsers list
+  //       UserModel? matchingUser = allUsers.firstWhere(
+  //         (user) => user.uid == savedRecipes[i].uid,
+  //         orElse: () => UserModel(uid: ''),
+  //       );
+  //       if (matchingUser.uid != null) {
+  //         // Assign the matching user to the corresponding dish
+  //         savedRecipes[i].user = matchingUser;
+  //         if (userDetails!.uid == savedRecipes[i].uid) {
+  //           savedRecipes[i].user = userDetails!;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   void toFilterView() {
     _navigationService.navigateToFilterView();
   }
 
-
   void onViewModelReady() async {
     setBusy(true);
     await myRecipesList();
 
-    await matchAndAssignUsersToDishes();
+    // await matchAndAssignUsersToDishes();
 
     await Future.wait([
       // _savedRecipeService.init(),
@@ -174,7 +171,7 @@ class ProfileViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
-        isFromPrivateProfile:false,
+          isFromPrivateProfile: false,
           recipeModel: recipeModel,
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),

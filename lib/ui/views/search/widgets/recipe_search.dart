@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
@@ -42,8 +43,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 onTap: () =>
                                     viewModel.toDishDetailsScreen(recipe),
                                 foodImagePath: recipe.coverImage
-                                    .where(
-                                        (element) => element.contains('.jpg'))
+                                   .where((element) => element.isFirebaseImageUrl)
                                     .first,
                                 dishName: recipe.title,
                                 duration: recipe.prepTime,

@@ -27,8 +27,13 @@ class IndexViewModel extends BaseViewModel {
   List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   @override
   // ignore: override_on_non_overriding_member
-  List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService,_savedRecipeService];
+  List<ListenableServiceMixin> get listenableServices => [
+        _savedRecipeService,
+        _recipeService,
+        _cullinaryService,
+        _chefService,
+        _savedRecipeService
+      ];
 
   get toViewCullinarySchool => null;
   bool? isInitialised;
@@ -71,7 +76,6 @@ class IndexViewModel extends BaseViewModel {
       return;
     }
     matchAndAssignUsersToDishes();
-
   }
 
   void toAllChefsView() {
@@ -102,18 +106,15 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void matchAndAssignUsersToDishes() {
-
     List<UserModel> allUsers = [...chefList, ...cullinary];
 
     for (int i = 0; i < dishes.length; i++) {
       if (dishes[i].user == null) {
-
         UserModel? matchingUser = allUsers.firstWhere(
           (user) => user.uid == dishes[i].uid,
           orElse: () => UserModel(uid: ''),
         );
         if (matchingUser.uid != null) {
-
           dishes[i].user = matchingUser;
           if (userDetails!.uid == dishes[i].uid) {
             dishes[i].user = userDetails!;
@@ -133,14 +134,12 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-
-  void toDishDetailsScreen(RecipeModel recipe) {
-    _navigationService.navigateWithTransition(
+  void toDishDetailsScreen(RecipeModel recipe) async{
+    await _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
+          isFromPrivateProfile: false,
           recipeModel: recipe,
-          randomRecipeList:
-              IndexViewModel.getRandomDishes(recipe, dishes)),
-
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe, dishes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,

@@ -33,6 +33,7 @@ class SettingsViewModel extends BaseViewModel {
   void getToMap() {
     _navigationService.navigateToPinDropMapView();
   }
+
   void getToShoppingList() {
     _navigationService.navigateToShoppingListView();
   }

@@ -185,13 +185,12 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void toDishDetailsScreen(index) async {
-   
-   await _navigationService.navigateToSavedRecipeDetailsView(
-      isFromPrivateProfile:false,
+    await _navigationService.navigateToSavedRecipeDetailsView(
+        isFromPrivateProfile: false,
         recipeModel: chefRecipes[index],
         randomRecipeList: IndexViewModel.getRandomDishes(
             chefRecipes[index], RecipeService.recipes));
-    
+
     notifyListeners();
   }
 

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
@@ -32,7 +33,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                     onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
                     foodImagePath: recipes[index]
                         .coverImage
-                        .where((element) => element.contains('.jpg'))
+                        .where((element) => element.isFirebaseImageUrl)
                         .first,
                     dishName: recipes[index].title,
                     duration: recipes[index].prepTime,

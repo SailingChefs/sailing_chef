@@ -5,24 +5,21 @@ class Ingredient {
   String? id;
   String quantity;
   String unit;
-  int? totalQuantity;
-  bool? isInShoppingList;
 
-  Ingredient(
-      {required this.name,
-      required this.quantity,
-      required this.unit,
-      this.id,
-      this.isInShoppingList});
+  Ingredient({
+    required this.name,
+    required this.quantity,
+    required this.unit,
+    this.id,
+  });
 
   Map<String, dynamic> toMap() {
     const Uuid uuid = Uuid();
     return {
-      'name': name,
+      'name': name.trim(),
       'id': uuid.v4(),
-      'quantity': quantity,
+      'quantity': quantity.trim(),
       'unit': unit,
-      'isInShoppingList': isInShoppingList
     };
   }
 
@@ -32,7 +29,6 @@ class Ingredient {
       quantity: map['quantity'] ?? '',
       id: map['id'],
       unit: map['unit'] ?? '',
-      isInShoppingList: map['isInShoppingList'],
     );
   }
 }

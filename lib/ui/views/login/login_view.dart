@@ -18,7 +18,6 @@ class LoginView extends StackedView<LoginViewModel> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        
         backgroundColor: kcBackgroundColor,
         body: Stack(
           children: [
@@ -42,17 +41,18 @@ class LoginView extends StackedView<LoginViewModel> {
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
+                    padding: EdgeInsets.only(
+                        top: 35.0.dg, left: 20.dg, right: 20.dg),
                     child: Column(
                       children: [
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
                               width: 150.w,
                               height: 80.h,
-                              child: Image.asset('assets/images/logo/SAILING CHEFS.png'),
+                              child: Image.asset(
+                                  'assets/images/logo/SAILING CHEFS.png'),
                             ),
                             RoundedElevatedButton(
                               onPressed: viewModel.toSignUp,
@@ -66,9 +66,9 @@ class LoginView extends StackedView<LoginViewModel> {
                               isEnabled: true,
                             ),
                           ],
-
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.088),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.088),
                         Text(
                           'welcome back ',
                           style: globalTextStyle(
@@ -77,7 +77,8 @@ class LoginView extends StackedView<LoginViewModel> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.015),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.015),
                         Text(
                           'login here',
                           style: globalTextStyle(
@@ -86,7 +87,8 @@ class LoginView extends StackedView<LoginViewModel> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        verticalSpace(MediaQuery.of(context).size.height * 0.060),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.060),
                         Form(
                           key: viewModel.formKey,
                           child: Column(
@@ -99,7 +101,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                 onChanged: (value) => viewModel.rebuildUi(),
                                 keyboardType: TextInputType.emailAddress,
                               ),
-                              verticalSpace(MediaQuery.of(context).size.height * 0.027),
+                              verticalSpace(
+                                  MediaQuery.of(context).size.height * 0.027),
                               RoundedTransparentTextField(
                                 controller: viewModel.passwordController,
                                 labelText: 'password',
@@ -116,7 +119,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                 },
                                 validator: viewModel.validatePassword,
                               ),
-                              verticalSpace(MediaQuery.of(context).size.height * 0.014),
+                              verticalSpace(
+                                  MediaQuery.of(context).size.height * 0.014),
                               CustomTextButton(
                                 onPressed: () {
                                   viewModel.vaigateToForgetPassword();
@@ -126,7 +130,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                 fontSize: 14.sp,
                                 textColor: kcWhiteColor,
                               ),
-                              verticalSpace(MediaQuery.of(context).size.height * 0.045),
+                              verticalSpace(
+                                  MediaQuery.of(context).size.height * 0.045),
                               RoundedElevatedButton(
                                 onPressed: viewModel.login,
                                 textColor: kclightgreencolor,

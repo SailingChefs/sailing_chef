@@ -17,7 +17,10 @@ class MainRecipeViewContainer
   final List<RecipeModel> recipeList;
   final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {Key? key, required this.recipeModel,required this.isFromPrivateProfile, required this.recipeList})
+      {Key? key,
+      required this.recipeModel,
+      required this.isFromPrivateProfile,
+      required this.recipeList})
       : super(key: key);
 
   @override
@@ -55,12 +58,13 @@ class MainRecipeViewContainer
                   ],
                 ),
           const ChefNotesRecipeDetails(),
-
           verticalSpace(16.h),
           ViewProfileRow(
             user: recipeModel.user!,
           ),
-          CommentsDetailsScreen(isFromPrivateProfile: isFromPrivateProfile,recipeModel: recipeModel),
+          CommentsDetailsScreen(
+              isFromPrivateProfile: isFromPrivateProfile,
+              recipeModel: recipeModel),
           verticalSpace(12),
           BottomSlider(
             isFromPrivateProfile: isFromPrivateProfile,

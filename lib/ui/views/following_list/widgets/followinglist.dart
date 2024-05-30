@@ -8,7 +8,6 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
 
 class FollowingList extends ViewModelWidget<FollowingListViewModel> {
-
   final UserModel user;
 
   const FollowingList({super.key, super.reactive, required this.user});
@@ -48,8 +47,7 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                             ),
                             title: Text(
                                 viewModel.followingUsers[index].displayName!),
-                            trailing: user.uid ==
-                                    userDetails!.uid
+                            trailing: user.uid == userDetails!.uid
                                 ? SizedBox(
                                     width: 112,
                                     height: 35,

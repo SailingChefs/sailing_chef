@@ -36,9 +36,9 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           ),
         ),
         Divider(
-                    color: kcBlackColor.withOpacity(0.08),
-                  ),
-         ListTile(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
+        ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {
             viewModel.getToShoppingList();
@@ -136,7 +136,8 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                 ],
               )
             : Container(),
-         userDetails!.userRole == 'culinarySchool' || userDetails!.userRole == 'chef'
+        userDetails!.userRole == 'culinarySchool' ||
+                userDetails!.userRole == 'chef'
             ? Column(
                 children: [
                   Divider(

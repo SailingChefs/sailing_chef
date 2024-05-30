@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -39,7 +40,7 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                               onTap: () => viewModel.toDishDetailsScreen(index),
                               foodImagePath: recipes[index]
                                   .coverImage
-                                  .where((element) => element.contains('.jpg'))
+                                  .where((element) => element.isFirebaseImageUrl)
                                   .first,
                               dishName: recipes[index].title,
                               duration: recipes[index].prepTime,

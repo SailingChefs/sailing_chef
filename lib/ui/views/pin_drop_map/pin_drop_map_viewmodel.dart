@@ -166,10 +166,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
     setBusy(true);
 
     // await Future.wait([
-    await  getCurrentLocation();
-     await  showAllMarkers(id);
+    await getCurrentLocation();
+    await showAllMarkers(id);
     // ]);
-
 
     initialCameraPosition = CameraPosition(
       target: LatLng(currentPosition.latitude, currentPosition.longitude),
@@ -184,24 +183,21 @@ class PinDropMapViewModel extends ReactiveViewModel {
   Future<void> showMyLocation() async {
     // currentPosition = await getCurrentLocation();
 
-    if (currentPosition != null) {
-      controllermap!.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target:
-                LatLng(currentPosition.latitude, currentPosition.longitude),
-            zoom: 15,
-          ),
+    controllermap!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(currentPosition.latitude, currentPosition.longitude),
+          zoom: 15,
         ),
-      );
-      rebuildUi();
-      // allMarkers['currentLocation'] = Marker(
-      //   markerId: const MarkerId('currentLocation'),
-      //   position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-      //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      //   infoWindow: const InfoWindow(title: 'My Location'),
-      // );
-    }
+      ),
+    );
+    rebuildUi();
+    // allMarkers['currentLocation'] = Marker(
+    //   markerId: const MarkerId('currentLocation'),
+    //   position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
+    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+    //   infoWindow: const InfoWindow(title: 'My Location'),
+    // );
   }
 
   void callDetailsDialog(PinnedLocation pinnedLoco) {
@@ -229,10 +225,8 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   Future<void> showAllMarkers(String id) async {
     try {
-
       await _navigationpinService.getPinsNearUserLocation(
-        LatLng(currentPosition!.latitude, currentPosition!.longitude),
-
+        LatLng(currentPosition.latitude, currentPosition.longitude),
       );
 
       for (PinnedLocation pin in pins) {
