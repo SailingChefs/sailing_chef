@@ -35,6 +35,29 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             size: 14.dg,
           ),
         ),
+        Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
+         ListTile(
+          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+          onTap: () {
+            viewModel.getToShoppingList();
+          },
+          title: Text(
+            'Shopping List',
+            style: globalTextStyle(
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
+          ),
+        ),
         userDetails!.userRole == 'guest'
             ? Column(
                 children: [

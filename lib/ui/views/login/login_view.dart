@@ -45,6 +45,7 @@ class LoginView extends StackedView<LoginViewModel> {
                     padding: EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
                     child: Column(
                       children: [
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -65,6 +66,7 @@ class LoginView extends StackedView<LoginViewModel> {
                               isEnabled: true,
                             ),
                           ],
+
                         ),
                         verticalSpace(MediaQuery.of(context).size.height * 0.088),
                         Text(

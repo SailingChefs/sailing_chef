@@ -42,8 +42,11 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                   viewModel.searchRecipes().elementAt(index);
                               return PrimaryGridTile(
                                   chefId:
+
                                       savedRecipesGlobal![index].user!.uid!,
                                   rating: savedRecipesGlobal![index].rating!,
+
+
                                   recipe: recipe,
                                   onTap: () =>
                                       viewModel.toDishDetailsScreen(recipe),
@@ -66,7 +69,9 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                 const ExploreAllButton(),
               ],
             )
+
           : savedRecipesGlobal == null
+
               ? const Center(child: Text('No Saved Recipe Found'))
               : Column(
                   children: [
@@ -89,6 +94,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                               delegate: SliverChildBuilderDelegate(
                                 (BuildContext context, int index) {
                                   return PrimaryGridTile(
+
                                       chefId: savedRecipesGlobal![index].user!.uid!,
                                       rating:
                                           savedRecipesGlobal![index].rating!,
@@ -97,10 +103,12 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                           viewModel.toDishDetailsScreen(
                                               savedRecipesGlobal![index]),
                                       foodImagePath: savedRecipesGlobal![index].coverImage
+
                                           .where((element) =>
                                               element.contains('.jpg'))
                                           .first,
                                       dishName:
+
                                          savedRecipesGlobal![index].title,
                                       duration: savedRecipesGlobal![index].prepTime,
                                       chefImagePath: savedRecipesGlobal![index]
@@ -108,6 +116,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                           .displayPicture!);
                                 },
                                 childCount: savedRecipesGlobal!.length,
+
                               ),
                             ),
                           ],

@@ -11,6 +11,7 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -146,7 +147,10 @@ class RecipeService with ListenableServiceMixin {
         await docRef.update(recipe.toMap());
         String docId = docRef.id;
 
-        await docRef.update({'doc_id': docId});
+        List<Ingredient> ingredients = [];
+
+
+        await docRef.update({'doc_id': docId, 'ingredients': ingredients});
         await firebasestore
             .collection('users')
             .doc(firebaseAuth.currentUser!.uid)
@@ -392,6 +396,7 @@ class RecipeService with ListenableServiceMixin {
           recipes.add(recipe);
           // break;
         }
+
 
       }
 

@@ -71,7 +71,7 @@ class IndexViewModel extends BaseViewModel {
       return;
     }
     matchAndAssignUsersToDishes();
-    
+
   }
 
   void toAllChefsView() {
@@ -102,15 +102,18 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void matchAndAssignUsersToDishes() {
+
     List<UserModel> allUsers = [...chefList, ...cullinary];
 
     for (int i = 0; i < dishes.length; i++) {
       if (dishes[i].user == null) {
+
         UserModel? matchingUser = allUsers.firstWhere(
           (user) => user.uid == dishes[i].uid,
           orElse: () => UserModel(uid: ''),
         );
         if (matchingUser.uid != null) {
+
           dishes[i].user = matchingUser;
           if (userDetails!.uid == dishes[i].uid) {
             dishes[i].user = userDetails!;
@@ -130,13 +133,14 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-  void toDishDetailsScreen(index) async{
-    await _navigationService.navigateWithTransition(
+
+  void toDishDetailsScreen(RecipeModel recipe) {
+    _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
-          isFromPrivateProfile: false,
-          recipeModel: dishes[index],
+          recipeModel: recipe,
           randomRecipeList:
-              IndexViewModel.getRandomDishes(dishes[index], dishes)),
+              IndexViewModel.getRandomDishes(recipe, dishes)),
+
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,

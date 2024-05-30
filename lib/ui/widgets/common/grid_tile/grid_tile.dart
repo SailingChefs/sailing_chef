@@ -163,7 +163,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 10.dg,
+              bottom: 8.dg,
               right: 10.dg,
               child: Container(
                 height: 32.h,

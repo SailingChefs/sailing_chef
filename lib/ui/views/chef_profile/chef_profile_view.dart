@@ -32,7 +32,7 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
           ),
           body: Padding(
             padding: EdgeInsets.only(left: 10.0.w, right: 10.w),
-         
+
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
               child: Column(

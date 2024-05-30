@@ -48,6 +48,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                         verticalSpaceMedium,
                         const TabBarSavedRecipesScreen(),
                         verticalSpaceMedium,
+
                         viewModel.isAllSelected
                             ? const AllSavedRecipesScreen()
                             : const FollowingSavedRecipesScreen(),

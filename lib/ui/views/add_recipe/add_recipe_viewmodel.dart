@@ -15,7 +15,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -608,10 +608,7 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
-    // if(formKey.currentState!.validate()){
-    //   showToast(message: 'Please fill all the required fields');
-    // }
-    // else
+
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 

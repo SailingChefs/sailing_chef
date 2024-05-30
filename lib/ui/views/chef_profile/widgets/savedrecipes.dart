@@ -71,10 +71,13 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                               delegate: SliverChildBuilderDelegate(
                                 (BuildContext context, int index) {
                                   return PrimaryGridTile(
-                                    chefId:savedRecipesGlobal[index].user!.uid!,
+
+                                    chefId: viewModel
+                                        .savedRecipes[index].user!.uid!,
                                     rating:
-                                        savedRecipesGlobal[index].rating,
-                                    recipe: savedRecipesGlobal[index],
+                                        viewModel.savedRecipes[index].rating,
+                                    recipe: savedRecipes[index].recipeModel!,
+
                                     onTap: () =>
                                         viewModel.toDishDetailsScreen(index),
                                     foodImagePath: savedRecipesGlobal[index]
@@ -83,10 +86,14 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                                             element.contains('.jpg'))
                                         .first,
                                     dishName:
-                                        savedRecipesGlobal[index].title,
-                                    duration: savedRecipesGlobal[index]
+
+                                        savedRecipes[index].recipeModel!.title,
+                                    duration: savedRecipes[index]
+                                        .recipeModel!
                                         .prepTime,
-                                    chefImagePath: savedRecipesGlobal[index]
+                                    chefImagePath: savedRecipes[index]
+                                        .recipeModel!
+
                                         .user!
                                         .displayPicture!,
                                   );

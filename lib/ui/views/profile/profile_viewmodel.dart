@@ -33,6 +33,7 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isSavedSelected = false;
 
   List<RecipeModel> get savedRecipes => savedRecipesGlobal;
+
   List<Course> get courses => _cullinarySchoolService.courses;
   List<UserModel> get cullinary => _cullinarySchoolService.cullinaryscools;
   final FollowService _followService = locator<FollowService>();
@@ -47,7 +48,9 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
+
       [_savedrecipeService, _cullinarySchoolService,_followService];
+
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -140,29 +143,16 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToFilterView();
   }
 
-  // Future<void> mySavedRecipes() async {
-  //   if (RecipeService.recipes.isEmpty) {
-  //     await _recipeService.initialized();
-  //     return;
-  //   } else {
-  //     for (var recipe in RecipeService.recipes) {
-  //       if (userDetails!.savedRecipes!
-  //           .any((element) => element == recipe.docId)) {
-  //         savedRecipes.add(recipe);
-  //       }
-  //     }
-  //   }
-  // }
 
   void onViewModelReady() async {
     setBusy(true);
     await myRecipesList();
-    // await mySavedRecipes();
+
     await matchAndAssignUsersToDishes();
 
     await Future.wait([
       // _savedRecipeService.init(),
-      
+
       _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
     ]);
     notifyListeners();

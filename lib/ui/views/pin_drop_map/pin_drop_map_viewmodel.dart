@@ -23,7 +23,18 @@ class PinDropMapViewModel extends ReactiveViewModel {
   final _locationService = locator<LocationService>();
   late bool serviceEnabled;
   late LocationPermission permission;
-  Position? currentPosition;
+  Position currentPosition = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+  );
   bool isClicked = false;
   late PinnedLocation pinnedLocation;
   List<String> selectedTabSelections = [];
@@ -86,14 +97,14 @@ class PinDropMapViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [_navigationpinService];
 
-  Future<Position> getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     try {
       currentPosition = await _locationService.determinePosition();
 
-      return currentPosition!;
+      // return currentPosition!;
     } catch (e) {
       log(e.toString());
-      return Future.error(e.toString());
+      // return Future.error(e.toString());
     }
   }
 
@@ -153,17 +164,15 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   void onViewModelReady(String id) async {
     setBusy(true);
-    currentPosition = await getCurrentLocation();
-    allMarkers.values.toSet();
-    await showAllMarkers(id);
-    // allMarkers['currentLocation'] = Marker(
-    //   markerId: const MarkerId('currentLocation'),
-    //   position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-    //   infoWindow: const InfoWindow(title: 'My Location'),
-    // );
+
+    // await Future.wait([
+    await  getCurrentLocation();
+     await  showAllMarkers(id);
+    // ]);
+
+
     initialCameraPosition = CameraPosition(
-      target: LatLng(currentPosition!.latitude, currentPosition!.longitude),
+      target: LatLng(currentPosition.latitude, currentPosition.longitude),
       zoom: 12,
     );
     // await _navigationpinService.getPins(
@@ -180,7 +189,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target:
-                LatLng(currentPosition!.latitude, currentPosition!.longitude),
+                LatLng(currentPosition.latitude, currentPosition.longitude),
             zoom: 15,
           ),
         ),
@@ -220,11 +229,11 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   Future<void> showAllMarkers(String id) async {
     try {
+
       await _navigationpinService.getPinsNearUserLocation(
         LatLng(currentPosition!.latitude, currentPosition!.longitude),
-      );
 
-      // pins.addAll(newPins);
+      );
 
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,

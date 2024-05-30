@@ -8,8 +8,10 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comme
 class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
+
     final bool isFromPrivateProfile;
   const CommentsDetailsScreen({super.key, required this.isFromPrivateProfile, required this.recipeModel});
+
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -160,8 +162,10 @@ class CommentsDetailsScreen
                     fontSize: 14.0.sp,
                     fontWeight: FontWeight.w500),
               )),
+
         ) ,
        viewModel.seeComments 
+
             ? Column(
                 children: [
                   ...createCommentWidgets(viewModel),

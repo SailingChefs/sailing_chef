@@ -54,9 +54,10 @@ class ProfileDescriptionProfileScreen
               fontSize: 14.sp,
               letterSpacing: -0.3,
               fontWeight: FontWeight.w400,
+              height: 1.2,
               color: kcBlackColor,
             ),
-            textAlign: TextAlign.justify,
+
           ),
           verticalSpace(8),
           userDetails!.userRole == 'guest'

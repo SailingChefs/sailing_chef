@@ -40,6 +40,7 @@ class TimeAndServingRecipeShow
         ),
         horizontalSpaceSmall,
         Container(
+
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             decoration: BoxDecoration(
               color: kcPrimaryColorDark.withOpacity(0.2),
@@ -112,6 +113,7 @@ class TimeAndServingRecipeShow
         //     ],
         //   ),
         // ),
+
       ],
     );
   }

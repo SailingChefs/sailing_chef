@@ -50,7 +50,7 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               }),
         ),
         Positioned(
-          bottom: 50,
+          bottom: 30,
           left: MediaQuery.of(context).size.width * 0.42,
           child: SmoothPageIndicator(
             controller: viewModel.pageController,
@@ -93,7 +93,9 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           top: 40,
           right: 10,
           child: SaveShare(
+
             isFromPrivateProfile:isFromPrivateProfile,
+
             recipe: reciepmodel,
           ),
         ),

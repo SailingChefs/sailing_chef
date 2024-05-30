@@ -55,6 +55,7 @@ class MainRecipeViewContainer
                   ],
                 ),
           const ChefNotesRecipeDetails(),
+
           verticalSpace(16.h),
           ViewProfileRow(
             user: recipeModel.user!,
