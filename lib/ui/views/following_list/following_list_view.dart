@@ -44,7 +44,7 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
                   Column(
                     children: [
                       verticalSpaceTiny,
-                      viewModel.isFollower ? FollowerList() : FollowingList(),
+                      viewModel.isFollower ? FollowerList() : FollowingList(user:user),
                     ],
                   )
                 ],

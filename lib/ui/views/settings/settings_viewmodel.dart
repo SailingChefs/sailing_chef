@@ -53,4 +53,12 @@ class SettingsViewModel extends BaseViewModel {
     await _authService.signOut();
     _navigationService.clearStackAndShowView(const LoginView());
   }
+
+  void getSavedRecipes() {
+    _navigationService.navigateToCullinarySavedrecipesView();
+  }
+
+  void goToPrivateRecipes() {
+    _navigationService.navigateToPrivateRecipesView();
+  }
 }

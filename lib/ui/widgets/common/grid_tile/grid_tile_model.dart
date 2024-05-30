@@ -13,7 +13,7 @@ class GridTileModel extends ReactiveViewModel {
 
   void onBookmarkTap(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(recipe);
-    notifyListeners();
+    rebuildUi();
   }
 
   void intToDouble(int number) {

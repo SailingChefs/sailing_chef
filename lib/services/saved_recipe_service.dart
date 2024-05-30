@@ -52,6 +52,7 @@ class SavedRecipeService with ListenableServiceMixin {
       });
       savedRecipes.add(savedRecipe);
       userDetails!.savedRecipes!.add(savedRecipe.docId!);
+      savedRecipesGlobal.add(savedRecipe);
       log(userDetails!.savedRecipes.toString());
       showToast(message: 'Recipe saved successfully');
       notifyListeners();
@@ -64,14 +65,16 @@ class SavedRecipeService with ListenableServiceMixin {
     try {
       await firebasestore
           .collection('users')
-          .doc(firebaseAuth.currentUser!
-              .uid) // Assuming currentUser contains the user's data
+          .doc(firebaseAuth.currentUser!.uid)
           .update({
         'saved_Recipes': FieldValue.arrayRemove([recipeId])
       });
+
       showToast(message: 'Recipe removed successfully');
+      notifyListeners();
       savedRecipes.removeWhere((recipe) => recipe.docId == recipeId);
       userDetails!.savedRecipes!.removeWhere((recipe) => recipe == recipeId);
+      savedRecipesGlobal.removeWhere((recipe) => recipe.docId == recipeId);
       notifyListeners();
     } catch (e) {
       // Handle error as needed
@@ -91,68 +94,15 @@ class SavedRecipeService with ListenableServiceMixin {
       } else {
         _addSavedRecipe(savedRecipe);
       }
+
       notifyListeners();
 
       return true;
     } catch (error) {
-      showToast(message: 'Error saving recipe: $error'); // Show error message
+      showToast(message: 'Error saving recipe: $error');
       return false;
     }
   }
-
-  // Future<List<SavedRecipeModel>> _fetchSavedRecipes() async {
-  //   try {
-  //     String userId = firebaseAuth.currentUser!.uid;
-  //     DocumentSnapshot userDoc =
-  //         await firebasestore.collection('users').doc(userId).get();
-
-  //     if (userDoc.exists) {
-  //       Map<String, dynamic> savedRecipeIds =
-  //           userDoc.data()! as Map<String, dynamic>;
-  //       List<SavedRecipeModel> savedRecipes = [];
-  //       if (savedRecipeIds.containsKey('saved_Recipes')) {
-  //         List<dynamic> savedRecipeIdsList =
-  //             savedRecipeIds['saved_Recipes'] as List<dynamic>;
-  //         for (var recipeId in savedRecipeIdsList) {
-  //           DocumentReference recipeRef =
-  //               firebasestore.collection('recipes').doc(recipeId);
-  //           DocumentSnapshot recipeDoc = await recipeRef.get();
-  //           if (recipeDoc.exists) {
-  //             RecipeModel recipeModel = RecipeModel.fromSnapshot(recipeDoc);
-  //             String recipeUserId = recipeModel.uid;
-  //             QuerySnapshot commentsSnapshot =
-  //                 await recipeDoc.reference.collection('comments').get();
-
-  //                 if(commentsSnapshot.docs.isEmpty){
-  //                   recipeModel.comment = [];
-  //                 }
-  //             List<CommentModel> comments = commentsSnapshot.docs
-  //                 .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-  //                 .toList();
-  //             recipeModel.comment = comments;
-
-  //             DocumentSnapshot userSnapshot = await firebasestore
-  //                 .collection('users')
-  //                 .doc(recipeUserId)
-  //                 .get();
-
-  //             if (userSnapshot.exists) {
-  //               UserModel userModel = UserModel.fromSnapshot(userSnapshot);
-  //               recipeModel.user = userModel;
-  //               savedRecipes.add(SavedRecipeModel(
-  //                   recipeId: recipeModel.docId!, recipeModel: recipeModel));
-  //             }
-  //           }
-  //         }
-  //       }
-  //       return savedRecipes;
-  //     } else {
-  //       return [];
-  //     }
-  //   } catch (e) {
-  //     return [];
-  //   }
-  // }
 
   Future<List<SavedRecipeModel>> fetchUserSavedRecipes(String userId) async {
     try {

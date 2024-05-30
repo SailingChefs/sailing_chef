@@ -9,8 +9,10 @@ import '../saved_recipe_details_viewmodel.dart';
 class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<String> image;
   final RecipeModel reciepmodel;
+  final bool isFromPrivateProfile;
   const TopBarDetailsScreen({
     required this.image,
+    required this.isFromPrivateProfile,
     required this.reciepmodel,
     super.key,
   });
@@ -91,6 +93,9 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           top: 40,
           right: 10,
           child: SaveShare(
+
+            isFromPrivateProfile:isFromPrivateProfile,
+
             recipe: reciepmodel,
           ),
         ),

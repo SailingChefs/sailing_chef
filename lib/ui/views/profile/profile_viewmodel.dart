@@ -7,6 +7,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -17,12 +18,12 @@ import 'package:url_launcher/url_launcher.dart';
 class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
   final _navigationService = locator<NavigationService>();
+  final _savedrecipeService = locator<SavedRecipeService>();
   final ScrollController scrollController = ScrollController();
   final usrService = locator<UserServices>();
   final _recipeService = locator<RecipeService>();
 
   final bottomsheetService = locator<BottomSheetService>();
-  final SavedRecipeService _savedRecipeService = locator<SavedRecipeService>();
   final _chefService = locator<ChefService>();
   final CullinaryschoolService _cullinarySchoolService =
       locator<CullinaryschoolService>();
@@ -31,11 +32,14 @@ class ProfileViewModel extends ReactiveViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
 
-  List<RecipeModel> savedRecipes = [];
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
+
   List<Course> get courses => _cullinarySchoolService.courses;
   List<UserModel> get cullinary => _cullinarySchoolService.cullinaryscools;
+  final FollowService _followService = locator<FollowService>();
   List<UserModel> get chefs => _chefService.chefs;
-  // List<RecipeModel> savedRecipes =[];
+  List<UserModel> get followersUsers => _followService.usersFollowers;
+  List<UserModel> get followingUsers => _followService.usersFollowing;
   List<RecipeModel> myRecipes = [];
 
   void navigateToBlockScreen() {
@@ -44,7 +48,9 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _cullinarySchoolService];
+
+      [_savedrecipeService, _cullinarySchoolService,_followService];
+
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -137,28 +143,16 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToFilterView();
   }
 
-  Future<void> mySavedRecipes() async {
-    if (RecipeService.recipes.isEmpty) {
-      await _recipeService.initialized();
-      return;
-    } else {
-      for (var recipe in RecipeService.recipes) {
-        if (userDetails!.savedRecipes!
-            .any((element) => element == recipe.docId)) {
-          savedRecipes.add(recipe);
-        }
-      }
-    }
-  }
 
   void onViewModelReady() async {
     setBusy(true);
     await myRecipesList();
-    await mySavedRecipes();
+
     await matchAndAssignUsersToDishes();
 
     await Future.wait([
       // _savedRecipeService.init(),
+
       _cullinarySchoolService.cullinaryCoursesInit(userDetails!.uid!)
     ]);
     notifyListeners();
@@ -180,6 +174,7 @@ class ProfileViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(int index, RecipeModel recipeModel) {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
+        isFromPrivateProfile:false,
           recipeModel: recipeModel,
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),

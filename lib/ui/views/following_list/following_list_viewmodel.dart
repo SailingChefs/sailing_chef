@@ -13,12 +13,10 @@ class FollowingListViewModel extends BaseViewModel {
   final TextEditingController searchController = TextEditingController();
   bool isFollowing = false;
   bool isFollower = true;
-  List<String> get following => _followService.following;
-  List<String> get followers => _followService.followers;
   List<UserModel> get followersUsers => _followService.usersFollowers;
   List<UserModel> get followingUsers => _followService.usersFollowing;
   void popBack() {
-    _navigationloactor.navigateToBottomNavBarView();
+    _navigationloactor.back();
   }
 
   void onViewModelReady(String userId) async {

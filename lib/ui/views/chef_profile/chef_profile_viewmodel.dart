@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -38,7 +39,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   List<String> get followers => _followService.followers;
   final ScrollController scrollController = ScrollController();
 
-  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   List<SavedRecipeModel>? userSavedRecipe;
   List<Course> get courses => _cullinarySchoolService.courses;
   bool isFollowing = false;
@@ -183,11 +184,15 @@ class ChefProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void toDishDetailsScreen(index) {
-    _navigationService.navigateToSavedRecipeDetailsView(
+  void toDishDetailsScreen(index) async {
+   
+   await _navigationService.navigateToSavedRecipeDetailsView(
+      isFromPrivateProfile:false,
         recipeModel: chefRecipes[index],
         randomRecipeList: IndexViewModel.getRandomDishes(
             chefRecipes[index], RecipeService.recipes));
+    
+    notifyListeners();
   }
 
   void showRecipeList() {

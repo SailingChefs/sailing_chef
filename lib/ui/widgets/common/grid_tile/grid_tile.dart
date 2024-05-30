@@ -39,7 +39,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     bool isRecipeSaved = false;
     for (String savedRecipe in userDetails!.savedRecipes!) {
       if (savedRecipe == recipe.docId) {
-        isRecipeSaved = !isRecipeSaved;
+        isRecipeSaved = true;
         break;
       }
     }

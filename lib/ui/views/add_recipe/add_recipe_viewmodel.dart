@@ -608,6 +608,7 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
+
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 

@@ -6,13 +6,13 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 
 class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<RecipeModel> recipeList;
-  const BottomSlider({super.key, required this.recipeList});
-
+  const BottomSlider({super.key,required this.isFromPrivateProfile, required this.recipeList});
+  final bool isFromPrivateProfile;
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return recipeList.isEmpty
         ? Container()
-        : Column(
+        : isFromPrivateProfile == false ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -79,6 +79,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                       SizedBox(
                                         width: 100.w,
                                         child: Text(
+                                          overflow: TextOverflow.ellipsis,
                                             capitalizeEachWord(
                                                 recipeList[index].title),
                                             style: globalTextStyle(
@@ -125,6 +126,6 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     }),
               ),
             ],
-          );
+          ) : Container();
   }
 }

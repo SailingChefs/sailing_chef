@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
@@ -41,8 +42,11 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                   viewModel.searchRecipes().elementAt(index);
                               return PrimaryGridTile(
                                   chefId:
-                                      viewModel.savedRecipes[index].user!.uid!,
-                                  rating: viewModel.savedRecipes[index].rating!,
+
+                                      savedRecipesGlobal![index].user!.uid!,
+                                  rating: savedRecipesGlobal![index].rating!,
+
+
                                   recipe: recipe,
                                   onTap: () =>
                                       viewModel.toDishDetailsScreen(recipe),
@@ -65,7 +69,9 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                 const ExploreAllButton(),
               ],
             )
-          : viewModel.savedRecipes.isEmpty
+
+          : savedRecipesGlobal == null
+
               ? const Center(child: Text('No Saved Recipe Found'))
               : Column(
                   children: [
@@ -88,29 +94,29 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                               delegate: SliverChildBuilderDelegate(
                                 (BuildContext context, int index) {
                                   return PrimaryGridTile(
-                                      chefId: viewModel
-                                          .savedRecipes[index].user!.uid!,
+
+                                      chefId: savedRecipesGlobal![index].user!.uid!,
                                       rating:
-                                          viewModel.savedRecipes[index].rating!,
-                                      recipe: viewModel.savedRecipes[index],
+                                          savedRecipesGlobal![index].rating!,
+                                      recipe: savedRecipesGlobal![index],
                                       onTap: () =>
                                           viewModel.toDishDetailsScreen(
-                                              viewModel.savedRecipes[index]),
-                                      foodImagePath: viewModel
-                                          .savedRecipes[index].coverImage
+                                              savedRecipesGlobal![index]),
+                                      foodImagePath: savedRecipesGlobal![index].coverImage
+
                                           .where((element) =>
                                               element.contains('.jpg'))
                                           .first,
                                       dishName:
-                                          viewModel.savedRecipes[index].title,
-                                      duration: viewModel
-                                          .savedRecipes[index].prepTime,
-                                      chefImagePath: viewModel
-                                          .savedRecipes[index]
+
+                                         savedRecipesGlobal![index].title,
+                                      duration: savedRecipesGlobal![index].prepTime,
+                                      chefImagePath: savedRecipesGlobal![index]
                                           .user!
                                           .displayPicture!);
                                 },
-                                childCount: viewModel.savedRecipes.length,
+                                childCount: savedRecipesGlobal!.length,
+
                               ),
                             ),
                           ],

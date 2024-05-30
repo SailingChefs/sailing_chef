@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -70,31 +71,34 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                               delegate: SliverChildBuilderDelegate(
                                 (BuildContext context, int index) {
                                   return PrimaryGridTile(
+
                                     chefId: viewModel
                                         .savedRecipes[index].user!.uid!,
                                     rating:
                                         viewModel.savedRecipes[index].rating,
                                     recipe: savedRecipes[index].recipeModel!,
+
                                     onTap: () =>
                                         viewModel.toDishDetailsScreen(index),
-                                    foodImagePath: savedRecipes[index]
-                                        .recipeModel!
+                                    foodImagePath: savedRecipesGlobal[index]
                                         .coverImage
                                         .where((element) =>
                                             element.contains('.jpg'))
                                         .first,
                                     dishName:
+
                                         savedRecipes[index].recipeModel!.title,
                                     duration: savedRecipes[index]
                                         .recipeModel!
                                         .prepTime,
                                     chefImagePath: savedRecipes[index]
                                         .recipeModel!
+
                                         .user!
                                         .displayPicture!,
                                   );
                                 },
-                                childCount: savedRecipes.length,
+                                childCount: savedRecipesGlobal.length,
                               ),
                             ),
                           ],

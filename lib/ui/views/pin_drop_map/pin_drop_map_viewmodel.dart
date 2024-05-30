@@ -164,10 +164,12 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   void onViewModelReady(String id) async {
     setBusy(true);
+
     // await Future.wait([
     await  getCurrentLocation();
      await  showAllMarkers(id);
     // ]);
+
 
     initialCameraPosition = CameraPosition(
       target: LatLng(currentPosition.latitude, currentPosition.longitude),
@@ -227,9 +229,10 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   Future<void> showAllMarkers(String id) async {
     try {
-    
-      await  _navigationpinService.getPinsNearUserLocation(
-        LatLng(currentPosition.latitude, currentPosition.longitude),
+
+      await _navigationpinService.getPinsNearUserLocation(
+        LatLng(currentPosition!.latitude, currentPosition!.longitude),
+
       );
 
       for (PinnedLocation pin in pins) {

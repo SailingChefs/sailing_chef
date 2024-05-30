@@ -1,14 +1,20 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
 
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
 
 class FollowingList extends ViewModelWidget<FollowingListViewModel> {
+
+  final UserModel user;
+
+  const FollowingList({super.key, super.reactive, required this.user});
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
-    return viewModel.following.isEmpty
+    return viewModel.followingUsers.isEmpty
         ? Column(
             children: [
               verticalSpaceMassive,
@@ -42,37 +48,43 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                             ),
                             title: Text(
                                 viewModel.followingUsers[index].displayName!),
-                            trailing: SizedBox(
-                              width: 112,
-                              height: 35,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  )),
-                                  backgroundColor: MaterialStateProperty.all<
-                                      Color>(viewModel.followingUsers.contains(
-                                          viewModel.followingUsers[index])
-                                      ? kcPrimaryColor.withOpacity(0.5)
-                                      : kcPrimaryColor),
-                                ),
-                                onPressed: () {
-                                  viewModel.removeFollowing(
-                                      viewModel.followingUsers[index]);
-                                },
-                                child: Text(
-                                  viewModel.followingUsers.contains(
-                                          viewModel.followingUsers[index])
-                                      ? 'Following'
-                                      : 'Follow',
-                                  style: TextStyle(
-                                      color: kcwhitecolor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
+                            trailing: user.uid ==
+                                    userDetails!.uid
+                                ? SizedBox(
+                                    width: 112,
+                                    height: 35,
+                                    child: TextButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStatePropertyAll(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        )),
+                                        backgroundColor: MaterialStateProperty
+                                            .all<Color>(viewModel.followingUsers
+                                                    .contains(viewModel
+                                                        .followingUsers[index])
+                                                ? kcPrimaryColor
+                                                    .withOpacity(0.5)
+                                                : kcPrimaryColor),
+                                      ),
+                                      onPressed: () {
+                                        viewModel.removeFollowing(
+                                            viewModel.followingUsers[index]);
+                                      },
+                                      child: Text(
+                                        viewModel.followingUsers.contains(
+                                                viewModel.followingUsers[index])
+                                            ? 'Following'
+                                            : 'Follow',
+                                        style: TextStyle(
+                                            color: kcwhitecolor,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
                           );
                         },
                       ),

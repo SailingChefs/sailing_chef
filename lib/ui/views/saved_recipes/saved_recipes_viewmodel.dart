@@ -15,7 +15,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final TextEditingController searchFollowingController =
       TextEditingController();
 
-  List<RecipeModel> savedRecipes = [];
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal ?? [] ;
+
   List<RecipeModel> followingRecipes = [];
 
   String selectedTab = 'All';
@@ -72,7 +73,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   void onViewModelReady() async {
     setBusy(true);
     await Future.wait([
-      mySavedRecipes(),
+
+
       followingChefRecipe(),
     ]);
 
@@ -127,6 +129,9 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
+
+        isFromPrivateProfile:false,
+
         recipeModel: recipe,
         randomRecipeList:
             IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),

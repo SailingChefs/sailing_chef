@@ -29,7 +29,9 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 padding: const EdgeInsets.all(8.0),
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
+
                       dishes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
+
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
                     axisDirection: AxisDirection.down,
@@ -50,7 +52,9 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   : dishes[index].user!.uid!,
                               rating: dishes[index].rating,
                               recipe: dishes[index],
+
                               onTap: () => viewModel.toDishDetailsScreen(dishes[index]),
+
                               foodImagePath: dishes[index]
                                   .coverImage
                                   .where((element) => element.contains('.jpg'))

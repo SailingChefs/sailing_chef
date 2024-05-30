@@ -57,7 +57,7 @@ class ProfileDescriptionProfileScreen
               height: 1.2,
               color: kcBlackColor,
             ),
-            // textAlign: TextAlign.justify,
+
           ),
           verticalSpace(8),
           userDetails!.userRole == 'guest'

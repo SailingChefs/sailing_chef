@@ -24,11 +24,11 @@ class IndexViewModel extends BaseViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
-  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   @override
   // ignore: override_on_non_overriding_member
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
+      [_savedRecipeService, _recipeService, _cullinaryService, _chefService,_savedRecipeService];
 
   get toViewCullinarySchool => null;
   bool? isInitialised;
@@ -40,16 +40,12 @@ class IndexViewModel extends BaseViewModel {
 
   static List<RecipeModel> getRandomDishes(
       RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
-    // Create a copy of allRecipes
     List<RecipeModel> dishes = List.from(allRecipes);
-    // Remove the current recipe from the list
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
 
-    // Shuffle the list
     dishes.shuffle();
     log(dishes.length.toString());
 
-    // Take the first 5 elements if there are more than 5 dishes, otherwise return all dishes
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
@@ -75,6 +71,7 @@ class IndexViewModel extends BaseViewModel {
       return;
     }
     matchAndAssignUsersToDishes();
+
   }
 
   void toAllChefsView() {
@@ -104,45 +101,19 @@ class IndexViewModel extends BaseViewModel {
     );
   }
 
-  // void setUserProfile() {
-  //   if (chefList.isEmpty) {
-  //     _chefService.chefInit();
-  //   } else {
-  //     for (var chef in chefList) {
-  //       // Iterate through each recipe associated with the chef
-  //       for (var chefRecipe in chef.recipes!) {
-  //         // Find the matching recipe in the recipesList by doc_id
-  //         var matchingRecipe = dishes.firstWhere(
-  //           (recipe) => recipe.docId == chefRecipe.toString(),
-  //         );
-
-  //         // If a matching recipe is found
-  //         if (matchingRecipe != null) {
-  //           // Assign the ChefModel to the user model of the matching recipe
-  //           if (matchingRecipe.user == null) {
-  //             matchingRecipe.user =
-  //                 chef; // Provide appropriate name for UserModel
-  //           } else {
-  //             matchingRecipe.user = chef;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
   void matchAndAssignUsersToDishes() {
-    // Combine both user lists into one for easier searching
+
     List<UserModel> allUsers = [...chefList, ...cullinary];
 
     for (int i = 0; i < dishes.length; i++) {
       if (dishes[i].user == null) {
-        // Find the matching user in the allUsers list
+
         UserModel? matchingUser = allUsers.firstWhere(
           (user) => user.uid == dishes[i].uid,
           orElse: () => UserModel(uid: ''),
         );
         if (matchingUser.uid != null) {
-          // Assign the matching user to the corresponding dish
+
           dishes[i].user = matchingUser;
           if (userDetails!.uid == dishes[i].uid) {
             dishes[i].user = userDetails!;
@@ -162,16 +133,19 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
+
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
           recipeModel: recipe,
           randomRecipeList:
               IndexViewModel.getRandomDishes(recipe, dishes)),
+
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
     );
+    notifyListeners();
   }
 
   void handleTab(int index) {

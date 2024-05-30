@@ -15,8 +15,9 @@ class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> recipeList;
+  final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {Key? key, required this.recipeModel, required this.recipeList})
+      {Key? key, required this.recipeModel,required this.isFromPrivateProfile, required this.recipeList})
       : super(key: key);
 
   @override
@@ -54,24 +55,15 @@ class MainRecipeViewContainer
                   ],
                 ),
           const ChefNotesRecipeDetails(),
-          // verticalSpace(24.h),
-          // SemiRoundedTranpaentTextField(
-          //   borderRadius: 24.dg,
-          //   labelText: 'Add your own personal note...',
-          //   inputFormatters: [LengthLimitingTextInputFormatter(200)],
-          //   maxLines: 5,
-          //   suffixIcon: false,
-          //   controller: viewModel.notesController,
 
-          //   fillColor: kcPrimaryColorDark.withOpacity(0.2),
-          // ),
           verticalSpace(16.h),
           ViewProfileRow(
             user: recipeModel.user!,
           ),
-          CommentsDetailsScreen(recipeModel: recipeModel),
+          CommentsDetailsScreen(isFromPrivateProfile: isFromPrivateProfile,recipeModel: recipeModel),
           verticalSpace(12),
           BottomSlider(
+            isFromPrivateProfile: isFromPrivateProfile,
             recipeList: recipeList,
           ),
         ],

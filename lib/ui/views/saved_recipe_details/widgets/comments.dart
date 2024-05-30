@@ -8,7 +8,10 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comme
 class CommentsDetailsScreen
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const CommentsDetailsScreen({super.key, required this.recipeModel});
+
+    final bool isFromPrivateProfile;
+  const CommentsDetailsScreen({super.key, required this.isFromPrivateProfile, required this.recipeModel});
+
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     // recipeModel.comment = viewModel.commentService.comments;
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -61,7 +64,7 @@ class CommentsDetailsScreen
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Column(
+    return isFromPrivateProfile==false ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpaceMedium,
@@ -95,7 +98,7 @@ class CommentsDetailsScreen
             ),
           ],
         ),
-        if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel),
+       viewModel.images.isNotEmpty ? _buildImagePreview(viewModel) : Container(),
         verticalSpaceSmall,
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
@@ -149,7 +152,7 @@ class CommentsDetailsScreen
             ],
           ),
         ),
-        Center(
+         Center(
           child: TextButton(
               onPressed: viewModel.seeCommentsAll,
               child: Text(
@@ -159,8 +162,10 @@ class CommentsDetailsScreen
                     fontSize: 14.0.sp,
                     fontWeight: FontWeight.w500),
               )),
-        ),
-        viewModel.seeComments
+
+        ) ,
+       viewModel.seeComments 
+
             ? Column(
                 children: [
                   ...createCommentWidgets(viewModel),
@@ -175,6 +180,6 @@ class CommentsDetailsScreen
             : const SizedBox(),
         const Divider(),
       ],
-    );
+    ) : Container();
   }
 }

@@ -19,7 +19,11 @@ import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+
 import 'package:sailing_chefs/services/shopping_list_service.dart';
+
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
@@ -87,6 +91,23 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
+  void incrementServings() {
+    servings += 1;
+    rebuildUi();
+    notifyListeners();
+  }
+
+  void decrementServings() {
+    if (servings <= 1) {
+      servings = 1;
+      showToast(message: 'Minimum servings are 1');
+      rebuildUi();
+    } else {
+      servings--;
+      rebuildUi();
+    }
+  }
+
   void checkSave(String recipeId) {
     for (RecipeModel savedRecipe in savedRecipeList) {
       if (savedRecipe.docId == recipeId) {
@@ -118,19 +139,17 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   String calculateAverageRating(List<CommentModel> comments) {
     if (comments.isEmpty) {
-      return '0.0'; // Return 0 if there are no comments
+      return '0.0'; 
     }
 
     double totalRating = 0.0;
 
-    // Calculate the total rating
     for (var comment in comments) {
       if (comment.rating != null) {
         totalRating += comment.rating!;
       }
     }
 
-    // Calculate the average rating
     double averageRating = totalRating / comments.length;
 
     return averageRating.toStringAsFixed(1);
@@ -250,6 +269,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   void toRecipeDetails(RecipeModel recipe) {
     _navigationService.replaceWithTransition(
         SavedRecipeDetailsView(
+          isFromPrivateProfile: false,
           recipeModel: recipe,
           randomRecipeList:
               IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
@@ -372,14 +392,28 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     await downloadAudio();
 
+    servings = recipeModel.servingSize;
+
+
     checkSave(recipeId);
     setBusy(false);
   }
 
-  // void updateDuration(Duration duration) {
-  //   currentDuration = duration.inMilliseconds.toDouble();
-  //   notifyListeners();
-  // }
+  int servings = 0;
+  int updatedQuantity = 0;
+
+  List<Ingredient> getUpdatedIngredients() {
+    if (recipeModel == null) return [];
+    return recipeModel.ingredients.map((ingredient) {
+      int baseQuantity = int.parse(ingredient.quantity);
+      updatedQuantity = baseQuantity * servings;
+      return Ingredient(
+        name: ingredient.name,
+        quantity: updatedQuantity.toStringAsFixed(0),
+        unit: ingredient.unit,
+      );
+    }).toList();
+  }
 
   @override
   void dispose() {
@@ -389,5 +423,14 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     stopListening();
 
     super.dispose();
+  }
+
+  Future<void> publicRecipe(RecipeModel recipe) async {
+    bool saved = await recipeService.updatePrivateRecipe(recipe);
+    if (saved == true) {
+      _navigationService.replaceWithIndexView();
+    } else {
+      showToast(message: 'Error saving recipe publically');
+    }
   }
 }
