@@ -39,7 +39,7 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
           children: [
             const Text(
                'Share Recipe to Social Media',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
             ),
             
             verticalSpaceMedium,
