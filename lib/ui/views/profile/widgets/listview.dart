@@ -82,7 +82,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
         //       itemCount: viewModel.courses.length,
         //       itemBuilder: (context, index) {
         //         Course course = viewModel.courses[index];
-    
+
         //       },
         //     ),
         //   ),

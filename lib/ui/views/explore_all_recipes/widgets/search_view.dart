@@ -33,7 +33,7 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                     recipe: recipe,
                     onTap: () => viewModel.toDishDetailsScreen(recipe),
                     foodImagePath: recipe.coverImage
-                       .where((element) => element.isFirebaseImageUrl)
+                        .where((element) => element.isFirebaseImageUrl)
                         .first,
                     dishName: recipe.title,
                     duration: recipe.prepTime,

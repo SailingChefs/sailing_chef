@@ -41,7 +41,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                     return null;
                   },
                   controller: viewModel.servingSize,
-
+                  autofocus: false,
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
                   //  maxLength: 3,

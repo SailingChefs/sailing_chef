@@ -189,6 +189,9 @@ class AddRecipeViewModel extends BaseViewModel {
     if (recipeModel != null) {
       titleController.text = recipeModel!.title;
       ingredientsList = recipeModel!.ingredients;
+      log("ing" + ingredientsList.length.toString());
+      log("recipeModel!.ingredients" +
+          recipeModel!.ingredients.length.toString());
       methodsList = recipeModel!.methods;
       if (recipeModel!.coverImage.isNotEmpty) {
         alreadySelectedImages = recipeModel!.coverImage;
@@ -608,7 +611,7 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
-
+    log("ing" + ingredientsList.length.toString());
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 

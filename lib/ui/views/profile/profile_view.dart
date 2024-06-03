@@ -28,7 +28,10 @@ class ProfileView extends StackedView<ProfileViewModel> {
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarProfileScreen(),
         body: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0, ),
+          padding: const EdgeInsets.only(
+            left: 15.0,
+            right: 15.0,
+          ),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
             child: Column(

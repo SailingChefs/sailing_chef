@@ -209,27 +209,27 @@ class UserServices with ListenableServiceMixin {
           EmailAuthProvider.credential(email: email, password: password);
       await user.reauthenticateWithCredential(credential);
       // Proceed with the deletion after re-authentication
-      
-       QuerySnapshot followingSnapshot = await FirebaseFirestore.instance
-      .collection('users')
-      .where('following', arrayContains: user.uid)
-      .get();
-  for (var doc in followingSnapshot.docs) {
-    await doc.reference.update({
-      'following': FieldValue.arrayRemove([user.uid])
-    });
-  }
 
-  // Find all documents where the user UID is in the followers array
-  QuerySnapshot followersSnapshot = await FirebaseFirestore.instance
-      .collection('users')
-      .where('followers', arrayContains:user. uid)
-      .get();
-  for (var doc in followersSnapshot.docs) {
-    await doc.reference.update({
-      'followers': FieldValue.arrayRemove([user.uid])
-    });
-  }
+      QuerySnapshot followingSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('following', arrayContains: user.uid)
+          .get();
+      for (var doc in followingSnapshot.docs) {
+        await doc.reference.update({
+          'following': FieldValue.arrayRemove([user.uid])
+        });
+      }
+
+      // Find all documents where the user UID is in the followers array
+      QuerySnapshot followersSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('followers', arrayContains: user.uid)
+          .get();
+      for (var doc in followersSnapshot.docs) {
+        await doc.reference.update({
+          'followers': FieldValue.arrayRemove([user.uid])
+        });
+      }
       await FirebaseFirestore.instance
           .collection('conversations')
           .where('users', arrayContains: user.uid)
@@ -250,12 +250,12 @@ class UserServices with ListenableServiceMixin {
         }
       });
       QuerySnapshot shopping = await FirebaseFirestore.instance
-      .collection('shopping_list')
-      .where('user_id', isEqualTo: user.uid)
-      .get();
-  for (var doc in shopping.docs) {
-    await doc.reference.delete();
-  }
+          .collection('shopping_list')
+          .where('user_id', isEqualTo: user.uid)
+          .get();
+      for (var doc in shopping.docs) {
+        await doc.reference.delete();
+      }
 
       await FirebaseFirestore.instance
           .collection('recipes')

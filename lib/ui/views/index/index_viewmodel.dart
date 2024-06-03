@@ -134,7 +134,7 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-  void toDishDetailsScreen(RecipeModel recipe) async{
+  void toDishDetailsScreen(RecipeModel recipe) async {
     await _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,

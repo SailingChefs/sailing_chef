@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +17,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecipeService with ListenableServiceMixin {
   static List<RecipeModel> recipes = [];
@@ -146,9 +148,9 @@ class RecipeService with ListenableServiceMixin {
         await docRef.update(recipe.toMap());
         String docId = docRef.id;
 
-        List<Ingredient> ingredients = [];
-
-        await docRef.update({'doc_id': docId, 'ingredients': ingredients});
+        await docRef.update({
+          'doc_id': docId,
+        });
         await firebasestore
             .collection('users')
             .doc(firebaseAuth.currentUser!.uid)
@@ -176,8 +178,9 @@ class RecipeService with ListenableServiceMixin {
         });
         userDetails!.recipes!.add(docId);
         recipe.user = userDetails;
-        recipes.add(recipe);
-
+        if (recipe.visibility != 'private') {
+          recipes.add(recipe);
+        }
         showToast(message: 'Recipe added successfully');
       }
       EasyLoading.dismiss();
@@ -491,5 +494,23 @@ class RecipeService with ListenableServiceMixin {
       log("Error fetching private recipes: $e");
       return [];
     }
+  }
+
+  Future<void> shareRecipe(RecipeModel recipe) async {
+    final dynamicLinkParams = DynamicLinkParameters(
+      link: Uri.parse('https://example.com/recipe/${recipe.title}'),
+      uriPrefix: 'https://sailingchefs.page.link',
+      androidParameters:
+          const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
+      iosParameters: const IOSParameters(bundleId: 'com.example.app.ios'),
+    );
+
+    final dynamicLink =
+        await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);
+    log(dynamicLink.toString());
+    final whatsappUrl =
+        'https://wa.me/?text=${Uri.encodeComponent(dynamicLink.shortUrl.toString())}';
+    await launchUrl(Uri.parse(whatsappUrl),
+        mode: LaunchMode.externalApplication);
   }
 }

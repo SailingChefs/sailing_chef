@@ -18,14 +18,17 @@ dependencies:
   flutter_screenutil: ^5.9.0
   smooth_page_indicator: ^1.1.0
   google_fonts: ^4.0.4
-  firebase_core: ^2.25.4
+  firebase_core: ^2.30.0
   firebase_auth: ^4.17.4
   cloud_firestore: ^4.15.6
   image_picker: ^1.0.7
   shared_preferences: ^2.2.2
   flutter_launcher_icons: ^0.13.1
   syncfusion_flutter_sliders: ^24.2.9
-  
+  app_links: ^6.1.1
+  firebase_dynamic_links: ^5.0.16
+  clipboard: ^0.1.3
+  # firebase_dynamic_links: ^3.0.1
   syncfusion_flutter_core: ^24.2.9
   dotted_border: ^2.1.0
   firebase_storage: ^11.6.11

@@ -8,7 +8,6 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
-import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
@@ -64,19 +63,6 @@ class RecipeViewViewModel extends BaseViewModel {
 
   int servings = 0;
   int updatedQuantity = 0;
-
-  // List<Ingredient> getUpdatedIngredients() {
-  //   if (recipe == null) return [];
-  //   return recipe!.ingredients.map((ingredient) {
-  //     int baseQuantity = int.parse(ingredient.quantity);
-  //     updatedQuantity = baseQuantity * servings;
-  //     return Ingredient(
-  //       name: ingredient.name,
-  //       quantity: updatedQuantity.toStringAsFixed(0),
-  //       unit: ingredient.unit,
-  //     );
-  //   }).toList();
-  // }
 
   void incrementServings() {
     servings += 1;
@@ -238,6 +224,7 @@ class RecipeViewViewModel extends BaseViewModel {
       chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
     try {
+      log(recipe.ingredients.length.toString());
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
             visibility: 'private',
@@ -248,9 +235,9 @@ class RecipeViewViewModel extends BaseViewModel {
             methods: recipe.methods,
             prepTime: recipe.prepTime,
             servingSize: servings,
-            tags: recipe.tags,
             status: 'published',
             title: recipe.title,
+            tags: recipe.tags,
             uid: recipe.uid,
             docId: recipe.docId,
             waveForm: waveFormData == null ? [] : waveFormData!,

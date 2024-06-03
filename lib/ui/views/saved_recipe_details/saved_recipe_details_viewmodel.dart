@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -30,6 +31,8 @@ import '../../../core/imports/core_imports.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
+  
+  final _bottomSheetService = locator<BottomSheetService>();
 
   SavedRecipeDetailsViewModel({required this.recipeModel});
 
@@ -249,7 +252,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  bool  checkShoppingList(Ingredient ingredient) {
+  bool checkShoppingList(Ingredient ingredient) {
     if (shoppingList.any((element) => element.ingredientId == ingredient.id)) {
       return true;
     }
@@ -430,4 +433,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       showToast(message: 'Error saving recipe publically');
     }
   }
+
+  void showSocialIconsBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.socialIcons,
+      data: recipeModel,
+    );
+  }
+
+
 }

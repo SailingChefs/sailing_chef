@@ -12,7 +12,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
     return viewModel.chefList.isEmpty
         ? Text(
             'No Chef Found',
-           style:globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor,letterSpacing: -0.5),
+            style: globalTextStyle(
+                fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
           )
         : Column(
             children: <Widget>[

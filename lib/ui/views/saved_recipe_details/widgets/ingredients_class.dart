@@ -9,7 +9,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   const IngredientsClass({super.key, required this.recipeModel});
 
-  List<Widget> createIngredientWidgets(List<Ingredient> ingredients, SavedRecipeDetailsViewModel viewModel) {
+  List<Widget> createIngredientWidgets(
+      List<Ingredient> ingredients, SavedRecipeDetailsViewModel viewModel) {
     return ingredients.map((ingredient) {
       return Column(
         children: [
@@ -42,29 +43,29 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 ),
               ),
               GestureDetector(
-                  onTap: () {
-                    viewModel.addOneItemToCart(ingredient);
-                  },
-                  child: Container(
-                    width: 15.0.w,
-                    height: 15.0.h,
-                    decoration: BoxDecoration(
-                      color: viewModel.checkShoppingList(ingredient)
-                          ? kcPrimaryColorDark
-                          : Colors.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: kcPrimaryColorDark,
-                      ),
+                onTap: () {
+                  viewModel.addOneItemToCart(ingredient);
+                },
+                child: Container(
+                  width: 15.0.w,
+                  height: 15.0.h,
+                  decoration: BoxDecoration(
+                    color: viewModel.checkShoppingList(ingredient)
+                        ? kcPrimaryColorDark
+                        : Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: kcPrimaryColorDark,
                     ),
-                    child: viewModel.checkShoppingList(ingredient)
-                        ? Icon(
-                            Icons.check,
-                            color: kcWhiteColor,
-                            size: 12.0.sp,
-                          )
-                        : Container(),
                   ),
+                  child: viewModel.checkShoppingList(ingredient)
+                      ? Icon(
+                          Icons.check,
+                          color: kcWhiteColor,
+                          size: 12.0.sp,
+                        )
+                      : Container(),
+                ),
               ),
               horizontalSpaceTiny,
             ],
@@ -78,7 +79,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     var updatedIngredients = viewModel.getUpdatedIngredients();
-    var allIngredients = createIngredientWidgets(updatedIngredients,viewModel);
+    var allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
     log(recipeModel.ingredients.first.id!);
 

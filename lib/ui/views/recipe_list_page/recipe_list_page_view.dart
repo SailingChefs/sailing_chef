@@ -80,7 +80,8 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                   image: DecorationImage(
                                     image: NetworkImage(
                                       recipe.coverImage
-                                         .where((element) => element.isFirebaseImageUrl)
+                                          .where((element) =>
+                                              element.isFirebaseImageUrl)
                                           .first,
                                     ),
                                     fit: BoxFit.cover,

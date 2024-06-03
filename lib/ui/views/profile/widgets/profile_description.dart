@@ -39,13 +39,16 @@ class ProfileDescriptionProfileScreen
                           ? userDetails!.boatName!
                           : userDetails!.boatName == null
                               ? userDetails!.namedLocation!
-                              : userDetails!.namedLocation != null && userDetails!.boatName!.isNotEmpty ? '${userDetails!.boatName!},${userDetails!.namedLocation!}' : userDetails!.namedLocation!,
-                    style: globalTextStyle(
-                    fontSize: 14.sp,
-                    letterSpacing: -0.3,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor,
-                  ),
+                              : userDetails!.namedLocation != null &&
+                                      userDetails!.boatName!.isNotEmpty
+                                  ? '${userDetails!.boatName!},${userDetails!.namedLocation!}'
+                                  : userDetails!.namedLocation!,
+                      style: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor,
+                      ),
                     ),
           verticalSpaceSmall,
           Text(

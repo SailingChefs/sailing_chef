@@ -39,7 +39,7 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
             RoundedTransparentTextField(
               controller: viewModel.passwordController,
               labelText: 'password',
-             
+
               textColor: kcBlackColor.withOpacity(0.6),
               ispassvisible: viewModel.showPassword,
               onChanged: (value) => viewModel.rebuildUi(),
@@ -59,29 +59,29 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-              onTap: () {
-                completer(DialogResponse(confirmed: true));
-                // viewModel.toSettings();
-                },
-              child: Container(
-                height: 40,
-                // width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: kcPrimaryColor,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child:  Text(
-                  'Cancel',
-                  style: globalTextStyle(
-                    color: kcWhiteColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.sp,
+                  onTap: () {
+                    completer(DialogResponse(confirmed: true));
+                    // viewModel.toSettings();
+                  },
+                  child: Container(
+                    height: 40,
+                    // width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: kcPrimaryColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
+                      'Cancel',
+                      style: globalTextStyle(
+                        color: kcWhiteColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
                 GestureDetector(
                   onTap: viewModel.deleteAccount,
                   child: Container(

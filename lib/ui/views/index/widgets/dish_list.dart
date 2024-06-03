@@ -21,8 +21,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                 child: Center(
                   child: Text(
                     'No Dishes Found',
-                    style:
-                        globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor,letterSpacing: -0.5),
+                    style: globalTextStyle(
+                        fontSize: 14.sp,
+                        color: kcPrimaryColor,
+                        letterSpacing: -0.5),
                   ),
                 ),
               )
@@ -56,7 +58,8 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   viewModel.toDishDetailsScreen(dishes[index]),
                               foodImagePath: dishes[index]
                                   .coverImage
-                                  .where((element) => element.isFirebaseImageUrl)
+                                  .where(
+                                      (element) => element.isFirebaseImageUrl)
                                   .first,
                               dishName: dishes[index].title,
                               duration: dishes[index].prepTime,

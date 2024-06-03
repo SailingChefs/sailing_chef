@@ -1,3 +1,5 @@
+
+
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -13,17 +15,22 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     return Row(
       children: [
         isFromPrivateProfile == false
-            ? Container(
-                height: 35.h,
-                width: 35.w,
-                decoration: const BoxDecoration(
-                  color: kcsgreycolor,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  FlutterRemix.share_box_line,
-                  color: kcBlackColor,
-                  size: 20.0.sp,
+            ? GestureDetector(
+                onTap: () {
+                  viewModel.showSocialIconsBottomSheet();
+                },
+                child: Container(
+                  height: 35.h,
+                  width: 35.w,
+                  decoration: const BoxDecoration(
+                    color: kcsgreycolor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    FlutterRemix.share_box_line,
+                    color: kcBlackColor,
+                    size: 20.0.sp,
+                  ),
                 ),
               )
             : GestureDetector(

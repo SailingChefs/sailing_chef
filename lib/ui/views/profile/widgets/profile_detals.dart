@@ -44,7 +44,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  userDetails!.recipes!.length.toString(),
+                  viewModel.myRecipes.length.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,

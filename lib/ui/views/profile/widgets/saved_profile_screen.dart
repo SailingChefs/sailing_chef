@@ -112,7 +112,8 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                   index, viewModel.savedRecipes[index]),
                               foodImagePath: viewModel
                                   .savedRecipes[index].coverImage
-                               .where((element) => element.isFirebaseImageUrl)
+                                  .where(
+                                      (element) => element.isFirebaseImageUrl)
                                   .first,
                               dishName: viewModel.savedRecipes[index].title,
                               duration: viewModel.savedRecipes[index].prepTime,

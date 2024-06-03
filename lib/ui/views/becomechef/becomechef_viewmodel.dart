@@ -113,7 +113,6 @@ class BecomechefViewModel extends BaseViewModel {
   }
 
   void saveEditDetails() async {
-   
     if (formKey.currentState!.validate()) {
       if (countryValue == '') {
         showToast(message: 'Please select your location to proceed');
