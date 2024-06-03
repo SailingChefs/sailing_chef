@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/bottom_buttons.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/pin_detail_list.dart';
@@ -45,9 +44,10 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                             mapType: MapType.normal,
                             zoomControlsEnabled: false,
                             mapToolbarEnabled: false,
+                            myLocationEnabled: true,
+                            buildingsEnabled: false,
+                            myLocationButtonEnabled: false,
                             onCameraMove: (position) {
-                              log('onCameraMove: $position');
-                              //  viewModel.showAllMarkers(markerId);
                               viewModel.onCameraMove(position);
                             },
                             onCameraIdle: () async {
@@ -57,8 +57,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                                 viewModel.initialCameraPosition!,
                             onMapCreated: (controller) {
                               viewModel.controllermap = controller;
-
-                              viewModel.showAllMarkers(markerId);
                             },
                             markers: viewModel.allMarkers.values.toSet(),
                           ),
@@ -82,8 +80,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap:
-                          viewModel.showPindropDialogueBox,
+                        onTap: viewModel.showPindropDialogueBox,
                         child: SvgPicture.asset(
                           'assets/images/icons/icon_add.svg',
                           width: 40,
@@ -132,7 +129,9 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
 
   @override
   void onViewModelReady(PinDropMapViewModel viewModel) {
-    viewModel.onViewModelReady();
+    String markerId = const Uuid().v4();
+
+    viewModel.onViewModelReady(markerId);
     super.onViewModelReady(viewModel);
   }
 

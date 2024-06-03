@@ -93,7 +93,6 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
               IconButton(
                 icon: const Icon(FlutterRemix.attachment_2),
                 onPressed: () {
-
                   viewModel.isBusy
                       ? EasyLoading()
                       : viewModel.getFile(user.uid!, conversationId);

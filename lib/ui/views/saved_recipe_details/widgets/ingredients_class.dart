@@ -1,6 +1,6 @@
-import 'dart:developer';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
@@ -81,6 +81,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     var updatedIngredients = viewModel.getUpdatedIngredients();
     var allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
+    log(recipeModel.ingredients.first.id!);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

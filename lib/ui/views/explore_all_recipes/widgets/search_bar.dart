@@ -77,7 +77,12 @@ class SearchBarAllRecipesScreen
           horizontalSpaceSmall,
           IconButton(
             onPressed: viewModel.toFilterView,
-            icon: SvgPicture.asset('assets/images/misc/equilizer.svg',color: filterIconColor,width: 30.dg,height: 30.dg,),
+            icon: SvgPicture.asset(
+              'assets/images/misc/equilizer.svg',
+              color: filterIconColor,
+              width: 30.dg,
+              height: 30.dg,
+            ),
             color: kcPrimaryColor,
             iconSize: 30.dg,
           ),

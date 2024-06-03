@@ -19,21 +19,23 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               shape: BoxShape.circle,
             ),
             child: userDetails!.displayPicture!.isEmpty
-                  ? const Image(image: AssetImage('assets/images/misc/blank_image.png')):
-             ClipRRect(
-               borderRadius: BorderRadius.circular(90),
-               child: CachedNetworkImage(
-                imageUrl: userDetails!.displayPicture!,
-                height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
-                fit: BoxFit.cover,
-                width: double.maxFinite,
-                progressIndicatorBuilder: (context, url, progress) => Container(
-                  decoration: const BoxDecoration(
-                    color: kcsgreycolor,
+                ? const Image(
+                    image: AssetImage('assets/images/misc/blank_image.png'))
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(90),
+                    child: CachedNetworkImage(
+                      imageUrl: userDetails!.displayPicture!,
+                      height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                      fit: BoxFit.cover,
+                      width: double.maxFinite,
+                      progressIndicatorBuilder: (context, url, progress) =>
+                          Container(
+                        decoration: const BoxDecoration(
+                          color: kcsgreycolor,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                           ),
-             ),
           ),
           horizontalSpaceMedium,
           GestureDetector(
@@ -42,7 +44,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                 userDetails!.recipes!.length.toString(),
+                  viewModel.myRecipes.length.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,

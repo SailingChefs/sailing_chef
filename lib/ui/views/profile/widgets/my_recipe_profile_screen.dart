@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -17,7 +18,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   verticalSpaceLarge,
+                  verticalSpaceLarge,
                   Text(
                     'Create your first recipe today',
                     style: globalTextStyle(
@@ -60,7 +61,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, viewModel.myRecipes[index]),
                           foodImagePath: viewModel.myRecipes[index].coverImage
-                              .where((element) => element.contains('.jpg'))
+                              .where((element) => element.isFirebaseImageUrl)
                               .first,
                           dishName: viewModel.myRecipes[index].title,
                           duration: viewModel.myRecipes[index].prepTime,

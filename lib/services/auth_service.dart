@@ -51,10 +51,10 @@ class AuthService {
   Future<void> signOut() async {
     EasyLoading.show();
     try {
-
       await firebaseAuth.signOut();
-      
+
       userDetails = null;
+      savedRecipesGlobal = [];
 
       EasyLoading.dismiss();
       showToast(message: 'Signed out successfully');
@@ -102,6 +102,3 @@ class AuthService {
     }
   }
 }
-
-
-

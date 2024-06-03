@@ -11,7 +11,6 @@ class BottomDetailsOnboardingScreen
   @override
   Widget build(BuildContext context, OnboardingViewModel viewModel) {
     return Column(
-
       children: [
         SmoothPageIndicator(
           controller: viewModel.pageController,
@@ -43,7 +42,7 @@ class BottomDetailsOnboardingScreen
                   fontWeight: FontWeight.w400,
                 ),
                 Container(
-                  height: 0.3,
+                  height: 1.0,
                   padding: const EdgeInsets.all(0),
                   width: _getTextWidth('sign up', const TextStyle()),
                   color: kcsgreylinecolor,

@@ -15,6 +15,7 @@ import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
 import '../ui/bottom_sheets/notice/notice_sheet.dart';
 import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
+import '../ui/bottom_sheets/social_icons/social_icons_sheet.dart';
 import '../ui/bottom_sheets/tags/tags_sheet.dart';
 
 enum BottomSheetType {
@@ -27,6 +28,7 @@ enum BottomSheetType {
   courses,
   tags,
   discard,
+  socialIcons,
 }
 
 void setupBottomSheetUi() {
@@ -51,6 +53,8 @@ void setupBottomSheetUi() {
         TagsSheet(request: request, completer: completer),
     BottomSheetType.discard: (context, request, completer) =>
         DiscardSheet(request: request, completer: completer),
+    BottomSheetType.socialIcons: (context, request, completer) =>
+        SocialIconsSheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

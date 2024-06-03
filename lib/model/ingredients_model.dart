@@ -1,15 +1,24 @@
+import 'package:uuid/uuid.dart';
+
 class Ingredient {
   String name;
+  String? id;
   String quantity;
   String unit;
-  int? totalQuantity;
 
-  Ingredient({required this.name, required this.quantity, required this.unit});
+  Ingredient({
+    required this.name,
+    required this.quantity,
+    required this.unit,
+    this.id,
+  });
 
   Map<String, dynamic> toMap() {
+    const Uuid uuid = Uuid();
     return {
-      'name': name,
-      'quantity': quantity,
+      'name': name.trim(),
+      'id': uuid.v4(),
+      'quantity': quantity.trim(),
       'unit': unit,
     };
   }
@@ -18,6 +27,7 @@ class Ingredient {
     return Ingredient(
       name: map['name'] ?? '',
       quantity: map['quantity'] ?? '',
+      id: map['id'],
       unit: map['unit'] ?? '',
     );
   }

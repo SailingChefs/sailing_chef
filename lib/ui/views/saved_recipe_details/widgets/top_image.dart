@@ -9,8 +9,10 @@ import '../saved_recipe_details_viewmodel.dart';
 class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<String> image;
   final RecipeModel reciepmodel;
+  final bool isFromPrivateProfile;
   const TopBarDetailsScreen({
     required this.image,
+    required this.isFromPrivateProfile,
     required this.reciepmodel,
     super.key,
   });
@@ -48,7 +50,7 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               }),
         ),
         Positioned(
-          bottom: 50,
+          bottom: 30,
           left: MediaQuery.of(context).size.width * 0.42,
           child: SmoothPageIndicator(
             controller: viewModel.pageController,
@@ -65,35 +67,36 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             ),
           ),
         ),
-          Positioned(
-                  top: 40,
-                  left: 10,
-                  child: GestureDetector(
-                    onTap: () => viewModel.moveBack(),
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 8.0.dg),
-                      height: 36.h,
-                      width: 36.w,
-                      decoration: const BoxDecoration(
-                        color: kcVeryLightGrey,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: kcBlackColor,
-                        size: 18.sp,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                    top: 40,
-                    right: 10,
-                    child: SaveShare(
-                      recipe:    reciepmodel,
-
-                    ),),
+        Positioned(
+          top: 40,
+          left: 10,
+          child: GestureDetector(
+            onTap: () => viewModel.moveBack(),
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 8.0.dg),
+              height: 36.h,
+              width: 36.w,
+              decoration: const BoxDecoration(
+                color: kcVeryLightGrey,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: kcBlackColor,
+                size: 18.sp,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 40,
+          right: 10,
+          child: SaveShare(
+            isFromPrivateProfile: isFromPrivateProfile,
+            recipe: reciepmodel,
+          ),
+        ),
       ],
     );
   }

@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
@@ -16,7 +15,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
           RoundedTransparentTextField(
             controller: viewModel.textController,
             labelText: 'name',
-                 onChanged:(value) => viewModel.rebuildUi(),
+            onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateName,
             fillColor: filledcolorlogin.withOpacity(0.3),
             keyboardType: TextInputType.name,
@@ -26,7 +25,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             controller: viewModel.emailController,
             fillColor: filledcolorlogin.withOpacity(0.3),
             labelText: 'email',
-                 onChanged:(value) => viewModel.rebuildUi(),
+            onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateEmail,
             keyboardType: TextInputType.emailAddress,
           ),
@@ -40,8 +39,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             obscureText: !viewModel.showPassword,
             suffixIconbool: true,
             isPasswordVisible: viewModel.showPassword,
-            onChanged:(value) => viewModel.rebuildUi(),
-            
+            onChanged: (value) => viewModel.rebuildUi(),
             onVisibilityToggle: () {
               viewModel.passwordVisibility();
               viewModel.showPassword;
@@ -56,9 +54,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             borderRadius: 30,
             textColor: kclightgreencolor,
             isEnabled: viewModel.isSignupButtonEnabled(),
-            onPressed: 
-              viewModel.signup,
-            
+            onPressed: viewModel.signup,
             buttonText: 'create account',
           ),
         ],

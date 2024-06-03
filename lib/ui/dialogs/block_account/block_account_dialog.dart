@@ -18,7 +18,6 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
     BlockAccountDialogModel viewModel,
     Widget? child,
   ) {
-    
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),

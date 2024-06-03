@@ -9,10 +9,11 @@ import 'widgets/top_image.dart';
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> randomRecipeList;
-
+  final bool isFromPrivateProfile;
   const SavedRecipeDetailsView({
     Key? key,
     required this.recipeModel,
+    required this.isFromPrivateProfile,
     required this.randomRecipeList,
   }) : super(key: key);
 
@@ -35,37 +36,15 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
               child: Column(
                 children: [
                   TopBarDetailsScreen(
+                    isFromPrivateProfile: isFromPrivateProfile,
                     image: recipeModel.coverImage,
                     reciepmodel: recipeModel,
                   ),
                   MainRecipeViewContainer(
+                    isFromPrivateProfile: isFromPrivateProfile,
                     recipeModel: recipeModel,
                     recipeList: randomRecipeList,
                   ),
-                  // Positioned(
-                  //   top: MediaQuery.of(context).size.height * 0.4,
-                  //   right: 30,
-                  //   child: Container(
-                  //     height: 60.h,
-                  //     width: 60.w,
-                  //     decoration: BoxDecoration(
-                  //       color: kcVeryLightGrey,
-                  //       border: Border.all(
-                  //         color: kcWhiteColor,
-                  //         width: 3.0,
-                  //       ),
-                  //       shape: BoxShape.circle,
-                  //       image: DecorationImage(
-                  //         image:  recipeModel.user!.displayPicture == null
-                  //             ? const AssetImage(
-                  //                 'assets/images/misc/blank_image.png')
-                  //             : NetworkImage(recipeModel.user!.displayPicture!)
-                  //                 as ImageProvider,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

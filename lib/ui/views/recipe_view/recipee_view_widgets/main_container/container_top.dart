@@ -34,11 +34,11 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
             itemBuilder: (context, index) {
               var media = viewModel.selectedImages[index];
               if (media is String) {
-                if (media.contains('.mp4')) {
+                if (media.isFirebaseVideoUrl) {
                   return CustomVideoPlayer.network(
                     url: media,
                   );
-                } else if (media.contains('.jpg')) {
+                } else if (media.isFirebaseImageUrl) {
                   return Image.network(
                     media,
                     fit: BoxFit.cover,
@@ -64,7 +64,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
           ),
         ),
         Positioned(
-          bottom: 50,
+          bottom: 30,
           left: MediaQuery.of(context).size.width * 0.42,
           child: SmoothPageIndicator(
             controller: viewModel.pageController,
@@ -78,6 +78,28 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
               strokeWidth: 1.5,
               dotColor: kcWhiteColor.withOpacity(0.5),
               activeDotColor: kcWhiteColor,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 40,
+          left: 10,
+          child: GestureDetector(
+            onTap: () => viewModel.moveBack(),
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 8.0.dg),
+              height: 36.h,
+              width: 36.w,
+              decoration: const BoxDecoration(
+                color: kcVeryLightGrey,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: kcBlackColor,
+                size: 18.sp,
+              ),
             ),
           ),
         ),

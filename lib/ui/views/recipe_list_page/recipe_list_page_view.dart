@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter_svg/svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -11,7 +12,8 @@ import 'recipe_list_page_viewmodel.dart';
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
   final bool isFromDraft;
   const RecipeListPageView({
-    Key? key, required this.isFromDraft,
+    Key? key,
+    required this.isFromDraft,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
     Widget? child,
   ) {
     return PopScope(
-      canPop: true,
+      canPop: false,
       onPopInvoked: viewModel.onPopInvoked,
       child: Scaffold(
           backgroundColor: kcwhitecolor,
@@ -56,7 +58,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 10),
                       child:
-      
+
                           // boxShadow: [
                           //   BoxShadow(
                           //     color: kclightgreycolor.withOpacity(0.3),
@@ -64,7 +66,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                           //     blurRadius: 7,
                           //   )
                           // ]
-      
+
                           Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,7 +81,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                     image: NetworkImage(
                                       recipe.coverImage
                                           .where((element) =>
-                                              element.contains('.jpg'))
+                                              element.isFirebaseImageUrl)
                                           .first,
                                     ),
                                     fit: BoxFit.cover,
@@ -92,7 +94,8 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                 child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.black54.withOpacity(0.5),
-                                      borderRadius: BorderRadius.circular(30.0.r),
+                                      borderRadius:
+                                          BorderRadius.circular(30.0.r),
                                     ),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 15.0.w, vertical: 8.h),
@@ -121,7 +124,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                           // const SizedBox(width: 16.0),
                           verticalSpaceSmall,
                           SizedBox(
-                            width:screenWidth(context)* 0.8.w,
+                            width: screenWidth(context) * 0.8.w,
                             // height: recipe.title.length > 20 ? 40.h : 50.h,
                             child: Text(
                               capitalizeEachWord(recipe.title),
@@ -137,9 +140,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                           ),
                           // const SizedBox(height: 4.0),
                           Row(
-      
                             children: [
-      
                               Container(
                                 height: 35.h,
                                 width: 35.w,
@@ -163,11 +164,11 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                               Text(
                                 userDetails!.displayName!,
                                 style: globalTextStyle(
-                                letterSpacing: -0.5,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w300,
-                                color: kcBlackColor.withOpacity(0.3),
-                              ),
+                                  letterSpacing: -0.5,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w300,
+                                  color: kcBlackColor.withOpacity(0.3),
+                                ),
                               ),
                             ],
                           ),

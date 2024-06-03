@@ -161,7 +161,11 @@ class FollowService with ListenableServiceMixin {
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
       userDetails!.following!.removeWhere((element) => element == user.uid);
-
+      if (user.userRole == 'chef') {
+        user.followers!.remove(userDetails!.uid!);
+      } else if (user.userRole == 'culinary') {
+        user.followers!.remove(userDetails!.uid!);
+      }
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

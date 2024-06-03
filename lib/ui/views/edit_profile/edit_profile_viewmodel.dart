@@ -31,91 +31,81 @@ class EditProfileViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
 
-
-    nameController.text = userDetails!.displayName == null ? '' : userDetails!.displayName!;
-    emailController.text = userDetails!.email == null ? '' : userDetails!.email!;
+    nameController.text =
+        userDetails!.displayName == null ? '' : userDetails!.displayName!;
+    emailController.text =
+        userDetails!.email == null ? '' : userDetails!.email!;
     linkController.text = userDetails!.link == null ? '' : userDetails!.link!;
     bioController.text = userDetails!.bio == null ? '' : userDetails!.bio!;
-    location.text = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
-    address = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
-    
-    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    location.text =
+        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    address =
+        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+
+    boatController.text =
+        userDetails!.boatName == null ? '' : userDetails!.boatName!;
     log(boatController.text);
 
     setBusy(false);
   }
 
- void setCountryValue(String value) {
+  void setCountryValue(String value) {
     countryValue = value;
 
     //
     rebuildUi();
-   
   }
 
   void setStateValue(String? value) {
-     
     if (value == 'state*') {
       stateValue = '';
-    cityValue = '';
-      
-   
-      rebuildUi();
-    
-    }
-    else if( value == 'null'){
-
-      stateValue = '';  
+      cityValue = '';
 
       rebuildUi();
-    }
-    else if(value == null){
-
+    } else if (value == 'null') {
       stateValue = '';
 
       rebuildUi();
-    }
-    else{
+    } else if (value == null) {
+      stateValue = '';
+
+      rebuildUi();
+    } else {
       stateValue = value;
       cityValue = '';
       rebuildUi();
     }
-    
 
     rebuildUi();
   }
 
   void setCityValue(String? value) {
-   
     if (value == 'city*') {
       cityValue = '';
-      rebuildUi(); 
-    }
-    else if( value == 'null'){
+      rebuildUi();
+    } else if (value == 'null') {
       cityValue = '';
       rebuildUi();
-    }
-    else if(value == null){
+    } else if (value == null) {
       cityValue = '';
       rebuildUi();
-    }
-    else{
+    } else {
       cityValue = value;
       rebuildUi();
     }
-    if(countryValue != '' && stateValue == '' && cityValue == ''){
-        address = countryValue;
-      }
-      if(countryValue != '' && stateValue != '' && cityValue == ''){
-        address = '$stateValue,$countryValue';
-      }
-      if(cityValue != '' && stateValue != '' && countryValue != ''){
-        address = '$cityValue,$stateValue,$countryValue';
-      }
-
+    if (countryValue != '' && stateValue == '' && cityValue == '') {
+      address = countryValue;
+    }
+    if (countryValue != '' && stateValue != '' && cityValue == '') {
+      address = '$stateValue,$countryValue';
+    }
+    if (cityValue != '' && stateValue != '' && countryValue != '') {
+      address = '$cityValue,$stateValue,$countryValue';
+    }
 
     rebuildUi();
   }
+
   getBack() {
     _navigationService.back();
   }
@@ -167,7 +157,7 @@ class EditProfileViewModel extends BaseViewModel {
       await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
-        _navigationService.navigateToBottomNavBarView();
+      _navigationService.navigateToBottomNavBarView();
       notifyListeners();
     } else {
       Map<String, dynamic> userData = {
@@ -176,17 +166,16 @@ class EditProfileViewModel extends BaseViewModel {
         'bio': bioController.text,
         'address': address,
       };
-     await userDataService.storeUserDetails(
+      await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
-            userDetails = await _userService.getUserDetails();
-            _navigationService.navigateToBottomNavBarView();
+      userDetails = await _userService.getUserDetails();
+      _navigationService.navigateToBottomNavBarView();
     }
   }
 
   void saveEditDetailsChef() async {
-
     // address = '$cityValue,$stateValue,$countryValue';
-   
+
     log('Iam here');
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
@@ -203,12 +192,11 @@ class EditProfileViewModel extends BaseViewModel {
         'boat_name': boatController.text,
         'address': address,
       };
-     await userDataService.storeUserDetails(
+      await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
-        _navigationService.navigateToBottomNavBarView();
-    } 
-    else {
+      _navigationService.navigateToBottomNavBarView();
+    } else {
       Map<String, dynamic> userData = {
         'display_name': nameController.text,
         'link': linkController.text,
@@ -218,8 +206,8 @@ class EditProfileViewModel extends BaseViewModel {
       };
       await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
-           userDetails = await _userService.getUserDetails();
-            _navigationService.navigateToBottomNavBarView();
+      userDetails = await _userService.getUserDetails();
+      _navigationService.navigateToBottomNavBarView();
     }
   }
 
@@ -237,10 +225,10 @@ class EditProfileViewModel extends BaseViewModel {
           'display_name': name,
           'bio': bio,
         };
-       await userDataService.storeUserDetails(
+        await userDataService.storeUserDetails(
             userData, FirebaseAuth.instance.currentUser!.uid);
-         userDetails = await _userService.getUserDetails();
-            _navigationService.navigateToBottomNavBarView();
+        userDetails = await _userService.getUserDetails();
+        _navigationService.navigateToBottomNavBarView();
         notifyListeners();
       }
     } else {
@@ -248,9 +236,9 @@ class EditProfileViewModel extends BaseViewModel {
         'display_name': name,
         'bio': bio,
       };
-     await userDataService.storeUserDetails(
+      await userDataService.storeUserDetails(
           userData, FirebaseAuth.instance.currentUser!.uid);
-            _navigationService.navigateToBottomNavBarView();
+      _navigationService.navigateToBottomNavBarView();
     }
   }
 

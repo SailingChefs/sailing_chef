@@ -1,6 +1,5 @@
 // ignore_for_file: unrelated_type_equality_checks, deprecated_member_use
 
-
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -11,17 +10,16 @@ import '../../../../core/helpers/capitalize_first_fucntion.dart';
 class ProfileDescriptionChefProfileScreen
     extends ViewModelWidget<ChefProfileViewModel> {
   const ProfileDescriptionChefProfileScreen(this.user, {super.key});
-    final UserModel user;
-
+  final UserModel user;
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0,right: 10),
+      padding: const EdgeInsets.only(left: 16.0, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           user.displayName!.isEmpty
+          user.displayName!.isEmpty
               ? const SizedBox()
               : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   verticalSpaceSmall,
@@ -54,7 +52,7 @@ class ProfileDescriptionChefProfileScreen
               ? const SizedBox()
               : Column(
                   children: [
-                   verticalSpaceTiny,
+                    verticalSpaceTiny,
                     Text(
                       user.bio!,
                       style: globalTextStyle(
@@ -62,7 +60,7 @@ class ProfileDescriptionChefProfileScreen
                         fontWeight: FontWeight.w400,
                         color: kcBlackColor,
                       ),
-                       textAlign: TextAlign.justify,
+                      textAlign: TextAlign.justify,
                     ),
                   ],
                 ),
@@ -71,8 +69,13 @@ class ProfileDescriptionChefProfileScreen
               ? const SizedBox()
               : Row(
                   children: [
-                   SvgPicture.asset('assets/images/icons/link.svg',width: 16,height: 16,color: kcBlackColor.withOpacity(0.6),),
-                        horizontalSpaceSmall,
+                    SvgPicture.asset(
+                      'assets/images/icons/link.svg',
+                      width: 16,
+                      height: 16,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                    horizontalSpaceSmall,
                     GestureDetector(
                       onTap: () {
                         viewModel.onClickUrl(user.link!);
@@ -82,7 +85,6 @@ class ProfileDescriptionChefProfileScreen
                         style: globalTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          
                           color: filterIconColor,
                         ),
                       ),

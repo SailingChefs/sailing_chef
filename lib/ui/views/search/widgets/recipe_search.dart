@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
@@ -36,21 +37,20 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                 .searchRecipes(recipes)
                                 .elementAt(index);
                             return PrimaryGridTile(
-
-                               rating: recipe.rating! ,
-                               chefId: recipe.user!.uid!,
+                                rating: recipe.rating!,
+                                chefId: recipe.user!.uid!,
                                 recipe: recipe,
                                 onTap: () =>
                                     viewModel.toDishDetailsScreen(recipe),
                                 foodImagePath: recipe.coverImage
                                     .where(
-                                        (element) => element.contains('.jpg'))
+                                        (element) => element.isFirebaseImageUrl)
                                     .first,
                                 dishName: recipe.title,
                                 duration: recipe.prepTime,
                                 chefImagePath: recipe.user!.displayPicture!);
                           },
-                          childCount: viewModel.searchRecipes(recipes).length ,
+                          childCount: viewModel.searchRecipes(recipes).length,
                         ),
                       ),
                     ],
@@ -94,9 +94,8 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
-
-                                  chefId: recipes[index].uid,
-                                   rating: recipes[index].rating!,
+                                    chefId: recipes[index].uid,
+                                    rating: recipes[index].rating!,
                                     recipe: recipes[index],
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),
@@ -109,10 +108,9 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                     duration: recipes[index].prepTime,
                                     chefImagePath:
                                         recipes[index].user!.displayPicture!);
-
                               },
-                              childCount: recipes.length > 4 ? 4 : recipes.length,
-
+                              childCount:
+                                  recipes.length > 4 ? 4 : recipes.length,
                             ),
                           ),
                         ],
@@ -122,11 +120,9 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                   verticalSpace(90),
                   ExploreAllButtonSearch(
                     text: 'Discover more Recipes',
-
-                    onTap:() => viewModel.toAllDishesScreen(recipes),
+                    onTap: () => viewModel.toAllDishesScreen(recipes),
                   ),
-                   verticalSpace(30),
-
+                  verticalSpace(30),
                 ],
               );
   }

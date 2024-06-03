@@ -13,10 +13,8 @@ class PrimaryColorRoundedElevatedButton extends StatelessWidget {
       onPressed: onPressed,
       buttonText: buttonText,
       isEnabled: true,
-
       buttonColor: kcPrimaryColorDark,
       width: 100.w,
-
       textColor: kcWhiteColor,
     );
   }

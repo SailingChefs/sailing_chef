@@ -24,15 +24,13 @@ class UserDetailsViewModel extends BaseViewModel {
 
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
-   String countryValue = "";
+  String countryValue = "";
   String stateValue = "";
   String cityValue = "";
-  String? address ;
- 
+  String? address;
+
   File? selectedImageFile;
   String? selectedImagePath;
-
-  
 
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -48,76 +46,60 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
- 
-  // 
- void setCountryValue(String value) {
+  //
+  void setCountryValue(String value) {
     countryValue = value;
 
     //
     rebuildUi();
-   
   }
 
   void setStateValue(String? value) {
-     
     if (value == 'state*') {
       stateValue = '';
-    cityValue = '';
-      
-   
-      rebuildUi();
-    
-    }
-    else if( value == 'null'){
-
-      stateValue = '';  
+      cityValue = '';
 
       rebuildUi();
-    }
-    else if(value == null){
-
+    } else if (value == 'null') {
       stateValue = '';
 
       rebuildUi();
-    }
-    else{
+    } else if (value == null) {
+      stateValue = '';
+
+      rebuildUi();
+    } else {
       stateValue = value;
       cityValue = '';
       rebuildUi();
     }
-    
 
     rebuildUi();
   }
 
   void setCityValue(String? value) {
-   
     if (value == 'city*') {
       cityValue = '';
-      rebuildUi(); 
-    }
-    else if( value == 'null'){
+      rebuildUi();
+    } else if (value == 'null') {
       cityValue = '';
       rebuildUi();
-    }
-    else if(value == null){
+    } else if (value == null) {
       cityValue = '';
       rebuildUi();
-    }
-    else{
+    } else {
       cityValue = value;
       rebuildUi();
     }
-    if(countryValue != '' && stateValue == '' && cityValue == ''){
-        address = countryValue;
-      }
-      if(countryValue != '' && stateValue != '' && cityValue == ''){
-        address = '$stateValue,$countryValue';
-      }
-      if(cityValue != '' && stateValue != '' && countryValue != ''){
-        address = '$cityValue,$stateValue,$countryValue';
-      }
-
+    if (countryValue != '' && stateValue == '' && cityValue == '') {
+      address = countryValue;
+    }
+    if (countryValue != '' && stateValue != '' && cityValue == '') {
+      address = '$stateValue,$countryValue';
+    }
+    if (cityValue != '' && stateValue != '' && countryValue != '') {
+      address = '$cityValue,$stateValue,$countryValue';
+    }
 
     rebuildUi();
   }
@@ -161,8 +143,6 @@ class UserDetailsViewModel extends BaseViewModel {
     return null;
   }
 
-  
-
   void saveUserDetails() async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
@@ -174,20 +154,16 @@ class UserDetailsViewModel extends BaseViewModel {
         //   showToast(message: 'Please select your location to proceed');
         //   return;
         // }
-        if( countryValue == ''){
-        showToast(message: 'Please select your location to proceed');
-        return;
+        if (countryValue == '') {
+          showToast(message: 'Please select your location to proceed');
+          return;
+        }
       }
-      }
-
 
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
-      
-    
-      
 
       bool userDetailsStatus = await _userService.storeUserDetails(
         {
@@ -195,8 +171,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'bio': bioController.text,
           'link': linkController.text,
           'boat_name': boatNameController.text,
-          'address' : address,
-         
+          'address': address,
           'display_picture': imageLink,
         },
         FirebaseAuth.instance.currentUser!.uid,
@@ -205,14 +180,14 @@ class UserDetailsViewModel extends BaseViewModel {
       if (userDetailsStatus) {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
-           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-            locator.registerLazySingleton<BottomNavBarViewModel>(
-                () => BottomNavBarViewModel());
+          locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+          locator.registerLazySingleton<BottomNavBarViewModel>(
+              () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomBarGuestView();
         } else {
-           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-            locator.registerLazySingleton<BottomNavBarViewModel>(
-                () => BottomNavBarViewModel());
+          locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+          locator.registerLazySingleton<BottomNavBarViewModel>(
+              () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -222,30 +197,23 @@ class UserDetailsViewModel extends BaseViewModel {
       showToast(message: 'Please fill all the fields');
     }
   }
-   void saveguestDetails() async {
+
+  void saveguestDetails() async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
         showToast(message: 'Please select image to proceed');
         return;
       }
-     
-      
-
 
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
-      
-
-      
 
       bool userDetailsStatus = await _userService.storeUserDetails(
         {
           'display_name': nameController.text,
           'bio': bioController.text,
-          
-         
           'display_picture': imageLink,
         },
         FirebaseAuth.instance.currentUser!.uid,
@@ -285,9 +253,9 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   void skipToHome() {
-    if(userDetails!.userRole == 'guest'){
+    if (userDetails!.userRole == 'guest') {
       _navigationService.replaceWithBottomBarGuestView();
-    }else{
+    } else {
       _navigationService.replaceWithBottomNavBarView();
     }
   }
@@ -299,8 +267,4 @@ class UserDetailsViewModel extends BaseViewModel {
   movetoDropPin() {
     _navigationService.navigateToPinDropMapView();
   }
-
- 
-
-
 }

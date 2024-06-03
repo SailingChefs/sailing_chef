@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_form.dart';
 
 import 'add_recipe_viewmodel.dart';
@@ -21,7 +21,10 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
     List<Ingredient>? ingredientsList;
     return SizedBox(
       child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+            ))
           : Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).colorScheme.background,
@@ -30,11 +33,11 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                 title: Text(
                   'Create Recipe',
                   style: globalTextStyle(
-                      fontSize: 16.0.dg,
-                      color: kcBlackColor,
-                      letterSpacing: -0.3,
-                      fontWeight: FontWeight.w500,
-                      ),
+                    fontSize: 16.0.dg,
+                    color: kcBlackColor,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 centerTitle: true,
                 actions: [

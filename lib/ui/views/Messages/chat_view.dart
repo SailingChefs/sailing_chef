@@ -1,6 +1,3 @@
-
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
@@ -9,6 +6,7 @@ import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import '../../../core/helpers/capitalize_first_fucntion.dart';
 import 'chat_viewmodel.dart';
+
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
   final UserModel receiver;
@@ -19,37 +17,36 @@ class ChatView extends StackedView<ChatViewModel> {
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
     return ViewModelBuilder<ChatViewModel>.reactive(
-      viewModelBuilder: () => ChatViewModel(convoId: conversationId),
-      onViewModelReady: (viewModel) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          
+        viewModelBuilder: () => ChatViewModel(convoId: conversationId),
+        onViewModelReady: (viewModel) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {});
+        },
+        builder: (context, viewModel, child) {
+          return SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                resizeToAvoidBottomInset: true,
+                backgroundColor: kcwhitecolor,
+                appBar: _CollapsedAppBar(
+                  viewModel,
+                  conversationId,
+                  receiver,
+                ),
+                body: Stack(
+                  children: [
+                    _MessageListAndAppBar(viewModel, receiver, conversationId),
+                  ],
+                ),
+                bottomSheet: InputFieldChatScreen(
+                  user: receiver,
+                  conversationId: conversationId,
+                ),
+              ),
+            ),
+          );
         });
-      },
-      builder: (context, viewModel, child) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          backgroundColor: kcwhitecolor,
-          appBar: _CollapsedAppBar(viewModel,  conversationId,receiver,),
-        
-          body: Stack(
-            children: [
-              _MessageListAndAppBar(viewModel, receiver, conversationId),
-            ],
-          ),
-          bottomSheet: InputFieldChatScreen(
-            user: receiver,
-            conversationId: conversationId,
-          ),
-        ),
-      ),
-    );
   }
-    );
-  }
-
 
   @override
   ChatViewModel viewModelBuilder(BuildContext context) =>
@@ -81,7 +78,7 @@ class _MessageListAndAppBar extends StatelessWidget {
               child: Column(
                 children: [
                   verticalSpaceMedium,
-                   _ExpandedAppBar(viewModel, receiver, conversationId) ,
+                  _ExpandedAppBar(viewModel, receiver, conversationId),
                   for (int index = 0;
                       index < viewModel.messages.length + 1;
                       index++)
@@ -181,7 +178,6 @@ class _MessageListAndAppBar extends StatelessWidget {
       ],
     );
   }
-  
 }
 
 class _ExpandedAppBar extends StatelessWidget {
@@ -231,7 +227,7 @@ class _ExpandedAppBar extends StatelessWidget {
           verticalSpaceTiny,
           Center(
             child: Text(
-             capitalizeEachWord( receiver.displayName ?? 'Chef Name'),
+              capitalizeEachWord(receiver.displayName ?? 'Chef Name'),
               style: globalTextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -245,10 +241,7 @@ class _ExpandedAppBar extends StatelessWidget {
   }
 }
 
-
 class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
-   
-
   final ChatViewModel viewModel;
 
   const _CollapsedAppBar(this.viewModel, this.conversationId, this.receiver);
@@ -256,19 +249,19 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final UserModel receiver;
   @override
   Widget build(BuildContext context) {
-   
     return Container(
       height: kToolbarHeight,
       color: kcwhitecolor,
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           BackArrowWidget(onTap: () {
             viewModel.getBack();
           }),
           Text(
-          capitalizeEachWord(  receiver.displayName ?? 'Chef Name'),
+            capitalizeEachWord(receiver.displayName ?? 'Chef Name'),
             style: globalTextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -290,8 +283,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-  
+
   @override
-  
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

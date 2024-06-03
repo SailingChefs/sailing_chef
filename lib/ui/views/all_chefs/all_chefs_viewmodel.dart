@@ -9,8 +9,6 @@ class AllChefsViewModel extends BaseViewModel {
   TextEditingController searchController = TextEditingController();
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
-   
-
     for (var user in chefs) {
       if (user.displayName!
           .toLowerCase()

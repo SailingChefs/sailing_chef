@@ -28,7 +28,9 @@ class FollowBtuton extends StatelessWidget {
         height: 40.h,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: buttonText == 'Following' ? kcPrimaryColorDark.withOpacity(0.5) : kcPrimaryColorDark,
+            backgroundColor: buttonText == 'Following'
+                ? kcPrimaryColorDark.withOpacity(0.5)
+                : kcPrimaryColorDark,
           ),
           onPressed: onPressed,
           child: Row(

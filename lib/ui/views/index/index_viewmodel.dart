@@ -24,15 +24,20 @@ class IndexViewModel extends BaseViewModel {
   bool isMySelected = true;
   bool isSavedSelected = false;
   String selectedTab = 'Yacht Chefs';
-  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   @override
   // ignore: override_on_non_overriding_member
-  List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService];
+  List<ListenableServiceMixin> get listenableServices => [
+        _savedRecipeService,
+        _recipeService,
+        _cullinaryService,
+        _chefService,
+        _savedRecipeService
+      ];
 
   get toViewCullinarySchool => null;
-  bool ? isInitialised ;
-     bool  showShimmer =false;
+  bool? isInitialised;
+  bool showShimmer = false;
 
   void goToFilterView() {
     _navigationService.navigateTo(Routes.filterView);
@@ -40,26 +45,16 @@ class IndexViewModel extends BaseViewModel {
 
   static List<RecipeModel> getRandomDishes(
       RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
-    // Create a copy of allRecipes
     List<RecipeModel> dishes = List.from(allRecipes);
-    // Remove the current recipe from the list
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
 
-    // Shuffle the list
     dishes.shuffle();
     log(dishes.length.toString());
 
-    // Take the first 5 elements if there are more than 5 dishes, otherwise return all dishes
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-
-
-
   void onViewModelReady() async {
-
-
-    
     if (isInitialised == null) {
       // setBusy(true);
       showShimmer = true;
@@ -69,7 +64,6 @@ class IndexViewModel extends BaseViewModel {
         _chefService.chefInit(),
         _recipeService.initialized(),
       ]);
-    
 
       showShimmer = false;
       isInitialised = true;
@@ -77,14 +71,11 @@ class IndexViewModel extends BaseViewModel {
       notifyListeners();
       rebuildUi();
 
-
       // setBusy(false);
     } else if (isInitialised == true) {
       return;
     }
-      matchAndAssignUsersToDishes();
-
-
+    matchAndAssignUsersToDishes();
   }
 
   void toAllChefsView() {
@@ -114,56 +105,24 @@ class IndexViewModel extends BaseViewModel {
     );
   }
 
-  // void setUserProfile() {
-  //   if (chefList.isEmpty) {
-  //     _chefService.chefInit();
-  //   } else {
-  //     for (var chef in chefList) {
-  //       // Iterate through each recipe associated with the chef
-  //       for (var chefRecipe in chef.recipes!) {
-  //         // Find the matching recipe in the recipesList by doc_id
-  //         var matchingRecipe = dishes.firstWhere(
-  //           (recipe) => recipe.docId == chefRecipe.toString(),
-  //         );
-
-  //         // If a matching recipe is found
-  //         if (matchingRecipe != null) {
-  //           // Assign the ChefModel to the user model of the matching recipe
-  //           if (matchingRecipe.user == null) {
-  //             matchingRecipe.user =
-  //                 chef; // Provide appropriate name for UserModel
-  //           } else {
-  //             matchingRecipe.user = chef;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
   void matchAndAssignUsersToDishes() {
-  // Combine both user lists into one for easier searching
-  List<UserModel> allUsers = [...chefList, ...cullinary];
+    List<UserModel> allUsers = [...chefList, ...cullinary];
 
-  for (int i = 0 ; i<dishes.length; i++) {
-
-    if (dishes[i].user == null) {
-      // Find the matching user in the allUsers list
-      UserModel? matchingUser = allUsers.firstWhere(
-        (user) => user.uid == dishes[i].uid,
-        orElse: () => UserModel(uid: ''),
-      );
-      if (matchingUser.uid != null) {
-        // Assign the matching user to the corresponding dish
-        dishes[i].user = matchingUser;
-        if(userDetails!.uid == dishes[i].uid){
-        dishes[i].user = userDetails!;
-      }
+    for (int i = 0; i < dishes.length; i++) {
+      if (dishes[i].user == null) {
+        UserModel? matchingUser = allUsers.firstWhere(
+          (user) => user.uid == dishes[i].uid,
+          orElse: () => UserModel(uid: ''),
+        );
+        if (matchingUser.uid != null) {
+          dishes[i].user = matchingUser;
+          if (userDetails!.uid == dishes[i].uid) {
+            dishes[i].user = userDetails!;
+          }
+        }
       }
     }
   }
-  }
-
-
 
   void toChefProfile(UserModel chef) {
     if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
@@ -175,19 +134,17 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-  void toDishDetailsScreen(index) {
-
-    _navigationService.navigateWithTransition(
-      SavedRecipeDetailsView(recipeModel:  dishes[index],
-        randomRecipeList: IndexViewModel.getRandomDishes( dishes[index], dishes)),
-     
+  void toDishDetailsScreen(RecipeModel recipe) async {
+    await _navigationService.navigateWithTransition(
+      SavedRecipeDetailsView(
+          isFromPrivateProfile: false,
+          recipeModel: recipe,
+          randomRecipeList: IndexViewModel.getRandomDishes(recipe, dishes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
-    
-     
-      
     );
+    notifyListeners();
   }
 
   void handleTab(int index) {
@@ -215,5 +172,9 @@ class IndexViewModel extends BaseViewModel {
       chefList: chefList,
       recipeModel: dishes,
     );
+  }
+
+  void goToSettings() {
+    _navigationService.navigateToSettingsView();
   }
 }

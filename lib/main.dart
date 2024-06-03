@@ -28,13 +28,13 @@ Future<void> main() async {
   EasyLoading.instance
     ..textStyle = globalTextStyle(fontSize: 12, color: Colors.white)
     ..loadingStyle = EasyLoadingStyle.custom
-    ..backgroundColor = kcDarkColor.withOpacity(0.5)
+    ..backgroundColor = kcPrimaryColor
     ..radius = 12
     ..indicatorSize = 30
     ..textColor = kcPrimaryColor
     ..textStyle = globalTextStyle(fontSize: 14)
-    ..indicatorColor = kcDarkColor
-    ..maskColor = kcDarkColor.withOpacity(0.5)
+    ..indicatorColor = kcwhitecolor
+    ..maskColor = kcBlackColor
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;

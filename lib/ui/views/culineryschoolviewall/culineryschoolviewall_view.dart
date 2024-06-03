@@ -16,15 +16,17 @@ class CulineryschoolviewallView
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor:kcWhiteColor,
+      backgroundColor: kcWhiteColor,
       appBar: AppBar(
         elevation: 0,
         title: Text(
           'Explore Culinary\nSchools',
           textAlign: TextAlign.center,
           style: globalTextStyle(
-            letterSpacing: -0.5,
-              fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
+              letterSpacing: -0.5,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: kcBlackColor),
         ),
         centerTitle: true,
         leading: Padding(

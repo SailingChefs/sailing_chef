@@ -45,17 +45,16 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                     itemBuilder: (context, index) {
                       final instruction = viewModel.methodsList[index];
                       return Padding(
-                        padding:  EdgeInsets.only(top: 5.0.h, bottom: 5.h),
+                        padding: EdgeInsets.only(top: 5.0.h, bottom: 5.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width:
-                                  MediaQuery.sizeOf(context).width * 0.78,
+                              width: MediaQuery.sizeOf(context).width * 0.78,
                               decoration: BoxDecoration(
                                 color: kcPrimaryColor.withOpacity(0.07),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(30)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(30)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),

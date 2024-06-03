@@ -19,44 +19,49 @@ class SignUpView extends StackedView<SignUpViewModel> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: Stack(children: [
-          Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/background/back_screen.png'),
-                    fit: BoxFit.fill)),
-          ),
-          Positioned.fill(
-            child: Container(
-              height: screenHeight(context),
-              width: screenWidth(context),
+        body: Stack(
+          children: [
+            Container(
               decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/background/back_screen.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/background/back.png'),
-                      fit: BoxFit.fill)),
-              child: Padding(
-                padding:
-                    EdgeInsets.only(top: 35.0.dg, left: 20.dg, right: 20.dg),
-                child: Column(children: [
-                  const SignUpTopBar(),
-                  verticalSpace(MediaQuery.of(context).size.height * 0.05),
-                  SingleChildScrollView(
+                    image: AssetImage('assets/images/background/back.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 35.0.dg, left: 20.dg, right: 20.dg),
                     child: Column(
                       children: [
+                        const SignUpTopBar(),
+                        verticalSpace(
+                            MediaQuery.of(context).size.height * 0.05),
                         Text(
-                          'Lets create your account',
+                          'Let\'s create your account',
                           style: globalTextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w600),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.010),
                         Text(
                           'sign up as',
                           style: globalTextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.w400),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                         verticalSpace(
                             MediaQuery.of(context).size.height * 0.028),
@@ -67,18 +72,15 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       ],
                     ),
                   ),
-                ]),
+                ),
               ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
 
   @override
-  SignUpViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      SignUpViewModel();
+  SignUpViewModel viewModelBuilder(BuildContext context) => SignUpViewModel();
 }

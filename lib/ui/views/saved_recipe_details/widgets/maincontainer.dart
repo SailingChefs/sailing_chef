@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -10,15 +9,18 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
-import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> recipeList;
+  final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {Key? key, required this.recipeModel, required this.recipeList})
+      {Key? key,
+      required this.recipeModel,
+      required this.isFromPrivateProfile,
+      required this.recipeList})
       : super(key: key);
 
   @override
@@ -56,24 +58,16 @@ class MainRecipeViewContainer
                   ],
                 ),
           const ChefNotesRecipeDetails(),
-          verticalSpace(24.h),
-          SemiRoundedTranpaentTextField(
-            borderRadius: 24.dg,
-            labelText: 'Add your own personal note...',
-            inputFormatters: [LengthLimitingTextInputFormatter(200)],
-            maxLines: 5,
-            suffixIcon: false,
-            controller: viewModel.notesController,
-      
-            fillColor: kcPrimaryColorDark.withOpacity(0.2),
-          ),
-          verticalSpace(24.h),
+          verticalSpace(16.h),
           ViewProfileRow(
             user: recipeModel.user!,
           ),
-          CommentsDetailsScreen(recipeModel: recipeModel),
+          CommentsDetailsScreen(
+              isFromPrivateProfile: isFromPrivateProfile,
+              recipeModel: recipeModel),
           verticalSpace(12),
           BottomSlider(
+            isFromPrivateProfile: isFromPrivateProfile,
             recipeList: recipeList,
           ),
         ],

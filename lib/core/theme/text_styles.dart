@@ -7,9 +7,11 @@ TextStyle globalTextStyle(
         Color? color,
         double? letterSpacing,
         FontWeight? fontWeight,
+        double? height,
         TextDecoration? decoration}) =>
     GoogleFonts.inter(
         textStyle: TextStyle(
+      height: height ?? 1.5,
       color: color ?? kcWhiteColor,
       fontSize: fontSize,
       letterSpacing: letterSpacing ?? 0.5,

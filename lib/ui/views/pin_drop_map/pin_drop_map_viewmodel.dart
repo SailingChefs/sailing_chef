@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:geocoding/geocoding.dart';
@@ -25,7 +23,18 @@ class PinDropMapViewModel extends ReactiveViewModel {
   final _locationService = locator<LocationService>();
   late bool serviceEnabled;
   late LocationPermission permission;
-  Position? currentPosition;
+  Position currentPosition = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+  );
   bool isClicked = false;
   late PinnedLocation pinnedLocation;
   List<String> selectedTabSelections = [];
@@ -38,11 +47,13 @@ class PinDropMapViewModel extends ReactiveViewModel {
   int totalFilters = 0;
   bool showBottomButtons = false;
   bool showList = false;
+  List<PinnedLocation> filteredPins = [];
 
- void onMarkerTap(){
+  void onMarkerTap() {
     showList = true;
     rebuildUi();
   }
+
   void showBottomSheet() {
     showBottomButtons = true;
     rebuildUi();
@@ -61,13 +72,15 @@ class PinDropMapViewModel extends ReactiveViewModel {
   void dropPin() async {
     String markerId = const Uuid().v4();
     final res2 = await bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.dropPinSheet,
-        data: LatLng(currentCameraPosition!.target.latitude, currentCameraPosition!.target.longitude),);
-    if ( res2?.data == false ||
-        res2?.data == null) return;
+      variant: BottomSheetType.dropPinSheet,
+      data: LatLng(currentCameraPosition!.target.latitude,
+          currentCameraPosition!.target.longitude),
+    );
+    if (res2?.data == false || res2?.data == null) return;
     addMarkers(
       markerId,
-      LatLng(currentCameraPosition!.target.latitude, currentCameraPosition!.target.longitude),
+      LatLng(currentCameraPosition!.target.latitude,
+          currentCameraPosition!.target.longitude),
     );
     showBottomButtons = false;
     showMarker = false;
@@ -84,17 +97,16 @@ class PinDropMapViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [_navigationpinService];
 
-  Future<Position> getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     try {
       currentPosition = await _locationService.determinePosition();
 
-      return currentPosition!;
+      // return currentPosition!;
     } catch (e) {
       log(e.toString());
-      return Future.error(e.toString());
+      // return Future.error(e.toString());
     }
   }
-  
 
   bool isSelected = true;
 
@@ -128,9 +140,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
       markerId: MarkerId(markerId),
       draggable: false,
       position: location,
-      infoWindow: InfoWindow(
-        title: location.latitude.toString(),
-      ),
       onTap: () async {
         tapPosition = location;
         showList = true;
@@ -143,8 +152,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
     return marker;
   }
-  void onMapTap(){
-    showList =  false;
+
+  void onMapTap() {
+    showList = false;
     rebuildUi();
   }
 
@@ -152,18 +162,17 @@ class PinDropMapViewModel extends ReactiveViewModel {
     allMarkers[markerId] = createMarker(markerId, location);
   }
 
-  void onViewModelReady() async {
+  void onViewModelReady(String id) async {
     setBusy(true);
-    currentPosition = await getCurrentLocation();
-    allMarkers['currentLocation'] = Marker(
-      markerId: const MarkerId('currentLocation'),
-      position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-      infoWindow: const InfoWindow(title: 'My Location'),
-    );
+
+    // await Future.wait([
+    await getCurrentLocation();
+    await showAllMarkers(id);
+    // ]);
+
     initialCameraPosition = CameraPosition(
-      target: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-      zoom: 15,
+      target: LatLng(currentPosition.latitude, currentPosition.longitude),
+      zoom: 12,
     );
     // await _navigationpinService.getPins(
     //   LatLng(currentPosition!.latitude, currentPosition!.longitude),
@@ -172,46 +181,53 @@ class PinDropMapViewModel extends ReactiveViewModel {
   }
 
   Future<void> showMyLocation() async {
-    currentPosition = await getCurrentLocation();
-    if (currentPosition != null) {
-      controllermap!.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target:
-                LatLng(currentPosition!.latitude, currentPosition!.longitude),
-            zoom: 15,
-          ),
+    // currentPosition = await getCurrentLocation();
+
+    controllermap!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(currentPosition.latitude, currentPosition.longitude),
+          zoom: 15,
         ),
-      );
-      rebuildUi();
-      allMarkers['currentLocation'] = Marker(
-        markerId: const MarkerId('currentLocation'),
-        position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindow: const InfoWindow(title: 'My Location'),
-      );
-    }
-  }
-
-  void callDeatilsDialog(PinnedLocation pinnedLoco) {
-    _dialogService.showCustomDialog(
-      variant: DialogType.pindetails,
-      data: pinnedLoco,
-
-      title: 'placeMark',
-      // additionalButtonTitle: curLat,
-      // description: curLong,
+      ),
     );
+    rebuildUi();
+    // allMarkers['currentLocation'] = Marker(
+    //   markerId: const MarkerId('currentLocation'),
+    //   position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
+    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+    //   infoWindow: const InfoWindow(title: 'My Location'),
+    // );
   }
 
-  void showAllMarkers(String id) async {
-    try {
-  
-          await _navigationpinService.getPinsNearUserLocation(
-        LatLng(currentPosition!.latitude, currentPosition!.longitude),
-      );
+  void callDetailsDialog(PinnedLocation pinnedLoco) {
+    controllermap!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(
+              pinnedLoco.location.latitude, pinnedLoco.location.longitude),
+          zoom: 15,
+        ),
+      ),
+    );
+    Future.delayed(Durations.long4, () {
+      Future.delayed(Durations.short1);
+      _dialogService.showCustomDialog(
+        variant: DialogType.pindetails,
+        data: pinnedLoco,
 
-      // pins.addAll(newPins);
+        title: 'placeMark',
+        // additionalButtonTitle: curLat,
+        // description: curLong,
+      );
+    });
+  }
+
+  Future<void> showAllMarkers(String id) async {
+    try {
+      await _navigationpinService.getPinsNearUserLocation(
+        LatLng(currentPosition.latitude, currentPosition.longitude),
+      );
 
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
@@ -223,25 +239,25 @@ class PinDropMapViewModel extends ReactiveViewModel {
       log('Error fetching pins: $e');
     }
   }
-  
 
   void showAllMarkersWithTags() async {
     try {
-      final filteredPins = List<PinnedLocation>.empty(growable: true);
+      final filteredPin = List<PinnedLocation>.empty(growable: true);
 
       if (totalFilters == 0) {
-        filteredPins.addAll(pins);
+        filteredPin.addAll(pins);
       } else {
         for (final pin in pins) {
           if (tagTabSelections.where((e) => pin.tags.contains(e)).isNotEmpty) {
             filteredPins.add(pin);
+            filteredPin.add(pin);
           }
         }
       }
       allMarkers.clear();
       rebuildUi();
 
-      for (PinnedLocation pin in filteredPins) {
+      for (PinnedLocation pin in filteredPin) {
         addMarkers(
             pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
         pinnedLocation = pin;
@@ -277,67 +293,72 @@ class PinDropMapViewModel extends ReactiveViewModel {
   clearTags() {
     totalFilters = 0;
     tagTabSelections.clear();
+    filteredPins.clear();
     notifyListeners();
     rebuildUi();
   }
 
-  Marker createMarkerwithTags(String markerId, LatLng location,
-      [bool isSelected = false]) {
-    var marker = Marker(
-      markerId: MarkerId(markerId),
-      draggable: true,
-      position: location,
-      infoWindow: InfoWindow(
-        title: location.latitude.toString(),
-      ),
-      onTap: () async {
-        final place = await getCityCountry(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude);
+  // Marker createMarkerwithTags(String markerId, LatLng location,
+  //     [bool isSelected = false]) {
+  //   var marker = Marker(
+  //     markerId: MarkerId(markerId),
+  //     draggable: true,
+  //     position: location,
+  //     infoWindow: InfoWindow(
+  //       title: location.latitude.toString(),
+  //     ),
+  //     onTap: () async {
+  //       final place = await getCityCountry(pinnedLocation.location.latitude,
+  //           pinnedLocation.location.longitude);
 
-        List<PinnedLocation> pins =
-            await _navigationpinService.getPinsUsingTags(
-                LatLng(currentPosition!.latitude, currentPosition!.longitude),
-                tagTabSelections);
+  //       List<PinnedLocation> pins =
+  //           await _navigationpinService.getPinsUsingTags(
+  //               LatLng(currentPosition!.latitude, currentPosition!.longitude),
+  //               tagTabSelections);
 
-        for (PinnedLocation pinInList in pins) {
-          if (pinInList.location.latitude == location.latitude &&
-              pinInList.location.longitude == location.longitude) {
-            final newMarker = createMarker(markerId, location, true);
-            allMarkers[markerId] = newMarker;
+  //       for (PinnedLocation pinInList in pins) {
+  //         if (pinInList.location.latitude == location.latitude &&
+  //             pinInList.location.longitude == location.longitude) {
+  //           final newMarker = createMarker(markerId, location, true);
+  //           allMarkers[markerId] = newMarker;
 
-            pinnedLocation = pinInList;
-            // Map<String, dynamic> test = {
-            //   "pinList": pinnedLocation,
-            //   "currLoc": currentPosition
-            // };
-            _dialogService.showCustomDialog(
-              variant: DialogType.pindropDialoguebox,
-              title: place,
-              data: pinnedLocation,
-              // additionalButtonTitle: currentPosition!.latitude.toString(),
-              // description: currentPosition!.longitude.toString(),
-            );
+  //           pinnedLocation = pinInList;
+  //           // Map<String, dynamic> test = {
+  //           //   "pinList": pinnedLocation,
+  //           //   "currLoc": currentPosition
+  //           // };
+  //           _dialogService.showCustomDialog(
+  //             variant: DialogType.pindropDialoguebox,
+  //             title: place,
+  //             data: pinnedLocation,
+  //             // additionalButtonTitle: currentPosition!.latitude.toString(),
+  //             // description: currentPosition!.longitude.toString(),
+  //           );
 
-            notifyListeners();
-            rebuildUi();
-          }
-        }
-      },
-      icon: locator<BitmapImageService>().getIcon(isSelected),
-    );
-    log("logging the value: ${isClicked.toString()}");
+  //           notifyListeners();
+  //           rebuildUi();
+  //         }
+  //       }
+  //     },
+  //     icon: locator<BitmapImageService>().getIcon(isSelected),
+  //   );
+  //   log("logging the value: ${isClicked.toString()}");
 
-    return marker;
-  }
+  //   return marker;
+  // }
 
   void showPindropDialogueBox() async {
+    showList = false;
+    rebuildUi();
     await _dialogService.showCustomDialog(
       variant: DialogType.addpindropshow,
     );
+
     showMarker = true;
     rebuildUi();
   }
-   String calculateAverageRating(List<ReviewsModel> comments) {
+
+  String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
       return "0.0"; // Return 0 if there are no comments
     }
@@ -353,6 +374,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-   return averageRating.toStringAsFixed(1);
+    return averageRating.toStringAsFixed(1);
   }
 }

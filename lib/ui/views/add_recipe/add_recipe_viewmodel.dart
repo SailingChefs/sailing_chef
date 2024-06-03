@@ -15,7 +15,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -38,7 +38,7 @@ class AddRecipeViewModel extends BaseViewModel {
   late Directory directory;
   late String path;
   String selectedValue = 'Public';
-  TextEditingController selectedQuantity = TextEditingController();
+  TextEditingController servingSize = TextEditingController();
   List<XFile> selectedImages = [];
   String? prepreationTime;
   List<XFile> thumbnails = [];
@@ -57,8 +57,6 @@ class AddRecipeViewModel extends BaseViewModel {
   String formattedDuration = '';
 
   bool isPlaying = false;
-
-
 
   List<double>? waveFormData;
 
@@ -82,7 +80,8 @@ class AddRecipeViewModel extends BaseViewModel {
   /// If the user selects tags, the `tagsList` is updated with the selected tags.
   /// After updating the `tagsList`, the UI is rebuilt and the listeners are notified.
   Future<void> showTagsSheet(BuildContext context) async {
-    final result = await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
+    final result =
+        await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
       variant: BottomSheetType.tags,
     );
     if (result == null) return;
@@ -91,7 +90,6 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
     notifyListeners();
   }
-
 
   /// Shows an image cropper for the given [value] file.
   ///
@@ -162,7 +160,6 @@ class AddRecipeViewModel extends BaseViewModel {
       log("cropped image is null");
     }
   }
-  
 
   String? validatePrepTime(String? value) {
     if (value == null || value.isEmpty) {
@@ -192,6 +189,9 @@ class AddRecipeViewModel extends BaseViewModel {
     if (recipeModel != null) {
       titleController.text = recipeModel!.title;
       ingredientsList = recipeModel!.ingredients;
+      log("ing" + ingredientsList.length.toString());
+      log("recipeModel!.ingredients" +
+          recipeModel!.ingredients.length.toString());
       methodsList = recipeModel!.methods;
       if (recipeModel!.coverImage.isNotEmpty) {
         alreadySelectedImages = recipeModel!.coverImage;
@@ -208,7 +208,7 @@ class AddRecipeViewModel extends BaseViewModel {
         prepreationTime = recipeModel!.prepTime;
       }
 
-      selectedQuantity.text = recipeModel!.servingSize.toString();
+      servingSize.text = recipeModel!.servingSize.toString();
 
       // selectedImages = recipeModel!.coverImage;
     }
@@ -354,7 +354,7 @@ class AddRecipeViewModel extends BaseViewModel {
   void stopRecording() async {
     await recorderController.stop();
     log("Path=> $path");
-    
+
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
@@ -537,7 +537,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: int.parse(selectedQuantity.text),
+                servingSize: int.parse(servingSize.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -561,7 +561,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 methods: methodsList,
                 prepTime:
                     prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: int.parse(selectedQuantity.text),
+                servingSize: int.parse(servingSize.text),
                 status: 'draft',
                 title: titleController.text.trim().toLowerCase(),
                 uid: firebaseAuth.currentUser!.uid,
@@ -608,10 +608,10 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void previewRecipe() async {
-   
     if (isPlaying) {
       stopListening();
     }
+    log("ing" + ingredientsList.length.toString());
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 
@@ -640,8 +640,8 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: int.parse(selectedQuantity.text),
-              status: 'draft',
+              servingSize: int.parse(servingSize.text),
+              status: 'published',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
@@ -673,7 +673,7 @@ class AddRecipeViewModel extends BaseViewModel {
             rebuildUi();
             titleController = TextEditingController();
             recorderController = RecorderController();
-            selectedQuantity = TextEditingController();
+            servingSize = TextEditingController();
             playerController = PlayerController();
             _initialiseController();
 
@@ -693,7 +693,8 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-                servingSize: selectedQuantity.text.isNotEmpty ? int.parse(selectedQuantity.text) : 0, 
+              servingSize:
+                  servingSize.text.isNotEmpty ? int.parse(servingSize.text) : 0,
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -728,7 +729,7 @@ class AddRecipeViewModel extends BaseViewModel {
             rebuildUi();
             titleController = TextEditingController();
             recorderController = RecorderController();
-            selectedQuantity = TextEditingController();
+            servingSize = TextEditingController();
             playerController = PlayerController();
             _initialiseController();
 
@@ -757,20 +758,23 @@ class AddRecipeViewModel extends BaseViewModel {
     recorderController.dispose();
     playerController.dispose();
     titleController.dispose();
-    alreadySelectedImages.clear();
+
+    alreadySelectedImages = [];
     hasRecordedAudio = false;
     formattedDuration = '';
-    selectedImages.clear();
-    ingredientsList.clear();
-    thumbnails.clear();
-    methodsList.clear();
+
+    selectedImages = [];
+    ingredientsList = [];
+    thumbnails = [];
+    methodsList = [];
 
     selectedValue = 'public';
 
-    waveFormData?.clear();
+    waveFormData = [];
     prepreationTime = '';
-    tagsList.clear();
-    selectedQuantity.dispose();
+
+    tagsList = [];
+    servingSize.dispose();
 
     selectedImages = [];
     ingredientsList = [];
@@ -782,8 +786,6 @@ class AddRecipeViewModel extends BaseViewModel {
     waveFormData = [];
     super.dispose();
   }
-
-
 
   void updateVideoSource(File value) {
     if (value.isVideo) {
