@@ -62,4 +62,8 @@ class SettingsViewModel extends BaseViewModel {
   void goToPrivateRecipes() {
     _navigationService.navigateToPrivateRecipesView();
   }
+
+  void sendFeedback() {
+    _navigationService.navigateToFeedbackView();
+  }
 }

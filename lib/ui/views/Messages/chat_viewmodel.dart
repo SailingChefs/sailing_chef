@@ -4,11 +4,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final TextEditingController textController = TextEditingController();
@@ -181,5 +183,10 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   void getBack() {
     _navigationLoactor.back();
+  }
+
+  void copyMessage(String content) {
+    Clipboard.setData(ClipboardData(text: content));
+    showToast(message: 'Message copied');
   }
 }

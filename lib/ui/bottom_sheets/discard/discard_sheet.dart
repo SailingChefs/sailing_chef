@@ -49,12 +49,16 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
               color: kcBlackColor.withOpacity(0.87),
             ),
           ),
-          verticalSpaceMedium,
+          verticalSpaceLarge,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: viewModel.discardButton,
+                onTap:(){
+                  
+                  viewModel.discardButton();
+                  completer!(SheetResponse(confirmed: true));
+                }, 
                 child: Container(
                   height: 40,
                   width: 170,
@@ -108,6 +112,7 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
               ),
             ],
           ),
+          verticalSpaceMedium,
         ],
       ),
     );
@@ -115,5 +120,5 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
 
   @override
   DiscardSheetModel viewModelBuilder(BuildContext context) =>
-      DiscardSheetModel();
+      DiscardSheetModel(recipe: request.data['model']);
 }

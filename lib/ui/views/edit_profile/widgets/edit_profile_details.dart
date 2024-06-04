@@ -34,7 +34,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         verticalSpaceTiny,
                         const LablesText(text: 'Description'),
 
-                        SemiRoundedTranpaentTextFieldBio(
+                        SemiRoundedTranpaentTextField(
                           controller: viewModel.bioController,
                           fillColor: kcPrimaryColor.withOpacity(0.08),
                           labelText: 'Bio',
@@ -177,6 +177,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                 ),
                 verticalSpaceMedium,
                 PrimaryColorRoundedElevatedButton(
+                  100,
                   onPressed: viewModel.saveEditDetailsCullinary,
                   buttonText: 'Save',
                 ),
@@ -201,42 +202,15 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextFieldBio(
+                            SemiRoundedTranpaentTextField(
+                              suffixIcon: false,
+                              maxLines: 4,
+                              
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
                             ),
-                            //     const LablesText(text: 'Email'),
-                            //     Container(
-                            //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                            //   decoration: BoxDecoration(
-                            //     color: kcPrimaryColor.withOpacity(0.07),
-                            //     borderRadius: BorderRadius.circular(27.dg),
-                            //     // border: Border.all(color: filterIconColor),
-                            //   ),
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.only(left: 10),
-                            //     child: Row(
-                            //       children: [
-
-                            //          Icon(
-                            //           Icons.email_outlined,
-                            //           color: kcBlackColor.withOpacity(0.4),
-                            //           size: 16.0.dg,
-                            //         ),
-                            //         horizontalSpaceSmall,
-                            //         Text(
-                            //           viewModel.emailController.text,
-                            //           style: globalTextStyle(
-                            //             fontSize: 14.sp,
-                            //             letterSpacing: -0.5,
-                            //             fontWeight: FontWeight.w500,
-                            //             color: kcBlackColor.withOpacity(0.5),
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),),
-                            // ),
+                            
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
                             SemiRoundedTranpaentTextField(
@@ -352,6 +326,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                     ),
                     verticalSpaceMedium,
                     PrimaryColorRoundedElevatedButton(
+                      100.w,
                       onPressed: viewModel.saveEditDetailsChef,
                       buttonText: 'Save',
                     ),
@@ -386,6 +361,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                     ),
                     verticalSpaceMedium,
                     PrimaryColorRoundedElevatedButton(
+                      100.w,
                       onPressed: () {
                         viewModel.saveEditDetailsGuest(
                             viewModel.nameController.text.isEmpty

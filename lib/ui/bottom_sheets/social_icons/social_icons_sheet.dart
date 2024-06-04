@@ -38,18 +38,22 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-               'Share Recipe to Social Media',
+              'Share Recipe to Social Media',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
             ),
-            
             verticalSpaceMedium,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildSocialIcon(FlutterRemix.whatsapp_fill, 'WhatsApp',1,viewModel),
-                _buildSocialIcon(FlutterRemix.facebook_fill, 'Facebook',2,viewModel),
-                _buildSocialIcon(Icons.email, 'Email',3,viewModel),
-                _buildSocialIcon(FlutterRemix.instagram_fill, 'Instagram',4,viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.whatsapp_fill, 'WhatsApp', 1, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.facebook_fill, 'Facebook', 2, viewModel),
+                _buildSocialIcon(Icons.email, 'Email', 3, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.instagram_fill, 'Instagram', 4, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.file_copy_2_fill, 'Copy', 5, viewModel),
               ],
             ),
             verticalSpaceMedium,
@@ -59,7 +63,8 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, String label,int num,SocialIconsSheetModel viewmodel) {
+  Widget _buildSocialIcon(
+      IconData icon, String label, int num, SocialIconsSheetModel viewmodel) {
     return Column(
       children: [
         IconButton(
@@ -81,6 +86,10 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
                 viewmodel.shareRecipeToInstagram(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
                 break;
+              case 5:
+                viewmodel.shareByCopy(request.data as RecipeModel);
+                completer!(SheetResponse(confirmed: true));
+                break;
               default:
             }
           },
@@ -100,5 +109,5 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
 
   @override
   SocialIconsSheetModel viewModelBuilder(BuildContext context) =>
-      SocialIconsSheetModel( );
+      SocialIconsSheetModel();
 }

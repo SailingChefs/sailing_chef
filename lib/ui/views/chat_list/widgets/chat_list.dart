@@ -75,11 +75,19 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                       color: kcBlackColor
                                                           .withOpacity(0.5)),
                                                 )
-                                              : Text(
+                                              : (conversation
+                                                      .latestMessageType ==
+                                                  'image') || conversation
+                                                      .latestMessageType == 'file' ? Text(
                                                   'Sent an attachement',
                                                   style: TextStyle(
                                                       color: kcBlackColor
                                                           .withOpacity(0.5)),
+                                                ) : Text(
+                                                  style: TextStyle(
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.5)),
+                                                  'Craete new Message',
                                                 ),
                                           leading: CircleAvatar(
                                             radius: 30.r,

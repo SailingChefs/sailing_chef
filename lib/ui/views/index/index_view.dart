@@ -26,7 +26,6 @@ class IndexView extends StackedView<IndexViewModel> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              // const TopBarIndexScreen(),
 
               Padding(
                 padding: const EdgeInsets.only(left: 12.0),

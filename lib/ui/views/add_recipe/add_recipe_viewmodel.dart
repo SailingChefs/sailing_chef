@@ -189,9 +189,6 @@ class AddRecipeViewModel extends BaseViewModel {
     if (recipeModel != null) {
       titleController.text = recipeModel!.title;
       ingredientsList = recipeModel!.ingredients;
-      log("ing" + ingredientsList.length.toString());
-      log("recipeModel!.ingredients" +
-          recipeModel!.ingredients.length.toString());
       methodsList = recipeModel!.methods;
       if (recipeModel!.coverImage.isNotEmpty) {
         alreadySelectedImages = recipeModel!.coverImage;
@@ -507,7 +504,7 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void showDraftDialog() {
+  void showDraftDialog() async{
     if (isPlaying) {
       stopListening();
     }
@@ -523,9 +520,14 @@ class AddRecipeViewModel extends BaseViewModel {
     } else if (prepreationTime == null) {
       showToast(message: 'Please add cooking time');
       return;
-    } else {
+    }
+    else if (servingSize.text.isEmpty) {
+      showToast(message: 'Please add Seving Size');
+      return;
+    }
+     else {
       recipeModel == null
-          ? _dialogService
+          ? await _dialogService
               .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
               'model': RecipeModel(
                 visibility: 'private',
@@ -547,7 +549,7 @@ class AddRecipeViewModel extends BaseViewModel {
               'images': selectedImages,
               'path': path,
             })
-          : _dialogService
+          : await _dialogService
               .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
               'model': RecipeModel(
                 visibility: 'private',
@@ -571,6 +573,22 @@ class AddRecipeViewModel extends BaseViewModel {
               'images': selectedImages,
               'path': path,
             });
+
+            alreadySelectedImages = [];
+            selectedImages = [];
+            ingredientsList = [];
+            methodsList = [];
+            waveFormData = [];
+            path = '';
+            prepreationTime = '';
+            servingSize.clear();
+            formattedDuration = '';
+            titleController.clear();
+            hasRecordedAudio = false;
+            playerController.dispose();
+            tagsList = [];
+            notifyListeners();
+
     }
   }
 
@@ -611,7 +629,6 @@ class AddRecipeViewModel extends BaseViewModel {
     if (isPlaying) {
       stopListening();
     }
-    log("ing" + ingredientsList.length.toString());
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 
@@ -653,7 +670,7 @@ class AddRecipeViewModel extends BaseViewModel {
             draftUrls: alreadySelectedImages,
           );
           if (shouldClear == true) {
-            log(" Clearing");
+          
             recorderController.dispose();
             playerController.dispose();
             titleController.dispose();
@@ -706,7 +723,7 @@ class AddRecipeViewModel extends BaseViewModel {
             waveFormData: waveFormData,
             draftUrls: alreadySelectedImages,
           );
-          log("shouldClear $shouldClear");
+       
           if (shouldClear == true) {
             log(" Clearing");
             recorderController.dispose();

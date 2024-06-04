@@ -315,28 +315,4 @@ class RecipeViewViewModel extends BaseViewModel {
     _timer?.cancel();
   }
 
-  // void showNextImage(int length) {
-  //   if (pageController.hasClients) {
-  //     int nextPage = (pageController.page!.toInt() + 1) % length;
-  //     pageController.animateToPage(
-  //       nextPage,
-  //       duration: const Duration(milliseconds: 400),
-  //       curve: Curves.easeInOut,
-  //     );
-  //   }
-  // }
-
-  // void showPreviousImage(int length) {
-  //   if (pageController.hasClients) {
-  //     int previousPage = pageController.page!.toInt() - 1;
-  //     if (previousPage < 0) {
-  //       previousPage = length - 1;
-  //     }
-  //     pageController.animateToPage(
-  //       previousPage,
-  //       duration: const Duration(milliseconds: 400),
-  //       curve: Curves.easeInOut,
-  //     );
-  //   }
-  // }
 }

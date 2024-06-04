@@ -242,6 +242,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
         ),
         verticalSpaceMassive,
         PrimaryColorRoundedElevatedButton(
+          100.w,
           onPressed: () {
             if (userRole == 'chef' || userRole == 'culinarySchool') {
               if (viewModel.formKey.currentState!.validate()) {

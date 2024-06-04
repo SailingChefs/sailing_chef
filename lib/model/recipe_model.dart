@@ -9,10 +9,10 @@ class RecipeModel {
   final Timestamp createdTime;
   final List<Ingredient> ingredients;
   final List<String> methods;
-  final String prepTime;
-  final int servingSize;
+  String prepTime;
+   int servingSize;
   final String status;
-  final String title;
+   String title;
   final String uid;
   final String visibility;
   String? docId;

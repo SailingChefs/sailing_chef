@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,9 @@ import 'package:sailing_chefs/firebase_options.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
 
 import 'core/theme/text_styles.dart';
 
@@ -40,9 +45,59 @@ Future<void> main() async {
     ..dismissOnTap = false;
   await locator<BitmapImageService>().initialise();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+      .then((_) async {
+    // final PendingDynamicLinkData? data =
+    //     await FirebaseDynamicLinks.instance.getInitialLink();
+    // if (data != null) {
+    //   _handleDynamicLinks(data);
+    // }
+
+    FirebaseDynamicLinks.instance.onLink.listen((event) async {
+      _handleDynamicLinks(event);
+    });
+
     runApp(const MainApp());
   });
+}
+
+void _handleDynamicLinks(PendingDynamicLinkData? dynamicLink) async {
+  final Uri? deepLink = dynamicLink?.link;
+  if (deepLink != null) {
+    log(deepLink.toString());
+    _navigateToRecipe(deepLink);
+  }
+}
+List<RecipeModel>? allRecipes;
+Future<List<RecipeModel>> getRandomDishes(
+  String currentRecipe,
+) async {
+  
+  allRecipes = await recipeService.fetchAllRecipes();
+  List<RecipeModel> dishes = List.from(allRecipes!);
+  dishes.removeWhere((recipe) => recipe.docId == currentRecipe);
+
+  dishes.shuffle();
+  log(dishes.length.toString());
+
+  return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
+}
+
+RecipeService recipeService = locator<RecipeService>();
+void _navigateToRecipe(Uri deepLink) async {
+  final String? recipeId = deepLink.queryParameters['recipe'];
+  getRandomDishes(recipeId!);
+  if (recipeId != null) {
+    log(recipeId.toString());
+
+    RecipeModel? recipe = await recipeService.fetchRecipeById(recipeId);
+    if (recipe != null) {
+      NavigationService navigation = locator<NavigationService>();
+      navigation.navigateToSavedRecipeDetailsView(
+          recipeModel: recipe,
+          isFromPrivateProfile: false,
+          randomRecipeList: allRecipes!);
+    }
+  }
 }
 
 class MainApp extends StatelessWidget {
@@ -63,8 +118,6 @@ class MainApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.startupView,
-            // locale: DevicePreview.locale(context),
-            // // builder: DevicePreview.appBuilder,
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(

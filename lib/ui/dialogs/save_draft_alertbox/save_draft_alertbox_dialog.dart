@@ -62,8 +62,9 @@ class SaveDraftAlertboxDialog
                           children: [
                             TextButton(
                               onPressed: () {
-                                viewModel.yesButton(recipe, images, path);
                                 completer!(DialogResponse(confirmed: true));
+                                viewModel.yesButton(recipe, images, path);
+                                
                               },
                               child: const Text(
                                 'Yes',
@@ -76,8 +77,9 @@ class SaveDraftAlertboxDialog
                             ),
                             TextButton(
                               onPressed: () {
+                                completer!(DialogResponse(confirmed: true));
                                 viewModel.noButton(recipe, images, path);
-                                // completer!(DialogResponse(confirmed: true));
+                                
                               },
                               child: Text(
                                 'No',

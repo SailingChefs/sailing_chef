@@ -31,7 +31,7 @@ import '../../../core/imports/core_imports.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
-  
+
   final _bottomSheetService = locator<BottomSheetService>();
 
   SavedRecipeDetailsViewModel({required this.recipeModel});
@@ -440,6 +440,4 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       data: recipeModel,
     );
   }
-
-
 }

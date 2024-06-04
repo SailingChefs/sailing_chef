@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -30,13 +32,22 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
               backgroundColor: Theme.of(context).colorScheme.background,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: Text(
-                  'Create Recipe',
-                  style: globalTextStyle(
-                    fontSize: 16.0.dg,
-                    color: kcBlackColor,
-                    letterSpacing: -0.3,
-                    fontWeight: FontWeight.w500,
+                title: GestureDetector(
+                  onTap: (){
+                    log("here"+viewModel.titleController.text.trim());
+            
+                    log(viewModel.alreadySelectedImages.toString());
+                    log(viewModel.methodsList.toString());
+                    log(viewModel.prepreationTime.toString());
+                  },
+                  child: Text(
+                    'Create Recipe',
+                    style: globalTextStyle(
+                      fontSize: 16.0.dg,
+                      color: kcBlackColor,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 centerTitle: true,

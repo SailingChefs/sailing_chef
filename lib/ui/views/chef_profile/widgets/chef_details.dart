@@ -56,11 +56,11 @@ class ProfileDescriptionChefProfileScreen
                     Text(
                       user.bio!,
                       style: globalTextStyle(
+                        letterSpacing: -0.3,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: kcBlackColor,
                       ),
-                      textAlign: TextAlign.justify,
                     ),
                   ],
                 ),

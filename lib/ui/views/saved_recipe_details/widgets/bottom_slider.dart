@@ -95,9 +95,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                                   fontWeight: FontWeight.w500,
                                                 )),
                                           ),
-                                          recipeList[index].user!.uid !=
-                                                  userDetails!.uid
-                                              ? GestureDetector(
+                                          GestureDetector(
                                                   onTap: () {
                                                     viewModel.addToSaveList(
                                                       recipeList[index],
@@ -117,8 +115,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                                           size: 20.dg,
                                                         ),
                                                 )
-                                              : Container(),
-                                          horizontalSpaceTiny,
+                                      
                                         ],
                                       ),
                                     ],

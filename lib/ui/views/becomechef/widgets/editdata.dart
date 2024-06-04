@@ -94,6 +94,7 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                   ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
+                    100.w,
                     onPressed: () {
                       viewModel.saveEditDetails();
                     },

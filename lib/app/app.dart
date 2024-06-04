@@ -85,6 +85,7 @@ import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
 
 import 'package:sailing_chefs/ui/dialogs/enter_pass/enter_pass_dialog.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet.dart';
+import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -133,6 +134,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet.d
 
     MaterialRoute(page: ShoppingListView),
 
+    MaterialRoute(page: FeedbackView),
 // @stacked-route
   ],
   dependencies: [

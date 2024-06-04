@@ -135,30 +135,35 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         ),
                       ),
                     if (message.type == 'String')
-                      Container(
-                        padding: const EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
-                          color: isCurrentUser
-                              ? kcchatboxecolor
-                              : kcPrimaryColor.withOpacity(0.2),
-                          borderRadius: BorderRadius.only(
-                            topLeft: isCurrentUser
-                                ? const Radius.circular(30)
-                                : const Radius.circular(30),
-                            topRight: isCurrentUser
-                                ? const Radius.circular(30)
-                                : const Radius.circular(30),
-                            bottomRight: isCurrentUser
-                                ? const Radius.circular(0)
-                                : const Radius.circular(30),
-                            bottomLeft: isCurrentUser
-                                ? const Radius.circular(30)
-                                : const Radius.circular(0),
+                      GestureDetector(
+                        onLongPress: () {
+                          viewModel.copyMessage(message.content);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(15.0),
+                          decoration: BoxDecoration(
+                            color: isCurrentUser
+                                ? kcchatboxecolor
+                                : kcPrimaryColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.only(
+                              topLeft: isCurrentUser
+                                  ? const Radius.circular(30)
+                                  : const Radius.circular(30),
+                              topRight: isCurrentUser
+                                  ? const Radius.circular(30)
+                                  : const Radius.circular(30),
+                              bottomRight: isCurrentUser
+                                  ? const Radius.circular(0)
+                                  : const Radius.circular(30),
+                              bottomLeft: isCurrentUser
+                                  ? const Radius.circular(30)
+                                  : const Radius.circular(0),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          message.content,
-                          style: const TextStyle(color: kcBlackColor),
+                          child: Text(
+                            message.content,
+                            style: const TextStyle(color: kcBlackColor),
+                          ),
                         ),
                       ),
                     if (message.type == 'file')

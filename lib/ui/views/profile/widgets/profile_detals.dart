@@ -19,8 +19,12 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
               shape: BoxShape.circle,
             ),
             child: userDetails!.displayPicture!.isEmpty
-                ? const Image(
-                    image: AssetImage('assets/images/misc/blank_image.png'))
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(90),
+                    child: const Image(
+                      image: AssetImage('assets/images/misc/blank_image.png')),
+                    )
+                  
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(90),
                     child: CachedNetworkImage(
