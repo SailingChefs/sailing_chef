@@ -15,7 +15,8 @@
 	<string>Need current location access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get your current location for delivery</string>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    	<key>CFBundleIdentifier</key>
+   	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
