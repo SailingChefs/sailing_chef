@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.sailingChefs</string>
+	<string>com.stackwise.sailingChefs</string>
 	<key>PROJECT_ID</key>
 	<string>sailingchefs-3e3cb</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:66812962587:ios:081137186962cd7fe655be</string>
+	<string>1:66812962587:ios:c80fe67cca4e6825e655be</string>
 </dict>
 </plist>
