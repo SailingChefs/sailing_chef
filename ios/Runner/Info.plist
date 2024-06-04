@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location access required for recipes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access to photos is required to add pictures in recipes</>
 	<key>CFBundleDisplayName</key>
