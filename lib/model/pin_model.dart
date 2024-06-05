@@ -4,7 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/model/reviews.dart';
 
 class PinnedLocation {
-  final String? id;
+  String? id;
   final String contactNumber;
   final Timestamp createdTime;
   final String description;
@@ -58,6 +58,7 @@ class PinnedLocation {
     final geoHash = GeoHasher().encode(location.longitude, location.latitude);
     return {
       'contact_number': contactNumber,
+      'id':id,
       'created_time': createdTime,
       'description': description,
       'place': place,
@@ -76,6 +77,7 @@ class PinnedLocation {
   static PinnedLocation fromMap(Map<String, dynamic> map) {
     return PinnedLocation(
         place: map['place'] ?? '',
+        id: map['id'],
         location: map['location'] ?? const GeoPoint(0.0, 0.0),
         contactNumber: map['contact_number'],
         rating: map['ratings'],

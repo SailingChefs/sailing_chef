@@ -49,10 +49,11 @@ class PinDropMapViewModel extends ReactiveViewModel {
   bool showList = false;
   List<PinnedLocation> filteredPins = [];
 
-  void onMarkerTap() {
-    showList = true;
-    rebuildUi();
-  }
+  // void onMarkerTap() {
+  // showList = true;
+  // rebuildUi();
+  // }
+
 
   void showBottomSheet() {
     showBottomButtons = true;
@@ -174,9 +175,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
       target: LatLng(currentPosition.latitude, currentPosition.longitude),
       zoom: 12,
     );
-    // await _navigationpinService.getPins(
-    //   LatLng(currentPosition!.latitude, currentPosition!.longitude),
-    // );
+    await _navigationpinService.getPins(
+      LatLng(currentPosition.latitude, currentPosition.longitude),
+    );
     setBusy(false);
   }
 
@@ -192,12 +193,12 @@ class PinDropMapViewModel extends ReactiveViewModel {
       ),
     );
     rebuildUi();
-    // allMarkers['currentLocation'] = Marker(
-    //   markerId: const MarkerId('currentLocation'),
-    //   position: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-    //   infoWindow: const InfoWindow(title: 'My Location'),
-    // );
+    allMarkers['currentLocation'] = Marker(
+      markerId: const MarkerId('currentLocation'),
+      position: LatLng(currentPosition.latitude, currentPosition.longitude),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  
+    );
   }
 
   void callDetailsDialog(PinnedLocation pinnedLoco) {
@@ -215,14 +216,43 @@ class PinDropMapViewModel extends ReactiveViewModel {
       _dialogService.showCustomDialog(
         variant: DialogType.pindetails,
         data: pinnedLoco,
-
         title: 'placeMark',
-        // additionalButtonTitle: curLat,
-        // description: curLong,
       );
     });
   }
 
+  // Future<void> showAllMarkers(String id) async {
+  //   try {
+  //     final pinDropService = locator<PinDropService>();
+  //     final pins = await pinDropService
+  //         .getPins(LatLng(currentPosition.latitude, currentPosition.longitude));
+
+  //     for (PinnedLocation pin in pins) {
+  //       if (pin.id != null && pin.location != null) {
+  //         addMarkers(
+  //             pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
+         
+  //       }
+  //     }
+  //   } catch (e) {
+  //     log('Error fetching pins: $e');
+  //   }
+  // }
+
+// Future<void> showAllMarkers(String id) async {
+//   final pinDropService = locator<PinDropService>();
+//   final pins = await pinDropService
+//      .getPins(LatLng(currentPosition.latitude, currentPosition.longitude));
+
+//   for (PinnedLocation pin in pins) {
+//     if (pin.id!= null && pin.location!= null) {
+//       addMarkers(
+//         pin.id!, 
+//         LatLng(pin.location.latitude, pin.location.longitude)
+//       );
+//     }
+//   }
+// }
   Future<void> showAllMarkers(String id) async {
     try {
       await _navigationpinService.getPinsNearUserLocation(
