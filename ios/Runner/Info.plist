@@ -4,6 +4,14 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+    <array>
+        <string>remote-notification</string>
+    </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Access to photos is required to add pictures in recipes</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Location access required for recipes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
