@@ -67,9 +67,11 @@ class PindropDialogueboxDialog
                               padding:
                                   const EdgeInsets.only(left: 8.0, top: 15),
                               child: Text(
+                                overflow: TextOverflow.ellipsis,
                                 pinnedLocation.tags[0],
                                 style: globalTextStyle(
                                   color: kcBlackColor,
+                                  
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),

@@ -80,7 +80,10 @@ class PindetailsDialogModel extends ReactiveViewModel {
     await getCurrentLocation();
     for (var i = 0; i < pinnedLocation.tags.length; i++) {
       tags = pinnedLocation.tags;
+      log(tags.toString());
     }
+  
+    // notifyListeners();
     await _reviewService.getReviews(pinnedLocation.id!);
     setBusy(false);
   }

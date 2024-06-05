@@ -24,7 +24,7 @@ class PindropDialogueboxDialogModel extends ReactiveViewModel {
 
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
-      return "0.0"; // Return 0 if there are no comments
+      return "0.0"; 
     }
 
     double totalRating = 0.0;

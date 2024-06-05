@@ -33,6 +33,17 @@ class PinDropService with ListenableServiceMixin {
 
   // }
 
+  Future<List<PinnedLocation>> getPins(LatLng location) async {
+    final ref = firebasestore.collection('pins');
+    final querySnapshot = await ref.get();
+
+    List<PinnedLocation> pins = querySnapshot.docs
+        .map((doc) => PinnedLocation.fromSnapshot(doc))
+        .toList();
+
+    return pins;
+  }
+
   Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
     log('pinId:$pinId');
     try {
@@ -96,13 +107,16 @@ class PinDropService with ListenableServiceMixin {
 
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     try {
-      await FirebaseFirestore.instance
+      DocumentReference docRef = await FirebaseFirestore.instance
           .collection('pins')
           .add(pinnedLocation.toMap());
-      log('pinnedLocation.picture.length.toString():${pinnedLocation.picture.length.toString()}');
 
+      String id = firebasestore.collection('pins').doc().id;
+      pinnedLocation.id = id;
+      await docRef.update({'id': id});
       pins.add(PinnedLocation.fromMap(pinnedLocation.toMap()));
-      log('pins.length.toString():${pins.last.picture.length.toString()}');
+      // fetchReviewsByPinId(pinnedLocation.id!);
+
       notifyListeners();
     } catch (e) {
       log(e.toString());
@@ -156,7 +170,7 @@ class PinDropService with ListenableServiceMixin {
   Future<List<PinnedLocation>> getPinsNearUserLocation(
       LatLng userLocation) async {
     if (isInitialized) return pins;
-    pins.clear();
+    // pins.clear();
     final List<PinnedLocation> pin = [];
     final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
