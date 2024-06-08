@@ -576,7 +576,8 @@ class StackedRouter extends _i1.RouterBase {
         builder: (context) => _i34.SearchView(
             key: args.key,
             recipeModel: args.recipeModel,
-            chefList: args.chefList),
+            chefList: args.chefList,
+            selectedTagsCount: args.selectedTagsCount),
         settings: data,
       );
     },
@@ -969,6 +970,7 @@ class SearchViewArguments {
     this.key,
     required this.recipeModel,
     required this.chefList,
+    required this.selectedTagsCount,
   });
 
   final _i40.Key? key;
@@ -977,9 +979,11 @@ class SearchViewArguments {
 
   final List<_i42.UserModel> chefList;
 
+  final int selectedTagsCount;
+
   @override
   String toString() {
-    return '{"key": "$key", "recipeModel": "$recipeModel", "chefList": "$chefList"}';
+    return '{"key": "$key", "recipeModel": "$recipeModel", "chefList": "$chefList", "selectedTagsCount": "$selectedTagsCount"}';
   }
 
   @override
@@ -987,12 +991,16 @@ class SearchViewArguments {
     if (identical(this, other)) return true;
     return other.key == key &&
         other.recipeModel == recipeModel &&
-        other.chefList == chefList;
+        other.chefList == chefList &&
+        other.selectedTagsCount == selectedTagsCount;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ recipeModel.hashCode ^ chefList.hashCode;
+    return key.hashCode ^
+        recipeModel.hashCode ^
+        chefList.hashCode ^
+        selectedTagsCount.hashCode;
   }
 }
 
@@ -1507,6 +1515,7 @@ extension NavigatorStateExtension on _i44.NavigationService {
     _i40.Key? key,
     required List<_i41.RecipeModel> recipeModel,
     required List<_i42.UserModel> chefList,
+    required int selectedTagsCount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1515,7 +1524,10 @@ extension NavigatorStateExtension on _i44.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.searchView,
         arguments: SearchViewArguments(
-            key: key, recipeModel: recipeModel, chefList: chefList),
+            key: key,
+            recipeModel: recipeModel,
+            chefList: chefList,
+            selectedTagsCount: selectedTagsCount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2088,6 +2100,7 @@ extension NavigatorStateExtension on _i44.NavigationService {
     _i40.Key? key,
     required List<_i41.RecipeModel> recipeModel,
     required List<_i42.UserModel> chefList,
+    required int selectedTagsCount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2096,7 +2109,10 @@ extension NavigatorStateExtension on _i44.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.searchView,
         arguments: SearchViewArguments(
-            key: key, recipeModel: recipeModel, chefList: chefList),
+            key: key,
+            recipeModel: recipeModel,
+            chefList: chefList,
+            selectedTagsCount: selectedTagsCount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

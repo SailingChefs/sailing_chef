@@ -68,4 +68,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
   void toDishDetailsScreen() {
     _navigationService.back();
   }
+
+  void back() {
+    _navigationService.back();
+  }
 }

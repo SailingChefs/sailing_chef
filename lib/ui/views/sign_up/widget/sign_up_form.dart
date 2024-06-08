@@ -54,7 +54,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             borderRadius: 30,
             textColor: kclightgreencolor,
             isEnabled: viewModel.isSignupButtonEnabled(),
-            onPressed: viewModel.signup,
+            onPressed: () => viewModel.signup(context),
             buttonText: 'create account',
           ),
         ],

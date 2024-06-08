@@ -210,7 +210,9 @@ class _ExpandedAppBar extends StatelessWidget {
           // ),
           Center(
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                viewModel.navigateToProfile(receiver);
+              },
               child: Container(
                 width: 80.w,
                 height: 80.h,
@@ -268,14 +270,19 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: kcBlackColor,
             ),
           ),
-          Container(
-            width: 35.w,
-            height: 35.h,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(receiver.displayPicture!),
+          GestureDetector(
+            onTap: (){
+               viewModel.navigateToProfile(receiver);
+            },
+            child: Container(
+              width: 35.w,
+              height: 35.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(receiver.displayPicture!),
+                ),
               ),
             ),
           ),

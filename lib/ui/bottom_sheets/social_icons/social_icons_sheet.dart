@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
@@ -37,11 +38,11 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Share Recipe to Social Media',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+             Text(
+              'Share this recipe',
+              style: globalTextStyle(fontSize: 19, fontWeight: FontWeight.w500,color: kcBlackColor),
             ),
-            verticalSpaceMedium,
+            verticalSpaceLarge,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

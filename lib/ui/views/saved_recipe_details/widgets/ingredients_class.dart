@@ -14,39 +14,39 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     return ingredients.map((ingredient) {
       return Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 130.w,
-                child: Text('${ingredient.quantity} ${ingredient.unit}',
+          GestureDetector(
+            onTap: (){
+               viewModel.addOneItemToCart(ingredient);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 130.w,
+                  child: Text('${ingredient.quantity} ${ingredient.unit}',
+                      style: globalTextStyle(
+                        color: kcBlackColor.withOpacity(0.87),
+                        letterSpacing: -0.3,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
+                SizedBox(
+                  width: 160.w,
+                  child: Text(
+                    capitalizeEachWord(ingredient.name),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: globalTextStyle(
-                      color: kcBlackColor.withOpacity(0.87),
                       letterSpacing: -0.3,
+                      color: kcBlackColor.withOpacity(0.5),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
-                    )),
-              ),
-              SizedBox(
-                width: 160.w,
-                child: Text(
-                  capitalizeEachWord(ingredient.name),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: globalTextStyle(
-                    letterSpacing: -0.3,
-                    color: kcBlackColor.withOpacity(0.5),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  viewModel.addOneItemToCart(ingredient);
-                },
-                child: Container(
+                Container(
                   width: 15.0.w,
                   height: 15.0.h,
                   decoration: BoxDecoration(
@@ -66,9 +66,9 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         )
                       : Container(),
                 ),
-              ),
-              horizontalSpaceTiny,
-            ],
+                horizontalSpaceTiny,
+              ],
+            ),
           ),
           verticalSpaceSmall,
         ],

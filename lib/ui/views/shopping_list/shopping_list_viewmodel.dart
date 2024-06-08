@@ -27,4 +27,38 @@ class ShoppingListViewModel extends ReactiveViewModel {
     await _shoppingListService.addOrRemoveFromShoppingList(shoppingList);
     rebuildUi();
   }
+
+  void addAllItemsToCart(ShoppingList ingredient) async {
+    List<ShoppingList> shoppingList = [];
+      shoppingList.add(ShoppingList(
+          recipeName: ingredient.recipeName,
+          ingredientName: ingredient.ingredientName,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit,
+          id: '',
+          recipeId: ingredient.recipeId,
+          ingredientId: ingredient.id));
+    _shoppingListService.addOrRemoveAllFromShopping(shoppingList, ingredient);
+
+    rebuildUi();
+  }
+
+  void addOneItemToCart(ShoppingList ingredient) {
+    _shoppingListService.addOrRemoveFromShoppingList(ShoppingList(
+        recipeName: ingredient.recipeName,
+        ingredientName: ingredient.ingredientName,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit,
+        id: '',
+        recipeId: ingredient.recipeId,
+        ingredientId: ingredient.id));
+    rebuildUi();
+  }
+
+  bool checkShoppingList(ShoppingList ingredient) {
+    if (shoppingList.any((element) => element.ingredientId == ingredient.id)) {
+      return true;
+    }
+    return false;
+  }
 }

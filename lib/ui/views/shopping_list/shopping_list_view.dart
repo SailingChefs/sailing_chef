@@ -1,12 +1,14 @@
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/shopping_list/widgets/topBar.dart';
 
 import 'shopping_list_viewmodel.dart';
 
 class ShoppingListView extends StackedView<ShoppingListViewModel> {
   List<Widget> createShoppingListWidgets(
       ShoppingListViewModel viewModel, context) {
+       
     return [
       for (var ingredient in viewModel.shoppingList)
         Column(
@@ -14,65 +16,108 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  // height: 50,
-                  width: MediaQuery.sizeOf(context).width * 0.75.w,
-                  padding: EdgeInsets.all(10.dg),
+              Text(
+                ingredient.recipeName,
+                style: globalTextStyle(
+                  fontSize: 18,
+                  color: kcBlackColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              GestureDetector(
+                onTap: () => viewModel.addAllItemsToCart(ingredient),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
                   decoration: BoxDecoration(
-                    color: kcPrimaryColor.withOpacity(0.08),
-                    borderRadius: BorderRadius.all(Radius.circular(30.dg)),
+                    color: kcPrimaryColorDark.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(32.0.dg),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: Text(
-                            '${ingredient.quantity} ${ingredient.unit}',
-                            overflow: TextOverflow.ellipsis,
-                            style: globalTextStyle(
-                              fontSize: 14.sp,
-                              letterSpacing: -0.5,
-                              fontWeight: FontWeight.w500,
-                              color: kcBlackColor.withOpacity(0.8),
-                            ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'deselect all',
+                        style: globalTextStyle(
+                          fontSize: 12.sp,
+                          color: kcBlackColor,
+                          letterSpacing: -0.2,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      horizontalSpaceSmall,
+                      Container(
+                        width: 12.0.w,
+                        height: 12.0.h,
+                        decoration: BoxDecoration(
+                          color: viewModel
+                                .checkShoppingList(ingredient)
+                            ? kcBlackColor.withOpacity(0.8)
+                            : Colors.transparent,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: kcBlackColor.withOpacity(0.8),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: Text(
-                            textAlign: TextAlign.right,
-                            capitalizeEachWord(ingredient.ingredientName),
-                            overflow: TextOverflow.ellipsis,
-                            style: globalTextStyle(
-                                fontSize: 13.sp,
-                                letterSpacing: -0.5,
-                                fontWeight: FontWeight.w400,
-                                color: kcBlackColor.withOpacity(0.87)),
-                          ),
-                        ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ]),
+            verticalSpaceSmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 130.w,
+                  child: Text('${ingredient.quantity} ${ingredient.unit}',
+                      style: globalTextStyle(
+                        color: kcBlackColor.withOpacity(0.87),
+                        letterSpacing: -0.3,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
+                SizedBox(
+                  width: 160.w,
+                  child: Text(
+                    capitalizeEachWord(ingredient.ingredientName),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: globalTextStyle(
+                      letterSpacing: -0.3,
+                      color: kcBlackColor.withOpacity(0.5),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    viewModel.removeRecipe(ingredient);
-                    // viewModel.notifyListeners();
-                  },
-                  child: SvgPicture.asset(
-                    'assets/images/misc/bin.svg',
-                    height: 16.h,
-                    width: 14.w,
+                Container(
+                  width: 15.0.w,
+                  height: 15.0.h,
+                  decoration: BoxDecoration(
+                    color: viewModel.checkShoppingList(ingredient)
+                        ? kcPrimaryColorDark
+                        : Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: kcPrimaryColorDark,
+                    ),
                   ),
+                  child: viewModel.checkShoppingList(ingredient)
+                      ? Icon(
+                          Icons.check,
+                          color: kcWhiteColor,
+                          size: 12.0.sp,
+                        )
+                      : Container(),
                 ),
+                horizontalSpaceTiny,
               ],
             ),
-            verticalSpaceSmall,
-          ],
-        ),
+          ],),
     ];
   }
 
@@ -86,33 +131,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        elevation: 0,
-        title: Text(
-          'Shopping List',
-          style: globalTextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 8.0.w),
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: viewModel.back,
-            child: Container(
-              alignment: Alignment.center,
-              height: 26.h,
-              width: 26.w,
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kcBlackColor,
-                size: 18.sp,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const TopBarShoppingScreen(),
       body: viewModel.isBusy
           ? const Center(
               child: CircularProgressIndicator(
@@ -123,7 +142,9 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
               child: Container(
                   padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      verticalSpaceSmall,
                       ...createShoppingListWidgets(viewModel, context),
                     ],
                   )),

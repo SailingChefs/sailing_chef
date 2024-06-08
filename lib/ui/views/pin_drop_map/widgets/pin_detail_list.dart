@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
@@ -16,9 +17,11 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
             ? viewModel.pins[index]
             : viewModel.filteredPins[index];
 
-        //  int actualIndex = (index + viewModel.startIndex) % viewModel.pins.length.toInt();
+        // Ensure pin.picture is not null and has at least one element
+        final String imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
+
         return GestureDetector(
-          onTap: () => viewModel.callDetailsDialog(viewModel.pins[index]),
+          onTap: () => viewModel.callDetailsDialog(pin),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -40,7 +43,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                               topLeft: Radius.circular(27),
                               bottomLeft: Radius.circular(27)),
                           child: Image.network(
-                            pin.picture.first,
+                            imageUrl,
                             fit: BoxFit.cover,
                             height: MediaQuery.of(context).size.height * 0.18,
                             width: MediaQuery.of(context).size.width * 0.26,
@@ -61,7 +64,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Text(
-                                      pin.tags[0],
+                                      pin.tags.isNotEmpty ? pin.tags[0] : '',
                                       style: globalTextStyle(
                                         color: kcBlackColor,
                                         fontSize: 16,

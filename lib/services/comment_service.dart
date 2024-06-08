@@ -82,6 +82,28 @@ class CommentService with ListenableServiceMixin {
     }
   }
 
+  Future<bool> updateCommentInFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
+
+      DocumentReference commentDocRef = firebasestore
+          .collection('recipes')
+          .doc(comment.recipeId)
+          .collection('comments')
+          .doc(comment.id);
+
+      await commentDocRef.update(comment.toJson());
+
+      EasyLoading.dismiss();
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error updating comment in Firestore: $error');
+      return false;
+    }
+  }
+
+
   Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
     try {
       // Access the subcollection 'comments' within the specific 'recipe' document

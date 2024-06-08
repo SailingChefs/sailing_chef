@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
@@ -13,9 +14,9 @@ class TopBarOnboardingScreen extends ViewModelWidget<OnboardingViewModel> {
         SizedBox(
           width: 150.w,
           height: 80.h,
-          child: Image.asset(
-            'assets/images/logo/SAILING CHEFS.png',
-          ),
+          child: SvgPicture.asset(
+            'assets/images/logo/SAILING_CHEFS.svg',
+          )
         ),
         RoundedElevatedButton(
           // width: 103.dg,

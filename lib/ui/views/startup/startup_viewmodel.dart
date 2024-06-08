@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -71,7 +70,7 @@ class StartupViewModel extends BaseViewModel {
       isDeepLink = true;
       _handleDynamicLinks(link!.link);
     }).onError((error) {
-      print('onLink error: $error');
+      log('onLink error: $error');
     });
   }
   RecipeService recipeService = locator<RecipeService>();

@@ -12,8 +12,9 @@ import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:stacked/stacked.dart';
 
-class ConversationService {
+class ConversationService with ListenableServiceMixin{
   final _userService = locator<UserServices>();
 
   Future<String> createOrUpdateConversation(
@@ -55,10 +56,10 @@ class ConversationService {
       return conversationId;
     } catch (error) {
       log('Error managing conversation: $error');
-      return conversationId; // Return the initialized but possibly still empty ID
+      return conversationId; 
     }
   }
-
+  
   Stream<List<ConversationModel>> getConversations() {
     log(FirebaseAuth.instance.currentUser!.uid);
     return firebasestore
@@ -66,7 +67,7 @@ class ConversationService {
         .where('users', arrayContains: firebaseAuth.currentUser!.uid)
         .snapshots()
         .asyncMap((QuerySnapshot querySnapshot) async {
-      List<ConversationModel> conversations = [];
+          List<ConversationModel> conversations = [];
       for (var doc in querySnapshot.docs) {
         List<String> users = List<String>.from(doc.get('users'));
         String otherUserId =

@@ -8,21 +8,25 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return viewModel.chefList.isEmpty
-        ? Text(
-            'No Chef Found',
-            style: globalTextStyle(
-                fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
+        ? Center(
+            child: Text(
+              'No Chef Found',
+              style: globalTextStyle(
+                  fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
+            ),
           )
         : Column(
             children: <Widget>[
               verticalSpaceSmall,
               SizedBox(
-                height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.27.h
-                    : MediaQuery.sizeOf(context).height * 0.25.h,
-                width: double.maxFinite,
+                height: screenHeight <= 680.0
+                    ? screenHeight * 0.25
+                    : screenHeight * 0.27,
+                width: double.infinity,
                 child: ListView.builder(
                   itemCount: viewModel.chefList.length > 5
                       ? 5
@@ -35,8 +39,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         viewModel.toChefProfile(viewModel.chefList[index]);
                       },
                       child: Container(
-                        width: 150.w,
-                        // height: 230.h,
+                        width: screenWidth * 0.43,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
@@ -49,7 +52,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           ],
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        margin: EdgeInsets.only(right: 12.dg, bottom: 8.dg),
+                        margin: EdgeInsets.only(right: 12.w, bottom: 8.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -63,20 +66,15 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                                  0.25.h -
-                                              48.h,
+                                      height: screenHeight * 0.2,
+                                      width: double.infinity,
                                     )
                                   : CachedNetworkImage(
                                       imageUrl: viewModel
                                           .chefList[index].displayPicture!,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                                  0.25.h -
-                                              48.h,
+                                      height: screenHeight * 0.2,
                                       fit: BoxFit.cover,
-                                      width: double.maxFinite,
+                                      width: double.infinity,
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
                                         decoration: const BoxDecoration(
@@ -86,8 +84,10 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0.dg),
+                              padding: EdgeInsets.only(
+                                  left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
+                                overflow: TextOverflow.ellipsis,
                                 capitalizeEachWord(
                                     viewModel.chefList[index].displayName!),
                                 style: TextStyle(
@@ -103,6 +103,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                   },
                 ),
               ),
+              verticalSpaceTiny,
             ],
           );
   }

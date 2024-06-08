@@ -4,6 +4,7 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_list.dart';
+import 'package:sailing_chefs/ui/views/all_chefs/widgets/topbar.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'all_chefs_viewmodel.dart';
@@ -22,24 +23,7 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: kcBackgroundColor,
-          appBar: AppBar(
-              backgroundColor: kcBackgroundColor,
-              elevation: 0,
-              title: Text(
-                'Meet Your Chefs',
-                style: globalTextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor),
-              ),
-              centerTitle: true,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BackArrowWidget(
-                  onTap: viewModel.toHomeView,
-                ),
-              )),
+          appBar: const TopBarMeetChefsScreen(),
           body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

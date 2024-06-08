@@ -810,4 +810,8 @@ class AddRecipeViewModel extends BaseViewModel {
       controller.play();
     } else {}
   }
+
+  void back() {
+    _navigationService.back();
+  }
 }

@@ -76,6 +76,27 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
+ Future<void> addOrRemoveAllFromShopping(
+      List<ShoppingList> items, ShoppingList recipe) async {
+    EasyLoading.show();
+    if (checkShoppingList(recipe)) {
+      for (var element in shoppingList) {
+        _removeFromShoppingList(element);
+      }
+      EasyLoading.dismiss();
+    } else {
+      for (var item in items) {
+        if (shoppingList
+                .any((element) => element.ingredientId == item.ingredientId) &&
+            item.recipeId == recipe.recipeId) {
+        } else {
+          _saveShoppingList(item);
+        }
+        EasyLoading.dismiss();
+      }
+    }
+  }
+
   bool checkShoppingListAll(RecipeModel recipeModel) {
     return shoppingList
             .where((element) => element.recipeId == recipeModel.docId)
@@ -83,6 +104,12 @@ class ShoppingListService with ListenableServiceMixin {
         recipeModel.ingredients.length;
   }
 
+  bool checkShoppingList(ShoppingList recipeModel) {
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.recipeId)
+            .length ==
+        recipeModel;
+  }
   Future<void> _removeFromShoppingList(ShoppingList item) async {
     try {
       log(item.id);

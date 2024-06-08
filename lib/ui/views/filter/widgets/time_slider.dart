@@ -25,7 +25,7 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
           data: SfRangeSliderThemeData(
             tooltipBackgroundColor: Colors.transparent,
             tooltipTextStyle:
-                globalTextStyle(fontSize: 12.sp, color: kcPrimaryColorDark),
+                globalTextStyle(fontSize: 12.sp, color: kcPrimaryColor),
           ),
           child: SfRangeSlider(
             min: 0.0,
@@ -35,7 +35,7 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
             interval: 8,
             showTicks: false,
             stepSize: 1,
-            activeColor: kcPrimaryColorDark,
+            activeColor: kcPrimaryColor,
             shouldAlwaysShowTooltip: true,
             tooltipTextFormatterCallback: (value, text) {
               return "$text hrs";

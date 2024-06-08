@@ -142,7 +142,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                               icon: Icon(
                                 Icons.add,
                                 color: kcBlackColor.withOpacity(0.5),
-                                size: 16.dg,
+                                size: 22.dg,
                               )),
                           horizontalSpaceSmall,
                           Text(
@@ -177,7 +177,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.dg,
+                            size: 22.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(

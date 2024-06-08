@@ -30,7 +30,7 @@ class FilterViewModel extends BaseViewModel {
   bool isLightSelected = false;
   bool isCharterSelected = false;
   bool isCrewSelected = false;
-
+  int selectedTagsCount = 0;
   SfRangeValues values = const SfRangeValues(0.0, 5.0);
   // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
   void updateValue(SfRangeValues newValue) {
@@ -163,25 +163,347 @@ class FilterViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  List<String> _selectedTags = [];
+
+  List<String> get selectedTags => _selectedTags;
+
+  void addTag(String tag) {
+    if (!_selectedTags.contains(tag)) {
+      _selectedTags.add(tag);
+    }
+  }
+
+  void removeTag(String tag) {
+    if (_selectedTags.contains(tag)) {
+      _selectedTags.remove(tag);
+    }
+  }
+
+  
+
   void handleTabMainCourse(int index) {
     switch (index) {
       case 0:
-        selectedTabMainCourse = 'breakfast';
+        if (isBreakfastSelected) {
+          isBreakfastSelected = false;
+          selectedTagsCount--;
+          removeTag('breakfast');
+        } else {
+          selectedTabMainCourse = 'breakfast';
+          isBreakfastSelected = true;
+          selectedTagsCount++;
+          addTag('breakfast');
+        }
         break;
       case 1:
-        selectedTabMainCourse = 'lunch';
+        if (isLunchSelected) {
+          isLunchSelected = false;
+          selectedTagsCount--;
+          removeTag('lunch');
+        } else {
+          selectedTabMainCourse = 'lunch';
+          isLunchSelected = true;
+          selectedTagsCount++;
+          addTag('lunch');
+        }
         break;
       case 2:
-        selectedTabMainCourse = 'dinner';
+        if (isDinnerSelected) {
+          isDinnerSelected = false;
+          selectedTagsCount--;
+          removeTag('dinner');
+        } else {
+          selectedTabMainCourse = 'dinner';
+          isDinnerSelected = true;
+          selectedTagsCount++;
+          addTag('dinner');
+        }
         break;
-
       default:
         break;
     }
-
     rebuildUi();
   }
 
+  void handleMainTabsDietary(int index) {
+  switch (index) {
+    case 0:
+      if (isPassageSelected) {
+        isPassageSelected = false;
+        selectedTagsCount--;
+        removeTag('Passage');
+      } else {
+        isPassageSelected = true;
+        selectedTagsCount++;
+        addTag('Passage');
+      }
+      break;
+    case 1:
+      if (isMealSelected) {
+        isMealSelected = false;
+        selectedTagsCount--;
+        removeTag('Meal');
+      } else {
+        isMealSelected = true;
+        selectedTagsCount++;
+        addTag('Meal');
+      }
+      break;
+    case 2:
+      if (isPlatedSelected) {
+        isPlatedSelected = false;
+        selectedTagsCount--;
+        removeTag('Plated');
+      } else {
+        isPlatedSelected = true;
+        selectedTagsCount++;
+        addTag('Plated');
+      }
+      break;
+    default:
+      break;
+  }
+  notifyListeners();
+}
+
+void handleSubTabsDietary(int index) {
+  switch (index) {
+    case 0:
+      if (isFamilySelected) {
+        isFamilySelected = false;
+        selectedTagsCount--;
+        removeTag('Family');
+      } else {
+        isFamilySelected = true;
+        selectedTagsCount++;
+        addTag('Family');
+      }
+      break;
+    case 1:
+      if (isLightSelected) {
+        isLightSelected = false;
+        selectedTagsCount--;
+        removeTag('Light');
+      } else {
+        isLightSelected = true;
+        selectedTagsCount++;
+        addTag('Light');
+      }
+      break;
+    case 2:
+      if (isCharterSelected) {
+        isCharterSelected = false;
+        selectedTagsCount--;
+        removeTag('Charter');
+      } else {
+        isCharterSelected = true;
+        selectedTagsCount++;
+        addTag('Charter');
+      }
+      break;
+    case 3:
+      if (isCrewSelected) {
+        isCrewSelected = false;
+        selectedTagsCount--;
+        removeTag('Crew');
+      } else {
+        isCrewSelected = true;
+        selectedTagsCount++;
+        addTag('Crew');
+      }
+      break;
+      
+    default:
+      break;
+  }
+  notifyListeners();
+}
+
+void handleSubTabsCourse(int index) {
+  switch (index) {
+    case 0:
+      isStarterSelected =!isStarterSelected;
+      if (isStarterSelected) {
+        addTag('starter');
+        selectedTagsCount++;
+      } else {
+        removeTag('starter');
+        selectedTagsCount--;
+      }
+      notifyListeners();
+      break;
+    case 1:
+      isCanapeSelected =!isCanapeSelected;
+      if (isCanapeSelected) {
+        addTag('canape');
+        selectedTagsCount++;
+      } else {
+        removeTag('canape');
+        selectedTagsCount--;
+      }
+      notifyListeners();
+      break;
+    case 2:
+      isSideSelected =!isSideSelected;
+      if (isSideSelected) {
+        addTag('side');
+        selectedTagsCount++;
+      } else {
+        removeTag('side');
+        selectedTagsCount--;
+      }
+      notifyListeners();
+      break;
+    default:
+      break;
+  }
+}
+
+// void handleSubTabsCourse(int index) {
+//   switch (index) {
+//     case 0:
+//       if (isStarterSelected) {
+//         isStarterSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isStarterSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 1:
+//       if (isCanapeSelected) {
+//         isCanapeSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isCanapeSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 2:
+//       if (isSideSelected) {
+//         isSideSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isSideSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     default:
+//       break;
+//   }
+//   rebuildUi();
+// }
+
+// void handleMainTabsDietary(int index) {
+//   switch (index) {
+//     case 0:
+//       if (isCrewSelected) {
+//         isCrewSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isCrewSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 1:
+//       if (isFamilySelected) {
+//         isFamilySelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isFamilySelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 2:
+//       if (isLightSelected) {
+//         isLightSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isLightSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     default:
+//       break;
+//   }
+//   rebuildUi();
+// }
+
+// void handleSubTabsDietary(int index) {
+//   switch (index) {
+//     case 0:
+//       if (isCharterSelected) {
+//         isCharterSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isCharterSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 1:
+//       if (isPassageSelected) {
+//         isPassageSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isPassageSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     case 2:
+//       if (isMealSelected) {
+//         isMealSelected = false;
+//         selectedTagsCount--;
+//       } else {
+//         isMealSelected = true;
+//         selectedTagsCount++;
+//       }
+//       break;
+//     default:
+//       break;
+//   }
+//   rebuildUi();
+// }
+// void handleSubTabsCourse(int index) {
+//   switch (index) {
+//     case 0:
+//       isStarterSelected =!isStarterSelected;
+//       if (isStarterSelected) {
+//         addTag('starter');
+//         selectedTagsCount++;
+//       } else {
+//         removeTag('starter');
+//         selectedTagsCount--;
+//       }
+//       notifyListeners();
+//       break;
+//     case 1:
+//       isCanapeSelected =!isCanapeSelected;
+//       if (isCanapeSelected) {
+//         addTag('canape');
+//         selectedTagsCount++;
+//       } else {
+//         removeTag('canape');
+//         selectedTagsCount--;
+//       }
+//       notifyListeners();
+//       break;
+//     case 2:
+//       isSideSelected =!isSideSelected;
+//       if (isSideSelected) {
+//         addTag('side');
+//         selectedTagsCount++;
+//       } else {
+//         removeTag('side');
+//         selectedTagsCount--;
+//       }
+//       notifyListeners();
+//       break;
+//     default:
+//       break;
+//   }
+// }
+  
+  
   List<String> selectedOptions() {
     List<String> selectedList = [];
 
@@ -203,65 +525,65 @@ class FilterViewModel extends BaseViewModel {
     return selectedList;
   }
 
-  void handleSubTabsCourse(int index) {
-    switch (index) {
-      case 0:
-        selectedTabSub = 'starter';
-        break;
-      case 1:
-        selectedTabSub = 'canape';
-        break;
-      case 2:
-        selectedTabSub = 'side';
-      case 3:
-        selectedTabSub = 'sweet';
-        break;
+  // void handleSubTabsCourse(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       selectedTabSub = 'starter';
+  //       break;
+  //     case 1:
+  //       selectedTabSub = 'canape';
+  //       break;
+  //     case 2:
+  //       selectedTabSub = 'side';
+  //     case 3:
+  //       selectedTabSub = 'sweet';
+  //       break;
 
-      default:
-        break;
-    }
+  //     default:
+  //       break;
+  //   }
 
-    rebuildUi();
-  }
+  //   rebuildUi();
+  // }
 
-  void handleMainTabsDietary(int index) {
-    switch (index) {
-      case 0:
-        selectedTabMainDietaryNeed = 'passagefriendly';
-        break;
-      case 1:
-        selectedTabMainDietaryNeed = 'mealprep';
-        break;
-      case 2:
-        selectedTabMainDietaryNeed = 'plated';
-        break;
-      default:
-        break;
-    }
-    notifyListeners();
-    rebuildUi();
-  }
+  // void handleMainTabsDietary(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       selectedTabMainDietaryNeed = 'passagefriendly';
+  //       break;
+  //     case 1:
+  //       selectedTabMainDietaryNeed = 'mealprep';
+  //       break;
+  //     case 2:
+  //       selectedTabMainDietaryNeed = 'plated';
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   notifyListeners();
+  //   rebuildUi();
+  // }
 
-  void handleSubTabsDietary(int index) {
-    switch (index) {
-      case 0:
-        selectedTabSubDietaryNeed = 'family';
-        break;
-      case 1:
-        selectedTabSubDietaryNeed = 'light';
-        break;
-      case 2:
-        selectedTabSubDietaryNeed = 'charter';
-        break;
-      case 3:
-        selectedTabSubDietaryNeed = 'crew';
-        break;
-      default:
-        break;
-    }
-    notifyListeners();
-    rebuildUi();
-  }
+  // void handleSubTabsDietary(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       selectedTabSubDietaryNeed = 'family';
+  //       break;
+  //     case 1:
+  //       selectedTabSubDietaryNeed = 'light';
+  //       break;
+  //     case 2:
+  //       selectedTabSubDietaryNeed = 'charter';
+  //       break;
+  //     case 3:
+  //       selectedTabSubDietaryNeed = 'crew';
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   notifyListeners();
+  //   rebuildUi();
+  // }
 
   void reset() {
     isCrewSelected = false;
@@ -282,10 +604,8 @@ class FilterViewModel extends BaseViewModel {
     selectedTabSub = '';
     selectedTabMainDietaryNeed = '';
     selectedTabSubDietaryNeed = '';
-
     values = const SfRangeValues(0.0, 5.0);
-    _navigationService.replaceWithSearchView(
-        recipeModel: RecipeService.recipes, chefList: _chefService.chefs);
+    selectedTagsCount = 0;
     notifyListeners();
     rebuildUi();
   }
@@ -312,7 +632,9 @@ class FilterViewModel extends BaseViewModel {
     }).toList();
 
     _navigationService.replaceWithSearchView(
-        recipeModel: filteredRecipes, chefList: _chefService.chefs);
+        selectedTagsCount: selectedTagsCount,
+        recipeModel: filteredRecipes,
+        chefList: _chefService.chefs);
   }
 
   int _parsePrepTime(String prepTimeString) {

@@ -1,7 +1,9 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -96,5 +98,26 @@ class LoginViewModel extends BaseViewModel {
 
   void toSignUp() {
     _navigationService.replaceWithSignUpView();
+  }
+
+  void signInWithGoogleAccount() async {
+    
+    await AuthService.signInWithGoogle()
+        .then((value) => {
+              {
+                userDetails = value as UserModel?,
+                if (userDetails!.userRole == 'guest')
+                  {
+                    _navigationService.replaceWithBottomBarGuestView(),
+                  }
+                else
+                  _navigationService.replaceWithBottomNavBarView()
+              }
+            })
+        // ignore: body_might_complete_normally_catch_error
+        .catchError((e) {
+      showToast(message: e.toString());
+      
+    });
   }
 }

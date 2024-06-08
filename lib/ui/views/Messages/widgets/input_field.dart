@@ -111,9 +111,12 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                         ? kcLightGrey
                         : kcPrimaryColor,
                   ),
-                  child: const Icon(
-                    FlutterRemix.send_plane_fill,
-                    color: kcWhiteColor,
+                  child: Center(
+                    child:  Icon(
+                      FlutterRemix.send_plane_fill,
+                      color: kcWhiteColor,
+                      size: 20.sp,
+                    ),
                   ),
                 ),
               ),

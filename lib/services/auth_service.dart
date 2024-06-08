@@ -1,9 +1,7 @@
-// ignore_for_file: use_build_context_synchronously, unused_local_variable
-
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -20,24 +18,42 @@ class AuthService {
       EasyLoading.show();
       final UserCredential user = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      EasyLoading.dismiss();
 
+      if (!user.user!.emailVerified) {
+        EasyLoading.dismiss();
+        showToast(message: 'Please verify your email before logging in');
+        return false;
+      }
+
+      EasyLoading.dismiss();
       return true;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "invalid-email":
           showToast(message: 'Invalid email');
+          break;
         case "user-disabled":
           showToast(message: 'User disabled');
+          break;
         case "user-not-found":
           showToast(message: 'User not found');
+          break;
         case "wrong-password":
           showToast(message: 'Wrong password');
+          break;
+        case 'network-request-failed':
+          showToast(message: 'No internet connection');
+          break;
+        case 'too-many-requests':
+          showToast(message: 'Too many requests');
+          break;
+        case 'email-already-in-use':
+          showToast(message: 'Email already in use');
+          break;
         default:
-          showToast(message: 'Failed to login');
+          showToast(message: 'Failed to login, Your email might not be verified');
           break;
       }
-
       EasyLoading.dismiss();
       return false;
     } catch (e) {
@@ -52,10 +68,8 @@ class AuthService {
     EasyLoading.show();
     try {
       await firebaseAuth.signOut();
-
       userDetails = null;
       savedRecipesGlobal = [];
-
       EasyLoading.dismiss();
       showToast(message: 'Signed out successfully');
     } catch (e) {
@@ -71,34 +85,41 @@ class AuthService {
   }) async {
     try {
       EasyLoading.show();
-      // Create user with email and password
       UserCredential userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email!,
         password: password,
       );
+
       userModel.uid = userCredential.user!.uid;
       userDetails = userModel;
       userDetails!.displayName = userModel.displayName;
-      // Store user details in Firestore
+
       bool userStored = await UserServices.storeUserRoleAndName(
         userModel: userModel,
       );
 
-      // Update user profile display name
       await userCredential.user!.updateDisplayName(userModel.displayName);
+      await userCredential.user!.sendEmailVerification();
 
-      UserServices.storeUserRoleAndName(userModel: userModel);
-      // Return user ID
       EasyLoading.dismiss();
-      showToast(message: 'Signed up successfully');
+      showToast(message: 'A verification email has been sent to your email address. Please verify your email.');
       return true;
     } catch (e) {
-      // Handle signup errors
       debugPrint('Error signing up: $e');
       EasyLoading.dismiss();
       showToast(message: 'Failed to sign up because $e');
       return false;
     }
+  }
+
+  static Future<UserCredential> signInWithGoogle() async {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

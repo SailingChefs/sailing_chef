@@ -8,6 +8,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.sizeOf(context).height;
     return viewModel.cullinary.isEmpty
         ? Center(
@@ -21,9 +22,9 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
             children: <Widget>[
               verticalSpaceSmall,
               SizedBox(
-                height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.27.h
-                    : MediaQuery.sizeOf(context).height * 0.25.h,
+                height: screenHeight <= 680.0
+                    ? screenHeight * 0.25
+                    : screenHeight * 0.27,
                 width: double.maxFinite,
                 child: ListView.builder(
                   itemCount: viewModel.cullinary.length > 5
@@ -38,7 +39,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         viewModel.toChefProfile(cullinaruschools);
                       },
                       child: Container(
-                        width: 150.w,
+                        width: screenWidth * 0.43,
                         // height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
@@ -88,7 +89,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0.dg),
+                               padding: EdgeInsets.only(
+                                  left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
                                 capitalizeEachWord(
                                     cullinaruschools.displayName!),

@@ -24,7 +24,6 @@ class SignUpView extends StackedView<SignUpViewModel> {
           children: [
             Positioned.fill
             (
-              
               child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(

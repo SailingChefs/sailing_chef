@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
 class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
   const TopBarUserDetailsScreen({super.key});
@@ -32,6 +33,9 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
           //     ),
           //   ),
           // ),
+
+          const SizedBox(),
+          const SizedBox(),
           Text(
             'Your Profile',
             style: globalTextStyle(
@@ -39,14 +43,14 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
                 color: Colors.black.withOpacity(0.6),
                 fontWeight: FontWeight.w700),
           ),
-          const SizedBox()
-          // CustomTextButton(
-          //   onPressed: () {
-          //     // viewModel.skipToHome();
-          //   },
-          //   buttonText: 'Skip',
-          //   textColor: Colors.black.withOpacity(0.6),
-          // ),
+          const SizedBox(),
+          CustomTextButton(
+            onPressed: () {
+              viewModel.skipToHome();
+            },
+            buttonText: 'Skip',
+            textColor: Colors.black.withOpacity(0.6),
+          ),
         ],
       ),
     );

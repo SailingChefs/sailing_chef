@@ -1,4 +1,5 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
@@ -35,8 +36,14 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         const LablesText(text: 'Description'),
 
                         SemiRoundedTranpaentTextField(
+                          suffixIcon: false,
+                          maxLines: 5,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(250)
+                          ],
                           controller: viewModel.bioController,
                           fillColor: kcPrimaryColor.withOpacity(0.08),
+                          borderRadius: 27.dg,
                           labelText: 'Bio',
                         ),
                         // const LablesText(text: 'Email'),
@@ -204,13 +211,14 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             const LablesText(text: 'Bio'),
                             SemiRoundedTranpaentTextField(
                               suffixIcon: false,
-                              maxLines: 4,
-                              
+                              maxLines: 5,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(250)
+                              ],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
                             ),
-                            
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
                             SemiRoundedTranpaentTextField(
@@ -350,7 +358,13 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Bio'),
-                            SemiRoundedTranpaentTextFieldBio(
+                            SemiRoundedTranpaentTextField(
+                              maxLines: 5,
+                              borderRadius: 27.dg,
+                              suffixIcon: false,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(250)
+                              ],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',

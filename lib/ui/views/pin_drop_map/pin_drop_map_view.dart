@@ -141,6 +141,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   ) {
     final viewModel = PinDropMapViewModel();
     viewModel.getCurrentLocation();
+    //send contextb to view model
     return viewModel;
   }
 }

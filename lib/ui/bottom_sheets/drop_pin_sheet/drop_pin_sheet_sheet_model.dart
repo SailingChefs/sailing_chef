@@ -65,7 +65,9 @@ class DropPinSheetSheetModel extends BaseViewModel {
       showToast(message: 'Please upload image!');
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
-    } else {}
+    } else if(ratings == 0){
+      showToast(message: 'Please add ratings!');
+    }else{}
   }
 
   Future<String> getCityCountry(double latitude, double longitude) async {

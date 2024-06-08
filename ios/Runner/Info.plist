@@ -2,16 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+<!-- Google Sign-in Section -->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.googleusercontent.apps.66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi</string>
+		</array>
+	</dict>
+</array>
+	<key>GIDClientID</key>
+	<string>66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi.apps.googleusercontent.com</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs permission for image picker</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app need permission for photo libraray</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-    <array>
-        <string>remote-notification</string>
-    </array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Access to photos is required to add pictures in recipes</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Location access required for recipes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -58,10 +69,13 @@
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
+		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
