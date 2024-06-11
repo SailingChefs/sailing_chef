@@ -135,36 +135,46 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         ),
                       ),
                     if (message.type == 'String')
-                      GestureDetector(
-                        onLongPress: () {
-                          viewModel.copyMessage(message.content);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(15.0),
-                          decoration: BoxDecoration(
-                            color: isCurrentUser
-                                ? const Color(0xffC2D2BE).withOpacity(0.8)
-                                : const Color(0xff427536).withOpacity(0.1),
-                            borderRadius: BorderRadius.only(
-                              topLeft: isCurrentUser
-                                  ? const Radius.circular(30)
-                                  : const Radius.circular(30),
-                              topRight: isCurrentUser
-                                  ? const Radius.circular(30)
-                                  : const Radius.circular(30),
-                              bottomRight: isCurrentUser
-                                  ? const Radius.circular(0)
-                                  : const Radius.circular(30),
-                              bottomLeft: isCurrentUser
-                                  ? const Radius.circular(30)
-                                  : const Radius.circular(0),
-                            ),
-                          ),
-                          child: Text(
-                            message.content,
-                            style: const TextStyle(color: kcBlackColor),
+                      Container(
+                        padding: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          color: isCurrentUser
+                              ? kcchatboxecolor
+                              : kcPrimaryColor.withOpacity(0.2),
+                          borderRadius: BorderRadius.only(
+                            topLeft: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(30),
+                            topRight: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(30),
+                            bottomRight: isCurrentUser
+                                ? const Radius.circular(0)
+                                : const Radius.circular(30),
+                            bottomLeft: isCurrentUser
+                                ? const Radius.circular(30)
+                                : const Radius.circular(0),
                           ),
                         ),
+                        child: viewModel.validateLink(message.content)
+                            ? GestureDetector(
+                              onTap: (){
+                                viewModel.onClickUrl(message.content);
+                              },
+                              child: Text(
+                                  message.content,
+                                  style: const TextStyle(color: kcwhitecolor, decoration: TextDecoration.underline,decorationColor: kcwhitecolor,),
+                                ),
+                            )
+                            : GestureDetector(
+                              onLongPress: (){
+                                viewModel.copyMessage(message.content);
+                              },
+                              child: Text(
+                                  message.content,
+                                  style: const TextStyle(color: kcBlackColor),
+                                ),
+                            ),
                       ),
                     if (message.type == 'file')
                       viewModel.uploadingFile && !last

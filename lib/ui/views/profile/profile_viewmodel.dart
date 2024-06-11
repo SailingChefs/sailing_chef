@@ -180,12 +180,19 @@ Future<void> onClickUrl(String url) async {
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 0),
+      duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
     );
   }
 
- 
+  // void toDishDetailsScreen(index) {
+  //   log('index is $index');
+  //   log('myRecipes is ${myRecipes![index]}');
+  //   _navigationService.navigateToSavedRecipeDetailsView(
+  //     recipeModel: myRecipes![index],
+  //     recipeList: IndexViewModel.getRandomDishes(myRecipes![index], myRecipes!),
+  //   );
+  // }
 
   void callCourseNameBottomSheet() {
     bottomsheetService.showCustomSheet(

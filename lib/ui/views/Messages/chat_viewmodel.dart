@@ -12,6 +12,7 @@ import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   final TextEditingController textController = TextEditingController();
@@ -54,11 +55,12 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   Future<void> getImage(
       ImageSource source, String receiverId, conversationId) async {
-    final pickedFile = await ImagePicker().pickImage(source: source,preferredCameraDevice: CameraDevice.rear);
+    final pickedFile = await ImagePicker()
+        .pickImage(source: source, preferredCameraDevice: CameraDevice.rear);
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-   
+
       rebuildUi();
       _uploadingImage = true;
       String imageUrl = await _conversationService.uploadImage(
@@ -74,9 +76,9 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             fileName: '',
           ),
           conversationId);
-      
+
       selectedImageFile = null;
-      
+
       rebuildUi();
     }
   }
@@ -121,9 +123,29 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     messageController.clear();
   }
 
+  bool validateLink(String? value) {
+    RegExp urlRegex = RegExp(
+      r'^(?:https?:\/\/|www\.|)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]*)?(?:\?(?:[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]+))?$',
+      caseSensitive: false,
+    );
+    return urlRegex.hasMatch(value!)
+        ? true 
+        : false;
+  }
+
+  Future<void> onClickUrl(String url) async {
+    Uri uri = Uri.parse(url);
+
+    if (uri.scheme.isEmpty) {
+      uri = Uri.parse('https:$url');
+    }
+
+    await launchUrl(uri);
+  }
+
   Future<void> addMessage(MessageModel message, String conversationId) async {
     await _conversationService.sendMessage(message, conversationId);
-    
+
     messageController.clear();
     rebuildUi();
   }
