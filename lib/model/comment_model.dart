@@ -6,7 +6,7 @@ class CommentModel {
   String userName;
   String userImageUrl; // Storing only user ID
   String recipeId;
-  String content;
+  String? content;
   Timestamp timestamp;
   List<String>? imageUrl;
   double? rating;

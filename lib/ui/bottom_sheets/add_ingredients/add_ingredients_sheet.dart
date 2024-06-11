@@ -62,11 +62,15 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             verticalSpaceTiny,
             const TwoTextFields(),
             verticalSpaceTiny,
-            SaveRecipeButton(
-              onPressed: viewModel.addIngredientToList,
-              buttonText: 'Add Ingredient',
-              prefix: Icons.add,
+            Center(
+              child: SaveRecipeButton(
+                onPressed: viewModel.addIngredientToList,
+                buttonText: 'Add Ingredient',
+                prefix: Icons.add,
+              ),
             ),
+            
+              verticalSpaceSmall,
           ],
         ),
       ),

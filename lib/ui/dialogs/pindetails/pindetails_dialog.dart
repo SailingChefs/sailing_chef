@@ -204,7 +204,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ],
                       ),
                     ),
-                    Padding(
+                   viewModel.pinnedLocation.contactNumber.isEmpty ?const  SizedBox(): Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 10),
                       child: Text(
                         viewModel.pinnedLocation.contactNumber,
@@ -215,7 +215,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ),
                       ),
                     ),
-                    Padding(
+                   viewModel.pinnedLocation.email.isEmpty ?const  SizedBox():   Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: Text(
                         viewModel.pinnedLocation.email,
@@ -226,7 +226,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ),
                       ),
                     ),
-                    Padding(
+                    viewModel.pinnedLocation.description.isEmpty ?const  SizedBox():  Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 10),
                       child: Text(
                         viewModel.pinnedLocation.description,

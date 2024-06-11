@@ -5,10 +5,11 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 
+// ignore: must_be_immutable
 class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
-
-  const SearchBarSearchScreen({super.key, required this.recipes});
+  int? selectedTagsCount;
+  SearchBarSearchScreen(this.selectedTagsCount,{super.key, required this.recipes});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -74,16 +75,37 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () => viewModel.toFilterScreen(recipes),
-          icon: SvgPicture.asset(
-            'assets/images/misc/equilizer.svg',
-            color: filterIconColor,
-            width: 30.dg,
-            height: 30.dg,
-          ),
-          color: filterIconColor,
-          iconSize: 30.dg,
+         Stack(
+          children: [
+            IconButton(
+              onPressed:(){
+                 viewModel.toFilterScreen(recipes);
+              },
+              icon: SvgPicture.asset(
+                'assets/images/misc/equilizer.svg',
+                color: filterIconColor,
+                width: 30,
+                height: 30,
+              ),
+              color: kcPrimaryColor,
+              iconSize: 32.h,
+            ),
+            Positioned(
+              top: 3,
+              left: 25,
+              child: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: const BoxDecoration(
+                  color: filterIconColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                 selectedTagsCount.toString(),
+                  style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

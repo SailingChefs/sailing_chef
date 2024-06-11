@@ -6,6 +6,8 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
@@ -254,17 +256,16 @@ class UserDetailsViewModel extends BaseViewModel {
 
   void skipToHome() {
     if (userDetails!.userRole == 'guest') {
-      _navigationService.replaceWithBottomBarGuestView();
+      _navigationService.clearStackAndShowView(
+        const BottomBarGuestView(),
+      );
     } else {
-      _navigationService.replaceWithBottomNavBarView();
+      _navigationService.clearStackAndShowView(
+        const BottomNavBarView(),
+      );
     }
   }
 
-  void getBack() {
-    _navigationService.navigateToSignUpView();
-  }
 
-  movetoDropPin() {
-    _navigationService.navigateToPinDropMapView();
-  }
+ 
 }

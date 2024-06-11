@@ -135,6 +135,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void goToFollowingList() {
     _navigationService.navigateTo(Routes.followingListView,
         arguments: FollowingListViewArguments(
+          
             user: userDetails, isfromFollowing: true));
   }
 

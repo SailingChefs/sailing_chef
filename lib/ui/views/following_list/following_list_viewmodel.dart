@@ -17,7 +17,9 @@ class FollowingListViewModel extends ReactiveViewModel {
   List<UserModel> get followingUsers => _followService.usersFollowing;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_followService];
+  List<ListenableServiceMixin> get listenableServices => [
+        _followService,
+      ];
   void popBack() {
     _navigationloactor.back();
   }
@@ -28,6 +30,7 @@ class FollowingListViewModel extends ReactiveViewModel {
     isFollowing = isFromFollowing;
     isFollower = !isFromFollowing;
     notifyListeners();
+    rebuildUi();
     setBusy(false);
   }
 
@@ -67,6 +70,7 @@ class FollowingListViewModel extends ReactiveViewModel {
       await _followService.removeFollowing(user);
       followingUsers.removeWhere((follower) => follower.uid == user.uid);
       notifyListeners();
+      rebuildUi();
     } catch (e) {
       // Handle errors if necessary
       log(e.toString());

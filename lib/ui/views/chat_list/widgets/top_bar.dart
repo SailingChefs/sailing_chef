@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class TopBarChatListScreen extends StatelessWidget {
@@ -5,8 +6,11 @@ class TopBarChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/logo/SAILING CHEFS2.png',
+    return SvgPicture.asset(
+      'assets/images/icons/logoo.svg',
+      height: 29.h,
+      width: 180,
+      fit: BoxFit.cover,
     );
   }
 }

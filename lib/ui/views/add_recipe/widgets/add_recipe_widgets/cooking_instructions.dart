@@ -92,6 +92,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.addMethods(methods);
                     },
                     child: Container(
+                      height: 50,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
@@ -101,13 +102,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       ),
                       child: Row(
                         children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                color: kcBlackColor.withOpacity(0.5),
-                                size: 16.0.dg,
-                              )),
+                          Icon(
+                            Icons.add,
+                            color: kcBlackColor.withOpacity(0.5),
+                            size: 22.0.dg,
+                          ),
                           horizontalSpaceSmall,
                           Text(
                             'Add one or multiple steps',
@@ -142,7 +141,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.0.dg,
+                            size: 22.0.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(

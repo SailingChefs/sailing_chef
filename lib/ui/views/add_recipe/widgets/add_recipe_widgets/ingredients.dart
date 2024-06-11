@@ -127,7 +127,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.addIngredients(ingredients);
                     },
                     child: Container(
-                      // height: 50.h,
+                      height: 50.h,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
@@ -137,13 +137,11 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                       ),
                       child: Row(
                         children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                color: kcBlackColor.withOpacity(0.5),
-                                size: 16.dg,
-                              )),
+                          Icon(
+                            Icons.add,
+                            color: kcBlackColor.withOpacity(0.5),
+                            size: 22.dg,
+                          ),
                           horizontalSpaceSmall,
                           Text(
                             'Add Ingredient',
@@ -156,6 +154,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           ),
                         ],
                       ),
+
                     ),
                   ),
                 ],
@@ -177,7 +176,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.dg,
+                            size: 22.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(

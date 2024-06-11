@@ -16,26 +16,26 @@ class CommentsDetailsScreen
       required this.recipeModel});
 
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
-    // recipeModel.comment = viewModel.commentService.comments;
-    viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    List<CustomListTileComments> commentTiles = [];
-    if (viewModel.commentsList.isNotEmpty) {
-      List<CommentModel> comments = viewModel.commentsList;
-      commentTiles = comments
-          .map((comment) => CustomListTileComments(
-                name: comment.userName,
-                date: comment.timestamp,
-                description: comment.content,
-                image: comment.userImageUrl,
-                ratingImages: comment.imageUrl ??
-                    [], // use an empty list if imageUrl is null
-                rating: comment.rating ?? 0, // use 0 if rating is null
-              ))
-          .toList();
-    }
-    return commentTiles;
+  viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  List<Widget> commentTiles = [];
+  if (viewModel.commentsList.isNotEmpty) {
+    List<CommentModel> comments = viewModel.commentsList;
+    commentTiles = comments.map((comment) {
+      return GestureDetector(
+        onLongPress: () => viewModel.onCommentLongPress(comment),
+        child: CustomListTileComments(
+          name: comment.userName,
+          date: comment.timestamp,
+          description: comment.content ?? '',
+          image: comment.userImageUrl,
+          ratingImages: comment.imageUrl ?? [], 
+          rating: comment.rating ?? 0, 
+        ),
+      );
+    }).toList();
   }
-
+  return commentTiles;
+}
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(
       spacing: 10,
@@ -107,7 +107,7 @@ class CommentsDetailsScreen
                   ? _buildImagePreview(viewModel)
                   : Container(),
               verticalSpaceSmall,
-              Container(
+                           Container(
                 padding:
                     EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
                 decoration: BoxDecoration(
@@ -130,8 +130,6 @@ class CommentsDetailsScreen
                     Expanded(
                       child: TextField(
                         controller: viewModel.commentController,
-                        onSubmitted: (value) =>
-                            viewModel.addComment(recipeModel.docId!),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Add your Review',
@@ -157,14 +155,26 @@ class CommentsDetailsScreen
                       ),
                       onRatingUpdate: (rating) => viewModel.addRating(rating),
                     ),
+                    viewModel.isEditingComment
+                      ? IconButton(
+                          onPressed: viewModel.updateComment,
+                          icon: const Icon(Icons.check, color: kcPrimaryColor),
+                        )
+                      : const SizedBox.shrink(),
                   ],
                 ),
               ),
               Center(
                 child: TextButton(
                     onPressed: viewModel.seeCommentsAll,
-                    child: Text(
+                    child: viewModel.seeComments == false ? Text(
                       'See All Reviews',
+                      style: globalTextStyle(
+                          color: kcPrimaryColor,
+                          fontSize: 14.0.sp,
+                          fontWeight: FontWeight.w500),
+                    ) : Text(
+                      'Hide Reviews',
                       style: globalTextStyle(
                           color: kcPrimaryColor,
                           fontSize: 14.0.sp,

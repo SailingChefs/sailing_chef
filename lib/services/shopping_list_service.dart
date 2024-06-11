@@ -19,6 +19,13 @@ class ShoppingListService with ListenableServiceMixin {
     isIntialized = true;
   }
 
+Future<List<ShoppingList>> getShoppingLists() async {
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('shopping_list').get();
+  List<ShoppingList> shoppingLists = snapshot.docs.map((doc) => ShoppingList.fromMap(doc.data() as Map<String, dynamic>)).toList();
+  return shoppingLists;
+}
+
+
   Future<List<ShoppingList>> _fetchAll() async {
     try {
       QuerySnapshot querySnapshot = await firebasestore
@@ -33,6 +40,20 @@ class ShoppingListService with ListenableServiceMixin {
     } catch (e) {
       log(e.toString());
       return [];
+    }
+  }
+
+    Future<void> saveShoppingList(ShoppingList item) async {
+    try {
+      final DocumentReference docRef =
+          FirebaseFirestore.instance.collection('shopping_list').doc();
+      item.id = docRef.id;
+      await docRef.set(item.toJson());
+      shoppingList.add(item);
+      log('Saved item to shopping list: ${item.id}');
+      notifyListeners();
+    } catch (e) {
+      log('Failed to save item to shopping list: ${e.toString()}');
     }
   }
 
@@ -76,6 +97,27 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
+ Future<void> addOrRemoveAllFromShopping(
+      List<ShoppingList> items, ShoppingList recipe) async {
+    EasyLoading.show();
+    if (checkShoppingList(recipe)) {
+      for (var element in shoppingList) {
+        _removeFromShoppingList(element);
+      }
+      EasyLoading.dismiss();
+    } else {
+      for (var item in items) {
+        if (shoppingList
+                .any((element) => element.ingredientId == item.ingredientId) &&
+            item.recipeId == recipe.recipeId) {
+        } else {
+          _saveShoppingList(item);
+        }
+        EasyLoading.dismiss();
+      }
+    }
+  }
+
   bool checkShoppingListAll(RecipeModel recipeModel) {
     return shoppingList
             .where((element) => element.recipeId == recipeModel.docId)
@@ -83,6 +125,12 @@ class ShoppingListService with ListenableServiceMixin {
         recipeModel.ingredients.length;
   }
 
+  bool checkShoppingList(ShoppingList recipeModel) {
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.recipeId)
+            .length ==
+        recipeModel;
+  }
   Future<void> _removeFromShoppingList(ShoppingList item) async {
     try {
       log(item.id);
@@ -113,6 +161,30 @@ class ShoppingListService with ListenableServiceMixin {
       log('saved shopping list : ${shoppingList.length.toString()}');
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  
+    Future<List<RecipeModel>> getRecipesWithShoppingListIngredients() async {
+    try {
+      // Get all ingredient IDs from the shopping list
+      List<String> ingredientIds = shoppingList.map((item) => item.ingredientId).toList();
+
+      // Query the recipes collection where ingredients contain any of the ingredient IDs
+      QuerySnapshot querySnapshot = await firebasestore
+          .collection('recipes')
+          .where('ingredientIds', arrayContainsAny: ingredientIds)
+          .get();
+
+      // Map the results to a list of RecipeModel
+      List<RecipeModel> recipes = querySnapshot.docs
+          .map((doc) => RecipeModel.fromSnapshot(doc))
+          .toList();
+
+      return recipes;
+    } catch (e) {
+      log(e.toString());
+      return [];
     }
   }
 }

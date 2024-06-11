@@ -2,10 +2,11 @@ import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
-
 class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
-  const ServingQuantity(this.drafts, {super.key});
+   ServingQuantity(this.drafts, {super.key});
   final RecipeModel? drafts;
+  final FocusNode _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return Column(
@@ -44,7 +45,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                   autofocus: false,
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
-                  //  maxLength: 3,
+                  focusNode: _focusNode,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(3)
@@ -95,38 +96,10 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
               ),
             ],
           ),
-        )
-
-        // Expanded(
-        //   flex: 1,
-        //   child: DropdownButton<int>(
-        //     isExpanded: true,
-        //     dropdownColor: kcWhiteColor,
-        //     underline: const SizedBox(),
-        //     style: globalTextStyle(
-        //       fontSize: 14.sp,
-        //       letterSpacing: -0.5,
-        //       fontWeight: FontWeight.w600,
-        //       color: kcBlackColor.withOpacity(0.6),
-        //     ),
-        //     icon: Icon(FlutterRemix.arrow_down_s_line,
-        //         color: kcBlackColor.withOpacity(0.5), size: 24.0.dg),
-        //     value: viewModel.selectedQuantity,
-        //     onChanged: (int? newValue) {
-        //       viewModel.updateQuantity(newValue!);
-        //     },
-        //     items: List.generate(5, (index) {
-        //       return DropdownMenuItem<int>(
-        //         value: index + 1,
-        //         child: Text('${index + 1}'),
-        //       );
-        //     }),
-        //   ),
-        // ),
-        // ],
-        //   ),
-        // ),
+        ),
       ],
     );
   }
+
+
 }

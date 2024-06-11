@@ -143,8 +143,8 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                           padding: const EdgeInsets.all(15.0),
                           decoration: BoxDecoration(
                             color: isCurrentUser
-                                ? kcchatboxecolor
-                                : kcPrimaryColor.withOpacity(0.2),
+                                ? const Color(0xffC2D2BE).withOpacity(0.8)
+                                : const Color(0xff427536).withOpacity(0.1),
                             borderRadius: BorderRadius.only(
                               topLeft: isCurrentUser
                                   ? const Radius.circular(30)

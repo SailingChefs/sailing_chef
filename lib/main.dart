@@ -1,5 +1,6 @@
-import 'dart:developer';
 
+
+import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,14 +18,12 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
-
 import 'core/theme/text_styles.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-    
   );
 
   await setupLocator();
@@ -44,7 +43,7 @@ Future<void> main() async {
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)
     ..dismissOnTap = false;
-  await locator<BitmapImageService>().initialise();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     // final PendingDynamicLinkData? data =
@@ -68,11 +67,10 @@ void _handleDynamicLinks(PendingDynamicLinkData? dynamicLink) async {
     _navigateToRecipe(deepLink);
   }
 }
+
 List<RecipeModel>? allRecipes;
-Future<List<RecipeModel>> getRandomDishes(
-  String currentRecipe,
-) async {
-  
+
+Future<List<RecipeModel>> getRandomDishes(String currentRecipe) async {
   allRecipes = await recipeService.fetchAllRecipes();
   List<RecipeModel> dishes = List.from(allRecipes!);
   dishes.removeWhere((recipe) => recipe.docId == currentRecipe);
@@ -84,9 +82,11 @@ Future<List<RecipeModel>> getRandomDishes(
 }
 
 RecipeService recipeService = locator<RecipeService>();
+
 void _navigateToRecipe(Uri deepLink) async {
   final String? recipeId = deepLink.queryParameters['recipe'];
   getRandomDishes(recipeId!);
+  // ignore: unnecessary_null_comparison
   if (recipeId != null) {
     log(recipeId.toString());
 
@@ -114,32 +114,36 @@ class MainApp extends StatelessWidget {
       builder: (context, child) => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute: Routes.startupView,
-            onGenerateRoute: StackedRouter().onGenerateRoute,
-            navigatorKey: StackedService.navigatorKey,
-            theme: ThemeData(
-              primaryColor: kcPrimaryColor,
-              primarySwatch: primarySwatch,
-              fontFamily: 'Inter',
-              appBarTheme: AppBarTheme(
-                color: Colors.white,
-                elevation: 0,
-                titleTextStyle: globalTextStyle(
-                  fontSize: 14.sp,
+        child: Builder(
+          builder: (context) {
+            // Initialize BitmapImageService after runApp
+            Future.microtask(() => locator<BitmapImageService>().initialise(context));
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: Routes.startupView,
+              onGenerateRoute: StackedRouter().onGenerateRoute,
+              navigatorKey: StackedService.navigatorKey,
+              theme: ThemeData(
+                primaryColor: kcPrimaryColor,
+                primarySwatch: primarySwatch,
+                fontFamily: 'Inter',
+                appBarTheme: AppBarTheme(
+                  color: Colors.white,
+                  elevation: 0,
+                  titleTextStyle: globalTextStyle(
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
-            ),
-            navigatorObservers: [
-              StackedService.routeObserver,
-            ],
-            builder: EasyLoading.init(),
-          ),
+              navigatorObservers: [
+                StackedService.routeObserver,
+              ],
+              builder: EasyLoading.init(),
+            );
+          },
         ),
       ),
     );
   }
 }
+

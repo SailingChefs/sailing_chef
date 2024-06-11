@@ -14,39 +14,40 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     return ingredients.map((ingredient) {
       return Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 130.w,
-                child: Text('${ingredient.quantity} ${ingredient.unit}',
+          SizedBox(height: 16.0.h),
+          GestureDetector(
+            onTap: (){
+               viewModel.addOneItemToCart(ingredient);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 130.w,
+                  child: Text('${ingredient.quantity} ${ingredient.unit}',
+                      style: globalTextStyle(
+                        color: kcBlackColor.withOpacity(0.87),
+                        letterSpacing: -0.3,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
+                SizedBox(
+                  width: 160.w,
+                  child: Text(
+                    capitalizeEachWord(ingredient.name),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: globalTextStyle(
-                      color: kcBlackColor.withOpacity(0.87),
                       letterSpacing: -0.3,
+                      color: kcBlackColor.withOpacity(0.5),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
-                    )),
-              ),
-              SizedBox(
-                width: 160.w,
-                child: Text(
-                  capitalizeEachWord(ingredient.name),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: globalTextStyle(
-                    letterSpacing: -0.3,
-                    color: kcBlackColor.withOpacity(0.5),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  viewModel.addOneItemToCart(ingredient);
-                },
-                child: Container(
+                Container(
                   width: 15.0.w,
                   height: 15.0.h,
                   decoration: BoxDecoration(
@@ -66,9 +67,9 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         )
                       : Container(),
                 ),
-              ),
-              horizontalSpaceTiny,
-            ],
+                horizontalSpaceTiny,
+              ],
+            ),
           ),
           verticalSpaceSmall,
         ],
@@ -109,7 +110,15 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    viewModel.checkShoppingListAll(recipeModel) ?  Text(
+                      'remove all',
+                      style: globalTextStyle(
+                        fontSize: 12.sp,
+                        color: kcBlackColor,
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ) : Text(
                       'add all to shopping list',
                       style: globalTextStyle(
                         fontSize: 12.sp,
@@ -117,7 +126,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w500,
                       ),
-                    ),
+                    ) ,
                     horizontalSpaceSmall,
                     Container(
                       width: 12.0.w,

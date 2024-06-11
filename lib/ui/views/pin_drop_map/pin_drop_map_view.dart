@@ -107,12 +107,12 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                         child: BottomButtonPinsDropView(),
                       )
                     : Container(),
-                viewModel.showList == true
+                viewModel.showList == true || viewModel.totalFilters != 0 && viewModel.allMarkers.isNotEmpty
                     ? Positioned(
                         bottom: 10,
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 150,
+                          height: 150, 
                           child: const PinDetailList(),
                         ),
                       )
@@ -141,6 +141,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   ) {
     final viewModel = PinDropMapViewModel();
     viewModel.getCurrentLocation();
+    //send contextb to view model
     return viewModel;
   }
 }

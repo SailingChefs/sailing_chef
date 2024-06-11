@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
@@ -60,7 +61,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                           contentPadding:
                                               const EdgeInsets.all(5),
                                           title: Text(
-                                            conversation.user!.displayName!,
+                                            capitalizeEachWord(conversation.user!.displayName!),
                                           ),
                                           subtitle: conversation
                                                       .latestMessageType ==

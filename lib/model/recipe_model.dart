@@ -10,7 +10,7 @@ class RecipeModel {
   final List<Ingredient> ingredients;
   final List<String> methods;
   String prepTime;
-   int servingSize;
+  int servingSize;
   final String status;
    String title;
   final String uid;

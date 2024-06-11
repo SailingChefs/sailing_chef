@@ -71,7 +71,7 @@ class UserdataServiceService {
       if (userSnapshot.exists) {
         await usersCollection.doc(uid).update(userModel);
         EasyLoading.dismiss();
-        showToast(message: 'User Data Uploaded successfully');
+        // showToast(message: 'User Data Uploaded successfully');
         userDetails = await _userService.getUserDetails();
         return true;
       } else {

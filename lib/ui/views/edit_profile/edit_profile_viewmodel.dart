@@ -167,7 +167,9 @@ class EditProfileViewModel extends BaseViewModel {
         'address': address,
       };
       await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+          userData, FirebaseAuth.instance.currentUser!.uid).then((value) => {
+            showToast(message: 'Profile Updated'),
+          });
       userDetails = await _userService.getUserDetails();
       _navigationService.navigateToBottomNavBarView();
     }

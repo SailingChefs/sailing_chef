@@ -1,3 +1,5 @@
+
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
@@ -61,9 +63,9 @@ class LoginView extends StackedView<LoginViewModel> {
                           SizedBox(
                             width: 150.w,
                             height: 80.h,
-                            child: Image.asset(
-                              'assets/images/logo/SAILING CHEFS.png',
-                            ),
+                            child: SvgPicture.asset(
+                              'assets/images/logo/SAILING_CHEFS.svg',
+                            )
                           ),
                           RoundedElevatedButton(
                             onPressed: viewModel.toSignUp,
@@ -133,7 +135,7 @@ class LoginView extends StackedView<LoginViewModel> {
                               onPressed: () {
                                 viewModel.vaigateToForgetPassword();
                               },
-                              buttonText: 'forget password?',
+                              buttonText: 'forgot password?',
                               fontWeight: FontWeight.w400,
                               fontSize: 14.sp,
                               textColor: kcWhiteColor,
@@ -148,6 +150,72 @@ class LoginView extends StackedView<LoginViewModel> {
                               height: 40.dg,
                               textFontSize: 18.sp,
                               isEnabled: viewModel.isLoginButtonEnabled(),
+                            ),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.03),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Divider(
+                                    color: kcPrimaryColor,
+                                    indent: 95,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Text(
+                                    'or',
+                                    style: globalTextStyle(
+                                      fontSize: 14.sp,
+                                      color: kcWhiteColor,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: Divider(
+                                    color: kcPrimaryColor,
+                                    endIndent: 95,
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                            OutlinedButton(
+                              onPressed: () {
+                                // viewModel.signInWithGoogleAccount();
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(color: kcPrimaryColor, ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 25),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(),
+                                  const SizedBox(),
+                                  SvgPicture.asset('assets/images/logo/google.svg',
+                                    height: 40,
+                                      width: 40,
+                                      color: kcwhitecolor,
+                                  ),
+                                  
+                                  Text(
+                                    'Sign in with Google',
+                                    style: globalTextStyle(
+                                      color: kcwhitecolor,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  const SizedBox(),
+                                  const SizedBox(),
+                                ],
+                              ),
                             ),
                           ],
                         ),

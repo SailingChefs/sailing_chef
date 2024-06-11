@@ -64,6 +64,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   bool isPlaying = false;
   bool seeComments = false;
   bool isRecipeSave = false;
+  CommentModel? currentEditingComment;
+  bool isEditingComment = false;
 
   List<CommentModel> get commentsList => commentService.comments;
 
@@ -73,6 +75,32 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     _savedRecipeService.addSavedRecipe(recipe);
     isRecipeSave = !isRecipeSave;
     notifyListeners();
+  }
+
+  void onCommentLongPress(CommentModel comment) {
+    currentEditingComment = comment;
+    isEditingComment = true;
+    commentController.text = comment.content ?? '';
+    rating = comment.rating ?? 0;
+    notifyListeners();
+  }
+
+    Future<void> updateComment() async {
+    if (currentEditingComment != null) {
+      currentEditingComment!.content = commentController.text;
+      currentEditingComment!.rating = rating;
+      
+      bool success = await commentService.updateCommentInFirestore(currentEditingComment!);
+      if (success) {
+        showToast(message: 'Comment updated successfully');
+        isEditingComment = false;
+        commentController.clear();
+        currentEditingComment = null;
+        notifyListeners();
+      } else {
+        showToast(message: 'Error updating comment');
+      }
+    }
   }
 
   void addToSaveList(RecipeModel recipe) {
@@ -195,38 +223,85 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
+  // void addComment(String recipeId) async {
+  //   bool uploaded;
+  //   List<String>? imageUrls;
+  //   if (images != []) {
+  //     imageUrls = await commentService.uploadImagesToFirebase(images);
+  //   }
+  //   uploaded = await commentService.addComment(CommentModel(
+  //       userId: userDetails!.uid!,
+  //       recipeId: recipeId,
+  //       content: commentController.text.isNotEmpty ? commentController.text : '',
+  //       timestamp: Timestamp.now(),
+  //       rating: rating,
+  //       userName: userDetails!.displayName!,
+  //       userImageUrl: userDetails!.displayPicture!,
+  //       imageUrl: imageUrls));
+
+  //   if (uploaded) {
+  //     commentController.clear();
+  //     images.clear();
+  //     rating = rating;
+  //     RecipeService.recipes
+  //         .where((element) => element.docId == recipeId)
+  //         .first
+  //         .rating = calculateAverageRating(commentService.comments) as double;
+  //     rebuildUi();
+
+  //     showToast(message: 'Comment Added');
+  //   }
+  // }
   void addComment(String recipeId) async {
     bool uploaded;
     List<String>? imageUrls;
-    if (images != []) {
+
+    // Check if rating is a valid double, otherwise set it to null or a default value
+    double? validRating;
+    try {
+      validRating = double.parse(rating.toString());
+    } catch (e) {
+      validRating = null;
+    }
+
+    if (images.isNotEmpty) {
       imageUrls = await commentService.uploadImagesToFirebase(images);
     }
-    uploaded = await commentService.addComment(CommentModel(
-        userId: userDetails!.uid!,
-        recipeId: recipeId,
-        content: commentController.text,
-        timestamp: Timestamp.now(),
-        rating: rating,
-        userName: userDetails!.displayName!,
-        userImageUrl: userDetails!.displayPicture!,
-        imageUrl: imageUrls));
+
+    CommentModel newComment = CommentModel(
+      userId: userDetails!.uid!,
+      recipeId: recipeId,
+      content: commentController.text, 
+      timestamp: Timestamp.now(),
+      rating: validRating,
+      userName: userDetails!.displayName!,
+      userImageUrl: userDetails!.displayPicture!,
+      imageUrl: imageUrls,
+    );
+
+    if (newComment.rating != null || newComment.content!.isNotEmpty) {
+      uploaded = await commentService.addComment(newComment);
+    } else {
+      showToast(message: 'Please provide a rating or comment.');
+      return;
+    }
 
     if (uploaded) {
       commentController.clear();
       images.clear();
-      rating = rating;
+      rating = 0;
       RecipeService.recipes
           .where((element) => element.docId == recipeId)
           .first
-          .rating = calculateAverageRating(commentService.comments) as double;
+          .rating = calculateAverageRating(commentService.comments);
       rebuildUi();
-
       showToast(message: 'Comment Added');
     }
   }
 
   void addOneItemToCart(Ingredient ingredient) {
     _shoppingListService.addOrRemoveFromShoppingList(ShoppingList(
+        recipeName: recipeModel.title,
         ingredientName: ingredient.name,
         quantity: ingredient.quantity,
         unit: ingredient.unit,
@@ -240,6 +315,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     List<ShoppingList> shoppingList = [];
     for (var ingredient in recipe.ingredients) {
       shoppingList.add(ShoppingList(
+          recipeName: recipe.title,
           ingredientName: ingredient.name,
           quantity: ingredient.quantity,
           unit: ingredient.unit,
@@ -268,6 +344,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   void toRecipeDetails(RecipeModel recipe) {
     _navigationService.replaceWithTransition(
+        opaque: true,
         SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipe,
@@ -439,5 +516,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       variant: BottomSheetType.socialIcons,
       data: recipeModel,
     );
+  }
+
+  void viewChefProfile(UserModel user) {
+    _navigationService.navigateToChefProfileView(user: user);
   }
 }

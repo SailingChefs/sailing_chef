@@ -78,9 +78,11 @@ class IndexViewModel extends BaseViewModel {
     matchAndAssignUsersToDishes();
   }
 
-  void toAllChefsView() {
-    _navigationService.navigateToAllChefsView(
+  void toAllChefsView() async{
+    await _navigationService.navigateToAllChefsView(
+      preventDuplicates: true,
       chefList: chefList,
+      
     );
   }
 
@@ -136,13 +138,17 @@ class IndexViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(RecipeModel recipe) async {
     await _navigationService.navigateWithTransition(
+     popGesture: true,
+     preventDuplicates: true,
+
+
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipe,
           randomRecipeList: IndexViewModel.getRandomDishes(recipe, dishes)),
-      curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 500),
-      transitionStyle: Transition.downToUp,
+      curve: Curves.elasticInOut,
+      duration: const Duration(milliseconds: 00),
+      transitionStyle: Transition.rightToLeft,
     );
     notifyListeners();
   }
@@ -163,12 +169,13 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void toViewCullinarySchools() {
-    _navigationService.navigateToCulineryschoolviewallView();
+  void toViewCullinarySchools() async{
+    await _navigationService.navigateToCulineryschoolviewallView();
   }
 
   void toSearch() {
     _navigationService.navigateToSearchView(
+      selectedTagsCount: 0,
       chefList: chefList,
       recipeModel: dishes,
     );

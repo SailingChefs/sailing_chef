@@ -34,7 +34,8 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                 color: kcBlackColor.withOpacity(0.87),
               ),
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z!@#' \$]")),
+                //add numbers too
+                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9!@#\$ ]")),
               ],
               validator: (value) {
                 if (value == null || value.isEmpty) {

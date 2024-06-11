@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
@@ -53,16 +54,16 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   Future<void> getImage(
       ImageSource source, String receiverId, conversationId) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
+    final pickedFile = await ImagePicker().pickImage(source: source,preferredCameraDevice: CameraDevice.rear);
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      _uploadingImage = true;
+   
       rebuildUi();
-
+      _uploadingImage = true;
       String imageUrl = await _conversationService.uploadImage(
           File(selectedImageFile!.path), selectedImageFile!.name);
-
+      _uploadingImage = false;
       await addMessage(
           MessageModel(
             content: imageUrl,
@@ -73,9 +74,9 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
             fileName: '',
           ),
           conversationId);
-
+      
       selectedImageFile = null;
-      _uploadingImage = false;
+      
       rebuildUi();
     }
   }
@@ -122,6 +123,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   Future<void> addMessage(MessageModel message, String conversationId) async {
     await _conversationService.sendMessage(message, conversationId);
+    
     messageController.clear();
     rebuildUi();
   }
@@ -188,5 +190,9 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   void copyMessage(String content) {
     Clipboard.setData(ClipboardData(text: content));
     showToast(message: 'Message copied');
+  }
+
+  void navigateToProfile(UserModel receiver) {
+    _navigationLoactor.navigateToChefProfileView(user: receiver);
   }
 }

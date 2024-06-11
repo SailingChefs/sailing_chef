@@ -16,9 +16,11 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
             ? viewModel.pins[index]
             : viewModel.filteredPins[index];
 
-        //  int actualIndex = (index + viewModel.startIndex) % viewModel.pins.length.toInt();
+        // Ensure pin.picture is not null and has at least one element
+        final String imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
+
         return GestureDetector(
-          onTap: () => viewModel.callDetailsDialog(viewModel.pins[index]),
+          onTap: () => viewModel.callDetailsDialog(pin),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -40,7 +42,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                               topLeft: Radius.circular(27),
                               bottomLeft: Radius.circular(27)),
                           child: Image.network(
-                            pin.picture.first,
+                            imageUrl,
                             fit: BoxFit.cover,
                             height: MediaQuery.of(context).size.height * 0.18,
                             width: MediaQuery.of(context).size.width * 0.26,
@@ -60,12 +62,17 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      pin.tags[0],
-                                      style: globalTextStyle(
-                                        color: kcBlackColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.27,
+                                      height: 25,
+                                      child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        pin.tags.isNotEmpty ? pin.tags[0] : '',
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -79,8 +86,9 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                         const Icon(
                                           Icons.star,
                                           color: kclightgreencolor,
+                                          size: 18,
                                         ),
-                                        horizontalSpaceSmall,
+                                        horizontalSpaceTiny,
                                         Text(
                                           viewModel
                                                       .calculateAverageRating(
@@ -103,21 +111,18 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                // padding: const EdgeInsets.only(left: 8, top: 6),
-                                width: 230,
+                              Container(
+                                padding: const EdgeInsets.only(top: 6),
+                                width: 235,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Text(
-                                        pin.name,
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                    Text(
+                                      pin.name,
+                                      style: globalTextStyle(
+                                        color: kcBlackColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
