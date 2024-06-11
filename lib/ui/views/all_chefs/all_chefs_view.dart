@@ -5,7 +5,6 @@ import 'package:sailing_chefs/ui/views/all_chefs/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/topbar.dart';
-import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 import 'all_chefs_viewmodel.dart';
 

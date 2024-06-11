@@ -8,23 +8,12 @@ class TopBarAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel>
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0,top: 30,right: 10),
+      padding: const EdgeInsets.only(left: 10.0, top: 30, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: viewModel.back,
-            child: Container(
-              alignment: Alignment.center,
-              height: 26.h,
-              width: 26.w,
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kcBlackColor,
-                size: 18.sp,
-              ),
-            ),
+          const SizedBox(
+            width: 20,
           ),
           Text(
             'Create Recipe',
@@ -36,16 +25,16 @@ class TopBarAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel>
             ),
           ),
           Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: viewModel.showDraftDialog,
-                      child: Icon(
-                        Icons.file_copy,
-                        color: kcPrimaryColor,
-                        size: 24.sp,
-                      ),
-                    ),
-                  ),
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: viewModel.showDraftDialog,
+              child: Icon(
+                Icons.file_copy,
+                color: kcPrimaryColor,
+                size: 24.sp,
+              ),
+            ),
+          ),
         ],
       ),
     );

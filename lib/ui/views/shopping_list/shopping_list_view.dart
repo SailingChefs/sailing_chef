@@ -1,124 +1,160 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/ui/views/shopping_list/widgets/topBar.dart';
-
 import 'shopping_list_viewmodel.dart';
 
 class ShoppingListView extends StackedView<ShoppingListViewModel> {
   List<Widget> createShoppingListWidgets(
       ShoppingListViewModel viewModel, context) {
-       
-    return [
-      for (var ingredient in viewModel.shoppingList)
+    Map<String, List<ShoppingList>> groupedIngredients = {};
+
+    // Group ingredients by recipe name
+    for (var ingredient in viewModel.shoppingList) {
+      if (!groupedIngredients.containsKey(ingredient.recipeName)) {
+        groupedIngredients[ingredient.recipeName] = [];
+      }
+      groupedIngredients[ingredient.recipeName]!.add(ingredient);
+    }
+
+    List<Widget> widgets = [];
+
+    // Create widgets for each recipe and its ingredients
+    groupedIngredients.forEach((recipeName, ingredients) {
+      widgets.add(
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            verticalSpaceMedium,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text(
-                ingredient.recipeName,
-                style: globalTextStyle(
-                  fontSize: 18,
-                  color: kcBlackColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => viewModel.addAllItemsToCart(ingredient),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
-                  decoration: BoxDecoration(
-                    color: kcPrimaryColorDark.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(32.0.dg),
+                Text(
+                  capitalizeEachWord(recipeName),
+                  style: globalTextStyle(
+                    fontSize: 18,
+                    color: kcBlackColor,
+                    fontWeight: FontWeight.w500,
                   ),
+                ),
+                GestureDetector(
+                  // onTap: () => viewModel.addAllItemsToCart(ingredients),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: kcPrimaryColorDark.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Deselect All',
+                          style: globalTextStyle(
+                            fontSize: 12,
+                            color: kcBlackColor,
+                            letterSpacing: -0.2,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        horizontalSpaceSmall,
+                        Container(
+                          width: 12.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: kcBlackColor.withOpacity(0.8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            verticalSpaceSmall,
+            ...ingredients.map((ingredient) {
+              return GestureDetector(
+                onTap: () => viewModel.addOneItemToCart(ingredient),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 12.0, top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'deselect all',
-                        style: globalTextStyle(
-                          fontSize: 12.sp,
-                          color: kcBlackColor,
-                          letterSpacing: -0.2,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      horizontalSpaceSmall,
-                      Container(
-                        width: 12.0.w,
-                        height: 12.0.h,
-                        decoration: BoxDecoration(
-                          color: viewModel
-                                .checkShoppingList(ingredient)
-                            ? kcBlackColor.withOpacity(0.8)
-                            : Colors.transparent,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: kcBlackColor.withOpacity(0.8),
+                      if (ingredient.isRemoved)
+                        Text(
+                         '${ingredient.quantity} ${ingredient.unit}',
+                          overflow: TextOverflow.ellipsis,
+                          style: globalTextStyle(
+                            fontSize: 15,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor.withOpacity(0.87),
+                          ),
+                        )
+                      else
+                        Text(
+                          '${ingredient.quantity} ${ingredient.unit}',
+                          overflow: TextOverflow.ellipsis,
+                          style: globalTextStyle(
+                            fontSize: 15,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor.withOpacity(0.87),
                           ),
                         ),
+                      Text(
+                        capitalizeEachWord(ingredient.ingredientName),
+                        overflow: TextOverflow.ellipsis,
+                        style: globalTextStyle(
+                          fontSize: 13,
+                          letterSpacing: -0.5,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.87),
+                        ),
+                      ),
+                      Container(
+                        width: 15.0,
+                        height: 15.0,
+                        decoration: BoxDecoration(
+                          color: ingredient.isRemoved
+                              ? Colors.transparent
+                              : viewModel.checkShoppingList(ingredient)
+                                  ? kcPrimaryColorDark
+                                  : Colors.transparent,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: kcPrimaryColorDark,
+                          ),
+                        ),
+                        child: ingredient.isRemoved
+                            ? null
+                            : viewModel.checkShoppingList(ingredient)
+                                ? const Icon(
+                                    Icons.check,
+                                    color: kcWhiteColor,
+                                    size: 12.0,
+                                  )
+                                : null,
                       ),
                     ],
                   ),
                 ),
-              ),
-            ]),
+              );
+            }).toList(),
             verticalSpaceSmall,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 130.w,
-                  child: Text('${ingredient.quantity} ${ingredient.unit}',
-                      style: globalTextStyle(
-                        color: kcBlackColor.withOpacity(0.87),
-                        letterSpacing: -0.3,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      )),
-                ),
-                SizedBox(
-                  width: 160.w,
-                  child: Text(
-                    capitalizeEachWord(ingredient.ingredientName),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: globalTextStyle(
-                      letterSpacing: -0.3,
-                      color: kcBlackColor.withOpacity(0.5),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 15.0.w,
-                  height: 15.0.h,
-                  decoration: BoxDecoration(
-                    color: viewModel.checkShoppingList(ingredient)
-                        ? kcPrimaryColorDark
-                        : Colors.transparent,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: kcPrimaryColorDark,
-                    ),
-                  ),
-                  child: viewModel.checkShoppingList(ingredient)
-                      ? Icon(
-                          Icons.check,
-                          color: kcWhiteColor,
-                          size: 12.0.sp,
-                        )
-                      : Container(),
-                ),
-                horizontalSpaceTiny,
-              ],
-            ),
-          ],),
-    ];
+          ],
+        ),
+      );
+    });
+
+    return widgets;
   }
 
   const ShoppingListView({Key? key}) : super(key: key);
@@ -140,14 +176,35 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
             )
           : SingleChildScrollView(
               child: Container(
-                  padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      verticalSpaceSmall,
-                      ...createShoppingListWidgets(viewModel, context),
-                    ],
-                  )),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: viewModel.localShoppingList.isEmpty
+                    ? Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.4,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Shopping List Empty!',
+                              textAlign: TextAlign.center,
+                              style: globalTextStyle(
+                                color: kcPrimaryColor.withOpacity(0.9),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          verticalSpaceSmall,
+                          ...createShoppingListWidgets(viewModel, context),
+                        ],
+                      ),
+              ),
             ),
     );
   }

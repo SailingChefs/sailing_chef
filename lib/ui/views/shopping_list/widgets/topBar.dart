@@ -10,7 +10,7 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
   @override
   Widget build(BuildContext context, ShoppingListViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0,bottom: 20,left: 10),
+      padding: const EdgeInsets.only(top: 30.0,bottom: 20,left: 10,right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
@@ -63,12 +62,17 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      pin.tags.isNotEmpty ? pin.tags[0] : '',
-                                      style: globalTextStyle(
-                                        color: kcBlackColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.27,
+                                      height: 25,
+                                      child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        pin.tags.isNotEmpty ? pin.tags[0] : '',
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -82,8 +86,9 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                         const Icon(
                                           Icons.star,
                                           color: kclightgreencolor,
+                                          size: 18,
                                         ),
-                                        horizontalSpaceSmall,
+                                        horizontalSpaceTiny,
                                         Text(
                                           viewModel
                                                       .calculateAverageRating(
@@ -106,21 +111,18 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                // padding: const EdgeInsets.only(left: 8, top: 6),
-                                width: 230,
+                              Container(
+                                padding: const EdgeInsets.only(top: 6),
+                                width: 235,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Text(
-                                        pin.name,
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                    Text(
+                                      pin.name,
+                                      style: globalTextStyle(
+                                        color: kcBlackColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(

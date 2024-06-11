@@ -15,6 +15,8 @@
 		</array>
 	</dict>
 </array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires Mic permission.</string>
 	<key>GIDClientID</key>
 	<string>66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi.apps.googleusercontent.com</string>
 	<key>NSPhotoLibraryUsageDescription</key>

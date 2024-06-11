@@ -83,7 +83,10 @@ class RoundedTransparentTextField extends StatelessWidget {
       showCursor: true,
       onChanged: onChanged,
       obscureText: obscureText,
+      autocorrect: true,
+      enableSuggestions: true,
       keyboardType: keyboardType,
+      textCapitalization: TextCapitalization.words,
       controller: controller,
       maxLength: maxLength,
       maxLines: maxLines ?? 1,
@@ -114,7 +117,6 @@ class RoundedTransparentTextField extends StatelessWidget {
             fontSize: 14.sp,
             color: textColor ?? kcWhiteColor,
             fontWeight: FontWeight.w500),
-        // labelText: labelText,
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

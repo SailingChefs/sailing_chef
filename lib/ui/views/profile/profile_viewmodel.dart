@@ -57,11 +57,15 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  Future<void> onClickUrl(String url) async {
-    Uri uri = Uri.parse("https://$url");
+Future<void> onClickUrl(String url) async {
+  Uri uri = Uri.parse(url);
 
-    await launchUrl(uri);
+  if (uri.scheme.isEmpty) {
+    uri = Uri.parse('https:$url');
   }
+
+  await launchUrl(uri);
+}
 
   void savedSelected() async {
     isSavedSelected = true;
@@ -176,19 +180,12 @@ class ProfileViewModel extends ReactiveViewModel {
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 0),
       transitionStyle: Transition.downToUp,
     );
   }
 
-  // void toDishDetailsScreen(index) {
-  //   log('index is $index');
-  //   log('myRecipes is ${myRecipes![index]}');
-  //   _navigationService.navigateToSavedRecipeDetailsView(
-  //     recipeModel: myRecipes![index],
-  //     recipeList: IndexViewModel.getRandomDishes(myRecipes![index], myRecipes!),
-  //   );
-  // }
+ 
 
   void callCourseNameBottomSheet() {
     bottomsheetService.showCustomSheet(

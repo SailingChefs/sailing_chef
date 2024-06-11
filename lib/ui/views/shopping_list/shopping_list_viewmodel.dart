@@ -1,21 +1,25 @@
-import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
 
 class ShoppingListViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _shoppingListService = locator<ShoppingListService>();
-  List<ShoppingList> get shoppingList => _shoppingListService.shoppingList;
+
+  List<ShoppingList> localShoppingList = []; 
+
+  List<ShoppingList> get shoppingList =>
+      localShoppingList.toList(); 
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_shoppingListService];
+
   void onViewModelReady() async {
     setBusy(true);
     await _shoppingListService.getShoppingList();
-    log('this is done');
-    log(shoppingList.toString());
+    localShoppingList = List.from(_shoppingListService.shoppingList);
     setBusy(false);
   }
 
@@ -23,42 +27,56 @@ class ShoppingListViewModel extends ReactiveViewModel {
     _navigationService.back();
   }
 
-  void removeRecipe(ShoppingList shoppingList) async {
+  Future<void> removeRecipe(ShoppingList shoppingList) async {
+    shoppingList.isRemoved = true;
+    notifyListeners();
     await _shoppingListService.addOrRemoveFromShoppingList(shoppingList);
     rebuildUi();
   }
 
-  void addAllItemsToCart(ShoppingList ingredient) async {
-    List<ShoppingList> shoppingList = [];
-      shoppingList.add(ShoppingList(
-          recipeName: ingredient.recipeName,
-          ingredientName: ingredient.ingredientName,
-          quantity: ingredient.quantity,
-          unit: ingredient.unit,
-          id: '',
-          recipeId: ingredient.recipeId,
-          ingredientId: ingredient.id));
-    _shoppingListService.addOrRemoveAllFromShopping(shoppingList, ingredient);
-
+  Future<void> addAllItemsToCart(List<ShoppingList> ingredients) async {
+    localShoppingList.addAll(ingredients);
+    notifyListeners();
+    await _shoppingListService.addOrRemoveAllFromShoppingList(
+        ingredients,
+        RecipeModel(
+          docId: '',
+          title: '',
+          ingredients: [],
+          methods: [],
+          tags: [],
+          visibility: '',
+          chefNote: '',
+          coverImage: [],
+          createdTime: Timestamp.now(),
+          prepTime: '',
+          servingSize: 0,
+          status: '',
+          uid: '',
+          waveForm: [],
+        ));
     rebuildUi();
   }
 
-  void addOneItemToCart(ShoppingList ingredient) {
-    _shoppingListService.addOrRemoveFromShoppingList(ShoppingList(
-        recipeName: ingredient.recipeName,
-        ingredientName: ingredient.ingredientName,
-        quantity: ingredient.quantity,
-        unit: ingredient.unit,
-        id: '',
-        recipeId: ingredient.recipeId,
-        ingredientId: ingredient.id));
+  bool? isDeleted = false;
+
+  void addOneItemToCart(ShoppingList ingredient) async {
+    if (!localShoppingList.contains(ingredient)) {
+      isDeleted = false;
+      notifyListeners();
+      localShoppingList.add(ingredient);
+    }
+    isDeleted = true;
+    notifyListeners();
+    await _shoppingListService.addOrRemoveFromShoppingList(ingredient);
     rebuildUi();
   }
 
   bool checkShoppingList(ShoppingList ingredient) {
-    if (shoppingList.any((element) => element.ingredientId == ingredient.id)) {
-      return true;
-    }
-    return false;
+    return localShoppingList.any((item) => item.id == ingredient.id);
+  }
+
+  bool checkShoppingListAll(RecipeModel recipeModel) {
+    return localShoppingList.any((item) => item.recipeId == recipeModel.docId);
   }
 }

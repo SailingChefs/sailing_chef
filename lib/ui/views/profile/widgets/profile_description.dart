@@ -79,16 +79,20 @@ class ProfileDescriptionProfileScreen
                           onTap: () {
                             viewModel.onClickUrl(userDetails!.link!);
                           },
-                          child: Text(
-                            userDetails!.link!.isEmpty
-                                ? ' '
-                                : userDetails!.link!,
-                            style: globalTextStyle(
-                              fontSize: 14.sp,
-                              letterSpacing: -0.3,
-                              fontWeight: FontWeight.w400,
-                              color: filterIconColor,
-                              decoration: TextDecoration.none,
+                          child: SizedBox(
+                            width: 300,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              userDetails!.link!.isEmpty
+                                  ? ' '
+                                  : userDetails!.link!,
+                              style: globalTextStyle(
+                                fontSize: 14.sp,
+                                letterSpacing: -0.3,
+                                fontWeight: FontWeight.w400,
+                                color: filterIconColor,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
                           ),
                         ),

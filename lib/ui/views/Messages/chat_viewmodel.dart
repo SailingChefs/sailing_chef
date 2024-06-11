@@ -54,7 +54,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   Future<void> getImage(
       ImageSource source, String receiverId, conversationId) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
+    final pickedFile = await ImagePicker().pickImage(source: source,preferredCameraDevice: CameraDevice.rear);
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;

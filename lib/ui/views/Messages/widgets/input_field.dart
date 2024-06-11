@@ -1,4 +1,5 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -17,108 +18,98 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
   Widget build(BuildContext context, ChatViewModel viewModel) {
     return Container(
       width: double.infinity,
-      height: 60,
+      height: 63,
       decoration: BoxDecoration(
-        color: kcLightGrey.withOpacity(0.03),
-        boxShadow: [
-          BoxShadow(
-            color: kcLightGrey.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        color: kcbuttoncolor.withOpacity(0.03),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(0),
+          topRight: Radius.circular(0),
+        ),
       ),
       padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
       child: Column(
         children: [
           Row(
             children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.camera_alt_outlined,
+              Padding(
+                padding: const EdgeInsets.all(9.0),
+                child: GestureDetector(
+                  onTap: () {
+                    viewModel.getImage(
+                        ImageSource.camera, user.uid!, conversationId);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/images/icons/camera.svg',
+                    width: 24,
+                    height: 24,
+                    color: kcBlackColor.withOpacity(0.7),
+                  ),
                 ),
-                onPressed: () {
-                  viewModel.getImage(
-                      ImageSource.camera, user.uid!, conversationId);
-                },
               ),
               Flexible(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextField(
-                    controller: viewModel.messageController,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: kcWhiteColor.withOpacity(0.9),
-                      hintText: 'Type your message here...',
-                      hintStyle: TextStyle(
-                          fontSize: 12, color: kcBlackColor.withOpacity(0.6)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide:
-                            BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                child: TextField(
+                  controller: viewModel.messageController,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: kcWhiteColor.withOpacity(0.9),
+                    hintText: 'Type your message here...',
+                    hintStyle: TextStyle(
+                        fontSize: 12, color: kcBlackColor.withOpacity(0.6)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: const BorderSide(
+                        color: kcErrorColor,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide:
-                            BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: const BorderSide(
+                        color: kcErrorColor,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide:
-                            BorderSide(color: kcWhiteColor.withOpacity(0.2)),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(
-                          color: kcErrorColor,
-                        ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(
-                          color: kcErrorColor,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
                     ),
                   ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(FlutterRemix.attachment_2),
-                onPressed: () {
-                  viewModel.isBusy
-                      ? EasyLoading()
-                      : viewModel.getFile(user.uid!, conversationId);
-                },
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: GestureDetector(
+                  onTap: () {
+                    viewModel.isBusy
+                        ? EasyLoading()
+                        : viewModel.getFile(user.uid!, conversationId);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/images/icons/clip.svg',
+                    width: 24,
+                    height: 24,
+                    color: kcBlackColor.withOpacity(0.7),
+                  ),
+                ),
               ),
               GestureDetector(
                 onTap: () {
                   viewModel.sendMessage(user.uid!, conversationId);
                 },
-                child: Container(
-                  height: 40.0,
-                  width: 40.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: viewModel.messageController.text.isEmpty
-                        ? kcLightGrey
-                        : kcPrimaryColor,
-                  ),
-                  child: Center(
-                    child:  Icon(
-                      FlutterRemix.send_plane_fill,
-                      color: kcWhiteColor,
-                      size: 20.sp,
-                    ),
-                  ),
-                ),
+                child: SvgPicture.asset('assets/images/icons/send.svg'),
               ),
             ],
           ),

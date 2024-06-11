@@ -146,6 +146,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
       draggable: false,
       position: location,
       onTap: () async {
+        
         tapPosition = location;
         showList = true;
         showMarker = false;

@@ -10,6 +10,7 @@ class ShoppingList {
   final String ingredientId;
   final String recipeId;
   bool isSelected;
+  bool isRemoved; // Add this property
 
   ShoppingList({
     required this.recipeName,
@@ -20,6 +21,7 @@ class ShoppingList {
     required this.id,
     required this.recipeId,
     this.isSelected = false,
+    this.isRemoved = false, // Initialize it to false
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class ShoppingList {
       'ingredient_id': ingredientId,
       'user_id': userDetails!.uid,
       'recipe_id': recipeId,
+      'is_removed': isRemoved, // Add this to the JSON
     };
   }
 
@@ -45,6 +48,20 @@ class ShoppingList {
       ingredientId: data['ingredient_id'] ?? '',
       id: data['id'] ?? '',
       recipeId: data['recipe_id'],
+      isRemoved: data['is_removed'] ?? false, // Initialize it to false if not present
+    );
+  }
+
+  factory ShoppingList.fromMap(Map<String, dynamic> map) {
+    return ShoppingList(
+      recipeName: map['recipe_name'] ?? '',
+      ingredientName: map['ingredient_name'] ?? '',
+      quantity: map['quantity'] ?? '',
+      unit: map['unit'] ?? '',
+      ingredientId: map['ingredient_id'] ?? '',
+      id: map['id'] ?? '',
+      recipeId: map['recipe_id'] ?? '',
+      isRemoved: map['is_removed'] ?? false, // Initialize it to false if not present
     );
   }
 }

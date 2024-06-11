@@ -21,10 +21,13 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               shape: BoxShape.circle,
             ),
             child: user.displayPicture!.isEmpty
-                ? const Image(
-                    image: AssetImage('assets/images/misc/blank_image.png'))
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                  child: const Image(
+                      image: AssetImage('assets/images/misc/blank_image.png')),
+                )
                 : ClipRRect(
-                    borderRadius: BorderRadius.circular(90),
+                    borderRadius: BorderRadius.circular(100),
                     child: CachedNetworkImage(
                       imageUrl: user.displayPicture!,
                       height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,

@@ -14,6 +14,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     return ingredients.map((ingredient) {
       return Column(
         children: [
+          SizedBox(height: 16.0.h),
           GestureDetector(
             onTap: (){
                viewModel.addOneItemToCart(ingredient);
@@ -109,7 +110,15 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    viewModel.checkShoppingListAll(recipeModel) ?  Text(
+                      'remove all',
+                      style: globalTextStyle(
+                        fontSize: 12.sp,
+                        color: kcBlackColor,
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ) : Text(
                       'add all to shopping list',
                       style: globalTextStyle(
                         fontSize: 12.sp,
@@ -117,7 +126,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w500,
                       ),
-                    ),
+                    ) ,
                     horizontalSpaceSmall,
                     Container(
                       width: 12.0.w,

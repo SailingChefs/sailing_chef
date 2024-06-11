@@ -311,7 +311,9 @@ class AddRecipeViewModel extends BaseViewModel {
   void _initialiseController() {
     recorderController = RecorderController()
       ..androidEncoder = AndroidEncoder.aac
-      ..androidOutputFormat = AndroidOutputFormat.mpeg4;
+      ..androidOutputFormat = AndroidOutputFormat.mpeg4
+      ..iosEncoder = IosEncoder.kAudioFormatMPEG4AAC
+      ..sampleRate = 16000;
   }
 
   void addIngredients(List<Ingredient> newIngredients) async {
@@ -504,7 +506,7 @@ class AddRecipeViewModel extends BaseViewModel {
     }
   }
 
-  void showDraftDialog() async{
+  void showDraftDialog() async {
     if (isPlaying) {
       stopListening();
     }
@@ -520,12 +522,10 @@ class AddRecipeViewModel extends BaseViewModel {
     } else if (prepreationTime == null) {
       showToast(message: 'Please add cooking time');
       return;
-    }
-    else if (servingSize.text.isEmpty) {
+    } else if (servingSize.text.isEmpty) {
       showToast(message: 'Please add Seving Size');
       return;
-    }
-     else {
+    } else {
       recipeModel == null
           ? await _dialogService
               .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
@@ -574,21 +574,20 @@ class AddRecipeViewModel extends BaseViewModel {
               'path': path,
             });
 
-            alreadySelectedImages = [];
-            selectedImages = [];
-            ingredientsList = [];
-            methodsList = [];
-            waveFormData = [];
-            path = '';
-            prepreationTime = '';
-            servingSize.clear();
-            formattedDuration = '';
-            titleController.clear();
-            hasRecordedAudio = false;
-            playerController.dispose();
-            tagsList = [];
-            notifyListeners();
-
+      alreadySelectedImages = [];
+      selectedImages = [];
+      ingredientsList = [];
+      methodsList = [];
+      waveFormData = [];
+      path = '';
+      prepreationTime = '';
+      servingSize.clear();
+      formattedDuration = '';
+      titleController.clear();
+      hasRecordedAudio = false;
+      playerController.dispose();
+      tagsList = [];
+      notifyListeners();
     }
   }
 
@@ -670,7 +669,6 @@ class AddRecipeViewModel extends BaseViewModel {
             draftUrls: alreadySelectedImages,
           );
           if (shouldClear == true) {
-          
             recorderController.dispose();
             playerController.dispose();
             titleController.dispose();
@@ -723,7 +721,7 @@ class AddRecipeViewModel extends BaseViewModel {
             waveFormData: waveFormData,
             draftUrls: alreadySelectedImages,
           );
-       
+
           if (shouldClear == true) {
             log(" Clearing");
             recorderController.dispose();

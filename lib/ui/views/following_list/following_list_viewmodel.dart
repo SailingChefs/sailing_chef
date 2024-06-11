@@ -30,6 +30,7 @@ class FollowingListViewModel extends ReactiveViewModel {
     isFollowing = isFromFollowing;
     isFollower = !isFromFollowing;
     notifyListeners();
+    rebuildUi();
     setBusy(false);
   }
 

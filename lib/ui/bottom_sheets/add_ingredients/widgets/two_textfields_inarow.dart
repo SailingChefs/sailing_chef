@@ -24,9 +24,12 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: RoundedTransparentTextField(
-                    keyboardType: TextInputType.number,
                     maxLength: 3,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      // FilteringTextInputFormatter.allow(RegExp(r'[0-9./]')),
+                      LengthLimitingTextInputFormatter(3),
+                    ],
                     labelText: 'Quantity',
                     controller: viewModel.quantityController,
                     fillColor: const Color(0xFF427536).withOpacity(0.04),

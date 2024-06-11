@@ -4,7 +4,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/edit_profile/widgets/description.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/lables_text.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';

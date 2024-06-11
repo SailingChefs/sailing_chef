@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -33,21 +31,26 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
                   color: kcPrimaryColor,
                 ),
               )
-            : Container(
-                padding: const EdgeInsets.only(
-                  left: 25.0,
-                  right: 25.0,
-                ),
-                child: Column(
-                  children: [
-                    verticalSpaceMedium,
-                    Expanded(
-                      child: AddRecipeFormAddRecipeScreen(
-                        drafts,
-                        ingredientsList,
+            : GestureDetector(
+                onTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    left: 25.0,
+                    right: 25.0,
+                  ),
+                  child: Column(
+                    children: [
+                      verticalSpaceMedium,
+                      Expanded(
+                        child: AddRecipeFormAddRecipeScreen(
+                          drafts,
+                          ingredientsList,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
       ),
