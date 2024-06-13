@@ -64,7 +64,7 @@ class SignUpViewModel extends BaseViewModel {
 
   void signup(BuildContext context) async {
     if (formKey.currentState?.validate() ?? false) {
-     await _authService.signUp(
+      await _authService.signUp(
           password: passwordController.text.trim(),
           userModel: UserModel(
             displayName: textController.text.trim(),
@@ -81,11 +81,10 @@ class SignUpViewModel extends BaseViewModel {
             savedRecipes: [],
             blockedAccounts: [],
           ));
-     
-        _navigationService.replaceWithSignUpView();
-     
+
+      _navigationService.replaceWithLoginView();
     } else {
-      _navigationService.replaceWithSignUpView();
+      _navigationService.replaceWithLoginView();
     }
   }
 
@@ -117,8 +116,4 @@ class SignUpViewModel extends BaseViewModel {
     }
     rebuildUi();
   }
-
- 
- 
-
 }

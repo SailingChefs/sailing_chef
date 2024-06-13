@@ -179,8 +179,6 @@ class FilterViewModel extends BaseViewModel {
     }
   }
 
-  
-
   void handleTabMainCourse(int index) {
     switch (index) {
       case 0:
@@ -226,138 +224,138 @@ class FilterViewModel extends BaseViewModel {
   }
 
   void handleMainTabsDietary(int index) {
-  switch (index) {
-    case 0:
-      if (isPassageSelected) {
-        isPassageSelected = false;
-        selectedTagsCount--;
-        removeTag('Passage');
-      } else {
-        isPassageSelected = true;
-        selectedTagsCount++;
-        addTag('Passage');
-      }
-      break;
-    case 1:
-      if (isMealSelected) {
-        isMealSelected = false;
-        selectedTagsCount--;
-        removeTag('Meal');
-      } else {
-        isMealSelected = true;
-        selectedTagsCount++;
-        addTag('Meal');
-      }
-      break;
-    case 2:
-      if (isPlatedSelected) {
-        isPlatedSelected = false;
-        selectedTagsCount--;
-        removeTag('Plated');
-      } else {
-        isPlatedSelected = true;
-        selectedTagsCount++;
-        addTag('Plated');
-      }
-      break;
-    default:
-      break;
+    switch (index) {
+      case 0:
+        if (isPassageSelected) {
+          isPassageSelected = false;
+          selectedTagsCount--;
+          removeTag('Passage');
+        } else {
+          isPassageSelected = true;
+          selectedTagsCount++;
+          addTag('Passage');
+        }
+        break;
+      case 1:
+        if (isMealSelected) {
+          isMealSelected = false;
+          selectedTagsCount--;
+          removeTag('Meal');
+        } else {
+          isMealSelected = true;
+          selectedTagsCount++;
+          addTag('Meal');
+        }
+        break;
+      case 2:
+        if (isPlatedSelected) {
+          isPlatedSelected = false;
+          selectedTagsCount--;
+          removeTag('Plated');
+        } else {
+          isPlatedSelected = true;
+          selectedTagsCount++;
+          addTag('Plated');
+        }
+        break;
+      default:
+        break;
+    }
+    notifyListeners();
   }
-  notifyListeners();
-}
 
-void handleSubTabsDietary(int index) {
-  switch (index) {
-    case 0:
-      if (isFamilySelected) {
-        isFamilySelected = false;
-        selectedTagsCount--;
-        removeTag('Family');
-      } else {
-        isFamilySelected = true;
-        selectedTagsCount++;
-        addTag('Family');
-      }
-      break;
-    case 1:
-      if (isLightSelected) {
-        isLightSelected = false;
-        selectedTagsCount--;
-        removeTag('Light');
-      } else {
-        isLightSelected = true;
-        selectedTagsCount++;
-        addTag('Light');
-      }
-      break;
-    case 2:
-      if (isCharterSelected) {
-        isCharterSelected = false;
-        selectedTagsCount--;
-        removeTag('Charter');
-      } else {
-        isCharterSelected = true;
-        selectedTagsCount++;
-        addTag('Charter');
-      }
-      break;
-    case 3:
-      if (isCrewSelected) {
-        isCrewSelected = false;
-        selectedTagsCount--;
-        removeTag('Crew');
-      } else {
-        isCrewSelected = true;
-        selectedTagsCount++;
-        addTag('Crew');
-      }
-      break;
-      
-    default:
-      break;
-  }
-  notifyListeners();
-}
+  void handleSubTabsDietary(int index) {
+    switch (index) {
+      case 0:
+        if (isFamilySelected) {
+          isFamilySelected = false;
+          selectedTagsCount--;
+          removeTag('Family');
+        } else {
+          isFamilySelected = true;
+          selectedTagsCount++;
+          addTag('Family');
+        }
+        break;
+      case 1:
+        if (isLightSelected) {
+          isLightSelected = false;
+          selectedTagsCount--;
+          removeTag('Light');
+        } else {
+          isLightSelected = true;
+          selectedTagsCount++;
+          addTag('Light');
+        }
+        break;
+      case 2:
+        if (isCharterSelected) {
+          isCharterSelected = false;
+          selectedTagsCount--;
+          removeTag('Charter');
+        } else {
+          isCharterSelected = true;
+          selectedTagsCount++;
+          addTag('Charter');
+        }
+        break;
+      case 3:
+        if (isCrewSelected) {
+          isCrewSelected = false;
+          selectedTagsCount--;
+          removeTag('Crew');
+        } else {
+          isCrewSelected = true;
+          selectedTagsCount++;
+          addTag('Crew');
+        }
+        break;
 
-void handleSubTabsCourse(int index) {
-  switch (index) {
-    case 0:
-      isStarterSelected =!isStarterSelected;
-      if (isStarterSelected) {
-        addTag('starter');
-        selectedTagsCount++;
-      } else {
-        removeTag('starter');
-        selectedTagsCount--;
-      }
-      notifyListeners();
-      break;
-    case 1:
-      isCanapeSelected =!isCanapeSelected;
-      if (isCanapeSelected) {
-        addTag('canape');
-        selectedTagsCount++;
-      } else {
-        removeTag('canape');
-        selectedTagsCount--;
-      }
-      notifyListeners();
-      break;
-    case 2:
-      isSideSelected =!isSideSelected;
-      if (isSideSelected) {
-        addTag('side');
-        selectedTagsCount++;
-      } else {
-        removeTag('side');
-        selectedTagsCount--;
-      }
-      notifyListeners();
-      break;
-    default:
-      break;
+      default:
+        break;
+    }
+    notifyListeners();
   }
-}
+
+  void handleSubTabsCourse(int index) {
+    switch (index) {
+      case 0:
+        isStarterSelected = !isStarterSelected;
+        if (isStarterSelected) {
+          addTag('starter');
+          selectedTagsCount++;
+        } else {
+          removeTag('starter');
+          selectedTagsCount--;
+        }
+        notifyListeners();
+        break;
+      case 1:
+        isCanapeSelected = !isCanapeSelected;
+        if (isCanapeSelected) {
+          addTag('canape');
+          selectedTagsCount++;
+        } else {
+          removeTag('canape');
+          selectedTagsCount--;
+        }
+        notifyListeners();
+        break;
+      case 2:
+        isSideSelected = !isSideSelected;
+        if (isSideSelected) {
+          addTag('side');
+          selectedTagsCount++;
+        } else {
+          removeTag('side');
+          selectedTagsCount--;
+        }
+        notifyListeners();
+        break;
+      default:
+        break;
+    }
+  }
 
 // void handleSubTabsCourse(int index) {
 //   switch (index) {
@@ -502,8 +500,7 @@ void handleSubTabsCourse(int index) {
 //       break;
 //   }
 // }
-  
-  
+
   List<String> selectedOptions() {
     List<String> selectedList = [];
 

@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 
@@ -30,8 +31,12 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/icons/chef.png',
+                    SizedBox(
+                      width: 14,
+                      height: 14,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/hat.svg',
+                      ),
                     ),
                     verticalSpaceTiny,
                     const Text(
@@ -66,15 +71,18 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                       ? kcPrimaryColor
                       : Colors.transparent,
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.school_rounded,
-                      color: kcWhiteColor,
+                    SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/school.svg',
+                      ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Culinary school',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -99,15 +107,18 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                       ? kcPrimaryColor
                       : Colors.transparent,
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.person,
-                      color: kcWhiteColor,
+                    SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/guest.svg',
+                      ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Guest',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,

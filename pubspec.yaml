@@ -53,12 +53,6 @@ dependencies:
   image_cropper: ^5.0.0
   csc_picker: ^0.2.7
   geo_firestore_flutter: ^0.1.6
-  
-
-  
- 
-  
-
   intl: any
   stacked_shared: any
 
@@ -100,12 +94,12 @@ flutter:
     - assets/images/logo/
     - assets/images/misc/
 # fonts:
-    # - family: Inter
-    #   fonts:
-    #     - asset: assets/fonts/Inter-Light.ttf
-    #     - asset: assets/fonts/Inter-Medium.ttf
-    #     - asset: assets/fonts/Inter-Regular.ttf
-    #     - asset: assets/fonts/Inter-Bold.ttf
+#     - family: Inter
+#       fonts:
+#         - asset: assets/fonts/Inter-Light.ttf
+#         - asset: assets/fonts/Inter-Medium.ttf
+#         - asset: assets/fonts/Inter-Regular.ttf
+#         - asset: assets/fonts/Inter-Bold.ttf
     # - family: Inter
     #   fonts:
     #     - asset: assets/fonts/CaviarDreams.ttf

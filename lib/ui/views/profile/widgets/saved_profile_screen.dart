@@ -90,8 +90,6 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 padding: const EdgeInsets.all(8.0),
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
-                    
-
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
                     axisDirection: AxisDirection.down,

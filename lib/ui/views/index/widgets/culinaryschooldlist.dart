@@ -27,7 +27,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : screenHeight * 0.27,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.cullinary.length > 5
+                  itemCount: viewModel.cullinary.length > 20
                       ? 5
                       : viewModel.cullinary.length,
                   scrollDirection: Axis.horizontal,
@@ -89,7 +89,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     ),
                             ),
                             Padding(
-                               padding: EdgeInsets.only(
+                              padding: EdgeInsets.only(
                                   left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
                                 capitalizeEachWord(

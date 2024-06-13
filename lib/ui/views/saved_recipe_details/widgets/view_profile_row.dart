@@ -11,7 +11,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         viewModel.viewChefProfile(user);
       },
       child: Row(
@@ -35,7 +35,8 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: user.displayPicture == null
-                          ? const AssetImage('assets/images/misc/blank_image.png')
+                          ? const AssetImage(
+                              'assets/images/misc/blank_image.png')
                           : NetworkImage(user.displayPicture!) as ImageProvider,
                       fit: BoxFit.cover,
                     ),
@@ -77,8 +78,8 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               : user.userRole == null
                   ? const SizedBox()
                   : OutlinedButton(
-                      style:
-                          OutlinedButton.styleFrom(backgroundColor: kcsgreycolor),
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: kcsgreycolor),
                       onPressed: () => viewModel.moveToChatScreen(user),
                       child: const Icon(
                         FlutterRemix.chat_4_line,

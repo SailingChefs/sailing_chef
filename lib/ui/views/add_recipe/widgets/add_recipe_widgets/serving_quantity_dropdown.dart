@@ -2,8 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
+
 class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
-   ServingQuantity(this.drafts, {super.key});
+  ServingQuantity(this.drafts, {super.key});
   final RecipeModel? drafts;
   final FocusNode _focusNode = FocusNode();
 
@@ -51,7 +52,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                     LengthLimitingTextInputFormatter(3)
                   ],
                   decoration: InputDecoration(
-                    hintText: '1',
+                    hintText: '0',
                     hintStyle: globalTextStyle(
                       fontSize: 14.sp,
                       letterSpacing: -0.5,
@@ -100,6 +101,4 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
       ],
     );
   }
-
-
 }

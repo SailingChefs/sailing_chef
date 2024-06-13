@@ -21,9 +21,9 @@ class CookingInstructionsSheet
     CookingInstructionsSheetModel viewModel,
     Widget? child,
   ) {
-    return SizedBox(
-      width: double.infinity,
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           decoration: const BoxDecoration(

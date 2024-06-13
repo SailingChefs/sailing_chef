@@ -10,14 +10,15 @@ import 'chat_viewmodel.dart';
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
   final UserModel receiver;
+  final String? messageFromCource;
 
-  const ChatView(
-      {required this.receiver, required this.conversationId, super.key});
+  ChatView(
+      {required this.receiver, required this.conversationId, super.key,required this.messageFromCource});
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
     return ViewModelBuilder<ChatViewModel>.reactive(
-        viewModelBuilder: () => ChatViewModel(convoId: conversationId),
+        viewModelBuilder: () => ChatViewModel(messageFromCource!,convoId: conversationId),
         onViewModelReady: (viewModel) {
           WidgetsBinding.instance.addPostFrameCallback((_) {});
         },
@@ -49,8 +50,14 @@ class ChatView extends StackedView<ChatViewModel> {
   }
 
   @override
+  void onViewModelReady(ChatViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
   ChatViewModel viewModelBuilder(BuildContext context) =>
-      ChatViewModel(convoId: conversationId);
+      ChatViewModel(messageFromCource!,convoId: conversationId);
 }
 
 class _MessageListAndAppBar extends StatelessWidget {
@@ -271,8 +278,8 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           GestureDetector(
-            onTap: (){
-               viewModel.navigateToProfile(receiver);
+            onTap: () {
+              viewModel.navigateToProfile(receiver);
             },
             child: Container(
               width: 35.w,

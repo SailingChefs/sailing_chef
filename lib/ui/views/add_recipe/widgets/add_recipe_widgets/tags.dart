@@ -30,25 +30,27 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                     color: kcPrimaryColor.withOpacity(0.07),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add,
-                            color: kcBlackColor.withOpacity(0.5),
-                          )),
-                      horizontalSpaceSmall,
-                      Text(
-                        'Select a minimum of 2 tags',
-                        style: globalTextStyle(
-                          fontSize: 12.sp,
-                          letterSpacing: -0.5,
-                          fontWeight: FontWeight.w600,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add,
                           color: kcBlackColor.withOpacity(0.5),
+                          size: 22.dg,
                         ),
-                      ),
-                    ],
+                        horizontalSpaceSmall,
+                        Text(
+                          'Select a minimum of 2 tags',
+                          style: globalTextStyle(
+                            fontSize: 12.sp,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

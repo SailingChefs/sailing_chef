@@ -12,9 +12,7 @@ class ChefService with ListenableServiceMixin {
   bool isInitialized = false;
 
   Future<void> chefInit() async {
-    if (isInitialized) return;
     chefs = await fetchChefDocuments();
-    isInitialized = true;
     notifyListeners();
   }
 

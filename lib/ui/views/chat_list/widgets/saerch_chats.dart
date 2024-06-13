@@ -44,7 +44,7 @@
 //                   borderRadius: BorderRadius.circular(25.0.r),
 //                   borderSide: BorderSide(
 //                       color: kcBlackColor
-//                           .withOpacity(0.2)), 
+//                           .withOpacity(0.2)),
 //                 ),
 //                 focusedErrorBorder: OutlineInputBorder(
 //                   borderRadius: BorderRadius.circular(25.0.r),
@@ -70,7 +70,7 @@
 //               ),
 //             ),
 //           ),
-          
+
 //         ],
 //       ),
 //     );

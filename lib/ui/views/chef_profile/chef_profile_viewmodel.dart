@@ -135,7 +135,6 @@ class ChefProfileViewModel extends ReactiveViewModel {
   void goToFollowingList() {
     _navigationService.navigateTo(Routes.followingListView,
         arguments: FollowingListViewArguments(
-          
             user: userDetails, isfromFollowing: true));
   }
 
@@ -157,6 +156,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
+        messageFromCource: '',
         receiver: chef, conversationId: conversationId);
   }
 
@@ -209,5 +209,31 @@ class ChefProfileViewModel extends ReactiveViewModel {
     // }
     await launchUrl(uri);
     EasyLoading.dismiss();
+  }
+
+    Future<void> moveToChatScreenWithMessage(
+    UserModel chef, String message
+  ) async {
+    var conversationModel = ConversationModel(
+      latestMessage: '',
+      users: [
+        FirebaseAuth.instance.currentUser!.uid,
+        chef.uid!,
+      ],
+      latestMessageType: 'text',
+      latestMessageTime: DateTime.now(),
+      lastActive: DateTime.now(),
+      uid: "",
+    );
+    String conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
+    log('conversationId: $conversationId');
+    _navigationService.navigateToChatView(
+      messageFromCource: message,
+        receiver: chef, conversationId: conversationId);
+  }
+
+  void enquireNow(user,index) {
+    moveToChatScreenWithMessage(user, 'I want to know more about the ${courses[index].name}, having description as ${courses[index].description}. Please Let me know further details!' );
   }
 }

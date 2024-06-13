@@ -28,7 +28,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                     : screenHeight * 0.27,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: viewModel.chefList.length > 5
+                  itemCount: viewModel.chefList.length > 20
                       ? 5
                       : viewModel.chefList.length,
                   scrollDirection: Axis.horizontal,

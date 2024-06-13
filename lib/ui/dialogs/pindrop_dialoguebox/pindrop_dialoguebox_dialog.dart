@@ -71,7 +71,6 @@ class PindropDialogueboxDialog
                                 pinnedLocation.tags[0],
                                 style: globalTextStyle(
                                   color: kcBlackColor,
-                                  
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),

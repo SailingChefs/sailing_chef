@@ -47,5 +47,3 @@ class ChatListView extends StackedView<ChatListViewModel> {
   ) =>
       ChatListViewModel();
 }
-
-

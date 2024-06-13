@@ -9,7 +9,8 @@ import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
   int? selectedTagsCount;
-  SearchBarSearchScreen(this.selectedTagsCount,{super.key, required this.recipes});
+  SearchBarSearchScreen(this.selectedTagsCount,
+      {super.key, required this.recipes});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -75,11 +76,11 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
             ),
           ),
         ),
-         Stack(
+        Stack(
           children: [
             IconButton(
-              onPressed:(){
-                 viewModel.toFilterScreen(recipes);
+              onPressed: () {
+                viewModel.toFilterScreen(recipes);
               },
               icon: SvgPicture.asset(
                 'assets/images/misc/equilizer.svg',
@@ -100,7 +101,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
                   shape: BoxShape.circle,
                 ),
                 child: Text(
-                 selectedTagsCount.toString(),
+                  selectedTagsCount.toString(),
                   style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
                 ),
               ),

@@ -117,7 +117,6 @@ class RoundedTransparentTextField extends StatelessWidget {
             fontSize: 14.sp,
             color: textColor ?? kcWhiteColor,
             fontWeight: FontWeight.w500),
-
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
           borderSide:

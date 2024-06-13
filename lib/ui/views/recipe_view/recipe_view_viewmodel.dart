@@ -242,9 +242,7 @@ class RecipeViewViewModel extends BaseViewModel {
             docId: recipe.docId,
             waveForm: waveFormData == null ? [] : waveFormData!,
           ))
-          .then((value) => navigationService.navigateToRecipeListPageView(
-                isFromDraft: isFromDraft,
-              ));
+          .then((value) => navigationService.navigateToPrivateRecipesView());
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(e.toString());
@@ -314,5 +312,4 @@ class RecipeViewViewModel extends BaseViewModel {
   void stopAutoScroll() {
     _timer?.cancel();
   }
-
 }

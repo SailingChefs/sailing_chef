@@ -22,12 +22,12 @@ class SignUpView extends StackedView<SignUpViewModel> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            Positioned.fill
-            (
+            Positioned.fill(
               child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/background/back_screen.png'),
+                    image:
+                        AssetImage('assets/images/background/back_screen.png'),
                     fit: BoxFit.fitWidth,
                   ),
                 ),

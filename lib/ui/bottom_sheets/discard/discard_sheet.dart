@@ -54,11 +54,10 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap:(){
-                  
+                onTap: () {
                   viewModel.discardButton();
                   completer!(SheetResponse(confirmed: true));
-                }, 
+                },
                 child: Container(
                   height: 40,
                   width: 170,

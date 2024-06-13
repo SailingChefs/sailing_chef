@@ -14,8 +14,6 @@ class RecipeListPageViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
 
-    //  myRecipesList();
-
     recipes =
         await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
 
@@ -36,20 +34,25 @@ class RecipeListPageViewModel extends BaseViewModel {
   // }
   void toHomeView() async {
     if (isFromDraft) {
-      _navigationService.clearStackAndShowView(const BottomNavBarView());
+      _navigationService.clearStackAndShowView(BottomNavBarView());
       // _navigationService.replaceWithBottomNavBarView();
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
-    _navigationService.back();
+    _navigationService.clearStackAndShowView(BottomNavBarView());
   }
 
   void onPopInvoked(bool didPop) async {
     if (isFromDraft) {
-      _navigationService.clearStackAndShowView(const BottomNavBarView());
+      _navigationService.clearStackAndShowView(BottomNavBarView());
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
     _navigationService.back(result: true);
+  }
+
+  toDishDetailsScreen(RecipeModel recipe) {
+    _navigationService.navigateToSavedRecipeDetailsView(
+        recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
   }
 }

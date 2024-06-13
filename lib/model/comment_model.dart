@@ -41,6 +41,7 @@ class CommentModel {
   }
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'userId': userId,
       'recipeId': recipeId,
       'content': content,

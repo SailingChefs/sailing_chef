@@ -57,15 +57,15 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-Future<void> onClickUrl(String url) async {
-  Uri uri = Uri.parse(url);
+  Future<void> onClickUrl(String url) async {
+    Uri uri = Uri.parse(url);
 
-  if (uri.scheme.isEmpty) {
-    uri = Uri.parse('https:$url');
+    if (uri.scheme.isEmpty) {
+      uri = Uri.parse('https:$url');
+    }
+
+    await launchUrl(uri);
   }
-
-  await launchUrl(uri);
-}
 
   void savedSelected() async {
     isSavedSelected = true;
@@ -180,7 +180,7 @@ Future<void> onClickUrl(String url) async {
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 0),
       transitionStyle: Transition.downToUp,
     );
   }

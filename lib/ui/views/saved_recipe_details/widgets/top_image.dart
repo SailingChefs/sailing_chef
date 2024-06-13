@@ -50,20 +50,25 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               }),
         ),
         Positioned(
-          bottom: 30,
-          left: MediaQuery.of(context).size.width * 0.5,
-          child: SmoothPageIndicator(
-            controller: viewModel.pageController,
-            count: image.length,
-            axisDirection: Axis.horizontal,
-            effect: SlideEffect(
-              spacing: 8.0,
-              radius: 4.0,
-              dotWidth: 9.0,
-              dotHeight: 9.0,
-              strokeWidth: 1.5,
-              dotColor: kcWhiteColor.withOpacity(0.5),
-              activeDotColor: kcWhiteColor,
+          bottom: 20,
+          child: SizedBox(
+            height: 32.h,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: SmoothPageIndicator(
+                controller: viewModel.pageController,
+                count: image.length,
+                axisDirection: Axis.horizontal,
+                effect: SlideEffect(
+                  spacing: 8.0,
+                  radius: 4.0,
+                  dotWidth: 9.0,
+                  dotHeight: 9.0,
+                  strokeWidth: 1.5,
+                  dotColor: kcWhiteColor.withOpacity(0.5),
+                  activeDotColor: kcWhiteColor,
+                ),
+              ),
             ),
           ),
         ),

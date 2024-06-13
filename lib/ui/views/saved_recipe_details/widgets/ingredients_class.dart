@@ -16,8 +16,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         children: [
           SizedBox(height: 16.0.h),
           GestureDetector(
-            onTap: (){
-               viewModel.addOneItemToCart(ingredient);
+            onTap: () {
+              viewModel.addOneItemToCart(ingredient);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,23 +110,25 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    viewModel.checkShoppingListAll(recipeModel) ?  Text(
-                      'remove all',
-                      style: globalTextStyle(
-                        fontSize: 12.sp,
-                        color: kcBlackColor,
-                        letterSpacing: -0.2,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ) : Text(
-                      'add all to shopping list',
-                      style: globalTextStyle(
-                        fontSize: 12.sp,
-                        color: kcBlackColor,
-                        letterSpacing: -0.2,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ) ,
+                    viewModel.checkShoppingListAll(recipeModel)
+                        ? Text(
+                            'remove all',
+                            style: globalTextStyle(
+                              fontSize: 12.sp,
+                              color: kcBlackColor,
+                              letterSpacing: -0.2,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Text(
+                            'add all to shopping list',
+                            style: globalTextStyle(
+                              fontSize: 12.sp,
+                              color: kcBlackColor,
+                              letterSpacing: -0.2,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                     horizontalSpaceSmall,
                     Container(
                       width: 12.0.w,

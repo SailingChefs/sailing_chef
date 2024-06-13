@@ -12,9 +12,12 @@ import 'search_viewmodel.dart';
 class SearchView extends StackedView<SearchViewModel> {
   final List<RecipeModel> recipeModel;
   final List<UserModel> chefList;
-   int selectedTagsCount;
- SearchView(
-      {Key? key, required this.recipeModel, required this.chefList,required this.selectedTagsCount})
+  int selectedTagsCount;
+  SearchView(
+      {Key? key,
+      required this.recipeModel,
+      required this.chefList,
+      required this.selectedTagsCount})
       : super(key: key);
 
   @override

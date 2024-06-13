@@ -21,11 +21,10 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
             child: userDetails!.displayPicture!.isEmpty
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    
                     child: const Image(
-                      image: AssetImage('assets/images/misc/blank_image.png')),
-                    )
-                  
+                        image:
+                            AssetImage('assets/images/misc/blank_image.png')),
+                  )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: CachedNetworkImage(
@@ -43,33 +42,58 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   ),
           ),
           horizontalSpaceMedium,
-          GestureDetector(
-            onTap: viewModel.toDishesScreen,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  viewModel.myRecipes.length.toString(),
-                  style: globalTextStyle(
-                    fontSize: 18.sp,
-                    letterSpacing: -0.3,
-                    fontWeight: FontWeight.w600,
-                    color: kcBlackColor.withOpacity(0.6),
+          userDetails!.userRole == 'culinarySchool'
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      viewModel.courses.length.toString(),
+                      style: globalTextStyle(
+                        fontSize: 18.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
+                    ),
+                    verticalSpaceTiny,
+                    Text(
+                      'Courses',
+                      style: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
+                    ),
+                  ],
+                )
+              : GestureDetector(
+                  onTap: viewModel.toDishesScreen,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        viewModel.myRecipes.length.toString(),
+                        style: globalTextStyle(
+                          fontSize: 18.sp,
+                          letterSpacing: -0.3,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                      verticalSpaceTiny,
+                      Text(
+                        'Dishes',
+                        style: globalTextStyle(
+                          fontSize: 14.sp,
+                          letterSpacing: -0.3,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                verticalSpaceTiny,
-                Text(
-                  'Dishes',
-                  style: globalTextStyle(
-                    fontSize: 14.sp,
-                    letterSpacing: -0.3,
-                    fontWeight: FontWeight.w400,
-                    color: kcBlackColor.withOpacity(0.6),
-                  ),
-                ),
-              ],
-            ),
-          ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(

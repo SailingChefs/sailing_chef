@@ -12,7 +12,7 @@ class RecipeModel {
   String prepTime;
   int servingSize;
   final String status;
-   String title;
+  String title;
   final String uid;
   final String visibility;
   String? docId;

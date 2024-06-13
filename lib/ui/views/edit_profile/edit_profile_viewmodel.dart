@@ -166,10 +166,11 @@ class EditProfileViewModel extends BaseViewModel {
         'bio': bioController.text,
         'address': address,
       };
-      await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid).then((value) => {
-            showToast(message: 'Profile Updated'),
-          });
+      await userDataService
+          .storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid)
+          .then((value) => {
+                showToast(message: 'Profile Updated'),
+              });
       userDetails = await _userService.getUserDetails();
       _navigationService.navigateToBottomNavBarView();
     }

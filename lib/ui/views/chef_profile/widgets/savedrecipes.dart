@@ -44,7 +44,7 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                       width: screenWidth(context) * 0.9,
                       height: screenHeight(context) * 0.4,
                       alignment: Alignment.center,
-                      child: const ListViewChefSavedCources(),
+                      child: ListViewChefSavedCources(user),
                     ),
                   )
         : user.userRole == 'guest'

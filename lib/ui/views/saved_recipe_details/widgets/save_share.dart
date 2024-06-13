@@ -1,6 +1,7 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -33,6 +34,9 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               )
             : GestureDetector(
                 onTap: () {
+                  showToast(message: 'Long Tap to share This rceipe publically!');
+                },
+                onLongPress: (){
                   viewModel.publicRecipe(recipe);
                 },
                 child: Container(

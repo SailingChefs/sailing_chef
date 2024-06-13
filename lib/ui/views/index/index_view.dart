@@ -26,7 +26,6 @@ class IndexView extends StackedView<IndexViewModel> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-
               Padding(
                 padding: const EdgeInsets.only(left: 12.0),
                 child: Column(
@@ -79,7 +78,6 @@ class IndexView extends StackedView<IndexViewModel> {
                 child: DishListIndexScreen(),
               ),
               verticalSpaceMedium,
-
               viewModel.dishes.isNotEmpty
                   ? Center(
                       child: TextButton(

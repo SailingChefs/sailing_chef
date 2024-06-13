@@ -38,9 +38,12 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-             Text(
+            Text(
               'Share this recipe',
-              style: globalTextStyle(fontSize: 19, fontWeight: FontWeight.w500,color: kcBlackColor),
+              style: globalTextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500,
+                  color: kcBlackColor),
             ),
             verticalSpaceLarge,
             Row(

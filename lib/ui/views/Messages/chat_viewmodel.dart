@@ -15,6 +15,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
+  final String messageFromCource;
   final TextEditingController textController = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final _navigationLoactor = locator<NavigationService>();
@@ -26,16 +27,26 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   bool isAtTop = false;
   bool isImageSending = false;
 
-  ChatViewModel({required this.convoId});
-
+    ChatViewModel(this.messageFromCource, {required this.convoId}) {
+    messageController.text = messageFromCource;
+  }
   void onViewModelReady() {
-    scrollController.addListener(() {
-      isAtTop = scrollController.offset <= kToolbarHeight;
-      if (scrollController.position.pixels < 180) {
-        isAtTop = true;
+    log("message "+messageFromCource);
+    // scrollController.addListener(() {
+    //   isAtTop = scrollController.offset <= kToolbarHeight;
+    //   if (scrollController.position.pixels < 180) {
+    //     isAtTop = true;
+    //   }
+      
+    //   rebuildUi();
+    // });
+    if (messageFromCource.isNotEmpty) {
+        messageController.text = messageFromCource;
+        rebuildUi();
+      } else {
+        messageController.text = '';
+         rebuildUi();
       }
-      rebuildUi();
-    });
   }
 
   bool _uploadingImage = false;
@@ -128,9 +139,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       r'^(?:https?:\/\/|www\.|)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]*)?(?:\?(?:[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]+))?$',
       caseSensitive: false,
     );
-    return urlRegex.hasMatch(value!)
-        ? true 
-        : false;
+    return urlRegex.hasMatch(value!) ? true : false;
   }
 
   Future<void> onClickUrl(String url) async {

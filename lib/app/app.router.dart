@@ -552,7 +552,8 @@ class StackedRouter extends _i1.RouterBase {
         builder: (context) => _i31.ChatView(
             receiver: args.receiver,
             conversationId: args.conversationId,
-            key: args.key),
+            key: args.key,
+            messageFromCource: args.messageFromCource),
         settings: data,
       );
     },
@@ -911,6 +912,7 @@ class ChatViewArguments {
     required this.receiver,
     required this.conversationId,
     this.key,
+    required this.messageFromCource,
   });
 
   final _i42.UserModel receiver;
@@ -919,9 +921,11 @@ class ChatViewArguments {
 
   final _i40.Key? key;
 
+  final String? messageFromCource;
+
   @override
   String toString() {
-    return '{"receiver": "$receiver", "conversationId": "$conversationId", "key": "$key"}';
+    return '{"receiver": "$receiver", "conversationId": "$conversationId", "key": "$key", "messageFromCource": "$messageFromCource"}';
   }
 
   @override
@@ -929,12 +933,16 @@ class ChatViewArguments {
     if (identical(this, other)) return true;
     return other.receiver == receiver &&
         other.conversationId == conversationId &&
-        other.key == key;
+        other.key == key &&
+        other.messageFromCource == messageFromCource;
   }
 
   @override
   int get hashCode {
-    return receiver.hashCode ^ conversationId.hashCode ^ key.hashCode;
+    return receiver.hashCode ^
+        conversationId.hashCode ^
+        key.hashCode ^
+        messageFromCource.hashCode;
   }
 }
 
@@ -1465,6 +1473,7 @@ extension NavigatorStateExtension on _i44.NavigationService {
     required _i42.UserModel receiver,
     required String conversationId,
     _i40.Key? key,
+    required String? messageFromCource,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1473,7 +1482,10 @@ extension NavigatorStateExtension on _i44.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.chatView,
         arguments: ChatViewArguments(
-            receiver: receiver, conversationId: conversationId, key: key),
+            receiver: receiver,
+            conversationId: conversationId,
+            key: key,
+            messageFromCource: messageFromCource),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2050,6 +2062,7 @@ extension NavigatorStateExtension on _i44.NavigationService {
     required _i42.UserModel receiver,
     required String conversationId,
     _i40.Key? key,
+    required String? messageFromCource,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2058,7 +2071,10 @@ extension NavigatorStateExtension on _i44.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.chatView,
         arguments: ChatViewArguments(
-            receiver: receiver, conversationId: conversationId, key: key),
+            receiver: receiver,
+            conversationId: conversationId,
+            key: key,
+            messageFromCource: messageFromCource),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

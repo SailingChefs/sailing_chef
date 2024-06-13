@@ -154,7 +154,6 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           ),
                         ],
                       ),
-
                     ),
                   ),
                 ],

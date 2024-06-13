@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.d
 class SearchList extends ViewModelWidget<FollowingListViewModel> {
   final List<UserModel> users;
   final bool isFromFollowingList;
-  
+
   const SearchList(
       {super.key, required this.users, required this.isFromFollowingList});
 
@@ -40,8 +40,8 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
                 color: kcBlackColor,
               ),
             ),
-            trailing: isFromFollowingList && user.uid == userDetails!.uid 
-                ?  SizedBox(
+            trailing: isFromFollowingList && user.uid == userDetails!.uid
+                ? SizedBox(
                     width: 112,
                     height: 35,
                     child: TextButton(

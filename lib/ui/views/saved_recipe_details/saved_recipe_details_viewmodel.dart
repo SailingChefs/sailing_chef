@@ -81,16 +81,18 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     currentEditingComment = comment;
     isEditingComment = true;
     commentController.text = comment.content ?? '';
+  
     rating = comment.rating ?? 0;
     notifyListeners();
   }
 
-    Future<void> updateComment() async {
+  Future<void> updateComment() async {
     if (currentEditingComment != null) {
       currentEditingComment!.content = commentController.text;
       currentEditingComment!.rating = rating;
-      
-      bool success = await commentService.updateCommentInFirestore(currentEditingComment!);
+
+      bool success =
+          await commentService.updateCommentInFirestore(currentEditingComment!);
       if (success) {
         showToast(message: 'Comment updated successfully');
         isEditingComment = false;
@@ -202,6 +204,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
+        messageFromCource: '',
         receiver: chef, conversationId: conversationId);
   }
 
@@ -271,7 +274,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     CommentModel newComment = CommentModel(
       userId: userDetails!.uid!,
       recipeId: recipeId,
-      content: commentController.text, 
+      content: commentController.text,
       timestamp: Timestamp.now(),
       rating: validRating,
       userName: userDetails!.displayName!,

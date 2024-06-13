@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
@@ -101,10 +102,28 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           child: GestureDetector(
                             onTap: () =>
                                 completer(DialogResponse(confirmed: true)),
-                            child:
-                                const Icon(Icons.close, color: kcchatboxecolor),
+                            child: const Icon(Icons.close, color: kcBlackColor),
                           ),
-                        )
+                        ),
+                        // viewModel.pinnedLocation.uid == userDetails!.uid
+                        //     ? Positioned(
+                        //         top: 20,
+                        //         left: 20,
+                        //         child: GestureDetector(
+                        //           onTap: () {
+                        //             completer(DialogResponse(confirmed: true));
+                        //             viewModel.navigateToBottomSheet();
+                        //           },
+                        //           child: const Icon(Icons.edit_outlined,
+                        //               color: kcBlackColor),
+                        //         ),
+                        //       )
+                        //     : const Positioned(
+                        //         top: 20,
+                        //         left: 20,
+                        //         child: Icon(Icons.edit_off_outlined,
+                        //             color: kcBlackColor),
+                        //       )
                       ],
                     ),
                     verticalSpaceSmall,
@@ -171,7 +190,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 230,
+                                width: 239,
                                 child: Text(
                                   viewModel.tags!.join(', '),
                                   style: globalTextStyle(
@@ -204,39 +223,48 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ],
                       ),
                     ),
-                   viewModel.pinnedLocation.contactNumber.isEmpty ?const  SizedBox(): Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 10),
-                      child: Text(
-                        viewModel.pinnedLocation.contactNumber,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                   viewModel.pinnedLocation.email.isEmpty ?const  SizedBox():   Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        viewModel.pinnedLocation.email,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    viewModel.pinnedLocation.description.isEmpty ?const  SizedBox():  Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 10),
-                      child: Text(
-                        viewModel.pinnedLocation.description,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
+                    viewModel.pinnedLocation.contactNumber.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 15.0, top: 10),
+                            child: Text(
+                              viewModel.pinnedLocation.contactNumber,
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                    viewModel.pinnedLocation.email.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              viewModel.pinnedLocation.email,
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                    viewModel.pinnedLocation.description.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, top: 10, right: 15),
+                            child: Text(
+                              viewModel.pinnedLocation.description,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                     verticalSpaceMedium,
                     Center(
                       child: GestureDetector(

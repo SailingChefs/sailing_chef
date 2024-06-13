@@ -265,7 +265,4 @@ class UserDetailsViewModel extends BaseViewModel {
       );
     }
   }
-
-
- 
 }

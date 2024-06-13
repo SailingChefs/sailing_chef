@@ -1,6 +1,6 @@
+import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -11,6 +11,7 @@ class LoginViewModel extends BaseViewModel {
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _userService = locator<UserServices>();
+
 
   @override
   void dispose() {
@@ -101,23 +102,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void signInWithGoogleAccount() async {
-    
-    await AuthService.signInWithGoogle()
-        .then((value) => {
-              {
-                userDetails = value as UserModel?,
-                if (userDetails!.userRole == 'guest')
-                  {
-                    _navigationService.replaceWithBottomBarGuestView(),
-                  }
-                else
-                  _navigationService.replaceWithBottomNavBarView()
-              }
-            })
-        // ignore: body_might_complete_normally_catch_error
-        .catchError((e) {
-      showToast(message: e.toString());
-      
-    });
+    await AuthService.signInWithGoogle();
+     
   }
 }

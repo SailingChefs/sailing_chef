@@ -61,7 +61,8 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                           contentPadding:
                                               const EdgeInsets.all(5),
                                           title: Text(
-                                            capitalizeEachWord(conversation.user!.displayName!),
+                                            capitalizeEachWord(conversation
+                                                .user!.displayName!),
                                           ),
                                           subtitle: conversation
                                                       .latestMessageType ==
@@ -76,20 +77,25 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                       color: kcBlackColor
                                                           .withOpacity(0.5)),
                                                 )
-                                              : (conversation
-                                                      .latestMessageType ==
-                                                  'image') || conversation
-                                                      .latestMessageType == 'file' ? Text(
-                                                  'Sent an attachement',
-                                                  style: TextStyle(
-                                                      color: kcBlackColor
-                                                          .withOpacity(0.5)),
-                                                ) : Text(
-                                                  style: TextStyle(
-                                                      color: kcBlackColor
-                                                          .withOpacity(0.5)),
-                                                  'Craete new Message',
-                                                ),
+                                              : (conversation.latestMessageType ==
+                                                          'image') ||
+                                                      conversation
+                                                              .latestMessageType ==
+                                                          'file'
+                                                  ? Text(
+                                                      'Sent an attachement',
+                                                      style: TextStyle(
+                                                          color: kcBlackColor
+                                                              .withOpacity(
+                                                                  0.5)),
+                                                    )
+                                                  : Text(
+                                                      style: TextStyle(
+                                                          color: kcBlackColor
+                                                              .withOpacity(
+                                                                  0.5)),
+                                                      'Craete new Message',
+                                                    ),
                                           leading: CircleAvatar(
                                             radius: 30.r,
                                             backgroundImage: NetworkImage(

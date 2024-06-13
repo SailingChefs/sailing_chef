@@ -158,23 +158,27 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                         ),
                         child: viewModel.validateLink(message.content)
                             ? GestureDetector(
-                              onTap: (){
-                                viewModel.onClickUrl(message.content);
-                              },
-                              child: Text(
+                                onTap: () {
+                                  viewModel.onClickUrl(message.content);
+                                },
+                                child: Text(
                                   message.content,
-                                  style: const TextStyle(color: kcwhitecolor, decoration: TextDecoration.underline,decorationColor: kcwhitecolor,),
+                                  style: const TextStyle(
+                                    color: kcwhitecolor,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: kcwhitecolor,
+                                  ),
                                 ),
-                            )
+                              )
                             : GestureDetector(
-                              onLongPress: (){
-                                viewModel.copyMessage(message.content);
-                              },
-                              child: Text(
+                                onLongPress: () {
+                                  viewModel.copyMessage(message.content);
+                                },
+                                child: Text(
                                   message.content,
                                   style: const TextStyle(color: kcBlackColor),
                                 ),
-                            ),
+                              ),
                       ),
                     if (message.type == 'file')
                       viewModel.uploadingFile && !last

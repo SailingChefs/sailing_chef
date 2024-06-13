@@ -48,7 +48,8 @@ class ShoppingList {
       ingredientId: data['ingredient_id'] ?? '',
       id: data['id'] ?? '',
       recipeId: data['recipe_id'],
-      isRemoved: data['is_removed'] ?? false, // Initialize it to false if not present
+      isRemoved:
+          data['is_removed'] ?? false, // Initialize it to false if not present
     );
   }
 
@@ -61,7 +62,8 @@ class ShoppingList {
       ingredientId: map['ingredient_id'] ?? '',
       id: map['id'] ?? '',
       recipeId: map['recipe_id'] ?? '',
-      isRemoved: map['is_removed'] ?? false, // Initialize it to false if not present
+      isRemoved:
+          map['is_removed'] ?? false, // Initialize it to false if not present
     );
   }
 }

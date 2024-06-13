@@ -19,12 +19,14 @@ class ShoppingListService with ListenableServiceMixin {
     isIntialized = true;
   }
 
-Future<List<ShoppingList>> getShoppingLists() async {
-  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('shopping_list').get();
-  List<ShoppingList> shoppingLists = snapshot.docs.map((doc) => ShoppingList.fromMap(doc.data() as Map<String, dynamic>)).toList();
-  return shoppingLists;
-}
-
+  Future<List<ShoppingList>> getShoppingLists() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('shopping_list').get();
+    List<ShoppingList> shoppingLists = snapshot.docs
+        .map((doc) => ShoppingList.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+    return shoppingLists;
+  }
 
   Future<List<ShoppingList>> _fetchAll() async {
     try {
@@ -43,7 +45,7 @@ Future<List<ShoppingList>> getShoppingLists() async {
     }
   }
 
-    Future<void> saveShoppingList(ShoppingList item) async {
+  Future<void> saveShoppingList(ShoppingList item) async {
     try {
       final DocumentReference docRef =
           FirebaseFirestore.instance.collection('shopping_list').doc();
@@ -97,7 +99,7 @@ Future<List<ShoppingList>> getShoppingLists() async {
     }
   }
 
- Future<void> addOrRemoveAllFromShopping(
+  Future<void> addOrRemoveAllFromShopping(
       List<ShoppingList> items, ShoppingList recipe) async {
     EasyLoading.show();
     if (checkShoppingList(recipe)) {
@@ -131,6 +133,7 @@ Future<List<ShoppingList>> getShoppingLists() async {
             .length ==
         recipeModel;
   }
+
   Future<void> _removeFromShoppingList(ShoppingList item) async {
     try {
       log(item.id);
@@ -164,11 +167,11 @@ Future<List<ShoppingList>> getShoppingLists() async {
     }
   }
 
-  
-    Future<List<RecipeModel>> getRecipesWithShoppingListIngredients() async {
+  Future<List<RecipeModel>> getRecipesWithShoppingListIngredients() async {
     try {
       // Get all ingredient IDs from the shopping list
-      List<String> ingredientIds = shoppingList.map((item) => item.ingredientId).toList();
+      List<String> ingredientIds =
+          shoppingList.map((item) => item.ingredientId).toList();
 
       // Query the recipes collection where ingredients contain any of the ingredient IDs
       QuerySnapshot querySnapshot = await firebasestore

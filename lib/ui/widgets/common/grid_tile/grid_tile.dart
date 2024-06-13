@@ -163,69 +163,72 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
               ),
             ),
             Positioned(
-              bottom: 8.dg,
-              right: 10.dg,
-              child: CircleAvatar(backgroundColor: Colors.white,
-              radius: 18.r,
-              child: CircleAvatar(radius: 16.r,
-              backgroundImage: chefImagePath.isEmpty ? AssetImage('assets/images/misc/blank_image.png') : NetworkImage(chefImagePath) as ImageProvider
-                    // ? ClipRRect(
-                      
-                    //     borderRadius: BorderRadius.circular(50.r),
-                    //     child: const Image(
-                    //         image: AssetImage(
-                    //             'assets/images/misc/blank_image.png')))
-                    // : ClipRRect(
-                    //     borderRadius: BorderRadius.circular(50.r),
-                    //     child: CachedNetworkImage(
-                    //       imageUrl: chefImagePath,
-                    //       fit: BoxFit.cover,
-                    //       width: double.maxFinite,
-                    //       progressIndicatorBuilder: (context, url, progress) =>
-                    //           Container(
-                    //         decoration: const BoxDecoration(
-                    //           color: kcsgreycolor,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),,
-              ),
-              
-              )
-              //  Container(
-              //   height: 32.h,
-              //   width: 32.w,
-              //   decoration: BoxDecoration(
-              //     color: kcVeryLightGrey,
-              //     shape: BoxShape.circle,
-              //     border: Border.all(
-              //       color: kcWhiteColor,
-              //       width: 2.w,
-              //     ),
-              //   ),
-              //   child: chefImagePath.isEmpty
-              //       ? ClipRRect(
-                      
-              //           borderRadius: BorderRadius.circular(50.r),
-              //           child: const Image(
-              //               image: AssetImage(
-              //                   'assets/images/misc/blank_image.png')))
-              //       : ClipRRect(
-              //           borderRadius: BorderRadius.circular(50.r),
-              //           child: CachedNetworkImage(
-              //             imageUrl: chefImagePath,
-              //             fit: BoxFit.cover,
-              //             width: double.maxFinite,
-              //             progressIndicatorBuilder: (context, url, progress) =>
-              //                 Container(
-              //               decoration: const BoxDecoration(
-              //                 color: kcsgreycolor,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              // ),
-            )
+                bottom: 8.dg,
+                right: 10.dg,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 18.r,
+                  child: CircleAvatar(
+                      radius: 16.r,
+                      backgroundImage: chefImagePath.isEmpty
+                          ? AssetImage('assets/images/misc/blank_image.png')
+                          : NetworkImage(chefImagePath) as ImageProvider
+                      // ? ClipRRect(
+
+                      //     borderRadius: BorderRadius.circular(50.r),
+                      //     child: const Image(
+                      //         image: AssetImage(
+                      //             'assets/images/misc/blank_image.png')))
+                      // : ClipRRect(
+                      //     borderRadius: BorderRadius.circular(50.r),
+                      //     child: CachedNetworkImage(
+                      //       imageUrl: chefImagePath,
+                      //       fit: BoxFit.cover,
+                      //       width: double.maxFinite,
+                      //       progressIndicatorBuilder: (context, url, progress) =>
+                      //           Container(
+                      //         decoration: const BoxDecoration(
+                      //           color: kcsgreycolor,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),,
+                      ),
+                )
+                //  Container(
+                //   height: 32.h,
+                //   width: 32.w,
+                //   decoration: BoxDecoration(
+                //     color: kcVeryLightGrey,
+                //     shape: BoxShape.circle,
+                //     border: Border.all(
+                //       color: kcWhiteColor,
+                //       width: 2.w,
+                //     ),
+                //   ),
+                //   child: chefImagePath.isEmpty
+                //       ? ClipRRect(
+
+                //           borderRadius: BorderRadius.circular(50.r),
+                //           child: const Image(
+                //               image: AssetImage(
+                //                   'assets/images/misc/blank_image.png')))
+                //       : ClipRRect(
+                //           borderRadius: BorderRadius.circular(50.r),
+                //           child: CachedNetworkImage(
+                //             imageUrl: chefImagePath,
+                //             fit: BoxFit.cover,
+                //             width: double.maxFinite,
+                //             progressIndicatorBuilder: (context, url, progress) =>
+                //                 Container(
+                //               decoration: const BoxDecoration(
+                //                 color: kcsgreycolor,
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                // ),
+                )
           ]),
         ));
   }

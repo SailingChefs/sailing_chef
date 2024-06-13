@@ -12,12 +12,11 @@ class TopBarOnboardingScreen extends ViewModelWidget<OnboardingViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 150.w,
-          height: 80.h,
-          child: SvgPicture.asset(
-            'assets/images/logo/SAILING_CHEFS.svg',
-          )
-        ),
+            width: 150.w,
+            height: 80.h,
+            child: SvgPicture.asset(
+              'assets/images/logo/SAILING_CHEFS.svg',
+            )),
         RoundedElevatedButton(
           // width: 103.dg,
           height: 34,

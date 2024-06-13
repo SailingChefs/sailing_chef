@@ -5,12 +5,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
+import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 class PinDropMapViewModel extends ReactiveViewModel {
@@ -51,13 +53,10 @@ class PinDropMapViewModel extends ReactiveViewModel {
   bool showList = false;
   List<PinnedLocation> filteredPins = [];
 
-
-
   // void onMarkerTap() {
   // showList = true;
   // rebuildUi();
   // }
-
 
   void showBottomSheet() {
     showBottomButtons = true;
@@ -76,12 +75,16 @@ class PinDropMapViewModel extends ReactiveViewModel {
 
   void dropPin() async {
     String markerId = const Uuid().v4();
+    final pinnedLocationData = PinnedLocationData(
+        LatLng(currentCameraPosition!.target.latitude,
+            currentCameraPosition!.target.longitude),
+        null);
     final res2 = await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.dropPinSheet,
-      data: LatLng(currentCameraPosition!.target.latitude,
-          currentCameraPosition!.target.longitude),
+      data: pinnedLocationData,
     );
     if (res2?.data == false || res2?.data == null) return;
+
     addMarkers(
       markerId,
       LatLng(currentCameraPosition!.target.latitude,
@@ -146,7 +149,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
       draggable: false,
       position: location,
       onTap: () async {
-        
         tapPosition = location;
         showList = true;
         showMarker = false;
@@ -202,7 +204,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
       markerId: const MarkerId('currentLocation'),
       position: LatLng(currentPosition.latitude, currentPosition.longitude),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-  
     );
   }
 
@@ -236,7 +237,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   //       if (pin.id != null && pin.location != null) {
   //         addMarkers(
   //             pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
-         
+
   //       }
   //     }
   //   } catch (e) {
@@ -252,7 +253,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
 //   for (PinnedLocation pin in pins) {
 //     if (pin.id!= null && pin.location!= null) {
 //       addMarkers(
-//         pin.id!, 
+//         pin.id!,
 //         LatLng(pin.location.latitude, pin.location.longitude)
 //       );
 //     }
@@ -276,7 +277,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   }
 
   void showAllMarkersWithTags() async {
-     filteredPins.clear();
+    filteredPins.clear();
     try {
       final filteredPin = List<PinnedLocation>.empty(growable: true);
 
@@ -291,7 +292,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
         }
       }
       allMarkers.clear();
-      
+
       rebuildUi();
 
       for (PinnedLocation pin in filteredPin) {
@@ -342,7 +343,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
       markerId: MarkerId(markerId),
       draggable: true,
       position: location,
-     
       onTap: () async {
         final place = await getCityCountry(pinnedLocation.location.latitude,
             pinnedLocation.location.longitude);
@@ -386,9 +386,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   void showPindropDialogueBox() async {
     showList = false;
     rebuildUi();
-    await _dialogService.showCustomDialog(
-      variant: DialogType.addpindropshow,
-    );
+    await _dialogService.showCustomDialog(variant: DialogType.addpindropshow);
 
     showMarker = true;
     rebuildUi();

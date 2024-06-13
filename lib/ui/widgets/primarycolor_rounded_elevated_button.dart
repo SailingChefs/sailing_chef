@@ -5,8 +5,7 @@ class PrimaryColorRoundedElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final double? width;
-  const PrimaryColorRoundedElevatedButton(
-    this.width,
+  const PrimaryColorRoundedElevatedButton(this.width,
       {super.key, required this.onPressed, required this.buttonText});
 
   @override

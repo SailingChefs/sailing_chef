@@ -63,7 +63,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: SizedBox(
-                                      width: MediaQuery.of(context).size.width*0.27,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.27,
                                       height: 25,
                                       child: Text(
                                         overflow: TextOverflow.ellipsis,

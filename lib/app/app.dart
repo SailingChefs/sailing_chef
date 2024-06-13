@@ -86,6 +86,8 @@ import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
 import 'package:sailing_chefs/ui/dialogs/enter_pass/enter_pass_dialog.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet.dart';
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
+import 'package:sailing_chefs/ui/dialogs/delete_pin/delete_pin_dialog.dart';
+import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -190,6 +192,8 @@ import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
     StackedDialog(classType: SuccessDialog),
     StackedDialog(classType: AddpindropshowDialog),
     StackedDialog(classType: EnterPassDialog),
+    StackedDialog(classType: DeletePinDialog),
+    StackedDialog(classType: RoleDialogDialog),
 // @stacked-dialog
   ],
 )

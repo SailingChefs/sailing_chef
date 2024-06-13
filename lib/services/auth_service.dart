@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -10,6 +12,7 @@ import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class AuthService {
+  final _dialogService = locator<DialogService>();
   static Future<bool> login({
     required String email,
     required String password,
@@ -51,7 +54,9 @@ class AuthService {
           showToast(message: 'Email already in use');
           break;
         default:
-          showToast(message: 'Failed to login, Your email might not be verified');
+          showToast(
+              message:
+                  'Failed to login, Your email might not be verified or password might be incorrect');
           break;
       }
       EasyLoading.dismiss();
@@ -68,6 +73,7 @@ class AuthService {
     EasyLoading.show();
     try {
       await firebaseAuth.signOut();
+      await GoogleSignIn().signOut();
       userDetails = null;
       savedRecipesGlobal = [];
       EasyLoading.dismiss();
@@ -103,23 +109,77 @@ class AuthService {
       await userCredential.user!.sendEmailVerification();
 
       EasyLoading.dismiss();
-      showToast(message: 'A verification email has been sent to your email address. Please verify your email.');
+      showToast(
+          message:
+              'A verification email has been sent to your email address. Please verify your email.');
+
       return true;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "invalid-email":
+          showToast(message: 'Invalid email');
+          break;
+        case 'network-request-failed':
+          showToast(message: 'Weak connection, Please try again');
+          break;
+        case 'too-many-requests':
+          showToast(message: 'Too many requests');
+          break;
+        case 'email-already-in-use':
+          showToast(message: 'Email already in use');
+          break;
+        default:
+          showToast(
+              message: 'Failed to login, Your email might not be verified');
+          break;
+      }
+      EasyLoading.dismiss();
+      return false;
     } catch (e) {
       debugPrint('Error signing up: $e');
+
       EasyLoading.dismiss();
       showToast(message: 'Failed to sign up because $e');
       return false;
     }
   }
 
-  static Future<UserCredential> signInWithGoogle() async {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+  static Future<void> signInWithGoogle() async {
+    final dialogService = locator<DialogService>();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final User? user = userCredential.user;
+
+    if (user != null) {
+      userDetails = UserModel(
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        displayPicture: user.photoURL,
+        following: [],
+        followers: [],
+        savedRecipes: [],
+        blockedAccounts: [],
+        createdTime: DateTime.now(),
+        link: '',
+        bio: '',
+        boatName: '',
+        schoolCourses: [],
+        recipes: [],
       );
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+
+      dialogService.showCustomDialog(
+        variant: DialogType.roleDialog,
+      );
+    }
   }
 }

@@ -43,13 +43,17 @@ class StartupViewModel extends BaseViewModel {
         if (firebaseAuth.currentUser == null) {
           _navigationService.replaceWithLoginView();
         } else {
-          userDetails = await _userService.getUserDetails();
-          if (userDetails!.userRole == 'guest') {
-            viewmodel.initialised;
-            _navigationService.replaceWithBottomBarGuestView();
+          if (firebaseAuth.currentUser!.emailVerified == false) {
+            _navigationService.replaceWithLoginView();
           } else {
-            viewmodel.initialised;
-            _navigationService.replaceWithBottomNavBarView();
+            userDetails = await _userService.getUserDetails();
+            if (userDetails!.userRole == 'guest') {
+              viewmodel.initialised;
+              _navigationService.replaceWithBottomBarGuestView();
+            } else {
+              viewmodel.initialised;
+              _navigationService.replaceWithBottomNavBarView();
+            }
           }
         }
       }
@@ -73,6 +77,7 @@ class StartupViewModel extends BaseViewModel {
       log('onLink error: $error');
     });
   }
+
   RecipeService recipeService = locator<RecipeService>();
 
   List<RecipeModel>? allRecipes;

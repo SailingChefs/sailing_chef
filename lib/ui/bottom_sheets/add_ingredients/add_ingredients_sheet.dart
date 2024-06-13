@@ -69,8 +69,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
                 prefix: Icons.add,
               ),
             ),
-            
-              verticalSpaceSmall,
+            verticalSpaceSmall,
           ],
         ),
       ),

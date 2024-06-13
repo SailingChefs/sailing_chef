@@ -26,7 +26,6 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
               const SearchBarFollwoing(),
               viewModel.searchController.text.isNotEmpty
                   ? SearchList(
-                      
                       users: viewModel.followingUsers,
                       isFromFollowingList: true,
                     )
@@ -70,7 +69,6 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                                       onPressed: () {
                                         viewModel.removeFollowing(
                                             viewModel.followingUsers[index]);
-                                            
                                       },
                                       child: Text(
                                         viewModel.followingUsers.contains(

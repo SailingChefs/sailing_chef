@@ -38,6 +38,7 @@ class ChatListViewModel extends BaseViewModel {
           UserModel user =
               await _userService.fetchUserByUID(selectedConversation.users[1]);
           _navigationService.navigateToChatView(
+            messageFromCource: '',
               receiver: user, conversationId: selectedConversation.uid);
         }
       } else if (firebaseAuth.currentUser!.uid ==
@@ -47,6 +48,7 @@ class ChatListViewModel extends BaseViewModel {
           UserModel user =
               await _userService.fetchUserByUID(selectedConversation.users[0]);
           _navigationService.navigateToChatView(
+            messageFromCource: '',
               receiver: user, conversationId: selectedConversation.uid);
         }
       }

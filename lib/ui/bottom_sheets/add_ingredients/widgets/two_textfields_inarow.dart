@@ -28,6 +28,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       // FilteringTextInputFormatter.allow(RegExp(r'[0-9./]')),
+
                       LengthLimitingTextInputFormatter(3),
                     ],
                     labelText: 'Quantity',

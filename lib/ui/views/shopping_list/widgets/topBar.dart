@@ -6,11 +6,12 @@ import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_viewmodel.dar
 class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
     implements PreferredSizeWidget {
   const TopBarShoppingScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context, ShoppingListViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0,bottom: 20,left: 10,right: 10),
+      padding:
+          const EdgeInsets.only(top: 30.0, bottom: 20, left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -34,9 +35,7 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
           Text(
             'Shopping List',
             style: globalTextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: kcBlackColor),
+                fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
           ),
           const SizedBox(),
         ],

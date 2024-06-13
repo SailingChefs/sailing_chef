@@ -22,7 +22,6 @@ class TagsSheet extends StackedView<TagsSheetModel> {
     Widget? child,
   ) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
         color: kcWhiteColor,
@@ -42,15 +41,13 @@ class TagsSheet extends StackedView<TagsSheetModel> {
                 const CategoryTabsFilterSheet(),
                 verticalSpaceSmall,
                 const DietaryNeedTabsFilterSheet(),
-                verticalSpaceMassive,
+                verticalSpaceLarge,
+                BottomButtonsTagsSheet(
+                  completer: completer!,
+                )
               ],
             ),
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: BottomButtonsTagsSheet(
-                completer: completer!,
-              )),
         ],
       ),
     );

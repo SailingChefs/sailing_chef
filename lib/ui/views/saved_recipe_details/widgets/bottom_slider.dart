@@ -96,26 +96,25 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                                 )),
                                           ),
                                           GestureDetector(
-                                                  onTap: () {
-                                                    viewModel.addToSaveList(
-                                                      recipeList[index],
-                                                    );
-                                                  },
-                                                  child: isRecipeSaved
-                                                      ? Icon(
-                                                          Icons.bookmark,
-                                                          color: kcBlackColor
-                                                              .withOpacity(0.6),
-                                                          size: 20.dg,
-                                                        )
-                                                      : Icon(
-                                                          Icons.bookmark_border,
-                                                          color: kcBlackColor
-                                                              .withOpacity(0.6),
-                                                          size: 20.dg,
-                                                        ),
-                                                )
-                                      
+                                            onTap: () {
+                                              viewModel.addToSaveList(
+                                                recipeList[index],
+                                              );
+                                            },
+                                            child: isRecipeSaved
+                                                ? Icon(
+                                                    Icons.bookmark,
+                                                    color: kcBlackColor
+                                                        .withOpacity(0.6),
+                                                    size: 20.dg,
+                                                  )
+                                                : Icon(
+                                                    Icons.bookmark_border,
+                                                    color: kcBlackColor
+                                                        .withOpacity(0.6),
+                                                    size: 20.dg,
+                                                  ),
+                                          )
                                         ],
                                       ),
                                     ],

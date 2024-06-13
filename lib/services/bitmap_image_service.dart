@@ -13,10 +13,11 @@ class BitmapImageService {
   }
 
   Future initialise(BuildContext context) async {
-    final double iconSize = MediaQuery.of(context).size.width * 0.1; 
-    final ImageConfiguration imageConfiguration = ImageConfiguration(size: Size(iconSize, iconSize),devicePixelRatio: iconSize);
+    final double iconSize = MediaQuery.of(context).size.width * 0.1;
+    final ImageConfiguration imageConfiguration = ImageConfiguration(
+        size: Size(iconSize, iconSize), devicePixelRatio: iconSize);
 
-    _icon = await BitmapDescriptor .fromAssetImage(
+    _icon = await BitmapDescriptor.fromAssetImage(
         imageConfiguration, 'assets/images/icons/green.png');
     _selectedIcon = await BitmapDescriptor.fromAssetImage(
         imageConfiguration, 'assets/images/icons/location.png');

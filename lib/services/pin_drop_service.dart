@@ -192,7 +192,7 @@ class PinDropService with ListenableServiceMixin {
       log(query.length.toString());
 
       PinnedLocation pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
-      pin.reviews = await fetchReviewsByPinId(pin.  id!);
+      pin.reviews = await fetchReviewsByPinId(pin.id!);
       pins.add(pin);
     }
     log(pins.toString());

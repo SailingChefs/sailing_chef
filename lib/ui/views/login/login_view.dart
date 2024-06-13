@@ -1,4 +1,3 @@
-
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
@@ -61,12 +60,11 @@ class LoginView extends StackedView<LoginViewModel> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 150.w,
-                            height: 80.h,
-                            child: SvgPicture.asset(
-                              'assets/images/logo/SAILING_CHEFS.svg',
-                            )
-                          ),
+                              width: 150.w,
+                              height: 80.h,
+                              child: SvgPicture.asset(
+                                'assets/images/logo/SAILING_CHEFS.svg',
+                              )),
                           RoundedElevatedButton(
                             onPressed: viewModel.toSignUp,
                             buttonText: 'sign up',
@@ -163,7 +161,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: Text(
                                     'or',
                                     style: globalTextStyle(
@@ -182,39 +181,47 @@ class LoginView extends StackedView<LoginViewModel> {
                                 ),
                               ],
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.05),
-                            OutlinedButton(
-                              onPressed: () {
-                                // viewModel.signInWithGoogleAccount();
-                              },
-                              style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: kcPrimaryColor, ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.05),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.height * 0.4,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  viewModel.signInWithGoogleAccount();
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(
+                                    color: kcPrimaryColor,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 50),
                                 ),
-                                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 25),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(),
-                                  const SizedBox(),
-                                  SvgPicture.asset('assets/images/logo/google.svg',
-                                    height: 40,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const SizedBox(),
+                                    const SizedBox(),
+                                    SvgPicture.asset(
+                                      'assets/images/logo/google.svg',
+                                      height: 40,
                                       width: 40,
                                       color: kcwhitecolor,
-                                  ),
-                                  
-                                  Text(
-                                    'Sign in with Google',
-                                    style: globalTextStyle(
-                                      color: kcwhitecolor,
-                                      fontSize: 15,
                                     ),
-                                  ),
-                                  const SizedBox(),
-                                  const SizedBox(),
-                                ],
+                                    Text(
+                                      'Sign in with Google',
+                                      style: globalTextStyle(
+                                        color: kcwhitecolor,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(),
+                                    const SizedBox(),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

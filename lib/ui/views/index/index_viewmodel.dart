@@ -55,34 +55,24 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void onViewModelReady() async {
-    if (isInitialised == null) {
-      // setBusy(true);
-      showShimmer = true;
+    showShimmer = true;
 
-      await Future.wait([
-        _cullinaryService.culinaryInit(),
-        _chefService.chefInit(),
-        _recipeService.initialized(),
-      ]);
+    await Future.wait([
+      _cullinaryService.culinaryInit(),
+      _chefService.chefInit(),
+      _recipeService.initialized(),
+    ]);
 
-      showShimmer = false;
-      isInitialised = true;
-
-      notifyListeners();
-      rebuildUi();
-
-      // setBusy(false);
-    } else if (isInitialised == true) {
-      return;
-    }
+    showShimmer = false;
     matchAndAssignUsersToDishes();
+    notifyListeners();
+    rebuildUi();
   }
 
-  void toAllChefsView() async{
+  void toAllChefsView() async {
     await _navigationService.navigateToAllChefsView(
       preventDuplicates: true,
       chefList: chefList,
-      
     );
   }
 
@@ -138,10 +128,8 @@ class IndexViewModel extends BaseViewModel {
 
   void toDishDetailsScreen(RecipeModel recipe) async {
     await _navigationService.navigateWithTransition(
-     popGesture: true,
-     preventDuplicates: true,
-
-
+      popGesture: true,
+      preventDuplicates: true,
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipe,
@@ -169,7 +157,7 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void toViewCullinarySchools() async{
+  void toViewCullinarySchools() async {
     await _navigationService.navigateToCulineryschoolviewallView();
   }
 
@@ -183,5 +171,9 @@ class IndexViewModel extends BaseViewModel {
 
   void goToSettings() {
     _navigationService.navigateToSettingsView();
+  }
+
+  Future<void> callonRefresh() async {
+    onViewModelReady();
   }
 }

@@ -5,8 +5,11 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 
+// ignore: must_be_immutable
 class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
-  const InputFieldChatScreen({
+
+ const InputFieldChatScreen(
+  {
     super.key,
     required this.user,
     required this.conversationId,
@@ -48,12 +51,12 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
               ),
               Flexible(
                 child: TextField(
-                  controller: viewModel.messageController,
+                  controller:  viewModel.messageController,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: kcWhiteColor.withOpacity(0.9),
-                    hintText: 'Type your message here...',
+                    hintText:  'Type your message here...',
                     hintStyle: TextStyle(
                         fontSize: 12, color: kcBlackColor.withOpacity(0.6)),
                     border: OutlineInputBorder(

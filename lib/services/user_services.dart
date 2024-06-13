@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -15,6 +16,8 @@ import '../model/user_model.dart';
 class UserServices with ListenableServiceMixin {
   UserModel? currentUserDetails;
 
+  final NavigationService _navigationService = locator<NavigationService>();
+    final DialogService _dialogService = locator<DialogService>();
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {
@@ -31,7 +34,6 @@ class UserServices with ListenableServiceMixin {
     userModel.userDocId = userSnapshot.id;
 
     if (!userSnapshot.exists) {
-      // User not stored in Firestore, so add their data
       await usersCollection.doc(user.uid).set(
             userModel.toJson(),
           );
@@ -41,6 +43,37 @@ class UserServices with ListenableServiceMixin {
       return false;
     }
   }
+
+Future<void> storeUserRole(UserModel userModel) async {
+  final user = firebaseAuth.currentUser;
+  if (user == null) {
+    // User not signed in or created
+    throw Exception("User not signed in or created");
+  }
+
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  QuerySnapshot querySnapshot = await usersCollection
+     .where('email', isEqualTo: userModel.email)
+     .get();
+
+  if (querySnapshot.docs.isNotEmpty) {
+    DocumentSnapshot userSnapshot = querySnapshot.docs.first;
+    userModel.userDocId = userSnapshot.id;
+    userModel.userRole = userSnapshot.get('user_role');
+
+    if (userModel.userRole == 'guest') {
+      _navigationService.replaceWithBottomBarGuestView();
+    } else {
+      _navigationService.replaceWithBottomNavBarView();
+    }
+  } else {
+    _dialogService.showCustomDialog(
+      variant: DialogType.roleDialog,
+    );
+  }
+}
 
   Future<UserModel> getUserDetails() async {
     try {

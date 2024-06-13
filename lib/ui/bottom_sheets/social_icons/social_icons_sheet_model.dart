@@ -1,4 +1,3 @@
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -25,21 +24,25 @@ class SocialIconsSheetModel extends BaseViewModel {
   //       mode: LaunchMode.externalApplication);
   // }
 
+  Future<void> shareRecipeToWhatsapp(RecipeModel recipe) async {
+    final dynamicLinkParams = DynamicLinkParameters(
+      link: Uri.parse(
+          'https://sailingchefs.page.link/recipe?recipe=${recipe.docId}'),
+      uriPrefix: 'https://sailingchefs.page.link',
+      androidParameters:
+          const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
+      iosParameters:
+          const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
+    );
 
+    final dynamicLink =
+        await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
 
-Future<void> shareRecipeToWhatsapp(RecipeModel recipe) async {
-  final dynamicLinkParams = DynamicLinkParameters(
-    link: Uri.parse('https://sailingchefs.page.link/recipe?recipe=${recipe.docId}'),
-    uriPrefix: 'https://sailingchefs.page.link',
-    androidParameters: const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
-    iosParameters: const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
-  );
-
-  final dynamicLink = await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
-
-  final whatsappUrl = 'https://wa.me/?text=${Uri.encodeComponent(dynamicLink.toString())}';
-  await launchUrl(Uri.parse(whatsappUrl), mode: LaunchMode.externalApplication);
-}
+    final whatsappUrl =
+        'https://wa.me/?text=${Uri.encodeComponent(dynamicLink.toString())}';
+    await launchUrl(Uri.parse(whatsappUrl),
+        mode: LaunchMode.externalApplication);
+  }
 
   Future<void> shareRecipeToEmail(RecipeModel recipe) async {
     final dynamicLinkParams = DynamicLinkParameters(
@@ -47,7 +50,8 @@ Future<void> shareRecipeToWhatsapp(RecipeModel recipe) async {
       uriPrefix: 'https://sailingchefs.page.link',
       androidParameters:
           const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
-      iosParameters: const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
+      iosParameters:
+          const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
     );
 
     final dynamicLink =
@@ -63,34 +67,33 @@ Future<void> shareRecipeToWhatsapp(RecipeModel recipe) async {
       uriPrefix: 'https://sailingchefs.page.link',
       androidParameters:
           const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
-      iosParameters: const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
+      iosParameters:
+          const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
     );
 
     final dynamicLink =
         await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
-    await Clipboard.setData(
-        ClipboardData(text: dynamicLink.toString()));
+    await Clipboard.setData(ClipboardData(text: dynamicLink.toString()));
     const facebookUrl = 'http://m.me/';
     await launchUrl(Uri.parse(facebookUrl),
         mode: LaunchMode.externalApplication);
   }
 
-    Future<void> shareByCopy(RecipeModel recipe) async {
+  Future<void> shareByCopy(RecipeModel recipe) async {
     final dynamicLinkParams = DynamicLinkParameters(
       link: Uri.parse('https://sailingchefs.page.link?recipe=${recipe.docId}'),
       uriPrefix: 'https://sailingchefs.page.link',
       androidParameters:
           const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
-      iosParameters: const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
+      iosParameters:
+          const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
     );
 
     final dynamicLink =
         await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
-    await Clipboard.setData(
-        ClipboardData(text: dynamicLink.toString()));
+    await Clipboard.setData(ClipboardData(text: dynamicLink.toString()));
     showToast(message: 'Link Copied to Clipboard');
   }
-
 
   Future<void> shareRecipeToInstagram(RecipeModel recipe) async {
     final dynamicLinkParams = DynamicLinkParameters(
@@ -98,13 +101,13 @@ Future<void> shareRecipeToWhatsapp(RecipeModel recipe) async {
       uriPrefix: 'https://sailingchefs.page.link',
       androidParameters:
           const AndroidParameters(packageName: 'com.stackwise.sailingChefs'),
-      iosParameters: const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
+      iosParameters:
+          const IOSParameters(bundleId: 'com.stackwise.sailingChefs'),
     );
 
     final dynamicLink =
         await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
-    await Clipboard.setData(
-        ClipboardData(text: dynamicLink.toString()));
+    await Clipboard.setData(ClipboardData(text: dynamicLink.toString()));
     const instagramUrl = 'https://www.instagram.com/direct/new/';
     await launchUrl(Uri.parse(instagramUrl),
         mode: LaunchMode.externalApplication);

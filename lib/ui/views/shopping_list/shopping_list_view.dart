@@ -89,7 +89,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                     children: [
                       if (ingredient.isRemoved)
                         Text(
-                         '${ingredient.quantity} ${ingredient.unit}',
+                          '${ingredient.quantity} ${ingredient.unit}',
                           overflow: TextOverflow.ellipsis,
                           style: globalTextStyle(
                             fontSize: 15,

@@ -8,10 +8,9 @@ class ShoppingListViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _shoppingListService = locator<ShoppingListService>();
 
-  List<ShoppingList> localShoppingList = []; 
+  List<ShoppingList> localShoppingList = [];
 
-  List<ShoppingList> get shoppingList =>
-      localShoppingList.toList(); 
+  List<ShoppingList> get shoppingList => localShoppingList.toList();
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_shoppingListService];

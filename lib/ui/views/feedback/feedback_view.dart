@@ -1,4 +1,3 @@
-
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -17,7 +16,7 @@ class FeedbackView extends StackedView<FeedbackViewModel> {
     FeedbackViewModel viewModel,
     Widget? child,
   ) {
-    final userId = userDetails!.uid; 
+    final userId = userDetails!.uid;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -39,7 +38,8 @@ class FeedbackView extends StackedView<FeedbackViewModel> {
             ),
           ),
         ),
-        title: Text('Send Feedback', style: globalTextStyle(color: kcBlackColor, fontSize: 16)),
+        title: Text('Send Feedback',
+            style: globalTextStyle(color: kcBlackColor, fontSize: 16)),
         centerTitle: true,
       ),
       body: Container(
@@ -66,7 +66,6 @@ class FeedbackView extends StackedView<FeedbackViewModel> {
               200.w,
               onPressed: () async {
                 await viewModel.submitFeedback(userId!);
-                
               },
               buttonText: 'Send Feedback',
             ),
@@ -79,5 +78,6 @@ class FeedbackView extends StackedView<FeedbackViewModel> {
   @override
   FeedbackViewModel viewModelBuilder(
     BuildContext context,
-  ) => FeedbackViewModel();
+  ) =>
+      FeedbackViewModel();
 }

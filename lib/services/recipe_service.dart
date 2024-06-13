@@ -23,10 +23,7 @@ class RecipeService with ListenableServiceMixin {
   bool isInitialized = false;
   Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    if (isInitialized) return;
     recipes = await fetchAllRecipes();
-
-    isInitialized = true;
 
     notifyListeners();
   }
@@ -51,7 +48,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-    Future<RecipeModel?> fetchRecipeById(String docId) async {
+  Future<RecipeModel?> fetchRecipeById(String docId) async {
     try {
       DocumentSnapshot docSnapshot =
           await firebasestore.collection('recipes').doc(docId).get();
@@ -332,6 +329,7 @@ class RecipeService with ListenableServiceMixin {
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
           .where('status', isNotEqualTo: 'draft')
+          .where('visibility', isNotEqualTo: 'private')
           // .where('visibility', isEqualTo: 'public')
           .where('uid', isEqualTo: uid)
           .get();
@@ -521,6 +519,4 @@ class RecipeService with ListenableServiceMixin {
       return [];
     }
   }
-
-
 }

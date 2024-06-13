@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/buttons.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/link_textfield.dart';
@@ -171,7 +171,33 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                 ),
                 verticalSpaceLarge,
                 ButtonsPindrop(completer: completer),
-                verticalSpaceSmall,
+                verticalSpaceMedium,
+                // request.data != null
+                //     ? GestureDetector(
+                //         onTap: () {
+                //           completer!(SheetResponse(confirmed: true));
+                //           viewModel.deletePin();
+                //         },
+                //         child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               Icon(
+                //                 FlutterRemix.delete_bin_6_line,
+                //                 color: kcBlackColor.withOpacity(0.6),
+                //                 size: 20,
+                //               ),
+                //               horizontalSpaceSmall,
+                //               Text(
+                //                 'Delete This Pin Drop',
+                //                 style: globalTextStyle(
+                //                     color: kcallertcolor,
+                //                     fontSize: 14,
+                //                     fontWeight: FontWeight.w500),
+                //               ),
+                //             ]),
+                //       )
+                //     : Container(),
+                // verticalSpaceMedium,
               ],
             ),
           ),
@@ -181,6 +207,12 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   }
 
   @override
+  void onViewModelReady(DropPinSheetSheetModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
+
+  @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
-      DropPinSheetSheetModel(location: request.data as LatLng, completer);
+      DropPinSheetSheetModel(completer, request.data as PinnedLocationData);
 }

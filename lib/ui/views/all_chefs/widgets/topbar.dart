@@ -4,11 +4,11 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 class TopBarMeetChefsScreen extends ViewModelWidget<AllChefsViewModel>
     implements PreferredSizeWidget {
   const TopBarMeetChefsScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context, AllChefsViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left:10.0,bottom: 15),
+      padding: const EdgeInsets.only(left: 10.0, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,9 +29,7 @@ class TopBarMeetChefsScreen extends ViewModelWidget<AllChefsViewModel>
           Text(
             'Meet Your Chefs',
             style: globalTextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: kcBlackColor),
+                fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
           ),
           const SizedBox(),
         ],

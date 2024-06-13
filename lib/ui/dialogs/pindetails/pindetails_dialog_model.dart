@@ -3,7 +3,9 @@
 import 'dart:developer';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/reviews.dart';
@@ -14,6 +16,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
   final _reviewService = locator<PinDropService>();
+  final _bottomSheetService = locator<BottomSheetService>();
   List<ReviewsModel> get reviews => _reviewService.reviews;
   late bool serviceEnabled;
   late LocationPermission permission;
@@ -82,7 +85,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
       tags = pinnedLocation.tags;
       log(tags.toString());
     }
-  
+
     // notifyListeners();
     await _reviewService.getReviews(pinnedLocation.id!);
     setBusy(false);
@@ -118,5 +121,11 @@ class PindetailsDialogModel extends ReactiveViewModel {
       data: pinnedLocation,
       title: placeMark,
     );
+  }
+
+  void navigateToBottomSheet() {
+    final pinnedLocationData = PinnedLocationData(null, pinnedLocation);
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.dropPinSheet, data: pinnedLocationData);
   }
 }

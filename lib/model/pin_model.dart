@@ -16,11 +16,13 @@ class PinnedLocation {
   final List<String> tags;
   final double rating;
   final String place;
+  final String? uid;
   List<Placemark>? placemarks;
   List<ReviewsModel>? reviews = [];
 
   PinnedLocation({
     this.id,
+    this.uid,
     this.placemarks,
     required this.contactNumber,
     this.reviews,
@@ -40,6 +42,7 @@ class PinnedLocation {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return PinnedLocation(
       id: snapshot.id,
+      uid: data['uid'] ?? '',
       place: data['place'] ?? '',
       contactNumber: data['contact_number'] ?? '',
       createdTime: data['created_time'] ?? Timestamp.now(),
@@ -58,7 +61,8 @@ class PinnedLocation {
     final geoHash = GeoHasher().encode(location.longitude, location.latitude);
     return {
       'contact_number': contactNumber,
-      'id':id,
+      'id': id,
+      'uid': uid,
       'created_time': createdTime,
       'description': description,
       'place': place,
@@ -78,6 +82,7 @@ class PinnedLocation {
     return PinnedLocation(
         place: map['place'] ?? '',
         id: map['id'],
+        uid: map['uid'],
         location: map['location'] ?? const GeoPoint(0.0, 0.0),
         contactNumber: map['contact_number'],
         rating: map['ratings'],

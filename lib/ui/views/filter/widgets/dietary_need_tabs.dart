@@ -271,7 +271,6 @@ import 'package:sailing_chefs/ui/views/filter/filter_viewmodel.dart';
 //   }
 // }
 
-
 class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
   const DietaryNeedTabsFilterScreen({super.key});
 
@@ -303,7 +302,7 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.isPassageSelected 
+                    color: viewModel.isPassageSelected
                         ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
@@ -471,7 +470,7 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
                       Radius.circular(20.dg),
                     ),
                     color: viewModel.isCharterSelected
-                       ? kcPrimaryColor
+                        ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -482,7 +481,7 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: viewModel.isCharterSelected
-                             ? kcVeryLightGrey
+                              ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
                       ),
@@ -503,7 +502,7 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
                       Radius.circular(20.dg),
                     ),
                     color: viewModel.isCrewSelected
-                       ? kcPrimaryColor
+                        ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -514,7 +513,7 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: viewModel.isCrewSelected
-                             ? kcVeryLightGrey
+                              ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
                       ),

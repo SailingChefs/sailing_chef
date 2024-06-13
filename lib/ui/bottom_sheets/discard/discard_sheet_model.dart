@@ -31,9 +31,6 @@ class DiscardSheetModel extends ReactiveViewModel {
   }
 
   void discardButton() {
-   
-    
     _navigatorlocator.navigateToBottomNavBarView();
-    
   }
 }

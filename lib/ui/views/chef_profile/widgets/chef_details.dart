@@ -80,12 +80,18 @@ class ProfileDescriptionChefProfileScreen
                       onTap: () {
                         viewModel.onClickUrl(user.link!);
                       },
-                      child: Text(
-                        user.link!.isEmpty ? ' ' : user.link!,
-                        style: globalTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: filterIconColor,
+                      child: SizedBox(
+                        width: 300,
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          user.link!.isEmpty ? ' ' : user.link!,
+                          style: globalTextStyle(
+                            fontSize: 14.sp,
+                            letterSpacing: -0.3,
+                            fontWeight: FontWeight.w400,
+                            color: filterIconColor,
+                            decoration: TextDecoration.none,
+                          ),
                         ),
                       ),
                     ),

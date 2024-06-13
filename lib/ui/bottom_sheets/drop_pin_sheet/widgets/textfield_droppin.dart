@@ -37,6 +37,8 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                 //add numbers too
                 FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9!@#\$ ]")),
               ],
+              textCapitalization: TextCapitalization.words,
+              autocorrect: true,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a name';
@@ -63,27 +65,74 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: GestureDetector(
-                          onTap: func,
-                          child: viewModel.selectedImagePath != null
-                              ? Container(
-                                  height: 40.h,
-                                  width: 40.w,
-                                  decoration: const BoxDecoration(
-                                    color: kcVeryLightGrey,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(50)),
-                                      child: Image.file(
-                                        File(viewModel.selectedImagePath
-                                            .toString()),
-                                        fit: BoxFit.cover,
-                                      )),
-                                )
-                              : suffixIcon,
+                          onTap: () {
+                            if (viewModel.location.pinnedLocation != null) {
+                              viewModel.getPfpImage();
+                            } else {
+                              viewModel.getPfpImage();
+                            }
+                          },
+                          child: viewModel.location.pinnedLocation != null
+                              ? viewModel.location.pinnedLocation!.picture
+                                          .isNotEmpty &&
+                                      viewModel.selectedImageFile == null
+                                  ? Container(
+                                      height: 40.h,
+                                      width: 40.w,
+                                      decoration: const BoxDecoration(
+                                        color: kcVeryLightGrey,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(50)),
+                                          child: Image.network(
+                                            viewModel.location.pinnedLocation!
+                                                .picture.first,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    )
+                                  : viewModel.selectedImageFile != null
+                                      ? Container(
+                                          height: 40.h,
+                                          width: 40.w,
+                                          decoration: const BoxDecoration(
+                                            color: kcVeryLightGrey,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(50)),
+                                              child: Image.file(
+                                                File(viewModel
+                                                    .selectedImageFile!
+                                                    .first
+                                                    .path),
+                                                fit: BoxFit.cover,
+                                              )),
+                                        )
+                                      : suffixIcon
+                              : viewModel.selectedImageFile != null
+                                  ? Container(
+                                      height: 40.h,
+                                      width: 40.w,
+                                      decoration: const BoxDecoration(
+                                        color: kcVeryLightGrey,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(50)),
+                                          child: Image.file(
+                                            File(viewModel
+                                                .selectedImageFile!.first.path),
+                                            fit: BoxFit.cover,
+                                          )),
+                                    )
+                                  : suffixIcon,
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

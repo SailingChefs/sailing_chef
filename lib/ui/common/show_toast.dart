@@ -5,6 +5,7 @@ void showToast({
 }) =>
     EasyLoading.showToast(
       message,
+      duration: const Duration(seconds: 3),
       toastPosition: EasyLoadingToastPosition.top,
       maskType: EasyLoadingMaskType.black,
     );

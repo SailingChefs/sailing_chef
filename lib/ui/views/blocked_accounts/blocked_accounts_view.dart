@@ -14,7 +14,10 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
   ) {
     Size size = MediaQuery.of(context).size;
     return viewModel.isBusy
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(
+            color: kcPrimaryColor,
+          ))
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
             appBar: AppBar(

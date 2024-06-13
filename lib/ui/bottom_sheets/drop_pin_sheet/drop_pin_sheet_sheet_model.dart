@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
@@ -10,9 +12,10 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 class DropPinSheetSheetModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Function(SheetResponse response)? completer;
-  DropPinSheetSheetModel(this.completer, {required this.location});
-  final LatLng location;
+  DropPinSheetSheetModel(this.completer, this.location);
+  PinnedLocationData location;
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
   List<XFile>? selectedImageFile;
   String? selectedImagePath;
   final ImagePicker picker = ImagePicker();
@@ -33,10 +36,13 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? descriptionError;
   Future<void> savePinDrop() async {
     if (formKey.currentState!.validate()) {
-      final place = await getCityCountry(location.latitude, location.longitude);
+      final place = await getCityCountry(
+          location.location!.latitude, location.location!.longitude);
       imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
+
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
+        uid: userDetails!.uid,
         place: place,
         createdTime: Timestamp.now(),
         description: description.text,
@@ -45,7 +51,8 @@ class DropPinSheetSheetModel extends BaseViewModel {
         name: name.text,
         picture: imageUrls ?? [],
         tags: selectedTabSelections,
-        location: GeoPoint(location.latitude, location.longitude),
+        location:
+            GeoPoint(location.location!.latitude, location.location!.longitude),
         rating: ratings,
         // place: place,
       );
@@ -65,9 +72,9 @@ class DropPinSheetSheetModel extends BaseViewModel {
       showToast(message: 'Please upload image!');
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
-    } else if(ratings == 0){
+    } else if (ratings == 0) {
       showToast(message: 'Please add ratings!');
-    }else{}
+    } else {}
   }
 
   Future<String> getCityCountry(double latitude, double longitude) async {
@@ -186,5 +193,27 @@ class DropPinSheetSheetModel extends BaseViewModel {
   void setDescriptionError(String? s) {
     descriptionError = s;
     notifyListeners();
+  }
+
+  void onViewModelReady() {
+    if (location.pinnedLocation != null) {
+      link.text = location.pinnedLocation!.link;
+      name.text = location.pinnedLocation!.name;
+      email.text = location.pinnedLocation!.email;
+      phone.text = location.pinnedLocation!.contactNumber;
+      description.text = location.pinnedLocation!.description;
+      selectedImagePath = location.pinnedLocation!.picture.first;
+      selectedTabSelections = location.pinnedLocation!.tags;
+      ratings = location.pinnedLocation!.rating;
+    }
+  }
+
+  void deletePin() {
+    _dialogService.showCustomDialog(
+      variant: DialogType.deletePin,
+      title: location.pinnedLocation!.id!,
+    );
+
+    rebuildUi();
   }
 }

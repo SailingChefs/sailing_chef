@@ -29,7 +29,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
 
           return SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(left: padding, right: padding, top: verticalPadding),
+              padding: EdgeInsets.only(
+                  left: padding, right: padding, top: verticalPadding),
               child: Container(
                 decoration: BoxDecoration(
                     color: kcwhitecolor,
@@ -64,7 +65,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                               viewModel.tagsIconSelected();
                             },
                             child: Icon(Icons.close,
-                                color: kcBlackColor.withOpacity(0.87), size: iconSize),
+                                color: kcBlackColor.withOpacity(0.87),
+                                size: iconSize),
                           ),
                         ],
                       ),
@@ -182,7 +184,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                 border: Border(
-                                  bottom: BorderSide(width: 1.0, color: kcBlackColor),
+                                  bottom: BorderSide(
+                                      width: 1.0, color: kcBlackColor),
                                 ),
                               ),
                               child: Text(
@@ -202,7 +205,8 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                               height: buttonHeight,
                               width: buttonWidth,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(borderRadius),
+                                  borderRadius:
+                                      BorderRadius.circular(borderRadius),
                                   color: filterIconColor),
                               child: TextButton(
                                 onPressed: () {

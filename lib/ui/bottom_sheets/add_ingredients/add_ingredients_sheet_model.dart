@@ -33,7 +33,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void onSaved() {
-    if (completer != null) {
+    if (completer != null && ingredientsList.isNotEmpty) {
       completer!(SheetResponse(
           confirmed: true,
           data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
@@ -41,7 +41,9 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void addIngredientToList() {
-    if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {
+    if (selectedValue != '---' &&
+        ingredientNameController.text.isNotEmpty &&
+        quantityController.text.isNotEmpty) {
       ingredientsList.insert(
           0,
           Ingredient(

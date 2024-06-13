@@ -54,7 +54,7 @@ class SavedRecipeService with ListenableServiceMixin {
       userDetails!.savedRecipes!.add(savedRecipe.docId!);
       savedRecipesGlobal.add(savedRecipe);
       log(userDetails!.savedRecipes.toString());
-      showToast(message: 'Recipe saved successfully');
+      // showToast(message: 'Recipe saved successfully');
       notifyListeners();
     } catch (e) {
       showToast(message: 'Error saving recipe: $e');
@@ -70,7 +70,7 @@ class SavedRecipeService with ListenableServiceMixin {
         'saved_Recipes': FieldValue.arrayRemove([recipeId])
       });
 
-      showToast(message: 'Recipe removed successfully');
+      // showToast(message: 'Recipe removed successfully');
       notifyListeners();
       savedRecipes.removeWhere((recipe) => recipe.docId == recipeId);
       userDetails!.savedRecipes!.removeWhere((recipe) => recipe == recipeId);
