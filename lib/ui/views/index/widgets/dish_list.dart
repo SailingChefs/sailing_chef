@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -54,8 +56,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   : dishes[index].user!.uid!,
                               rating: dishes[index].rating,
                               recipe: dishes[index],
-                              onTap: () =>
-                                  viewModel.toDishDetailsScreen(dishes[index]),
+                              onTap: () {
+                                viewModel.toDishDetailsScreen(dishes[index]);
+                                
+                              },
                               foodImagePath: dishes[index]
                                   .coverImage
                                   .where(

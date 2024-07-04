@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_viewmodel.dart';
 
@@ -10,35 +11,27 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
   @override
   Widget build(BuildContext context, ShoppingListViewModel viewModel) {
     return Padding(
-      padding:
-          const EdgeInsets.only(top: 30.0, bottom: 20, left: 10, right: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 8.0.w),
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: viewModel.back,
-              child: Container(
-                alignment: Alignment.center,
-                height: 26.h,
-                width: 26.w,
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: kcBlackColor,
-                  size: 18.sp,
-                ),
-              ),
-            ),
-          ),
-          Text(
+      padding: EdgeInsets.only(top: 50.0, bottom: 0, left: 40.w, right: 10),
+      child: ListTile(
+        
+        title: Center(
+          child: Text(
             'Shopping List',
-            style: globalTextStyle(
-                fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold),
           ),
-          const SizedBox(),
-        ],
+        ),
+        trailing: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: viewModel.back,
+          child: Container(
+              alignment: Alignment.center,
+              height: 26.h,
+              width: 26.w,
+              child: SvgPicture.asset("assets/images/icons/close.svg")),
+        ),
       ),
     );
   }

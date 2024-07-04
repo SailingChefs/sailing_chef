@@ -11,7 +11,6 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
 
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
-    log(userDetails!.userRole!);
     return Column(
       children: [
         verticalSpaceMedium,

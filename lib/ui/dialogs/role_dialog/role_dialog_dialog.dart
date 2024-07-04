@@ -29,134 +29,136 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
       child: Container(
-      height: screenHeight(context) * 0.08,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF4F8F7).withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10),
+        height: screenHeight(context) * 0.08,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF4F8F7).withOpacity(0.3),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  viewModel.handleSignUpAs(2);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                    color: viewModel.selectedSignUpAs == 'chef'
+                        ? kcPrimaryColor
+                        : kcwhitecolor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: SvgPicture.asset(
+                          'assets/images/icons/hat.svg',
+                          color: kcPrimaryColor,
+                        ),
+                      ),
+                      verticalSpaceTiny,
+                      const Text(
+                        'Chef',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: kcPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: GestureDetector(
+                onTap: () => viewModel.handleSignUpAs(1),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      right: BorderSide(
+                        width: 2,
+                        color: kcWhiteColor.withOpacity(0.2),
+                      ),
+                      left: BorderSide(
+                        width: 2,
+                        color: kcWhiteColor.withOpacity(0.2),
+                      ),
+                    ),
+                    color: viewModel.selectedSignUpAs == 'culinarySchool'
+                        ? kcPrimaryColor
+                        : kcwhitecolor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: SvgPicture.asset(
+                          'assets/images/icons/school.svg',
+                          color: kcPrimaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      const Text(
+                        'Culinary school',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: kcPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => viewModel.handleSignUpAs(0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    color: viewModel.selectedSignUpAs == 'guest'
+                        ? kcPrimaryColor
+                        : kcwhitecolor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: SvgPicture.asset(
+                          'assets/images/icons/guest.svg',
+                          color: kcwhitecolor,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      const Text(
+                        'Guest',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: kcwhitecolor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(2),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
-                  color: viewModel.selectedSignUpAs == 'chef'
-                      ? kcPrimaryColor
-                      : kcwhitecolor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 14,
-                      height: 14,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/hat.svg',
-                        color: kcPrimaryColor,
-                      ),
-                    ),
-                    verticalSpaceTiny,
-                    const Text(
-                      'Chef',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcPrimaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(1),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    right: BorderSide(
-                      width: 2,
-                      color: kcWhiteColor.withOpacity(0.2),
-                    ),
-                    left: BorderSide(
-                      width: 2,
-                      color: kcWhiteColor.withOpacity(0.2),
-                    ),
-                  ),
-                  color: viewModel.selectedSignUpAs == 'culinarySchool'
-                      ? kcPrimaryColor
-                      : kcwhitecolor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/school.svg',
-                        color: kcPrimaryColor,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    const Text(
-                      'Culinary school',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcPrimaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                  color: viewModel.selectedSignUpAs == 'guest'
-                      ? kcPrimaryColor
-                      : kcwhitecolor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/guest.svg',
-                        color: kcwhitecolor,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    const Text(
-                      'Guest',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcwhitecolor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
     );
   }
 

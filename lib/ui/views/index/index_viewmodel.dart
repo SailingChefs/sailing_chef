@@ -9,11 +9,13 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/services/shopping_list_service.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
+  final shoppingListService = locator<ShoppingListService>();
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
@@ -138,6 +140,7 @@ class IndexViewModel extends BaseViewModel {
       duration: const Duration(milliseconds: 00),
       transitionStyle: Transition.rightToLeft,
     );
+    log("\n\n\n  Cheching Map Data : \n\n\t\t${shoppingListService.shoppingRecipeeIngredient.toString()}");
     notifyListeners();
   }
 

@@ -33,6 +33,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
 
   final _bottomSheetService = locator<BottomSheetService>();
+  final shoppingListService = locator<ShoppingListService>();
 
   SavedRecipeDetailsViewModel({required this.recipeModel});
 
@@ -41,7 +42,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final CommentService commentService = CommentService();
   final RecipeService recipeService = RecipeService();
   final SavedRecipeService _savedRecipeService = SavedRecipeService();
-  final ShoppingListService _shoppingListService = ShoppingListService();
 
   String selectedTab = 'Ingredients';
   bool isIngredientsSelected = true;
@@ -51,7 +51,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final ImagePicker _picker = ImagePicker();
   final _serviceConversations = locator<ConversationService>();
   final TextEditingController notesController = TextEditingController();
-  List<ShoppingList> get shoppingList => _shoppingListService.shoppingList;
+  List<ShoppingItem> get shoppingList => shoppingListService.shoppingList;
   bool isRecipeSaved = false;
   List<RecipeModel> myRecipes = [];
   double volume = 0;
@@ -71,6 +71,23 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   List<RecipeModel> get savedRecipeList => _savedRecipeService.savedRecipes;
 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  addorRemoveAllIIngredients({required RecipeModel recipee}) {
+    shoppingListService.addAllItemstoShoppingList(recipee: recipee);
+    rebuildUi();
+
+    log(shoppingListService.shoppingRecipeeIngredient.toString());
+  }
+
+  bool checkkAllIngredients({required RecipeModel recipee}) {
+    final check =
+        shoppingListService.checkAllSelectedIngredients(recipee: recipee);
+    // rebuildUi();
+    return check;
+  }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   void thisRecipeSaved(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(recipe);
     isRecipeSave = !isRecipeSave;
@@ -81,7 +98,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     currentEditingComment = comment;
     isEditingComment = true;
     commentController.text = comment.content ?? '';
-  
+
     rating = comment.rating ?? 0;
     notifyListeners();
   }
@@ -152,7 +169,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices => [
         commentService,
         _savedRecipeService,
-        _shoppingListService,
+        shoppingListService,
       ];
 
   void pickImage() async {
@@ -204,8 +221,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
-        messageFromCource: '',
-        receiver: chef, conversationId: conversationId);
+        messageFromCource: '', receiver: chef, conversationId: conversationId);
   }
 
   void removeImage(int index) {
@@ -302,22 +318,40 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  void addOneItemToCart(Ingredient ingredient) {
-    _shoppingListService.addOrRemoveFromShoppingList(ShoppingList(
-        recipeName: recipeModel.title,
-        ingredientName: ingredient.name,
-        quantity: ingredient.quantity,
-        unit: ingredient.unit,
-        id: '',
-        recipeId: recipeModel.docId!,
-        ingredientId: ingredient.id!));
+  void addOneItemToCart(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    shoppingListService.addNewIngredienttoSHoppingList(
+        ingredient: ingredient, recipee: recipee);
+
+    // log(shoppingListService.shoppingRecipeeIngredient.toString());
+    // log("\n\n");
+    // log("selected recipees : ${shoppingListService.selectedRecipees.toString()}");
+
+    // _shoppingListService.addOrRemoveFromShoppingList(
+    //   ShoppingItem(
+    //     ingredients: recipeModel.ingredients,
+    //     recipeName: recipeModel.title,
+    //     ingredientName: ingredient.name,
+    //     quantity: ingredient.quantity,
+    //     unit: ingredient.unit,
+    //     id: '',
+    //     recipeId: recipeModel.docId!,
+    //     ingredientId: ingredient.id!,
+    //   ),
+    // );
     rebuildUi();
   }
 
+  bool checkSelected(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    return shoppingListService.checkSelectedIngredient(
+        recipee: recipee, ingredient: ingredient);
+  }
+
   void addAllItemsToCart(RecipeModel recipe) async {
-    List<ShoppingList> shoppingList = [];
+    List<ShoppingItem> shoppingList = [];
     for (var ingredient in recipe.ingredients) {
-      shoppingList.add(ShoppingList(
+      shoppingList.add(ShoppingItem(
           recipeName: recipe.title,
           ingredientName: ingredient.name,
           quantity: ingredient.quantity,
@@ -326,7 +360,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
           recipeId: recipe.docId!,
           ingredientId: ingredient.id!));
     }
-    _shoppingListService.addOrRemoveAllFromShoppingList(shoppingList, recipe);
+    shoppingListService.addOrRemoveAllFromShoppingList(shoppingList, recipe);
 
     rebuildUi();
   }
@@ -468,13 +502,16 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     waveFormData = recipeModel.waveForm;
     await commentService.getComments(recipeId);
     playerController = PlayerController();
-    await _shoppingListService.getShoppingList();
+    await shoppingListService.getShoppingList();
 
     await downloadAudio();
 
     servings = recipeModel.servingSize;
 
     checkSave(recipeId);
+
+    log("Shopping List : ${shoppingListService.shoppingRecipeeIngredient.toString()}");
+
     setBusy(false);
   }
 

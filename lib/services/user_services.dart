@@ -56,7 +56,7 @@ Future<void> storeUserRole(UserModel userModel) async {
 
   QuerySnapshot querySnapshot = await usersCollection
      .where('email', isEqualTo: userModel.email)
-     .get();
+     .get(); 
 
   if (querySnapshot.docs.isNotEmpty) {
     DocumentSnapshot userSnapshot = querySnapshot.docs.first;
@@ -78,6 +78,8 @@ Future<void> storeUserRole(UserModel userModel) async {
   Future<UserModel> getUserDetails() async {
     try {
       CollectionReference usersCollection = firebasestore.collection('users');
+
+      
 
       QuerySnapshot userSnapshot = await usersCollection
           .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)

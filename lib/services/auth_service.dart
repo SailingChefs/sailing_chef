@@ -13,6 +13,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class AuthService {
   final _dialogService = locator<DialogService>();
+  final userService = locator<UserServices>();
   static Future<bool> login({
     required String email,
     required String password,
@@ -144,7 +145,7 @@ class AuthService {
     }
   }
 
-  static Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     final dialogService = locator<DialogService>();
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth =
@@ -177,9 +178,14 @@ class AuthService {
         recipes: [],
       );
 
-      dialogService.showCustomDialog(
-        variant: DialogType.roleDialog,
-      );
+      final res = await userService.storeUserDetails(
+          userDetails!.toJson(), userDetails!.uid!);
+
+      if (res) {
+        dialogService.showCustomDialog(
+          variant: DialogType.roleDialog,
+        );
+      }
     }
   }
 }

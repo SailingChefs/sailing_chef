@@ -17,7 +17,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           SizedBox(height: 16.0.h),
           GestureDetector(
             onTap: () {
-              viewModel.addOneItemToCart(ingredient);
+              viewModel.addOneItemToCart(
+                  ingredient: ingredient, recipee: recipeModel);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,21 +52,27 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   width: 15.0.w,
                   height: 15.0.h,
                   decoration: BoxDecoration(
-                    color: viewModel.checkShoppingList(ingredient)
-                        ? kcPrimaryColorDark
-                        : Colors.transparent,
+                    color:
+                        //  viewModel.checkShoppingList(ingredient)
+                        viewModel.checkSelected(
+                                recipee: recipeModel, ingredient: ingredient)
+                            ? kcPrimaryColorDark
+                            : Colors.transparent,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: kcPrimaryColorDark,
                     ),
                   ),
-                  child: viewModel.checkShoppingList(ingredient)
-                      ? Icon(
-                          Icons.check,
-                          color: kcWhiteColor,
-                          size: 12.0.sp,
-                        )
-                      : Container(),
+                  child:
+                      // viewModel.checkShoppingList(ingredient)
+                      viewModel.checkSelected(
+                              recipee: recipeModel, ingredient: ingredient)
+                          ? Icon(
+                              Icons.check,
+                              color: kcWhiteColor,
+                              size: 12.0.sp,
+                            )
+                          : Container(),
                 ),
                 horizontalSpaceTiny,
               ],
@@ -82,7 +89,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     var updatedIngredients = viewModel.getUpdatedIngredients();
     var allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
-    log(recipeModel.ingredients.first.id!);
+    // log(recipeModel.ingredients.first.id!);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +106,10 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ),
             ),
             GestureDetector(
-              onTap: () => viewModel.addAllItemsToCart(recipeModel),
+              onTap: () {
+                viewModel.addorRemoveAllIIngredients(recipee: recipeModel);
+                // viewModel.addAllItemsToCart(recipeModel);
+              },
               child: Container(
                 padding:
                     EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
@@ -134,8 +144,10 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       width: 12.0.w,
                       height: 12.0.h,
                       decoration: BoxDecoration(
-                        color: viewModel
-                                .checkShoppingListAll(viewModel.recipeModel)
+                        color: viewModel.checkkAllIngredients(
+                                recipee: recipeModel)
+                            //  viewModel
+                            //         .checkShoppingListAll(viewModel.recipeModel)
                             ? kcBlackColor.withOpacity(0.8)
                             : Colors.transparent,
                         shape: BoxShape.circle,

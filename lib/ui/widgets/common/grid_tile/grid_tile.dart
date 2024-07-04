@@ -171,7 +171,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   child: CircleAvatar(
                       radius: 16.r,
                       backgroundImage: chefImagePath.isEmpty
-                          ? AssetImage('assets/images/misc/blank_image.png')
+                          ? const AssetImage('assets/images/misc/blank_image.png')
                           : NetworkImage(chefImagePath) as ImageProvider
                       // ? ClipRRect(
 

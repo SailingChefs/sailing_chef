@@ -5,11 +5,213 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
 
 class ShoppingListService with ListenableServiceMixin {
-  final List<ShoppingList> shoppingList = [];
+  final List<ShoppingItem> shoppingList = [];
+  final selectedRecipees = <RecipeModel>[];
+
+  final Map<String, Map<String, dynamic>> shoppingRecipeeIngredient = {};
+  final List<dynamic> recipeeDatails = [];
+
+  final Map<String, Map<String, dynamic>> showShoppingListview = {};
+  // ~
+  // ~
+  // ~
+  // ~
+
+  // fetAllShoppingList() {
+  //   for (var mapData in shoppingRecipeeIngredient.keys) {
+  //     selectedRecipees.add(shoppingRecipeeIngredient[mapData]?['recipee_name']);
+  //     recipeeDatails.add(shoppingRecipeeIngredient[mapData]);
+  //   }
+
+  //   for (var index = 0; index < selectedRecipees.length; index++) {
+  //     showShoppingListview[selectedRecipees[index]] = recipeeDatails[index];
+  //   }
+  // }
+
+  clearAllShoppingList() {
+    shoppingList.clear();
+    shoppingRecipeeIngredient.clear();
+    recipeeDatails.clear();
+    showShoppingListview.clear();
+    selectedRecipees.clear();
+    notifyListeners();
+  }
+
+  addAllItemstoShoppingList({required RecipeModel recipee}) {
+    List<Ingredient> unSelectedIngredients = [];
+    List<Ingredient> selectedIngredients =
+        shoppingRecipeeIngredient[recipee.docId]?["selected_ingredients"]
+                as List<Ingredient>? ??
+            <Ingredient>[];
+
+    if (selectedIngredients.isEmpty) {
+      selectedIngredients.addAll(recipee.ingredients);
+      selectedRecipees.add(recipee);
+      unSelectedIngredients.clear();
+    } else if (selectedIngredients.isNotEmpty &&
+        selectedIngredients.length < recipee.ingredients.length) {
+      selectedIngredients.clear();
+      selectedIngredients.addAll(recipee.ingredients);
+      unSelectedIngredients.clear();
+    } else {
+      unSelectedIngredients.addAll(recipee.ingredients);
+      selectedRecipees.remove(recipee);
+
+      selectedIngredients.clear();
+    }
+
+    shoppingRecipeeIngredient[recipee.docId!] = {
+      "selected_ingredients": selectedIngredients,
+      "unselected_ingredients": unSelectedIngredients,
+      'recipee_name': recipee.title,
+    };
+
+    showShoppingListview[recipee.title] = {
+      "selected_ingredients": selectedIngredients,
+      "unselected_ingredients": unSelectedIngredients,
+      'recipee_id': recipee.docId,
+    };
+
+    notifyListeners();
+  }
+
+  void addNewIngredienttoSHoppingList(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    final allIngredients = recipee.ingredients;
+
+    final selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
+            ?["selected_ingredients"] as List<Ingredient>? ??
+        <Ingredient>[];
+
+    if (selectedIngredients.contains(ingredient)) {
+      selectedIngredients.removeWhere((element) => element.id == ingredient.id);
+    } else {
+      selectedIngredients.add(ingredient);
+    }
+
+    final unSelectedIngredients = allIngredients.where((ing) {
+      return !selectedIngredients.contains(ing);
+    }).toList();
+
+    shoppingRecipeeIngredient[recipee.docId!] = {
+      "selected_ingredients": selectedIngredients,
+      "unselected_ingredients": unSelectedIngredients,
+      'recipee_name': recipee.title,
+    };
+
+    showShoppingListview[recipee.title] = {
+      "selected_ingredients": selectedIngredients,
+      "unselected_ingredients": unSelectedIngredients,
+      'recipee_id': recipee.docId,
+    };
+
+    if (selectedIngredients.isEmpty) {
+      selectedRecipees.remove(recipee);
+      log("Slected Ingredient is empty");
+    } else if (!selectedRecipees.contains(recipee.title) &&
+        selectedIngredients.contains(ingredient)) {
+      selectedRecipees.contains(recipee) ? null : selectedRecipees.add(recipee);
+    }
+
+    notifyListeners();
+  }
+
+  // ~````````````````````
+
+  // addAllItemstoShoppingList({required RecipeModel recipee}) {
+  //   List<Ingredient> unSelectedIngredients = [];
+
+  //   List<Ingredient> selectedIngredients =
+  //       shoppingRecipeeIngredient[recipee.docId]?["selected_ingredients"]
+  //               as List<Ingredient>? ??
+  //           <Ingredient>[];
+
+  //   if (selectedIngredients.isEmpty) {
+  //     selectedIngredients.addAll(recipee.ingredients);
+  //     unSelectedIngredients.clear();
+  //   } else {
+  //     unSelectedIngredients.addAll(recipee.ingredients);
+  //     selectedIngredients.clear();
+  //   }
+
+  //   shoppingRecipeeIngredient[recipee.docId!] = {
+  //     "selected_ingredients": selectedIngredients,
+  //     "unselected_ingredients": unSelectedIngredients,
+  //     'recipee_name': recipee.title,
+  //   };
+
+  //   showShoppingListview[recipee.title] = {
+  //     "selected_ingredients": selectedIngredients,
+  //     "unselected_ingredients": unSelectedIngredients,
+  //     'recipee_id': recipee.docId,
+  //   };
+
+  //   notifyListeners();
+  // }
+
+  // addNewIngredienttoSHoppingList(
+  //     {required RecipeModel recipee, required Ingredient ingredient}) {
+  //   final allIngredients = recipee.ingredients;
+
+  //   final selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
+  //           ?["selected_ingredients"] as List<Ingredient>? ??
+  //       <Ingredient>[];
+
+  //   if (selectedIngredients.contains(ingredient)) {
+  //     selectedIngredients.removeWhere((element) => element.id == ingredient.id);
+  //   } else {
+  //     selectedIngredients.add(ingredient);
+  //   }
+
+  //   final unSelectedIngredient = allIngredients.where((ingredient) {
+  //     return !selectedIngredients.contains(ingredient);
+  //   }).toList();
+
+  //   shoppingRecipeeIngredient[recipee.docId!] = {
+  //     "selected_ingredients": selectedIngredients,
+  //     "unselected_ingredients": unSelectedIngredient,
+  //     'recipee_name': recipee.title,
+  //   };
+
+  //   showShoppingListview[recipee.title] = {
+  //     "selected_ingredients": selectedIngredients,
+  //     "unselected_ingredients": unSelectedIngredient,
+  //     'recipee_id': recipee.docId,
+  //   };
+
+  //   selectedIngredients.isEmpty
+  //       ? selectedRecipees.remove(recipee.title)
+  //       : !selectedRecipees.contains(recipee.title) &&
+  //               selectedIngredients.contains(ingredient)
+  //           ? selectedRecipees.add(recipee.title)
+  //           : null;
+
+  //   notifyListeners();
+  // }
+
+  bool checkSelectedIngredient(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    return shoppingRecipeeIngredient[recipee.docId!]?['selected_ingredients']
+            .contains(ingredient) ??
+        false;
+  }
+
+  bool checkAllSelectedIngredients({
+    required RecipeModel recipee,
+  }) {
+    return shoppingRecipeeIngredient[recipee.docId!]?['unselected_ingredients']
+            .isEmpty ??
+        false;
+  }
+  // ~
+  // ~
+  // ~
+
   bool isIntialized = false;
 
   Future<void> getShoppingList() async {
@@ -19,51 +221,51 @@ class ShoppingListService with ListenableServiceMixin {
     isIntialized = true;
   }
 
-  Future<List<ShoppingList>> getShoppingLists() async {
+  Future<List<ShoppingItem>> getShoppingLists() async {
     QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('shopping_list').get();
-    List<ShoppingList> shoppingLists = snapshot.docs
-        .map((doc) => ShoppingList.fromMap(doc.data() as Map<String, dynamic>))
+    List<ShoppingItem> shoppingLists = snapshot.docs
+        .map((doc) => ShoppingItem.fromMap(doc.data() as Map<String, dynamic>))
         .toList();
     return shoppingLists;
   }
 
-  Future<List<ShoppingList>> _fetchAll() async {
+  Future<List<ShoppingItem>> _fetchAll() async {
     try {
       QuerySnapshot querySnapshot = await firebasestore
           .collection('shopping_list')
           .where('user_id', isEqualTo: userDetails!.uid)
           .get();
-      List<ShoppingList> list = querySnapshot.docs
-          .map((doc) => ShoppingList.fromSnapshot(doc))
+      List<ShoppingItem> list = querySnapshot.docs
+          .map((doc) => ShoppingItem.fromSnapshot(doc))
           .toList();
-      log('list.length.toString():${list.length.toString()}');
+
       return list;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stackTrace) {
+      log("Issue While Fetching shoppingList :  ${stackTrace.toString()}");
       return [];
     }
   }
 
-  Future<void> saveShoppingList(ShoppingList item) async {
+  Future<void> saveShoppingList(ShoppingItem item) async {
     try {
       final DocumentReference docRef =
           FirebaseFirestore.instance.collection('shopping_list').doc();
       item.id = docRef.id;
       await docRef.set(item.toJson());
       shoppingList.add(item);
-      log('Saved item to shopping list: ${item.id}');
+
       notifyListeners();
-    } catch (e) {
-      log('Failed to save item to shopping list: ${e.toString()}');
+    } catch (e, stackTrace) {
+      log('Error while saving shopping list : $stackTrace');
     }
   }
 
-  Future<void> addOrRemoveFromShoppingList(ShoppingList item) async {
+  Future<void> addOrRemoveFromShoppingList(ShoppingItem item) async {
     EasyLoading.show();
     if (shoppingList
         .any((element) => element.ingredientId == item.ingredientId)) {
-      ShoppingList items = shoppingList
+      ShoppingItem items = shoppingList
           .where((element) => element.ingredientId == item.ingredientId)
           .first;
       _removeFromShoppingList(items);
@@ -79,7 +281,7 @@ class ShoppingListService with ListenableServiceMixin {
   }
 
   Future<void> addOrRemoveAllFromShoppingList(
-      List<ShoppingList> items, RecipeModel recipe) async {
+      List<ShoppingItem> items, RecipeModel recipe) async {
     EasyLoading.show();
     if (checkShoppingListAll(recipe)) {
       for (var element in shoppingList) {
@@ -100,7 +302,7 @@ class ShoppingListService with ListenableServiceMixin {
   }
 
   Future<void> addOrRemoveAllFromShopping(
-      List<ShoppingList> items, ShoppingList recipe) async {
+      List<ShoppingItem> items, ShoppingItem recipe) async {
     EasyLoading.show();
     if (checkShoppingList(recipe)) {
       for (var element in shoppingList) {
@@ -127,43 +329,38 @@ class ShoppingListService with ListenableServiceMixin {
         recipeModel.ingredients.length;
   }
 
-  bool checkShoppingList(ShoppingList recipeModel) {
+  bool checkShoppingList(ShoppingItem recipeModel) {
     return shoppingList
             .where((element) => element.recipeId == recipeModel.recipeId)
             .length ==
         recipeModel;
   }
 
-  Future<void> _removeFromShoppingList(ShoppingList item) async {
+  Future<void> _removeFromShoppingList(ShoppingItem item) async {
     try {
-      log(item.id);
       await firebasestore.collection('shopping_list').doc(item.id).delete();
 
-      log('before : ${shoppingList.length.toString()}');
       shoppingList.removeWhere((element) => element.id == item.id);
-      log('after : ${shoppingList.length.toString()}');
 
       notifyListeners();
-      log('removed');
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stackTrace) {
+      log("Issue While removing :  ${stackTrace.toString()}");
     }
   }
 
-  Future<void> _saveShoppingList(ShoppingList item) async {
+  Future<void> _saveShoppingList(ShoppingItem item) async {
     try {
       final DocumentReference docRef =
           await firebasestore.collection('shopping_list').add(item.toJson());
 
       item.id = docRef.id;
-      await docRef.update({'id': item.id});
-      log(item.id);
+      //  await docRef.update({'id': item.id});
+      docRef.update({'id': item.id});
+
       shoppingList.add(item);
       notifyListeners();
-
-      log('saved shopping list : ${shoppingList.length.toString()}');
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stackTrace) {
+      log("Issue While Saving  :  ${stackTrace.toString()}");
     }
   }
 
@@ -185,8 +382,8 @@ class ShoppingListService with ListenableServiceMixin {
           .toList();
 
       return recipes;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stackTrace) {
+      log("Issue While getRecipesWithShoppingListIngredients : ${stackTrace.toString()}");
       return [];
     }
   }

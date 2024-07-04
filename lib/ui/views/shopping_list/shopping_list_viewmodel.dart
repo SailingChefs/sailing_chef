@@ -1,42 +1,86 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
 
 class ShoppingListViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
-  final _shoppingListService = locator<ShoppingListService>();
+  final shoppingListService = locator<ShoppingListService>();
 
-  List<ShoppingList> localShoppingList = [];
+  final List<String> selectedRecipees = [];
 
-  List<ShoppingList> get shoppingList => localShoppingList.toList();
+  List<ShoppingItem> localShoppingList = [];
+  List<Ingredient> selectedRecipee = [];
+  List<Ingredient> unSelectedRecipee = [];
+
+  List<ShoppingItem> get shoppingList => localShoppingList.toList();
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_shoppingListService];
+  List<ListenableServiceMixin> get listenableServices => [shoppingListService];
 
   void onViewModelReady() async {
     setBusy(true);
-    await _shoppingListService.getShoppingList();
-    localShoppingList = List.from(_shoppingListService.shoppingList);
+    getAllShoppingList();
+
+    // await shoppingListService.getShoppingList();
+    // localShoppingList = List.from(shoppingListService.shoppingList);
     setBusy(false);
+  }
+
+  void clearShoppingLis() {
+    shoppingListService.clearAllShoppingList();
+    rebuildUi();
+  }
+
+  addRemoveAllIngredientsToShoppingList(RecipeModel recipee) {
+    shoppingListService.addAllItemstoShoppingList(recipee: recipee);
+    rebuildUi();
+  }
+
+  // ~````````````````````````````
+
+  getAllShoppingList() {
+    selectedRecipee = [];
+    unSelectedRecipee = [];
+
+    // Iterate through each recipe in the shopping list
+    shoppingListService.shoppingRecipeeIngredient
+        .forEach((recipeeIDKey, recipeeDetaialValue) {
+      // Extract selected ingredients
+      final selectedIngredients =
+          recipeeDetaialValue['selected_ingredients'] ?? [];
+      selectedRecipee.addAll(selectedIngredients);
+
+      // Extract all ingredients for the recipe (you need to have this information in your data)
+      final unselectedIngredients =
+          recipeeDetaialValue['unselected_ingredients'] ?? [];
+
+      // Find unselected ingredients
+      // final unselectedIngredients = allIngredients.where((ingredient) {
+      //   return !selectedIngredients.contains(ingredient);
+      // }).toList();
+
+      unSelectedRecipee.addAll(unselectedIngredients);
+    });
   }
 
   void back() {
     _navigationService.back();
   }
 
-  Future<void> removeRecipe(ShoppingList shoppingList) async {
+  Future<void> removeRecipe(ShoppingItem shoppingList) async {
     shoppingList.isRemoved = true;
     notifyListeners();
-    await _shoppingListService.addOrRemoveFromShoppingList(shoppingList);
+    await shoppingListService.addOrRemoveFromShoppingList(shoppingList);
     rebuildUi();
   }
 
-  Future<void> addAllItemsToCart(List<ShoppingList> ingredients) async {
+  Future<void> addAllItemsToCart(List<ShoppingItem> ingredients) async {
     localShoppingList.addAll(ingredients);
     notifyListeners();
-    await _shoppingListService.addOrRemoveAllFromShoppingList(
+    await shoppingListService.addOrRemoveAllFromShoppingList(
         ingredients,
         RecipeModel(
           docId: '',
@@ -59,19 +103,25 @@ class ShoppingListViewModel extends ReactiveViewModel {
 
   bool? isDeleted = false;
 
-  void addOneItemToCart(ShoppingList ingredient) async {
-    if (!localShoppingList.contains(ingredient)) {
-      isDeleted = false;
-      notifyListeners();
-      localShoppingList.add(ingredient);
-    }
-    isDeleted = true;
-    notifyListeners();
-    await _shoppingListService.addOrRemoveFromShoppingList(ingredient);
+  void addOneItemToCart(
+      // ShoppingItem ingredient
+      {required Ingredient ingredient,
+      required RecipeModel recipee}) async {
+    shoppingListService.addNewIngredienttoSHoppingList(
+        recipee: recipee, ingredient: ingredient);
+
+    // if (!localShoppingList.contains(ingredient)) {
+    //   isDeleted = false;
+    //   notifyListeners();
+    //   localShoppingList.add(ingredient);
+    // }
+    // isDeleted = true;
+    // notifyListeners();
+    // await shoppingListService.addOrRemoveFromShoppingList(ingredient);
     rebuildUi();
   }
 
-  bool checkShoppingList(ShoppingList ingredient) {
+  bool checkShoppingList(ShoppingItem ingredient) {
     return localShoppingList.any((item) => item.id == ingredient.id);
   }
 

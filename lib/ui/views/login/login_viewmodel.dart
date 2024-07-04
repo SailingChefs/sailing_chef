@@ -12,7 +12,6 @@ class LoginViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _userService = locator<UserServices>();
 
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -102,7 +101,6 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void signInWithGoogleAccount() async {
-    await AuthService.signInWithGoogle();
-     
+    await AuthService().signInWithGoogle();
   }
 }

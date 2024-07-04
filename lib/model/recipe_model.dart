@@ -54,7 +54,7 @@ class RecipeModel {
       'tags': tags,
       'created_time': createdTime,
       'ingredients':
-          ingredients.map((ingredient) => ingredient.toMap()).toList(),
+          ingredients.map((ingredient) => ingredient.toJson()).toList(),
       'methods': methods,
       'prep_time': prepTime,
       'serving_size': servingSize,
