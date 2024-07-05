@@ -28,12 +28,14 @@ import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
 import '../../../core/imports/core_imports.dart';
+import '../../../services/user_services.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
 
   final _bottomSheetService = locator<BottomSheetService>();
   final shoppingListService = locator<ShoppingListService>();
+  final userService = locator<UserServices>();
 
   SavedRecipeDetailsViewModel({required this.recipeModel});
 
@@ -73,11 +75,20 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  updateShoppingList() async {
+    try {
+      await userService.updateShoppingList();
+    } catch (e, stackTrace) {
+      log("Failed to update shopping list in view model: $e");
+      log("StackTrace: $stackTrace");
+    }
+  }
+
   addorRemoveAllIIngredients({required RecipeModel recipee}) {
     shoppingListService.addAllItemstoShoppingList(recipee: recipee);
     rebuildUi();
 
-    log(shoppingListService.shoppingRecipeeIngredient.toString());
+    log(shoppingRecipeeIngredient.toString());
   }
 
   bool checkkAllIngredients({required RecipeModel recipee}) {
@@ -358,7 +369,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
           unit: ingredient.unit,
           id: '',
           recipeId: recipe.docId!,
-          ingredientId: ingredient.id!));
+          ingredientId: ingredient.id));
     }
     shoppingListService.addOrRemoveAllFromShoppingList(shoppingList, recipe);
 
@@ -510,7 +521,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     checkSave(recipeId);
 
-    log("Shopping List : ${shoppingListService.shoppingRecipeeIngredient.toString()}");
+    log("\n\n\n\n\t\t\t\tShopping List : ${shoppingRecipeeIngredient.toString()}");
 
     setBusy(false);
   }

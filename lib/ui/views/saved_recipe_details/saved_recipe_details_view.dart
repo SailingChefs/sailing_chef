@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
@@ -28,24 +30,36 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
             child: CircularProgressIndicator(
             color: kcPrimaryColor,
           ))
-        : Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: kcBackgroundColor,
-            body: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Column(
-                children: [
-                  TopBarDetailsScreen(
-                    isFromPrivateProfile: isFromPrivateProfile,
-                    image: recipeModel.coverImage,
-                    reciepmodel: recipeModel,
-                  ),
-                  MainRecipeViewContainer(
-                    isFromPrivateProfile: isFromPrivateProfile,
-                    recipeModel: recipeModel,
-                    recipeList: randomRecipeList,
-                  ),
-                ],
+        : WillPopScope(
+            onWillPop: () async {
+              try {
+                await viewModel.updateShoppingList();
+              } catch (e, stackTrace) {
+                log("Failed to update shopping list on pop: $e");
+                log("StackTrace: $stackTrace");
+              }
+              // Ensure that the pop operation is not blocked
+              return true;
+            },
+            child: Scaffold(
+              resizeToAvoidBottomInset: true,
+              backgroundColor: kcBackgroundColor,
+              body: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    TopBarDetailsScreen(
+                      isFromPrivateProfile: isFromPrivateProfile,
+                      image: recipeModel.coverImage,
+                      reciepmodel: recipeModel,
+                    ),
+                    MainRecipeViewContainer(
+                      isFromPrivateProfile: isFromPrivateProfile,
+                      recipeModel: recipeModel,
+                      recipeList: randomRecipeList,
+                    ),
+                  ],
+                ),
               ),
             ),
           );

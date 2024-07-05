@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -5,9 +7,12 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
 
+import '../../../services/user_services.dart';
+
 class ShoppingListViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final shoppingListService = locator<ShoppingListService>();
+  final userService = locator<UserServices>();
 
   final List<String> selectedRecipees = [];
 
@@ -22,11 +27,20 @@ class ShoppingListViewModel extends ReactiveViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    getAllShoppingList();
+    // getAllShoppingList();
 
     // await shoppingListService.getShoppingList();
     // localShoppingList = List.from(shoppingListService.shoppingList);
     setBusy(false);
+  }
+
+  updateShoppingList() async {
+    try {
+      await userService.updateShoppingList();
+    } catch (e, stackTrace) {
+      log("Failed to update shopping list in view model: $e");
+      log("StackTrace: $stackTrace");
+    }
   }
 
   void clearShoppingLis() {
@@ -41,30 +55,30 @@ class ShoppingListViewModel extends ReactiveViewModel {
 
   // ~````````````````````````````
 
-  getAllShoppingList() {
-    selectedRecipee = [];
-    unSelectedRecipee = [];
+  // getAllShoppingList() {
+  //   selectedRecipee = [];
+  //   unSelectedRecipee = [];
 
-    // Iterate through each recipe in the shopping list
-    shoppingListService.shoppingRecipeeIngredient
-        .forEach((recipeeIDKey, recipeeDetaialValue) {
-      // Extract selected ingredients
-      final selectedIngredients =
-          recipeeDetaialValue['selected_ingredients'] ?? [];
-      selectedRecipee.addAll(selectedIngredients);
+  //   // Iterate through each recipe in the shopping list
+  //   shoppingListService.shoppingRecipeeIngredient
+  //       .forEach((recipeeIDKey, recipeeDetaialValue) {
+  //     // Extract selected ingredients
+  //     final selectedIngredients =
+  //         recipeeDetaialValue['selected_ingredients'] ?? [];
+  //     selectedRecipee.addAll(selectedIngredients);
 
-      // Extract all ingredients for the recipe (you need to have this information in your data)
-      final unselectedIngredients =
-          recipeeDetaialValue['unselected_ingredients'] ?? [];
+  //     // Extract all ingredients for the recipe (you need to have this information in your data)
+  //     final unselectedIngredients =
+  //         recipeeDetaialValue['unselected_ingredients'] ?? [];
 
-      // Find unselected ingredients
-      // final unselectedIngredients = allIngredients.where((ingredient) {
-      //   return !selectedIngredients.contains(ingredient);
-      // }).toList();
+  //     // Find unselected ingredients
+  //     // final unselectedIngredients = allIngredients.where((ingredient) {
+  //     //   return !selectedIngredients.contains(ingredient);
+  //     // }).toList();
 
-      unSelectedRecipee.addAll(unselectedIngredients);
-    });
-  }
+  //     unSelectedRecipee.addAll(unselectedIngredients);
+  //   });
+  // }
 
   void back() {
     _navigationService.back();

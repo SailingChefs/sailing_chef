@@ -8,15 +8,17 @@ import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class ShoppingListService with ListenableServiceMixin {
+  final userService = locator<UserServices>();
   final List<ShoppingItem> shoppingList = [];
-  final selectedRecipees = <RecipeModel>[];
+  // final selectedRecipees = <RecipeModel>[];
 
-  final Map<String, Map<String, dynamic>> shoppingRecipeeIngredient = {};
-  final List<dynamic> recipeeDatails = [];
+  // final Map<String, Map<String, dynamic>> shoppingRecipeeIngredient = {};
+  // final List<dynamic> recipeeDatails = [];
 
-  final Map<String, Map<String, dynamic>> showShoppingListview = {};
+  // final Map<String, Map<String, dynamic>> showShoppingListview = {};
   // ~
   // ~
   // ~
@@ -44,14 +46,16 @@ class ShoppingListService with ListenableServiceMixin {
 
   addAllItemstoShoppingList({required RecipeModel recipee}) {
     List<Ingredient> unSelectedIngredients = [];
-    List<Ingredient> selectedIngredients =
-        shoppingRecipeeIngredient[recipee.docId]?["selected_ingredients"]
-                as List<Ingredient>? ??
-            <Ingredient>[];
+    List<Ingredient> selectedIngredients = [];
+    selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
+            ?["selected_ingredients"] as List<Ingredient>? ??
+        <Ingredient>[];
 
     if (selectedIngredients.isEmpty) {
       selectedIngredients.addAll(recipee.ingredients);
-      selectedRecipees.add(recipee);
+      if (!selectedRecipees.contains(recipee)) {
+        selectedRecipees.add(recipee);
+      }
       unSelectedIngredients.clear();
     } else if (selectedIngredients.isNotEmpty &&
         selectedIngredients.length < recipee.ingredients.length) {
@@ -84,9 +88,10 @@ class ShoppingListService with ListenableServiceMixin {
       {required RecipeModel recipee, required Ingredient ingredient}) {
     final allIngredients = recipee.ingredients;
 
-    final selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
-            ?["selected_ingredients"] as List<Ingredient>? ??
-        <Ingredient>[];
+    List<Ingredient> selectedIngredients =
+        shoppingRecipeeIngredient[recipee.docId]?["selected_ingredients"]
+                as List<Ingredient>? ??
+            <Ingredient>[];
 
     if (selectedIngredients.contains(ingredient)) {
       selectedIngredients.removeWhere((element) => element.id == ingredient.id);
@@ -117,7 +122,7 @@ class ShoppingListService with ListenableServiceMixin {
         selectedIngredients.contains(ingredient)) {
       selectedRecipees.contains(recipee) ? null : selectedRecipees.add(recipee);
     }
-
+    log("shoppingListIngredients : ${shoppingRecipeeIngredient.toString()}");
     notifyListeners();
   }
 
@@ -194,11 +199,14 @@ class ShoppingListService with ListenableServiceMixin {
   //   notifyListeners();
   // }
 
-  bool checkSelectedIngredient(
-      {required RecipeModel recipee, required Ingredient ingredient}) {
-    return shoppingRecipeeIngredient[recipee.docId!]?['selected_ingredients']
-            .contains(ingredient) ??
-        false;
+  bool checkSelectedIngredient({
+    required RecipeModel recipee,
+    required Ingredient ingredient,
+  }) {
+    final selectedIngredients = showShoppingListview[recipee.title]
+            ?['selected_ingredients'] as List<Ingredient>? ??
+        [];
+    return selectedIngredients.contains(ingredient);
   }
 
   bool checkAllSelectedIngredients({

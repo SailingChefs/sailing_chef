@@ -47,6 +47,13 @@ class StartupViewModel extends BaseViewModel {
             _navigationService.replaceWithLoginView();
           } else {
             userDetails = await _userService.getUserDetails();
+            userShoppingList = await _userService.fetchShoppingList();
+
+            selectedRecipees = userShoppingList.selectedRecipees;
+            shoppingRecipeeIngredient =
+                userShoppingList.shoppingRecipeeIngredient;
+            showShoppingListview = userShoppingList.showShoppingListview;
+
             if (userDetails!.userRole == 'guest') {
               viewmodel.initialised;
               _navigationService.replaceWithBottomBarGuestView();
@@ -58,6 +65,7 @@ class StartupViewModel extends BaseViewModel {
         }
       }
     });
+    notifyListeners();
   }
 
   void checkDeepLink() async {

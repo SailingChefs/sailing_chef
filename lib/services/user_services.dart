@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
+import 'package:sailing_chefs/model/shopping_list_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../core/imports/core_imports.dart';
@@ -17,7 +18,37 @@ class UserServices with ListenableServiceMixin {
   UserModel? currentUserDetails;
 
   final NavigationService _navigationService = locator<NavigationService>();
-    final DialogService _dialogService = locator<DialogService>();
+  final DialogService _dialogService = locator<DialogService>();
+
+  Future<ShoppingListModel> fetchShoppingList() async {
+    final userDoc =
+        firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid);
+
+    final querySnapshot = await userDoc.collection('shopping_list').get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // for (var doc in querySnapshot.docs) {
+      //   shoppingList.add(ShoppingListModel.fromJson(doc.data()));
+      // }
+      return ShoppingListModel.fromJson(querySnapshot.docs.first.data());
+    }
+
+    return ShoppingListModel.empty();
+  }
+
+  updateShoppingList() async {
+    try {
+      firebasestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .collection('shopping_list')
+          .doc(firebaseAuth.currentUser!.uid)
+          .set(userShoppingList!.toJson());
+    } catch (e, stackTrace) {
+      log("StackTrace: $stackTrace");
+    }
+  }
+
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
   }) async {
@@ -44,42 +75,39 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-Future<void> storeUserRole(UserModel userModel) async {
-  final user = firebaseAuth.currentUser;
-  if (user == null) {
-    // User not signed in or created
-    throw Exception("User not signed in or created");
-  }
-
-  CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('users');
-
-  QuerySnapshot querySnapshot = await usersCollection
-     .where('email', isEqualTo: userModel.email)
-     .get(); 
-
-  if (querySnapshot.docs.isNotEmpty) {
-    DocumentSnapshot userSnapshot = querySnapshot.docs.first;
-    userModel.userDocId = userSnapshot.id;
-    userModel.userRole = userSnapshot.get('user_role');
-
-    if (userModel.userRole == 'guest') {
-      _navigationService.replaceWithBottomBarGuestView();
-    } else {
-      _navigationService.replaceWithBottomNavBarView();
+  Future<void> storeUserRole(UserModel userModel) async {
+    final user = firebaseAuth.currentUser;
+    if (user == null) {
+      // User not signed in or created
+      throw Exception("User not signed in or created");
     }
-  } else {
-    _dialogService.showCustomDialog(
-      variant: DialogType.roleDialog,
-    );
+
+    CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
+
+    QuerySnapshot querySnapshot =
+        await usersCollection.where('email', isEqualTo: userModel.email).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot userSnapshot = querySnapshot.docs.first;
+      userModel.userDocId = userSnapshot.id;
+      userModel.userRole = userSnapshot.get('user_role');
+
+      if (userModel.userRole == 'guest') {
+        _navigationService.replaceWithBottomBarGuestView();
+      } else {
+        _navigationService.replaceWithBottomNavBarView();
+      }
+    } else {
+      _dialogService.showCustomDialog(
+        variant: DialogType.roleDialog,
+      );
+    }
   }
-}
 
   Future<UserModel> getUserDetails() async {
     try {
       CollectionReference usersCollection = firebasestore.collection('users');
-
-      
 
       QuerySnapshot userSnapshot = await usersCollection
           .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)

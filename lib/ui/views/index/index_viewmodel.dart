@@ -140,7 +140,7 @@ class IndexViewModel extends BaseViewModel {
       duration: const Duration(milliseconds: 00),
       transitionStyle: Transition.rightToLeft,
     );
-    log("\n\n\n  Cheching Map Data : \n\n\t\t${shoppingListService.shoppingRecipeeIngredient.toString()}");
+
     notifyListeners();
   }
 

@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -48,31 +49,39 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     ),
                   ),
                 ),
-                Container(
-                  width: 15.0.w,
-                  height: 15.0.h,
-                  decoration: BoxDecoration(
-                    color:
-                        //  viewModel.checkShoppingList(ingredient)
+                GestureDetector(
+                  onTap: () {
+                    log(viewModel
+                        .checkSelected(
+                            recipee: recipeModel, ingredient: ingredient)
+                        .toString());
+                  },
+                  child: Container(
+                    width: 15.0.w,
+                    height: 15.0.h,
+                    decoration: BoxDecoration(
+                      color:
+                          //  viewModel.checkShoppingList(ingredient)
+                          viewModel.checkSelected(
+                                  recipee: recipeModel, ingredient: ingredient)
+                              ? kcPrimaryColorDark
+                              : Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: kcPrimaryColorDark,
+                      ),
+                    ),
+                    child:
+                        // viewModel.checkShoppingList(ingredient)
                         viewModel.checkSelected(
                                 recipee: recipeModel, ingredient: ingredient)
-                            ? kcPrimaryColorDark
-                            : Colors.transparent,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: kcPrimaryColorDark,
-                    ),
+                            ? Icon(
+                                Icons.check,
+                                color: kcWhiteColor,
+                                size: 12.0.sp,
+                              )
+                            : Container(),
                   ),
-                  child:
-                      // viewModel.checkShoppingList(ingredient)
-                      viewModel.checkSelected(
-                              recipee: recipeModel, ingredient: ingredient)
-                          ? Icon(
-                              Icons.check,
-                              color: kcWhiteColor,
-                              size: 12.0.sp,
-                            )
-                          : Container(),
                 ),
                 horizontalSpaceTiny,
               ],

@@ -1,3 +1,4 @@
+import '../../../../core/global_uservariable.dart';
 import '../../../../core/imports/core_imports.dart';
 import '../../../../model/recipe_model.dart';
 import '../shopping_list_viewmodel.dart';
@@ -42,8 +43,7 @@ Widget recipeeTitleWidget(
                 children: [
                   Text(
                     (equality.equals(
-                            viewModel.shoppingListService
-                                        .showShoppingListview[recipee.title]
+                            showShoppingListview[recipee.title]
                                     ?['selected_ingredients'] ??
                                 [],
                             recipee.ingredients))
@@ -60,8 +60,7 @@ Widget recipeeTitleWidget(
                     child: CircleAvatar(
                       radius: 7.r,
                       backgroundColor: (equality.equals(
-                              viewModel.shoppingListService
-                                          .showShoppingListview[recipee.title]
+                              showShoppingListview[recipee.title]
                                       ?['selected_ingredients'] ??
                                   [],
                               recipee.ingredients))
@@ -71,9 +70,7 @@ Widget recipeeTitleWidget(
                         child: CircleAvatar(
                           radius: 6.r,
                           backgroundColor: (equality.equals(
-                                  viewModel.shoppingListService
-                                                  .showShoppingListview[
-                                              recipee.title]
+                                  showShoppingListview[recipee.title]
                                           ?['selected_ingredients'] ??
                                       [],
                                   recipee.ingredients))

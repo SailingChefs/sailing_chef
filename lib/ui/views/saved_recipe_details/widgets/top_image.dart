@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
@@ -76,7 +78,15 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           top: 40,
           left: 10,
           child: GestureDetector(
-            onTap: () => viewModel.moveBack(),
+            onTap: () async {
+              try {
+                await viewModel.updateShoppingList();
+              } catch (e, stackTrace) {
+                log("Failed to update shopping list on pop: $e");
+                log("StackTrace: $stackTrace");
+              }
+              viewModel.moveBack();
+            },
             child: Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 8.0.dg),
