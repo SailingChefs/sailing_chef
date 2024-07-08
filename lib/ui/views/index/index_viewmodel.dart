@@ -12,11 +12,14 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 
+import '../../../services/user_services.dart';
+
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
   final shoppingListService = locator<ShoppingListService>();
   final _recipeService = locator<RecipeService>();
+  final userService = locator<UserServices>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final _cullinaryService = locator<CullinaryschoolService>();
   List<UserModel> get chefList => _chefService.chefs;
@@ -178,5 +181,14 @@ class IndexViewModel extends BaseViewModel {
 
   Future<void> callonRefresh() async {
     onViewModelReady();
+  }
+
+  Future<void> onRefresh() async {
+    userDetails = await userService.getUserDetails();
+    userShoppingList = await userService.fetchShoppingList();
+
+    selectedRecipees = userShoppingList.selectedRecipees;
+    shoppingRecipeeIngredient = userShoppingList.shoppingRecipeeIngredient;
+    showShoppingListview = userShoppingList.showShoppingListview;
   }
 }
