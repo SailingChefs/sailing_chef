@@ -201,16 +201,17 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   void saveguestDetails() async {
+    String imageLink = '';
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
-        showToast(message: 'Please select image to proceed');
-        return;
+        imageLink =
+            "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg";
+      } else {
+        imageLink = await _userService.uploadImage(
+          selectedImageFile as File,
+          selectedImageFile!.path.split('/').last,
+        );
       }
-
-      final imageLink = await _userService.uploadImage(
-        selectedImageFile as File,
-        selectedImageFile!.path.split('/').last,
-      );
 
       bool userDetailsStatus = await _userService.storeUserDetails(
         {

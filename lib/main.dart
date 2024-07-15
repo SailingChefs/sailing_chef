@@ -16,8 +16,10 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:uuid/uuid.dart';
 import 'core/theme/text_styles.dart';
 
+Uuid uuid = Uuid();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

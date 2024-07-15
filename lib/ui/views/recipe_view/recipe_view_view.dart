@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -26,6 +28,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     RecipeViewViewModel viewModel,
     Widget? child,
   ) {
+    log("\n\n\n\n\n\t\t\t\tserving sizes are : ${recipeModel.servingSize.toString()}");
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(

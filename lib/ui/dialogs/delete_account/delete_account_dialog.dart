@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import 'delete_account_dialog_model.dart';
@@ -41,7 +42,10 @@ class DeleteAccountDialog extends StackedView<DeleteAccountDialogModel> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: viewModel.deleteAccount,
+                  onTap: viewModel.isGoogleSignInUser(
+                          FirebaseAuth.instance.currentUser!)
+                      ? viewModel.sureDeltete
+                      : viewModel.deleteAccount,
                   child: Container(
                     height: 40,
                     width: 150,

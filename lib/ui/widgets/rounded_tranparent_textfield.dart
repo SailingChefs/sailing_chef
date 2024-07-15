@@ -69,7 +69,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     String open = 'assets/images/icons/eye_button.png';
     Widget openEye = Image.asset(
       open,
-      color: kcWhiteColor,
+      color: kcBlackColor.withOpacity(0.4),
       width: 2.w,
       height: 6.h,
     );

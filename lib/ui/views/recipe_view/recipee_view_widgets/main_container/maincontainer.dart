@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -62,6 +64,7 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
               verticalSpace(12),
               SaveRecipeButton(
                 onPressed: () {
+                  // log(recipeModel.servingSize.toString());
                   viewModel.saveRecipe(recipeModel, selectedImages);
                 },
                 buttonText: 'Publish Recipe',

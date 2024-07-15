@@ -52,7 +52,9 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
                     borderRadius: BorderRadius.circular(30),
                     color: filterIconColor),
                 child: TextButton(
-                  onPressed: viewModel.dropPin,
+                  onPressed: () {
+                    viewModel.dropPin(isNew: true);
+                  },
                   // => completer == null
                   //     ? Navigator.pop(context)
                   //     : completer!(SheetResponse(data: true)),

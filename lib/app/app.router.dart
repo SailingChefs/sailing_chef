@@ -596,7 +596,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i37.ShoppingListView: (data) {
       return _i39.MaterialPageRoute<dynamic>(
-        builder: (context) => _i37.ShoppingListView(),
+        builder: (context) => const _i37.ShoppingListView(),
         settings: data,
       );
     },

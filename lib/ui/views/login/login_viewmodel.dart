@@ -1,9 +1,8 @@
-import 'package:sailing_chefs/app/app.dialogs.dart';
+
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class LoginViewModel extends BaseViewModel {

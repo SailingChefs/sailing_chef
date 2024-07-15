@@ -29,6 +29,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 
 import '../../../core/imports/core_imports.dart';
 import '../../../services/user_services.dart';
+import 'package:fraction/fraction.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
@@ -526,16 +527,80 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  int servings = 0;
-  int updatedQuantity = 0;
+  int servings = 1;
+  Fraction updatedQuantity = Fraction(1, 1);
 
-  List<Ingredient> getUpdatedIngredients() {
+  Fraction parseInput(String input) {
+    if (input.contains('/')) {
+      return Fraction.fromString(input);
+    } else {
+      return Fraction(int.tryParse(input) ?? 0);
+    }
+  }
+
+  // List<Ingredient> getUpdatedIngredients() {
+  //   return recipeModel.ingredients.map((ingredient) {
+  //     int baseQuantity = int.parse(ingredient.quantity);
+  //     updatedQuantity = baseQuantity * servings;
+  //     return Ingredient(
+  //       name: ingredient.name,
+  //       quantity: updatedQuantity.toStringAsFixed(0),
+  //       unit: ingredient.unit,
+  //       id: ingredient.id,
+  //     );
+  //   }).toList();
+  // }
+
+  // List<Ingredient> getUpdatedIngredients() {
+  //   return recipeModel.ingredients.map((ingredient) {
+  //     Fraction baseQuantity;
+
+  //     // Parse the base quantity as a Fraction
+  //     if (ingredient.quantity.contains('/')) {
+  //       baseQuantity = Fraction.fromString(ingredient.quantity);
+  //     } else {
+  //       baseQuantity = Fraction(int.tryParse(ingredient.quantity) ?? 0);
+  //     }
+
+  //     // Increment the quantity by itself
+  //     updatedQuantity = baseQuantity * Fraction(servings);
+
+  //     // updatedQuantity = baseQuantity + Fraction.fromString(ingredient.quantity);
+
+  //     return Ingredient(
+  //       name: ingredient.name,
+  //       quantity: updatedQuantity.toString(),
+  //       unit: ingredient.unit,
+  //       id: ingredient.id,
+  //     );
+  //   }).toList();
+  // }
+
+  List<Ingredient> getUpdatedIngredients(int servings) {
     return recipeModel.ingredients.map((ingredient) {
-      int baseQuantity = int.parse(ingredient.quantity);
-      updatedQuantity = baseQuantity * servings;
+      Fraction baseQuantity;
+
+      // Parse the base quantity as a Fraction
+      if (ingredient.quantity.contains('/')) {
+        baseQuantity = Fraction.fromString(ingredient.quantity);
+      } else {
+        baseQuantity = Fraction(int.tryParse(ingredient.quantity) ?? 0);
+      }
+
+      // // Calculate the updated quantity
+      // Fraction updatedQuantity =
+      //     baseQuantity + (baseQuantity * Fraction(servings));
+
+      // // Simplify the fraction if possible
+      // updatedQuantity = updatedQuantity.reduce();
+
+      // Convert the fraction to a string
+      String updatedQuantityString = baseQuantity.toString();
+
       return Ingredient(
+        serving: servings,
         name: ingredient.name,
-        quantity: updatedQuantity.toStringAsFixed(0),
+        quantity: updatedQuantityString,
         unit: ingredient.unit,
         id: ingredient.id,
       );

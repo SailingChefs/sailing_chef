@@ -409,98 +409,98 @@
 //     rebuildUi();
 //   }
 
-  // Future<void> showCustomTimePickerDialog(BuildContext context) async {
-  //   selectedTime = null;
+// Future<void> showCustomTimePickerDialog(BuildContext context) async {
+//   selectedTime = null;
 
-  //   final TextEditingController _hourController = TextEditingController();
-  //   final TextEditingController _minuteController = TextEditingController();
+//   final TextEditingController _hourController = TextEditingController();
+//   final TextEditingController _minuteController = TextEditingController();
 
-  //   _hourController.addListener(() {
-  //     if (_hourController.text == '00') {
-  //       _hourController.clear();
-  //     }
-  //   });
+//   _hourController.addListener(() {
+//     if (_hourController.text == '00') {
+//       _hourController.clear();
+//     }
+//   });
 
-  //   _minuteController.addListener(() {
-  //     if (_minuteController.text == '00') {
-  //       _minuteController.clear();
-  //     }
-  //   });
+//   _minuteController.addListener(() {
+//     if (_minuteController.text == '00') {
+//       _minuteController.clear();
+//     }
+//   });
 
-  //   await showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: Text('Select Time',
-  //             style: globalTextStyle(color: Colors.black, fontSize: 20)),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             RoundedTransparentTextField(
-  //               controller: _hourController,
-  //               keyboardType: TextInputType.number,
-  //               labelText: 'Hours',
-  //               fillColor: kcsgreycolor.withOpacity(0.1),
-  //               borderColor: kcPrimaryColor,
-  //               textColor: Colors.black,
-  //             ),
-  //             verticalSpaceSmall,
-  //             RoundedTransparentTextField(
-  //               controller: _minuteController,
-  //               keyboardType: TextInputType.number,
-  //               labelText: 'Minutes',
-  //               fillColor: kcsgreycolor.withOpacity(0.1),
-  //               borderColor: kcPrimaryColor,
-  //               textColor: Colors.black,
-  //             ),
-  //           ],
-  //         ),
-  //         actions: [
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               TextButton(
-  //                 style: TextButton.styleFrom(backgroundColor: kcPrimaryColor),
-  //                 child: Padding(
-  //                   padding: const EdgeInsets.symmetric(
-  //                     horizontal: 15.0,
-  //                   ),
-  //                   child: Text('Cancel',
-  //                       style:
-  //                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
-  //                 ),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                   rebuildUi();
-  //                 },
-  //               ),
-  //               TextButton(
-  //                 style: TextButton.styleFrom(
-  //                   backgroundColor: kcPrimaryColor,
-  //                 ),
-  //                 child: Padding(
-  //                   padding: const EdgeInsets.symmetric(
-  //                     horizontal: 10.0,
-  //                   ),
-  //                   child: Text('Set Time',
-  //                       style:
-  //                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
-  //                 ),
-  //                 onPressed: () {
-  //                   int hour = int.parse(_hourController.text);
-  //                   int minute = int.parse(_minuteController.text);
-  //                   selectedTime = TimeOfDay(hour: hour, minute: minute);
-  //                   Navigator.of(context).pop();
-  //                   rebuildUi();
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+//   await showDialog(
+//     context: context,
+//     builder: (context) {
+//       return AlertDialog(
+//         title: Text('Select Time',
+//             style: globalTextStyle(color: Colors.black, fontSize: 20)),
+//         content: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             RoundedTransparentTextField(
+//               controller: _hourController,
+//               keyboardType: TextInputType.number,
+//               labelText: 'Hours',
+//               fillColor: kcsgreycolor.withOpacity(0.1),
+//               borderColor: kcPrimaryColor,
+//               textColor: Colors.black,
+//             ),
+//             verticalSpaceSmall,
+//             RoundedTransparentTextField(
+//               controller: _minuteController,
+//               keyboardType: TextInputType.number,
+//               labelText: 'Minutes',
+//               fillColor: kcsgreycolor.withOpacity(0.1),
+//               borderColor: kcPrimaryColor,
+//               textColor: Colors.black,
+//             ),
+//           ],
+//         ),
+//         actions: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               TextButton(
+//                 style: TextButton.styleFrom(backgroundColor: kcPrimaryColor),
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(
+//                     horizontal: 15.0,
+//                   ),
+//                   child: Text('Cancel',
+//                       style:
+//                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+//                 ),
+//                 onPressed: () {
+//                   Navigator.of(context).pop();
+//                   rebuildUi();
+//                 },
+//               ),
+//               TextButton(
+//                 style: TextButton.styleFrom(
+//                   backgroundColor: kcPrimaryColor,
+//                 ),
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(
+//                     horizontal: 10.0,
+//                   ),
+//                   child: Text('Set Time',
+//                       style:
+//                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+//                 ),
+//                 onPressed: () {
+//                   int hour = int.parse(_hourController.text);
+//                   int minute = int.parse(_minuteController.text);
+//                   selectedTime = TimeOfDay(hour: hour, minute: minute);
+//                   Navigator.of(context).pop();
+//                   rebuildUi();
+//                 },
+//               ),
+//             ],
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }
 
 //   String formatDuration([TimeOfDay? time]) {
 //     prepreationTime = '';
@@ -862,6 +862,8 @@
 //   }
 // }
 
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -934,8 +936,8 @@ class AddRecipeViewModel extends BaseViewModel {
   bool get isRecording => recorderController.isRecording;
 
   bool get shouldShowHint {
-    return !hasRecordedAudio && !isRecording ;
-   }
+    return !hasRecordedAudio && !isRecording;
+  }
 
   bool get isWaveformAndChefNoteEmpty {
     return (waveFormData?.length ?? 0) == 0 &&
@@ -1077,28 +1079,28 @@ class AddRecipeViewModel extends BaseViewModel {
 
   double volume = 0;
   bool isMute = false;
-Future<void> downloadAudio() async {
-  Directory tempDir = await getTemporaryDirectory();
-  String tempPath = tempDir.path;
-  final response = await http.get(Uri.parse(recipeModel!.chefNote));
-  File audioFile = File("$tempPath/audio.mpeg4");
-  if (response.statusCode == 200) {
-    await audioFile.writeAsBytes(response.bodyBytes);
-    log("Download Complete");
-    playerController.preparePlayer(
-      path: audioFile.path,
-      volume: 100,
-    );
-    log("Player Ready");
-    // Calculate duration here
-    Duration duration = Duration(
-            milliseconds: await playerController.getDuration(DurationType.max));
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds % 60;
-    formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-    notifyListeners();
+  Future<void> downloadAudio() async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    final response = await http.get(Uri.parse(recipeModel!.chefNote));
+    File audioFile = File("$tempPath/audio.mpeg4");
+    if (response.statusCode == 200) {
+      await audioFile.writeAsBytes(response.bodyBytes);
+      log("Download Complete");
+      playerController.preparePlayer(
+        path: audioFile.path,
+        volume: 100,
+      );
+      log("Player Ready");
+      // Calculate duration here
+      Duration duration = Duration(
+          milliseconds: await playerController.getDuration(DurationType.max));
+      int minutes = duration.inMinutes;
+      int seconds = duration.inSeconds % 60;
+      formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+      notifyListeners();
+    }
   }
-}
 
   // Future<void> downloadAudio() async {
   //   Directory tempDir = await getTemporaryDirectory();
@@ -1112,19 +1114,17 @@ Future<void> downloadAudio() async {
   //       path: audioFile.path,
   //       volume: 100,
   //     );
-      
+
   //     log("Player Ready");
   //   }
   //   durationCalculate(audioFile);
   // }
-
 
   void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
     });
   }
-
 
   void startListening() async {
     log("start Listening ${isPlaying.toString()}");
@@ -1137,17 +1137,17 @@ Future<void> downloadAudio() async {
     });
 
     await playerController.startPlayer(finishMode: FinishMode.pause);
-    
+
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
   }
 
-    void updateDuration(Duration position) async {
+  void updateDuration(Duration position) async {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
       notifyListeners();
-    } 
+    }
   }
 
   void stopListening() async {
@@ -1206,13 +1206,12 @@ Future<void> downloadAudio() async {
     waveFormData = await playerController.extractWaveformData(path: path);
     hasRecordedAudio = true;
     rebuildUi();
-    
 
     await playerController.preparePlayer(
       path: path,
       volume: 100,
     );
-     playerController.onCurrentDurationChanged.listen((positionData) {
+    playerController.onCurrentDurationChanged.listen((positionData) {
       Duration position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -1220,7 +1219,6 @@ Future<void> downloadAudio() async {
   }
 
   void deleteaddrecipeCurrentRecording() {
-   
     formattedDuration = "0:00";
     hasRecordedAudio = false;
     recorderController.reset();
@@ -1230,11 +1228,12 @@ Future<void> downloadAudio() async {
 
   void deleteCurrentRecording() {
     hasRecordedAudio = false;
-    if(recipeModel!.chefNote.isNotEmpty){
-      _recipeService.deleteAudioFromDocument(recipeModel!.docId!,recipeModel!.chefNote);
+    if (recipeModel!.chefNote.isNotEmpty) {
+      _recipeService.deleteAudioFromDocument(
+          recipeModel!.docId!, recipeModel!.chefNote);
       formattedDuration = "0:00";
-     recipeModel!.chefNote = "";
-     recipeModel!.waveForm.clear();
+      recipeModel!.chefNote = "";
+      recipeModel!.waveForm.clear();
       rebuildUi();
     }
     recorderController.reset();
@@ -1256,10 +1255,12 @@ Future<void> downloadAudio() async {
     notifyListeners();
     rebuildUi();
   }
-    Future<void> showCustomTimePickerDialog(BuildContext context) async {
+
+  Future<void> showCustomTimePickerDialog(BuildContext context) async {
     selectedTime = null;
 
-    final TextEditingController _hourController = TextEditingController();
+    final TextEditingController _hourController =
+        TextEditingController(text: 0.toString());
     final TextEditingController _minuteController = TextEditingController();
 
     _hourController.addListener(() {
@@ -1334,8 +1335,11 @@ Future<void> downloadAudio() async {
                             globalTextStyle(color: kcwhitecolor, fontSize: 15)),
                   ),
                   onPressed: () {
+                    log(_hourController.text.toString());
                     int hour = int.parse(_hourController.text);
+
                     int minute = int.parse(_minuteController.text);
+
                     selectedTime = TimeOfDay(hour: hour, minute: minute);
                     Navigator.of(context).pop();
                     rebuildUi();
@@ -1348,7 +1352,6 @@ Future<void> downloadAudio() async {
       },
     );
   }
-
 
   // Future<void> showCustomTimePickerDialog(BuildContext context) async {
   //   // Set the initial time to 00:00 (midnight)
@@ -1590,8 +1593,8 @@ Future<void> downloadAudio() async {
         return;
       } else {
         if (recipeModel != null) {
-         final shouldClear = await _navigationService.navigateToRecipeViewView(
-          isFromDraft: true,
+          final shouldClear = await _navigationService.navigateToRecipeViewView(
+            isFromDraft: true,
             recipeModel: RecipeModel(
               visibility: selectedValue,
               chefNote: '',
@@ -1608,21 +1611,21 @@ Future<void> downloadAudio() async {
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
               docId: recipeModel!.docId,
-            waveForm: waveFormData == null ? [] : waveFormData!,
+              waveForm: waveFormData == null ? [] : waveFormData!,
             ),
             selectedImages: selectedImages,
             path: path,
             waveFormData: waveFormData,
             draftUrls: alreadySelectedImages,
           );
-           if (shouldClear == true) {
+          if (shouldClear == true) {
             log(" Clearing");
             recorderController.dispose();
             playerController.dispose();
             titleController.dispose();
             alreadySelectedImages.clear();
             hasRecordedAudio = false;
-            
+
             formattedDuration = '';
             selectedImages.clear();
             ingredientsList.clear();
@@ -1635,18 +1638,16 @@ Future<void> downloadAudio() async {
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
-          
+
             rebuildUi();
-             titleController = TextEditingController();
+            titleController = TextEditingController();
             recorderController = RecorderController();
-             playerController = PlayerController();
+            playerController = PlayerController();
             _initialiseController();
-           
-            
+
             rebuildUi();
           }
         } else {
-         
           final shouldClear = await _navigationService.navigateToRecipeViewView(
             isFromDraft: false,
             recipeModel: RecipeModel(
@@ -1680,7 +1681,7 @@ Future<void> downloadAudio() async {
             titleController.dispose();
             alreadySelectedImages.clear();
             hasRecordedAudio = false;
-            
+
             formattedDuration = '';
             selectedImages.clear();
             ingredientsList.clear();
@@ -1693,14 +1694,13 @@ Future<void> downloadAudio() async {
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
-          
+
             rebuildUi();
-             titleController = TextEditingController();
+            titleController = TextEditingController();
             recorderController = RecorderController();
-             playerController = PlayerController();
+            playerController = PlayerController();
             _initialiseController();
-           
-            
+
             rebuildUi();
           }
         }
@@ -1749,6 +1749,4 @@ Future<void> downloadAudio() async {
   }
 
   late List<String> imageUrls;
-
- 
 }

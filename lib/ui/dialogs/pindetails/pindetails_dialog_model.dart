@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
@@ -16,7 +17,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
   final _reviewService = locator<PinDropService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final bottomSheetService = locator<BottomSheetService>();
   List<ReviewsModel> get reviews => _reviewService.reviews;
   late bool serviceEnabled;
   late LocationPermission permission;
@@ -55,6 +56,49 @@ class PindetailsDialogModel extends ReactiveViewModel {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  void editPin() async {
+    // String markerId = const Uuid().v4();
+    // final pinnedLocationData = PinnedLocationData(
+    //     LatLng(currentCameraPosition!.target.latitude,
+    //         currentCameraPosition!.target.longitude),
+    //     null);
+
+    final pinnedLocationData = PinnedLocationData(
+        LatLng(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude),
+        pinnedLocation);
+    await bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.dropPinSheet,
+      data: {"pinnedLocationData": pinnedLocationData, "isNew": false},
+    );
+    // if (res2?.data == false || res2?.data == null) return;
+
+    // addMarkers(
+    //   markerId,
+    //   LatLng(currentCameraPosition!.target.latitude,
+    //       currentCameraPosition!.target.longitude),
+    // );
+    // showBottomButtons = false;
+    // showMarker = false;
+    rebuildUi();
+  }
+
+  void editMapPin(String markerId) async {
+    final pinnedLocationData = PinnedLocationData(
+        LatLng(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude),
+        pinnedLocation);
+    final res2 = await bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.dropPinSheet,
+      customData: pinnedLocationData,
+    );
+
+    if (res2?.data == false || res2?.data == null) return;
+
+    // Perform any necessary updates after the user has edited the pin
+    rebuildUi();
   }
 
   String calculateAverageRating(List<ReviewsModel> comments) {
@@ -125,7 +169,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
 
   void navigateToBottomSheet() {
     final pinnedLocationData = PinnedLocationData(null, pinnedLocation);
-    _bottomSheetService.showCustomSheet(
+    bottomSheetService.showCustomSheet(
         variant: BottomSheetType.dropPinSheet, data: pinnedLocationData);
   }
 }

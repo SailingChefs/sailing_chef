@@ -278,6 +278,19 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
                                                 children: [
+                                                  Text(
+                                                    selectIngredient.serving
+                                                        .toString(),
+                                                    style: globalTextStyle(
+                                                      fontSize: 15,
+                                                      letterSpacing: -0.5,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.87),
+                                                    ),
+                                                  ),
+                                                  8.w.horizontalSpace,
                                                   Expanded(
                                                     flex: 2,
                                                     child: Text(
@@ -369,6 +382,19 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
                                                 children: [
+                                                  Text(
+                                                    unSelectIngredient.serving
+                                                        .toString(),
+                                                    style: globalTextStyle(
+                                                      fontSize: 15,
+                                                      letterSpacing: -0.5,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.87),
+                                                    ),
+                                                  ),
+                                                  8.w.horizontalSpace,
                                                   Expanded(
                                                     flex: 2,
                                                     child: Text(

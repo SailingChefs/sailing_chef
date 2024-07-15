@@ -27,13 +27,27 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               children: [
                 SizedBox(
                   width: 130.w,
-                  child: Text('${ingredient.quantity} ${ingredient.unit}',
-                      style: globalTextStyle(
-                        color: kcBlackColor.withOpacity(0.87),
-                        letterSpacing: -0.3,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      )),
+                  child: Row(
+                    children: [
+                      Visibility(
+                        visible: true,
+                        child: Text('${viewModel.servings} ',
+                            style: globalTextStyle(
+                              color: kcBlackColor.withOpacity(0.87),
+                              letterSpacing: -0.3,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            )),
+                      ),
+                      Text('${ingredient.quantity} ${ingredient.unit}',
+                          style: globalTextStyle(
+                            color: kcBlackColor.withOpacity(0.87),
+                            letterSpacing: -0.3,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          )),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   width: 160.w,
@@ -95,7 +109,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    var updatedIngredients = viewModel.getUpdatedIngredients();
+    var updatedIngredients =
+        viewModel.getUpdatedIngredients(viewModel.servings);
     var allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
     // log(recipeModel.ingredients.first.id!);

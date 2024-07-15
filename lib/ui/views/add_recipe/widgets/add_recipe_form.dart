@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -41,7 +43,10 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         ChefsNote(drafts),
         verticalSpace(20.h),
         SaveRecipeButton(
-          onPressed: viewModel.previewRecipe,
+          onPressed: () {
+            // log(drafts?.servingSize.toString() ?? "no serving size");
+            viewModel.previewRecipe();
+          },
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,
         ),

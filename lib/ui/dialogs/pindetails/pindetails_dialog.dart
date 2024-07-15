@@ -266,28 +266,56 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                             ),
                           ),
                     verticalSpaceMedium,
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          viewModel.openGoogleMaps();
-                        },
-                        child: Container(
-                          width: 144,
-                          height: 48,
-                          decoration: BoxDecoration(
-                              color: kcPrimaryColor,
-                              borderRadius: BorderRadius.circular(30)),
-                          child: Center(
-                            child: Text(
-                              'Get directions',
-                              style: globalTextStyle(
-                                color: kcwhitecolor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              viewModel.openGoogleMaps();
+                            },
+                            child: Container(
+                              width: 144,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                  color: kcPrimaryColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text(
+                                  'Get directions',
+                                  style: globalTextStyle(
+                                    color: kcwhitecolor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () async {
+                              viewModel.editPin();
+                            },
+                            child: Container(
+                              width: 144,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                  color: kcPrimaryColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text(
+                                  'Edit',
+                                  style: globalTextStyle(
+                                    color: kcwhitecolor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     verticalSpaceSmall,

@@ -74,7 +74,7 @@ class TimeAndServingRecipeShow
                   GestureDetector(
                     onTap: () {
                       viewModel.incrementServings();
-                      viewModel.getUpdatedIngredients();
+                      viewModel.getUpdatedIngredients(viewModel.servings);
                     },
                     child: const Icon(
                       FlutterRemix.add_circle_fill,

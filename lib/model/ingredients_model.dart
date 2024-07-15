@@ -43,12 +43,14 @@ class Ingredient {
   final String name;
   final String quantity;
   final String unit;
+  final int serving;
 
   Ingredient({
     required this.id,
     required this.name,
     required this.quantity,
     required this.unit,
+    required this.serving,
   });
 
   Map<String, dynamic> toJson() {
@@ -57,6 +59,7 @@ class Ingredient {
       'name': name,
       'quantity': quantity,
       'unit': unit,
+      'serving': serving,
     };
   }
 
@@ -66,6 +69,7 @@ class Ingredient {
       name: map['name'],
       quantity: map['quantity'],
       unit: map['unit'],
+      serving: map['serving'] ?? 1,
     );
   }
 
@@ -77,3 +81,4 @@ class Ingredient {
   @override
   int get hashCode => id.hashCode;
 }
+

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
@@ -150,6 +151,7 @@ import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
     LazySingleton(classType: ConversationService),
     LazySingleton(classType: ChefService),
     LazySingleton(classType: ShoppingListService),
+    LazySingleton(classType: SnackbarService),
 
     LazySingleton(classType: UserdataServiceService),
     LazySingleton(classType: BottomNavBarViewModel),

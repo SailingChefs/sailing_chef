@@ -39,7 +39,7 @@ class BottomDetailsOnboardingScreen
                     viewModel.tosignUp();
                   },
                   buttonText: 'sign up',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                 ),
                 Container(
                   height: 1.0,
@@ -59,7 +59,7 @@ class BottomDetailsOnboardingScreen
 
 double _getTextWidth(String text, TextStyle style) {
   final TextPainter textPainter = TextPainter(
-    text: TextSpan(text: text, style: style),
+    text: TextSpan(text: "$text   ", style: style),
     textDirection: TextDirection.ltr,
   )..layout();
   return textPainter.width;

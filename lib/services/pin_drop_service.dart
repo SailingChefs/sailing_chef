@@ -105,6 +105,15 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
+  Future<void> saveEditPin(PinnedLocation pinnedLocation) async {
+    await firebasestore
+        .collection('pins')
+        .doc(pinnedLocation.uid)
+        .set(pinnedLocation.toMap());
+
+    notifyListeners();
+  }
+
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     try {
       DocumentReference docRef = await FirebaseFirestore.instance

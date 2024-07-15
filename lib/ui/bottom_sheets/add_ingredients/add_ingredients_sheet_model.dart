@@ -3,6 +3,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_s
 
 import '../../../model/ingredients_model.dart';
 
+import '../../../main.dart';
+
 class AddIngredientsSheetModel extends BaseViewModel {
   final Function(SheetResponse response)? completer;
 
@@ -47,10 +49,11 @@ class AddIngredientsSheetModel extends BaseViewModel {
       ingredientsList.insert(
           0,
           Ingredient(
+              serving: 1,
               name: ingredientNameController.text,
               unit: selectedValue,
               quantity: quantityController.text,
-              id: ''));
+              id: uuid.v4()));
       quantityController.clear();
       ingredientNameController.clear();
       selectedValue = '---';
@@ -64,7 +67,9 @@ class AddIngredientsSheetModel extends BaseViewModel {
 
   void addIngredients(String name, String quantity, int index) {
     ingredientsList.insert(
-        index, Ingredient(name: name, quantity: quantity, unit: '---', id: ''));
+        index,
+        Ingredient(
+            serving: 1, name: name, quantity: quantity, unit: '---', id: ''));
     notifyListeners();
   }
 

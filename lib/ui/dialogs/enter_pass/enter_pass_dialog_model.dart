@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
@@ -15,6 +18,13 @@ class EnterPassDialogModel extends BaseViewModel {
     rebuildUi();
   }
 
+
+
+  void vaigateToForgetPassword() {
+    _navigationService.navigateToForgetPasswordView();
+  }
+
+
   void deleteAccount() async {
     bool check = await _userService.checkPassword(passwordController.text);
 
@@ -23,7 +33,7 @@ class EnterPassDialogModel extends BaseViewModel {
           await _userService.deleteUserAndDocument(passwordController.text);
 
       deleted
-          ? showToast(message: 'Account Deleted Permanently')
+          ? showToast(message: 'Account Deleted Permanently',)
           : showToast(message: 'Account Deletion was interrupted');
 
       if (deleted == true) {

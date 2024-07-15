@@ -104,7 +104,9 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                         viewModel.showMarker == true
                     ? const Positioned(
                         bottom: 0,
-                        child: BottomButtonPinsDropView(),
+                        child: BottomButtonPinsDropView(
+                            // isNew: true,
+                            ),
                       )
                     : Container(),
                 viewModel.showList == true ||

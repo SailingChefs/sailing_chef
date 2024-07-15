@@ -15,13 +15,15 @@ import 'drop_pin_sheet_sheet_model.dart';
 
 class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final Function(SheetResponse response)? completer;
+  final bool isNew;
   final SheetRequest request;
 
-  const DropPinSheetSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+  const DropPinSheetSheet(
+      {Key? key,
+      required this.completer,
+      required this.request,
+      required this.isNew})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -40,165 +42,174 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
           topRight: Radius.circular(50),
         ),
       ),
-      child: SingleChildScrollView(
-        dragStartBehavior: DragStartBehavior.down,
+      child: Padding(
+        padding: EdgeInsets.only(top: 16, left: 16.w, right: 16.w),
         child: Container(
-          padding: const EdgeInsets.all(15.0),
-          child: Form(
-            key: viewModel.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(20),
-                DopPinTextFields(
-                  func: () {
-                    viewModel.getPfpImage();
-                  },
-                  hinttext: 'Name',
-                  suffixIcon: SvgPicture.asset(
-                      'assets/images/icons/pinimage.svg',
-                      width: 30,
-                      height: 30,
-                      color: kcBlackColor.withOpacity(0.87)),
-                  color: kcBlackColor.withOpacity(0.6),
-                  contoll: viewModel.name,
-                ),
-                const Divider(),
-                TagsSelectionWidget(
-                  completer: completer,
-                  request: request,
-                ),
-                verticalSpace(14.h),
-                DopPinTextFieldLink(
-                  hinttext: 'Link*',
-                  suffixIcon: FlutterRemix.link_m,
-                  color: kcBlackColor.withOpacity(0.4),
-                  controller: viewModel.link,
-                ),
-                const Divider(),
-                TextFormField(
-                  controller: viewModel.phone,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(11),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                      hintText: 'Contact Number*',
+          decoration: const BoxDecoration(
+              color: kcwhitecolor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
+              )),
+          child: SingleChildScrollView(
+            dragStartBehavior: DragStartBehavior.down,
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpace(20),
+                  DopPinTextFields(
+                    func: () {
+                      viewModel.getPfpImage();
+                    },
+                    hinttext: 'Name',
+                    suffixIcon: SvgPicture.asset(
+                        'assets/images/icons/pinimage.svg',
+                        width: 30,
+                        height: 30,
+                        color: kcBlackColor.withOpacity(0.87)),
+                    color: kcBlackColor.withOpacity(0.6),
+                    contoll: viewModel.name,
+                  ),
+                  const Divider(),
+                  TagsSelectionWidget(
+                    completer: completer,
+                    request: request,
+                  ),
+                  verticalSpace(14.h),
+                  DopPinTextFieldLink(
+                    hinttext: 'Link*',
+                    suffixIcon: FlutterRemix.link_m,
+                    color: kcBlackColor.withOpacity(0.4),
+                    controller: viewModel.link,
+                  ),
+                  const Divider(),
+                  TextFormField(
+                    controller: viewModel.phone,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(11),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                        hintText: 'Contact Number*',
+                        hintStyle: globalTextStyle(
+                          fontSize: 14.sp,
+                          letterSpacing: -0.5,
+                          fontWeight: FontWeight.w400,
+                          color: kcBlackColor.withOpacity(0.4),
+                        ),
+                        border: InputBorder.none),
+                  ),
+                  const Divider(),
+                  verticalSpaceTiny,
+                  TextFormField(
+                    controller: viewModel.email,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'Email*',
+                      border: InputBorder.none,
                       hintStyle: globalTextStyle(
                         fontSize: 14.sp,
                         letterSpacing: -0.5,
                         fontWeight: FontWeight.w400,
                         color: kcBlackColor.withOpacity(0.4),
                       ),
-                      border: InputBorder.none),
-                ),
-                const Divider(),
-                verticalSpaceTiny,
-                TextFormField(
-                  controller: viewModel.email,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Email*',
-                    border: InputBorder.none,
-                    hintStyle: globalTextStyle(
-                      fontSize: 14.sp,
-                      letterSpacing: -0.5,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.4),
                     ),
                   ),
-                ),
-                const Divider(),
-                verticalSpaceTiny,
-                TextFormField(
-                  controller: viewModel.description,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a description';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Description',
-                    border: InputBorder.none,
-                    hintStyle: globalTextStyle(
-                      fontSize: 14.sp,
-                      letterSpacing: -0.5,
-                      fontWeight: FontWeight.w400,
-                      color: kcBlackColor.withOpacity(0.6),
+                  const Divider(),
+                  verticalSpaceTiny,
+                  TextFormField(
+                    controller: viewModel.description,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a description';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Description',
+                      border: InputBorder.none,
+                      hintStyle: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.5,
+                        fontWeight: FontWeight.w400,
+                        color: kcBlackColor.withOpacity(0.6),
+                      ),
                     ),
                   ),
-                ),
-                const Divider(),
-                verticalSpaceLarge,
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Add your Review',
-                          style: globalTextStyle(
-                            fontSize: 14.sp,
-                            letterSpacing: -0.5,
-                            fontWeight: FontWeight.w400,
-                            color: kcBlackColor.withOpacity(0.4),
+                  const Divider(),
+                  verticalSpaceLarge,
+                  SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Add your Review',
+                            style: globalTextStyle(
+                              fontSize: 14.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w400,
+                              color: kcBlackColor.withOpacity(0.4),
+                            ),
                           ),
-                        ),
-                        RatingBar.builder(
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          initialRating: viewModel.ratings,
-                          itemSize: 20,
-                          unratedColor: Colors.grey.shade400,
-                          itemCount: 5,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 0.005),
-                          itemBuilder: (context, _) => const Icon(
-                            Icons.star,
-                            color: kcPrimaryColor,
-                          ),
-                          onRatingUpdate: (double value) {
-                            viewModel.setRating(value);
-                          },
-                        )
-                      ],
+                          RatingBar.builder(
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            initialRating: viewModel.ratings,
+                            itemSize: 20,
+                            unratedColor: Colors.grey.shade400,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 0.005),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: kcPrimaryColor,
+                            ),
+                            onRatingUpdate: (double value) {
+                              viewModel.setRating(value);
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                verticalSpaceLarge,
-                ButtonsPindrop(completer: completer),
-                verticalSpaceMedium,
-                // request.data != null
-                //     ? GestureDetector(
-                //         onTap: () {
-                //           completer!(SheetResponse(confirmed: true));
-                //           viewModel.deletePin();
-                //         },
-                //         child: Row(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               Icon(
-                //                 FlutterRemix.delete_bin_6_line,
-                //                 color: kcBlackColor.withOpacity(0.6),
-                //                 size: 20,
-                //               ),
-                //               horizontalSpaceSmall,
-                //               Text(
-                //                 'Delete This Pin Drop',
-                //                 style: globalTextStyle(
-                //                     color: kcallertcolor,
-                //                     fontSize: 14,
-                //                     fontWeight: FontWeight.w500),
-                //               ),
-                //             ]),
-                //       )
-                //     : Container(),
-                // verticalSpaceMedium,
-              ],
+                  verticalSpaceLarge,
+                  ButtonsPindrop(
+                      completer: completer, isNew: request.data['isNew']),
+                  verticalSpaceMedium,
+                  // request.data != null
+                  //     ? GestureDetector(
+                  //         onTap: () {
+                  //           completer!(SheetResponse(confirmed: true));
+                  //           viewModel.deletePin();
+                  //         },
+                  //         child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Icon(
+                  //                 FlutterRemix.delete_bin_6_line,
+                  //                 color: kcBlackColor.withOpacity(0.6),
+                  //                 size: 20,
+                  //               ),
+                  //               horizontalSpaceSmall,
+                  //               Text(
+                  //                 'Delete This Pin Drop',
+                  //                 style: globalTextStyle(
+                  //                     color: kcallertcolor,
+                  //                     fontSize: 14,
+                  //                     fontWeight: FontWeight.w500),
+                  //               ),
+                  //             ]),
+                  //       )
+                  //     : Container(),
+                  // verticalSpaceMedium,
+                ],
+              ),
             ),
           ),
         ),
@@ -214,5 +225,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
 
   @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
-      DropPinSheetSheetModel(completer, request.data as PinnedLocationData);
+      DropPinSheetSheetModel(
+          completer, request.data['pinnedLocationData'] as PinnedLocationData,
+          isNew: request.data['isNew']);
 }

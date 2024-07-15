@@ -73,7 +73,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void dropPin() async {
+  void dropPin({required bool isNew}) async {
     String markerId = const Uuid().v4();
     final pinnedLocationData = PinnedLocationData(
         LatLng(currentCameraPosition!.target.latitude,
@@ -81,7 +81,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
         null);
     final res2 = await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.dropPinSheet,
-      data: pinnedLocationData,
+      data: {"pinnedLocationData": pinnedLocationData, "isNew": isNew},
     );
     if (res2?.data == false || res2?.data == null) return;
 

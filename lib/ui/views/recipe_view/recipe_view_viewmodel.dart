@@ -11,6 +11,8 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
+import '../recipe_list_page/recipe_list_page_view.dart';
+
 class RecipeViewViewModel extends BaseViewModel {
   final bool isFromDraft;
 
@@ -181,7 +183,7 @@ class RecipeViewViewModel extends BaseViewModel {
     }
 
     try {
-      log("id${recipe.docId!}");
+      log("serving size ${recipe.servingSize.toString()}");
       await _recipeService
           .addRecipeToFirestore(
         RecipeModel(
@@ -192,7 +194,7 @@ class RecipeViewViewModel extends BaseViewModel {
           ingredients: recipe.ingredients,
           methods: recipe.methods,
           prepTime: recipe.prepTime,
-          servingSize: servings,
+          servingSize: recipe.servingSize,
           status: 'published',
           title: recipe.title,
           tags: recipe.tags,
@@ -206,7 +208,7 @@ class RecipeViewViewModel extends BaseViewModel {
           isFromDraft: isFromDraft,
         );
         log("result: $result");
-      });
+      }); 
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(

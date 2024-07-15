@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,9 +12,10 @@ import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class DropPinSheetSheetModel extends BaseViewModel {
+  final bool isNew;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Function(SheetResponse response)? completer;
-  DropPinSheetSheetModel(this.completer, this.location);
+  DropPinSheetSheetModel(this.completer, this.location, {required this.isNew});
   PinnedLocationData location;
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
@@ -38,7 +41,10 @@ class DropPinSheetSheetModel extends BaseViewModel {
     if (formKey.currentState!.validate()) {
       final place = await getCityCountry(
           location.location!.latitude, location.location!.longitude);
-      imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
+      if (selectedImageFile != null) {
+        imageUrls =
+            await _navigationpinService.uploadImages(selectedImageFile!);
+      }
 
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
@@ -56,7 +62,16 @@ class DropPinSheetSheetModel extends BaseViewModel {
         rating: ratings,
         // place: place,
       );
-      await _navigationpinService.savePinnedLocation(pinnedLocation);
+
+      log("imageUrls: ${pinnedLocation.picture}");
+      log("email: ${pinnedLocation.email}");
+      log("description: ${description.text}");
+      log("name: ${pinnedLocation.name}");
+      log("link: ${pinnedLocation.link}");
+      log("phone: ${pinnedLocation.contactNumber}");
+      isNew
+          ? await _navigationpinService.savePinnedLocation(pinnedLocation)
+          : await _navigationpinService.saveEditPin(pinnedLocation);
       name.text = '';
       email.text = '';
       link.text = '';
