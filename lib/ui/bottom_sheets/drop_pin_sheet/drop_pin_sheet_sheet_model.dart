@@ -20,7 +20,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
   List<XFile>? selectedImageFile;
-  String? selectedImagePath;
+  String? selectedImagePath; 
   final ImagePicker picker = ImagePicker();
   final _navigationpinService = locator<PinDropService>();
   bool isTagsVisible = false;
@@ -63,12 +63,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
         // place: place,
       );
 
-      log("imageUrls: ${pinnedLocation.picture}");
-      log("email: ${pinnedLocation.email}");
-      log("description: ${description.text}");
-      log("name: ${pinnedLocation.name}");
-      log("link: ${pinnedLocation.link}");
-      log("phone: ${pinnedLocation.contactNumber}");
+    
       isNew
           ? await _navigationpinService.savePinnedLocation(pinnedLocation)
           : await _navigationpinService.saveEditPin(pinnedLocation);

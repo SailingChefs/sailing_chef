@@ -12,7 +12,6 @@ import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
-import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 class PinDropMapViewModel extends ReactiveViewModel {
@@ -264,7 +263,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
       await _navigationpinService.getPinsNearUserLocation(
         LatLng(currentPosition.latitude, currentPosition.longitude),
       );
-
+ 
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
             LatLng(pin.location.latitude, pin.location.longitude));
