@@ -58,7 +58,6 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                               recipe: dishes[index],
                               onTap: () {
                                 viewModel.toDishDetailsScreen(dishes[index]);
-                                
                               },
                               foodImagePath: dishes[index]
                                   .coverImage

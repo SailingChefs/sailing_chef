@@ -949,6 +949,8 @@ class AddRecipeViewModel extends BaseViewModel {
   Future<void> showTagsSheet(context) async {
     final result =
         await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
+      barrierDismissible: false,
+      isScrollControlled: true,
       variant: BottomSheetType.tags,
     );
     if (result == null) return;
@@ -1260,7 +1262,7 @@ class AddRecipeViewModel extends BaseViewModel {
     selectedTime = null;
 
     final TextEditingController _hourController =
-        TextEditingController(text: 0.toString());
+        TextEditingController(/*text: 0.toString()*/);
     final TextEditingController _minuteController = TextEditingController();
 
     _hourController.addListener(() {
@@ -1336,9 +1338,13 @@ class AddRecipeViewModel extends BaseViewModel {
                   ),
                   onPressed: () {
                     log(_hourController.text.toString());
-                    int hour = int.parse(_hourController.text);
+                    int hour = _hourController.text.isEmpty
+                        ? 0
+                        : int.parse(_hourController.text);
 
-                    int minute = int.parse(_minuteController.text);
+                    int minute = _minuteController.text.isEmpty
+                        ? 0
+                        : int.parse(_minuteController.text);
 
                     selectedTime = TimeOfDay(hour: hour, minute: minute);
                     Navigator.of(context).pop();
@@ -1522,6 +1528,8 @@ class AddRecipeViewModel extends BaseViewModel {
   void callIngredientsBottomSheet() async {
     final result = await _bottomSheetService
         .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
+      barrierDismissible: false,
+      isScrollControlled: true,
       variant: BottomSheetType.addIngredients,
     );
     if (result == null) return;
@@ -1537,6 +1545,8 @@ class AddRecipeViewModel extends BaseViewModel {
   void callCookingInstructionBottomSheet() async {
     final method = await _bottomSheetService
         .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
+      barrierDismissible: false,
+      isScrollControlled: true,
       variant: BottomSheetType.cookingInstructions,
     );
     log(method.runtimeType.toString());

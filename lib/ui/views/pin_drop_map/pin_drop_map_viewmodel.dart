@@ -263,7 +263,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
       await _navigationpinService.getPinsNearUserLocation(
         LatLng(currentPosition.latitude, currentPosition.longitude),
       );
- 
+
       for (PinnedLocation pin in pins) {
         addMarkers(pin.id ?? id,
             LatLng(pin.location.latitude, pin.location.longitude));

@@ -11,13 +11,16 @@ import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'bottom_nav_bar_viewmodel.dart';
 
 class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
-  const BottomNavBarView({Key? key}) : super(key: key);
+  int? index;
+  BottomNavBarView({this.index, Key? key}) : super(key: key);
 
   @override
   Widget builder(context, viewModel, child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: getViewForIndex(viewModel.currentIndex),
+      body: index != null
+          ? getViewForIndex(index!)
+          : getViewForIndex(viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: kcWhiteColor,

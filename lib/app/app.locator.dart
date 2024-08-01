@@ -6,9 +6,9 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../core/imports/core_imports.dart';
 import '../services/auth_service.dart';
 import '../services/bitmap_image_service.dart';
 import '../services/block_user_service.dart';

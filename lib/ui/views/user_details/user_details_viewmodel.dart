@@ -262,7 +262,7 @@ class UserDetailsViewModel extends BaseViewModel {
       );
     } else {
       _navigationService.clearStackAndShowView(
-        const BottomNavBarView(),
+        BottomNavBarView(),
       );
     }
   }

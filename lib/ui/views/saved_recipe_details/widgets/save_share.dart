@@ -34,9 +34,10 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               )
             : GestureDetector(
                 onTap: () {
-                  showToast(message: 'Long Tap to share This rceipe publically!');
+                  showToast(
+                      message: 'Long Tap to share This rceipe publically!');
                 },
-                onLongPress: (){
+                onLongPress: () {
                   viewModel.publicRecipe(recipe);
                 },
                 child: Container(

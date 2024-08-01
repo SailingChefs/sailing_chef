@@ -158,6 +158,9 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     log("addRecipeToFirestore ${recipe.docId.toString()}");
     EasyLoading.show();
+    const CircularProgressIndicator(
+      color: kcMediumGrey,
+    );
     try {
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
@@ -206,7 +209,7 @@ class RecipeService with ListenableServiceMixin {
         }
         showToast(message: 'Recipe added successfully');
       }
-      EasyLoading.dismiss();
+
       return true;
     } catch (error) {
       EasyLoading.dismiss();

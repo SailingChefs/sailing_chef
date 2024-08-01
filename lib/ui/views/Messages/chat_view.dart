@@ -13,12 +13,16 @@ class ChatView extends StackedView<ChatViewModel> {
   final String? messageFromCource;
 
   ChatView(
-      {required this.receiver, required this.conversationId, super.key,required this.messageFromCource});
+      {required this.receiver,
+      required this.conversationId,
+      super.key,
+      required this.messageFromCource});
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
     return ViewModelBuilder<ChatViewModel>.reactive(
-        viewModelBuilder: () => ChatViewModel(messageFromCource!,convoId: conversationId),
+        viewModelBuilder: () =>
+            ChatViewModel(messageFromCource!, convoId: conversationId),
         onViewModelReady: (viewModel) {
           WidgetsBinding.instance.addPostFrameCallback((_) {});
         },
@@ -57,7 +61,7 @@ class ChatView extends StackedView<ChatViewModel> {
 
   @override
   ChatViewModel viewModelBuilder(BuildContext context) =>
-      ChatViewModel(messageFromCource!,convoId: conversationId);
+      ChatViewModel(messageFromCource!, convoId: conversationId);
 }
 
 class _MessageListAndAppBar extends StatelessWidget {

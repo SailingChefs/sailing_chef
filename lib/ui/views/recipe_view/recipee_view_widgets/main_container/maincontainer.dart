@@ -69,12 +69,13 @@ class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
                 },
                 buttonText: 'Publish Recipe',
               ),
-              verticalSpace(12),
+              verticalSpace(24),
 
               PublishTextButton(
                 recipe: recipeModel,
                 selectedImages: selectedImages,
               ),
+              verticalSpace(30),
             ],
           ),
         ),

@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 
 class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
   const ListViewChefSavedCources(this.user, {super.key});
-    final UserModel user;
+  final UserModel user;
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     screenHeight(context);
@@ -61,7 +61,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    viewModel.enquireNow(user,index);
+                                    viewModel.enquireNow(user, index);
                                   },
                                   child: Container(
                                     height: 40,

@@ -156,8 +156,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
-        messageFromCource: '',
-        receiver: chef, conversationId: conversationId);
+        messageFromCource: '', receiver: chef, conversationId: conversationId);
   }
 
   void toSettings(bool isCurrentUser, String uid) {
@@ -211,9 +210,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     EasyLoading.dismiss();
   }
 
-    Future<void> moveToChatScreenWithMessage(
-    UserModel chef, String message
-  ) async {
+  Future<void> moveToChatScreenWithMessage(
+      UserModel chef, String message) async {
     var conversationModel = ConversationModel(
       latestMessage: '',
       users: [
@@ -229,11 +227,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
-      messageFromCource: message,
-        receiver: chef, conversationId: conversationId);
+        messageFromCource: message,
+        receiver: chef,
+        conversationId: conversationId);
   }
 
-  void enquireNow(user,index) {
-    moveToChatScreenWithMessage(user, 'I want to know more about the ${courses[index].name}, having description as ${courses[index].description}. Please Let me know further details!' );
+  void enquireNow(user, index) {
+    moveToChatScreenWithMessage(user,
+        'I want to know more about the ${courses[index].name}, having description as ${courses[index].description}. Please Let me know further details!');
   }
 }

@@ -28,7 +28,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -43,6 +43,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Breakfast',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabMainCourse == 'breakfast'
                               ? kcVeryLightGrey
@@ -61,7 +62,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -76,6 +77,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Lunch',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabMainCourse == 'lunch'
                               ? kcVeryLightGrey
@@ -94,7 +96,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -109,6 +111,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Dinner',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabMainCourse == 'dinner'
                               ? kcVeryLightGrey
@@ -134,7 +137,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -149,6 +152,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Starter',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabSub == 'starter'
                               ? kcVeryLightGrey
@@ -167,7 +171,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -182,6 +186,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Canapé',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabSub == 'canape'
                               ? kcVeryLightGrey
@@ -200,7 +205,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 16.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -215,6 +220,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Side',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabSub == 'side'
                               ? kcVeryLightGrey
@@ -233,7 +239,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -248,6 +254,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
                       Text(
                         'Sweet',
                         style: TextStyle(
+                          fontSize: 12.0.dg,
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedTabSub == 'sweet'
                               ? kcVeryLightGrey

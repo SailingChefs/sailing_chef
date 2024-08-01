@@ -1,7 +1,8 @@
 name: sailing_chefs
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.3
+version: 1.0.4+4
+
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
@@ -77,14 +78,8 @@ dev_dependencies:
 
   mockito: ^5.4.1
   stacked_generator: ^1.3.3
-  flutter_launcher_icons: ^0.13.1
 
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/images/logo/appicon.png"
-  min_sdk_android: 21
   
 
 flutter:
@@ -96,6 +91,7 @@ flutter:
     - assets/images/icons/
     - assets/images/logo/
     - assets/images/misc/
+
 # fonts:
 #     - family: Inter
 #       fonts:

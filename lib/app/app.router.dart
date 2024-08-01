@@ -374,8 +374,12 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i7.BottomNavBarView: (data) {
+      final args = data.getArgs<BottomNavBarViewArguments>(
+        orElse: () => const BottomNavBarViewArguments(),
+      );
       return _i39.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.BottomNavBarView(),
+        builder: (context) =>
+            _i7.BottomNavBarView(index: args.index, key: args.key),
         settings: data,
       );
     },
@@ -639,6 +643,33 @@ class UserDetailsViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ userRole.hashCode;
+  }
+}
+
+class BottomNavBarViewArguments {
+  const BottomNavBarViewArguments({
+    this.index,
+    this.key,
+  });
+
+  final int? index;
+
+  final _i40.Key? key;
+
+  @override
+  String toString() {
+    return '{"index": "$index", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BottomNavBarViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.index == index && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return index.hashCode ^ key.hashCode;
   }
 }
 
@@ -1086,14 +1117,17 @@ extension NavigatorStateExtension on _i44.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToBottomNavBarView([
+  Future<dynamic> navigateToBottomNavBarView({
+    int? index,
+    _i40.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.bottomNavBarView,
+        arguments: BottomNavBarViewArguments(index: index, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1675,14 +1709,17 @@ extension NavigatorStateExtension on _i44.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBottomNavBarView([
+  Future<dynamic> replaceWithBottomNavBarView({
+    int? index,
+    _i40.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.bottomNavBarView,
+        arguments: BottomNavBarViewArguments(index: index, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

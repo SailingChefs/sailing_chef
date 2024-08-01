@@ -35,13 +35,15 @@ class TagsSheet extends StackedView<TagsSheetModel> {
           SingleChildScrollView(
             child: Column(
               children: [
-                verticalSpaceLarge,
+                // verticalSpaceLarge,
+                verticalSpaceSmall,
                 const CourseTabBarFilerSheet(),
                 verticalSpaceSmall,
                 const CategoryTabsFilterSheet(),
                 verticalSpaceSmall,
                 const DietaryNeedTabsFilterSheet(),
-                verticalSpaceLarge,
+                // verticalSpaceLarge,
+                verticalSpaceSmall,
                 BottomButtonsTagsSheet(
                   completer: completer!,
                 )

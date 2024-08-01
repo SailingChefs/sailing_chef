@@ -11,6 +11,7 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
+import '../bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import '../recipe_list_page/recipe_list_page_view.dart';
 
 class RecipeViewViewModel extends BaseViewModel {
@@ -204,11 +205,12 @@ class RecipeViewViewModel extends BaseViewModel {
         ),
       )
           .then((value) async {
-        final result = await navigationService.navigateToRecipeListPageView(
-          isFromDraft: isFromDraft,
-        );
+        final result =
+            await navigationService.replaceWithBottomNavBarView(index: 4
+                // isFromDraft: isFromDraft,
+                );
         log("result: $result");
-      }); 
+      });
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(

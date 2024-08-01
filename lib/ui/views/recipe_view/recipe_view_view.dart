@@ -30,6 +30,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   ) {
     log("\n\n\n\n\n\t\t\t\tserving sizes are : ${recipeModel.servingSize.toString()}");
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),

@@ -15,7 +15,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
         Row(
           children: [
             Text(
-              'Cooking Instructions(Method)',
+              'Method',
               style: globalTextStyle(
                 fontSize: 14.sp,
                 letterSpacing: -0.5,

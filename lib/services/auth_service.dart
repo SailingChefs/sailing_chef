@@ -14,6 +14,7 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 class AuthService {
   final _dialogService = locator<DialogService>();
   final userService = locator<UserServices>();
+  final navigationService = locator<NavigationService>();
   static Future<bool> login({
     required String email,
     required String password,
@@ -181,10 +182,14 @@ class AuthService {
       final res = await userService.storeUserDetails(
           userDetails!.toJson(), userDetails!.uid!);
 
-      if (res) {
+      if (userCredential.additionalUserInfo!.isNewUser && res) {
         dialogService.showCustomDialog(
           variant: DialogType.roleDialog,
         );
+      } else if (userDetails!.userRole == 'guest') {
+        navigationService.replaceWithBottomBarGuestView();
+      } else {
+        navigationService.replaceWithBottomNavBarView();
       }
     }
   }

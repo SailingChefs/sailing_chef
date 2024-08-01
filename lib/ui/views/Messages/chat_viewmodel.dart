@@ -27,26 +27,26 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   bool isAtTop = false;
   bool isImageSending = false;
 
-    ChatViewModel(this.messageFromCource, {required this.convoId}) {
+  ChatViewModel(this.messageFromCource, {required this.convoId}) {
     messageController.text = messageFromCource;
   }
   void onViewModelReady() {
-    log("message "+messageFromCource);
+    log("message " + messageFromCource);
     // scrollController.addListener(() {
     //   isAtTop = scrollController.offset <= kToolbarHeight;
     //   if (scrollController.position.pixels < 180) {
     //     isAtTop = true;
     //   }
-      
+
     //   rebuildUi();
     // });
     if (messageFromCource.isNotEmpty) {
-        messageController.text = messageFromCource;
-        rebuildUi();
-      } else {
-        messageController.text = '';
-         rebuildUi();
-      }
+      messageController.text = messageFromCource;
+      rebuildUi();
+    } else {
+      messageController.text = '';
+      rebuildUi();
+    }
   }
 
   bool _uploadingImage = false;

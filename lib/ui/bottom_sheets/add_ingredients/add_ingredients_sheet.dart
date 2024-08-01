@@ -55,7 +55,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             SizedBox(
               width: double.infinity,
               child: CommonTextField(
-                hintText: 'Add one or multiple steps',
+                hintText: 'Add ingredients',
                 prefix: Icons.drag_indicator,
               ),
             ),
