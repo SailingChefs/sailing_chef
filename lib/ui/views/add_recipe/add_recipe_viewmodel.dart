@@ -1185,7 +1185,7 @@ class AddRecipeViewModel extends BaseViewModel {
         .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
-    updatedMethodsList = method!.data.instructionsListResponse.toList();
+    updatedMethodsList = method?.data.instructionsListResponse.toList() ?? [];
     updatedMethodsList.addAll(newMethods);
     methodsList = updatedMethodsList;
     notifyListeners();

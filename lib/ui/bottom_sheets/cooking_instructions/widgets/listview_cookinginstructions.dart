@@ -24,7 +24,7 @@ class ListViewCookingInstructions
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Step ${index + 1}',
+                    'Step ${viewModel.instructionsList.length}',
                     style: TextStyle(
                         fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
                   ),

@@ -19,7 +19,7 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:uuid/uuid.dart';
 import 'core/theme/text_styles.dart';
 
-Uuid uuid = Uuid();
+Uuid uuid = const Uuid();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
