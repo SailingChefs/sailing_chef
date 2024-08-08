@@ -106,8 +106,10 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               children: [
                 Text(
                   viewModel.isBusy
-                      ? user.followers!.length.toString()
-                      : viewModel.followers.length.toString(),
+                      // ? user.followers!.length.toString()
+                      ? viewModel.dummyFollowers.toString()
+                      // : viewModel.followers.length.toString(),
+                      : viewModel.dummyFollowers.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,
@@ -136,7 +138,11 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  user.following!.length.toString(),
+                  viewModel.isBusy
+                      ? viewModel.dummyFollowing.toString()
+                      :
+                      // user.following!.length.toString(),
+                      viewModel.dummyFollowing.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,

@@ -17,6 +17,7 @@ import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
+import '../../../services/auth_service.dart';
 
 class ChefProfileViewModel extends ReactiveViewModel {
   UserModel userDetails;
@@ -29,6 +30,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   final _recipeService = locator<RecipeService>();
   final _savedRecipeService = locator<SavedRecipeService>();
   final FollowService _followService = locator<FollowService>();
+  final AuthService authService = locator<AuthService>();
   final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   String selectedTab = 'Saved';
   bool isMySelected = false;
@@ -66,7 +68,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  chefRecipesList(UserModel user) {
+  chefRecipesList(UserModel user) async {
     if (RecipeService.recipes.isEmpty) {
       _recipeService.initialized();
     } else {
@@ -79,14 +81,23 @@ class ChefProfileViewModel extends ReactiveViewModel {
         }
         log("chefRecipes ${chefRecipes.length}");
       }
+      notifyListeners();
     }
   }
 
+  int dummyFollowers = 0;
+  int dummyFollowing = 0;
+
   void onViewModelReady(UserModel user) async {
     setBusy(true);
+    log("  onViewModel Ready called ");
     await _followService.init(user.uid!, false);
+    dummyFollowers = _followService.followers.length;
+    dummyFollowing = _followService.following.length;
+    isFollowing = _followService.followers
+        .contains(FirebaseAuth.instance.currentUser!.uid);
     if (user.userRole != 'guest') {
-      chefRecipesList(user);
+      await chefRecipesList(user);
       // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
       if (user.userRole == 'culinarySchool') {
         _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
@@ -97,6 +108,31 @@ class ChefProfileViewModel extends ReactiveViewModel {
     }
 
     setBusy(false);
+  }
+
+  void addRemoveFollower(
+    String action,
+    UserModel user,
+  ) {
+    switch (action) {
+      case 'follower':
+        isFollowing = true;
+        dummyFollowers++;
+        _followService.addFollowerFromDummy(
+            user, FirebaseAuth.instance.currentUser!.uid);
+        rebuildUi();
+        break;
+
+      case 'following':
+        isFollowing = false;
+        dummyFollowers--;
+        _followService.removeFollowerFromDummy(
+            user, FirebaseAuth.instance.currentUser!.uid);
+
+        rebuildUi();
+
+        break;
+    }
   }
 
   void showBottomSheet(UserModel user) {
@@ -138,25 +174,42 @@ class ChefProfileViewModel extends ReactiveViewModel {
             user: userDetails, isfromFollowing: true));
   }
 
+  bool _isProcessing = false; // Add a flag
+
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
-    var conversationModel = ConversationModel(
-      latestMessage: '',
-      users: [
-        FirebaseAuth.instance.currentUser!.uid,
-        chef.uid!,
-      ],
-      latestMessageType: 'text',
-      latestMessageTime: DateTime.now(),
-      lastActive: DateTime.now(),
-      uid: "",
-    );
-    String conversationId = await _serviceConversations
-        .createOrUpdateConversation(conversationModel);
-    log('conversationId: $conversationId');
-    _navigationService.navigateToChatView(
-        messageFromCource: '', receiver: chef, conversationId: conversationId);
+    if (_isProcessing) return; // If already processing, return immediately
+
+    _isProcessing = true; // Set flag to indicate processing has started
+
+    notifyListeners();
+
+    try {
+      var conversationModel = ConversationModel(
+        latestMessage: '',
+        users: [
+          FirebaseAuth.instance.currentUser!.uid,
+          chef.uid!,
+        ],
+        latestMessageType: 'text',
+        latestMessageTime: DateTime.now(),
+        lastActive: DateTime.now(),
+        uid: "",
+      );
+      String conversationId = await _serviceConversations
+          .createOrUpdateConversation(conversationModel);
+      log('conversationId: $conversationId');
+      _navigationService.navigateToChatView(
+          messageFromCource: '',
+          receiver: chef,
+          conversationId: conversationId);
+    } catch (e) {
+      log('Error: $e');
+    } finally {
+      _isProcessing = false; // Reset flag after processing is done
+      notifyListeners();
+    }
   }
 
   void toSettings(bool isCurrentUser, String uid) {
@@ -198,6 +251,10 @@ class ChefProfileViewModel extends ReactiveViewModel {
     // _navigationService.navigateToRecipeListPageView(
     //   isFromProfileView: true,
     // );
+  }
+
+  bool checkOwn(UserModel user) {
+    return user.uid == FirebaseAuth.instance.currentUser!.uid ? false : true;
   }
 
   Future<void> onClickUrl(String url) async {

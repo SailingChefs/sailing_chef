@@ -90,6 +90,8 @@ class SearchViewModel extends BaseViewModel {
 
   void goBack() {
     log('tapped');
+    // _navigationService.replaceWithBottomNavBarView();
+
     _navigationService.back();
   }
 

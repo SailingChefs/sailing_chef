@@ -107,7 +107,8 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                                     dishName: recipes[index].title,
                                     duration: recipes[index].prepTime,
                                     chefImagePath:
-                                        recipes[index].user!.displayPicture!);
+                                        recipes[index].user?.displayPicture ??
+                                            '');
                               },
                               childCount:
                                   recipes.length > 4 ? 4 : recipes.length,

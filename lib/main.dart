@@ -111,7 +111,8 @@ class MainApp extends StatelessWidget {
       minTextAdapt: false,
       splitScreenMode: false,
       useInheritedMediaQuery: true,
-      builder: (context, child) => GestureDetector(
+      builder: (context, child) => 
+      GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
         child: Builder(

@@ -13,6 +13,7 @@ import '../ui/bottom_sheets/courses/courses_sheet.dart';
 import '../ui/bottom_sheets/discard/discard_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
+import '../ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
 import '../ui/bottom_sheets/notice/notice_sheet.dart';
 import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
 import '../ui/bottom_sheets/social_icons/social_icons_sheet.dart';
@@ -29,6 +30,7 @@ enum BottomSheetType {
   tags,
   discard,
   socialIcons,
+  editIngredient,
 }
 
 void setupBottomSheetUi() {
@@ -45,7 +47,7 @@ void setupBottomSheetUi() {
         DropPinSheetSheet(
           request: request,
           completer: completer,
-          isNew: true,
+          isNew: false,
         ),
     BottomSheetType.dropPinButtons: (context, request, completer) =>
         DropPinButtonsSheet(request: request, completer: completer),
@@ -59,6 +61,8 @@ void setupBottomSheetUi() {
         DiscardSheet(request: request, completer: completer),
     BottomSheetType.socialIcons: (context, request, completer) =>
         SocialIconsSheet(request: request, completer: completer),
+    BottomSheetType.editIngredient: (context, request, completer) =>
+        EditIngredientSheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

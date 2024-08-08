@@ -944,6 +944,12 @@ class AddRecipeViewModel extends BaseViewModel {
         (recipeModel?.chefNote ?? '').isEmpty;
   }
 
+  editIngredient(Ingredient ingredient) {
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.editIngredient,
+        data: {'ingredient': ingredient});
+  }
+
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {

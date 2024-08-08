@@ -12,7 +12,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return GestureDetector(
       onTap: () {
-        viewModel.viewChefProfile(user);
+        // viewModel.viewChefProfile(user);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

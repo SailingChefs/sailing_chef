@@ -89,6 +89,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet.d
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
 import 'package:sailing_chefs/ui/dialogs/delete_pin/delete_pin_dialog.dart';
 import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -178,6 +179,7 @@ import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
     StackedBottomsheet(classType: TagsSheet),
     StackedBottomsheet(classType: DiscardSheet),
     StackedBottomsheet(classType: SocialIconsSheet),
+    StackedBottomsheet(classType: EditIngredientSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

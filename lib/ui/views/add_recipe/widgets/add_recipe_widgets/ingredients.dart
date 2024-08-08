@@ -54,7 +54,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                               Container(
                                 // height: 50,
                                 width:
-                                    MediaQuery.sizeOf(context).width * 0.75.w,
+                                    MediaQuery.sizeOf(context).width * 0.66.w,
                                 padding: EdgeInsets.all(10.dg),
                                 decoration: BoxDecoration(
                                   color: kcPrimaryColor.withOpacity(0.08),
@@ -102,6 +102,19 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                   ),
                                 ),
                               ),
+                              horizontalSpaceTiny,
+                              GestureDetector(
+                                onTap: () {
+                                  // viewModel.ingredientsList.removeAt(index);
+                                  // viewModel.notifyListeners();
+                                  viewModel.editIngredient( viewModel.ingredientsList[index]);
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/misc/edit.svg',
+                                  height: 20,
+                                ),
+                              ),
+                              horizontalSpaceSmall,
                               GestureDetector(
                                 onTap: () {
                                   viewModel.ingredientsList.removeAt(index);

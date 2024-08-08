@@ -17,6 +17,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               fontWeight: FontWeight.w500),
         ),
         verticalSpaceSmall,
+        // Wrap(),
         FittedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,11 +25,11 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleTabMainCourse(0);
-                  viewModel.breakfastSelected();
+                  // viewModel.breakfastSelected();
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -61,7 +62,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -94,7 +95,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -134,7 +135,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -167,7 +168,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -200,7 +201,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
@@ -233,7 +234,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),

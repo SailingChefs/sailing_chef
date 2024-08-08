@@ -50,7 +50,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: MediaQuery.sizeOf(context).width * 0.78,
+                              width: MediaQuery.sizeOf(context).width * 0.68,
                               decoration: BoxDecoration(
                                 color: kcPrimaryColor.withOpacity(0.07),
                                 borderRadius:
@@ -69,6 +69,20 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                                 ),
                               ),
                             ),
+                            horizontalSpaceTiny,
+                            GestureDetector(
+                              onTap: () {
+                                // viewModel.ingredientsList.removeAt(index);
+                                // viewModel.notifyListeners();
+                                viewModel.editIngredient(
+                                    viewModel.ingredientsList[index]);
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/misc/edit.svg',
+                                height: 20,
+                              ),
+                            ),
+                            horizontalSpaceSmall,
                             GestureDetector(
                               onTap: () {
                                 viewModel.deleteMethod(index);

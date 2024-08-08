@@ -59,12 +59,19 @@ class MainRecipeViewContainer
                 ),
           const ChefNotesRecipeDetails(),
           verticalSpace(16.h),
-          ViewProfileRow(
-            user: recipeModel.user!,
+          Visibility(
+            visible: true,
+            // visible: viewModel.checkOwn(recipeModel),
+            child: ViewProfileRow(
+              user: recipeModel.user!,
+            ),
           ),
-          CommentsDetailsScreen(
-              isFromPrivateProfile: isFromPrivateProfile,
-              recipeModel: recipeModel),
+          Visibility(
+            visible: viewModel.checkOwn(recipeModel),
+            child: CommentsDetailsScreen(
+                isFromPrivateProfile: isFromPrivateProfile,
+                recipeModel: recipeModel),
+          ),
           verticalSpace(12),
           BottomSlider(
             isFromPrivateProfile: isFromPrivateProfile,

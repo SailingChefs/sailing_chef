@@ -32,9 +32,22 @@ class FilterViewModel extends BaseViewModel {
   bool isCrewSelected = false;
   int selectedTagsCount = 0;
   SfRangeValues values = const SfRangeValues(0.0, 5.0);
+  String time = '';
   // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
   void updateValue(SfRangeValues newValue) {
     values = newValue;
+
+    notifyListeners();
+    rebuildUi();
+  }
+
+  void addTimeFilter() {
+    if (time == '') {
+      selectedTagsCount++;
+      time = 'time';
+    } else {
+      time = 'time';
+    }
     notifyListeners();
     rebuildUi();
   }
@@ -167,6 +180,22 @@ class FilterViewModel extends BaseViewModel {
 
   List<String> get selectedTags => _selectedTags;
 
+  // void addTag(String tag) {
+  //   if (!_selectedTags.contains(tag)) {
+  //     _selectedTags.remove(tag);
+  //   } else {
+  //     _selectedTags.add(tag);
+  //   }
+  // }
+
+  // void removeTag(String tag) {
+  //   if (_selectedTags.contains(tag)) {
+  //     _selectedTags.remove(tag);
+  //   } else {
+  //     _selectedTags.add(tag);
+  //   }
+  // }
+
   void addTag(String tag) {
     if (!_selectedTags.contains(tag)) {
       _selectedTags.add(tag);
@@ -179,47 +208,147 @@ class FilterViewModel extends BaseViewModel {
     }
   }
 
+  void shouldIncrementFilterCount() {
+    if (selectedTabMainCourse == '') {
+      selectedTagsCount++;
+    }
+  }
+
+  willIncrementCount() {}
+
+  // void handleTabMainCourse(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       isLunchSelected = false;
+  //       isDinnerSelected = false;
+
+  //       if (isBreakfastSelected) {
+  //         selectedTabMainCourse = '';
+
+  //         isBreakfastSelected = false;
+  //         selectedTagsCount--;
+  //         removeTag('breakfast');
+  //         log("BreakFast Removed");
+  //       } else {
+  //         selectedTabMainCourse = 'breakfast';
+  //         isBreakfastSelected = true;
+  //         selectedTagsCount++;
+  //         addTag('breakfast');
+  //         log("BreakFast Selected");
+  //       }
+  //       notifyListeners();
+  //       rebuildUi();
+  //       break;
+
+  //     case 1:
+  //       isBreakfastSelected = false;
+  //       isDinnerSelected = false;
+  //       if (isLunchSelected) {
+  //         selectedTabMainCourse = '';
+
+  //         isLunchSelected = false;
+  //         selectedTagsCount--;
+  //         removeTag('lunch');
+  //       } else {
+  //         selectedTabMainCourse = 'lunch';
+  //         isLunchSelected = true;
+  //         selectedTagsCount++;
+  //         addTag('lunch');
+  //       }
+  //       break;
+  //     case 2:
+  //       isLunchSelected = false;
+  //       isBreakfastSelected = false;
+  //       if (isDinnerSelected) {
+  //         selectedTabMainCourse = '';
+
+  //         isDinnerSelected = false;
+  //         selectedTagsCount--;
+  //         removeTag('dinner');
+  //       } else {
+  //         selectedTabMainCourse = 'dinner';
+  //         isDinnerSelected = true;
+  //         selectedTagsCount++;
+  //         addTag('dinner');
+  //       }
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   rebuildUi();
+  // }
+
   void handleTabMainCourse(int index) {
+    log("Initial State - Breakfast: $isBreakfastSelected, Lunch: $isLunchSelected, Dinner: $isDinnerSelected, Count: $selectedTagsCount");
+
+    bool wasAnyMainCourseSelected =
+        isBreakfastSelected || isLunchSelected || isDinnerSelected;
+
     switch (index) {
       case 0:
+        isLunchSelected = false;
+        isDinnerSelected = false;
+
         if (isBreakfastSelected) {
           isBreakfastSelected = false;
+          selectedTabMainCourse = '';
           selectedTagsCount--;
           removeTag('breakfast');
+          log("Breakfast Removed");
         } else {
-          selectedTabMainCourse = 'breakfast';
           isBreakfastSelected = true;
-          selectedTagsCount++;
+          selectedTabMainCourse = 'breakfast';
+          if (!wasAnyMainCourseSelected) selectedTagsCount++;
           addTag('breakfast');
+          log("Breakfast Selected");
         }
         break;
+
       case 1:
+        isBreakfastSelected = false;
+        isDinnerSelected = false;
+
         if (isLunchSelected) {
           isLunchSelected = false;
+          selectedTabMainCourse = '';
           selectedTagsCount--;
           removeTag('lunch');
+          log("Lunch Removed");
         } else {
-          selectedTabMainCourse = 'lunch';
           isLunchSelected = true;
-          selectedTagsCount++;
+          selectedTabMainCourse = 'lunch';
+          if (!wasAnyMainCourseSelected) selectedTagsCount++;
           addTag('lunch');
+          log("Lunch Selected");
         }
         break;
+
       case 2:
+        isBreakfastSelected = false;
+        isLunchSelected = false;
+
         if (isDinnerSelected) {
           isDinnerSelected = false;
+          selectedTabMainCourse = '';
           selectedTagsCount--;
           removeTag('dinner');
+          log("Dinner Removed");
         } else {
-          selectedTabMainCourse = 'dinner';
           isDinnerSelected = true;
-          selectedTagsCount++;
+          selectedTabMainCourse = 'dinner';
+          if (!wasAnyMainCourseSelected) selectedTagsCount++;
           addTag('dinner');
+          log("Dinner Selected");
         }
         break;
+
       default:
         break;
     }
+
+    log("Final State - Breakfast: $isBreakfastSelected, Lunch: $isLunchSelected, Dinner: $isDinnerSelected, Count: $selectedTagsCount");
+
+    notifyListeners();
     rebuildUi();
   }
 
@@ -328,7 +457,6 @@ class FilterViewModel extends BaseViewModel {
           removeTag('starter');
           selectedTagsCount--;
         }
-        notifyListeners();
         break;
       case 1:
         isCanapeSelected = !isCanapeSelected;
@@ -339,7 +467,6 @@ class FilterViewModel extends BaseViewModel {
           removeTag('canape');
           selectedTagsCount--;
         }
-        notifyListeners();
         break;
       case 2:
         isSideSelected = !isSideSelected;
@@ -350,12 +477,52 @@ class FilterViewModel extends BaseViewModel {
           removeTag('side');
           selectedTagsCount--;
         }
-        notifyListeners();
         break;
       default:
         break;
     }
+    notifyListeners();
   }
+
+  // void handleSubTabsCourse(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       isStarterSelected = !isStarterSelected;
+  //       if (isStarterSelected) {
+  //         addTag('starter');
+  //         selectedTagsCount++;
+  //       } else {
+  //         removeTag('starter');
+  //         selectedTagsCount--;
+  //       }
+  //       notifyListeners();
+  //       break;
+  //     case 1:
+  //       isCanapeSelected = !isCanapeSelected;
+  //       if (isCanapeSelected) {
+  //         addTag('canape');
+  //         selectedTagsCount++;
+  //       } else {
+  //         removeTag('canape');
+  //         selectedTagsCount--;
+  //       }
+  //       notifyListeners();
+  //       break;
+  //     case 2:
+  //       isSideSelected = !isSideSelected;
+  //       if (isSideSelected) {
+  //         addTag('side');
+  //         selectedTagsCount++;
+  //       } else {
+  //         removeTag('side');
+  //         selectedTagsCount--;
+  //       }
+  //       notifyListeners();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
 // void handleSubTabsCourse(int index) {
 //   switch (index) {
@@ -603,6 +770,7 @@ class FilterViewModel extends BaseViewModel {
     selectedTabSubDietaryNeed = '';
     values = const SfRangeValues(0.0, 5.0);
     selectedTagsCount = 0;
+    time = '';
     notifyListeners();
     rebuildUi();
   }
