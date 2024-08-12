@@ -20,7 +20,7 @@ class SelectedWidgetPinDrop extends ViewModelWidget<PinDropMapViewModel> {
         selection;
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.dg, vertical: 12.dg),
+        padding: EdgeInsets.symmetric(horizontal: 11.dg, vertical: 12.dg),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(20.dg),
@@ -35,8 +35,7 @@ class SelectedWidgetPinDrop extends ViewModelWidget<PinDropMapViewModel> {
             Text(
               selectedTabSelection,
               style: globalTextStyle(
-                fontSize: 12.sp,
-                letterSpacing: -0.5,
+                fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: viewModel.tagTabSelections.contains(selectedTabSelection)
                     ? kcVeryLightGrey

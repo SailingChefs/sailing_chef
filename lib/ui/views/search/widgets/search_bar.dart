@@ -1,16 +1,11 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 
-// ignore: must_be_immutable
 class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
-  int? selectedTagsCount;
-  SearchBarSearchScreen(this.selectedTagsCount,
-      {super.key, required this.recipes});
+
+  const SearchBarSearchScreen({super.key, required this.recipes});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -76,37 +71,12 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
             ),
           ),
         ),
-        Stack(
-          children: [
-            IconButton(
-              onPressed: () {
-                viewModel.toFilterScreen(recipes);
-              },
-              icon: SvgPicture.asset(
-                'assets/images/misc/equilizer.svg',
-                color: filterIconColor,
-                width: 30,
-                height: 30,
-              ),
-              color: kcPrimaryColor,
-              iconSize: 32.h,
-            ),
-            Positioned(
-              top: 3,
-              left: 25,
-              child: Container(
-                padding: const EdgeInsets.all(4.0),
-                decoration: const BoxDecoration(
-                  color: filterIconColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  selectedTagsCount.toString(),
-                  style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
-                ),
-              ),
-            ),
-          ],
+     
+        IconButton(
+          onPressed: () => viewModel.toFilterScreen(recipes),
+          icon: const Icon(FlutterRemix.equalizer_line),
+          color: filterIconColor,
+          iconSize: 30.dg,
         ),
       ],
     );

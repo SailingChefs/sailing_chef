@@ -74,7 +74,9 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return Column(
       children: [
-        ...createCourseWidgets(viewModel),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          ...createCourseWidgets(viewModel),
+        ]),
         // : SizedBox(
         //     height: screenHeight(context) * 0.319,
         //     width: screenWidth(context) * 0.98,

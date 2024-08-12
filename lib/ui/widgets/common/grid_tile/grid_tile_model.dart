@@ -13,12 +13,11 @@ class GridTileModel extends ReactiveViewModel {
 
   void onBookmarkTap(RecipeModel recipe) {
     _savedRecipeService.addSavedRecipe(recipe);
-    rebuildUi();
+    notifyListeners();
   }
-
   void intToDouble(int number) {
-    rating = number.toDouble();
-  }
+  rating = number.toDouble();
+}
 // String formatTimeString(String timeString) {
 //   int minutes = int.tryParse(timeString) ?? 0; // Parsing string to integer, defaulting to 0 if parsing fails
 

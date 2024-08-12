@@ -21,18 +21,18 @@ class CookingInstructionsSheet
     CookingInstructionsSheetModel viewModel,
     Widget? child,
   ) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: double.infinity,
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: const BoxDecoration(
-            color: kcwhitecolor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
+        decoration: const BoxDecoration(
+          color: kcwhitecolor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
+        ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

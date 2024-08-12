@@ -8,7 +8,8 @@ class BackArrowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onTap,
-        child: SvgPicture.asset('assets/images/icons/backbutton.svg'));
+      onTap: onTap,
+      child: SvgPicture.asset('assets/images/icons/backbutton.svg')
+    );
   }
 }

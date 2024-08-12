@@ -19,7 +19,8 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 0.0,
                 mainAxisSpacing: 5.0,
-                childAspectRatio: 7.5 / 9,
+                childAspectRatio: 190 / 270,
+                mainAxisExtent: 270,
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
@@ -28,7 +29,7 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                       viewModel.toChefProfile(chefList[index]);
                     },
                     child: Container(
-                      width: 150.w,
+                      width: 190.w,
                       decoration: BoxDecoration(
                         color: kcwhitecolor,
                         boxShadow: [
@@ -77,9 +78,8 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                             padding: EdgeInsets.only(left: 13.0.dg, bottom: 10),
                             child: Text(
                               capitalizeEachWord(
-                                chefList[index].recipes!.isEmpty
-                                    ? ('no dishes')
-                                    : ("${chefList[index].recipes!.length}  Dishes"),
+                                chefList[index].recipes!.isEmpty ? ('no dishes'):
+                                ("${chefList[index].recipes!.length}  Dishes"),
                               ),
                               style: TextStyle(
                                 fontSize: 12.sp,

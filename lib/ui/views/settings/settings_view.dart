@@ -1,3 +1,4 @@
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/widgets/settings_list.dart';
 import 'package:sailing_chefs/ui/views/settings/widgets/top_bar.dart';
@@ -17,16 +18,21 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return const SafeArea(
+    return  const SafeArea(
       child: Scaffold(
+        
         backgroundColor: kcBackgroundColor,
-        body: SingleChildScrollView(
+
+        body:  SingleChildScrollView(
           child: Column(
-            children: [
+
+            children:  [
               TopBarSettingsProfile(),
+
               SettingsListSettingsScreen(),
             ],
           ),
+
         ),
       ),
     );

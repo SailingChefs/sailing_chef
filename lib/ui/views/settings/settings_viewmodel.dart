@@ -10,12 +10,13 @@ class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void getBack() {
-    if (userDetails!.userRole == 'chef' ||
-        userDetails!.userRole == 'culinarySchool') {
+    if(userDetails!.userRole == 'chef' || userDetails!.userRole == 'culinarySchool'){
       _navigationService.navigateToBottomNavBarView();
-    } else {
+    }
+    else{
       _navigationService.navigateToBottomBarGuestView();
     }
+    
   }
 
   void deleteAccount() {
@@ -34,10 +35,6 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToPinDropMapView();
   }
 
-  void getToShoppingList() {
-    _navigationService.navigateToShoppingListView();
-  }
-
   void getEditProfile() {
     _navigationService.navigateToEditProfileView();
   }
@@ -51,19 +48,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void signOutUser() async {
-    await _authService.signOut();
+    await  _authService.signOut();
     _navigationService.clearStackAndShowView(const LoginView());
-  }
-
-  void getSavedRecipes() {
-    _navigationService.navigateToCullinarySavedrecipesView();
-  }
-
-  void goToPrivateRecipes() {
-    _navigationService.navigateToPrivateRecipesView();
-  }
-
-  void sendFeedback() {
-    _navigationService.navigateToFeedbackView();
   }
 }

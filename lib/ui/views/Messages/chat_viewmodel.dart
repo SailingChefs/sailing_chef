@@ -4,18 +4,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ChatViewModel extends StreamViewModel<List<MessageModel>> {
-  final String messageFromCource;
   final TextEditingController textController = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final _navigationLoactor = locator<NavigationService>();
@@ -27,26 +22,17 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   bool isAtTop = false;
   bool isImageSending = false;
 
-  ChatViewModel(this.messageFromCource, {required this.convoId}) {
-    messageController.text = messageFromCource;
-  }
-  void onViewModelReady() {
-    log("message " + messageFromCource);
-    // scrollController.addListener(() {
-    //   isAtTop = scrollController.offset <= kToolbarHeight;
-    //   if (scrollController.position.pixels < 180) {
-    //     isAtTop = true;
-    //   }
+  ChatViewModel({required this.convoId});
 
-    //   rebuildUi();
-    // });
-    if (messageFromCource.isNotEmpty) {
-      messageController.text = messageFromCource;
+  void onViewModelReady() {
+    scrollController.addListener(() {
+      isAtTop = scrollController.offset <= kToolbarHeight;
+      if (scrollController.position.pixels < 180) {
+        isAtTop = true;
+      }
       rebuildUi();
-    } else {
-      messageController.text = '';
-      rebuildUi();
-    }
+    });
+    
   }
 
   bool _uploadingImage = false;
@@ -66,17 +52,16 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   Future<void> getImage(
       ImageSource source, String receiverId, conversationId) async {
-    final pickedFile = await ImagePicker()
-        .pickImage(source: source, preferredCameraDevice: CameraDevice.rear);
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-
-      rebuildUi();
       _uploadingImage = true;
+      rebuildUi();
+
       String imageUrl = await _conversationService.uploadImage(
           File(selectedImageFile!.path), selectedImageFile!.name);
-      _uploadingImage = false;
+
       await addMessage(
           MessageModel(
             content: imageUrl,
@@ -89,10 +74,15 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
           conversationId);
 
       selectedImageFile = null;
-
+      _uploadingImage = false;
       rebuildUi();
+
+    
+
     }
   }
+
+
 
   void sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
@@ -134,29 +124,11 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     messageController.clear();
   }
 
-  bool validateLink(String? value) {
-    RegExp urlRegex = RegExp(
-      r'^(?:https?:\/\/|www\.|)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]*)?(?:\?(?:[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]+))?$',
-      caseSensitive: false,
-    );
-    return urlRegex.hasMatch(value!) ? true : false;
-  }
-
-  Future<void> onClickUrl(String url) async {
-    Uri uri = Uri.parse(url);
-
-    if (uri.scheme.isEmpty) {
-      uri = Uri.parse('https:$url');
-    }
-
-    await launchUrl(uri);
-  }
-
   Future<void> addMessage(MessageModel message, String conversationId) async {
     await _conversationService.sendMessage(message, conversationId);
-
     messageController.clear();
     rebuildUi();
+    
   }
 
   void moveBack() {
@@ -216,14 +188,5 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   void getBack() {
     _navigationLoactor.back();
-  }
-
-  void copyMessage(String content) {
-    Clipboard.setData(ClipboardData(text: content));
-    showToast(message: 'Message copied');
-  }
-
-  void navigateToProfile(UserModel receiver) {
-    _navigationLoactor.navigateToChefProfileView(user: receiver);
   }
 }

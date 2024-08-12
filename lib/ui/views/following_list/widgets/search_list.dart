@@ -1,4 +1,3 @@
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
@@ -6,7 +5,6 @@ import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.d
 class SearchList extends ViewModelWidget<FollowingListViewModel> {
   final List<UserModel> users;
   final bool isFromFollowingList;
-
   const SearchList(
       {super.key, required this.users, required this.isFromFollowingList});
 
@@ -40,7 +38,7 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
                 color: kcBlackColor,
               ),
             ),
-            trailing: isFromFollowingList && user.uid == userDetails!.uid
+            trailing: isFromFollowingList
                 ? SizedBox(
                     width: 112,
                     height: 35,

@@ -12,7 +12,8 @@ class SearchService {
       FirebaseFirestore.instance.collection('recipes');
   final _userService = locator<UserServices>();
 
-  final CollectionReference pinsCollection = firebasestore.collection('pins');
+  final CollectionReference pinsCollection =
+      firebasestore.collection('pins');
   Future<List<RecipeModel>> filterRecipes(String query) async {
     try {
       final QuerySnapshot querySnapshot = await recipesCollection
@@ -23,8 +24,8 @@ class SearchService {
       final List<RecipeModel> filteredRecipes = [];
       for (var doc in querySnapshot.docs) {
         RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        UserModel? currUser =
-            await _userService.fetchUserByUID(firebaseAuth.currentUser!.uid);
+        UserModel? currUser = await _userService
+            .fetchUserByUID(firebaseAuth.currentUser!.uid);
         if (!currUser.blockedAccounts!.contains(recipe.uid)) {
           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;

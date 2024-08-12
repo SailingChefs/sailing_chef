@@ -35,7 +35,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                   viewModel.searchUser(chef).elementAt(index);
                               return GestureDetector(
                                   onTap: () {
-                                    viewModel.toChefProfile(che);
+                                    viewModel.toChefProfile(che );
                                   },
                                   child: Container(
                                     width: 200.w,
@@ -84,15 +84,19 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ));
-                            },
-                            childCount: viewModel.searchUser(chef).length >= 4
-                                ? 4
-                                : viewModel.searchUser(chef).length,
+                                    ],
+                                  ),
+
+                                )
+                              );
+                              },
+                              childCount: viewModel.searchUser(chef).length >= 4 ? 4 : viewModel.searchUser(chef).length ,
+                            ),
+
+
                           ),
-                        ),
+                        
+
                       ],
                     );
                   }),
@@ -186,11 +190,15 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                     ],
                                   ),
                                 ),
-                              );
-                            },
-                            childCount: chef.length >= 4 ? 4 : chef.length,
+
+                                );
+
+                              },
+                              childCount: chef.length >= 4 ? 4 : chef.length,
+                            ),
+
                           ),
-                        ),
+                      
                       ],
                     );
                   }),

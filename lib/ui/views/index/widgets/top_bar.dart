@@ -4,8 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 
-class TopBarIndexScreen extends ViewModelWidget<IndexViewModel>
-    implements PreferredSizeWidget {
+class TopBarIndexScreen extends ViewModelWidget<IndexViewModel> implements PreferredSizeWidget{
   const TopBarIndexScreen({super.key});
 
   @override
@@ -16,10 +15,7 @@ class TopBarIndexScreen extends ViewModelWidget<IndexViewModel>
         Container(
           height: MediaQuery.of(context).size.height * 0.12,
           width: MediaQuery.of(context).size.width * 0.59,
-          margin: const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
-          ),
+          margin: const EdgeInsets.only(top:10,bottom: 10,),
           child: SvgPicture.asset(
             'assets/images/icons/logoo.svg',
             height: 39.h,
@@ -28,21 +24,18 @@ class TopBarIndexScreen extends ViewModelWidget<IndexViewModel>
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: GestureDetector(
-            onTap: viewModel.goToSettings,
-            child: SvgPicture.asset(
-              'assets/images/icons/Menu.svg',
-              width: 24.w,
-              height: 24.h,
-              color: kcBlackColor,
-            ),
+          padding: const EdgeInsets.only(right:20.0),
+          child: SvgPicture.asset(
+            'assets/images/icons/Menu.svg',
+            width: 24.w,
+            height: 24.h,
+            color: kcBlackColor,
           ),
         ),
       ],
     );
   }
-
+  
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

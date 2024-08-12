@@ -15,10 +15,9 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserServices _userService = locator<UserServices>();
   final BlockUserService _blockUserService = locator<BlockUserService>();
-  final ChefService _chefService = locator<ChefService>();
-  final CullinaryschoolService _cullinarySchoolService =
-      locator<CullinaryschoolService>();
-
+    final ChefService _chefService = locator<ChefService>();
+  final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
+  
   final userService = locator<UserServices>();
   List<String> get blockedUsers => _blockUserService.blockedAccounts;
   final _recipeService = locator<RecipeService>();
@@ -43,14 +42,16 @@ class BlockedAccountsViewModel extends ReactiveViewModel {
       }
       _chefService.chefs.add(user);
       notifyListeners();
-    } else if (user.userRole == 'culinarySchool') {
+    }
+    else if(user.userRole == 'culinarySchool'){
       _cullinarySchoolService.cullinaryscools.add(user);
     }
 
     _blockUserService.updateCurrentUserModel(
         localModel: userDetails!, userId: user.uid!);
-    _recipeService.isInitialized = false;
-    await _recipeService.initialized();
+        _recipeService.isInitialized = false;
+        await _recipeService.initialized();
+
 
     notifyListeners();
     rebuildUi();

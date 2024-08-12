@@ -5,13 +5,17 @@ import 'package:sailing_chefs/model/user_model.dart';
 
 class OtherChefProfileSheetModel extends BaseViewModel {
   final DialogService _dialogService = locator<DialogService>();
-  final Function(SheetResponse response)? completer;
-  OtherChefProfileSheetModel({this.completer});
-  void blockAccount(UserModel user) async {
+    final Function(SheetResponse response)? completer;
+    OtherChefProfileSheetModel({this.completer});
+  void blockAccount(UserModel user) async{
     log("In Block Account");
-    await _dialogService.showCustomDialog(
+ await _dialogService.showCustomDialog(
       variant: DialogType.blockAccount,
       data: user,
     );
+   
+    
   }
+
+  
 }

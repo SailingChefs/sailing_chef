@@ -17,38 +17,46 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: kcWhiteColor,
-            appBar: AppBar(
-              backgroundColor: kcWhiteColor,
-              elevation: 0,
-              title: Text('Saved Recipes',
-                  style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor)),
-              centerTitle: true,
+      child: viewModel.isBusy
+          ? const Center(child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+          ))
+          : GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  backgroundColor: kcWhiteColor,
+                  appBar: AppBar(
+                    backgroundColor: kcWhiteColor,
+                    elevation: 0,
+                    title: Text('Saved Recipes',
+                        style: globalTextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            color: kcBlackColor)),
+                    centerTitle: true,
+                    
+                  ),
+
+                  body: SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                      left: 15.0,
+                      right: 15.0,
+                    ),
+                    child: Column(
+                      children: [
+                         verticalSpaceMedium,
+                        const TabBarSavedRecipesScreen(),
+                        verticalSpaceMedium,
+                        // const SearchBarSavedRecipesScreen(),
+                        
+                        viewModel.isAllSelected
+                            ? const AllSavedRecipesScreen()
+                            : const FollowingSavedRecipesScreen(),
+                      ],
+                    ),
+                  )),
             ),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: Column(
-                children: [
-                  verticalSpaceMedium,
-                  const TabBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  viewModel.isAllSelected
-                      ? const AllSavedRecipesScreen()
-                      : const FollowingSavedRecipesScreen(),
-                ],
-              ),
-            )),
-      ),
     );
   }
 

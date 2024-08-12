@@ -28,6 +28,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final bool? ispassvisible;
   final TextStyle? style;
 
+
   const RoundedTransparentTextField({
     Key? key,
     this.controller,
@@ -69,7 +70,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     String open = 'assets/images/icons/eye_button.png';
     Widget openEye = Image.asset(
       open,
-      color: kcBlackColor.withOpacity(0.4),
+      color: kcWhiteColor,
       width: 2.w,
       height: 6.h,
     );
@@ -83,10 +84,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       showCursor: true,
       onChanged: onChanged,
       obscureText: obscureText,
-      autocorrect: true,
-      enableSuggestions: true,
       keyboardType: keyboardType,
-      textCapitalization: TextCapitalization.words,
       controller: controller,
       maxLength: maxLength,
       maxLines: maxLines ?? 1,
@@ -100,23 +98,18 @@ class RoundedTransparentTextField extends StatelessWidget {
       }) {
         return null;
       },
-      style: style ??
-          globalTextStyle(
-              fontSize: 13.sp,
-              color: textColor ?? kcWhiteColor,
-              fontWeight: FontWeight.w400),
+
+      
+      style: style ?? globalTextStyle(fontSize: 13.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w400),
       decoration: InputDecoration(
+        
         hintText: labelText,
-        hintStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+        hintStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
         filled: true,
         fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
-        labelStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+        labelStyle: globalTextStyle(fontSize: 14.sp, color: textColor ?? kcWhiteColor,fontWeight: FontWeight.w500),
+        // labelText: labelText,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
           borderSide:
@@ -146,7 +139,9 @@ class RoundedTransparentTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10.0,
+
           horizontal: 15.0,
+
         ),
         prefixIcon: prefixIcon == true
             ? Icon(
@@ -160,7 +155,7 @@ class RoundedTransparentTextField extends StatelessWidget {
                 ? null
                 : GestureDetector(
                     onTap: onVisibilityToggle,
-                    child: ispassvisible == true ? closeEye : openEye)),
+                    child: ispassvisible == true ?   closeEye : openEye)),
       ),
     );
   }

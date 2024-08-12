@@ -12,12 +12,12 @@ class ForgetPasswordViewModel extends BaseViewModel {
   void toLogin() {
     navigationService.replaceWithLoginView();
   }
-
-  bool isSignupButtonEnabled() {
-    return emailController.text.isNotEmpty;
+   bool isSignupButtonEnabled() {
+    return emailController.text.isNotEmpty ;
+        
   }
 
-  String? validateEmail(String? value) {
+ String? validateEmail(String? value) {
     if (value!.isEmpty) {
       return 'Please enter an email address';
     }

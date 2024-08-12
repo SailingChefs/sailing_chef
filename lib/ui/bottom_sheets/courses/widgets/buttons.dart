@@ -15,10 +15,10 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
             height: 42,
             width: 180,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: filterIconColor),
+                borderRadius: BorderRadius.circular(30), color: filterIconColor),
             child: TextButton(
               onPressed: () {
+                
                 viewModel.saveCourse();
               },
               child: Text(

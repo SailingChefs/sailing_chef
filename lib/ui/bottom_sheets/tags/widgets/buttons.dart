@@ -22,8 +22,7 @@ class BottomButtonsTagsSheet extends ViewModelWidget<TagsSheetModel> {
           RoundedElevatedButton(
             onPressed: () {
               viewModel.reset();
-              // completer!(SheetResponse(data: true));
-              Navigator.pop(context);
+              completer!(SheetResponse(data: true));
             },
             buttonText: 'Cancel',
             isEnabled: true,

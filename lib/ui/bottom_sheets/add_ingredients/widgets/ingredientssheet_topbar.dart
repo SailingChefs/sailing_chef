@@ -16,15 +16,13 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
             onTap: viewModel.popBack,
           ),
           GestureDetector(
-            onTap: viewModel.ingredientsList.isEmpty ? null : viewModel.onSaved,
+            onTap: viewModel.onSaved,
             child: Text(
               'Save',
               style: globalTextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: viewModel.ingredientsList.isEmpty
-                      ? Colors.grey.shade300
-                      : const Color(0xFF6C908D)),
+                  color: const Color(0xFF6C908D)),
             ),
           ),
         ],

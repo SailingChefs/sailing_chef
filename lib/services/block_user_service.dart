@@ -19,8 +19,7 @@ class BlockUserService with ListenableServiceMixin {
   }
 
   // chefService.chefs.removeWhere((element) => blockedAccounts.contains(element.uid));
-  Future<bool> updateBlockedAccounts(
-      List<String> blockedAccounts, UserModel user) async {
+  Future<bool> updateBlockedAccounts(List<String> blockedAccounts,UserModel user) async {
     final CollectionReference usersCollection =
         firebasestore.collection('users');
 
@@ -38,30 +37,30 @@ class BlockUserService with ListenableServiceMixin {
               .doc(userDetails!.uid)
               .update({'followers': FieldValue.arrayRemove(blockedAccounts)});
 
-          userDetails!.followers!
-              .removeWhere((element) => blockedAccounts.contains(element));
+          userDetails!.followers!.removeWhere((element) => blockedAccounts.contains(element));
         }
-        if (userDetails!.following!.contains(blockedAccounts.first)) {
+         if (userDetails!.following!.contains(blockedAccounts.first)) {
           await usersCollection.doc(userDetails!.uid).update({
             'following': FieldValue.arrayRemove(blockedAccounts),
           });
 
-          userDetails!.following!
-              .removeWhere((element) => blockedAccounts.contains(element));
+          userDetails!.following!.removeWhere((element) => blockedAccounts.contains(element));
         }
-        if (user.followers!.contains(blockedAccounts.first)) {
+        if(user.followers!.contains(blockedAccounts.first)){
+          
           await usersCollection
               .doc(user.uid)
               .update({'followers': FieldValue.arrayRemove(blockedAccounts)});
         }
-        if (user.following!.contains(blockedAccounts.first)) {
+       if(user.following!.contains(blockedAccounts.first)){
           await usersCollection
               .doc(user.uid)
               .update({'following': FieldValue.arrayRemove(blockedAccounts)});
         }
+       
 
         // Remove blocked accounts from the list of blocked accounts
-
+        
         blockedAccounts.add(blockedAccounts.last);
         chefService.chefs
             .removeWhere((element) => blockedAccounts.contains(element.uid));

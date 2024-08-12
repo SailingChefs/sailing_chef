@@ -21,11 +21,11 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(
+             SvgPicture.asset(
                 'assets/images/misc/clock.svg',
                 width: 18,
                 height: 18,
-              ),
+             ),
               // horizontalSpaceSmall,
               Text(
                 ' ${recipeModel.prepTime}',
@@ -40,62 +40,45 @@ class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
         ),
         horizontalSpaceSmall,
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          decoration: BoxDecoration(
-            color: kcPrimaryColorDark.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                FlutterRemix.group_line,
-                color: kcPrimaryColor,
-                size: 16.dg,
-              ),
-              // GestureDetector(
-              //   onTap: viewModel.decrementServings,
-              //   child: Container(
-              //     padding: const EdgeInsets.all(1),
-              //     decoration: const BoxDecoration(
-              //       color: kcPrimaryColorDark,
-              //       shape: BoxShape.circle,
-              //     ),
-              //     child: Center(
-              //       child: GestureDetector(
-              //         onTap: viewModel.decrementServings,
-              //         child: const Icon(
-              //           FlutterRemix.subtract_fill,
-              //           color: kcWhiteColor,
-              //           size: 18,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              horizontalSpaceSmall,
-              Text(
-                ' ${viewModel.servings} servings ',
-                style: globalTextStyle(
-                  fontSize: 12.0.sp,
-                  color: kcBlackColor,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              horizontalSpaceSmall,
-              // GestureDetector(
-              //   onTap: () {
-              //     viewModel.incrementServings();
-              //     viewModel.getUpdatedIngredients();
-              //   },
-              //   child: const Icon(
-              //     FlutterRemix.add_circle_fill,
-              //     color: kcPrimaryColorDark,
-              //   ),
-              // ),
-            ],
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            decoration: BoxDecoration(
+              color: kcPrimaryColorDark.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: viewModel.decrementServings,
+                    child: Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: const BoxDecoration(
+                        color: kcPrimaryColorDark,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: viewModel.decrementServings,
+                          child: const Icon(
+                            FlutterRemix.subtract_fill,
+                            color: kcWhiteColor,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  Text(' ${viewModel.servings} '),
+                  horizontalSpaceSmall,
+                  GestureDetector(
+                    onTap: viewModel.incrementServings,
+                    child: const Icon(
+                      FlutterRemix.add_circle_fill,
+                      color: kcPrimaryColorDark,
+                    ),
+                  ),
+                ])),
       ],
     );
   }

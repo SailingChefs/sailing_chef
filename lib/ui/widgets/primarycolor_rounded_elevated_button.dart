@@ -4,8 +4,7 @@ import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 class PrimaryColorRoundedElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
-  final double? width;
-  const PrimaryColorRoundedElevatedButton(this.width,
+  const PrimaryColorRoundedElevatedButton(
       {super.key, required this.onPressed, required this.buttonText});
 
   @override
@@ -14,8 +13,10 @@ class PrimaryColorRoundedElevatedButton extends StatelessWidget {
       onPressed: onPressed,
       buttonText: buttonText,
       isEnabled: true,
+
       buttonColor: kcPrimaryColorDark,
-      width: width ?? 100.w,
+      width: 100.w,
+
       textColor: kcWhiteColor,
     );
   }

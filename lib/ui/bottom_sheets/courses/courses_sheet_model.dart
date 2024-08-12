@@ -7,7 +7,7 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 class CoursesSheetModel extends BaseViewModel {
   final Function(SheetResponse response)? completer;
   String? linkErrorMessage;
-
+  
   final TextEditingController name = TextEditingController();
   final TextEditingController link = TextEditingController();
   final TextEditingController desc = TextEditingController();
@@ -17,7 +17,7 @@ class CoursesSheetModel extends BaseViewModel {
   final DialogService _dialogSaved = locator<DialogService>();
   String id = '';
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey= GlobalKey<FormState>();
 
   CoursesSheetModel(this.completer);
   void onViewModelReady(Course? course) async {
@@ -57,21 +57,23 @@ class CoursesSheetModel extends BaseViewModel {
 
   void saveCourse() {
     if (formKey.currentState!.validate()) {
-      _cullinaryService.cullinaryCoursesAdd(Course(
-          name: name.text,
-          link: link.text,
-          description: desc.text,
-          numOfDays: numOfDays.text,
-          id: id));
+            
+        _cullinaryService.cullinaryCoursesAdd(Course(
+            name: name.text,
+            link: link.text,
+            description: desc.text,
+            numOfDays: numOfDays.text,
+            id: id));
 
-      name.clear();
-      link.clear();
-      desc.clear();
-      numOfDays.clear();
-      completer!(SheetResponse(confirmed: true));
-      _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
-      rebuildUi();
+        name.clear();
+        link.clear();
+        desc.clear();
+        numOfDays.clear();
+        completer!(SheetResponse(confirmed: true));
+        _dialogSaved.showCustomDialog(variant: DialogType.courseSaved);
+        rebuildUi();
     } else {}
+  
   }
 
   void deleteCourse(String courseId) {

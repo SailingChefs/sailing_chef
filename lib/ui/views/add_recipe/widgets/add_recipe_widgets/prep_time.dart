@@ -44,17 +44,16 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                   borderRadius: BorderRadius.circular(30.0.r),
                   color: kcVeryLightGrey.withOpacity(0.2),
                 ),
-                child: viewModel.selectedTime != null &&
-                        viewModel.formattedDuration != '0h'
+                child: viewModel.selectedTime != null && viewModel.formattedDuration != '0h'
                     ? Center(
                         child: Text(
                           viewModel.formatDuration(),
-                          style: globalTextStyle(
-                            fontSize: 12.sp,
-                            letterSpacing: -0.5,
-                            fontWeight: FontWeight.w600,
-                            color: kcPrimaryColorDark,
-                          ),
+                        style: globalTextStyle(
+                                fontSize: 12.sp,
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w600,
+                                color: kcPrimaryColorDark,
+                              ),
                         ),
                       )
                     : FittedBox(

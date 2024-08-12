@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'privacy_policy_viewmodel.dart';
 
 class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
@@ -18,7 +19,7 @@ class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
           elevation: 0,
           title: Text(
             'Terms and Conditions',
-            style: globalTextStyle(
+             style: globalTextStyle(
               fontSize: 16.0.dg,
               color: kcBlackColor,
               letterSpacing: -0.3,
@@ -28,20 +29,9 @@ class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
           centerTitle: true,
           automaticallyImplyLeading: false,
           leading: Padding(
-            padding: EdgeInsets.only(left: 8.0.w),
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: viewModel.getBack,
-              child: Container(
-                alignment: Alignment.center,
-                height: 26.h,
-                width: 26.w,
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: kcBlackColor,
-                  size: 18.sp,
-                ),
-              ),
+            padding: const EdgeInsets.all(8.0),
+            child: BackArrowWidget(
+              onTap:viewModel.getBack,
             ),
           ),
         ),

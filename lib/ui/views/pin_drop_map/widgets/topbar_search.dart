@@ -58,7 +58,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
             IconButton(
               onPressed: viewModel.tagsIconSelected,
               icon: SvgPicture.asset(
-                'assets/images/misc/equilizer.svg',
+                'assets/images/icons/filter.svg',
                 color: filterIconColor,
                 width: 30,
                 height: 30,

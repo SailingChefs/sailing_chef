@@ -12,9 +12,7 @@ class TabBarWidgets extends ViewModelWidget<RecipeViewViewModel> {
       width: screenWidth(context) * 0.88,
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.dg),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(10.dg),),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -9,76 +10,91 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
+import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> recipeList;
-  final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {Key? key,
-      required this.recipeModel,
-      required this.isFromPrivateProfile,
-      required this.recipeList})
+      {Key? key, required this.recipeModel, required this.recipeList})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            capitalizeEachWord(recipeModel.title),
-            style: globalTextStyle(
-              letterSpacing: -0.5,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w700,
-              color: kcBlackColor,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.44,
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.56,
+          decoration: const BoxDecoration(
+            color: kcwhitecolor,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0.dg, vertical: 10.dg),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    capitalizeEachWord(recipeModel.title),
+                    style: globalTextStyle(
+                      letterSpacing: -0.5,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: kcBlackColor,
+                    ),
+                  ),
+                  verticalSpace(12),
+                  TimeAndServingRecipeShow(recipeModel: recipeModel),
+                  verticalSpace(24.h),
+                  IngredientsClass(
+                    recipeModel: recipeModel,
+                  ),
+                  verticalSpace(12),
+                  Methods(
+                    recipe: recipeModel,
+                  ),
+                  recipeModel.tags!.isEmpty
+                      ? Container()
+                      : Column(
+                          children: [
+                            TipsNotesRecipeDetails(viewModel: recipeModel),
+                            verticalSpace(12),
+                          ],
+                        ),
+                  const ChefNotesRecipeDetails(),
+                  verticalSpace(24.h),
+                  SemiRoundedTranpaentTextField(
+                    borderRadius: 24.dg,
+                    labelText: 'Add your own personal note...',
+                    inputFormatters: [LengthLimitingTextInputFormatter(200)],
+                    maxLines: 5,
+                    suffixIcon: false,
+                    controller: viewModel.notesController,
+
+                    fillColor: kcPrimaryColorDark.withOpacity(0.2),
+                  ),
+                  verticalSpace(24.h),
+                  ViewProfileRow(
+                    user: recipeModel.user!,
+                  ),
+                  CommentsDetailsScreen(recipeModel: recipeModel),
+                  verticalSpace(12),
+                  BottomSlider(
+                    recipeList: recipeList,
+                  ),
+                ],
+              ),
             ),
           ),
-          verticalSpace(12),
-          TimeAndServingRecipeShow(recipeModel: recipeModel),
-          verticalSpace(24.h),
-          IngredientsClass(
-            recipeModel: recipeModel,
-          ),
-          verticalSpace(12),
-          Methods(
-            recipe: recipeModel,
-          ),
-          recipeModel.tags!.isEmpty
-              ? Container()
-              : Column(
-                  children: [
-                    TipsNotesRecipeDetails(viewModel: recipeModel),
-                    verticalSpace(12),
-                  ],
-                ),
-          const ChefNotesRecipeDetails(),
-          verticalSpace(16.h),
-          Visibility(
-            visible: true,
-            // visible: viewModel.checkOwn(recipeModel),
-            child: ViewProfileRow(
-              user: recipeModel.user!,
-            ),
-          ),
-          Visibility(
-            visible: viewModel.checkOwn(recipeModel),
-            child: CommentsDetailsScreen(
-                isFromPrivateProfile: isFromPrivateProfile,
-                recipeModel: recipeModel),
-          ),
-          verticalSpace(12),
-          BottomSlider(
-            isFromPrivateProfile: isFromPrivateProfile,
-            recipeList: recipeList,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -53,9 +53,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                                 style: globalTextStyle(
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w600,
-                                  height: 1.2.h,
                                   color: kcWhiteColor,
-                                  letterSpacing: -0.3,
                                 ),
                               ),
                               SizedBox(height: 12.h),

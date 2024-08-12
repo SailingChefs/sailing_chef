@@ -11,16 +11,13 @@ import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'bottom_nav_bar_viewmodel.dart';
 
 class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
-  int? index;
-  BottomNavBarView({this.index, Key? key}) : super(key: key);
+  const BottomNavBarView({Key? key}) : super(key: key);
 
   @override
   Widget builder(context, viewModel, child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: index != null
-          ? getViewForIndex(index!)
-          : getViewForIndex(viewModel.currentIndex),
+      body: getViewForIndex(viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: kcWhiteColor,
@@ -31,66 +28,38 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.setIndex,
-        items: [
+        items:  [
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/homeselected.svg',
-              color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
             label: '',
-            icon: SvgPicture.asset(
-              'assets/images/icons/homeselected.svg',
-              color: Colors.grey[500],
-            ),
+            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/locationIcon.svg',
-              color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: kcPrimaryColor,),
             label: '',
-            icon: SvgPicture.asset(
-              'assets/images/icons/locationIcon.svg',
-              color: Colors.grey[600],
-            ),
+            icon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: Colors.grey[600],),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/centerplus.svg',
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
             label: '',
-            icon: SvgPicture.asset(
-              'assets/images/icons/centerplus.svg',
-            ),
+            icon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/chat.svg',
-              color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
             label: '',
-            icon: SvgPicture.asset(
-              'assets/images/icons/chat.svg',
-              color: Colors.grey[600],
-            ),
+            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/profile.svg',
-              color: kcPrimaryColor,
-            ),
+            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
             label: '',
-            icon: SvgPicture.asset(
-              'assets/images/icons/profile.svg',
-              color: Colors.grey[600],
-            ),
+            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
           ),
         ],
       ),
     );
   }
-
-  @override
+  
+  @override  
   bool get disposeViewModel => false;
 
   @override

@@ -2,8 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
-class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>
-    implements PreferredSizeWidget {
+class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>  implements PreferredSizeWidget {
   final bool? isCurrentUser;
   final UserModel user;
 
@@ -15,7 +14,9 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>
       children: [
         verticalSpaceSmall,
         Padding(
+        
           padding: const EdgeInsets.symmetric(horizontal: 19),
+        
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,7 +68,8 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>
       ],
     );
   }
-
+  
   @override
+  
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

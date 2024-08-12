@@ -27,7 +27,7 @@ class AddRecipeChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                     ? Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Text(
-                          'Hold to leave a voice note',
+                          'Add tips for this recipe',
                           style: globalTextStyle(
                             fontSize: 12.sp,
                             letterSpacing: -0.5,

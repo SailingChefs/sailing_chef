@@ -7,11 +7,10 @@ import '../../../model/user_model.dart';
 class AllChefsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   TextEditingController searchController = TextEditingController();
-  void back() {
-    _navigationService.back();
-  }
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
+   
+
     for (var user in chefs) {
       if (user.displayName!
           .toLowerCase()

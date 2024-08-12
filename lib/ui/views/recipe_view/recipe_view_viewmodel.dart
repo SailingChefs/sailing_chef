@@ -11,9 +11,6 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
-import '../bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
-import '../recipe_list_page/recipe_list_page_view.dart';
-
 class RecipeViewViewModel extends BaseViewModel {
   final bool isFromDraft;
 
@@ -61,11 +58,11 @@ class RecipeViewViewModel extends BaseViewModel {
 
     await durationCalculate(File(path!));
 
+
     setBusy(false);
   }
 
   int servings = 0;
-  int updatedQuantity = 0;
 
   void incrementServings() {
     servings += 1;
@@ -94,8 +91,7 @@ class RecipeViewViewModel extends BaseViewModel {
     playerController.setVolume(volume);
     notifyListeners();
   }
-
-  @override
+@override
   void dispose() {
     playerController.dispose();
     stopListening();
@@ -104,7 +100,7 @@ class RecipeViewViewModel extends BaseViewModel {
     formattedDuration = '';
     super.dispose();
   }
-
+ 
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
       waveFormData =
@@ -133,18 +129,20 @@ class RecipeViewViewModel extends BaseViewModel {
       Duration position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
-    await playerController.startPlayer(finishMode: FinishMode.pause);
-
+    await playerController
+        .startPlayer(finishMode: FinishMode.pause);
+        
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
   }
+
 
   void updateDuration(Duration position) async {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
       notifyListeners();
-    }
+    } 
   }
 
   void stopListening() async {
@@ -179,38 +177,40 @@ class RecipeViewViewModel extends BaseViewModel {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     String chefNote = '';
-    if (path!.isNotEmpty) {
-      chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    if(path!.isNotEmpty){
+       chefNote =
+        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
-
+    
     try {
-      log("serving size ${recipe.servingSize.toString()}");
+      log("id${recipe.docId!}");
       await _recipeService
           .addRecipeToFirestore(
-        RecipeModel(
-          visibility: recipe.visibility,
-          chefNote: chefNote,
-          coverImage: recipe.coverImage + imageUrls,
-          createdTime: Timestamp.now(),
-          ingredients: recipe.ingredients,
-          methods: recipe.methods,
-          prepTime: recipe.prepTime,
-          servingSize: recipe.servingSize,
-          status: 'published',
-          title: recipe.title,
-          tags: recipe.tags,
-          uid: recipe.uid,
-          docId: recipe.docId,
-          waveForm: waveFormData == null ? [] : waveFormData!,
-        ),
-      )
-          .then((value) async {
-        final result =
-            await navigationService.replaceWithBottomNavBarView(index: 4
-                // isFromDraft: isFromDraft,
-                );
-        log("result: $result");
-      });
+            RecipeModel(
+              visibility: recipe.visibility,
+              chefNote: chefNote,
+              coverImage: recipe.coverImage + imageUrls,
+              createdTime: Timestamp.now(),
+              ingredients: recipe.ingredients,
+              methods: recipe.methods,
+              prepTime: recipe.prepTime,
+              servingSize: servings,
+              status: 'published',
+              title: recipe.title,
+              tags: recipe.tags,
+              uid: recipe.uid,
+              docId: recipe.docId,
+              waveForm: waveFormData == null ? [] : waveFormData!,
+            ),
+          )
+          .then(
+            (value) async{
+              final result = await navigationService.navigateToRecipeListPageView(
+                isFromDraft: isFromDraft,
+              );
+              log("result: $result");
+            }
+          );
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(
@@ -219,16 +219,18 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
+
+
   void saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     String chefNote = '';
-    if (path!.isNotEmpty) {
-      chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    if(path!.isNotEmpty){
+       chefNote =
+        await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
     try {
-      log(recipe.ingredients.length.toString());
       await _recipeService
           .addRecipeToFirestore(RecipeModel(
             visibility: 'private',
@@ -241,12 +243,15 @@ class RecipeViewViewModel extends BaseViewModel {
             servingSize: servings,
             status: 'published',
             title: recipe.title,
-            tags: recipe.tags,
             uid: recipe.uid,
-            docId: recipe.docId,
+            docId: '',
             waveForm: waveFormData == null ? [] : waveFormData!,
           ))
-          .then((value) => navigationService.navigateToPrivateRecipesView());
+          .then((value) =>  navigationService.navigateToRecipeListPageView(
+            isFromDraft: isFromDraft,
+          )
+               
+            );
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(e.toString());
@@ -316,4 +321,29 @@ class RecipeViewViewModel extends BaseViewModel {
   void stopAutoScroll() {
     _timer?.cancel();
   }
+
+  // void showNextImage(int length) {
+  //   if (pageController.hasClients) {
+  //     int nextPage = (pageController.page!.toInt() + 1) % length;
+  //     pageController.animateToPage(
+  //       nextPage,
+  //       duration: const Duration(milliseconds: 400),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
+
+  // void showPreviousImage(int length) {
+  //   if (pageController.hasClients) {
+  //     int previousPage = pageController.page!.toInt() - 1;
+  //     if (previousPage < 0) {
+  //       previousPage = length - 1;
+  //     }
+  //     pageController.animateToPage(
+  //       previousPage,
+  //       duration: const Duration(milliseconds: 400),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
 }

@@ -5,10 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
-import 'package:sailing_chefs/model/shopping_list_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../core/imports/core_imports.dart';
@@ -16,38 +14,6 @@ import '../model/user_model.dart';
 
 class UserServices with ListenableServiceMixin {
   UserModel? currentUserDetails;
-
-  final NavigationService _navigationService = locator<NavigationService>();
-  final DialogService _dialogService = locator<DialogService>();
-
-  Future<ShoppingListModel> fetchShoppingList() async {
-    final userDoc =
-        firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid);
-
-    final querySnapshot = await userDoc.collection('shopping_list').get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      // for (var doc in querySnapshot.docs) {
-      //   shoppingList.add(ShoppingListModel.fromJson(doc.data()));
-      // }
-      return ShoppingListModel.fromJson(querySnapshot.docs.first.data());
-    }
-
-    return ShoppingListModel.empty();
-  }
-
-  updateShoppingList() async {
-    try {
-      firebasestore
-          .collection('users')
-          .doc(firebaseAuth.currentUser!.uid)
-          .collection('shopping_list')
-          .doc(firebaseAuth.currentUser!.uid)
-          .set(userShoppingList!.toJson());
-    } catch (e, stackTrace) {
-      log("StackTrace: $stackTrace");
-    }
-  }
 
   static Future<bool> storeUserRoleAndName({
     required UserModel userModel,
@@ -65,6 +31,7 @@ class UserServices with ListenableServiceMixin {
     userModel.userDocId = userSnapshot.id;
 
     if (!userSnapshot.exists) {
+      // User not stored in Firestore, so add their data
       await usersCollection.doc(user.uid).set(
             userModel.toJson(),
           );
@@ -72,36 +39,6 @@ class UserServices with ListenableServiceMixin {
       return true;
     } else {
       return false;
-    }
-  }
-
-  Future<void> storeUserRole(UserModel userModel) async {
-    final user = firebaseAuth.currentUser;
-    if (user == null) {
-      // User not signed in or created
-      throw Exception("User not signed in or created");
-    }
-
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-
-    QuerySnapshot querySnapshot =
-        await usersCollection.where('email', isEqualTo: userModel.email).get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      DocumentSnapshot userSnapshot = querySnapshot.docs.first;
-      userModel.userDocId = userSnapshot.id;
-      userModel.userRole = userSnapshot.get('user_role');
-
-      if (userModel.userRole == 'guest') {
-        _navigationService.replaceWithBottomBarGuestView();
-      } else {
-        _navigationService.replaceWithBottomNavBarView();
-      }
-    } else {
-      _dialogService.showCustomDialog(
-        variant: DialogType.roleDialog,
-      );
     }
   }
 
@@ -186,6 +123,8 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
+
+
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
       DocumentSnapshot snapshot =
@@ -229,134 +168,62 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  Future<bool> checkPassword(String password) async {
-    try {
-      // Get the current user
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        return false;
-      }
-
-      // Create credentials with the provided email and password
-      AuthCredential credential =
-          EmailAuthProvider.credential(email: user.email!, password: password);
-
-      // Re-authenticate the user with the provided credentials
-      await user.reauthenticateWithCredential(credential);
-      log('User re-authenticated successfully : ${user.email}');
-      // If re-authentication is successful, the password is correct
-      return true;
-    } catch (e) {
-      log(e.toString());
-      // If an error occurs, the password is incorrect
-      return false;
-    }
-  }
-
-  Future<bool> deleteUserAndDocument(String passworde) async {
+  Future<bool> deleteUserAndDocument() async {
     try {
       EasyLoading.show();
-
-      // Re-authenticate the user
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        EasyLoading.dismiss();
-        return false;
-      }
-
-      // Assuming you have a way to get the user's email and password, prompt the user for these credentials.
-      String email = userDetails!.email!; // Get the user's email
-      String password = passworde; // Get the user's password
-
-      AuthCredential credential =
-          EmailAuthProvider.credential(email: email, password: password);
-      await user.reauthenticateWithCredential(credential);
-      // Proceed with the deletion after re-authentication
-
-      QuerySnapshot followingSnapshot = await FirebaseFirestore.instance
+      // Delete document with the user's UID from Firestore
+      await firebasestore
           .collection('users')
-          .where('following', arrayContains: user.uid)
-          .get();
-      for (var doc in followingSnapshot.docs) {
-        await doc.reference.update({
-          'following': FieldValue.arrayRemove([user.uid])
-        });
-      }
-
-      // Find all documents where the user UID is in the followers array
-      QuerySnapshot followersSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('followers', arrayContains: user.uid)
-          .get();
-      for (var doc in followersSnapshot.docs) {
-        await doc.reference.update({
-          'followers': FieldValue.arrayRemove([user.uid])
-        });
-      }
-      await FirebaseFirestore.instance
-          .collection('conversations')
-          .where('users', arrayContains: user.uid)
-          .get()
-          .then((querySnapshot) {
-        for (var doc in querySnapshot.docs) {
-          doc.reference.delete();
-        }
-      });
-
-      await FirebaseFirestore.instance
-          .collection('recipes')
-          .where('uid', isEqualTo: user.uid)
-          .get()
-          .then((querySnapshot) {
-        for (var doc in querySnapshot.docs) {
-          doc.reference.delete();
-        }
-      });
-      QuerySnapshot shopping = await FirebaseFirestore.instance
-          .collection('shopping_list')
-          .where('user_id', isEqualTo: user.uid)
-          .get();
-      for (var doc in shopping.docs) {
-        await doc.reference.delete();
-      }
-
-      await FirebaseFirestore.instance
-          .collection('recipes')
-          .get()
-          .then((recipesSnapshot) async {
-        for (var recipeDoc in recipesSnapshot.docs) {
-          await FirebaseFirestore.instance
-              .collection('recipes')
-              .doc(recipeDoc.id)
-              .collection('comments')
-              .where('uid', isEqualTo: user.uid)
-              .get()
-              .then((querySnapshot) {
-            for (var commentDoc in querySnapshot.docs) {
-              commentDoc.reference.delete();
-            }
-          });
-        }
-      });
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
+          .doc(firebaseAuth.currentUser!.uid)
           .delete();
 
-      // if (userDetails!.userRole == 'culinarySchool') {
-      //   for (var courseId in userDetails!.schoolCourses!) {
-      //     await FirebaseFirestore.instance
-      //         .collection('courses')
-      //         .doc(courseId)
-      //         .delete();
-      //   }
-      // }
+      // Delete conversation Documents with user's uid from Firestore
+      await firebasestore
+          .collection('conversations')
+          .where('users', arrayContains: firebaseAuth.currentUser!.uid)
+          .get()
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }
+      },
+     
+
+      );
+       await firebasestore.collection('recipes').where('uid', isEqualTo: firebaseAuth.currentUser!.uid).get().then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }},);
+     await firebasestore
+    .collection('recipes')
+    .get()
+    .then((recipesSnapshot) async {
+  for (var recipeDoc in recipesSnapshot.docs) {
+    await FirebaseFirestore.instance
+        .collection('recipes')
+        .doc(recipeDoc.id)
+        .collection('comments')
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((querySnapshot) {
+      for (var commentDoc in querySnapshot.docs) {
+        commentDoc.reference.delete();
+      }
+    });
+  }
+});
+if(userDetails!.userRole == 'culinarySchool'){
+  for(var courseId in userDetails!.schoolCourses!){
+    await firebasestore.collection('courses').doc(courseId).delete();
+    
+  }
+}
+
 
       // Delete user from Firebase Authentication
-      await user.delete();
+      await firebaseAuth.currentUser!.delete();
       userDetails = null;
-      savedRecipesGlobal = [];
-
+     
       EasyLoading.dismiss();
       log('User account and document deleted successfully');
       return true;
@@ -365,75 +232,5 @@ class UserServices with ListenableServiceMixin {
       log('Error deleting user and document: $e');
       return false;
     }
-  }
-
-  deleteGoogleUserDocument() async {
-    final user = FirebaseAuth.instance.currentUser!;
-    QuerySnapshot followingSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('following', arrayContains: user.uid)
-        .get();
-    for (var doc in followingSnapshot.docs) {
-      await doc.reference.update({
-        'following': FieldValue.arrayRemove([user.uid])
-      });
-    }
-
-    // Find all documents where the user UID is in the followers array
-    QuerySnapshot followersSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('followers', arrayContains: user.uid)
-        .get();
-    for (var doc in followersSnapshot.docs) {
-      await doc.reference.update({
-        'followers': FieldValue.arrayRemove([user.uid])
-      });
-    }
-    await FirebaseFirestore.instance
-        .collection('conversations')
-        .where('users', arrayContains: user.uid)
-        .get()
-        .then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        doc.reference.delete();
-      }
-    });
-
-    await FirebaseFirestore.instance
-        .collection('recipes')
-        .where('uid', isEqualTo: user.uid)
-        .get()
-        .then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        doc.reference.delete();
-      }
-    });
-    QuerySnapshot shopping = await FirebaseFirestore.instance
-        .collection('shopping_list')
-        .where('user_id', isEqualTo: user.uid)
-        .get();
-    for (var doc in shopping.docs) {
-      await doc.reference.delete();
-    }
-
-    await FirebaseFirestore.instance
-        .collection('recipes')
-        .get()
-        .then((recipesSnapshot) async {
-      for (var recipeDoc in recipesSnapshot.docs) {
-        await FirebaseFirestore.instance
-            .collection('recipes')
-            .doc(recipeDoc.id)
-            .collection('comments')
-            .where('uid', isEqualTo: user.uid)
-            .get()
-            .then((querySnapshot) {
-          for (var commentDoc in querySnapshot.docs) {
-            commentDoc.reference.delete();
-          }
-        });
-      }
-    });
-    await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
   }
 }

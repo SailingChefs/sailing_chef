@@ -24,7 +24,7 @@ class PindropDialogueboxDialogModel extends ReactiveViewModel {
 
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
-      return "0.0";
+      return "0.0"; // Return 0 if there are no comments
     }
 
     double totalRating = 0.0;
@@ -38,7 +38,7 @@ class PindropDialogueboxDialogModel extends ReactiveViewModel {
 
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
-    return averageRating.toStringAsFixed(1);
+   return averageRating.toStringAsFixed(1);
   }
 
   void onViewModelReady() async {
@@ -49,11 +49,13 @@ class PindropDialogueboxDialogModel extends ReactiveViewModel {
 
   getAddress(double latitude, double longitude) {}
 
+
+
   void callDeatilsDialog() {
     _dialogService.showCustomDialog(
       variant: DialogType.pindetails,
       data: pinnedLocation,
-
+        
       title: placeMark,
       // additionalButtonTitle: curLat,
       // description: curLong,

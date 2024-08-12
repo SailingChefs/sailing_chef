@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
@@ -26,22 +25,17 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
             height: 40,
             child: TextFormField(
               controller: controller,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(
-                  RegExp(r"[a-zA-Z0-9-._~:/?#\[\]@!$&'()*+,;=%]"),
-                ),
-              ],
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return 'Please enter a link';
-              //   }
-              //   if (!RegExp(
-              //     r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
-              //   ).hasMatch(value)) {
-              //     return 'Please enter a valid URL';
-              //   }
-              //   return null;
-              // },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a link';
+                }
+                if (!RegExp(
+                  r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+                ).hasMatch(value)) {
+                  return 'Please enter a valid URL';
+                }
+                return null;
+              },
               onChanged: (value) {
                 if (value.isNotEmpty) {
                   viewModel.setLinkErrorMessage(viewModel.isLinkValid(value)

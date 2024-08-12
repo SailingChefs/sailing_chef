@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:sailing_chefs/services/user_services.dart';
@@ -14,15 +15,18 @@ class BecomechefViewModel extends BaseViewModel {
   UserServices userService = locator<UserServices>();
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
-
-  String countryValue = "";
+  
+  
+ String countryValue = "";
   String stateValue = "";
   String cityValue = "";
-  String? address;
+  String? address ;
+
+  
 
   void onViewModelReady() async {
     setBusy(true);
-
+  
     setBusy(false);
   }
 
@@ -37,6 +41,7 @@ class BecomechefViewModel extends BaseViewModel {
   getBack() {
     _navigationService.back();
   }
+
 
   String? validateLink(String? value) {
     // Check if the input is null or empty
@@ -54,67 +59,85 @@ class BecomechefViewModel extends BaseViewModel {
         ? null // Return null if the link is valid
         : 'Please enter a valid link';
   }
-
   void setCountryValue(String value) {
     countryValue = value;
 
     //
     rebuildUi();
+   
   }
 
   void setStateValue(String? value) {
+     
     if (value == 'state*') {
       stateValue = '';
-      cityValue = '';
+    cityValue = '';
+      
+   
+      rebuildUi();
+    
+    }
+    else if( value == 'null'){
+
+      stateValue = '';  
 
       rebuildUi();
-    } else if (value == 'null') {
+    }
+    else if(value == null){
+
       stateValue = '';
 
       rebuildUi();
-    } else if (value == null) {
-      stateValue = '';
-
-      rebuildUi();
-    } else {
-      stateValue = value;
+    }
+    else{
+      stateValue = value!;
       cityValue = '';
       rebuildUi();
     }
+    
 
     rebuildUi();
   }
 
   void setCityValue(String? value) {
+   
     if (value == 'city*') {
       cityValue = '';
-      rebuildUi();
-    } else if (value == 'null') {
+      rebuildUi(); 
+    }
+    else if( value == 'null'){
       cityValue = '';
       rebuildUi();
-    } else if (value == null) {
+    }
+    else if(value == null){
       cityValue = '';
       rebuildUi();
-    } else {
+    }
+    else{
       cityValue = value;
       rebuildUi();
     }
-    if (countryValue != '' && stateValue == '' && cityValue == '') {
-      address = countryValue;
-    }
-    if (countryValue != '' && stateValue != '' && cityValue == '') {
-      address = '$stateValue,$countryValue';
-    }
-    if (cityValue != '' && stateValue != '' && countryValue != '') {
-      address = '$cityValue,$stateValue,$countryValue';
-    }
+    if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+
 
     rebuildUi();
   }
 
+
+
+
   void saveEditDetails() async {
+    address = "$cityValue,$stateValue,$countryValue".trim();
     if (formKey.currentState!.validate()) {
-      if (countryValue == '') {
+       if(countryValue == ''){
         showToast(message: 'Please select your location to proceed');
         return;
       }

@@ -10,12 +10,10 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/followinglist.dart
 import 'following_list_viewmodel.dart';
 
 class FollowingListView extends StackedView<FollowingListViewModel> {
-  final bool isfromFollowing;
+ final  bool isfromFollowing;
   final UserModel user;
 
-  const FollowingListView(
-      {Key? key, required this.user, required this.isfromFollowing})
-      : super(key: key);
+  const FollowingListView({Key? key, required this.user, required this.isfromFollowing}) : super(key: key);
 
   @override
   Widget builder(
@@ -25,10 +23,10 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
   ) {
     return viewModel.isBusy
         ? const Center(
-            child: CircularProgressIndicator(
+          child: CircularProgressIndicator(
               color: kcPrimaryColor,
             ),
-          )
+        )
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
             appBar: TopBarFollowing(
@@ -39,14 +37,12 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   verticalSpaceSmall,
-                  const TabBarsFollowing(),
+                   const TabBarsFollowing(),
                   verticalSpaceTiny,
                   Column(
                     children: [
                       verticalSpaceTiny,
-                      viewModel.isFollower
-                          ? FollowerList()
-                          : FollowingList(user: user),
+                      viewModel.isFollower ? FollowerList() : FollowingList(),
                     ],
                   )
                 ],

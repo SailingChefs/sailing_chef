@@ -23,6 +23,7 @@ class BottomCookingInstructions
               textColor: kcBlackColor.withOpacity(0.4),
               prefixIcon: true,
               prefixIconData: Icons.add,
+              
             ),
           ),
         ),
@@ -30,6 +31,7 @@ class BottomCookingInstructions
           onPressed: viewModel.addInstruction,
           buttonText: 'Step',
           prefix: Icons.add,
+          
         ),
       ],
     );

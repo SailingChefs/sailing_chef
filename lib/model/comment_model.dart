@@ -6,7 +6,7 @@ class CommentModel {
   String userName;
   String userImageUrl; // Storing only user ID
   String recipeId;
-  String? content;
+  String content;
   Timestamp timestamp;
   List<String>? imageUrl;
   double? rating;
@@ -41,7 +41,6 @@ class CommentModel {
   }
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'userId': userId,
       'recipeId': recipeId,
       'content': content,

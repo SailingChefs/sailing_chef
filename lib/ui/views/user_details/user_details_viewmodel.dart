@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,8 +7,6 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
-import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 
 class UserDetailsViewModel extends BaseViewModel {
@@ -26,13 +25,15 @@ class UserDetailsViewModel extends BaseViewModel {
 
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
-  String countryValue = "";
+   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
-  String? address;
-
+  String? address ;
+ 
   File? selectedImageFile;
   String? selectedImagePath;
+
+  
 
   Future<void> getImagefromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -48,60 +49,76 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  //
-  void setCountryValue(String value) {
+ 
+  // 
+ void setCountryValue(String value) {
     countryValue = value;
 
     //
     rebuildUi();
+   
   }
 
   void setStateValue(String? value) {
+     
     if (value == 'state*') {
       stateValue = '';
-      cityValue = '';
+    cityValue = '';
+      
+   
+      rebuildUi();
+    
+    }
+    else if( value == 'null'){
+
+      stateValue = '';  
 
       rebuildUi();
-    } else if (value == 'null') {
+    }
+    else if(value == null){
+
       stateValue = '';
 
       rebuildUi();
-    } else if (value == null) {
-      stateValue = '';
-
-      rebuildUi();
-    } else {
-      stateValue = value;
+    }
+    else{
+      stateValue = value!;
       cityValue = '';
       rebuildUi();
     }
+    
 
     rebuildUi();
   }
 
   void setCityValue(String? value) {
+   
     if (value == 'city*') {
       cityValue = '';
-      rebuildUi();
-    } else if (value == 'null') {
+      rebuildUi(); 
+    }
+    else if( value == 'null'){
       cityValue = '';
       rebuildUi();
-    } else if (value == null) {
+    }
+    else if(value == null){
       cityValue = '';
       rebuildUi();
-    } else {
+    }
+    else{
       cityValue = value;
       rebuildUi();
     }
-    if (countryValue != '' && stateValue == '' && cityValue == '') {
-      address = countryValue;
-    }
-    if (countryValue != '' && stateValue != '' && cityValue == '') {
-      address = '$stateValue,$countryValue';
-    }
-    if (cityValue != '' && stateValue != '' && countryValue != '') {
-      address = '$cityValue,$stateValue,$countryValue';
-    }
+    if(countryValue != '' && stateValue == '' && cityValue == ''){
+        address = countryValue;
+      }
+      if(countryValue != '' && stateValue != '' && cityValue == ''){
+        address = '$stateValue,$countryValue';
+      }
+      if(cityValue != '' && stateValue != '' && countryValue != ''){
+        address = '$cityValue,$stateValue,$countryValue';
+      }
+
 
     rebuildUi();
   }
@@ -145,6 +162,8 @@ class UserDetailsViewModel extends BaseViewModel {
     return null;
   }
 
+  
+
   void saveUserDetails() async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
@@ -156,16 +175,20 @@ class UserDetailsViewModel extends BaseViewModel {
         //   showToast(message: 'Please select your location to proceed');
         //   return;
         // }
-        if (countryValue == '') {
-          showToast(message: 'Please select your location to proceed');
-          return;
-        }
+        if( countryValue == ''){
+        showToast(message: 'Please select your location to proceed');
+        return;
       }
+      }
+
 
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
       );
+      
+    
+      
 
       bool userDetailsStatus = await _userService.storeUserDetails(
         {
@@ -173,7 +196,8 @@ class UserDetailsViewModel extends BaseViewModel {
           'bio': bioController.text,
           'link': linkController.text,
           'boat_name': boatNameController.text,
-          'address': address,
+          'address' : address,
+         
           'display_picture': imageLink,
         },
         FirebaseAuth.instance.currentUser!.uid,
@@ -182,14 +206,14 @@ class UserDetailsViewModel extends BaseViewModel {
       if (userDetailsStatus) {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
-          locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              () => BottomNavBarViewModel());
+           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomBarGuestView();
         } else {
-          locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              () => BottomNavBarViewModel());
+           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
+            locator.registerLazySingleton<BottomNavBarViewModel>(
+                () => BottomNavBarViewModel());
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -199,24 +223,30 @@ class UserDetailsViewModel extends BaseViewModel {
       showToast(message: 'Please fill all the fields');
     }
   }
-
-  void saveguestDetails() async {
-    String imageLink = '';
+   void saveguestDetails() async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
-        imageLink =
-            "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg";
-      } else {
-        imageLink = await _userService.uploadImage(
-          selectedImageFile as File,
-          selectedImageFile!.path.split('/').last,
-        );
+        showToast(message: 'Please select image to proceed');
+        return;
       }
+     
+      
+
+
+      final imageLink = await _userService.uploadImage(
+        selectedImageFile as File,
+        selectedImageFile!.path.split('/').last,
+      );
+      
+
+      
 
       bool userDetailsStatus = await _userService.storeUserDetails(
         {
           'display_name': nameController.text,
           'bio': bioController.text,
+          
+         
           'display_picture': imageLink,
         },
         FirebaseAuth.instance.currentUser!.uid,
@@ -256,14 +286,22 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   void skipToHome() {
-    if (userDetails!.userRole == 'guest') {
-      _navigationService.clearStackAndShowView(
-        const BottomBarGuestView(),
-      );
-    } else {
-      _navigationService.clearStackAndShowView(
-        BottomNavBarView(),
-      );
+    if(userDetails!.userRole == 'guest'){
+      _navigationService.replaceWithBottomBarGuestView();
+    }else{
+      _navigationService.replaceWithBottomNavBarView();
     }
   }
+
+  void getBack() {
+    _navigationService.navigateToSignUpView();
+  }
+
+  movetoDropPin() {
+    _navigationService.navigateToPinDropMapView();
+  }
+
+ 
+
+
 }

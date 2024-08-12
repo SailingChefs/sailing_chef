@@ -1,4 +1,3 @@
-import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
@@ -61,8 +60,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                           contentPadding:
                                               const EdgeInsets.all(5),
                                           title: Text(
-                                            capitalizeEachWord(conversation
-                                                .user!.displayName!),
+                                            conversation.user!.displayName!,
                                           ),
                                           subtitle: conversation
                                                       .latestMessageType ==
@@ -77,25 +75,12 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                       color: kcBlackColor
                                                           .withOpacity(0.5)),
                                                 )
-                                              : (conversation.latestMessageType ==
-                                                          'image') ||
-                                                      conversation
-                                                              .latestMessageType ==
-                                                          'file'
-                                                  ? Text(
-                                                      'Sent an attachement',
-                                                      style: TextStyle(
-                                                          color: kcBlackColor
-                                                              .withOpacity(
-                                                                  0.5)),
-                                                    )
-                                                  : Text(
-                                                      style: TextStyle(
-                                                          color: kcBlackColor
-                                                              .withOpacity(
-                                                                  0.5)),
-                                                      'Craete new Message',
-                                                    ),
+                                              : Text(
+                                                  'Sent an attachement',
+                                                  style: TextStyle(
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.5)),
+                                                ),
                                           leading: CircleAvatar(
                                             radius: 30.r,
                                             backgroundImage: NetworkImage(

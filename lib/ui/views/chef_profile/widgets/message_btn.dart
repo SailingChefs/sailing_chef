@@ -27,7 +27,7 @@ class MessageBtuton extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
         width: 155.w,
-        height: MediaQuery.of(context).size.height * 0.05,
+        height: 40.h,
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
               side: BorderSide(

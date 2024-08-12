@@ -27,6 +27,7 @@ class PindropDialogueboxDialog
 
     return GestureDetector(
       onTap: () {
+        
         viewModel.callDeatilsDialog();
       },
       child: Dialog(
@@ -34,109 +35,93 @@ class PindropDialogueboxDialog
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
         alignment: Alignment.bottomRight,
         backgroundColor: kcWhiteColor,
-        child: viewModel.isBusy
-            ? const ShimmerDialog()
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+        child: viewModel.isBusy ? const ShimmerDialog (): 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FittedBox(
+              fit: BoxFit.fitHeight,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(27),
+                    bottomLeft: Radius.circular(27)),
+                child: Image.network(
+                  pinnedLocation.picture.first,
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.26,
+                ),
+              ),
+            ),
+            horizontalSpaceTiny,
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(27),
-                          bottomLeft: Radius.circular(27)),
-                      child: Image.network(
-                        pinnedLocation.picture.first,
-                        fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 0.26,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, top: 15),
+                        child: Text(
+                          pinnedLocation.tags[0],
+                          style: globalTextStyle(
+                            color: kcBlackColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  horizontalSpaceTiny,
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      horizontalSpaceMedium,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, top: 15),
-                              child: Text(
-                                overflow: TextOverflow.ellipsis,
-                                pinnedLocation.tags[0],
-                                style: globalTextStyle(
-                                  color: kcBlackColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
+                            const Icon(
+                              Icons.star,
+                              color: kclightgreencolor,
                             ),
-                            horizontalSpaceMedium,
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: kclightgreencolor,
-                                  ),
-                                  horizontalSpaceSmall,
-                                  Text(
-                                    viewModel
-                                                .calculateAverageRating(
-                                                    viewModel.reviews)
-                                                .toString() ==
-                                            '0.0'
-                                        ? pinnedLocation.rating.toString()
-                                        : viewModel
-                                            .calculateAverageRating(
-                                                viewModel.reviews)
-                                            .toString(),
-                                    style: globalTextStyle(
-                                      color: kcBlackColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
+                            horizontalSpaceSmall,
+                            Text(
+                           viewModel.calculateAverageRating(viewModel.reviews).toString() == '0.0' ? pinnedLocation.rating.toString() : viewModel.calculateAverageRating(viewModel.reviews).toString(),
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 8, top: 6),
-                          width: 230,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  pinnedLocation.name,
-                                  style: globalTextStyle(
-                                    color: kcBlackColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                viewModel.placeMark,
-                                overflow: TextOverflow.ellipsis,
-                                style: globalTextStyle(
-                                  color: kcBlackColor.withOpacity(0.4),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 8, top: 6),
+                    width: 230,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            pinnedLocation.name,
+                            style: globalTextStyle(
+                              color: kcBlackColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          viewModel.placeMark,
+                          overflow: TextOverflow.ellipsis,
+                          style: globalTextStyle(
+                            color: kcBlackColor.withOpacity(0.4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -144,14 +129,17 @@ class PindropDialogueboxDialog
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
       ),
     );
   }
-
   @override
   void onViewModelReady(PindropDialogueboxDialogModel viewModel) {
-    viewModel.onViewModelReady();
+     viewModel.onViewModelReady();
     super.onViewModelReady(viewModel);
+   
   }
 
   @override

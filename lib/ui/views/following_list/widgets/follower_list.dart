@@ -8,7 +8,7 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_followin
 class FollowerList extends ViewModelWidget<FollowingListViewModel> {
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
-    return viewModel.followersUsers.isEmpty
+    return viewModel.followers.isEmpty
         ? Column(
             children: [
               verticalSpaceMassive,
@@ -59,6 +59,32 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   fontWeight: FontWeight.w600,
                                   color: kcBlackColor,
                                 )),
+                            // trailing: SizedBox(
+                            //   width: 80.w,
+                            //   height: 34.h,
+                            //   child: TextButton(
+                            //     style: ButtonStyle(
+                            //       shape: MaterialStatePropertyAll(
+                            //           RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       )),
+                            //       backgroundColor:
+                            //           MaterialStateProperty.all<Color>(
+                            //               kcPrimaryColor),
+                            //     ),
+                            //     onPressed: () {
+                            //       viewModel.deleteFollower(
+                            //           viewModel.followersUsers[index]);
+                            //     },
+                            //     child: Text(
+                            //       'Remove',
+                            //       style: TextStyle(
+                            //           color: kcwhitecolor,
+                            //           fontSize: 14.sp,
+                            //           fontWeight: FontWeight.w500),
+                            //     ),
+                            //   ),
+                            // ),
                           );
                         },
                       ),

@@ -31,6 +31,7 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
     return RoundedTransparentTextField(
       readOnly: readOnly!,
       labelText: '',
+    
       validator: validator,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,

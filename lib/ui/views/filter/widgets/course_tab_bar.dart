@@ -17,7 +17,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               fontWeight: FontWeight.w500),
         ),
         verticalSpaceSmall,
-        // Wrap(),
         FittedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,17 +24,17 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleTabMainCourse(0);
-                  // viewModel.breakfastSelected();
+                  viewModel.breakfastSelected();
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
                     color: viewModel.selectedTabMainCourse == 'breakfast'
-                        ? kcPrimaryColor
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -62,13 +61,13 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
                     color: viewModel.selectedTabMainCourse == 'lunch'
-                        ? kcPrimaryColor
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -91,17 +90,17 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleTabMainCourse(2);
-                  viewModel.dinnerSelected();
+                  viewModel.lunchSelected();
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 22.dg, vertical: 12.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
                     color: viewModel.selectedTabMainCourse == 'dinner'
-                        ? kcPrimaryColor
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -135,13 +134,13 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.isStarterSelected
-                        ? kcPrimaryColor
+                    color: viewModel.selectedTabSub == 'starter'
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -151,7 +150,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Starter',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.isStarterSelected
+                          color: viewModel.selectedTabSub == 'starter'
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -168,13 +167,13 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.isCanapeSelected
-                        ? kcPrimaryColor
+                    color: viewModel.selectedTabSub == 'canape'
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -184,7 +183,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Canapé',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.isCanapeSelected
+                          color: viewModel.selectedTabSub == 'canape'
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -201,13 +200,13 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.isSideSelected
-                        ? kcPrimaryColor
+                    color: viewModel.selectedTabSub == 'side'
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -217,7 +216,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Side',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.isSideSelected
+                          color: viewModel.selectedTabSub == 'side'
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -234,13 +233,13 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 12.dg),
+                      EdgeInsets.symmetric(horizontal: 20.dg, vertical: 13.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.isSweetSelected
-                        ? kcPrimaryColor
+                    color: viewModel.selectedTabSub == 'sweet'
+                        ? kcPrimaryColorDark
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
                   child: Column(
@@ -250,7 +249,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Sweet',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.isSweetSelected
+                          color: viewModel.selectedTabSub == 'sweet'
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -261,7 +260,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

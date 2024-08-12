@@ -112,9 +112,9 @@ class ShimmerLoaderChefView extends StatelessWidget {
         verticalSpaceMedium,
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 7.5 / 9,
-          ),
+              crossAxisCount: 2,
+              childAspectRatio: 7.5/9,
+            ),
           itemBuilder: (context, index) =>
               ShimmerContainer(height: 20.h, width: 30.w),
           itemCount: 6,

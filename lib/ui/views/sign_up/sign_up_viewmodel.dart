@@ -1,10 +1,10 @@
-// ignore_for_file: deprecated_member_use
-import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:flutter/material.dart';
+import 'package:sailing_chefs/app/app.locator.dart';
+import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final _nameController = TextEditingController();
@@ -22,7 +22,9 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   TextEditingController get textController => _nameController;
+
   TextEditingController get passwordController => _passwordController;
+
   TextEditingController get emailController => _emailController;
 
   final _navigationService = locator<NavigationService>();
@@ -62,9 +64,9 @@ class SignUpViewModel extends BaseViewModel {
         : 'Password must be at least 8 characters long';
   };
 
-  void signup(BuildContext context) async {
+  void signup() async {
     if (formKey.currentState?.validate() ?? false) {
-      await _authService.signUp(
+      bool userRegistered = await _authService.signUp(
           password: passwordController.text.trim(),
           userModel: UserModel(
             displayName: textController.text.trim(),
@@ -81,10 +83,14 @@ class SignUpViewModel extends BaseViewModel {
             savedRecipes: [],
             blockedAccounts: [],
           ));
-
-      _navigationService.replaceWithLoginView();
+      if (userRegistered) {
+        _navigationService.replaceWithUserDetailsView(
+            userRole: selectedSignUpAs);
+      } else {
+        _navigationService.replaceWithSignUpView();
+      }
     } else {
-      _navigationService.replaceWithLoginView();
+      _navigationService.replaceWithSignUpView();
     }
   }
 

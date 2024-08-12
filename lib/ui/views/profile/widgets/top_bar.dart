@@ -1,8 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
-class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel>
-    implements PreferredSizeWidget {
+class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel> implements PreferredSizeWidget {
   const TopBarProfileScreen({super.key});
 
   @override
@@ -55,7 +54,8 @@ class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel>
       ],
     );
   }
-
+  
   @override
+
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

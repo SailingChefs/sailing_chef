@@ -17,11 +17,11 @@ class ProfilePictureUserDetailsScreen
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
+                  child: const Center(
                       child: CircleAvatar(
                     backgroundColor: kcwhitecolor,
-                    radius: MediaQuery.of(context).size.width * 0.18,
-                    backgroundImage: const AssetImage(
+                    radius: 70,
+                    backgroundImage: AssetImage(
                       'assets/images/icons/imageicon.png',
                     ),
                   )))

@@ -9,6 +9,7 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
   @override
   Widget build(BuildContext context, BecomechefViewModel viewModel) {
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -38,14 +39,16 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                     flagState: CountryFlag.DISABLE,
 
                     dropdownDecoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      color: kcPrimaryColor.withOpacity(0.09),
-                    ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: kcPrimaryColor.withOpacity(0.09),
+                       ),
 
                     disabledDropdownDecoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      color: kcPrimaryColor.withOpacity(0.09),
-                    ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: kcPrimaryColor.withOpacity(0.09),
+                       ),
 
                     ///placeholders for dropdown search field
                     countrySearchPlaceholder: "Country",
@@ -65,16 +68,15 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
                     ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                     dropdownHeadingStyle: globalTextStyle(
-                      color: kcBlackColor.withOpacity(0.6),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
+                        color: kcBlackColor.withOpacity(0.6),
+                        fontSize: 14.sp,
+                       fontWeight: FontWeight.w500,),
 
                     ///DropdownDialog Item style [OPTIONAL PARAMETER]
                     dropdownItemStyle: globalTextStyle(
                       color: kcBlackColor.withOpacity(0.6),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                       fontWeight: FontWeight.w500,
                     ),
 
                     dropdownDialogRadius: 10.0,
@@ -94,7 +96,6 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                   ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
-                    100.w,
                     onPressed: () {
                       viewModel.saveEditDetails();
                     },

@@ -49,69 +49,62 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
               color: kcBlackColor.withOpacity(0.87),
             ),
           ),
-          verticalSpaceLarge,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  viewModel.discardButton();
-                  completer!(SheetResponse(confirmed: true));
-                },
-                child: Container(
-                  height: 40,
-                  width: 170,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  decoration: BoxDecoration(
-                      color: kcWhiteColor,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(
-                        color: kcErrorColor,
-                      )),
-                  child: Center(
-                    child: Text(
-                      'Discard',
-                      style: globalTextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: kcPrimaryColorDark,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  completer!(SheetResponse(confirmed: true));
-                  viewModel.saveButton(recipe, images, path);
-                },
-                child: Container(
-                  height: 40,
-                  width: 170,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  decoration: BoxDecoration(
-                    color: kcPrimaryColor,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save drafts',
-                      style: globalTextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: kcWhiteColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
           verticalSpaceMedium,
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            GestureDetector(
+              onTap: viewModel.discardButton,
+              child: Container(
+                height: 40,
+                width: 170,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                    color: kcWhiteColor,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      color: kcErrorColor,
+                    )),
+                child: Center(
+                  child: Text(
+                    'Discard',
+                    style: globalTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: kcPrimaryColorDark,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                completer!(SheetResponse(confirmed: true));
+                viewModel.saveButton(recipe, images, path);
+              },
+              child: Container(
+                height: 40,
+                width: 170,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: kcPrimaryColor,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Center(
+                  child: Text(
+                    'Save drafts',
+                    style: globalTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: kcWhiteColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ])
         ],
       ),
     );
@@ -119,5 +112,5 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
 
   @override
   DiscardSheetModel viewModelBuilder(BuildContext context) =>
-      DiscardSheetModel(recipe: request.data['model']);
+      DiscardSheetModel();
 }
