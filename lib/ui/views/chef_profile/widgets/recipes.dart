@@ -18,8 +18,8 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: kcBlackColor)),
-
-            ),)
+            ),
+          )
 
         // : Column(
         //   children: [
@@ -43,7 +43,7 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
         //                 delegate: SliverChildBuilderDelegate(
         //                   (BuildContext context, int index) {
         //                     return PrimaryGridTile(
-            
+
         //                       chefId: viewModel.chefRecipes![index].user!.uid!,
         //                       rating: calculateAverageRating(viewModel.chefRecipes![index].comment!),
 
@@ -71,7 +71,6 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
         // )
         : Padding(
             padding: const EdgeInsets.all(8.0),
-
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
               return ShrinkWrappingViewport(
@@ -89,13 +88,11 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PrimaryGridTile(
-
                           chefId: viewModel.chefRecipes[index].user!.uid!,
                           rating: viewModel.chefRecipes[index].rating,
                           recipe: viewModel.chefRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
-                          foodImagePath: viewModel
-                              .chefRecipes[index].coverImage
+                          foodImagePath: viewModel.chefRecipes[index].coverImage
                               .where((element) => element.contains('.jpg'))
                               .first,
                           dishName: viewModel.chefRecipes[index].title,
@@ -110,7 +107,6 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 ],
               );
             }),
-
           );
   }
 }

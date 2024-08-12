@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
@@ -27,14 +26,14 @@ class ListViewCulinaryChool
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: kcPrimaryColor.withOpacity(0.07),
-                     boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.04),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.04),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                     // boxShadow: [
                     //   BoxShadow(
                     //     // color: kcBlackColor.withOpacity(0.09),
@@ -58,17 +57,21 @@ class ListViewCulinaryChool
                           child: viewModel
                                   .cullinary[index].displayPicture!.isEmpty
                               ? const Icon(Icons.school)
-                              :   CachedNetworkImage(
-                               imageUrl: viewModel.cullinary[index].displayPicture!,
-                               height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
-                               fit: BoxFit.cover,
-                               width: double.maxFinite,
-                               progressIndicatorBuilder: (context, url, progress) => Container(
-                                 decoration: const BoxDecoration(
-                                   color: kcsgreycolor,
-                                 ),
-                               ),
-                                          ),
+                              : CachedNetworkImage(
+                                  imageUrl: viewModel
+                                      .cullinary[index].displayPicture!,
+                                  height: MediaQuery.sizeOf(context).height *
+                                          0.25.h -
+                                      56.h,
+                                  fit: BoxFit.cover,
+                                  width: double.maxFinite,
+                                  progressIndicatorBuilder:
+                                      (context, url, progress) => Container(
+                                    decoration: const BoxDecoration(
+                                      color: kcsgreycolor,
+                                    ),
+                                  ),
+                                ),
                         ),
                       ),
                       Padding(
@@ -95,15 +98,16 @@ class ListViewCulinaryChool
                                         SizedBox(
                                           width: 170.w,
                                           child: Text(
-                                            viewModel
-                                                .cullinary[index].namedLocation!,
+                                            viewModel.cullinary[index]
+                                                .namedLocation!,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style: globalTextStyle(
                                               letterSpacing: -0.3,
-                                              
-                                              fontSize: viewModel.cullinary[index]
-                                                          .namedLocation!.length >
+                                              fontSize: viewModel
+                                                          .cullinary[index]
+                                                          .namedLocation!
+                                                          .length >
                                                       20
                                                   ? 12.sp
                                                   : 14.sp,

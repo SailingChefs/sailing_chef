@@ -1,17 +1,24 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class DropPinSheetSheetModel extends BaseViewModel {
+  final bool isNew;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Function(SheetResponse response)? completer;
-  DropPinSheetSheetModel(this.completer, {required this.location});
-  final LatLng location;
+  DropPinSheetSheetModel(this.completer, this.location, {required this.isNew});
+  PinnedLocationData location;
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
   List<XFile>? selectedImageFile;
   String? selectedImagePath;
   final ImagePicker picker = ImagePicker();
@@ -32,21 +39,33 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? descriptionError;
   Future<void> savePinDrop() async {
     if (formKey.currentState!.validate()) {
-      imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
-      image = imageUrls!.first;
+      final place = await getCityCountry(
+          location.location!.latitude, location.location!.longitude);
+      if (selectedImageFile != null) {
+        imageUrls =
+            await _navigationpinService.uploadImages(selectedImageFile!);
+      }
+
       PinnedLocation pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
+        uid: userDetails!.uid,
+        place: place,
         createdTime: Timestamp.now(),
         description: description.text,
         email: email.text,
         link: link.text,
         name: name.text,
-        picture: imageUrls!,
+        picture: imageUrls ?? [],
         tags: selectedTabSelections,
-        location: GeoPoint(location.latitude, location.longitude),
+        location:
+            GeoPoint(location.location!.latitude, location.location!.longitude),
         rating: ratings,
+        // place: place,
       );
-      await _navigationpinService.savePinnedLocation(pinnedLocation);
+
+      isNew
+          ? await _navigationpinService.savePinnedLocation(pinnedLocation)
+          : await _navigationpinService.saveEditPin(pinnedLocation);
       name.text = '';
       email.text = '';
       link.text = '';
@@ -54,16 +73,33 @@ class DropPinSheetSheetModel extends BaseViewModel {
       description.text = '';
       selectedImagePath = '';
       selectedTabSelections = [];
-      imageUrls!.clear();
+      // imageUrls!.clear();
       ratings = 0;
       reset();
       completer!(SheetResponse(data: true));
-    }else if (imageUrls == null) {
+    } else if (imageUrls == null) {
       showToast(message: 'Please upload image!');
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
+    } else if (ratings == 0) {
+      showToast(message: 'Please add ratings!');
     } else {}
-    
+  }
+
+  Future<String> getCityCountry(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      // ignore: unnecessary_null_comparison
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        return ' ${placemark.locality}, ${placemark.country}';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
+      return 'Unknown';
+    }
   }
 
   void toggleTagsVisibility() {
@@ -94,7 +130,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
     // ignore: unnecessary_null_comparison
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
-      
+
       selectedImagePath = selectedImageFile!.first.path;
       notifyListeners();
       rebuildUi();
@@ -166,5 +202,27 @@ class DropPinSheetSheetModel extends BaseViewModel {
   void setDescriptionError(String? s) {
     descriptionError = s;
     notifyListeners();
+  }
+
+  void onViewModelReady() {
+    if (location.pinnedLocation != null) {
+      link.text = location.pinnedLocation!.link;
+      name.text = location.pinnedLocation!.name;
+      email.text = location.pinnedLocation!.email;
+      phone.text = location.pinnedLocation!.contactNumber;
+      description.text = location.pinnedLocation!.description;
+      selectedImagePath = location.pinnedLocation!.picture.first;
+      selectedTabSelections = location.pinnedLocation!.tags;
+      ratings = location.pinnedLocation!.rating;
+    }
+  }
+
+  void deletePin() {
+    _dialogService.showCustomDialog(
+      variant: DialogType.deletePin,
+      title: location.pinnedLocation!.id!,
+    );
+
+    rebuildUi();
   }
 }

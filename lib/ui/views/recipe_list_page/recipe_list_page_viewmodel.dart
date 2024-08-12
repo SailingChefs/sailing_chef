@@ -1,5 +1,3 @@
-
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 
@@ -7,21 +5,18 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
 
-
 class RecipeListPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final bool isFromDraft;
   RecipeListPageViewModel({required this.isFromDraft});
   final RecipeService _recipeService = locator<RecipeService>();
-  List<RecipeModel> recipes =[];
+  List<RecipeModel> recipes = [];
   void onViewModelReady() async {
     setBusy(true);
 
-    //  myRecipesList();
-
     recipes =
         await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
-    
+
     setBusy(false);
   }
 
@@ -38,23 +33,26 @@ class RecipeListPageViewModel extends BaseViewModel {
   //   }
   // }
   void toHomeView() async {
-    if(isFromDraft){
-      _navigationService.clearStackAndShowView(const BottomNavBarView());
+    if (isFromDraft) {
+      _navigationService.clearStackAndShowView(BottomNavBarView());
       // _navigationService.replaceWithBottomNavBarView();
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
-    _navigationService.back();
+    _navigationService.clearStackAndShowView(BottomNavBarView());
   }
 
-
-
   void onPopInvoked(bool didPop) async {
-    if(isFromDraft){
-      _navigationService.clearStackAndShowView(const BottomNavBarView());
+    if (isFromDraft) {
+      _navigationService.clearStackAndShowView(BottomNavBarView());
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
     _navigationService.back(result: true);
+  }
+
+  toDishDetailsScreen(RecipeModel recipe) {
+    _navigationService.navigateToSavedRecipeDetailsView(
+        recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
   }
 }

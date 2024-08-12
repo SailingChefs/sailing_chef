@@ -12,8 +12,9 @@ import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:stacked/stacked.dart';
 
-class ConversationService {
+class ConversationService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
 
   Future<String> createOrUpdateConversation(
@@ -55,26 +56,22 @@ class ConversationService {
       return conversationId;
     } catch (error) {
       log('Error managing conversation: $error');
-      return conversationId; // Return the initialized but possibly still empty ID
+      return conversationId;
     }
   }
-
- 
-
- 
 
   Stream<List<ConversationModel>> getConversations() {
     log(FirebaseAuth.instance.currentUser!.uid);
     return firebasestore
         .collection('conversations')
-        .where('users', arrayContains:firebaseAuth.currentUser!.uid)
+        .where('users', arrayContains: firebaseAuth.currentUser!.uid)
         .snapshots()
         .asyncMap((QuerySnapshot querySnapshot) async {
       List<ConversationModel> conversations = [];
       for (var doc in querySnapshot.docs) {
         List<String> users = List<String>.from(doc.get('users'));
-        String otherUserId = users
-            .firstWhere((id) => id != firebaseAuth.currentUser!.uid);
+        String otherUserId =
+            users.firstWhere((id) => id != firebaseAuth.currentUser!.uid);
         UserModel? otherUser = await _userService.fetchUserByUID(otherUserId);
         conversations.add(ConversationModel.fromDocument(doc, otherUser));
       }
@@ -173,8 +170,6 @@ class ConversationService {
     final CollectionReference messagesCollection =
         conversationsCollection.doc(conversationId).collection('messages');
 
-    
-
     if (imageUrl != null) {
       message.content = imageUrl;
     }
@@ -200,7 +195,6 @@ class ConversationService {
 
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
-      
       Reference ref =
           firebaseStorage.ref().child('conversationImages/$fileName');
 
@@ -210,13 +204,12 @@ class ConversationService {
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       return downloadUrl;
-      
     } catch (e) {
-
       showToast(message: 'Error uploading image: $e');
       return '';
     }
   }
+
   int? lastIndex;
   Stream<List<MessageModel>> getMessages(String conversationId) async* {
     try {

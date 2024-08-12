@@ -1,7 +1,18 @@
 import 'package:geocoding/geocoding.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
-UserModel? userDetails;
-List<Placemark>? placemarks;
+import '../model/shopping_list_model.dart';
 
-String apiKey = "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk";
+UserModel? userDetails;
+List<RecipeModel> savedRecipesGlobal = [];
+List<Placemark>? placemarks;
+late ShoppingListModel userShoppingList;
+
+//
+List<RecipeModel> selectedRecipees = <RecipeModel>[];
+
+Map<String, Map<String, dynamic>> shoppingRecipeeIngredient = {};
+List<dynamic> recipeeDatails = [];
+
+Map<String, Map<String, dynamic>> showShoppingListview = {};

@@ -6,9 +6,12 @@ class ShimmerChef extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: SizedBox(
-        height: MediaQuery.sizeOf(context).height * 0.3.h,
+        height:
+            screenHeight <= 680.0 ? screenHeight * 0.25 : screenHeight * 0.27,
         width: double.maxFinite,
         child: ListView.builder(
           itemCount: 4,
@@ -19,7 +22,7 @@ class ShimmerChef extends StatelessWidget {
               baseColor: Colors.grey.withOpacity(0.2),
               highlightColor: Colors.white,
               child: Container(
-                width: 160.w,
+                width: screenWidth * 0.43,
                 decoration: BoxDecoration(
                   color: kcwhitecolor,
                   boxShadow: [

@@ -46,7 +46,6 @@ class ForgetPasswordView extends StackedView<ForgetPasswordViewModel> {
                   SingleChildScrollView(
                     child: Column(
                       children: [
-                        
                         Text(
                           'Forget Password',
                           style: globalTextStyle(

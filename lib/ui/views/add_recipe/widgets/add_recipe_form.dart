@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/chefs_notes.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/cooking_instructions.dart';
@@ -27,21 +29,24 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         RecipeTitle(drafts),
         verticalSpace(20.h),
         CoverPictureSelector(drafts),
-       verticalSpace(20.h),
+        verticalSpace(20.h),
         ServingQuantity(drafts),
-       verticalSpace(20.h),
+        verticalSpace(20.h),
         Ingredients(drafts),
-       verticalSpace(20.h),
+        verticalSpace(20.h),
         CookingInstructions(drafts),
-       verticalSpace(20.h),
+        verticalSpace(20.h),
         PrepTime(drafts),
-       verticalSpace(20.h),
+        verticalSpace(20.h),
         AddFilters(drafts),
         verticalSpace(20.h),
         ChefsNote(drafts),
         verticalSpace(20.h),
         SaveRecipeButton(
-          onPressed: viewModel.previewRecipe,
+          onPressed: () {
+            // log(drafts?.servingSize.toString() ?? "no serving size");
+            viewModel.previewRecipe();
+          },
           buttonText: 'Preview ',
           postfix: Icons.remove_red_eye_outlined,
         ),

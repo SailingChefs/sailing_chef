@@ -11,12 +11,15 @@ import '../ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
 import '../ui/dialogs/block_account/block_account_dialog.dart';
 import '../ui/dialogs/course_saved/course_saved_dialog.dart';
 import '../ui/dialogs/delete_account/delete_account_dialog.dart';
+import '../ui/dialogs/delete_pin/delete_pin_dialog.dart';
 import '../ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
+import '../ui/dialogs/enter_pass/enter_pass_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/pindetails/pindetails_dialog.dart';
 import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import '../ui/dialogs/rate_experience/rate_experience_dialog.dart';
 import '../ui/dialogs/reviews_all/reviews_all_dialog.dart';
+import '../ui/dialogs/role_dialog/role_dialog_dialog.dart';
 import '../ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
 import '../ui/dialogs/success/success_dialog.dart';
 
@@ -33,6 +36,9 @@ enum DialogType {
   reviewsAll,
   success,
   addpindropshow,
+  enterPass,
+  deletePin,
+  roleDialog,
 }
 
 void setupDialogUi() {
@@ -63,6 +69,12 @@ void setupDialogUi() {
         SuccessDialog(request: request, completer: completer),
     DialogType.addpindropshow: (context, request, completer) =>
         AddpindropshowDialog(request: request, completer: completer),
+    DialogType.enterPass: (context, request, completer) =>
+        EnterPassDialog(request: request, completer: completer),
+    DialogType.deletePin: (context, request, completer) =>
+        DeletePinDialog(request: request, completer: completer),
+    DialogType.roleDialog: (context, request, completer) =>
+        RoleDialogDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

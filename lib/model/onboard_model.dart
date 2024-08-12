@@ -23,7 +23,11 @@ class OnboardModel {
       } else {
         formattedSpans.add(TextSpan(
           text: part,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: globalTextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
+              letterSpacing: -0.3,
+              height: 1.5),
         ));
       }
     }
@@ -33,11 +37,11 @@ class OnboardModel {
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
-        style: TextStyle(
-            fontSize: 16.sp,
+        style: globalTextStyle(
+            fontSize: 15.sp,
             fontWeight: FontWeight.w400,
             color: kcWhiteColor,
-            fontFamily: 'Inter'),
+            letterSpacing: -0.3),
         children: formattedSpans,
       ),
     );

@@ -3,7 +3,9 @@ import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_she
 
 class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
   final Function(SheetResponse response)? completer;
-  const ButtonsPindrop({super.key, required this.completer});
+  final bool isNew;
+  const ButtonsPindrop(
+      {super.key, required this.completer, required this.isNew});
 
   @override
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {
@@ -37,9 +39,10 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
             height: 42,
             width: 185,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: filterIconColor),
+                borderRadius: BorderRadius.circular(30),
+                color: filterIconColor),
             child: TextButton(
-              onPressed: () async{
+              onPressed: () async {
                 await viewModel.savePinDrop();
               },
               child: Text(

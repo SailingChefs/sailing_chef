@@ -6,11 +6,9 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
-import 'package:stacked_services/src/dialog/dialog_service.dart';
-import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../core/imports/core_imports.dart';
 import '../services/auth_service.dart';
 import '../services/bitmap_image_service.dart';
 import '../services/block_user_service.dart';
@@ -24,6 +22,7 @@ import '../services/pin_drop_service.dart';
 import '../services/recipe_service.dart';
 import '../services/saved_recipe_service.dart';
 import '../services/search_service.dart';
+import '../services/shopping_list_service.dart';
 import '../services/user_services.dart';
 import '../services/userdata_service_service.dart';
 import '../ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
@@ -48,6 +47,8 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => ConversationService());
   locator.registerLazySingleton(() => ChefService());
+  locator.registerLazySingleton(() => ShoppingListService());
+  locator.registerLazySingleton(() => SnackbarService());
   locator.registerLazySingleton(() => UserdataServiceService());
   locator.registerLazySingleton(() => BottomNavBarViewModel());
   locator.registerLazySingleton(() => CommentService());

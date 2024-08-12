@@ -2,7 +2,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
@@ -53,15 +53,17 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                             children: [
                               Container(
                                 // height: 50,
-                                width: MediaQuery.sizeOf(context).width * 0.75.w,
+                                width:
+                                    MediaQuery.sizeOf(context).width * 0.66.w,
                                 padding: EdgeInsets.all(10.dg),
                                 decoration: BoxDecoration(
                                   color: kcPrimaryColor.withOpacity(0.08),
-                                  borderRadius:  BorderRadius.all(
-                                      Radius.circular(30.dg)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30.dg)),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -73,17 +75,19 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                           '${ingredient.quantity} ${ingredient.unit}',
                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(
-                                              fontSize: 14.sp,
-                                              letterSpacing: -0.5,
-                                              fontWeight: FontWeight.w500,
-                                              color: kcBlackColor.withOpacity(0.8),
-                                              ),
+                                            fontSize: 14.sp,
+                                            letterSpacing: -0.5,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                kcBlackColor.withOpacity(0.8),
+                                          ),
                                         ),
                                       ),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(right: 30.0),
                                         child: Text(
+                                          textAlign: TextAlign.right,
                                           capitalizeEachWord(ingredient.name),
                                           overflow: TextOverflow.ellipsis,
                                           style: globalTextStyle(
@@ -98,16 +102,29 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                   ),
                                 ),
                               ),
+                              horizontalSpaceTiny,
+                              GestureDetector(
+                                onTap: () {
+                                  // viewModel.ingredientsList.removeAt(index);
+                                  // viewModel.notifyListeners();
+                                  viewModel.editIngredient( viewModel.ingredientsList[index]);
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/misc/edit.svg',
+                                  height: 20,
+                                ),
+                              ),
+                              horizontalSpaceSmall,
                               GestureDetector(
                                 onTap: () {
                                   viewModel.ingredientsList.removeAt(index);
                                   viewModel.notifyListeners();
                                 },
-                                 child: SvgPicture.asset(
-                                'assets/images/misc/bin.svg',
-                                height: 16.h,
-                                width: 14.w,
-                              ),
+                                child: SvgPicture.asset(
+                                  'assets/images/misc/bin.svg',
+                                  height: 16.h,
+                                  width: 14.w,
+                                ),
                               ),
                             ],
                           ),
@@ -117,43 +134,41 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                     },
                   ),
                   GestureDetector(
-                onTap: (){
+                    onTap: () {
                       viewModel.callIngredientsBottomSheet;
                       List<Ingredient> ingredients = viewModel.ingredientsList;
                       viewModel.addIngredients(ingredients);
-                  
-                },
-                child: Container(
-                  // height: 50.h,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: kcPrimaryColor.withOpacity(0.08),
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
+                    },
+                    child: Container(
+                      height: 50.h,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: kcPrimaryColor.withOpacity(0.08),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.dg,
-                          )),
-                      horizontalSpaceSmall,
-                      Text(
-                        'Add Ingredient',
-                        style: globalTextStyle(
-                          fontSize: 12.sp,
-                          letterSpacing: -0.5,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.5),
-                        ),
+                            size: 22.dg,
+                          ),
+                          horizontalSpaceSmall,
+                          Text(
+                            'Add Ingredient',
+                            style: globalTextStyle(
+                              fontSize: 12.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor.withOpacity(0.5),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
                 ],
               )
             : GestureDetector(
@@ -173,7 +188,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.dg,
+                            size: 22.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(

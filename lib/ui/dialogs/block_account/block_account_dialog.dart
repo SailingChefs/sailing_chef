@@ -18,25 +18,26 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
     BlockAccountDialogModel viewModel,
     Widget? child,
   ) {
-    
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
       backgroundColor: kcWhiteColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               "Are you Sure you want to block this account?",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w900,
+              style: globalTextStyle(
+                fontSize: 15.sp,
+                color: kcBlackColor,
+                fontWeight: FontWeight.w500,
               ),
             ),
             verticalSpaceMedium,
+            verticalSpaceTiny,
             FittedBox(
               child: Row(
                 children: [
@@ -49,19 +50,19 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: const Color(0xFF1E5D6D)),
+                        border: Border.all(color: kcPrimaryColor),
                       ),
                       child: const Text(
                         'No',
                         style: TextStyle(
-                          color: Color(0xFF1E5D6D),
+                          color: kcPrimaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                     ),
                   ),
-                  horizontalSpaceSmall,
+                  horizontalSpaceMedium,
                   GestureDetector(
                     onTap: () {
                       viewModel.blockAccount(request.data);
@@ -71,7 +72,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                       width: screenWidth(context) * 0.4,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1E5D6D),
+                        color: kcPrimaryColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: const Text(

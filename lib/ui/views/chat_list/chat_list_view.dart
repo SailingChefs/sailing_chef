@@ -26,6 +26,8 @@ class ChatListView extends StackedView<ChatListViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const TopBarChatListScreen(),
+                      // verticalSpaceMedium,
+                      // const SearchBarAllChatsScreen(),
                       verticalSpaceMedium,
                       const ChatListScreen(),
                     ],
@@ -34,6 +36,11 @@ class ChatListView extends StackedView<ChatListViewModel> {
           );
   }
 
+  // @override
+  // onViewModelReady(ChatListViewModel viewModel) {
+  //   viewModel.onViewModelReady();
+  //   super.onViewModelReady(viewModel);
+  // }
   @override
   ChatListViewModel viewModelBuilder(
     BuildContext context,

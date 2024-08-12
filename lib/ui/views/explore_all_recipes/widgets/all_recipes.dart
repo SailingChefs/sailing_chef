@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
@@ -9,6 +10,7 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
+    recipes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
     return recipes.isEmpty
         ? const Center(child: Text('No Recipe Found'))
         : SizedBox(
@@ -23,25 +25,23 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 mainAxisSpacing: 18.0,
                 childAspectRatio: 7.4 / 9,
               ),
-             
-
-            itemBuilder: (BuildContext context, int index) {
-              return PrimaryGridTile(
-                chefId: recipes[index].user!.uid!,
-                  rating: recipes[index].rating,
-                  recipe: recipes[index],
-                  onTap: () => viewModel
-                      .toDishDetailsScreen(recipes[index]),
-                  foodImagePath: recipes[index].coverImage
-                      .where((element) => element.contains('.jpg'))
-                      .first,
-                  dishName: recipes[index].title,
-                  duration: recipes[index].prepTime,
-                  chefImagePath:recipes[index].user!.displayPicture != null ? 
-                     recipes[index].user!.displayPicture! : '');
-            },
-          ),
-        );
-
+              itemBuilder: (BuildContext context, int index) {
+                return PrimaryGridTile(
+                    chefId: recipes[index].user!.uid!,
+                    rating: recipes[index].rating,
+                    recipe: recipes[index],
+                    onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
+                    foodImagePath: recipes[index]
+                        .coverImage
+                        .where((element) => element.isFirebaseImageUrl)
+                        .first,
+                    dishName: recipes[index].title,
+                    duration: recipes[index].prepTime,
+                    chefImagePath: recipes[index].user!.displayPicture != null
+                        ? recipes[index].user!.displayPicture!
+                        : '');
+              },
+            ),
+          );
   }
 }

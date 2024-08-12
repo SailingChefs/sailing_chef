@@ -20,23 +20,31 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: [
-          viewModel.followers.contains(firebaseAuth.currentUser!.uid)
+          // viewModel.followers.contains(firebaseAuth.currentUser!.uid)
+          viewModel.isFollowing
               ? FollowBtuton(
-                  onPressed: () => viewModel.onFollow(user),
+                  onPressed: () {
+                    // viewModel.onFollow(user);
+                    viewModel.addRemoveFollower('following', user);
+                  },
                   buttonText: 'Following',
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 )
               : FollowBtuton(
-                  onPressed: () => viewModel.onFollow(user),
+                  onPressed: () {
+                    viewModel.addRemoveFollower('follower', user);
+
+                    // => viewModel.onFollow(user)
+                  },
                   buttonText: 'Follow',
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 ),
           // horizontalSpaceTiny,
           MessageBtuton(
-            onPressed: () {
-              viewModel.moveToChatScreen(user);
+            onPressed: ()async  {
+             await viewModel.moveToChatScreen(user);
             },
             buttonText: 'Message',
             fontSize: 14.sp,

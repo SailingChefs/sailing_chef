@@ -1,4 +1,3 @@
-
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -58,7 +57,7 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        Text(
           "Method",
           style: globalTextStyle(
             fontSize: 15.0.sp,
@@ -68,7 +67,6 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
         ),
         verticalSpaceMedium,
         ...createIngredientWidgets(),
-      
       ],
     );
   }

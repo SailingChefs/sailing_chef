@@ -1,7 +1,9 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 
-import 'widgets/ingredients_class.dart';
+import '../../../model/ingredients_model.dart';
+
+import '../../../main.dart';
 
 class AddIngredientsSheetModel extends BaseViewModel {
   final Function(SheetResponse response)? completer;
@@ -33,7 +35,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void onSaved() {
-    if (completer != null) {
+    if (completer != null && ingredientsList.isNotEmpty) {
       completer!(SheetResponse(
           confirmed: true,
           data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
@@ -41,13 +43,17 @@ class AddIngredientsSheetModel extends BaseViewModel {
   }
 
   void addIngredientToList() {
-    if (selectedValue != '---' && ingredientNameController.text.isNotEmpty) {
+    if (selectedValue != '---' &&
+        ingredientNameController.text.isNotEmpty &&
+        quantityController.text.isNotEmpty) {
       ingredientsList.insert(
           0,
           Ingredient(
+              serving: 1,
               name: ingredientNameController.text,
               unit: selectedValue,
-              quantity: quantityController.text));
+              quantity: quantityController.text,
+              id: uuid.v4()));
       quantityController.clear();
       ingredientNameController.clear();
       selectedValue = '---';
@@ -61,11 +67,17 @@ class AddIngredientsSheetModel extends BaseViewModel {
 
   void addIngredients(String name, String quantity, int index) {
     ingredientsList.insert(
-        index, Ingredient(name: name, quantity: quantity, unit: '---'));
+        index,
+        Ingredient(
+            serving: 1, name: name, quantity: quantity, unit: '---', id: ''));
     notifyListeners();
   }
 
   void toDishDetailsScreen() {
+    _navigationService.back();
+  }
+
+  void back() {
     _navigationService.back();
   }
 }

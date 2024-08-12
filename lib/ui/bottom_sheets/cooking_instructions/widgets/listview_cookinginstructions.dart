@@ -12,18 +12,19 @@ class ListViewCookingInstructions
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: viewModel.instructionsList.length,
-        physics:const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final instruction = viewModel.instructionsList[index];
           return Padding(
-            padding: const EdgeInsets.only(left:25.0,right: 0,top: 15,bottom: 15),
+            padding: const EdgeInsets.only(
+                left: 25.0, right: 0, top: 15, bottom: 15),
             child: Align(
               alignment: Alignment.center,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Step ${index + 1}',
+                    'Step ${viewModel.instructionsList.length}',
                     style: TextStyle(
                         fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
                   ),

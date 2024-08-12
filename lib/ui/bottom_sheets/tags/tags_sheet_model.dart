@@ -153,13 +153,27 @@ class TagsSheetModel extends BaseViewModel {
   void handleTabMainCourse(int index) {
     switch (index) {
       case 0:
-        selectedTabMainCourse = 'breakfast';
+        if (selectedTabMainCourse == 'breakfast') {
+          selectedTabMainCourse = '';
+        } else {
+          selectedTabMainCourse = 'breakfast';
+        }
+
         break;
       case 1:
-        selectedTabMainCourse = 'lunch';
+        if (selectedTabMainCourse == 'lunch') {
+          selectedTabMainCourse = '';
+        } else {
+          selectedTabMainCourse = 'lunch';
+        }
+
         break;
       case 2:
-        selectedTabMainCourse = 'dinner';
+        if (selectedTabMainCourse == 'dinner') {
+          selectedTabMainCourse = '';
+        } else {
+          selectedTabMainCourse = 'dinner';
+        }
         break;
 
       default:
@@ -172,15 +186,31 @@ class TagsSheetModel extends BaseViewModel {
   void handleSubTabsCourse(int index) {
     switch (index) {
       case 0:
-        selectedTabSub = 'starter';
+        if (selectedTabSub == 'starter') {
+          selectedTabSub = '';
+        } else {
+          selectedTabSub = 'starter';
+        }
         break;
       case 1:
-        selectedTabSub = 'canape';
+        if (selectedTabSub == 'canape') {
+          selectedTabSub = '';
+        } else {
+          selectedTabSub = 'canape';
+        }
         break;
       case 2:
-        selectedTabSub = 'side';
+        if (selectedTabSub == 'side') {
+          selectedTabSub = '';
+        } else {
+          selectedTabSub = 'side';
+        }
       case 3:
-        selectedTabSub = 'sweet';
+        if (selectedTabSub == 'sweet') {
+          selectedTabSub = '';
+        } else {
+          selectedTabSub = 'sweet';
+        }
         break;
 
       default:
@@ -193,13 +223,25 @@ class TagsSheetModel extends BaseViewModel {
   void handleMainTabsDietary(int index) {
     switch (index) {
       case 0:
-        selectedTabMainDietaryNeed = 'passagefriendly';
+        if (selectedTabMainDietaryNeed == 'passagefriendly') {
+          selectedTabMainDietaryNeed = '';
+        } else {
+          selectedTabMainDietaryNeed = 'passagefriendly';
+        }
         break;
       case 1:
-        selectedTabMainDietaryNeed = 'mealprep';
+        if (selectedTabMainDietaryNeed == 'mealprep') {
+          selectedTabMainDietaryNeed = '';
+        } else {
+          selectedTabMainDietaryNeed = 'mealprep';
+        }
         break;
       case 2:
-        selectedTabMainDietaryNeed = 'plated';
+        if (selectedTabMainDietaryNeed == 'plated') {
+          selectedTabMainDietaryNeed = '';
+        } else {
+          selectedTabMainDietaryNeed = 'plated';
+        }
         break;
       default:
         break;
@@ -211,16 +253,32 @@ class TagsSheetModel extends BaseViewModel {
   void handleSubTabsDietary(int index) {
     switch (index) {
       case 0:
-        selectedTabSubDietaryNeed = 'family';
+        if (selectedTabSubDietaryNeed == 'family') {
+          selectedTabSubDietaryNeed = '';
+        } else {
+          selectedTabSubDietaryNeed = 'family';
+        }
         break;
       case 1:
-        selectedTabSubDietaryNeed = 'light';
+        if (selectedTabSubDietaryNeed == 'light') {
+          selectedTabSubDietaryNeed = '';
+        } else {
+          selectedTabSubDietaryNeed = 'light';
+        }
         break;
       case 2:
-        selectedTabSubDietaryNeed = 'charter';
+        if (selectedTabSubDietaryNeed == 'charter') {
+          selectedTabSubDietaryNeed = '';
+        } else {
+          selectedTabSubDietaryNeed = 'charter';
+        }
         break;
       case 3:
-        selectedTabSubDietaryNeed = 'crew';
+        if (selectedTabSubDietaryNeed == 'crew') {
+          selectedTabSubDietaryNeed = '';
+        } else {
+          selectedTabSubDietaryNeed = 'crew';
+        }
         break;
       default:
         break;

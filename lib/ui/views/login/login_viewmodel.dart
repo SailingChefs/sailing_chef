@@ -97,4 +97,8 @@ class LoginViewModel extends BaseViewModel {
   void toSignUp() {
     _navigationService.replaceWithSignUpView();
   }
+
+  void signInWithGoogleAccount() async {
+    await AuthService().signInWithGoogle();
+  }
 }

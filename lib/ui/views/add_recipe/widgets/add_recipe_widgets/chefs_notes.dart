@@ -68,7 +68,9 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                               size: const Size(
                                   double.maxFinite, double.maxFinite),
                               playerController: viewModel.playerController,
-                              waveformData: viewModel.waveFormData == null ? [] : viewModel.waveFormData!,
+                              waveformData: viewModel.waveFormData == null
+                                  ? []
+                                  : viewModel.waveFormData!,
                               playerWaveStyle: PlayerWaveStyle(
                                 fixedWaveColor: Colors.black,
                                 liveWaveColor: kcBlackColor.withOpacity(0.5),
@@ -86,40 +88,41 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                               fontWeight: FontWeight.w600,
                               color: kcBlackColor,
                             )),
-                       viewModel.recipeModel != null 
-                       ? viewModel.recipeModel!.chefNote.isNotEmpty
-                            ? Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      viewModel.deleteCurrentRecording();
-                                    },
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: kcPrimaryColorDark,
-                                    ),
-                                  ),
-                                  horizontalSpaceSmall,
-                                ],
-                              )
-                            : IconButton(
-                                onPressed: () {
-                                  viewModel.onVolumeUpIconPressed();
-                                },
-                                icon: viewModel.isMute
-                                    ? const Icon(
-                                        Icons.volume_off,
-                                      )
-                                    : const Icon(
-                                        Icons.volume_up,
+                        viewModel.recipeModel != null
+                            ? viewModel.recipeModel!.chefNote.isNotEmpty
+                                ? Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          viewModel.deleteCurrentRecording();
+                                        },
+                                        child: const Icon(
+                                          Icons.delete,
+                                          color: kcPrimaryColorDark,
+                                        ),
                                       ),
-                              ) : Container(),
+                                      horizontalSpaceSmall,
+                                    ],
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      viewModel.onVolumeUpIconPressed();
+                                    },
+                                    icon: viewModel.isMute
+                                        ? const Icon(
+                                            Icons.volume_off,
+                                          )
+                                        : const Icon(
+                                            Icons.volume_up,
+                                          ),
+                                  )
+                            : Container(),
                       ],
                     ),
                   ],
                 ),
-              ) : const AddRecipeChefsNote()
-            
+              )
+            : const AddRecipeChefsNote()
       ],
     );
   }

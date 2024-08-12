@@ -25,10 +25,12 @@ class FollowBtuton extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
         width: 155.w,
-        height: 40.h,
+        height: MediaQuery.of(context).size.height * 0.05,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: buttonText == 'Following' ? kcPrimaryColorDark.withOpacity(0.5) : kcPrimaryColorDark,
+            backgroundColor: buttonText == 'Following'
+                ? kcPrimaryColorDark.withOpacity(0.5)
+                : kcPrimaryColorDark,
           ),
           onPressed: onPressed,
           child: Row(

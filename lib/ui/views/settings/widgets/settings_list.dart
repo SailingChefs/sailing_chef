@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
@@ -11,7 +9,6 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
 
   @override
   Widget build(BuildContext context, SettingsViewModel viewModel) {
-    log(userDetails!.userRole!);
     return Column(
       children: [
         verticalSpaceMedium,
@@ -22,6 +19,29 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           },
           title: Text(
             'Edit Profile',
+            style: globalTextStyle(
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: kcBlackColor.withOpacity(0.87),
+            size: 14.dg,
+          ),
+        ),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
+        ListTile(
+          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+          onTap: () {
+            viewModel.getToShoppingList();
+          },
+          title: Text(
+            'Shopping List',
             style: globalTextStyle(
               fontSize: 14.0.dg,
               color: kcBlackColor,
@@ -86,6 +106,61 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
                   ),
                 ],
               ),
+        userDetails!.userRole == 'culinarySchool'
+            ? Column(
+                children: [
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.getSavedRecipes,
+                    title: Text(
+                      'Saved Recipes',
+                      style: globalTextStyle(
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 14.dg,
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
+        userDetails!.userRole == 'culinarySchool' ||
+                userDetails!.userRole == 'chef'
+            ? Column(
+                children: [
+                  Divider(
+                    color: kcBlackColor.withOpacity(0.08),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+                    onTap: viewModel.goToPrivateRecipes,
+                    title: Text(
+                      'Private Recipes',
+                      style: globalTextStyle(
+                        fontSize: 14.0.dg,
+                        color: kcBlackColor,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: kcBlackColor.withOpacity(0.87),
+                      size: 14.dg,
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
         Divider(
           color: kcBlackColor.withOpacity(0.08),
         ),
@@ -133,7 +208,9 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
         ),
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
-          onTap: () {},
+          onTap: () {
+            viewModel.sendFeedback();
+          },
           title: Text(
             'Send Feedback',
             style: globalTextStyle(

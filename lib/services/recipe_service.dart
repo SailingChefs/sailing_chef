@@ -21,12 +21,9 @@ class RecipeService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
   final List<XFile?> media = List.empty();
   bool isInitialized = false;
- Map<String, UserModel> userCache = {};
+  Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    if (isInitialized) return;
     recipes = await fetchAllRecipes();
-    
-    isInitialized = true;
 
     notifyListeners();
   }
@@ -42,19 +39,45 @@ class RecipeService with ListenableServiceMixin {
     try {
       DocumentSnapshot snapshot =
           await firebasestore.collection('recipes').doc(uid).get();
-
       if (snapshot.exists) {
         return true;
       }
-
       return false;
     } catch (error) {
-      // Handle error
       return false;
     }
   }
 
-   Stream<List<RecipeModel>> fetchRecipesAsStream() {
+  Future<RecipeModel?> fetchRecipeById(String docId) async {
+    try {
+      DocumentSnapshot docSnapshot =
+          await firebasestore.collection('recipes').doc(docId).get();
+
+      if (docSnapshot.exists) {
+        RecipeModel recipe = RecipeModel.fromSnapshot(docSnapshot);
+
+        QuerySnapshot commentsSnapshot =
+            await docSnapshot.reference.collection('comments').get();
+        List<CommentModel> comments = commentsSnapshot.docs
+            .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
+            .toList();
+        recipe.comment = comments;
+
+        UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+        recipe.user = user;
+
+        return recipe;
+      } else {
+        log('Recipe with docId $docId does not exist.');
+        return null;
+      }
+    } catch (e) {
+      log('Error fetching recipe by ID: $e');
+      return null;
+    }
+  }
+
+  Stream<List<RecipeModel>> fetchRecipesAsStream() {
     return firebasestore
         .collection('recipes')
         .where('visibility', isEqualTo: 'Public')
@@ -71,7 +94,7 @@ class RecipeService with ListenableServiceMixin {
           UserModel? user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;
           userCache[recipe.uid] = user;
-                }
+        }
 
         QuerySnapshot commentsSnapshot =
             await doc.reference.collection('comments').get();
@@ -86,42 +109,11 @@ class RecipeService with ListenableServiceMixin {
     });
   }
 
-  // Stream<QuerySnapshot> fetchRecipesAsStream() {
-  //   return firebasestore
-  //       .collection('recipes')
-  //       .where('visibility', isEqualTo: 'Public')
-  //       .where('status', isEqualTo: 'published')
-  //       .snapshots();
-    
-  // }
-
-  // Stream<List<CommentModel>> fetchCommentsAsStream(String recipeId) {
-  //   return FirebaseFirestore.instance
-  //       .collection('recipes')
-  //       .doc(recipeId)
-  //       .collection('comments')
-  //       .snapshots()
-  //       .map((snapshot) => snapshot.docs
-  //           .map((doc) => CommentModel.fromSnapshot(doc))
-  //           .toList());
-  // }
-
-  // Future<double> fetchRecipeRating(String recipeId) async {
-  //   DocumentSnapshot snapshot = await FirebaseFirestore.instance
-  //       .collection('recipes')
-  //       .doc(recipeId)
-  //       .get();
-
-  //   return snapshot.get('rating') ?? 0.0;
-  // }
-
   Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
-      // Get the DocumentReference of the document
       CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
 
-      // Delete the image from the document
       await documentReference.update({
         'cover_image': FieldValue.arrayRemove([link]),
       });
@@ -145,7 +137,6 @@ class RecipeService with ListenableServiceMixin {
 
         showToast(message: 'Draft updated successfully');
       } else {
-        // Add new draft
         DocumentReference docRef =
             await firebasestore.collection('recipes').add(recipe.toMap());
 
@@ -167,6 +158,9 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     log("addRecipeToFirestore ${recipe.docId.toString()}");
     EasyLoading.show();
+    const CircularProgressIndicator(
+      color: kcMediumGrey,
+    );
     try {
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
@@ -178,19 +172,22 @@ class RecipeService with ListenableServiceMixin {
             FirebaseFirestore.instance.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
-         String docId = docRef.id;
+        String docId = docRef.id;
 
-        await docRef.update({'doc_id': docId});
+        await docRef.update({
+          'doc_id': docId,
+        });
         await firebasestore
             .collection('users')
             .doc(firebaseAuth.currentUser!.uid)
             .update({
           'recipes': FieldValue.arrayUnion([docId])
         });
-         userDetails!.recipes!.add(recipe.docId!);
+        userDetails!.recipes!.add(recipe.docId!);
         recipe.user = userDetails;
-        recipes.add(recipe);
-
+        if (recipe.visibility != 'private') {
+          recipes.add(recipe);
+        }
         showToast(message: 'Recipe updated successfully');
       } else {
         DocumentReference docRef =
@@ -207,11 +204,12 @@ class RecipeService with ListenableServiceMixin {
         });
         userDetails!.recipes!.add(docId);
         recipe.user = userDetails;
-        recipes.add(recipe);
-
+        if (recipe.visibility != 'private') {
+          recipes.add(recipe);
+        }
         showToast(message: 'Recipe added successfully');
       }
-      EasyLoading.dismiss();
+
       return true;
     } catch (error) {
       EasyLoading.dismiss();
@@ -280,7 +278,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<void> deleteAudioFromDocument(String id,String url) async {
+  Future<void> deleteAudioFromDocument(String id, String url) async {
     try {
       CollectionReference collection = firebasestore.collection('recipes');
       DocumentReference documentReference = collection.doc(id);
@@ -293,11 +291,10 @@ class RecipeService with ListenableServiceMixin {
       Reference storageRef = firebaseStorage.ref().child(filePath);
 
       await storageRef.delete();
-      
 
       await documentReference.update({
         'chef_note': FieldValue.delete(),
-        'waveForm' : FieldValue.delete(),
+        'waveForm': FieldValue.delete(),
       });
       EasyLoading.dismiss();
       showToast(message: 'Audio file deleted successfully');
@@ -306,30 +303,6 @@ class RecipeService with ListenableServiceMixin {
       log('Error deleting audio file from document: $error');
     }
   }
-
-  //   Future<void> deleteAudioFromDocument(String downloadUrl) async {
-  //   try {
-  //     EasyLoading.show();
-  //     // Extract the file path from the download URL
-  //     String filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
-
-  //     // Remove the leading '/' from the file path
-  //     filePath = filePath.substring(38);
-  //     log(filePath);
-
-  //     // Get a reference to the file in Firebase Storage
-  //     Reference storageRef = firebaseStorage.ref().child(filePath);
-
-  //     // Delete the file
-  //     await storageRef.delete();
-  //     EasyLoading.dismiss();
-  //     log('File deleted successfully');
-  //   } catch (error) {
-  //     EasyLoading.dismiss();
-  //     log('Error deleting file: $error');
-  //     // Handle error as needed
-  //   }
-  // }
 
   Future<List<String>> uploadImagesToFirebase(List<XFile?> images) async {
     List<String> imageUrls = [];
@@ -358,7 +331,9 @@ class RecipeService with ListenableServiceMixin {
       // DocumentSnapshot document = await firebasestore.collection('recipes').doc('v46B0TZgmcqSragcJRMK').get();
       QuerySnapshot snapshot = await firebasestore
           .collection('recipes')
-          .where('status', isEqualTo: 'published')
+          .where('status', isNotEqualTo: 'draft')
+          .where('visibility', isNotEqualTo: 'private')
+          // .where('visibility', isEqualTo: 'public')
           .where('uid', isEqualTo: uid)
           .get();
 
@@ -447,24 +422,9 @@ class RecipeService with ListenableServiceMixin {
           // recipe.user = user;
 
           // recipes.add(recipe);
-           recipes.add(recipe);
+          recipes.add(recipe);
           // break;
         }
-
-        // Fetch comments for the current recipe
-
-        // QuerySnapshot commentsSnapshot =
-        //     await doc.reference.collection('comments').limit(3).get();
-        // List<CommentModel> comments = commentsSnapshot.docs
-        //     .map((commentDoc) => CommentModel.fromSnapshot(commentDoc))
-        //     .toList();
-        //     log(comments.toString());
-        // recipe.comment = comments;
-        // log(recipe.comment.toString());
-        // UserModel? user = await _userService.fetchUserByUID(recipe.uid);
-
-
-       
       }
 
       return recipes;
@@ -512,6 +472,53 @@ class RecipeService with ListenableServiceMixin {
       return draftRecipes;
     } catch (e) {
       log("Error fetching draft recipes: $e");
+      return [];
+    }
+  }
+
+  Future<bool> updatePrivateRecipe(RecipeModel recipe) async {
+    try {
+      bool draftExists = await doesDraftExist(recipe.docId!);
+      log("draft exits $draftExists");
+      EasyLoading.show();
+      if (draftExists) {
+        DocumentReference docRef =
+            firebasestore.collection('recipes').doc(recipe.docId);
+
+        await docRef.update({'visibility': 'Public'});
+
+        showToast(message: 'Saved Recipe Publically');
+      }
+      EasyLoading.dismiss();
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error Saving Recipe Publically: $error');
+      return false;
+    }
+  }
+
+  Future<List<RecipeModel>> fetchPrivateRecipes(String uid) async {
+    try {
+      QuerySnapshot snapshot = await firebasestore
+          .collection('recipes')
+          .where('uid', isEqualTo: uid)
+          .where('visibility', isEqualTo: 'private')
+          .where('status', isEqualTo: 'published')
+          .get();
+
+      List<RecipeModel> privateRecipes = [];
+      for (var doc in snapshot.docs) {
+        RecipeModel privatetRecipe = RecipeModel.fromSnapshot(doc);
+
+        privatetRecipe.user = userDetails;
+
+        privateRecipes.add(privatetRecipe);
+      }
+
+      return privateRecipes;
+    } catch (e) {
+      log("Error fetching private recipes: $e");
       return [];
     }
   }

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
@@ -101,10 +102,28 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           child: GestureDetector(
                             onTap: () =>
                                 completer(DialogResponse(confirmed: true)),
-                            child:
-                                const Icon(Icons.close, color: kcchatboxecolor),
+                            child: const Icon(Icons.close, color: kcBlackColor),
                           ),
-                        )
+                        ),
+                        // viewModel.pinnedLocation.uid == userDetails!.uid
+                        //     ? Positioned(
+                        //         top: 20,
+                        //         left: 20,
+                        //         child: GestureDetector(
+                        //           onTap: () {
+                        //             completer(DialogResponse(confirmed: true));
+                        //             viewModel.navigateToBottomSheet();
+                        //           },
+                        //           child: const Icon(Icons.edit_outlined,
+                        //               color: kcBlackColor),
+                        //         ),
+                        //       )
+                        //     : const Positioned(
+                        //         top: 20,
+                        //         left: 20,
+                        //         child: Icon(Icons.edit_off_outlined,
+                        //             color: kcBlackColor),
+                        //       )
                       ],
                     ),
                     verticalSpaceSmall,
@@ -166,102 +185,137 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                               ),
                             ],
                           ),
-                          FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 230,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 239,
+                                child: Text(
+                                  viewModel.tags!.join(', '),
+                                  style: globalTextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: kcBlackColor,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.showRatingsExperience();
+                                },
+                                child: Container(
+                                  decoration: const UnderlineTabIndicator(
+                                      borderSide:
+                                          BorderSide(color: kcPrimaryColor)),
                                   child: Text(
-                                    viewModel.tags!.join(', '),
+                                    'Add review',
                                     style: globalTextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
                                       color: kcBlackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    viewModel.showRatingsExperience();
-                                  },
-                                  child: Container(
-                                    decoration: const UnderlineTabIndicator(
-                                        borderSide:
-                                            BorderSide(color: kcPrimaryColor)),
-                                    child: Text(
-                                      'Add review',
-                                      style: globalTextStyle(
-                                        color: kcBlackColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 10),
-                      child: Text(
-                        viewModel.pinnedLocation.contactNumber,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        viewModel.pinnedLocation.email,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 10),
-                      child: Text(
-                        viewModel.pinnedLocation.description,
-                        style: globalTextStyle(
-                          color: kcBlackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          viewModel.openGoogleMaps();
-                        },
-                        child: Container(
-                          width: 144,
-                          height: 48,
-                          decoration: BoxDecoration(
-                              color: kcPrimaryColor,
-                              borderRadius: BorderRadius.circular(30)),
-                          child: Center(
+                    viewModel.pinnedLocation.contactNumber.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 15.0, top: 10),
                             child: Text(
-                              'Get directions',
+                              viewModel.pinnedLocation.contactNumber,
                               style: globalTextStyle(
-                                color: kcwhitecolor,
+                                color: kcBlackColor,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
-                        ),
+                    viewModel.pinnedLocation.email.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              viewModel.pinnedLocation.email,
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                    viewModel.pinnedLocation.description.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, top: 10, right: 15),
+                            child: Text(
+                              viewModel.pinnedLocation.description,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: globalTextStyle(
+                                color: kcBlackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                    verticalSpaceMedium,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              viewModel.openGoogleMaps();
+                            },
+                            child: Container(
+                              width: 144,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                  color: kcPrimaryColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text(
+                                  'Get directions',
+                                  style: globalTextStyle(
+                                    color: kcwhitecolor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              viewModel.editPin();
+                            },
+                            child: Container(
+                              width: 144,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                  color: kcPrimaryColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text(
+                                  'Edit',
+                                  style: globalTextStyle(
+                                    color: kcwhitecolor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     verticalSpaceSmall,

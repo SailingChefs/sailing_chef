@@ -2,56 +2,34 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
-import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
 class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const CullinaryListIndexScreen({super.key});
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.sizeOf(context).height;
     return viewModel.cullinary.isEmpty
         ? Center(
-          child: Text(
+            child: Text(
               'No Cullinary School Found',
               style: globalTextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-                color: kcPrimaryColor,
-          
-              ),
+                  fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
             ),
-        )
+          )
         : Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Explore Culinary schools',
-                    style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor,
-                    ),
-                  ),
-                  CustomTextButton(
-                    onPressed: viewModel.toViewCullinarySchools,
-                    buttonText: 'View all',
-                    textColor: kclightgreencolor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
               verticalSpaceSmall,
               SizedBox(
-                height: screenHeight <= 690.0
-                    ? MediaQuery.sizeOf(context).height * 0.3.h
-                    : MediaQuery.sizeOf(context).height * 0.27.h,
+                height: screenHeight <= 680.0
+                    ? screenHeight * 0.25
+                    : screenHeight * 0.27,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.cullinary.length > 5 ? 5 : viewModel.cullinary.length,
+                  itemCount: viewModel.cullinary.length > 20
+                      ? 5
+                      : viewModel.cullinary.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -61,13 +39,13 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         viewModel.toChefProfile(cullinaruschools);
                       },
                       child: Container(
-                        width: 160.w,
+                        width: screenWidth * 0.43,
                         // height: 230.h,
                         decoration: BoxDecoration(
                           color: kcwhitecolor,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withOpacity(0.1),
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset: const Offset(0, 3),
@@ -75,7 +53,7 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                           ],
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        margin: const EdgeInsets.all(8),
+                        margin: EdgeInsets.only(right: 12.dg, bottom: 8.dg),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -88,21 +66,19 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
-
+                                              48.h,
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: cullinaruschools.displayPicture!,
+                                      imageUrl:
+                                          cullinaruschools.displayPicture!,
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                                   0.25.h -
-                                              50.h,
+                                              48.h,
                                       fit: BoxFit.cover,
-
                                       width: double.maxFinite,
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
@@ -110,18 +86,17 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                           color: kcsgreycolor,
                                         ),
                                       ),
-
                                     ),
-
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0.dg),
+                              padding: EdgeInsets.only(
+                                  left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
                                 capitalizeEachWord(
                                     cullinaruschools.displayName!),
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

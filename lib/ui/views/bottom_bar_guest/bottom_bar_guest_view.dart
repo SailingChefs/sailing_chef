@@ -25,36 +25,60 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
         resizeToAvoidBottomInset: false,
         body: getViewForIndex(viewModel.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: kcWhiteColor,
-        selectedItemColor: kcPrimaryColor,
-        unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
-        selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
-        unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
-        selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: kcWhiteColor,
+          selectedItemColor: kcPrimaryColor,
+          unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
+          selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
+          unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
+          selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
           currentIndex: viewModel.currentIndex,
           onTap: viewModel.setIndex,
-          items:  [
+          items: [
             BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
-            label: '',
-            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
-          ),
-             BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/misc/bookmark.svg',color: kcPrimaryColor,),
-            label: '',
-            icon: SvgPicture.asset('assets/images/misc/bookmark.svg',color: Colors.grey[600],),
-          ),
-           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
-            label: '',
-            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
-          ),
-          BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
-            label: '',
-            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
-          ),
+              activeIcon: SvgPicture.asset(
+                'assets/images/icons/homeselected.svg',
+                color: kcPrimaryColor,
+              ),
+              label: '',
+              icon: SvgPicture.asset(
+                'assets/images/icons/homeselected.svg',
+                color: Colors.grey[500],
+              ),
+            ),
+            BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                'assets/images/misc/bookmark.svg',
+                color: kcPrimaryColor,
+              ),
+              label: '',
+              icon: SvgPicture.asset(
+                'assets/images/misc/bookmark.svg',
+                color: Colors.grey[600],
+              ),
+            ),
+            BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                'assets/images/icons/chat.svg',
+                color: kcPrimaryColor,
+              ),
+              label: '',
+              icon: SvgPicture.asset(
+                'assets/images/icons/chat.svg',
+                color: Colors.grey[600],
+              ),
+            ),
+            BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                'assets/images/icons/profile.svg',
+                color: kcPrimaryColor,
+              ),
+              label: '',
+              icon: SvgPicture.asset(
+                'assets/images/icons/profile.svg',
+                color: Colors.grey[600],
+              ),
+            ),
           ],
         ),
       ),

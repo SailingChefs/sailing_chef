@@ -14,11 +14,10 @@ class ProfileDescriptionProfileScreen
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0,top: 5),
+      padding: const EdgeInsets.only(left: 10.0, top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           verticalSpaceSmall,
           Text(
             userDetails!.displayName!.isEmpty
@@ -29,7 +28,6 @@ class ProfileDescriptionProfileScreen
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w700,
                 color: kcBlackColor),
-
           ),
           userDetails!.userRole == 'guest'
               ? Container()
@@ -41,11 +39,12 @@ class ProfileDescriptionProfileScreen
                           ? userDetails!.boatName!
                           : userDetails!.boatName == null
                               ? userDetails!.namedLocation!
-
-                              : '${userDetails!.boatName!},${userDetails!.namedLocation!}',
-
+                              : userDetails!.namedLocation != null &&
+                                      userDetails!.boatName!.isNotEmpty
+                                  ? '${userDetails!.boatName!},${userDetails!.namedLocation!}'
+                                  : userDetails!.namedLocation!,
                       style: globalTextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         letterSpacing: -0.3,
                         fontWeight: FontWeight.w600,
                         color: kcBlackColor,
@@ -58,10 +57,9 @@ class ProfileDescriptionProfileScreen
               fontSize: 14.sp,
               letterSpacing: -0.3,
               fontWeight: FontWeight.w400,
+              height: 1.2,
               color: kcBlackColor,
             ),
-            textAlign: TextAlign.justify,
-            
           ),
           verticalSpace(8),
           userDetails!.userRole == 'guest'
@@ -70,23 +68,31 @@ class ProfileDescriptionProfileScreen
                   ? Container()
                   : Row(
                       children: [
-                       
-                        SvgPicture.asset('assets/images/icons/link.svg',width: 16,height: 16,color: kcBlackColor.withOpacity(0.6),),
+                        SvgPicture.asset(
+                          'assets/images/icons/link.svg',
+                          width: 16,
+                          height: 16,
+                          color: kcBlackColor.withOpacity(0.6),
+                        ),
                         horizontalSpaceSmall,
                         GestureDetector(
                           onTap: () {
                             viewModel.onClickUrl(userDetails!.link!);
                           },
-                          child: Text(
-                            userDetails!.link!.isEmpty
-                                ? ' '
-                                : userDetails!.link!,
-                            style: globalTextStyle(
-                              fontSize: 14.sp,
-                              letterSpacing: -0.3,
-                              fontWeight: FontWeight.w400,
-                              color: filterIconColor,
-                              decoration: TextDecoration.none,
+                          child: SizedBox(
+                            width: 300,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              userDetails!.link!.isEmpty
+                                  ? ' '
+                                  : userDetails!.link!,
+                              style: globalTextStyle(
+                                fontSize: 14.sp,
+                                letterSpacing: -0.3,
+                                fontWeight: FontWeight.w400,
+                                color: filterIconColor,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
                           ),
                         ),

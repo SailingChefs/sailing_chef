@@ -14,16 +14,11 @@ class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
         controller: viewModel.searchController,
         onChanged: (value) => viewModel.rebuildUi(),
         textAlign: TextAlign.start,
-        
         decoration: InputDecoration(
-          
           hintStyle: TextStyle(
             color: kcBlackColor.withOpacity(0.6),
             fontSize: 12.sp,
-
           ),
-          
-          
           filled: true,
           fillColor: kcPrimaryColor.withOpacity(0.09),
           labelStyle:

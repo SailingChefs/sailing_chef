@@ -2,21 +2,26 @@ import 'dart:developer';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
-class FollowingListViewModel extends BaseViewModel {
+class FollowingListViewModel extends ReactiveViewModel {
   final bool isFromFollowing;
   FollowingListViewModel({required this.isFromFollowing});
   final _navigationloactor = locator<NavigationService>();
   final FollowService _followService = locator<FollowService>();
+  final UserServices _userService = locator<UserServices>();
   final TextEditingController searchController = TextEditingController();
   bool isFollowing = false;
   bool isFollower = true;
-  List<String> get following => _followService.following;
-  List<String> get followers => _followService.followers;
   List<UserModel> get followersUsers => _followService.usersFollowers;
   List<UserModel> get followingUsers => _followService.usersFollowing;
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [
+        _followService,
+      ];
   void popBack() {
-    _navigationloactor.navigateToBottomNavBarView();
+    _navigationloactor.back();
   }
 
   void onViewModelReady(String userId) async {
@@ -25,6 +30,7 @@ class FollowingListViewModel extends BaseViewModel {
     isFollowing = isFromFollowing;
     isFollower = !isFromFollowing;
     notifyListeners();
+    rebuildUi();
     setBusy(false);
   }
 
@@ -38,8 +44,8 @@ class FollowingListViewModel extends BaseViewModel {
 
   void onFollowTap(UserModel user) async {
     await _followService.removeFollowing(user);
-    // notifyListeners();
-    // rebuildUi();
+    notifyListeners();
+    rebuildUi();
   }
 
   void deleteFollower(UserModel user) async {
@@ -64,6 +70,7 @@ class FollowingListViewModel extends BaseViewModel {
       await _followService.removeFollowing(user);
       followingUsers.removeWhere((follower) => follower.uid == user.uid);
       notifyListeners();
+      rebuildUi();
     } catch (e) {
       // Handle errors if necessary
       log(e.toString());
@@ -75,5 +82,9 @@ class FollowingListViewModel extends BaseViewModel {
     isFollowing = false;
     notifyListeners();
     rebuildUi();
+  }
+
+  Future<UserModel> getUserById(String followerId) async {
+    return await _userService.fetchUserByUID(followerId);
   }
 }

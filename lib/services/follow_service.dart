@@ -13,9 +13,39 @@ class FollowService with ListenableServiceMixin {
   final UserServices _userServices = UserServices();
   List<String> followers = [];
   List<String> following = [];
+
+  Future<void> addFollowerFromDummy(UserModel user, String userId) async {
+    log("Ädding follower to firebase");
+    // await
+    firebasestore.collection('users').doc(user.uid).update({
+      'followers': FieldValue.arrayUnion([userId]),
+    });
+    // await
+    firebasestore.collection('users').doc(userId).update({
+      'following': FieldValue.arrayUnion([user.uid]),
+    });
+  }
+
+  Future<void> removeFollowerFromDummy(UserModel user, String userId) async {
+    log("Removing follower From firebase");
+
+    // await
+    firebasestore.collection('users').doc(user.uid).update({
+      'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
+    });
+    // await
+    firebasestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .update({
+      'following': FieldValue.arrayRemove([user.uid]),
+    });
+  }
+
   Future<void> init(String uid, bool fetch) async {
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
+
     if (fetch == true) {
       usersFollowers.clear();
       usersFollowing.clear();
@@ -87,14 +117,17 @@ class FollowService with ListenableServiceMixin {
       if (followers.contains(firebaseAuth.currentUser!.uid)) {
         log('true');
         _removeFollower(user);
+        notifyListeners();
+
+        EasyLoading.dismiss();
+        return false;
       } else {
         _addFollower(user, firebaseAuth.currentUser!.uid);
-      }
-      notifyListeners();
+        notifyListeners();
 
-      EasyLoading.dismiss(); // Dismiss loading indicator
-      // Show success message
-      return true;
+        EasyLoading.dismiss();
+        return true;
+      }
     } catch (error) {
       EasyLoading.dismiss(); // Dismiss loading indicator
       showToast(message: 'Error saving recipe: $error'); // Show error message
@@ -157,8 +190,12 @@ class FollowService with ListenableServiceMixin {
       await firebasestore.collection('users').doc(user.uid).update({
         'followers': FieldValue.arrayRemove([firebaseAuth.currentUser!.uid]),
       });
-      following.removeWhere((element) => element == user.uid);
-
+      userDetails!.following!.removeWhere((element) => element == user.uid);
+      if (user.userRole == 'chef') {
+        user.followers!.remove(userDetails!.uid!);
+      } else if (user.userRole == 'culinary') {
+        user.followers!.remove(userDetails!.uid!);
+      }
       EasyLoading.dismiss();
       notifyListeners();
     } catch (e) {

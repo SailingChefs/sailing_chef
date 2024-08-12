@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
@@ -11,12 +12,11 @@ class SignUpTopBar extends ViewModelWidget<SignUpViewModel> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 150.w,
-          height: 80.h,
-          child: Image.asset(
-            'assets/images/logo/SAILING CHEFS.png',
-          ),
-        ),
+            width: 150.w,
+            height: 80.h,
+            child: SvgPicture.asset(
+              'assets/images/logo/SAILING_CHEFS.svg',
+            )),
         RoundedElevatedButton(
           width: screenWidth(context) * 0.3,
           height: 34,
