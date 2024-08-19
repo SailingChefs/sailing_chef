@@ -4,6 +4,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/ui/views/login/login_view.dart';
 
+import '../onboarding/onboarding_view.dart';
+
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
@@ -52,7 +54,7 @@ class SettingsViewModel extends BaseViewModel {
 
   void signOutUser() async {
     await _authService.signOut();
-    _navigationService.clearStackAndShowView(const LoginView());
+    _navigationService.clearStackAndShowView(const OnboardingView());
   }
 
   void getSavedRecipes() {

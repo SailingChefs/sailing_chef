@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'enter_pass_dialog_model.dart';
 

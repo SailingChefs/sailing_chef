@@ -59,15 +59,19 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         height: 14,
                         child: SvgPicture.asset(
                           'assets/images/icons/hat.svg',
-                          color: kcPrimaryColor,
+                          color: viewModel.selectedSignUpAs == 'chef'
+                              ? kcwhitecolor
+                              : kcPrimaryColor,
                         ),
                       ),
                       verticalSpaceTiny,
-                      const Text(
+                      Text(
                         'Chef',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: kcPrimaryColor,
+                          color: viewModel.selectedSignUpAs == 'chef'
+                              ? kcWhiteColor
+                              : kcPrimaryColor,
                         ),
                       ),
                     ],
@@ -103,15 +107,19 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         height: 18,
                         child: SvgPicture.asset(
                           'assets/images/icons/school.svg',
-                          color: kcPrimaryColor,
+                          color: viewModel.selectedSignUpAs == 'culinarySchool'
+                              ? kcwhitecolor
+                              : kcPrimaryColor,
                         ),
                       ),
                       const SizedBox(height: 3),
-                      const Text(
+                      Text(
                         'Culinary school',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: kcPrimaryColor,
+                          color: viewModel.selectedSignUpAs == 'culinarySchool'
+                              ? kcwhitecolor
+                              : kcPrimaryColor,
                         ),
                       ),
                     ],
@@ -140,15 +148,19 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         height: 18,
                         child: SvgPicture.asset(
                           'assets/images/icons/guest.svg',
-                          color: kcwhitecolor,
+                          color: viewModel.selectedSignUpAs == 'guest'
+                              ? kcwhitecolor
+                              : kcPrimaryColor,
                         ),
                       ),
                       const SizedBox(height: 3),
-                      const Text(
+                      Text(
                         'Guest',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: kcwhitecolor,
+                          color: viewModel.selectedSignUpAs == 'guest'
+                              ? kcwhitecolor
+                              : kcPrimaryColor,
                         ),
                       ),
                     ],

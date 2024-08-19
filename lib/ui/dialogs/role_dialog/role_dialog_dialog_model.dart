@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
 class RoleDialogDialogModel extends BaseViewModel {
-  String selectedSignUpAs = 'guest';
+  String selectedSignUpAs = '';
   final UserServices _userServices = UserServices();
   void handleSignUpAs(int index) {
     switch (index) {
@@ -23,8 +23,9 @@ class RoleDialogDialogModel extends BaseViewModel {
 
     // Update the user's role
     userDetails!.userRole = selectedSignUpAs;
+    notifyListeners();
 
     // Store the user's role in the database
-    _userServices.storeUserRole(userDetails!);
+    _userServices.storeUserRole(userDetails!, selectedSignUpAs);
   }
 }

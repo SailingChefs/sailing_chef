@@ -18,6 +18,7 @@ class UserDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   GlobalObjectKey<FormState> formKey = GlobalObjectKey<FormState>(UniqueKey());
   final _userService = locator<UserServices>();
+  final _snakbarService = locator<SnackbarService>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
@@ -261,9 +262,13 @@ class UserDetailsViewModel extends BaseViewModel {
         const BottomBarGuestView(),
       );
     } else {
-      _navigationService.clearStackAndShowView(
-        BottomNavBarView(),
-      );
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        _navigationService.clearStackAndShowView(
+          BottomNavBarView(),
+        );
+      } else {
+        _snakbarService.showSnackbar(message: "Please varify your email first");
+      }
     }
   }
 }

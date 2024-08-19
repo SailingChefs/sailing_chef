@@ -43,7 +43,7 @@ class UserServices with ListenableServiceMixin {
           .doc(firebaseAuth.currentUser!.uid)
           .collection('shopping_list')
           .doc(firebaseAuth.currentUser!.uid)
-          .set(userShoppingList!.toJson());
+          .set(userShoppingList.toJson());
     } catch (e, stackTrace) {
       log("StackTrace: $stackTrace");
     }
@@ -75,7 +75,7 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  Future<void> storeUserRole(UserModel userModel) async {
+  Future<void> storeUserRole(UserModel userModel, String role) async {
     final user = firebaseAuth.currentUser;
     if (user == null) {
       // User not signed in or created
@@ -84,6 +84,8 @@ class UserServices with ListenableServiceMixin {
 
     CollectionReference usersCollection =
         FirebaseFirestore.instance.collection('users');
+
+    await usersCollection.doc(userDetails!.uid).update({'user_role': role});
 
     QuerySnapshot querySnapshot =
         await usersCollection.where('email', isEqualTo: userModel.email).get();

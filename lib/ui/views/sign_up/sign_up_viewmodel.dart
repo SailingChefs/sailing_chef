@@ -2,9 +2,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final _nameController = TextEditingController();
@@ -12,6 +10,7 @@ class SignUpViewModel extends BaseViewModel {
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _authService = locator<AuthService>();
+  final _userService = locator<UserServices>();
 
   @override
   void dispose() {
@@ -62,29 +61,36 @@ class SignUpViewModel extends BaseViewModel {
         : 'Password must be at least 8 characters long';
   };
 
-  void signup(BuildContext context) async {
+  void signup() async {
     if (formKey.currentState?.validate() ?? false) {
-      await _authService.signUp(
-          password: passwordController.text.trim(),
-          userModel: UserModel(
-            displayName: textController.text.trim(),
-            email: emailController.text.trim(),
-            userRole: selectedSignUpAs,
-            uid: '',
-            bio: '',
-            boatName: '',
-            createdTime: DateTime.now(),
-            displayPicture: '',
-            followers: [],
-            following: [],
-            link: '',
-            savedRecipes: [],
-            blockedAccounts: [],
-          ));
+      UserModel signupUser = UserModel(
+        displayName: textController.text.trim(),
+        email: emailController.text.trim(),
+        userRole: selectedSignUpAs,
+        uid: '',
+        bio: '',
+        boatName: '',
+        createdTime: DateTime.now(),
+        displayPicture: '',
+        followers: [],
+        following: [],
+        link: '',
+        savedRecipes: [],
+        blockedAccounts: [],
+      );
+      bool userRegistered = await _authService.signUp(
+          password: passwordController.text.trim(), userModel: signupUser);
 
-      _navigationService.replaceWithLoginView();
+      _userService.storeUserDetails(signupUser.toJson(), signupUser.uid!);
+
+      if (userRegistered) {
+        _navigationService.replaceWithUserDetailsView(
+            userRole: selectedSignUpAs);
+      } else {
+        _navigationService.replaceWithSignUpView();
+      }
     } else {
-      _navigationService.replaceWithLoginView();
+      _navigationService.replaceWithSignUpView();
     }
   }
 
@@ -97,7 +103,7 @@ class SignUpViewModel extends BaseViewModel {
     _navigationService.replaceWithLoginView();
   }
 
-  String selectedSignUpAs = 'guest';
+  String selectedSignUpAs = '';
 
   void handleSignUpAs(int index) {
     switch (index) {

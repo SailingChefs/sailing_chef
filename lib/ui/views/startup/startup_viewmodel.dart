@@ -46,7 +46,8 @@ class StartupViewModel extends BaseViewModel {
           if (firebaseAuth.currentUser!.emailVerified == false) {
             _navigationService.replaceWithLoginView();
           } else {
-            userDetails = await _userService.getUserDetails();
+            userDetails = 
+            await _userService.getUserDetails();
             userShoppingList = await _userService.fetchShoppingList();
 
             selectedRecipees = userShoppingList.selectedRecipees;

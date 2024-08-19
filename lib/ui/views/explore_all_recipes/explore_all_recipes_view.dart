@@ -39,13 +39,17 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        padding: const EdgeInsets.only(
+          left: 25.0,
+          right: 25.0,
+        ),
         child: Column(
           children: [
-            verticalSpace(41),
+            verticalSpace(24),
             SearchBarAllRecipesScreen(
               recipes: recipes,
             ),
+            verticalSpace(16),
             viewModel.isBusy
                 ? const ShimmerLoaderAllRecipes()
                 : viewModel.searchController.text.isEmpty

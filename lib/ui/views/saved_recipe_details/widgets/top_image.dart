@@ -74,44 +74,44 @@ class TopBarDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             ),
           ),
         ),
-        Positioned(
-          top: 40,
-          left: 10,
-          child: GestureDetector(
-            onTap: () async {
-              try {
-                await viewModel.updateShoppingList();
-              } catch (e, stackTrace) {
-                log("Failed to update shopping list on pop: $e");
-                log("StackTrace: $stackTrace");
-              }
-              viewModel.moveBack();
-            },
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 8.0.dg),
-              height: 36.h,
-              width: 36.w,
-              decoration: const BoxDecoration(
-                color: kcVeryLightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kcBlackColor,
-                size: 18.sp,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 10,
-          child: SaveShare(
-            isFromPrivateProfile: isFromPrivateProfile,
-            recipe: reciepmodel,
-          ),
-        ),
+        // Positioned(
+        //   top: 40,
+        //   left: 10,
+        // child: GestureDetector(
+        //   onTap: () async {
+        //     try {
+        //       await viewModel.updateShoppingList();
+        //     } catch (e, stackTrace) {
+        //       log("Failed to update shopping list on pop: $e");
+        //       log("StackTrace: $stackTrace");
+        //     }
+        //     viewModel.moveBack();
+        //   },
+        //   child: Container(
+        //     alignment: Alignment.center,
+        //     padding: EdgeInsets.only(left: 8.0.dg),
+        //     height: 36.h,
+        //     width: 36.w,
+        //     decoration: const BoxDecoration(
+        //       color: kcVeryLightGrey,
+        //       shape: BoxShape.circle,
+        //     ),
+        //     child: Icon(
+        //       Icons.arrow_back_ios,
+        //       color: kcBlackColor,
+        //       size: 18.sp,
+        //     ),
+        //   ),
+        // ),
+        // ),
+        // Positioned(
+        //   top: 40,
+        //   right: 10,
+        //   child: SaveShare(
+        //     isFromPrivateProfile: isFromPrivateProfile,
+        //     recipe: reciepmodel,
+        //   ),
+        // ),
       ],
     );
   }

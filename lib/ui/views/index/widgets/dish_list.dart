@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';

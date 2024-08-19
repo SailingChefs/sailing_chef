@@ -29,7 +29,7 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
     String? pin;
     if (request.data != null) {
       pin = request.data;
-      log("hnhnh " + pin.toString());
+      log("hnhnh $pin");
     }
 
     return Dialog(

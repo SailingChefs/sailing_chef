@@ -516,7 +516,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     playerController = PlayerController();
     await shoppingListService.getShoppingList();
 
-    await downloadAudio();
+    // await downloadAudio();
 
     servings = recipeModel.servingSize;
 

@@ -176,7 +176,7 @@ class FilterViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  List<String> _selectedTags = [];
+  final List<String> _selectedTags = [];
 
   List<String> get selectedTags => _selectedTags;
 

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';

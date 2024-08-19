@@ -31,6 +31,6 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
   }
 
   getBack() async {
-    await _navigationService.back();
+    _navigationService.back();
   }
 }

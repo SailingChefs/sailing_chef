@@ -31,7 +31,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     messageController.text = messageFromCource;
   }
   void onViewModelReady() {
-    log("message " + messageFromCource);
+    log("message $messageFromCource");
     // scrollController.addListener(() {
     //   isAtTop = scrollController.offset <= kToolbarHeight;
     //   if (scrollController.position.pixels < 180) {

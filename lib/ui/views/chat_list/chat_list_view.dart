@@ -19,7 +19,7 @@ class ChatListView extends StackedView<ChatListViewModel> {
         ? const ShimmerLoaderChatList()
         : SafeArea(
             child: Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 body: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: Column(

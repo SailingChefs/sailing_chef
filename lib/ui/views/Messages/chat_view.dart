@@ -12,7 +12,7 @@ class ChatView extends StackedView<ChatViewModel> {
   final UserModel receiver;
   final String? messageFromCource;
 
-  ChatView(
+  const ChatView(
       {required this.receiver,
       required this.conversationId,
       super.key,

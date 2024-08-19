@@ -1,1 +1,6 @@
+analyzer:
+  errors:
+    must_be_immutable: ignore
+    prefer_typing_uninitialized_variables: ignore
+    unrelated_type_equality_checks: ignore
 include: package:flutter_lints/flutter.yaml

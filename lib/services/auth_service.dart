@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,7 +11,6 @@ import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class AuthService {
-  final _dialogService = locator<DialogService>();
   final userService = locator<UserServices>();
   final navigationService = locator<NavigationService>();
   static Future<bool> login({
@@ -103,12 +101,11 @@ class AuthService {
       userDetails = userModel;
       userDetails!.displayName = userModel.displayName;
 
-      bool userStored = await UserServices.storeUserRoleAndName(
-        userModel: userModel,
-      );
-
       await userCredential.user!.updateDisplayName(userModel.displayName);
       await userCredential.user!.sendEmailVerification();
+
+      await userService.storeUserDetails(
+          userModel.toJson(), userCredential.user!.uid);
 
       EasyLoading.dismiss();
       showToast(
@@ -164,6 +161,7 @@ class AuthService {
     if (user != null) {
       userDetails = UserModel(
         uid: user.uid,
+        userRole: '',
         email: user.email,
         displayName: user.displayName,
         displayPicture: user.photoURL,
@@ -179,18 +177,36 @@ class AuthService {
         recipes: [],
       );
 
-      final res = await userService.storeUserDetails(
-          userDetails!.toJson(), userDetails!.uid!);
-
-      if (userCredential.additionalUserInfo!.isNewUser && res) {
+      if (userCredential.additionalUserInfo!.isNewUser) {
         dialogService.showCustomDialog(
           variant: DialogType.roleDialog,
         );
-      } else if (userDetails!.userRole == 'guest') {
-        navigationService.replaceWithBottomBarGuestView();
       } else {
-        navigationService.replaceWithBottomNavBarView();
+        var currentUser = await userService.fetchUserByUID(user.uid);
+        if (currentUser.userRole == 'guest') {
+          userDetails!.userRole = currentUser.userRole;
+          await userService.storeUserDetails(
+              userDetails!.toJson(), userDetails!.uid!);
+          navigationService.replaceWithBottomBarGuestView();
+        } else {
+          userDetails!.userRole = currentUser.userRole;
+          await userService.storeUserDetails(
+              userDetails!.toJson(), userDetails!.uid!);
+          navigationService.replaceWithBottomNavBarView();
+        }
       }
+
+      // else if (userDetails!.userRole == 'guest') {
+      //   userDetails!.userRole = 'guest';
+      //   final res = await userService.storeUserDetails(
+      //       userDetails!.toJson(), userDetails!.uid!);
+      //   navigationService.replaceWithBottomBarGuestView();
+      // } else {
+      //   userDetails!.userRole = 'guest';
+      //   final res = await userService.storeUserDetails(
+      //       userDetails!.toJson(), userDetails!.uid!);
+      //   navigationService.replaceWithBottomNavBarView();
+      // }
     }
   }
 }
