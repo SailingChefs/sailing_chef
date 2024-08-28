@@ -162,7 +162,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                   viewModel.onClickUrl(message.content);
                                 },
                                 child: Text(
-                                  message.content,
+                                  message.content.capitalizeFirst(),
                                   style: const TextStyle(
                                     color: kcwhitecolor,
                                     decoration: TextDecoration.underline,

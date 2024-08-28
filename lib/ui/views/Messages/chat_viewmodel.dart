@@ -30,6 +30,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   ChatViewModel(this.messageFromCource, {required this.convoId}) {
     messageController.text = messageFromCource;
   }
+
   void onViewModelReady() {
     log("message $messageFromCource");
     // scrollController.addListener(() {
@@ -225,5 +226,12 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   void navigateToProfile(UserModel receiver) {
     _navigationLoactor.navigateToChefProfileView(user: receiver);
+  }
+}
+
+extension StringExtension on String {
+  String capitalizeFirst() {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }

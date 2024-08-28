@@ -178,6 +178,8 @@ class AuthService {
       );
 
       if (userCredential.additionalUserInfo!.isNewUser) {
+        await userService.storeUserDetails(
+            userDetails!.toJson(), userDetails!.uid!);
         dialogService.showCustomDialog(
           variant: DialogType.roleDialog,
         );
