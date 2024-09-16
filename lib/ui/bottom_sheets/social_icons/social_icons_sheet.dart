@@ -33,7 +33,7 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -56,6 +56,8 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
                 _buildSocialIcon(Icons.email, 'Email', 3, viewModel),
                 _buildSocialIcon(
                     FlutterRemix.instagram_fill, 'Instagram', 4, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.snapchat_fill, 'Snapchat', 4, viewModel),
                 _buildSocialIcon(
                     FlutterRemix.file_copy_2_fill, 'Copy', 5, viewModel),
               ],
@@ -91,6 +93,10 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
                 completer!(SheetResponse(confirmed: true));
                 break;
               case 5:
+                viewmodel.shareRecipeToSnapchat(request.data as RecipeModel);
+                completer!(SheetResponse(confirmed: true));
+                break;
+              case 6:
                 viewmodel.shareByCopy(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
                 break;

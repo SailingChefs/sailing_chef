@@ -40,21 +40,22 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             fillColor: kcPrimaryColor.withOpacity(0.09),
                             controller: viewModel.bioController,
                             labelText: 'Bio',
+                            // focusNode: viewModel.bioFocusNode,
                           ),
                           verticalSpaceSmall,
                           SemiRoundedTranpaentTextField(
-                              validator: (value) =>
-                                  viewModel.validateLink(value),
+                              // validator: (value) =>
+                              //     viewModel.validateLink(value),
                               controller: viewModel.linkController,
                               suffixIcon: false,
-                              labelText: 'Link*'),
+                              labelText: 'Link'),
                           verticalSpaceSmall,
                           SemiRoundedTranpaentTextField(
                               suffixIcon: false,
-                              validator: (value) =>
-                                  viewModel.validateBoatName(value),
+                              // validator: (value) =>
+                              //     viewModel.validateBoatName(value),
                               controller: viewModel.boatNameController,
-                              labelText: 'Boat Name*'),
+                              labelText: 'Boat Name '),
                           verticalSpaceSmall,
                           CSCPicker(
                             showStates: true,
@@ -81,9 +82,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             citySearchPlaceholder: "City",
 
                             ///labels for dropdown
-                            countryDropdownLabel: "*Country",
-                            stateDropdownLabel: "*State",
-                            cityDropdownLabel: "*City",
+                            countryDropdownLabel: "Country",
+                            stateDropdownLabel: "State",
+                            cityDropdownLabel: "City",
 
                             selectedItemStyle: TextStyle(
                               color: Colors.black.withOpacity(0.6),
@@ -240,7 +241,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             ),
           ),
         ),
-        verticalSpaceMassive,
+        verticalSpaceMedium,
         PrimaryColorRoundedElevatedButton(
           100.w,
           onPressed: () {

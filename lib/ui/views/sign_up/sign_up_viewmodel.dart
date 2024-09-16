@@ -4,12 +4,15 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
+import '../../common/show_toast.dart';
+
 class SignUpViewModel extends BaseViewModel {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _authService = locator<AuthService>();
+  final _snackbarService = locator<SnackbarService>();
   final _userService = locator<UserServices>();
 
   @override
@@ -63,6 +66,10 @@ class SignUpViewModel extends BaseViewModel {
 
   void signup() async {
     if (formKey.currentState?.validate() ?? false) {
+      if (selectedSignUpAs.isEmpty) {
+        showToast(message: 'Please Select a role');
+        return;
+      }
       UserModel signupUser = UserModel(
         displayName: textController.text.trim(),
         email: emailController.text.trim(),

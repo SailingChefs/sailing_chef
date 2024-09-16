@@ -13,7 +13,10 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
+import 'package:sailing_chefs/ui/views/settings/settings_view.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../profile_share/profile_share_view.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
@@ -44,6 +47,17 @@ class ProfileViewModel extends ReactiveViewModel {
 
   void navigateToBlockScreen() {
     _navigationService.navigateToBlockedAccountsView();
+  }
+
+  void profileShare(BuildContext context, String image, String type) {
+    // _navigationService.navigateToProfileShareView();
+    Navigator.of(context).push(PageRouteBuilder(
+      opaque: false, // Ensures the new page doesn't cover the background
+      barrierColor: Colors.grey.shade900
+          .withOpacity(0.95), // Makes the background transparent
+      pageBuilder: (context, _, __) =>
+          ProfileShareView(image: image, type: type),
+    ));
   }
 
   @override
@@ -87,8 +101,20 @@ class ProfileViewModel extends ReactiveViewModel {
             user: userDetails!, isfromFollowing: true));
   }
 
-  void toSettings() {
-    _navigationService.navigateToSettingsView();
+  void toSettings(BuildContext context) {
+    _navigationService.navigateToSettingsView(
+      transition: TransitionsBuilders.slideLeft,
+      preventDuplicates: true,
+    );
+
+    // Navigator.of(context).push(MaterialPageRoute(
+    //     maintainState: true, builder: (builder) => SettingsView()));
+
+    // Get.to(
+    //   () => const SettingsView(),
+    //   duration: Duration(seconds: 1),
+    //   curve: Curves.easeIn,
+    // );
   }
 
   void handleTab(int index) {

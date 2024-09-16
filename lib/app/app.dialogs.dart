@@ -15,6 +15,7 @@ import '../ui/dialogs/delete_pin/delete_pin_dialog.dart';
 import '../ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
 import '../ui/dialogs/enter_pass/enter_pass_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
+import '../ui/dialogs/long_press_comment/long_press_comment_dialog.dart';
 import '../ui/dialogs/pindetails/pindetails_dialog.dart';
 import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
 import '../ui/dialogs/rate_experience/rate_experience_dialog.dart';
@@ -39,6 +40,7 @@ enum DialogType {
   enterPass,
   deletePin,
   roleDialog,
+  longPressComment,
 }
 
 void setupDialogUi() {
@@ -75,6 +77,8 @@ void setupDialogUi() {
         DeletePinDialog(request: request, completer: completer),
     DialogType.roleDialog: (context, request, completer) =>
         RoleDialogDialog(request: request, completer: completer),
+    DialogType.longPressComment: (context, request, completer) =>
+        LongPressCommentDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

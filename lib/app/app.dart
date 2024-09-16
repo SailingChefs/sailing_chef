@@ -90,6 +90,8 @@ import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
 import 'package:sailing_chefs/ui/dialogs/delete_pin/delete_pin_dialog.dart';
 import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
+import 'package:sailing_chefs/ui/dialogs/long_press_comment/long_press_comment_dialog.dart';
+import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -139,6 +141,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_s
     MaterialRoute(page: ShoppingListView),
 
     MaterialRoute(page: FeedbackView),
+    MaterialRoute(page: ProfileShareView),
 // @stacked-route
   ],
   dependencies: [
@@ -198,6 +201,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_s
     StackedDialog(classType: EnterPassDialog),
     StackedDialog(classType: DeletePinDialog),
     StackedDialog(classType: RoleDialogDialog),
+    StackedDialog(classType: LongPressCommentDialog),
 // @stacked-dialog
   ],
 )

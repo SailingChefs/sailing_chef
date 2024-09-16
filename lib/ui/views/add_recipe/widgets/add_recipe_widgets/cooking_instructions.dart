@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -59,7 +60,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Text(
-                                  instruction,
+                                  instruction.capitalize(),
                                   style: globalTextStyle(
                                     fontSize: 12.sp,
                                     letterSpacing: -0.5,
@@ -75,7 +76,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                                 // viewModel.ingredientsList.removeAt(index);
                                 // viewModel.notifyListeners();
                                 viewModel.editIngredient(
-                                    viewModel.ingredientsList[index]);
+                                    viewModel.ingredientsList[index], index);
                               },
                               child: SvgPicture.asset(
                                 'assets/images/misc/edit.svg',

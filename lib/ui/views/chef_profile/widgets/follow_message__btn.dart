@@ -42,8 +42,8 @@ class Follow_Message_Btns extends ViewModelWidget<ChefProfileViewModel> {
                 ),
           // horizontalSpaceTiny,
           MessageBtuton(
-            onPressed: ()async  {
-             await viewModel.moveToChatScreen(user);
+            onPressed: () async {
+              await viewModel.moveToChatScreen(user);
             },
             buttonText: 'Message',
             fontSize: 14.sp,

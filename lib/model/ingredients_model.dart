@@ -40,9 +40,9 @@
 
 class Ingredient {
   final String id;
-  final String name;
-  final String quantity;
-  final String unit;
+  late final String name;
+  late final String quantity;
+  late final String unit;
   final int serving;
 
   Ingredient({

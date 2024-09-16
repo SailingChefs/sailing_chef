@@ -57,8 +57,8 @@ class MainRecipeViewContainer
                     verticalSpace(12),
                   ],
                 ),
-          const ChefNotesRecipeDetails(),
-          verticalSpace(16.h),
+          // const ChefNotesRecipeDetails(),
+          // verticalSpace(16.h),
           Visibility(
             visible: true,
             // visible: viewModel.checkOwn(recipeModel),

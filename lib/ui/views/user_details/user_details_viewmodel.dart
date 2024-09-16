@@ -18,12 +18,13 @@ class UserDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   GlobalObjectKey<FormState> formKey = GlobalObjectKey<FormState>(UniqueKey());
   final _userService = locator<UserServices>();
-  final _snakbarService = locator<SnackbarService>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+
+  final bioFocusNode = FocusNode();
 
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
@@ -163,6 +164,12 @@ class UserDetailsViewModel extends BaseViewModel {
         }
       }
 
+      if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+        showToast(message: 'Please varify your email first');
+
+        return;
+      }
+
       final imageLink = await _userService.uploadImage(
         selectedImageFile as File,
         selectedImageFile!.path.split('/').last,
@@ -267,7 +274,8 @@ class UserDetailsViewModel extends BaseViewModel {
           BottomNavBarView(),
         );
       } else {
-        _snakbarService.showSnackbar(message: "Please varify your email first");
+        // _snakbarService.showSnackbar(message: "Please varify your email first");
+        showToast(message: 'Please varify your email first');
       }
     }
   }

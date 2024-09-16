@@ -27,8 +27,9 @@ class RoundedTransparentTextField extends StatelessWidget {
   final double? size;
   final bool? ispassvisible;
   final TextStyle? style;
+  FocusNode? focsNode;
 
-  const RoundedTransparentTextField({
+  RoundedTransparentTextField({
     Key? key,
     this.controller,
     this.style,
@@ -55,6 +56,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.ispassvisible,
     this.maxLengthEnforcement,
     this.inputFormatters,
+    this.focsNode,
   }) : super(key: key);
 
   @override
@@ -83,6 +85,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       showCursor: true,
       onChanged: onChanged,
       obscureText: obscureText,
+      focusNode: focsNode,
       autocorrect: true,
       enableSuggestions: true,
       keyboardType: keyboardType,

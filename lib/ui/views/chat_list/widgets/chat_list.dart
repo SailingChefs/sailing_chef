@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
@@ -69,6 +70,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                   'String'
                                               ? Text(
                                                   conversation.latestMessage
+                                                      .capitalize()
                                                       .toString(),
                                                   overflow:
                                                       TextOverflow.ellipsis,

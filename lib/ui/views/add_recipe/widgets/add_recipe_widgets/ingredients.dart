@@ -41,6 +41,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
+                    reverse: true,
                     itemCount: viewModel.ingredientsList.length,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
@@ -107,7 +108,8 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                                 onTap: () {
                                   // viewModel.ingredientsList.removeAt(index);
                                   // viewModel.notifyListeners();
-                                  viewModel.editIngredient( viewModel.ingredientsList[index]);
+                                  viewModel.editIngredient(
+                                      viewModel.ingredientsList[index], index);
                                 },
                                 child: SvgPicture.asset(
                                   'assets/images/misc/edit.svg',

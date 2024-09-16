@@ -14,7 +14,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
         children: [
           RoundedTransparentTextField(
             controller: viewModel.textController,
-            labelText: 'name',
+            labelText: 'name & surname',
             onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateName,
             fillColor: filledcolorlogin.withOpacity(0.3),

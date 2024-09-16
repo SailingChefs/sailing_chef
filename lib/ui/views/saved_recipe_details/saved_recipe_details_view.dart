@@ -27,10 +27,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
     Widget? child,
   ) {
     return viewModel.isBusy
-        ? const Center(
-            child: CircularProgressIndicator(
-            color: kcPrimaryColor,
-          ))
+        ? const Center()
         : WillPopScope(
             onWillPop: () async {
               try {

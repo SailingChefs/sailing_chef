@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/message_model.dart';
@@ -162,7 +163,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                   viewModel.onClickUrl(message.content);
                                 },
                                 child: Text(
-                                  message.content.capitalizeFirst(),
+                                  message.content.capitalize(),
                                   style: const TextStyle(
                                     color: kcwhitecolor,
                                     decoration: TextDecoration.underline,
@@ -175,7 +176,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                   viewModel.copyMessage(message.content);
                                 },
                                 child: Text(
-                                  message.content,
+                                  message.content.capitalize(),
                                   style: const TextStyle(color: kcBlackColor),
                                 ),
                               ),

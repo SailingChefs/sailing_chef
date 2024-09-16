@@ -6,14 +6,19 @@ import 'package:stacked/stacked.dart';
 import '../../../core/imports/core_imports.dart';
 
 class EditIngredientSheetModel extends BaseViewModel {
-  final Ingredient request;
+  Ingredient ingredient;
+  final int listIndex;
+  EditIngredientSheetModel(this.ingredient, this.listIndex);
 
-  EditIngredientSheetModel(this.request);
+  TextEditingController ingredientNameController = TextEditingController();
+  TextEditingController ingredientQuantityController = TextEditingController();
+  String ingredientType = '';
+
   String selectedValue =
       ''; // Make sure this matches one of the items in the values list
   void onViewModelReady() async {
     setBusy(true);
-    selectedValue = request.unit;
+    selectedValue = ingredient.unit;
     setBusy(false);
 
     rebuildUi();
@@ -31,6 +36,12 @@ class EditIngredientSheetModel extends BaseViewModel {
     'bowl'
   ]; // Example values
 
+  void setValues() {
+    ingredient.name = ingredientNameController.text;
+    ingredient.quantity = ingredientQuantityController.text;
+    ingredient.unit = selectedValue;
+  }
+
   void updateValue(String newValue) {
     selectedValue = newValue;
     // notifyListeners();
@@ -38,8 +49,8 @@ class EditIngredientSheetModel extends BaseViewModel {
   }
 
   showUpdatedIngredient() {
-    log(" Name   :  ${request.name}");
-    log(" Quantity   :  ${request.quantity}");
-    log(" Unit   :  ${request.unit}");
+    log(" Name   :  ${ingredient.name}");
+    log(" Quantity   :  ${ingredient.quantity}");
+    log(" Unit   :  ${ingredient.unit}");
   }
 }

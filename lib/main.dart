@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
@@ -111,8 +112,7 @@ class MainApp extends StatelessWidget {
       minTextAdapt: false,
       splitScreenMode: false,
       useInheritedMediaQuery: true,
-      builder: (context, child) => 
-      GestureDetector(
+      builder: (context, child) => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
         child: Builder(
@@ -120,7 +120,7 @@ class MainApp extends StatelessWidget {
             // Initialize BitmapImageService after runApp
             Future.microtask(
                 () => locator<BitmapImageService>().initialise(context));
-            return MaterialApp(
+            return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute: Routes.startupView,
               onGenerateRoute: StackedRouter().onGenerateRoute,

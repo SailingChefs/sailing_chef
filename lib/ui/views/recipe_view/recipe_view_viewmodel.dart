@@ -11,7 +11,6 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:video_player/video_player.dart';
 
-
 class RecipeViewViewModel extends BaseViewModel {
   final bool isFromDraft;
 
@@ -176,10 +175,10 @@ class RecipeViewViewModel extends BaseViewModel {
     log("to Recipe List");
     List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
-    String chefNote = '';
-    if (path!.isNotEmpty) {
-      chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
-    }
+    // String chefNote = '';
+    // if (path!.isNotEmpty) {
+    //   chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
+    // }
 
     try {
       log("serving size ${recipe.servingSize.toString()}");
@@ -187,7 +186,7 @@ class RecipeViewViewModel extends BaseViewModel {
           .addRecipeToFirestore(
         RecipeModel(
           visibility: recipe.visibility,
-          chefNote: chefNote,
+          chefNote: '',
           coverImage: recipe.coverImage + imageUrls,
           createdTime: Timestamp.now(),
           ingredients: recipe.ingredients,

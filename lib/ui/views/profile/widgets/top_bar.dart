@@ -32,7 +32,9 @@ class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: GestureDetector(
-                onTap: viewModel.toSettings,
+                onTap: () {
+                  viewModel.toSettings(context);
+                },
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(left: 2.0.dg),

@@ -37,8 +37,8 @@ class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
         PrepTime(drafts),
         verticalSpace(20.h),
         AddFilters(drafts),
-        verticalSpace(20.h),
-        ChefsNote(drafts),
+        // verticalSpace(20.h),
+        // ChefsNote(drafts),
         verticalSpace(20.h),
         SaveRecipeButton(
           onPressed: () {

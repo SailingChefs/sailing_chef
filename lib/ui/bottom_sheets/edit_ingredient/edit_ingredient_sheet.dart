@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+\
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../../views/saved_recipe_details/widgets/text_field_comment.dart';
 import '../../widgets/bottom_sheet_btn.dart';
@@ -43,12 +40,17 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
           // const IngredientsSheetTopBar(),
           Center(
             child: Text(
-              'Add your ingredients',
+              'Save Ingredient',
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
             ),
           ),
           verticalSpaceMedium,
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              // color: kcLightGrey.withOpacity(0.7),
+              border: Border.all(color: kcVeryLightGrey),
+            ),
             width: double.infinity,
             child: CommonTextField(
               hintText: request.data['ingredient'].name ?? '',
@@ -75,7 +77,8 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
 
   @override
   EditIngredientSheetModel viewModelBuilder(BuildContext context) =>
-      EditIngredientSheetModel(request.data['ingredient']);
+      EditIngredientSheetModel(
+          request.data['ingredient'], request.data['listIndex']);
 
   @override
   void onViewModelReady(EditIngredientSheetModel viewModel) {

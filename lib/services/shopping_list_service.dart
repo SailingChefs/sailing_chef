@@ -64,7 +64,7 @@ class ShoppingListService with ListenableServiceMixin {
       unSelectedIngredients.clear();
     } else {
       unSelectedIngredients.addAll(recipee.ingredients);
-      selectedRecipees.remove(recipee);
+      // selectedRecipees.remove(recipee);
 
       selectedIngredients.clear();
     }
@@ -116,7 +116,7 @@ class ShoppingListService with ListenableServiceMixin {
     };
 
     if (selectedIngredients.isEmpty) {
-      selectedRecipees.remove(recipee);
+      // selectedRecipees.remove(recipee);
       log("Slected Ingredient is empty");
     } else if (!selectedRecipees.contains(recipee.title) &&
         selectedIngredients.contains(ingredient)) {

@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../cooking_instructions_sheet_model.dart';
@@ -46,7 +47,7 @@ class ListViewCookingInstructions
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 textAlign: TextAlign.start,
-                                instruction,
+                                instruction.capitalize(),
                                 style: globalTextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,

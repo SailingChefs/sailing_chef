@@ -13,6 +13,7 @@ class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {
         width: 390.w,
         child: ListView.builder(
           shrinkWrap: true,
+          reverse: true,
           itemCount: viewModel.ingredientsList.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {

@@ -22,7 +22,8 @@ class CommentsDetailsScreen
       List<CommentModel> comments = viewModel.commentsList;
       commentTiles = comments.map((comment) {
         return GestureDetector(
-          onLongPress: () => viewModel.onCommentLongPress(comment),
+          onLongPress: () => viewModel.onLongPressComment(comment),
+          // onLongPress: () => viewModel.onCommentLongPress(comment),
           child: CustomListTileComments(
             name: comment.userName,
             date: comment.timestamp,

@@ -24,6 +24,33 @@ class CommentService with ListenableServiceMixin {
     comments.clear();
   }
 
+  Future<bool> deleteComment(CommentModel comment) async {
+    bool deleted = await deleteCommentToFirestore(comment);
+    return deleted;
+  }
+
+  Future<bool> deleteCommentToFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
+
+      // Get a reference to the comments subcollection of the specified recipe ID
+      CollectionReference commentsCollection = firebasestore
+          .collection('recipes')
+          .doc(comment.recipeId)
+          .collection('comments');
+
+      await commentsCollection.doc(comment.id).delete();
+
+      EasyLoading.dismiss();
+      showToast(message: 'Comment deleted successfully');
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error deleteing comment : $error');
+      return false;
+    }
+  }
+
   Future<bool> addComment(CommentModel comment) async {
     bool uploaded = await addCommentToFirestore(comment);
     if (!uploaded) {

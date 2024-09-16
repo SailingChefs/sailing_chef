@@ -944,10 +944,10 @@ class AddRecipeViewModel extends BaseViewModel {
         (recipeModel?.chefNote ?? '').isEmpty;
   }
 
-  editIngredient(Ingredient ingredient) {
+  editIngredient(Ingredient ingredient, int listIndex) {
     _bottomSheetService.showCustomSheet(
         variant: BottomSheetType.editIngredient,
-        data: {'ingredient': ingredient});
+        data: {'ingredient': ingredient, 'listIndex': listIndex});
   }
 
   bool hasRecordedAudio = false;
@@ -1591,9 +1591,9 @@ class AddRecipeViewModel extends BaseViewModel {
   void previewRecipe() async {
     log(prepreationTime.toString());
     log('to Preview');
-    if (isPlaying) {
-      stopListening();
-    }
+    // if (isPlaying) {
+    //   // stopListening();
+    // }
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
 

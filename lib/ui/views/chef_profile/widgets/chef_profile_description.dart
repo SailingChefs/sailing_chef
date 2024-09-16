@@ -13,35 +13,49 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 90.h,
-            width: 90.w,
-            decoration: const BoxDecoration(
-              color: kcVeryLightGrey,
-              shape: BoxShape.circle,
-            ),
-            child: user.displayPicture!.isEmpty
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: const Image(
-                        image:
-                            AssetImage('assets/images/misc/blank_image.png')),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: CachedNetworkImage(
-                      imageUrl: user.displayPicture!,
-                      height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          Container(
-                        decoration: const BoxDecoration(
-                          color: kcsgreycolor,
+          GestureDetector(
+            onTap: () {
+              viewModel.profileShare(
+                  context,
+                  user.displayPicture!.isEmpty
+                      ? 'assets/images/misc/blank_image.png'
+                      : user.displayPicture!,
+                  user.displayPicture!.isEmpty ? 'asset' : 'network');
+            },
+            child: Hero(
+              tag: "profileShareOption",
+              child: Container(
+                height: 90.h,
+                width: 90.w,
+                decoration: const BoxDecoration(
+                  color: kcVeryLightGrey,
+                  shape: BoxShape.circle,
+                ),
+                child: user.displayPicture!.isEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: const Image(
+                            image: AssetImage(
+                                'assets/images/misc/blank_image.png')),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: user.displayPicture!,
+                          height:
+                              MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                          fit: BoxFit.cover,
+                          width: double.maxFinite,
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              Container(
+                            decoration: const BoxDecoration(
+                              color: kcsgreycolor,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+              ),
+            ),
           ),
           horizontalSpaceSmall,
           user.userRole == 'culinarySchool'

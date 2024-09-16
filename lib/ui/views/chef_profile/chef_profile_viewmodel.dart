@@ -18,6 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/imports/core_imports.dart';
 import '../../../services/auth_service.dart';
+import '../profile_share/profile_share_view.dart';
 
 class ChefProfileViewModel extends ReactiveViewModel {
   UserModel userDetails;
@@ -66,6 +67,17 @@ class ChefProfileViewModel extends ReactiveViewModel {
     isMySelected = false;
     notifyListeners();
     rebuildUi();
+  }
+
+   void profileShare(BuildContext context, String image, String type) {
+    // _navigationService.navigateToProfileShareView();
+    Navigator.of(context).push(PageRouteBuilder(
+      opaque: false, // Ensures the new page doesn't cover the background
+      barrierColor: Colors.grey.shade900
+          .withOpacity(0.95), // Makes the background transparent
+      pageBuilder: (context, _, __) =>
+          ProfileShareView(image: image, type: type),
+    ));
   }
 
   chefRecipesList(UserModel user) async {

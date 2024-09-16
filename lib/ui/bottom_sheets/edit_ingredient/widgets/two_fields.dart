@@ -61,7 +61,7 @@ class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
                     color: kcBlackColor.withOpacity(0.4),
                   ),
                   isExpanded: true,
-                  value: viewModel.selectedValue, 
+                  value: viewModel.selectedValue,
                   //     ? null
                   //     : viewModel.selectedValue,
                   onChanged: (String? newValue) {
