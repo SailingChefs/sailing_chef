@@ -33,65 +33,63 @@ class ProfileShareView extends StackedView<ProfileShareViewModel> {
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Hero(
               tag: "profileShareOption",
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    (size.height * 0.15).verticalSpace,
-                    type.startsWith('a')
-                        ? CircleAvatar(
-                            radius: size.width * 0.35,
-                            backgroundImage: AssetImage(image),
-                          )
-                        : CircleAvatar(
-                            radius: size.width * 0.35,
-                            backgroundImage: NetworkImage(image),
-                          ),
-                    verticalSpaceMedium,
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24.r),
-                      ),
-                      width: size.width * 0.7,
-                      padding: EdgeInsets.only(
-                          top: 16.h, bottom: 16.h, left: 16.w, right: 16.w),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Share Link",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
-                                  fontSize: 16.sp)),
-                          Divider(
-                            thickness: 0.1,
-                            height: 24.h,
-                            color: kcBlackColor,
-                          ),
-                          Text("Copy Link",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
-                                  fontSize: 16.sp)),
-                          Divider(
-                            thickness: 0.1,
-                            height: 24.h,
-                            color: kcBlackColor,
-                          ),
-                          Text("QR Code",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
-                                  fontSize: 16.sp)),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // (size.height * 0.15).verticalSpace,
+                  type.startsWith('a')
+                      ? CircleAvatar(
+                          radius: size.width * 0.35,
+                          backgroundImage: AssetImage(image),
+                        )
+                      : CircleAvatar(
+                          radius: size.width * 0.35,
+                          backgroundImage: NetworkImage(image),
+                        ),
+                  verticalSpaceMedium,
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(24.r),
+                  //   ),
+                  //   width: size.width * 0.7,
+                  //   padding: EdgeInsets.only(
+                  //       top: 16.h, bottom: 16.h, left: 16.w, right: 16.w),
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Text("Share Link",
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w600,
+                  //               color: kcBlackColor,
+                  //               fontSize: 16.sp)),
+                  //       Divider(
+                  //         thickness: 0.1,
+                  //         height: 24.h,
+                  //         color: kcBlackColor,
+                  //       ),
+                  //       Text("Copy Link",
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w600,
+                  //               color: kcBlackColor,
+                  //               fontSize: 16.sp)),
+                  //       Divider(
+                  //         thickness: 0.1,
+                  //         height: 24.h,
+                  //         color: kcBlackColor,
+                  //       ),
+                  //       Text("QR Code",
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w600,
+                  //               color: kcBlackColor,
+                  //               fontSize: 16.sp)),
+                  //     ],
+                  //   ),
+                  // )
+                ],
               )),
         ),
       ),

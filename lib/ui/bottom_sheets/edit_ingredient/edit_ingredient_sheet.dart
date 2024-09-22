@@ -1,4 +1,3 @@
-\
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 import '../../views/saved_recipe_details/widgets/text_field_comment.dart';

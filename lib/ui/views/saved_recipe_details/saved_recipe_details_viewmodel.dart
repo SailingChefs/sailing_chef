@@ -33,8 +33,6 @@ import '../../../core/imports/core_imports.dart';
 import '../../../services/user_services.dart';
 import 'package:fraction/fraction.dart';
 
-import '../../dialogs/long_press_comment/long_press_comment_dialog.dart';
-
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
 
@@ -65,7 +63,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   double volume = 0;
   bool isMute = false;
   List<File> images = [];
-  double rating = 3.0;
+  double rating = 0.0;
   List<RecipeModel> recipeList = [];
   late final PlayerController playerController;
   late List<double>? waveFormData;
@@ -80,6 +78,26 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   List<RecipeModel> get savedRecipeList => _savedRecipeService.savedRecipes;
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  String parseQuantity(String quantity, int serving) {
+    try {
+      if (quantity.contains('/')) {
+        // If the quantity contains a fraction, convert it to a Fraction object
+        Fraction fraction = Fraction.fromString(quantity);
+        Fraction result =
+            fraction * Fraction(serving, 1); // Convert int serving to Fraction
+        return result.toString();
+      } else {
+        // If it's a whole number, just multiply it as an integer
+        int parsedQuantity = int.parse(quantity);
+        return (parsedQuantity * serving).toString();
+      }
+    } catch (e) {
+      // Handle parsing error, if any
+      print('Error parsing quantity: $e');
+      return quantity;
+    }
+  }
 
   updateShoppingList() async {
     try {
@@ -161,6 +179,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 // **********************************************************
 // **********************************************************
   onLongPressComment(CommentModel comment) async {
+    if (comment.userId != FirebaseAuth.instance.currentUser!.uid) return;
+
     final res = await _dialogService.showCustomDialog(
         variant: DialogType.longPressComment);
     log(res!.data.toString());
@@ -767,6 +787,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void viewChefProfile(UserModel user) {
-    _navigationService.navigateToChefProfileView(user: user);
+    if (user.uid != FirebaseAuth.instance.currentUser!.uid) {
+      _navigationService.navigateToChefProfileView(user: user);
+    }
   }
 }

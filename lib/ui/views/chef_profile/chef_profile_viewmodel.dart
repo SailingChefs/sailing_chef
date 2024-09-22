@@ -69,7 +69,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-   void profileShare(BuildContext context, String image, String type) {
+  void profileShare(BuildContext context, String image, String type) {
     // _navigationService.navigateToProfileShareView();
     Navigator.of(context).push(PageRouteBuilder(
       opaque: false, // Ensures the new page doesn't cover the background

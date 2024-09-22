@@ -1058,7 +1058,7 @@ class AddRecipeViewModel extends BaseViewModel {
       if (recipeModel!.chefNote.isNotEmpty &&
           recipeModel!.waveForm.isNotEmpty) {
         waveFormData = recipeModel!.waveForm;
-        await downloadAudio();
+        // await downloadAudio();
       }
 
       if (recipeModel!.prepTime.isNotEmpty) {
@@ -1066,6 +1066,8 @@ class AddRecipeViewModel extends BaseViewModel {
       }
 
       selectedQuantity = recipeModel!.servingSize;
+      rebuildUi();
+      notifyListeners();
 
       // selectedImages = recipeModel!.coverImage;
     }
@@ -1087,28 +1089,28 @@ class AddRecipeViewModel extends BaseViewModel {
 
   double volume = 0;
   bool isMute = false;
-  Future<void> downloadAudio() async {
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    final response = await http.get(Uri.parse(recipeModel!.chefNote));
-    File audioFile = File("$tempPath/audio.mpeg4");
-    if (response.statusCode == 200) {
-      await audioFile.writeAsBytes(response.bodyBytes);
-      log("Download Complete");
-      playerController.preparePlayer(
-        path: audioFile.path,
-        volume: 100,
-      );
-      log("Player Ready");
-      // Calculate duration here
-      Duration duration = Duration(
-          milliseconds: await playerController.getDuration(DurationType.max));
-      int minutes = duration.inMinutes;
-      int seconds = duration.inSeconds % 60;
-      formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-      notifyListeners();
-    }
-  }
+  // Future<void> downloadAudio() async {
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   String tempPath = tempDir.path;
+  //   final response = await http.get(Uri.parse(recipeModel!.chefNote));
+  //   File audioFile = File("$tempPath/audio.mpeg4");
+  //   if (response.statusCode == 200) {
+  //     await audioFile.writeAsBytes(response.bodyBytes);
+  //     log("Download Complete");
+  //     playerController.preparePlayer(
+  //       path: audioFile.path,
+  //       volume: 100,
+  //     );
+  //     log("Player Ready");
+  //     // Calculate duration here
+  //     Duration duration = Duration(
+  //         milliseconds: await playerController.getDuration(DurationType.max));
+  //     int minutes = duration.inMinutes;
+  //     int seconds = duration.inSeconds % 60;
+  //     formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
+  //     notifyListeners();
+  //   }
+  // }
 
   // Future<void> downloadAudio() async {
   //   Directory tempDir = await getTemporaryDirectory();

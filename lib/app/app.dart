@@ -92,6 +92,7 @@ import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
 import 'package:sailing_chefs/ui/dialogs/long_press_comment/long_press_comment_dialog.dart';
 import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart';
+import 'package:sailing_chefs/ui/views/share_recipe_to_sailing_cheff_user/share_recipe_to_sailing_cheff_user_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -142,6 +143,7 @@ import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart';
 
     MaterialRoute(page: FeedbackView),
     MaterialRoute(page: ProfileShareView),
+    MaterialRoute(page: ShareRecipeToSailingCheffUserView),
 // @stacked-route
   ],
   dependencies: [

@@ -43,6 +43,7 @@ class RecipeViewViewModel extends BaseViewModel {
     this.path,
     required this.isFromDraft,
   });
+  late int servings;
 
   String formattedDuration = '';
   void onViewModelReady() async {
@@ -61,7 +62,6 @@ class RecipeViewViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  int servings = 0;
   int updatedQuantity = 0;
 
   void incrementServings() {

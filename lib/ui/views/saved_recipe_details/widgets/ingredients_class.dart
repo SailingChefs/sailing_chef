@@ -17,6 +17,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
         children: [
           SizedBox(height: 16.0.h),
           GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {
               viewModel.addOneItemToCart(
                   ingredient: ingredient, recipee: recipeModel);
@@ -29,23 +30,33 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   width: 130.w,
                   child: Row(
                     children: [
-                      Visibility(
-                        visible: true,
-                        child: Text('${viewModel.servings} ',
-                            style: globalTextStyle(
-                              color: kcBlackColor.withOpacity(0.87),
-                              letterSpacing: -0.3,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            )),
+                      // Visibility(
+                      //   visible: false,
+                      //   child: Text('${viewModel.servings} ',
+                      //       style: globalTextStyle(
+                      //         color: kcBlackColor.withOpacity(0.87),
+                      //         letterSpacing: -0.3,
+                      //         fontSize: 14.sp,
+                      //         fontWeight: FontWeight.w500,
+                      //       )),
+                      // ),
+                      Text(
+                        '${viewModel.parseQuantity(ingredient.quantity, ingredient.serving)} ${ingredient.unit}',
+                        style: globalTextStyle(
+                          color: kcBlackColor.withOpacity(0.87),
+                          letterSpacing: -0.3,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      Text('${ingredient.quantity} ${ingredient.unit}',
-                          style: globalTextStyle(
-                            color: kcBlackColor.withOpacity(0.87),
-                            letterSpacing: -0.3,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          )),
+                      // Text(
+                      //     '${int.parse(ingredient.quantity) * ingredient.serving} ${ingredient.unit}',
+                      //     style: globalTextStyle(
+                      //       color: kcBlackColor.withOpacity(0.87),
+                      //       letterSpacing: -0.3,
+                      //       fontSize: 14.sp,
+                      //       fontWeight: FontWeight.w500,
+                      //     )),
                     ],
                   ),
                 ),
@@ -63,39 +74,31 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    log(viewModel
-                        .checkSelected(
-                            recipee: recipeModel, ingredient: ingredient)
-                        .toString());
-                  },
-                  child: Container(
-                    width: 15.0.w,
-                    height: 15.0.h,
-                    decoration: BoxDecoration(
-                      color:
-                          //  viewModel.checkShoppingList(ingredient)
-                          viewModel.checkSelected(
-                                  recipee: recipeModel, ingredient: ingredient)
-                              ? kcPrimaryColorDark
-                              : Colors.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: kcPrimaryColorDark,
-                      ),
-                    ),
-                    child:
-                        // viewModel.checkShoppingList(ingredient)
+                Container(
+                  width: 15.0.w,
+                  height: 15.0.h,
+                  decoration: BoxDecoration(
+                    color:
+                        //  viewModel.checkShoppingList(ingredient)
                         viewModel.checkSelected(
                                 recipee: recipeModel, ingredient: ingredient)
-                            ? Icon(
-                                Icons.check,
-                                color: kcWhiteColor,
-                                size: 12.0.sp,
-                              )
-                            : Container(),
+                            ? kcPrimaryColorDark
+                            : Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: kcPrimaryColorDark,
+                    ),
                   ),
+                  child:
+                      // viewModel.checkShoppingList(ingredient)
+                      viewModel.checkSelected(
+                              recipee: recipeModel, ingredient: ingredient)
+                          ? Icon(
+                              Icons.check,
+                              color: kcWhiteColor,
+                              size: 12.0.sp,
+                            )
+                          : Container(),
                 ),
                 horizontalSpaceTiny,
               ],
