@@ -57,7 +57,7 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
                 _buildSocialIcon(
                     FlutterRemix.instagram_fill, 'Instagram', 4, viewModel),
                 _buildSocialIcon(
-                    FlutterRemix.snapchat_fill, 'Snapchat', 5, viewModel),
+                    FlutterRemix.snapchat_fill, 'S.C Users', 5, viewModel),
                 _buildSocialIcon(
                     FlutterRemix.file_copy_2_fill, 'Copy', 6, viewModel),
               ],
