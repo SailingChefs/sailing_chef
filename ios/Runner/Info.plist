@@ -71,7 +71,7 @@
     <string>????</string>
     
     <key>CFBundleVersion</key>
-    <string>$(FLUTTER_BUILD_NUMBER)</string>
+    <string>6</string> <!-- Incremented the build number to 6 -->
 
     <!-- Permissions for phone call and messaging URLs -->
     <key>LSApplicationQueriesSchemes</key>
