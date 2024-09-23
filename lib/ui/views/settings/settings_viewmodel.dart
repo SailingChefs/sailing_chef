@@ -12,12 +12,13 @@ class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void getBack() {
-    if (userDetails!.userRole == 'chef' ||
-        userDetails!.userRole == 'culinarySchool') {
-      _navigationService.navigateToBottomNavBarView();
-    } else {
-      _navigationService.navigateToBottomBarGuestView();
-    }
+    // if (userDetails!.userRole == 'chef' ||
+    //     userDetails!.userRole == 'culinarySchool') {
+    //   _navigationService.navigateToBottomNavBarView();
+    // } else {
+    //   _navigationService.navigateToBottomBarGuestView();
+    // }
+    _navigationService.back();
   }
 
   void deleteAccount() {

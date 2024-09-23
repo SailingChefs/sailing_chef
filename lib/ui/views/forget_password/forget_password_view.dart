@@ -1,9 +1,9 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/forget_password/forget_topBar.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 import 'forget_password_viewmodel.dart';
+import 'forget_topbar.dart';
 
 class ForgetPasswordView extends StackedView<ForgetPasswordViewModel> {
   const ForgetPasswordView({Key? key}) : super(key: key);

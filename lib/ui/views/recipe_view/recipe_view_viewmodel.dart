@@ -29,12 +29,14 @@ class RecipeViewViewModel extends BaseViewModel {
   final RecipeModel? recipe;
   double volume = 0;
   bool isMute = false;
+
   List<dynamic> get selectedImages => [...prevImageUrls, ...newImageUrls];
 
   Timer? _timer;
   List<double>? waveFormData;
   String? path;
   int? duration;
+
   RecipeViewViewModel(
     this.prevImageUrls,
     this.newImageUrls,
@@ -43,9 +45,11 @@ class RecipeViewViewModel extends BaseViewModel {
     this.path,
     required this.isFromDraft,
   });
+
   late int servings;
 
   String formattedDuration = '';
+
   void onViewModelReady() async {
     isclicked = false;
     servings = recipe!.servingSize;
@@ -201,12 +205,10 @@ class RecipeViewViewModel extends BaseViewModel {
           waveForm: waveFormData == null ? [] : waveFormData!,
         ),
       )
-          .then((value) async {
-        final result =
-            await navigationService.replaceWithBottomNavBarView(index: 4
-                // isFromDraft: isFromDraft,
-                );
-        log("result: $result");
+          .then((value) {
+        //todo: you can sent index to replaceWithBottomNavBarView() but then bottom bar ceases to work
+        navigationService.replaceWithBottomNavBarView();
+        // final result = navigationService.replaceWithBottomNavBarView(index: 4);
       });
     } catch (e) {
       showToast(message: 'Something went wrong');

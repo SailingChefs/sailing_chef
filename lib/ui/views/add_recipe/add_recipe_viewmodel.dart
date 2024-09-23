@@ -892,7 +892,9 @@ import 'package:http/http.dart' as http;
 
 class AddRecipeViewModel extends BaseViewModel {
   final RecipeModel? recipeModel;
+
   AddRecipeViewModel({this.recipeModel});
+
   PageController pageController = PageController(viewportFraction: 1.0);
   late final RecorderController recorderController;
   late final PlayerController playerController;
@@ -1089,6 +1091,7 @@ class AddRecipeViewModel extends BaseViewModel {
 
   double volume = 0;
   bool isMute = false;
+
   // Future<void> downloadAudio() async {
   //   Directory tempDir = await getTemporaryDirectory();
   //   String tempPath = tempDir.path;
@@ -1679,7 +1682,7 @@ class AddRecipeViewModel extends BaseViewModel {
               tags: tagsList,
               prepTime:
                   prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: selectedQuantity,
+              servingSize: int.parse(servingSize.text),
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
