@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
 import '../saved_recipe_details_viewmodel.dart';
@@ -10,6 +11,9 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
+    if (user.uid == null || user.uid!.isEmpty) {
+      return const SizedBox();
+    }
     return GestureDetector(
       onTap: () {
         viewModel.viewChefProfile(user);
@@ -34,10 +38,9 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     ),
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: user.displayPicture == null
-                          ? const AssetImage(
-                              'assets/images/misc/blank_image.png')
-                          : NetworkImage(user.displayPicture!) as ImageProvider,
+                      image: ImageUtils.safeNetworkImage(
+                        user.displayPicture,
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -1,8 +1,6 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/ui/views/login/login_view.dart';
 
 import '../onboarding/onboarding_view.dart';
 

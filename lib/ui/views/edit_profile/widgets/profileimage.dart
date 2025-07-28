@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/gesturedector_edit.dart';
 
@@ -64,7 +65,7 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                     backgroundImage: viewModel.selectedImageFile != null
                         ? FileImage(viewModel.selectedImageFile!)
                             as ImageProvider<Object>?
-                        : NetworkImage(userDetails!.displayPicture!.toString()),
+                        : ImageUtils.safeNetworkImageForAvatar(userDetails!.displayPicture),
                   ),
                   const GestureDetectorEdit(68, 68),
                 ],

@@ -7,7 +7,7 @@ import '../model/shopping_list_model.dart';
 UserModel? userDetails;
 List<RecipeModel> savedRecipesGlobal = [];
 List<Placemark>? placemarks;
-late ShoppingListModel userShoppingList;
+ShoppingListModel? userShoppingList;
 
 //
 List<RecipeModel> selectedRecipees = <RecipeModel>[];

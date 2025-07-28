@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
@@ -80,8 +81,11 @@ class DropPinSheetSheetModel extends BaseViewModel {
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
     } else if (ratings == 0) {
+      log("Rating validation failed: $ratings");
       showToast(message: 'Please add ratings!');
-    } else {}
+    } else {
+      log("Validation issue but ratings=$ratings");
+    }
   }
 
   Future<String> getCityCountry(double latitude, double longitude) async {
@@ -174,7 +178,9 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   void setRating(double value) {
     ratings = value;
+    log("Rating updated to: $value");
     notifyListeners();
+    rebuildUi();
   }
 
   void setNameError(String? s) {
@@ -215,12 +221,11 @@ class DropPinSheetSheetModel extends BaseViewModel {
     }
   }
 
-  void deletePin() {
-    _dialogService.showCustomDialog(
+  Future<void> deletePin() async {
+    await _dialogService.showCustomDialog(
       variant: DialogType.deletePin,
       title: location.pinnedLocation!.id!,
     );
-
-    rebuildUi();
+    
   }
 }

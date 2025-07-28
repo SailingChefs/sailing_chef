@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/input_field.dart';
@@ -231,7 +232,7 @@ class _ExpandedAppBar extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(receiver.displayPicture!),
+                    image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
                   ),
                 ),
               ),
@@ -292,7 +293,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(receiver.displayPicture!),
+                  image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
                 ),
               ),
             ),

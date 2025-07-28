@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
 import 'grid_tile_model.dart';
@@ -170,10 +171,9 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   radius: 18.r,
                   child: CircleAvatar(
                       radius: 16.r,
-                      backgroundImage: chefImagePath.isEmpty
-                          ? const AssetImage(
-                              'assets/images/misc/blank_image.png')
-                          : NetworkImage(chefImagePath) as ImageProvider
+                      backgroundImage: ImageUtils.safeNetworkImage(
+                        chefImagePath,
+                      )
                       // ? ClipRRect(
 
                       //     borderRadius: BorderRadius.circular(50.r),

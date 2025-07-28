@@ -5,6 +5,7 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 import 'recipe_list_page_viewmodel.dart';
@@ -70,11 +71,16 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     image: DecorationImage(
-                                      image: NetworkImage(
+                                      image: ImageUtils.safeNetworkImage(
                                         recipe.coverImage
                                             .where((element) =>
                                                 element.isFirebaseImageUrl)
-                                            .first,
+                                            .isNotEmpty
+                                            ? recipe.coverImage
+                                                .where((element) =>
+                                                    element.isFirebaseImageUrl)
+                                                .first
+                                            : '',
                                       ),
                                       fit: BoxFit.cover,
                                     ),
@@ -140,13 +146,9 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                     color: kcVeryLightGrey,
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: userDetails!
-                                              .displayPicture!.isEmpty
-                                          ? const AssetImage(
-                                              'assets/images/misc/blank_image.png')
-                                          : NetworkImage(
-                                                  userDetails!.displayPicture!)
-                                              as ImageProvider,
+                                      image: ImageUtils.safeNetworkImage(
+                                        userDetails!.displayPicture,
+                                      ),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

@@ -2,6 +2,7 @@
 
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
@@ -41,8 +42,8 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                                   viewModel.followingUsers[index]);
                             },
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                viewModel.followingUsers[index].displayPicture!,
+                              backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                viewModel.followingUsers[index].displayPicture,
                               ),
                             ),
                             title: Text(

@@ -31,7 +31,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   color: kcVeryLightGrey,
                   shape: BoxShape.circle,
                 ),
-                child: user.displayPicture!.isEmpty
+                child: user.displayPicture == null ||
+                        user.displayPicture!.isEmpty
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: const Image(
@@ -90,7 +91,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        user.recipes!.length.toString(),
+                        user.recipes != null ? user.recipes!.length.toString() : "",
                         style: globalTextStyle(
                           fontSize: 18.sp,
                           letterSpacing: -0.3,

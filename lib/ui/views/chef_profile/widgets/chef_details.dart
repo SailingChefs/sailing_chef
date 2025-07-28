@@ -19,7 +19,7 @@ class ProfileDescriptionChefProfileScreen
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          user.displayName!.isEmpty
+          user.displayName == null || user.displayName!.isEmpty
               ? const SizedBox()
               : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   verticalSpaceSmall,
@@ -48,7 +48,7 @@ class ProfileDescriptionChefProfileScreen
                     color: kcBlackColor,
                   ),
                 ),
-          user.bio!.isEmpty
+          user.bio == null || user.bio!.isEmpty
               ? const SizedBox()
               : Column(
                   children: [
@@ -65,7 +65,7 @@ class ProfileDescriptionChefProfileScreen
                   ],
                 ),
           verticalSpaceTiny,
-          user.link!.isEmpty
+         user.link == null || user.link!.isEmpty
               ? const SizedBox()
               : Row(
                   children: [

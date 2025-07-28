@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../common/app_colors.dart';
 import 'profile_share_viewmodel.dart';
 
 class ProfileShareView extends StackedView<ProfileShareViewModel> {
@@ -46,7 +45,9 @@ class ProfileShareView extends StackedView<ProfileShareViewModel> {
                         )
                       : CircleAvatar(
                           radius: size.width * 0.35,
-                          backgroundImage: NetworkImage(image),
+                          backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                            image,
+                          ),
                         ),
                   verticalSpaceMedium,
                   // Container(

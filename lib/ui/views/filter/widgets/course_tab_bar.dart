@@ -34,7 +34,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.selectedTabMainCourse == 'breakfast'
+                    color: viewModel.isBreakfastSelected
                         ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
@@ -45,7 +45,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Breakfast',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.selectedTabMainCourse == 'breakfast'
+                          color: viewModel.isBreakfastSelected
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -58,7 +58,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleTabMainCourse(1);
-                  viewModel.lunchSelected();
                 },
                 child: Container(
                   padding:
@@ -67,7 +66,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.selectedTabMainCourse == 'lunch'
+                    color: viewModel.isLunchSelected
                         ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
@@ -78,7 +77,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Lunch',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.selectedTabMainCourse == 'lunch'
+                          color: viewModel.isLunchSelected
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -91,7 +90,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleTabMainCourse(2);
-                  viewModel.dinnerSelected();
                 },
                 child: Container(
                   padding:
@@ -100,7 +98,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.dg),
                     ),
-                    color: viewModel.selectedTabMainCourse == 'dinner'
+                    color: viewModel.isDinnerSelected
                         ? kcPrimaryColor
                         : kcVeryLightGrey.withOpacity(0.4),
                   ),
@@ -111,7 +109,7 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
                         'Dinner',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: viewModel.selectedTabMainCourse == 'dinner'
+                          color: viewModel.isDinnerSelected
                               ? kcVeryLightGrey
                               : kcBlackColor.withOpacity(0.6),
                         ),
@@ -131,7 +129,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleSubTabsCourse(0);
-                  viewModel.starterSelected();
                 },
                 child: Container(
                   padding:
@@ -164,7 +161,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleSubTabsCourse(1);
-                  viewModel.canapeSelected();
                 },
                 child: Container(
                   padding:
@@ -197,7 +193,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleSubTabsCourse(2);
-                  viewModel.sideSelected();
                 },
                 child: Container(
                   padding:
@@ -230,7 +225,6 @@ class CourseTabBarFilerScreen extends ViewModelWidget<FilterViewModel> {
               GestureDetector(
                 onTap: () {
                   viewModel.handleSubTabsCourse(3);
-                  viewModel.sweetSelected();
                 },
                 child: Container(
                   padding:

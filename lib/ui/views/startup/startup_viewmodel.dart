@@ -49,10 +49,10 @@ class StartupViewModel extends BaseViewModel {
             userDetails = await _userService.getUserDetails();
             userShoppingList = await _userService.fetchShoppingList();
 
-            selectedRecipees = userShoppingList.selectedRecipees;
+            selectedRecipees = userShoppingList?.selectedRecipees ?? [];
             shoppingRecipeeIngredient =
-                userShoppingList.shoppingRecipeeIngredient;
-            showShoppingListview = userShoppingList.showShoppingListview;
+                userShoppingList?.shoppingRecipeeIngredient ?? {};
+            showShoppingListview = userShoppingList?.showShoppingListview ?? {};
 
             if (userDetails!.userRole == 'guest') {
               viewmodel.initialised;

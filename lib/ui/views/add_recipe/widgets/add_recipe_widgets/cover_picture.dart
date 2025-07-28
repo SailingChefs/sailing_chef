@@ -108,7 +108,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         } else {
                           return Container();
                         }
-                      }).toList(),
+                      }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -214,7 +214,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                             } else {
                               return Container();
                             }
-                          }).toList(),
+                          }),
                           GestureDetector(
                               onTap: viewModel.pickImages,
                               child: DottedBorder(
@@ -534,7 +534,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                         } else {
                                           return Container(); // Placeholder for unsupported media types
                                         }
-                                      }).toList(),
+                                      }),
                                       GestureDetector(
                                           onTap: viewModel.pickImages,
                                           child: DottedBorder(

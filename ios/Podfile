@@ -53,6 +53,14 @@ post_install do |installer|
         config.build_settings['SWIFT_VERSION'] = '5.0'
       end
     end
+
+    # Modify this block to set the xcconfig path directly
+    if target.name == 'Runner'
+      target.build_configurations.each do |config|
+        xcconfig_path = 'Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig'
+        config.build_settings['CONFIGURATION_FILE'] = xcconfig_path
+      end
+    end
   end
 end
 

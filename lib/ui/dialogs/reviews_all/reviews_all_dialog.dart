@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
@@ -60,31 +61,148 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                       Padding(
                         padding: const EdgeInsets.only(
                             top: 19.0, left: 15, right: 15),
-                        child: Text(
-                          'Reviews',
-                          style: globalTextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: kcBlackColor,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              viewModel.isEditingReview 
+                                ? 'Edit Review' 
+                                : viewModel.isAddingReview
+                                  ? 'Add Review'
+                                  : 'Reviews',
+                              style: globalTextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: kcBlackColor,
+                              ),
+                            ),
+                            if (viewModel.isEditingReview || viewModel.isAddingReview)
+                              TextButton(
+                                onPressed: () {
+                                  HapticFeedback.lightImpact();
+                                  if (viewModel.isEditingReview) {
+                                    viewModel.cancelEdit();
+                                  } else {
+                                    viewModel.cancelAddingReview();
+                                  }
+                                },
+                                child: Text(
+                                  'Cancel',
+                                  style: globalTextStyle(
+                                    fontSize: 14,
+                                    color: kcBlackColor,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                       verticalSpaceTiny,
-                      SizedBox(
-                        height: 280,
-                        width: double.infinity,
-                        child: ListView.builder(
+                      
+                      // Review form interface (both for edit and add)
+                      if (viewModel.isEditingReview || viewModel.isAddingReview) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Your Review',
+                                style: globalTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: kcBlackColor,
+                                ),
+                              ),
+                              verticalSpaceTiny,
+                              TextField(
+                                controller: viewModel.feedbackController,
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter your review here',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(10),
+                                ),
+                              ),
+                              verticalSpaceSmall,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Rating:',
+                                    style: globalTextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: List.generate(
+                                      5,
+                                      (index) => IconButton(
+                                        icon: Icon(
+                                          index < viewModel.currentRating ? 
+                                            Icons.star : 
+                                            Icons.star_border,
+                                          color: kclightgreencolor,
+                                        ),
+                                        onPressed: () {
+                                          viewModel.currentRating = index + 1;
+                                          viewModel.notifyListeners();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpaceSmall,
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    HapticFeedback.mediumImpact();
+                                    if (viewModel.isEditingReview) {
+                                      viewModel.saveEditedReview();
+                                    } else {
+                                      viewModel.addNewReview();
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: kcPrimaryColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    viewModel.isEditingReview ? 'Save Changes' : 'Add Review',
+                                    style: globalTextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ] else ...[
+                        SizedBox(
+                          height: 280,
+                          width: double.infinity,
+                          child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: viewModel.reviews.length,
                           itemBuilder: (context, index) {
+                            final bool isUserReview = viewModel.isUserReview(viewModel.reviews[index]);
                             return ListTile(
                               contentPadding:
                                   const EdgeInsets.only(left: 5.0, right: 5),
                               leading: CircleAvatar(
                                 radius: 20,
-                                backgroundImage: NetworkImage(
-                                  viewModel.reviews[index].userImageUrl,
-                                ),
+                                backgroundImage: viewModel.reviews[index].userImageUrl.isEmpty
+                                    ? const AssetImage('assets/images/default_location.png')
+                                    : NetworkImage(viewModel.reviews[index].userImageUrl) as ImageProvider,
                               ),
                               title: Text(
                                 viewModel.reviews[index].userName,
@@ -105,15 +223,14 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                 ),
                               ),
                               trailing: SizedBox(
-                                width: 80,
+                                width: isUserReview ? 130 : 80,
                                 height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 26.0, right: 5),
-                                  child: FittedBox(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    // Rating display
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         const Icon(
                                           Icons.star,
@@ -122,42 +239,89 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                         ),
                                         horizontalSpaceSmall,
                                         Text(
-                                          viewModel.reviews[index].rating
-                                              .toString(),
+                                          viewModel.reviews[index].rating.toString(),
                                           style: globalTextStyle(
                                             color: kcBlackColor,
-                                            fontSize: 15,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                    
+                                    // Edit and delete buttons for user's own reviews
+                                    if (isUserReview) ...[
+                                      horizontalSpaceTiny,
+                                      SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.edit,
+                                            size: 16,
+                                            color: kcPrimaryColor,
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints(),
+                                          splashRadius: 18,
+                                          onPressed: () {
+                                            HapticFeedback.mediumImpact();
+                                            viewModel.editReview(viewModel.reviews[index]);
+                                          },
+                                          tooltip: 'Edit Review',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            size: 16,
+                                            color: Colors.red,
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints(),
+                                          splashRadius: 18,
+                                          onPressed: () {
+                                            HapticFeedback.mediumImpact();
+                                            viewModel.deleteReview(viewModel.reviews[index]);
+                                          },
+                                          tooltip: 'Delete Review',
+                                        ),
+                                      ),
+                                    ],
+                                  ],
                                 ),
                               ),
                             );
                           },
                         ),
                       ),
+                      ],
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Center(
-                      child: Container(
-                        decoration: const UnderlineTabIndicator(
-                            borderSide: BorderSide(color: kcPrimaryColor)),
-                        child: Text(
-                          'Add review',
-                          style: globalTextStyle(
-                            color: kcBlackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
+                  if (!viewModel.isEditingReview && !viewModel.isAddingReview)
+                    GestureDetector(
+                      onTap: () {
+                        HapticFeedback.mediumImpact();
+                        viewModel.startAddingReview();
+                      },
+                      child: Center(
+                        child: Container(
+                          decoration: const UnderlineTabIndicator(
+                              borderSide: BorderSide(color: kcPrimaryColor)),
+                          child: Text(
+                            'Add review',
+                            style: globalTextStyle(
+                              color: kcBlackColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                   verticalSpaceSmall,
                 ],
               ),

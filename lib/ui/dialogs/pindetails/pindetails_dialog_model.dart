@@ -172,4 +172,12 @@ class PindetailsDialogModel extends ReactiveViewModel {
     bottomSheetService.showCustomSheet(
         variant: BottomSheetType.dropPinSheet, data: pinnedLocationData);
   }
+
+  void showReviews() {
+    _dialogNavigation.showCustomDialog(
+      variant: DialogType.reviewsAll,
+      data: pinnedLocation,
+      title: placeMark,
+    );
+  }
 }

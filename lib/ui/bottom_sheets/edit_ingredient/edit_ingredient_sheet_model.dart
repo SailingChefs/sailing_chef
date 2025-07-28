@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:sailing_chefs/model/ingredients_model.dart';
-import 'package:stacked/stacked.dart';
 
 import '../../../core/imports/core_imports.dart';
 

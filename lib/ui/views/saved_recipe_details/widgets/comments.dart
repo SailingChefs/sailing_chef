@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
@@ -21,17 +22,23 @@ class CommentsDetailsScreen
     if (viewModel.commentsList.isNotEmpty) {
       List<CommentModel> comments = viewModel.commentsList;
       commentTiles = comments.map((comment) {
-        return GestureDetector(
-          onLongPress: () => viewModel.onLongPressComment(comment),
-          // onLongPress: () => viewModel.onCommentLongPress(comment),
-          child: CustomListTileComments(
-            name: comment.userName,
-            date: comment.timestamp,
-            description: comment.content ?? '',
-            image: comment.userImageUrl,
-            ratingImages: comment.imageUrl ?? [],
-            rating: comment.rating ?? 0,
-          ),
+        // Check if this comment belongs to the current user
+        bool isUserComment = comment.userId == FirebaseAuth.instance.currentUser!.uid;
+        
+        return Column(
+          children: [
+            CustomListTileComments(
+              name: comment.userName,
+              date: comment.timestamp,
+              description: comment.content ?? '',
+              image: comment.userImageUrl,
+              ratingImages: comment.imageUrl ?? [],
+              rating: comment.rating ?? 0,
+              isUserComment: isUserComment,
+              onEdit: isUserComment ? () => viewModel.onCommentLongPress(comment) : null,
+              onDelete: isUserComment ? () => viewModel.deleteComment(comment) : null,
+            ),
+          ],
         );
       }).toList();
     }
@@ -165,7 +172,14 @@ class CommentsDetailsScreen
                             icon:
                                 const Icon(Icons.check, color: kcPrimaryColor),
                           )
-                        : const SizedBox.shrink(),
+                        : IconButton(
+                            onPressed: () => viewModel.addComment(recipeModel.docId!),
+                            icon: const Icon(
+                              Icons.send,
+                              color: kcPrimaryColor,
+                              size: 24,
+                            ),
+                          ),
                   ],
                 ),
               ),

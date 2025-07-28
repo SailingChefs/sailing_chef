@@ -2,124 +2,86 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- URL Types (Google Sign-in Section) -->
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi</string>
-            </array>
-        </dict>
-    </array>
-    
-    <!-- Google Sign-in Section -->
-    <key>GIDClientID</key>
-    <string>66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi.apps.googleusercontent.com</string>
-    
-    <!-- Permission descriptions for sensitive data usage -->
-    <key>NSCameraUsageDescription</key>
-    <string>This app needs permission for the camera to capture photos.</string>
-    
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs permission for image picker to choose photos from your library.</string>
-    
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app requires Mic permission for audio recording.</string>
-    
-    <!-- Location usage descriptions -->
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to your location while the app is in use for navigation purposes.</string>
-
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app requires your location even when the app is in the background for continuous location tracking.</string>
-
-    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
-    <dict>
-        <key>Navigation</key>
-        <string>The app needs temporary access to your location for providing turn-by-turn navigation.</string>
-    </dict>
-
-    <!-- Application details -->
-    <key>CFBundleDevelopmentRegion</key>
-    <string>$(DEVELOPMENT_LANGUAGE)</string>
-    
-    <key>CFBundleDisplayName</key>
-    <string>Sailing Chefs</string>
-    
-    <key>CFBundleExecutable</key>
-    <string>$(EXECUTABLE_NAME)</string>
-    
-    <key>CFBundleIdentifier</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-    
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
-    
-    <key>CFBundleName</key>
-    <string>sailing_chefs</string>
-    
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    
-    <key>CFBundleShortVersionString</key>
-    <string>$(FLUTTER_BUILD_NAME)</string>
-    
-    <key>CFBundleSignature</key>
-    <string>????</string>
-    
-    <key>CFBundleVersion</key>
-    <string>6</string> <!-- Incremented the build number to 6 -->
-
-    <!-- Permissions for phone call and messaging URLs -->
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>sms</string>
-        <string>tel</string>
-    </array>
-
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
-
-    <!-- Launch and interface orientations -->
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
-    
-    <key>UIMainStoryboardFile</key>
-    <string>Main</string>
-    
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-        <string>UIInterfaceOrientationPortraitUpsideDown</string>
-    </array>
-
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-        <string>UIInterfaceOrientationPortraitUpsideDown</string>
-    </array>
-
-    <!-- Enable embedded Flutter views -->
-    <key>io.flutter.embedded_views_preview</key>
-    <string>YES</string>
-
-    <!-- Disable minimum frame duration on iPhones -->
-    <key>CADisableMinimumFrameDurationOnPhone</key>
-    <true/>
-    
-    <!-- Support for indirect input events -->
-    <key>UIApplicationSupportsIndirectInputEvents</key>
-    <true/>
-
-    <!-- Push Notification Entitlement -->
-    <key>aps-environment</key>
-    <string>production</string> <!-- or "development" depending on your build configuration -->
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sailing Chefs</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>sailing_chefs</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>6</string>
+	<key>GIDClientID</key>
+	<string>66812962587-f7qbo4ofkh88q8j3erb8br91tc526gvi.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs permission for the camera to capture photos.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires your location even when the app is in the background for continuous location tracking.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>Navigation</key>
+		<string>The app needs temporary access to your location for providing turn-by-turn navigation.</string>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location while the app is in use for navigation purposes.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires Mic permission for audio recording.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs permission for image picker to choose photos from your library.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>aps-environment</key>
+	<string>production</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<string>YES</string>
 </dict>
 </plist>

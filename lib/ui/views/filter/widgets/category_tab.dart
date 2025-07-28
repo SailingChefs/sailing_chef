@@ -29,7 +29,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
           children: [
             GestureDetector(
               onTap: () {
-                viewModel.handleMainTabsDietary(0);
+                viewModel.handleMainTabsCategory(0);
               },
               child: Container(
                 padding:
@@ -56,7 +56,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleMainTabsDietary(1);
+                viewModel.handleMainTabsCategory(1);
               },
               child: Container(
                 padding:
@@ -83,7 +83,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleMainTabsDietary(2);
+                viewModel.handleMainTabsCategory(2);
               },
               child: Container(
                 padding:
@@ -110,7 +110,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleSubTabsDietary(0);
+                viewModel.handleSubTabsCategory(0);
               },
               child: Container(
                 padding:
@@ -142,7 +142,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleSubTabsDietary(1);
+                viewModel.handleSubTabsCategory(1);
               },
               child: Container(
                 padding:
@@ -174,7 +174,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleSubTabsDietary(2);
+                viewModel.handleSubTabsCategory(2);
               },
               child: Container(
                 padding:
@@ -206,7 +206,7 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.handleSubTabsDietary(3);
+                viewModel.handleSubTabsCategory(3);
               },
               child: Container(
                 padding:

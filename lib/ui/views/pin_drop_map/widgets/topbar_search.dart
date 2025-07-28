@@ -2,6 +2,7 @@
 
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/searchbar.dart';
 
@@ -14,8 +15,16 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
       children: [
         Expanded(
           child: GestureDetector(
-            onTap: () {
-              showSearch(context: context, delegate: PinsSearchDelegate());
+            onTap: () async {
+              final List<PinnedLocation>? result = await showSearch(
+                context: context, 
+                delegate: PinsSearchDelegate(),
+              );
+              
+              if (result != null && result.isNotEmpty) {
+                // Navigate to the selected pin on the map
+                viewModel.navigateToSearchResult(result.first);
+              }
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.7,

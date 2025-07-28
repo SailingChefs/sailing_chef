@@ -389,6 +389,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     log("Rating $ratings");
     rating = ratings;
     rebuildUi();
+    notifyListeners();
   }
 
   void myIngredientsSelected() {
@@ -443,6 +444,12 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       imageUrls = await commentService.uploadImagesToFirebase(images);
     }
 
+    // Make sure there's at least a rating or content
+    if (validRating == null && (commentController.text.isEmpty || commentController.text.trim().isEmpty)) {
+      showToast(message: 'Please provide a rating or comment');
+      return;
+    }
+    
     CommentModel newComment = CommentModel(
       userId: userDetails!.uid!,
       recipeId: recipeId,
@@ -453,13 +460,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       userImageUrl: userDetails!.displayPicture!,
       imageUrl: imageUrls,
     );
-
-    if (newComment.rating != null && newComment.content!.isNotEmpty) {
-      uploaded = await commentService.addComment(newComment);
-    } else {
-      // showToast(message: 'Please provide a rating or comment.');
-      return;
-    }
+    
+    uploaded = await commentService.addComment(newComment);
 
     if (uploaded) {
       commentController.clear();
@@ -628,7 +630,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       updateDuration(position);
     });
 
-    await playerController.startPlayer(finishMode: FinishMode.pause);
+    await playerController.setFinishMode(finishMode: FinishMode.pause);
 
     log("start Listening ends ${isPlaying.toString()}");
 

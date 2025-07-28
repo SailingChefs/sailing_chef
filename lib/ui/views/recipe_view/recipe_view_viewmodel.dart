@@ -134,7 +134,7 @@ class RecipeViewViewModel extends BaseViewModel {
       Duration position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
-    await playerController.startPlayer(finishMode: FinishMode.pause);
+    await playerController.setFinishMode(finishMode: FinishMode.pause);
 
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
@@ -207,7 +207,7 @@ class RecipeViewViewModel extends BaseViewModel {
       )
           .then((value) {
         //todo: you can sent index to replaceWithBottomNavBarView() but then bottom bar ceases to work
-        navigationService.replaceWithBottomNavBarView();
+        navigationService.replaceWithProfileView();
         // final result = navigationService.replaceWithBottomNavBarView(index: 4);
       });
     } catch (e) {

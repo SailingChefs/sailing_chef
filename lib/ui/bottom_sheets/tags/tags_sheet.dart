@@ -15,12 +15,23 @@ class TagsSheet extends StackedView<TagsSheetModel> {
     required this.request,
   }) : super(key: key);
 
+
+
   @override
   Widget builder(
     BuildContext context,
     TagsSheetModel viewModel,
     Widget? child,
   ) {
+
+    // Set the initial selected tags
+    if (!viewModel.initialTagsSet) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewModel.setInitialSelectedTags(request.data['savedTags']);
+        viewModel.initialTagsSet = true;
+      });
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
@@ -37,11 +48,11 @@ class TagsSheet extends StackedView<TagsSheetModel> {
               children: [
                 // verticalSpaceLarge,
                 verticalSpaceSmall,
-                const CourseTabBarFilerSheet(),
+                CourseTabBarFilerSheet(),
                 verticalSpaceSmall,
-                const CategoryTabsFilterSheet(),
+                CategoryTabsFilterSheet(),
                 verticalSpaceSmall,
-                const DietaryNeedTabsFilterSheet(),
+                DietaryNeedTabsFilterSheet(),
                 // verticalSpaceLarge,
                 verticalSpaceSmall,
                 BottomButtonsTagsSheet(

@@ -24,6 +24,7 @@ class CullinaryschoolService with ListenableServiceMixin {
   Future<void> cullinaryCoursesInit(String uid) async {
     courses.clear();
     courses = await getCoursesFromDatabase(userId: uid);
+    // Call notifyListeners only once when data is ready
     notifyListeners();
   }
 
@@ -31,13 +32,13 @@ class CullinaryschoolService with ListenableServiceMixin {
     log(course.toString());
     if (courses.any((element) => element.id == course.id)) {
       await _updateCourseToDatabase(course);
-      notifyListeners();
+      // Remove redundant notifyListeners
     } else {
       await _addCourseToDatabase(course);
       courses.add(course);
       userDetails!.schoolCourses!.add(course.id!);
-      notifyListeners();
     }
+    // Call notifyListeners only once at the end
     notifyListeners();
   }
 
@@ -59,19 +60,25 @@ class CullinaryschoolService with ListenableServiceMixin {
     String courseId,
   ) async {
     try {
+      // First update the database
       await firebasestore
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .update({
         'school_courses': FieldValue.arrayRemove([courseId])
       });
-      showToast(message: 'Course removed successfully');
+      
+      // Then update the local data
       await _deleteCourseFromDatabase(
           userId: userDetails!.uid!, courseId: courseId);
       courses.removeWhere((element) => element.id == courseId);
+      
+      // Show toast and notify listeners after all operations are complete
+      showToast(message: 'Course removed successfully');
       notifyListeners();
     } catch (e) {
-      log(e.toString());
+      log('Error deleting course $courseId: ${e.toString()}');
+      showToast(message: 'Failed to remove course. Please try again.');
     }
   }
 
@@ -125,10 +132,10 @@ class CullinaryschoolService with ListenableServiceMixin {
           .doc(course.id)
           .update(course.toMap());
       courses = courses.map((c) => c.id == course.id ? course : c).toList();
-      notifyListeners();
+      // Remove notifyListeners from here - let the calling method handle UI updates
       return courses;
     } catch (e) {
-      log(e.toString());
+      log('Error updating course ${course.id}: ${e.toString()}');
       return courses;
     }
   }
@@ -144,21 +151,29 @@ class CullinaryschoolService with ListenableServiceMixin {
 
       if (querySnapshot.exists) {
         List<String> courseIds =
-            querySnapshot.data()?['school_courses'].cast<String>() ?? [];
+            querySnapshot.data()?['school_courses']?.cast<String>() ?? [];
 
-        for (String courseId in courseIds) {
-          DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
-              await firebasestore.collection('courses').doc(courseId).get();
+        // Use Future.wait to fetch courses in parallel for better performance
+        final futures = courseIds.map((courseId) async {
+          try {
+            DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
+                await firebasestore.collection('courses').doc(courseId).get();
 
-          if (courseSnapshot.exists) {
-            Map<String, dynamic> courseData = courseSnapshot.data()!;
-            Course course = Course.fromMap(courseData);
-            courses.add(course);
+            if (courseSnapshot.exists) {
+              Map<String, dynamic> courseData = courseSnapshot.data()!;
+              return Course.fromMap(courseData);
+            }
+          } catch (e) {
+            log('Error fetching course $courseId: ${e.toString()}');
           }
-        }
+          return null;
+        }).toList();
+
+        final results = await Future.wait(futures);
+        courses = results.where((course) => course != null).cast<Course>().toList();
       }
     } catch (e) {
-      log(e.toString());
+      log('Error fetching courses for user $userId: ${e.toString()}');
     }
 
     return courses;

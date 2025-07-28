@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -48,52 +49,80 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         SizedBox(
                           height: 210,
                           width: 400,
-                          child: Stack(
-                            children: [
-                              PageView.builder(
-                                itemCount:
-                                    viewModel.pinnedLocation.picture.length,
-                                controller: viewModel.pageController,
-                                itemBuilder: (context, index) {
-                                  var media =
-                                      viewModel.pinnedLocation.picture[index];
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(27),
-                                    child: Image.network(
-                                      media,
-                                      height: 210,
-                                      width: 400,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
-                                },
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: SmoothPageIndicator(
+                          child: viewModel.pinnedLocation.picture.isNotEmpty
+                              ? Stack(
+                                  children: [
+                                    PageView.builder(
+                                      itemCount: viewModel.pinnedLocation.picture.length.clamp(1, 20),
                                       controller: viewModel.pageController,
-                                      count: viewModel
-                                          .pinnedLocation.picture.length,
-                                      axisDirection: Axis.horizontal,
-                                      effect: WormEffect(
-                                        spacing: 5.0,
-                                        radius: 5.0,
-                                        dotWidth: 10.0,
-                                        dotHeight: 10.0,
-                                        strokeWidth: 1,
-                                        dotColor: kcwhitecolor.withOpacity(0.5),
-                                        activeDotColor: kcwhitecolor,
-                                      ),
+                                      itemBuilder: (context, index) {
+                                        // Ensure index is within bounds
+                                        if (index >= viewModel.pinnedLocation.picture.length) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(27),
+                                              color: Colors.grey[300],
+                                            ),
+                                            child: const Center(
+                                              child: Icon(Icons.image_not_supported),
+                                            ),
+                                          );
+                                        }
+                                        
+                                        var media = viewModel.pinnedLocation.picture[index];
+                                        
+                                        return ImageUtils.networkImageWithFallback(
+                                          imageUrl: media,
+                                          width: 400,
+                                          height: 210,
+                                          fit: BoxFit.cover,
+                                          borderRadius: BorderRadius.circular(27),
+                                        );
+                                      },
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: viewModel.pinnedLocation.picture.isNotEmpty 
+                                              ? SmoothPageIndicator(
+                                                  controller: viewModel.pageController,
+                                                  count: viewModel.pinnedLocation.picture.length.clamp(1, 20), // Clamp to reasonable range
+                                                  axisDirection: Axis.horizontal,
+                                                  effect: WormEffect(
+                                                    spacing: 5.0,
+                                                    radius: 5.0,
+                                                    dotWidth: 10.0,
+                                                    dotHeight: 10.0,
+                                                    strokeWidth: 1,
+                                                    dotColor: kcwhitecolor.withOpacity(0.5),
+                                                    activeDotColor: kcwhitecolor,
+                                                  ),
+                                                )
+                                              : const SizedBox.shrink(), // Hide indicator if no pictures
+                                        ),
+                                        verticalSpaceSmall
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(27),
+                                    color: Colors.grey[300],
+                                  ),
+                                  child: const Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.image_not_supported, size: 48),
+                                        SizedBox(height: 8),
+                                        Text('No images available'),
+                                      ],
                                     ),
                                   ),
-                                  verticalSpaceSmall
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
                         ),
                         Positioned(
                           top: 20,
@@ -188,32 +217,45 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: 239,
-                                child: Text(
-                                  viewModel.tags!.join(', '),
-                                  style: globalTextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: kcBlackColor,
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    viewModel.tags!.join(', '),
+                                    style: globalTextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: kcBlackColor,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                   ),
                                 ),
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  viewModel.showRatingsExperience();
+                                  viewModel.showReviews();
                                 },
                                 child: Container(
                                   decoration: const UnderlineTabIndicator(
                                       borderSide:
                                           BorderSide(color: kcPrimaryColor)),
-                                  child: Text(
-                                    'Add review',
-                                    style: globalTextStyle(
-                                      color: kcBlackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'See all reviews',
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        size: 16,
+                                        color: kcBlackColor.withOpacity(0.8),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -222,48 +264,132 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                         ],
                       ),
                     ),
-                    viewModel.pinnedLocation.contactNumber.isEmpty
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 15.0, top: 10),
-                            child: Text(
-                              viewModel.pinnedLocation.contactNumber,
-                              style: globalTextStyle(
-                                color: kcBlackColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                    // Company Contact Information Section
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0, top: 15, right: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Contact Information',
+                            style: globalTextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
                             ),
                           ),
-                    viewModel.pinnedLocation.email.isEmpty
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Text(
-                              viewModel.pinnedLocation.email,
+                          verticalSpaceSmall,
+                          // Contact Number
+                          if (viewModel.pinnedLocation.contactNumber.isNotEmpty) ...[
+                            Row(
+                              children: [
+                                const Icon(Icons.phone, size: 16, color: kcPrimaryColor),
+                                horizontalSpaceSmall,
+                                Text(
+                                  viewModel.pinnedLocation.contactNumber,
+                                  style: globalTextStyle(
+                                    color: kcBlackColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            verticalSpaceTiny,
+                          ],
+                          // Email
+                          if (viewModel.pinnedLocation.email.isNotEmpty) ...[
+                            Row(
+                              children: [
+                                const Icon(Icons.email, size: 16, color: kcPrimaryColor),
+                                horizontalSpaceSmall,
+                                Expanded(
+                                  child: Text(
+                                    viewModel.pinnedLocation.email,
+                                    style: globalTextStyle(
+                                      color: kcBlackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            verticalSpaceTiny,
+                          ],
+                          // Website Link
+                          if (viewModel.pinnedLocation.link.isNotEmpty) ...[
+                            Row(
+                              children: [
+                                const Icon(Icons.link, size: 16, color: kcPrimaryColor),
+                                horizontalSpaceSmall,
+                                Expanded(
+                                  child: Text(
+                                    viewModel.pinnedLocation.link,
+                                    style: globalTextStyle(
+                                      color: kcPrimaryColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            verticalSpaceTiny,
+                          ],
+                          // Location
+                          Row(
+                            children: [
+                              const Icon(Icons.location_on, size: 16, color: kcPrimaryColor),
+                              horizontalSpaceSmall,
+                              Expanded(
+                                child: Text(
+                                  viewModel.placeMark,
+                                  style: globalTextStyle(
+                                    color: kcBlackColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Description Section
+                    if (viewModel.pinnedLocation.description.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, top: 15, right: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'About',
                               style: globalTextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                                 color: kcBlackColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                          ),
-                    viewModel.pinnedLocation.description.isEmpty
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, top: 10, right: 15),
-                            child: Text(
+                            verticalSpaceSmall,
+                            Text(
                               viewModel.pinnedLocation.description,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
                               style: globalTextStyle(
                                 color: kcBlackColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
+                                height: 1.4,
                               ),
                             ),
-                          ),
+                          ],
+                        ),
+                      ),
+                    ],
                     verticalSpaceMedium,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),

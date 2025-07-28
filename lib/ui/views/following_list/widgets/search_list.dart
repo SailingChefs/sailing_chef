@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 
@@ -27,8 +28,8 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
               viewModel.toUserDetails(user);
             },
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                user.displayPicture!,
+              backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                user.displayPicture,
               ),
             ),
             title: Text(

@@ -41,7 +41,14 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
             activeColor: kcPrimaryColor,
             shouldAlwaysShowTooltip: true,
             tooltipTextFormatterCallback: (value, text) {
-              return "$text hrs";
+              if((viewModel.values.end - viewModel.values.start) > 1){
+
+                if (value == 0 || value == 1) {
+                  return "$text hr";
+                }
+                return "$text hrs";
+              }
+              return text;
             },
             dateIntervalType: DateIntervalType.hours,
             dateFormat: DateFormat.H(),

@@ -2,10 +2,8 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../app/app.locator.dart';
 import '../../../core/imports/core_imports.dart';
 
 class SocialIconsSheetModel extends BaseViewModel {

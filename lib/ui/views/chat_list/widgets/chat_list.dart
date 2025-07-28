@@ -1,6 +1,7 @@
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/shimmerloader.dart';
@@ -100,9 +101,9 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                     ),
                                           leading: CircleAvatar(
                                             radius: 30.r,
-                                            backgroundImage: NetworkImage(
-                                                conversation
-                                                    .user!.displayPicture!),
+                                            backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                                conversation.user?.displayPicture,
+                                            ),
                                           ),
                                           trailing: Text(
                                               '${twoDigits(hour12)}:${twoDigits(minute)} $period'),

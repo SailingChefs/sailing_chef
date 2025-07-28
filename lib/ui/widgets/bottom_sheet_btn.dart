@@ -11,7 +11,7 @@ class SaveRecipeButton extends StatelessWidget {
   final IconData? prefix, postfix;
 
   const SaveRecipeButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.buttonText,
     this.fontSize = 14,
@@ -19,7 +19,7 @@ class SaveRecipeButton extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.prefix,
     this.postfix,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

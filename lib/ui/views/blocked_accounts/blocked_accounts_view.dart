@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
@@ -84,8 +85,9 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                 child: ListTile(
                                   leading: CircleAvatar(
                                     radius: 24.r,
-                                    backgroundImage: NetworkImage(
-                                        blockUser!.displayPicture ?? ''),
+                                    backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                      blockUser!.displayPicture,
+                                    ),
                                   ),
                                   title: Text(
                                     blockUser.displayName ?? '',

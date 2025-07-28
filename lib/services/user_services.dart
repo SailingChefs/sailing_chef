@@ -38,12 +38,17 @@ class UserServices with ListenableServiceMixin {
 
   updateShoppingList() async {
     try {
+      // Initialize userShoppingList if it's null
+      if (userShoppingList == null) {
+        userShoppingList = await fetchShoppingList();
+      }
+      
       firebasestore
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .collection('shopping_list')
           .doc(firebaseAuth.currentUser!.uid)
-          .set(userShoppingList.toJson());
+          .set(userShoppingList!.toJson());
     } catch (e, stackTrace) {
       log("StackTrace: $stackTrace");
     }
@@ -139,6 +144,13 @@ class UserServices with ListenableServiceMixin {
   Future<bool> storeUserDetails(
       Map<String, dynamic> userModel, String uid) async {
     try {
+      // Validate that uid is not empty
+      if (uid.isEmpty) {
+        EasyLoading.dismiss();
+        showToast(message: 'Invalid user ID');
+        return false;
+      }
+      
       EasyLoading.show();
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('users');

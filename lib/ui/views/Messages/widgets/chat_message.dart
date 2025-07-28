@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/message_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
@@ -64,10 +65,8 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
-                  backgroundImage: user.displayPicture!.isNotEmpty
-                      ? NetworkImage(user.displayPicture!)
-                      : null,
-                  child: user.displayPicture!.isNotEmpty
+                  backgroundImage: ImageUtils.conditionalNetworkImage(user.displayPicture),
+                  child: ImageUtils.isValidImageUrl(user.displayPicture)
                       ? null
                       : const Icon(Icons.person),
                 ),
@@ -389,11 +388,10 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
-                  backgroundImage: userDetails!.displayPicture != null
-                      ? NetworkImage(userDetails!.displayPicture!)
-                      : const AssetImage('assets/images/icons/imageicon.png')
-                          as ImageProvider<Object>,
-                  child: userDetails!.displayPicture!.isNotEmpty
+                  backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                    userDetails!.displayPicture,
+                  ),
+                  child: ImageUtils.isValidImageUrl(userDetails!.displayPicture)
                       ? null
                       : const Icon(Icons.person),
                 ),

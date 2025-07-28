@@ -4,6 +4,7 @@ import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/filter_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,104 +12,62 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class FilterViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final ChefService _chefService = locator<ChefService>();
+  final _chefService = locator<ChefService>();
+  final FilterService _filterService = locator<FilterService>();
+  
   String selectedTabMainCourse = '';
   String selectedTabSub = '';
   String selectedTabMainDietaryNeed = '';
   String selectedTabSubDietaryNeed = '';
-  bool isPassageSelected = false;
-  bool isMealSelected = false;
-  bool isPlatedSelected = false;
-  bool isBreakfastSelected = false;
-  bool isLunchSelected = false;
-  bool isDinnerSelected = false;
-  bool isSweetSelected = false;
-  bool isStarterSelected = false;
-  bool isCanapeSelected = false;
-  bool isSideSelected = false;
-  bool isFamilySelected = false;
-  bool isLightSelected = false;
-  bool isCharterSelected = false;
-  bool isCrewSelected = false;
-  int selectedTagsCount = 0;
-  SfRangeValues values = const SfRangeValues(0.0, 5.0);
-  String time = '';
-  // SfRangeValues values =  SfRangeValues(TimeOfDay.hoursPerDay-2, TimeOfDay.hoursPerDay-5);
-  void updateValue(SfRangeValues newValue) {
-    values = newValue;
+  
+  // Delegate filter state to FilterService
+  bool get isPassageSelected => _filterService.isPassageSelected;
+  bool get isMealSelected => _filterService.isMealSelected;
+  bool get isPlatedSelected => _filterService.isPlatedSelected;
+  bool get isFamilySelected => _filterService.isFamilySelected;
+  bool get isLightSelected => _filterService.isLightSelected;
+  bool get isCharterSelected => _filterService.isCharterSelected;
+  bool get isCrewSelected => _filterService.isCrewSelected;
+  
+  bool get isBreakfastSelected => _filterService.isBreakfastSelected;
+  bool get isLunchSelected => _filterService.isLunchSelected;
+  bool get isDinnerSelected => _filterService.isDinnerSelected;
+  bool get isSweetSelected => _filterService.isSweetSelected;
+  bool get isStarterSelected => _filterService.isStarterSelected;
+  bool get isCanapeSelected => _filterService.isCanapeSelected;
+  bool get isSideSelected => _filterService.isSideSelected;
+  
+  bool get isDietaryPassageSelected => _filterService.isDietaryPassageSelected;
+  bool get isDietaryMealSelected => _filterService.isDietaryMealSelected;
+  bool get isDietaryPlatedSelected => _filterService.isDietaryPlatedSelected;
+  bool get isDietaryFamilySelected => _filterService.isDietaryFamilySelected;
+  bool get isDietaryLightSelected => _filterService.isDietaryLightSelected;
+  bool get isDietaryCharterSelected => _filterService.isDietaryCharterSelected;
+  bool get isDietaryCrewSelected => _filterService.isDietaryCrewSelected;
+  
+  int get selectedTagsCount => _filterService.selectedTagsCount;
+  SfRangeValues get values => _filterService.values;
+  String get time => _filterService.time;
+  List<String> get selectedTags => _filterService.selectedTags;
 
-    notifyListeners();
+  void onViewModelReady() {
+    // Listen to FilterService changes
+    _filterService.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _filterService.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  void updateValue(SfRangeValues newValue) {
+    _filterService.updateValue(newValue);
     rebuildUi();
   }
 
   void addTimeFilter() {
-    if (time == '') {
-      selectedTagsCount++;
-      time = 'time';
-    } else {
-      time = 'time';
-    }
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void familySelected() {
-    isFamilySelected = true;
-    isLightSelected = false;
-    isCharterSelected = false;
-    isCrewSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void lightSelected() {
-    isLightSelected = true;
-    isFamilySelected = false;
-    isCharterSelected = false;
-    isCrewSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void charterSelected() {
-    isCharterSelected = true;
-    isFamilySelected = false;
-    isLightSelected = false;
-    isCrewSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void crewSelected() {
-    isCrewSelected = true;
-    isFamilySelected = false;
-    isLightSelected = false;
-    isCharterSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void passageSelected() {
-    isPassageSelected = true;
-    isMealSelected = false;
-    isPlatedSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void mealSelected() {
-    isMealSelected = true;
-    isPassageSelected = false;
-    isPlatedSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void platedSelected() {
-    isPlatedSelected = true;
-    isMealSelected = false;
-    isPassageSelected = false;
-    notifyListeners();
+    _filterService.addTimeFilter();
     rebuildUi();
   }
 
@@ -116,663 +75,198 @@ class FilterViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void sweetSelected() {
-    isSweetSelected = true;
-    isStarterSelected = false;
-    isCanapeSelected = false;
-    isSideSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void starterSelected() {
-    isStarterSelected = true;
-    isSweetSelected = false;
-    isCanapeSelected = false;
-    isSideSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void canapeSelected() {
-    isCanapeSelected = true;
-    isStarterSelected = false;
-    isSweetSelected = false;
-    isSideSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void sideSelected() {
-    isSideSelected = true;
-    isCanapeSelected = false;
-    isStarterSelected = false;
-    isSweetSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void breakfastSelected() {
-    isBreakfastSelected = true;
-    isLunchSelected = false;
-    isDinnerSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void lunchSelected() {
-    isLunchSelected = true;
-    isBreakfastSelected = false;
-    isDinnerSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  void dinnerSelected() {
-    isDinnerSelected = true;
-    isLunchSelected = false;
-    isBreakfastSelected = false;
-    notifyListeners();
-    rebuildUi();
-  }
-
-  final List<String> _selectedTags = [];
-
-  List<String> get selectedTags => _selectedTags;
-
-  // void addTag(String tag) {
-  //   if (!_selectedTags.contains(tag)) {
-  //     _selectedTags.remove(tag);
-  //   } else {
-  //     _selectedTags.add(tag);
-  //   }
-  // }
-
-  // void removeTag(String tag) {
-  //   if (_selectedTags.contains(tag)) {
-  //     _selectedTags.remove(tag);
-  //   } else {
-  //     _selectedTags.add(tag);
-  //   }
-  // }
-
   void addTag(String tag) {
-    if (!_selectedTags.contains(tag)) {
-      _selectedTags.add(tag);
-    }
+    _filterService.addTag(tag);
   }
 
   void removeTag(String tag) {
-    if (_selectedTags.contains(tag)) {
-      _selectedTags.remove(tag);
-    }
+    _filterService.removeTag(tag);
   }
 
-  void shouldIncrementFilterCount() {
-    if (selectedTabMainCourse == '') {
-      selectedTagsCount++;
-    }
-  }
-
-  willIncrementCount() {}
-
-  // void handleTabMainCourse(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       isLunchSelected = false;
-  //       isDinnerSelected = false;
-
-  //       if (isBreakfastSelected) {
-  //         selectedTabMainCourse = '';
-
-  //         isBreakfastSelected = false;
-  //         selectedTagsCount--;
-  //         removeTag('breakfast');
-  //         log("BreakFast Removed");
-  //       } else {
-  //         selectedTabMainCourse = 'breakfast';
-  //         isBreakfastSelected = true;
-  //         selectedTagsCount++;
-  //         addTag('breakfast');
-  //         log("BreakFast Selected");
-  //       }
-  //       notifyListeners();
-  //       rebuildUi();
-  //       break;
-
-  //     case 1:
-  //       isBreakfastSelected = false;
-  //       isDinnerSelected = false;
-  //       if (isLunchSelected) {
-  //         selectedTabMainCourse = '';
-
-  //         isLunchSelected = false;
-  //         selectedTagsCount--;
-  //         removeTag('lunch');
-  //       } else {
-  //         selectedTabMainCourse = 'lunch';
-  //         isLunchSelected = true;
-  //         selectedTagsCount++;
-  //         addTag('lunch');
-  //       }
-  //       break;
-  //     case 2:
-  //       isLunchSelected = false;
-  //       isBreakfastSelected = false;
-  //       if (isDinnerSelected) {
-  //         selectedTabMainCourse = '';
-
-  //         isDinnerSelected = false;
-  //         selectedTagsCount--;
-  //         removeTag('dinner');
-  //       } else {
-  //         selectedTabMainCourse = 'dinner';
-  //         isDinnerSelected = true;
-  //         selectedTagsCount++;
-  //         addTag('dinner');
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   rebuildUi();
-  // }
-
-  void handleTabMainCourse(int index) {
-    log("Initial State - Breakfast: $isBreakfastSelected, Lunch: $isLunchSelected, Dinner: $isDinnerSelected, Count: $selectedTagsCount");
-
-    bool wasAnyMainCourseSelected =
-        isBreakfastSelected || isLunchSelected || isDinnerSelected;
-
+  void handleMainTabsCourseCourse(int index) {
     switch (index) {
       case 0:
-        isLunchSelected = false;
-        isDinnerSelected = false;
-
-        if (isBreakfastSelected) {
-          isBreakfastSelected = false;
-          selectedTabMainCourse = '';
-          selectedTagsCount--;
-          removeTag('breakfast');
+        if (_filterService.isBreakfastSelected) {
+          _filterService.isBreakfastSelected = false;
+          _filterService.selectedTagsCount--;
           log("Breakfast Removed");
         } else {
-          isBreakfastSelected = true;
-          selectedTabMainCourse = 'breakfast';
-          if (!wasAnyMainCourseSelected) selectedTagsCount++;
-          addTag('breakfast');
+          _filterService.isBreakfastSelected = true;
+          _filterService.selectedTagsCount++;
           log("Breakfast Selected");
         }
         break;
-
       case 1:
-        isBreakfastSelected = false;
-        isDinnerSelected = false;
-
-        if (isLunchSelected) {
-          isLunchSelected = false;
-          selectedTabMainCourse = '';
-          selectedTagsCount--;
-          removeTag('lunch');
+        if (_filterService.isLunchSelected) {
+          _filterService.isLunchSelected = false;
+          _filterService.selectedTagsCount--;
           log("Lunch Removed");
         } else {
-          isLunchSelected = true;
-          selectedTabMainCourse = 'lunch';
-          if (!wasAnyMainCourseSelected) selectedTagsCount++;
-          addTag('lunch');
+          _filterService.isLunchSelected = true;
+          _filterService.selectedTagsCount++;
           log("Lunch Selected");
         }
         break;
-
       case 2:
-        isBreakfastSelected = false;
-        isLunchSelected = false;
-
-        if (isDinnerSelected) {
-          isDinnerSelected = false;
-          selectedTabMainCourse = '';
-          selectedTagsCount--;
-          removeTag('dinner');
+        if (_filterService.isDinnerSelected) {
+          _filterService.isDinnerSelected = false;
+          _filterService.selectedTagsCount--;
           log("Dinner Removed");
         } else {
-          isDinnerSelected = true;
-          selectedTabMainCourse = 'dinner';
-          if (!wasAnyMainCourseSelected) selectedTagsCount++;
-          addTag('dinner');
+          _filterService.isDinnerSelected = true;
+          _filterService.selectedTagsCount++;
           log("Dinner Selected");
         }
         break;
-
       default:
         break;
     }
-
-    log("Final State - Breakfast: $isBreakfastSelected, Lunch: $isLunchSelected, Dinner: $isDinnerSelected, Count: $selectedTagsCount");
-
-    notifyListeners();
     rebuildUi();
   }
 
-  void handleMainTabsDietary(int index) {
+  void handleMainTabsCategory(int index) {
     switch (index) {
       case 0:
-        if (isPassageSelected) {
-          isPassageSelected = false;
-          selectedTagsCount--;
-          removeTag('Passage');
+        if (_filterService.isPassageSelected) {
+          _filterService.isPassageSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          isPassageSelected = true;
-          selectedTagsCount++;
-          addTag('Passage');
+          _filterService.isPassageSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       case 1:
-        if (isMealSelected) {
-          isMealSelected = false;
-          selectedTagsCount--;
-          removeTag('Meal');
+        if (_filterService.isMealSelected) {
+          _filterService.isMealSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          isMealSelected = true;
-          selectedTagsCount++;
-          addTag('Meal');
+          _filterService.isMealSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       case 2:
-        if (isPlatedSelected) {
-          isPlatedSelected = false;
-          selectedTagsCount--;
-          removeTag('Plated');
+        if (_filterService.isPlatedSelected) {
+          _filterService.isPlatedSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          isPlatedSelected = true;
-          selectedTagsCount++;
-          addTag('Plated');
-        }
-        break;
-      default:
-        break;
-    }
-    notifyListeners();
-  }
-
-  void handleSubTabsDietary(int index) {
-    switch (index) {
-      case 0:
-        if (isFamilySelected) {
-          isFamilySelected = false;
-          selectedTagsCount--;
-          removeTag('Family');
-        } else {
-          isFamilySelected = true;
-          selectedTagsCount++;
-          addTag('Family');
-        }
-        break;
-      case 1:
-        if (isLightSelected) {
-          isLightSelected = false;
-          selectedTagsCount--;
-          removeTag('Light');
-        } else {
-          isLightSelected = true;
-          selectedTagsCount++;
-          addTag('Light');
-        }
-        break;
-      case 2:
-        if (isCharterSelected) {
-          isCharterSelected = false;
-          selectedTagsCount--;
-          removeTag('Charter');
-        } else {
-          isCharterSelected = true;
-          selectedTagsCount++;
-          addTag('Charter');
+          _filterService.isPlatedSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       case 3:
-        if (isCrewSelected) {
-          isCrewSelected = false;
-          selectedTagsCount--;
-          removeTag('Crew');
+        if (_filterService.isFamilySelected) {
+          _filterService.isFamilySelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          isCrewSelected = true;
-          selectedTagsCount++;
-          addTag('Crew');
+          _filterService.isFamilySelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
-
       default:
         break;
     }
-    notifyListeners();
+    rebuildUi();
+  }
+
+  void handleMainTabsDietaryNeed(int index) {
+    switch (index) {
+      case 0:
+        if (_filterService.isDietaryPassageSelected) {
+          _filterService.isDietaryPassageSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryPassageSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 1:
+        if (_filterService.isDietaryMealSelected) {
+          _filterService.isDietaryMealSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryMealSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 2:
+        if (_filterService.isDietaryPlatedSelected) {
+          _filterService.isDietaryPlatedSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryPlatedSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 3:
+        if (_filterService.isDietaryFamilySelected) {
+          _filterService.isDietaryFamilySelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryFamilySelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      default:
+        break;
+    }
+    rebuildUi();
   }
 
   void handleSubTabsCourse(int index) {
     switch (index) {
       case 0:
-        isStarterSelected = !isStarterSelected;
-        if (isStarterSelected) {
-          addTag('starter');
-          selectedTagsCount++;
+        if (_filterService.isStarterSelected) {
+          _filterService.isStarterSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          removeTag('starter');
-          selectedTagsCount--;
+          _filterService.isStarterSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       case 1:
-        isCanapeSelected = !isCanapeSelected;
-        if (isCanapeSelected) {
-          addTag('canape');
-          selectedTagsCount++;
+        if (_filterService.isCanapeSelected) {
+          _filterService.isCanapeSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          removeTag('canape');
-          selectedTagsCount--;
+          _filterService.isCanapeSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       case 2:
-        isSideSelected = !isSideSelected;
-        if (isSideSelected) {
-          addTag('side');
-          selectedTagsCount++;
+        if (_filterService.isSideSelected) {
+          _filterService.isSideSelected = false;
+          _filterService.selectedTagsCount--;
         } else {
-          removeTag('side');
-          selectedTagsCount--;
+          _filterService.isSideSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 3:
+        if (_filterService.isSweetSelected) {
+          _filterService.isSweetSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isSweetSelected = true;
+          _filterService.selectedTagsCount++;
         }
         break;
       default:
         break;
     }
-    notifyListeners();
+    rebuildUi();
   }
-
-  // void handleSubTabsCourse(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       isStarterSelected = !isStarterSelected;
-  //       if (isStarterSelected) {
-  //         addTag('starter');
-  //         selectedTagsCount++;
-  //       } else {
-  //         removeTag('starter');
-  //         selectedTagsCount--;
-  //       }
-  //       notifyListeners();
-  //       break;
-  //     case 1:
-  //       isCanapeSelected = !isCanapeSelected;
-  //       if (isCanapeSelected) {
-  //         addTag('canape');
-  //         selectedTagsCount++;
-  //       } else {
-  //         removeTag('canape');
-  //         selectedTagsCount--;
-  //       }
-  //       notifyListeners();
-  //       break;
-  //     case 2:
-  //       isSideSelected = !isSideSelected;
-  //       if (isSideSelected) {
-  //         addTag('side');
-  //         selectedTagsCount++;
-  //       } else {
-  //         removeTag('side');
-  //         selectedTagsCount--;
-  //       }
-  //       notifyListeners();
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-// void handleSubTabsCourse(int index) {
-//   switch (index) {
-//     case 0:
-//       if (isStarterSelected) {
-//         isStarterSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isStarterSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 1:
-//       if (isCanapeSelected) {
-//         isCanapeSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isCanapeSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 2:
-//       if (isSideSelected) {
-//         isSideSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isSideSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-//   rebuildUi();
-// }
-
-// void handleMainTabsDietary(int index) {
-//   switch (index) {
-//     case 0:
-//       if (isCrewSelected) {
-//         isCrewSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isCrewSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 1:
-//       if (isFamilySelected) {
-//         isFamilySelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isFamilySelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 2:
-//       if (isLightSelected) {
-//         isLightSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isLightSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-//   rebuildUi();
-// }
-
-// void handleSubTabsDietary(int index) {
-//   switch (index) {
-//     case 0:
-//       if (isCharterSelected) {
-//         isCharterSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isCharterSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 1:
-//       if (isPassageSelected) {
-//         isPassageSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isPassageSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     case 2:
-//       if (isMealSelected) {
-//         isMealSelected = false;
-//         selectedTagsCount--;
-//       } else {
-//         isMealSelected = true;
-//         selectedTagsCount++;
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-//   rebuildUi();
-// }
-// void handleSubTabsCourse(int index) {
-//   switch (index) {
-//     case 0:
-//       isStarterSelected =!isStarterSelected;
-//       if (isStarterSelected) {
-//         addTag('starter');
-//         selectedTagsCount++;
-//       } else {
-//         removeTag('starter');
-//         selectedTagsCount--;
-//       }
-//       notifyListeners();
-//       break;
-//     case 1:
-//       isCanapeSelected =!isCanapeSelected;
-//       if (isCanapeSelected) {
-//         addTag('canape');
-//         selectedTagsCount++;
-//       } else {
-//         removeTag('canape');
-//         selectedTagsCount--;
-//       }
-//       notifyListeners();
-//       break;
-//     case 2:
-//       isSideSelected =!isSideSelected;
-//       if (isSideSelected) {
-//         addTag('side');
-//         selectedTagsCount++;
-//       } else {
-//         removeTag('side');
-//         selectedTagsCount--;
-//       }
-//       notifyListeners();
-//       break;
-//     default:
-//       break;
-//   }
-// }
-
-  List<String> selectedOptions() {
-    List<String> selectedList = [];
-
-    if (isPassageSelected) selectedList.add('Passage');
-    if (isMealSelected) selectedList.add('Meal');
-    if (isPlatedSelected) selectedList.add('Plated');
-    if (isBreakfastSelected) selectedList.add('Breakfast');
-    if (isLunchSelected) selectedList.add('Lunch');
-    if (isDinnerSelected) selectedList.add('Dinner');
-    if (isSweetSelected) selectedList.add('Sweet');
-    if (isStarterSelected) selectedList.add('Starter');
-    if (isCanapeSelected) selectedList.add('Canape');
-    if (isSideSelected) selectedList.add('Side');
-    if (isFamilySelected) selectedList.add('Family');
-    if (isLightSelected) selectedList.add('Light');
-    if (isCharterSelected) selectedList.add('Charter');
-    if (isCrewSelected) selectedList.add('Crew');
-
-    return selectedList;
-  }
-
-  // void handleSubTabsCourse(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       selectedTabSub = 'starter';
-  //       break;
-  //     case 1:
-  //       selectedTabSub = 'canape';
-  //       break;
-  //     case 2:
-  //       selectedTabSub = 'side';
-  //     case 3:
-  //       selectedTabSub = 'sweet';
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-
-  //   rebuildUi();
-  // }
-
-  // void handleMainTabsDietary(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       selectedTabMainDietaryNeed = 'passagefriendly';
-  //       break;
-  //     case 1:
-  //       selectedTabMainDietaryNeed = 'mealprep';
-  //       break;
-  //     case 2:
-  //       selectedTabMainDietaryNeed = 'plated';
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   notifyListeners();
-  //   rebuildUi();
-  // }
-
-  // void handleSubTabsDietary(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       selectedTabSubDietaryNeed = 'family';
-  //       break;
-  //     case 1:
-  //       selectedTabSubDietaryNeed = 'light';
-  //       break;
-  //     case 2:
-  //       selectedTabSubDietaryNeed = 'charter';
-  //       break;
-  //     case 3:
-  //       selectedTabSubDietaryNeed = 'crew';
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   notifyListeners();
-  //   rebuildUi();
-  // }
 
   void reset() {
-    isCrewSelected = false;
-    isFamilySelected = false;
-    isLightSelected = false;
-    isCharterSelected = false;
-    isPassageSelected = false;
-    isMealSelected = false;
-    isPlatedSelected = false;
-    isSweetSelected = false;
-    isStarterSelected = false;
-    isCanapeSelected = false;
-    isSideSelected = false;
-    isBreakfastSelected = false;
-    isLunchSelected = false;
-    isDinnerSelected = false;
+    _filterService.reset();
     selectedTabMainCourse = '';
     selectedTabSub = '';
     selectedTabMainDietaryNeed = '';
     selectedTabSubDietaryNeed = '';
-    values = const SfRangeValues(0.0, 5.0);
-    selectedTagsCount = 0;
-    time = '';
-    notifyListeners();
     rebuildUi();
+  }
+
+  List<String> selectedOptions() {
+    return _filterService.selectedOptions();
   }
 
   void apply() {
@@ -789,51 +283,145 @@ class FilterViewModel extends BaseViewModel {
       bool timeInRange =
           prepTimeHours >= values.start && prepTimeHours <= values.end;
 
+      // Return true if both tag and time conditions are met
       if (selectedOptions().isEmpty) {
         return timeInRange;
+      } else {
+        return tagMatch && timeInRange;
       }
-
-      return tagMatch && timeInRange;
     }).toList();
 
-    _navigationService.replaceWithSearchView(
-        selectedTagsCount: selectedTagsCount,
-        recipeModel: filteredRecipes,
-        chefList: _chefService.chefs);
+    log('filtered ${filteredRecipes.length.toString()}');
+
+    _navigationService.navigateToSearchView(
+      recipeModel: filteredRecipes,
+      chefList: _chefService.chefs,
+      selectedTagsCount: selectedTagsCount,
+    );
   }
 
-  int _parsePrepTime(String prepTimeString) {
-    prepTimeString =
-        prepTimeString.trim(); // Remove any leading or trailing spaces
+  double _parsePrepTime(String? prepTime) {
+    if (prepTime == null || prepTime.isEmpty) return 0.0;
 
-    if (prepTimeString.contains('h')) {
-      List<String> parts = prepTimeString.split('h');
+    // Extract numeric values from the string using regex
+    RegExp regex = RegExp(r'\d+');
+    Iterable<Match> matches = regex.allMatches(prepTime);
 
-      // Check if there are exactly two parts (hours and minutes)
-      if (parts.length == 2) {
-        int hours = int.tryParse(parts[0].trim()) ?? 0;
-        int minutes = int.tryParse(parts[1].replaceAll('mins', '').trim()) ?? 0;
+    if (matches.isEmpty) return 0.0;
 
-        // Convert hours and minutes to total minutes
-        return hours * 60 + minutes;
-      } else if (parts.length == 1) {
-        // If only hours are provided
-        return int.tryParse(parts[0].replaceAll('h', '').trim()) ?? 0 * 60;
+    double totalMinutes = 0.0;
+
+    for (Match match in matches) {
+      double value = double.parse(match.group(0)!);
+
+      // Check if the value is followed by 'h' or 'hour' (indicating hours)
+      if (prepTime
+          .substring(match.end)
+          .toLowerCase()
+          .startsWith(RegExp(r'h|hour'))) {
+        totalMinutes += value * 60; // Convert hours to minutes
+      } else {
+        // Assume it's minutes if not specified as hours
+        totalMinutes += value;
       }
-    } else if (prepTimeString.contains('mins')) {
-      // If only minutes are provided
-      return int.tryParse(prepTimeString.replaceAll('mins', '').trim()) ?? 0;
     }
 
-    // If the format is invalid or parsing fails, return a default value (e.g., 0)
-    return 0;
+    return totalMinutes;
   }
 
-//  void apply() {
+  void handleSubTabsCategory(int index) {
+    switch (index) {
+      case 0:
+        if (_filterService.isFamilySelected) {
+          _filterService.isFamilySelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isFamilySelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 1:
+        if (_filterService.isLightSelected) {
+          _filterService.isLightSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isLightSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 2:
+        if (_filterService.isCharterSelected) {
+          _filterService.isCharterSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isCharterSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 3:
+        if (_filterService.isCrewSelected) {
+          _filterService.isCrewSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isCrewSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      default:
+        break;
+    }
+    rebuildUi();
+  }
 
-//   List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
-//     return recipe.tags!.any((tag) => selectedOptions().contains(tag));
-//   }).toList();
-//   _navigationService.replaceWithSearchView(recipeModel: filteredRecipes, chefList: ChefService.chefs);
-// }
+  void handleTabMainCourse(int index) {
+    handleMainTabsCourseCourse(index);
+  }
+
+  void handleMainTabsDietary(int index) {
+    handleMainTabsDietaryNeed(index);
+  }
+
+  void handleSubTabsDietary(int index) {
+    switch (index) {
+      case 0:
+        if (_filterService.isDietaryFamilySelected) {
+          _filterService.isDietaryFamilySelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryFamilySelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 1:
+        if (_filterService.isDietaryLightSelected) {
+          _filterService.isDietaryLightSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryLightSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 2:
+        if (_filterService.isDietaryCharterSelected) {
+          _filterService.isDietaryCharterSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryCharterSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      case 3:
+        if (_filterService.isDietaryCrewSelected) {
+          _filterService.isDietaryCrewSelected = false;
+          _filterService.selectedTagsCount--;
+        } else {
+          _filterService.isDietaryCrewSelected = true;
+          _filterService.selectedTagsCount++;
+        }
+        break;
+      default:
+        break;
+    }
+    rebuildUi();
+  }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
@@ -47,8 +48,8 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   viewModel.followersUsers[index]);
                             },
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                viewModel.followersUsers[index].displayPicture!,
+                              backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                viewModel.followersUsers[index].displayPicture,
                               ),
                             ),
                             title: Text(

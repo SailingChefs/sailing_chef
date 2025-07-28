@@ -30,7 +30,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   FocusNode? focsNode;
 
   RoundedTransparentTextField({
-    Key? key,
+    super.key,
     this.controller,
     this.style,
     this.suffixIcon,
@@ -57,7 +57,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.maxLengthEnforcement,
     this.inputFormatters,
     this.focsNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       autocorrect: true,
       enableSuggestions: true,
       keyboardType: keyboardType,
-      textCapitalization: TextCapitalization.words,
+      textCapitalization: TextCapitalization.sentences,
       controller: controller,
       maxLength: maxLength,
       maxLines: maxLines ?? 1,

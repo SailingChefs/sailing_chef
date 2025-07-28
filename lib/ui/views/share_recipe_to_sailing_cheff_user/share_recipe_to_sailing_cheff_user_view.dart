@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:stacked/stacked.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 
 import 'share_recipe_to_sailing_cheff_user_viewmodel.dart';
 
@@ -57,8 +56,9 @@ class ShareRecipeToSailingCheffUserView
                 child: ListTile(
                   leading: CircleAvatar(
                     radius: 24.r,
-                    backgroundImage:
-                        NetworkImage(user.displayPicture.toString()),
+                    backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                      user.displayPicture?.toString(),
+                    ),
                   ),
                   title: Text(
                     user.displayName.toString(),

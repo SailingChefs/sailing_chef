@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
 import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

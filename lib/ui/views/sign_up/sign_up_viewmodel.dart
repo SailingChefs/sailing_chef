@@ -2,7 +2,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/services/user_services.dart';
 
 import '../../common/show_toast.dart';
 
@@ -12,8 +11,6 @@ class SignUpViewModel extends BaseViewModel {
   final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _authService = locator<AuthService>();
-  final _snackbarService = locator<SnackbarService>();
-  final _userService = locator<UserServices>();
 
   @override
   void dispose() {
@@ -87,8 +84,6 @@ class SignUpViewModel extends BaseViewModel {
       );
       bool userRegistered = await _authService.signUp(
           password: passwordController.text.trim(), userModel: signupUser);
-
-      _userService.storeUserDetails(signupUser.toJson(), signupUser.uid!);
 
       if (userRegistered) {
         _navigationService.replaceWithUserDetailsView(

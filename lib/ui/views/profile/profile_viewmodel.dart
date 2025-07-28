@@ -13,7 +13,6 @@ import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
-import 'package:sailing_chefs/ui/views/settings/settings_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../profile_share/profile_share_view.dart';

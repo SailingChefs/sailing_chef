@@ -43,6 +43,11 @@ class FollowService with ListenableServiceMixin {
   }
 
   Future<void> init(String uid, bool fetch) async {
+    if (uid.isEmpty) {
+      log('Error: uid is empty in init method');
+      return;
+    }
+    
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
 
@@ -94,20 +99,46 @@ class FollowService with ListenableServiceMixin {
     }
   }
 
-  _getFollowersForUser(String uid) {
-    return firebasestore.collection('users').doc(uid).get().then((value) {
-      if (value.exists) {
-        return List<String>.from(value.data()!['followers']);
+  Future<List<String>> _getFollowersForUser(String uid) async {
+    if (uid.isEmpty) {
+      log('Error: uid is empty in _getFollowersForUser');
+      return [];
+    }
+    
+    try {
+      final docSnapshot = await firebasestore.collection('users').doc(uid).get();
+      if (docSnapshot.exists && docSnapshot.data() != null) {
+        final data = docSnapshot.data()!;
+        if (data.containsKey('followers') && data['followers'] != null) {
+          return List<String>.from(data['followers']);
+        }
       }
-    });
+      return [];
+    } catch (e) {
+      log('Error in _getFollowersForUser: $e');
+      return [];
+    }
   }
 
-  _getFollowingForUser(String uid) {
-    return firebasestore.collection('users').doc(uid).get().then((value) {
-      if (value.exists) {
-        return List<String>.from(value.data()!['following']);
+  Future<List<String>> _getFollowingForUser(String uid) async {
+    if (uid.isEmpty) {
+      log('Error: uid is empty in _getFollowingForUser');
+      return [];
+    }
+    
+    try {
+      final docSnapshot = await firebasestore.collection('users').doc(uid).get();
+      if (docSnapshot.exists && docSnapshot.data() != null) {
+        final data = docSnapshot.data()!;
+        if (data.containsKey('following') && data['following'] != null) {
+          return List<String>.from(data['following']);
+        }
       }
-    });
+      return [];
+    } catch (e) {
+      log('Error in _getFollowingForUser: $e');
+      return [];
+    }
   }
 
   Future<bool> addFollower(UserModel user) async {

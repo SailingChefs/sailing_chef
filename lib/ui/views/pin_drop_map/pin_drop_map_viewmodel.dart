@@ -14,16 +14,14 @@ import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
 import 'package:uuid/uuid.dart';
 
-class PinDropMapViewModel extends ReactiveViewModel {
-  GoogleMapController? controllermap;
-  Map<String, Marker> allMarkers = {};
-  Map<String, Marker> filteredMarkers = {};
-  final bottomSheetService = locator<BottomSheetService>();
+class PinDropMapViewModel extends BaseViewModel {
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
   final _locationService = locator<LocationService>();
+  final _bottomSheetService = locator<BottomSheetService>();
   late bool serviceEnabled;
   late LocationPermission permission;
+
   Position currentPosition = Position(
     longitude: 0,
     latitude: 0,
@@ -36,10 +34,13 @@ class PinDropMapViewModel extends ReactiveViewModel {
     altitudeAccuracy: 0,
     headingAccuracy: 0,
   );
+
   bool isClicked = false;
   late PinnedLocation pinnedLocation;
   List<String> selectedTabSelections = [];
   List<bool> selections = [];
+  Map<String, Marker> allMarkers = {};
+  Map<String, Marker> filteredMarkers = {};
 
   BuildContext? context;
   List<PinnedLocation> get pins => _navigationpinService.pins;
@@ -52,66 +53,90 @@ class PinDropMapViewModel extends ReactiveViewModel {
   bool showList = false;
   List<PinnedLocation> filteredPins = [];
 
-  // void onMarkerTap() {
-  // showList = true;
-  // rebuildUi();
-  // }
-
-  void showBottomSheet() {
-    showBottomButtons = true;
-    rebuildUi();
-  }
-
-  Map<String, Marker> get markers {
-    if (totalFilters == 0) return allMarkers;
-    return filteredMarkers;
-  }
-
-  void onCameraMove(CameraPosition position) {
-    currentCameraPosition = position;
-    rebuildUi();
-  }
-
-  void dropPin({required bool isNew}) async {
-    String markerId = const Uuid().v4();
-    final pinnedLocationData = PinnedLocationData(
-        LatLng(currentCameraPosition!.target.latitude,
-            currentCameraPosition!.target.longitude),
-        null);
-    final res2 = await bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.dropPinSheet,
-      data: {"pinnedLocationData": pinnedLocationData, "isNew": isNew},
-    );
-    if (res2?.data == false || res2?.data == null) return;
-
-    addMarkers(
-      markerId,
-      LatLng(currentCameraPosition!.target.latitude,
-          currentCameraPosition!.target.longitude),
-    );
-    showBottomButtons = false;
-    showMarker = false;
-    rebuildUi();
-  }
-
-  void onCancel() {
-    showBottomButtons = false;
-    showMarker = false;
-    rebuildUi();
-  }
+  GoogleMapController? controllermap;
 
   @override
-  List<ListenableServiceMixin> get listenableServices =>
-      [_navigationpinService];
+  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
+
+  Future<void> onViewModelReady(String id) async {
+    try {
+      setBusy(true);
+
+      await getCurrentLocation();
+      await showAllMarkers(id);
+
+      initialCameraPosition = CameraPosition(
+        target: LatLng(currentPosition.latitude, currentPosition.longitude),
+        zoom: 12,
+      );
+
+      await loadPinsNearUser();
+
+      setBusy(false);
+    } catch (e) {
+      setBusy(false);
+      log('Error in onViewModelReady: $e');
+      showErrorDialog('Failed to initialize map: $e');
+    }
+  }
+
+  Future<void> loadPinsNearUser() async {
+    try {
+      await _navigationpinService.getPinsNearUserLocation(
+        LatLng(currentPosition.latitude, currentPosition.longitude),
+      );
+      notifyListeners();
+    } catch (e) {
+      log('Error loading pins: $e');
+      showErrorDialog('Failed to load nearby locations');
+    }
+  }
+
+  Future<void> showErrorDialog(String message) async {
+    await _dialogService.showDialog(
+      title: 'Error',
+      description: message,
+      buttonTitle: 'OK',
+    );
+  }
+
+  void callDetailsDialog(PinnedLocation pinnedLoco) async {
+    try {
+      await controllermap?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(
+              pinnedLoco.location.latitude,
+              pinnedLoco.location.longitude,
+            ),
+            zoom: 15,
+          ),
+        ),
+      );
+
+      final place = await getCityCountry(
+        pinnedLoco.location.latitude,
+        pinnedLoco.location.longitude,
+      );
+
+      await _dialogService.showCustomDialog(
+        variant: DialogType.pindetails,
+        data: pinnedLoco,
+        title: place,
+      );
+    } catch (e) {
+      log('Error showing pin details: $e');
+      showErrorDialog('Could not show location details');
+    }
+  }
 
   Future<void> getCurrentLocation() async {
     try {
       currentPosition = await _locationService.determinePosition();
-
-      // return currentPosition!;
+      notifyListeners();
     } catch (e) {
-      log(e.toString());
-      // return Future.error(e.toString());
+      log('Error getting location: $e');
+      showErrorDialog('Could not get current location. Please check your location settings.');
     }
   }
 
@@ -169,24 +194,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
     allMarkers[markerId] = createMarker(markerId, location);
   }
 
-  void onViewModelReady(String id) async {
-    setBusy(true);
-
-    // await Future.wait([
-    await getCurrentLocation();
-    await showAllMarkers(id);
-    // ]);
-
-    initialCameraPosition = CameraPosition(
-      target: LatLng(currentPosition.latitude, currentPosition.longitude),
-      zoom: 12,
-    );
-    await _navigationpinService.getPins(
-      LatLng(currentPosition.latitude, currentPosition.longitude),
-    );
-    setBusy(false);
-  }
-
   Future<void> showMyLocation() async {
     // currentPosition = await getCurrentLocation();
 
@@ -204,26 +211,6 @@ class PinDropMapViewModel extends ReactiveViewModel {
       position: LatLng(currentPosition.latitude, currentPosition.longitude),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
-  }
-
-  void callDetailsDialog(PinnedLocation pinnedLoco) {
-    controllermap!.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(
-              pinnedLoco.location.latitude, pinnedLoco.location.longitude),
-          zoom: 15,
-        ),
-      ),
-    );
-    Future.delayed(Durations.long4, () {
-      Future.delayed(Durations.short1);
-      _dialogService.showCustomDialog(
-        variant: DialogType.pindetails,
-        data: pinnedLoco,
-        title: 'placeMark',
-      );
-    });
   }
 
   // Future<void> showAllMarkers(String id) async {
@@ -408,5 +395,104 @@ class PinDropMapViewModel extends ReactiveViewModel {
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
     return averageRating.toStringAsFixed(1);
+  }
+
+  void navigateToSearchResult(PinnedLocation pin) async {
+    if (controllermap != null) {
+      // Animate camera to the searched pin location
+      await controllermap!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(pin.location.latitude, pin.location.longitude),
+            zoom: 16,
+          ),
+        ),
+      );
+
+      // Show pin details dialog after a short delay
+      Future.delayed(const Duration(milliseconds: 500), () async {
+        final place = await getCityCountry(pin.location.latitude, pin.location.longitude);
+        _dialogService.showCustomDialog(
+          variant: DialogType.pindetails,
+          data: pin,
+          title: place,
+        );
+      });
+    }
+  }
+
+  void onCameraMove(CameraPosition position) {
+    // Store the current camera position for use in other methods
+    currentCameraPosition = position;
+    
+    // If a marker is being shown while camera is moving, hide bottom buttons
+    if (showMarker) {
+      showBottomButtons = false;
+      notifyListeners();
+    }
+
+    // Hide list while camera is moving for smoother UX
+    if (showList) {
+      showList = false;
+      notifyListeners();
+    }
+  }
+
+  // Called when the camera stops moving (camera becomes idle)
+  void showBottomSheet() {
+    if (showMarker && currentCameraPosition != null) {
+      showBottomButtons = true;
+      tapPosition = LatLng(
+        currentCameraPosition!.target.latitude,
+        currentCameraPosition!.target.longitude,
+      );
+      notifyListeners();
+    }
+  }
+
+  void onCancel() {
+    // Reset map state when canceling pin drop
+    showMarker = false;
+    showBottomButtons = false;
+    if (currentCameraPosition != null) {
+      controllermap?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(currentPosition.latitude, currentPosition.longitude),
+            zoom: 15,
+          ),
+        ),
+      );
+    }
+    notifyListeners();
+  }
+
+  Future<void> dropPin({required bool isNew}) async {
+    if (currentCameraPosition != null) {
+      String markerId = const Uuid().v4();
+      final pinnedLocationData = PinnedLocationData(
+        LatLng(currentCameraPosition!.target.latitude,
+            currentCameraPosition!.target.longitude),
+        isNew ? null : pinnedLocation
+      );
+
+      final res = await _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.dropPinSheet,
+        data: {"pinnedLocationData": pinnedLocationData, "isNew": isNew},
+      );
+
+      if (res?.data == true) {
+        // Only add marker and reset view if pin was successfully dropped
+        addMarkers(
+          markerId,
+          LatLng(currentCameraPosition!.target.latitude,
+              currentCameraPosition!.target.longitude),
+        );
+        showBottomButtons = false;
+        showMarker = false;
+        await loadPinsNearUser(); // Refresh pins
+        notifyListeners();
+      }
+    }
   }
 }

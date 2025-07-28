@@ -888,7 +888,6 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:http/http.dart' as http;
 
 class AddRecipeViewModel extends BaseViewModel {
   final RecipeModel? recipeModel;
@@ -956,10 +955,11 @@ class AddRecipeViewModel extends BaseViewModel {
 
   Future<void> showTagsSheet(context) async {
     final result =
-        await _bottomSheetService.showCustomSheet<dynamic, TagsSheetResponse>(
+        await _bottomSheetService.showCustomSheet(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.tags,
+      data: {'savedTags': tagsList },
     );
     if (result == null) return;
     tagsList = result.data.tags;
@@ -977,13 +977,6 @@ class AddRecipeViewModel extends BaseViewModel {
     log(' File size is : $fileSizeInKB KB');
     CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: value.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: '',
@@ -994,6 +987,13 @@ class AddRecipeViewModel extends BaseViewModel {
           cropGridColor: kcWhiteColor,
           dimmedLayerColor: kcBlackColor,
           initAspectRatio: CropAspectRatioPreset.ratio16x9,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
         ),
         IOSUiSettings(
           title: '',
@@ -1092,47 +1092,6 @@ class AddRecipeViewModel extends BaseViewModel {
   double volume = 0;
   bool isMute = false;
 
-  // Future<void> downloadAudio() async {
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   String tempPath = tempDir.path;
-  //   final response = await http.get(Uri.parse(recipeModel!.chefNote));
-  //   File audioFile = File("$tempPath/audio.mpeg4");
-  //   if (response.statusCode == 200) {
-  //     await audioFile.writeAsBytes(response.bodyBytes);
-  //     log("Download Complete");
-  //     playerController.preparePlayer(
-  //       path: audioFile.path,
-  //       volume: 100,
-  //     );
-  //     log("Player Ready");
-  //     // Calculate duration here
-  //     Duration duration = Duration(
-  //         milliseconds: await playerController.getDuration(DurationType.max));
-  //     int minutes = duration.inMinutes;
-  //     int seconds = duration.inSeconds % 60;
-  //     formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
-  //     notifyListeners();
-  //   }
-  // }
-
-  // Future<void> downloadAudio() async {
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   String tempPath = tempDir.path;
-  //   final response = await http.get(Uri.parse(recipeModel!.chefNote));
-  //   File audioFile = File("$tempPath/audio.mpeg4");
-  //   if (response.statusCode == 200) {
-  //     await audioFile.writeAsBytes(response.bodyBytes);
-  //     log("Download Complete");
-  //      playerController.preparePlayer(
-  //       path: audioFile.path,
-  //       volume: 100,
-  //     );
-
-  //     log("Player Ready");
-  //   }
-  //   durationCalculate(audioFile);
-  // }
-
   void durationStop() {
     playerController.onCompletion.listen((event) {
       stopListening();
@@ -1149,7 +1108,7 @@ class AddRecipeViewModel extends BaseViewModel {
       updateDuration(position);
     });
 
-    await playerController.startPlayer(finishMode: FinishMode.pause);
+    await playerController.startPlayer();
 
     log("start Listening ends ${isPlaying.toString()}");
     durationStop();
@@ -1369,54 +1328,6 @@ class AddRecipeViewModel extends BaseViewModel {
       },
     );
   }
-
-  // Future<void> showCustomTimePickerDialog(BuildContext context) async {
-  //   // Set the initial time to 00:00 (midnight)
-  //   TimeOfDay initialTime = const TimeOfDay(hour: 0, minute: 0);
-
-  //   // Define a custom theme for the time picker dialog
-  //   final ThemeData themeData = Theme.of(
-  //       context); // Change the text color// Change the color of the dial
-  //   // Change the color of the hand // Change the background color
-
-  //   // Show the time picker dialog and wait for user input
-  //   selectedTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: initialTime,
-  //     initialEntryMode: TimePickerEntryMode.inputOnly,
-  //     builder: (BuildContext context, Widget? child) {
-  //       return MediaQuery(
-  //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-  //         child: Theme(
-  //           data: ThemeData(
-  //             textTheme: themeData.textTheme.copyWith(),
-  //             colorScheme: themeData.colorScheme.copyWith(
-  //               primary: kcPrimaryColor,
-  //               onPrimary: kcWhiteColor,
-  //               onBackground: kcPrimaryColor,
-  //               // onSurface: kcPrimaryColor,
-  //               // surface: kcPrimaryColor,
-  //             ),
-  //             primaryColor: kcPrimaryColor,
-  //             dialogBackgroundColor: kcPrimaryColor,
-  //             hoverColor: kcPrimaryColor,
-  //             focusColor: kcPrimaryColor,
-  //             fontFamily: 'Inter',
-  //             dialogTheme: DialogTheme(
-  //               backgroundColor: kcWhiteColor,
-  //               shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(10.0),
-  //               ),
-  //             ),
-  //           ),
-  //           child: child!,
-  //         ),
-  //       );
-  //     },
-  //   );
-
-  //   rebuildUi();
-  // }
 
   String formatDuration([TimeOfDay? time]) {
     prepreationTime = '';
@@ -1770,4 +1681,5 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   late List<String> imageUrls;
+
 }

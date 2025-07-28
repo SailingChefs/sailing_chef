@@ -165,8 +165,7 @@ class UserDetailsViewModel extends BaseViewModel {
       }
 
       if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        showToast(message: 'Please varify your email first');
-
+        showToast(message: 'Please verify your email first');
         return;
       }
 

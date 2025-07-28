@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/search_service.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
@@ -84,7 +85,9 @@ class RecipeSearchDelegate extends SearchDelegate<List<RecipeModel>> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(recipe.coverImage.first),
+                    image: ImageUtils.safeNetworkImage(
+                      recipe.coverImage.isNotEmpty ? recipe.coverImage.first : '',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
