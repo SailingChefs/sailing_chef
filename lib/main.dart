@@ -32,7 +32,7 @@ void main() {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    await setupLocator();
+    setupLocator();
     setupDialogUi();
     await MediaCacheManager.instance.init();
     setupBottomSheetUi();

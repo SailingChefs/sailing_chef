@@ -7,57 +7,55 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
+import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/bitmap_image_service.dart';
+import 'package:sailing_chefs/services/block_user_service.dart';
+import 'package:sailing_chefs/services/chef_service.dart';
+import 'package:sailing_chefs/services/comment_service.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
+import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/follow_service.dart';
+import 'package:sailing_chefs/services/location_service.dart';
+import 'package:sailing_chefs/services/pin_drop_service.dart';
+import 'package:sailing_chefs/services/recipe_service.dart';
+import 'package:sailing_chefs/services/saved_recipe_service.dart';
+import 'package:sailing_chefs/services/search_service.dart';
+import 'package:sailing_chefs/services/shopping_list_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/services/userdata_service_service.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
-import '../services/auth_service.dart';
-import '../services/bitmap_image_service.dart';
-import '../services/block_user_service.dart';
-import '../services/chef_service.dart';
-import '../services/comment_service.dart';
-import '../services/conversation_service.dart';
-import '../services/cullinaryschool_service.dart';
-import '../services/follow_service.dart';
-import '../services/location_service.dart';
-import '../services/pin_drop_service.dart';
-import '../services/recipe_service.dart';
-import '../services/saved_recipe_service.dart';
-import '../services/search_service.dart';
-import '../services/shopping_list_service.dart';
-import '../services/user_services.dart';
-import '../services/userdata_service_service.dart';
-import '../ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
-
 final locator = StackedLocator.instance;
 
-Future<void> setupLocator({
+void setupLocator({
   String? environment,
   EnvironmentFilter? environmentFilter,
-}) async {
+}) {
 // Register environments
-  locator.registerEnvironment(
-      environment: environment, environmentFilter: environmentFilter);
+  locator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
-// Register dependencies
-  locator.registerLazySingleton(() => BottomSheetService());
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => UserServices());
-  locator.registerLazySingleton(() => AuthService());
-  locator.registerLazySingleton(() => RecipeService());
-  locator.registerLazySingleton(() => LocationService());
-  locator.registerLazySingleton(() => ConversationService());
-  locator.registerLazySingleton(() => ChefService());
-  locator.registerLazySingleton(() => ShoppingListService());
-  locator.registerLazySingleton(() => SnackbarService());
-  locator.registerLazySingleton(() => UserdataServiceService());
-  locator.registerLazySingleton(() => BottomNavBarViewModel());
-  locator.registerLazySingleton(() => CommentService());
-  locator.registerLazySingleton(() => SavedRecipeService());
-  locator.registerLazySingleton(() => BlockUserService());
-  locator.registerLazySingleton(() => BitmapImageService());
-  locator.registerLazySingleton(() => FollowService());
-  locator.registerLazySingleton(() => SearchService());
-  locator.registerLazySingleton(() => CullinaryschoolService());
-  locator.registerLazySingleton(() => PinDropService());
+  // Register dependencies
+  locator.registerLazySingleton(BottomSheetService.new);
+  locator.registerLazySingleton(DialogService.new);
+  locator.registerLazySingleton(NavigationService.new);
+  locator.registerLazySingleton(UserServices.new);
+  locator.registerLazySingleton(AuthService.new);
+  locator.registerLazySingleton(RecipeService.new);
+  locator.registerLazySingleton(LocationService.new);
+  locator.registerLazySingleton(ConversationService.new);
+  locator.registerLazySingleton(ChefService.new);
+  locator.registerLazySingleton(ShoppingListService.new);
+  locator.registerLazySingleton(SnackbarService.new);
+  locator.registerLazySingleton(UserdataServiceService.new);
+  locator.registerLazySingleton(BottomNavBarViewModel.new);
+  locator.registerLazySingleton(CommentService.new);
+  locator.registerLazySingleton(SavedRecipeService.new);
+  locator.registerLazySingleton(BlockUserService.new);
+  locator.registerLazySingleton(BitmapImageService.new);
+  locator.registerLazySingleton(FollowService.new);
+  locator.registerLazySingleton(SearchService.new);
+  locator.registerLazySingleton(CullinaryschoolService.new);
+  locator.registerLazySingleton(PinDropService.new);
 }

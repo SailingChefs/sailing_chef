@@ -1,15 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/settings/settings_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/settings/widgets/settings_list.dart';
 import 'package:sailing_chefs/ui/views/settings/widgets/top_bar.dart';
-
-import 'settings_viewmodel.dart';
 
 class SettingsView extends StackedView<SettingsViewModel> {
   final bool? isCurrentUser;
   final String? uid;
 
-  const SettingsView({Key? key, this.isCurrentUser, this.uid})
-      : super(key: key);
+  const SettingsView({super.key, this.isCurrentUser, this.uid});
 
   @override
   Widget builder(
@@ -17,15 +15,18 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return const SafeArea(
-      child: Scaffold(
-        backgroundColor: kcBackgroundColor,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              TopBarSettingsProfile(),
-              SettingsListSettingsScreen(),
-            ],
+    return const Material(
+      elevation: 10,
+      child: SafeArea(
+        child: Scaffold(
+          // backgroundColor: Color.fromARGB(255, 0, 255, 234),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                TopBarSettingsProfile(),
+                SettingsListSettingsScreen(),
+              ],
+            ),
           ),
         ),
       ),
