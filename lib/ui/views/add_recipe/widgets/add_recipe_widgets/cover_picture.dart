@@ -1,4 +1,5 @@
 import 'dart:io';
+
 // import 'package:croppy/croppy.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,7 +12,7 @@ import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 import '../../../../widgets/custom_video_player.dart';
 
 class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
-  const CoverPictureSelector(this.drafts, {Key? key}) : super(key: key);
+  const CoverPictureSelector(this.drafts, {super.key});
   final RecipeModel? drafts;
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
@@ -218,11 +219,11 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                           GestureDetector(
                               onTap: viewModel.pickImages,
                               child: DottedBorder(
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(20.0.r),
-                                strokeWidth: 2.0,
-                                dashPattern: const [8, 4],
-                                color: kcBlackColor.withOpacity(0.3),
+                                // borderType: BorderType.RRect,
+                                // radius: Radius.circular(20.0.r),
+                                // strokeWidth: 2.0,
+                                // dashPattern: const [8, 4],
+                                // color: kcBlackColor.withOpacity(0.3),
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical:
@@ -291,11 +292,11 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                 },
                 child: viewModel.thumbnails.isEmpty
                     ? DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(20.0.r),
-                        strokeWidth: 2.0,
-                        dashPattern: const [8, 4],
-                        color: kcBlackColor.withOpacity(0.3),
+                        // borderType: BorderType.RRect,
+                        // radius: Radius.circular(20.0.r),
+                        // strokeWidth: 2.0,
+                        // dashPattern: const [8, 4],
+                        // color: kcBlackColor.withOpacity(0.3),
                         child: Container(
                           margin: EdgeInsets.symmetric(
                               vertical:
@@ -538,12 +539,12 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       GestureDetector(
                                           onTap: viewModel.pickImages,
                                           child: DottedBorder(
-                                            borderType: BorderType.RRect,
-                                            radius: Radius.circular(20.0.r),
-                                            strokeWidth: 2.0,
-                                            dashPattern: const [8, 4],
-                                            color:
-                                                kcBlackColor.withOpacity(0.3),
+                                            // borderType: BorderType.RRect,
+                                            // radius: Radius.circular(20.0.r),
+                                            // strokeWidth: 2.0,
+                                            // dashPattern: const [8, 4],
+                                            // color:
+                                            //     kcBlackColor.withOpacity(0.3),
                                             child: Container(
                                               margin: EdgeInsets.symmetric(
                                                   vertical:

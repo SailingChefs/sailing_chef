@@ -65,7 +65,6 @@ class CustomListTileComments extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-      
         title: Text(
           'Delete Review',
           style: globalTextStyle(
@@ -166,10 +165,12 @@ class CustomListTileComments extends StatelessWidget {
                               size: 16.sp,
                               color: kcPrimaryColor,
                             ),
-                            onPressed: onEdit != null ? () {
-                              HapticFeedback.mediumImpact();
-                              onEdit!();
-                            } : null,
+                            onPressed: onEdit != null
+                                ? () {
+                                    HapticFeedback.mediumImpact();
+                                    onEdit!();
+                                  }
+                                : null,
                             tooltip: 'Edit Review',
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
@@ -186,10 +187,12 @@ class CustomListTileComments extends StatelessWidget {
                               size: 16.sp,
                               color: kcErrorColor,
                             ),
-                            onPressed: onDelete != null ? () {
-                              HapticFeedback.mediumImpact();
-                              _showDeleteConfirmation(context);
-                            } : null,
+                            onPressed: onDelete != null
+                                ? () {
+                                    HapticFeedback.mediumImpact();
+                                    _showDeleteConfirmation(context);
+                                  }
+                                : null,
                             tooltip: 'Delete Review',
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),

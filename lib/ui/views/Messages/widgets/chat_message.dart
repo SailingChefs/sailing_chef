@@ -65,7 +65,8 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
-                  backgroundImage: ImageUtils.conditionalNetworkImage(user.displayPicture),
+                  backgroundImage:
+                      ImageUtils.conditionalNetworkImage(user.displayPicture),
                   child: ImageUtils.isValidImageUrl(user.displayPicture)
                       ? null
                       : const Icon(Icons.person),

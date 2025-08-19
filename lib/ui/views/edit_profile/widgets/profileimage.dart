@@ -65,7 +65,8 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                     backgroundImage: viewModel.selectedImageFile != null
                         ? FileImage(viewModel.selectedImageFile!)
                             as ImageProvider<Object>?
-                        : ImageUtils.safeNetworkImageForAvatar(userDetails!.displayPicture),
+                        : ImageUtils.safeNetworkImageForAvatar(
+                            userDetails!.displayPicture),
                   ),
                   const GestureDetectorEdit(68, 68),
                 ],

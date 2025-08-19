@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -6,7 +7,6 @@
 
 import 'package:stacked_services/stacked_services.dart';
 
-import 'app.locator.dart';
 import '../ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import '../ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import '../ui/bottom_sheets/courses/courses_sheet.dart';
@@ -18,6 +18,7 @@ import '../ui/bottom_sheets/notice/notice_sheet.dart';
 import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
 import '../ui/bottom_sheets/social_icons/social_icons_sheet.dart';
 import '../ui/bottom_sheets/tags/tags_sheet.dart';
+import 'app.locator.dart';
 
 enum BottomSheetType {
   notice,

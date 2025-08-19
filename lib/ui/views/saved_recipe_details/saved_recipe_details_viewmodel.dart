@@ -445,11 +445,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
 
     // Make sure there's at least a rating or content
-    if (validRating == null && (commentController.text.isEmpty || commentController.text.trim().isEmpty)) {
+    if (validRating == null &&
+        (commentController.text.isEmpty ||
+            commentController.text.trim().isEmpty)) {
       showToast(message: 'Please provide a rating or comment');
       return;
     }
-    
+
     CommentModel newComment = CommentModel(
       userId: userDetails!.uid!,
       recipeId: recipeId,
@@ -460,7 +462,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       userImageUrl: userDetails!.displayPicture!,
       imageUrl: imageUrls,
     );
-    
+
     uploaded = await commentService.addComment(newComment);
 
     if (uploaded) {

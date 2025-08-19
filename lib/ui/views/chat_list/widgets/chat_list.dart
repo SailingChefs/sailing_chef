@@ -101,8 +101,9 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                                     ),
                                           leading: CircleAvatar(
                                             radius: 30.r,
-                                            backgroundImage: ImageUtils.safeNetworkImageForAvatar(
-                                                conversation.user?.displayPicture,
+                                            backgroundImage: ImageUtils
+                                                .safeNetworkImageForAvatar(
+                                              conversation.user?.displayPicture,
                                             ),
                                           ),
                                           trailing: Text(

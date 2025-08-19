@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -73,7 +74,7 @@ class AuthService {
     EasyLoading.show();
     try {
       await firebaseAuth.signOut();
-      await GoogleSignIn().signOut();
+      await GoogleSignIn.instance.signOut();
       userDetails = null;
       savedRecipesGlobal = [];
       EasyLoading.dismiss();
@@ -145,12 +146,12 @@ class AuthService {
 
   Future<void> signInWithGoogle() async {
     final dialogService = locator<DialogService>();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAccount googleUser =
+        await GoogleSignIn.instance.authenticate();
+    final GoogleSignInAuthentication googleAuth = googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      // accessToken: googleAuth?.accessToken,
+      idToken: googleAuth.idToken,
     );
 
     final UserCredential userCredential =

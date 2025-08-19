@@ -46,3 +46,6 @@ app.*.map.json
 
 # Android NDK build artifacts
 /android/app/.cxx/
+
+# FVM Version Cache
+.fvm/

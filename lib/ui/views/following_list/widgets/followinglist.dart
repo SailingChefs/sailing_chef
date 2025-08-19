@@ -42,7 +42,8 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
                                   viewModel.followingUsers[index]);
                             },
                             leading: CircleAvatar(
-                              backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                              backgroundImage:
+                                  ImageUtils.safeNetworkImageForAvatar(
                                 viewModel.followingUsers[index].displayPicture,
                               ),
                             ),

@@ -10,9 +10,9 @@ class Tag {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Tag &&
-              runtimeType == other.runtimeType &&
-              tagString == other.tagString;
+      other is Tag &&
+          runtimeType == other.runtimeType &&
+          tagString == other.tagString;
 
   @override
   int get hashCode => tagString.hashCode;
@@ -27,35 +27,35 @@ class TagsSheetModel extends BaseViewModel {
 
   // Predefined Tags
   List<Tag> get courseTagsList => [
-    Tag(label: 'Breakfast', tagString: 'breakfast'),
-    Tag(label: 'Lunch', tagString: 'lunch'),
-    Tag(label: 'Dinner', tagString: 'dinner'),
-    Tag(label: 'Starter', tagString: 'starter'),
-    Tag(label: 'Canapé', tagString: 'canape'),
-    Tag(label: 'Side', tagString: 'side'),
-    Tag(label: 'Sweet', tagString: 'sweet'),
-  ];
+        Tag(label: 'Breakfast', tagString: 'breakfast'),
+        Tag(label: 'Lunch', tagString: 'lunch'),
+        Tag(label: 'Dinner', tagString: 'dinner'),
+        Tag(label: 'Starter', tagString: 'starter'),
+        Tag(label: 'Canapé', tagString: 'canape'),
+        Tag(label: 'Side', tagString: 'side'),
+        Tag(label: 'Sweet', tagString: 'sweet'),
+      ];
 
   List<Tag> get categoryTagsList => [
-    Tag(label: 'Passage friendly', tagString: 'passagefriendly'),
-    Tag(label: 'Meal Prep', tagString: 'mealprep'),
-    Tag(label: 'Plated', tagString: 'plated'),
-    Tag(label: 'Family Style', tagString: 'family'),
-    Tag(label: 'Light Meal', tagString: 'light'),
-    Tag(label: 'Charter', tagString: 'charter'),
-    Tag(label: 'Crew', tagString: 'crew'),
-  ];
+        Tag(label: 'Passage friendly', tagString: 'passagefriendly'),
+        Tag(label: 'Meal Prep', tagString: 'mealprep'),
+        Tag(label: 'Plated', tagString: 'plated'),
+        Tag(label: 'Family Style', tagString: 'family'),
+        Tag(label: 'Light Meal', tagString: 'light'),
+        Tag(label: 'Charter', tagString: 'charter'),
+        Tag(label: 'Crew', tagString: 'crew'),
+      ];
 
   List<Tag> get dietaryNeedsTagsList => [
-    Tag(label: 'Vegetarian', tagString: 'vegetarian'),
-    Tag(label: 'Vegan', tagString: 'vegan'),
-    Tag(label: 'Gluten-Free', tagString: 'glutenfree'),
-    Tag(label: 'Dairy-Free', tagString: 'dairyfree'),
-    Tag(label: 'Nut-Free', tagString: 'nutfree'),
-    Tag(label: 'Pescatarian', tagString: 'pescatarian'),
-    Tag(label: 'Kosher', tagString: 'kosher'),
-    Tag(label: 'Halal', tagString: 'halal'),
-  ];
+        Tag(label: 'Vegetarian', tagString: 'vegetarian'),
+        Tag(label: 'Vegan', tagString: 'vegan'),
+        Tag(label: 'Gluten-Free', tagString: 'glutenfree'),
+        Tag(label: 'Dairy-Free', tagString: 'dairyfree'),
+        Tag(label: 'Nut-Free', tagString: 'nutfree'),
+        Tag(label: 'Pescatarian', tagString: 'pescatarian'),
+        Tag(label: 'Kosher', tagString: 'kosher'),
+        Tag(label: 'Halal', tagString: 'halal'),
+      ];
 
   // Selected Tags
   Set<Tag> courseTags = {};
@@ -99,7 +99,6 @@ class TagsSheetModel extends BaseViewModel {
         dietaryNeedsTags.any((tag) => tag.tagString == tagString);
   }
 
-
   void goBack() {
     _navigationService.back();
   }
@@ -115,15 +114,17 @@ class TagsSheetModel extends BaseViewModel {
   void setInitialSelectedTags(List<String> savedTags) {
     for (final tagString in savedTags) {
       if (courseTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(courseTags, courseTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(courseTags,
+            courseTagsList.firstWhere((tag) => tag.label == tagString));
       } else if (categoryTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(categoryTags, categoryTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(categoryTags,
+            categoryTagsList.firstWhere((tag) => tag.label == tagString));
       } else if (dietaryNeedsTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(dietaryNeedsTags, dietaryNeedsTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(dietaryNeedsTags,
+            dietaryNeedsTagsList.firstWhere((tag) => tag.label == tagString));
       }
     }
   }
-
 
   List<String> selectedOptions() {
     List<String> selectedList = [];
@@ -139,5 +140,4 @@ class TagsSheetModel extends BaseViewModel {
           confirmed: true, data: TagsSheetResponse(tags: selectedOptions())));
     }
   }
-
 }

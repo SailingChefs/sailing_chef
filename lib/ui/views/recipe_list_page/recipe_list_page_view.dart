@@ -73,9 +73,9 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                                     image: DecorationImage(
                                       image: ImageUtils.safeNetworkImage(
                                         recipe.coverImage
-                                            .where((element) =>
-                                                element.isFirebaseImageUrl)
-                                            .isNotEmpty
+                                                .where((element) =>
+                                                    element.isFirebaseImageUrl)
+                                                .isNotEmpty
                                             ? recipe.coverImage
                                                 .where((element) =>
                                                     element.isFirebaseImageUrl)

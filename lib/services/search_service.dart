@@ -13,7 +13,7 @@ class SearchService {
   final _userService = locator<UserServices>();
 
   final CollectionReference pinsCollection = firebasestore.collection('pins');
-  
+
   Future<List<RecipeModel>> filterRecipes(String query) async {
     try {
       final QuerySnapshot querySnapshot = await recipesCollection
@@ -32,7 +32,7 @@ class SearchService {
           filteredRecipes.add(recipe);
         }
       }
-      
+
       return filteredRecipes;
     } catch (error) {
       return [];
@@ -42,9 +42,9 @@ class SearchService {
   Future<List<PinnedLocation>> filterPinnedLocations(String query) async {
     try {
       if (query.trim().isEmpty) return [];
-      
+
       final String lowercaseQuery = query.toLowerCase().trim();
-      
+
       // Combine all results and remove duplicates
       Set<String> seenIds = {};
       List<PinnedLocation> allResults = [];
@@ -62,13 +62,12 @@ class SearchService {
           .get();
 
       // Search by tags (new functionality)
-      final QuerySnapshot tagsQuerySnapshot = await pinsCollection
-          .where('tags', arrayContainsAny: [
-            query,
-            lowercaseQuery,
-            _capitalizeFirstLetter(lowercaseQuery),
-          ])
-          .get();
+      final QuerySnapshot tagsQuerySnapshot =
+          await pinsCollection.where('tags', arrayContainsAny: [
+        query,
+        lowercaseQuery,
+        _capitalizeFirstLetter(lowercaseQuery),
+      ]).get();
 
       // Search by description (new functionality)
       final QuerySnapshot descriptionQuerySnapshot = await pinsCollection
@@ -115,49 +114,49 @@ class SearchService {
 
   bool _isRelevantMatch(PinnedLocation pin, String query) {
     final String lowerQuery = query.toLowerCase();
-    
+
     // Check name (most important)
     if (pin.name.toLowerCase().contains(lowerQuery)) return true;
-    
+
     // Check tags
     for (String tag in pin.tags) {
       if (tag.toLowerCase().contains(lowerQuery)) return true;
     }
-    
+
     // Check description
     if (pin.description.toLowerCase().contains(lowerQuery)) return true;
-    
+
     // Check place
     if (pin.place.toLowerCase().contains(lowerQuery)) return true;
-    
+
     return false;
   }
 
   int _calculateRelevanceScore(PinnedLocation pin, String query) {
     int score = 0;
     final String lowerQuery = query.toLowerCase();
-    
+
     // Exact name match gets highest score
     if (pin.name.toLowerCase() == lowerQuery) score += 100;
-    
+
     // Name starts with query gets high score
     if (pin.name.toLowerCase().startsWith(lowerQuery)) score += 50;
-    
+
     // Name contains query gets medium score
     if (pin.name.toLowerCase().contains(lowerQuery)) score += 25;
-    
+
     // Tag exact match
     for (String tag in pin.tags) {
       if (tag.toLowerCase() == lowerQuery) score += 75;
       if (tag.toLowerCase().contains(lowerQuery)) score += 15;
     }
-    
+
     // Description contains query
     if (pin.description.toLowerCase().contains(lowerQuery)) score += 10;
-    
+
     // Place contains query
     if (pin.place.toLowerCase().contains(lowerQuery)) score += 5;
-    
+
     return score;
   }
 

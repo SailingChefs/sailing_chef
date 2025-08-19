@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "flutter get packages & build",
+			"type": "shell",
+			"command": "fvm flutter pub get --no-example && echo '\\n✓ Flutter pub get complete.\\n' && sleep 2 && fvm dart run build_runner build --delete-conflicting-outputs --verbose && echo '\\n✓ Dart build complete.\\n'"
+		}
+	]
+}

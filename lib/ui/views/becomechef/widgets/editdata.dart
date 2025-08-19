@@ -1,4 +1,4 @@
-import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
@@ -30,7 +30,7 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                       suffixIcon: false,
                       labelText: 'Boat Name'),
                   verticalSpaceMedium,
-                  CSCPicker(
+                  CSCPickerPlus(
                     showStates: true,
 
                     showCities: true,
@@ -81,16 +81,16 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
                     searchBarRadius: 10.0,
 
-                    onCountryChanged: (value) =>
-                        viewModel.setCountryValue(value.toString()),
+          onCountryChanged: (value) =>
+            viewModel.setCountryValue(value),
 
                     ///triggers once state selected in dropdown
-                    onStateChanged: (value) =>
-                        viewModel.setStateValue(value.toString()),
+          onStateChanged: (value) =>
+            viewModel.setStateValue(value ?? ''),
 
                     ///triggers once city selected in dropdown
-                    onCityChanged: (value) =>
-                        viewModel.setCityValue(value.toString()),
+          onCityChanged: (value) =>
+            viewModel.setCityValue(value ?? ''),
                   ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(

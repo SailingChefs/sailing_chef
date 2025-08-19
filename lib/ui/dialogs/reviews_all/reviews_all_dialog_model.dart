@@ -16,36 +16,36 @@ class ReviewsAllDialogModel extends BaseViewModel {
   final _reviewService = locator<PinDropService>();
   final _dialogService = locator<DialogService>();
   final _auth = FirebaseAuth.instance;
-  
+
   List<ReviewsModel> reviews = [];
   ReviewsModel? currentEditingReview;
   bool isEditingReview = false;
   bool isAddingReview = false;
-  
+
   final TextEditingController feedbackController = TextEditingController();
   double currentRating = 0.0;
-  
+
   void onViewModelReady() async {
     setBusy(true);
     await _reviewService.getReviews(pinnedLocation.id!);
     reviews = _reviewService.reviews;
     setBusy(false);
   }
-  
+
   bool isUserReview(ReviewsModel review) {
     return review.userId == _auth.currentUser?.uid;
   }
-  
+
   void deleteReview(ReviewsModel review) async {
     if (!isUserReview(review)) return;
-    
+
     final dialogResponse = await _dialogService.showDialog(
       title: 'Delete Review',
       description: 'Are you sure you want to delete this review?',
       buttonTitle: 'Delete',
       cancelTitle: 'Cancel',
     );
-    
+
     if (dialogResponse?.confirmed ?? false) {
       setBusy(true);
       final success = await _reviewService.deleteReview(review);
@@ -56,17 +56,17 @@ class ReviewsAllDialogModel extends BaseViewModel {
       notifyListeners();
     }
   }
-  
+
   void editReview(ReviewsModel review) async {
     if (!isUserReview(review)) return;
-    
+
     currentEditingReview = review;
     feedbackController.text = review.feedback ?? '';
     currentRating = review.rating ?? 0.0;
     isEditingReview = true;
     notifyListeners();
   }
-  
+
   void cancelEdit() {
     currentEditingReview = null;
     feedbackController.clear();
@@ -74,17 +74,14 @@ class ReviewsAllDialogModel extends BaseViewModel {
     isEditingReview = false;
     notifyListeners();
   }
-  
+
   void saveEditedReview() async {
     if (currentEditingReview == null) return;
-    
+
     setBusy(true);
     final success = await _reviewService.updateReview(
-      currentEditingReview!, 
-      feedbackController.text, 
-      currentRating
-    );
-    
+        currentEditingReview!, feedbackController.text, currentRating);
+
     if (success) {
       // Update locally
       final index = reviews.indexWhere((r) => r.id == currentEditingReview!.id);
@@ -94,11 +91,11 @@ class ReviewsAllDialogModel extends BaseViewModel {
       }
       cancelEdit();
     }
-    
+
     setBusy(false);
     notifyListeners();
   }
-  
+
   void startAddingReview() {
     // Reset fields
     feedbackController.clear();
@@ -108,30 +105,30 @@ class ReviewsAllDialogModel extends BaseViewModel {
     currentEditingReview = null;
     notifyListeners();
   }
-  
+
   void cancelAddingReview() {
     isAddingReview = false;
     feedbackController.clear();
     currentRating = 0.0;
     notifyListeners();
   }
-  
+
   Future<bool> addNewReview() async {
     if (_auth.currentUser == null) {
       // Show error that user must be logged in
       return false;
     }
-    
+
     if (feedbackController.text.trim().isEmpty || currentRating == 0) {
       // Show error that feedback and rating are required
       return false;
     }
-    
+
     setBusy(true);
-    
+
     // Get current user info
     final currentUser = _auth.currentUser!;
-    
+
     // Create a new review
     final newReview = ReviewsModel(
       userId: currentUser.uid,
@@ -142,10 +139,10 @@ class ReviewsAllDialogModel extends BaseViewModel {
       timestamp: Timestamp.now(),
       rating: currentRating,
     );
-    
+
     // Add the review
     final success = await _reviewService.addComment(newReview);
-    
+
     if (success) {
       // If successful, refresh reviews
       await _reviewService.getReviews(pinnedLocation.id!);
@@ -154,7 +151,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
       feedbackController.clear();
       currentRating = 0.0;
     }
-    
+
     setBusy(false);
     notifyListeners();
     return success;

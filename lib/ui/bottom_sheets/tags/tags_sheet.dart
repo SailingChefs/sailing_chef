@@ -15,15 +15,12 @@ class TagsSheet extends StackedView<TagsSheetModel> {
     required this.request,
   }) : super(key: key);
 
-
-
   @override
   Widget builder(
     BuildContext context,
     TagsSheetModel viewModel,
     Widget? child,
   ) {
-
     // Set the initial selected tags
     if (!viewModel.initialTagsSet) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

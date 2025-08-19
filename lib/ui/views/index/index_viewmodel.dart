@@ -188,7 +188,8 @@ class IndexViewModel extends BaseViewModel {
     userShoppingList = await userService.fetchShoppingList();
 
     selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-    shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
+    shoppingRecipeeIngredient =
+        userShoppingList?.shoppingRecipeeIngredient ?? {};
     showShoppingListview = userShoppingList?.showShoppingListview ?? {};
   }
 }

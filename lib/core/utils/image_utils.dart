@@ -10,21 +10,20 @@ class ImageUtils {
   /// Checks if a URL string is valid for network image loading
   static bool isValidImageUrl(String? url) {
     if (url == null || url.isEmpty || url.trim().isEmpty) return false;
-    
+
     // Check if it's a valid URL format
     try {
       final uri = Uri.parse(url);
-      return uri.hasScheme && 
-             (uri.scheme == 'http' || uri.scheme == 'https') &&
-             uri.host.isNotEmpty;
+      return uri.hasScheme &&
+          (uri.scheme == 'http' || uri.scheme == 'https') &&
+          uri.host.isNotEmpty;
     } catch (e) {
       return false;
     }
   }
 
   /// Returns a safe ImageProvider with fallback to asset image
-  static ImageProvider<Object> safeNetworkImage(
-    String? imageUrl) {
+  static ImageProvider<Object> safeNetworkImage(String? imageUrl) {
     if (isValidImageUrl(imageUrl)) {
       return NetworkImage(imageUrl!);
     }
@@ -32,8 +31,7 @@ class ImageUtils {
   }
 
   /// Returns a safe ImageProvider for CircleAvatar with null handling
-  static ImageProvider<Object> safeNetworkImageForAvatar(
-    String? imageUrl) {
+  static ImageProvider<Object> safeNetworkImageForAvatar(String? imageUrl) {
     if (isValidImageUrl(imageUrl)) {
       return NetworkImage(imageUrl!);
     }
@@ -47,7 +45,7 @@ class ImageUtils {
     }
     return null;
   }
-  
+
   /// Creates a network image widget with error handling
   static Widget networkImageWithFallback({
     required String? imageUrl,
@@ -79,7 +77,8 @@ class ImageUtils {
                 child: Center(
                   child: CircularProgressIndicator(
                     value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
                         : null,
                   ),
                 ),
@@ -99,7 +98,7 @@ class ImageUtils {
         child: imageWidget,
       );
     }
-    
+
     return imageWidget;
   }
 }

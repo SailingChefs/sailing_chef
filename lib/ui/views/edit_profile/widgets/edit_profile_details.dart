@@ -1,4 +1,4 @@
-import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
@@ -112,7 +112,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         Visibility(
                           visible: viewModel.isChange == true,
-                          child: CSCPicker(
+                          child: CSCPickerPlus(
                             showStates: true,
 
                             showCities: true,
@@ -165,16 +165,16 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                             searchBarRadius: 10.0,
 
-                            onCountryChanged: (value) =>
-                                viewModel.setCountryValue(value.toString()),
+              onCountryChanged: (value) =>
+                viewModel.setCountryValue(value),
 
                             ///triggers once state selected in dropdown
-                            onStateChanged: (value) =>
-                                viewModel.setStateValue(value.toString()),
+              onStateChanged: (value) =>
+                viewModel.setStateValue(value ?? ''),
 
                             ///triggers once city selected in dropdown
-                            onCityChanged: (value) =>
-                                viewModel.setCityValue(value.toString()),
+              onCityChanged: (value) =>
+                viewModel.setCityValue(value ?? ''),
                           ),
                         ),
                       ],
@@ -262,7 +262,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             Visibility(
                               visible: viewModel.isChange == true,
-                              child: CSCPicker(
+                              child: CSCPickerPlus(
                                 showStates: true,
 
                                 showCities: true,
@@ -315,16 +315,16 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                                 searchBarRadius: 10.0,
 
-                                onCountryChanged: (value) =>
-                                    viewModel.setCountryValue(value.toString()),
+                onCountryChanged: (value) =>
+                  viewModel.setCountryValue(value),
 
                                 ///triggers once state selected in dropdown
-                                onStateChanged: (value) =>
-                                    viewModel.setStateValue(value.toString()),
+                onStateChanged: (value) =>
+                  viewModel.setStateValue(value ?? ''),
 
                                 ///triggers once city selected in dropdown
-                                onCityChanged: (value) =>
-                                    viewModel.setCityValue(value.toString()),
+                onCityChanged: (value) =>
+                  viewModel.setCityValue(value ?? ''),
                               ),
                             ),
                           ],

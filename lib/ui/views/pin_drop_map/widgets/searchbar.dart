@@ -219,7 +219,8 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
         Expanded(
           child: ListView.builder(
             itemCount: pins.length,
-            itemBuilder: (context, index) => _buildResultItem(context, pins[index]),
+            itemBuilder: (context, index) =>
+                _buildResultItem(context, pins[index]),
           ),
         ),
       ],
@@ -275,9 +276,10 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
 
   Widget _buildResultItemImage(PinnedLocation pin) {
     // Only use a valid image URL, otherwise fallback to asset
-    final String? imageUrl = (pin.picture.isNotEmpty && pin.picture.first.isNotEmpty)
-        ? pin.picture.first
-        : null;
+    final String? imageUrl =
+        (pin.picture.isNotEmpty && pin.picture.first.isNotEmpty)
+            ? pin.picture.first
+            : null;
     return Container(
       height: 50.h,
       width: 50.w,

@@ -10,7 +10,7 @@ class FilterService with ChangeNotifier {
   bool _isLightSelected = false;
   bool _isCharterSelected = false;
   bool _isCrewSelected = false;
-  
+
   // Course state variables
   bool _isBreakfastSelected = false;
   bool _isLunchSelected = false;
@@ -19,7 +19,7 @@ class FilterService with ChangeNotifier {
   bool _isStarterSelected = false;
   bool _isCanapeSelected = false;
   bool _isSideSelected = false;
-  
+
   // Dietary needs state variables
   bool _isDietaryPassageSelected = false;
   bool _isDietaryMealSelected = false;
@@ -28,11 +28,11 @@ class FilterService with ChangeNotifier {
   bool _isDietaryLightSelected = false;
   bool _isDietaryCharterSelected = false;
   bool _isDietaryCrewSelected = false;
-  
+
   int _selectedTagsCount = 0;
   SfRangeValues _values = const SfRangeValues(0.0, 5.0);
   String _time = '';
-  
+
   final List<String> _selectedTags = [];
 
   // Getters
@@ -43,7 +43,7 @@ class FilterService with ChangeNotifier {
   bool get isLightSelected => _isLightSelected;
   bool get isCharterSelected => _isCharterSelected;
   bool get isCrewSelected => _isCrewSelected;
-  
+
   bool get isBreakfastSelected => _isBreakfastSelected;
   bool get isLunchSelected => _isLunchSelected;
   bool get isDinnerSelected => _isDinnerSelected;
@@ -51,7 +51,7 @@ class FilterService with ChangeNotifier {
   bool get isStarterSelected => _isStarterSelected;
   bool get isCanapeSelected => _isCanapeSelected;
   bool get isSideSelected => _isSideSelected;
-  
+
   bool get isDietaryPassageSelected => _isDietaryPassageSelected;
   bool get isDietaryMealSelected => _isDietaryMealSelected;
   bool get isDietaryPlatedSelected => _isDietaryPlatedSelected;
@@ -59,7 +59,7 @@ class FilterService with ChangeNotifier {
   bool get isDietaryLightSelected => _isDietaryLightSelected;
   bool get isDietaryCharterSelected => _isDietaryCharterSelected;
   bool get isDietaryCrewSelected => _isDietaryCrewSelected;
-  
+
   int get selectedTagsCount => _selectedTagsCount;
   SfRangeValues get values => _values;
   String get time => _time;
@@ -212,7 +212,7 @@ class FilterService with ChangeNotifier {
     _isLightSelected = false;
     _isCharterSelected = false;
     _isCrewSelected = false;
-    
+
     // Reset course state variables
     _isBreakfastSelected = false;
     _isLunchSelected = false;
@@ -221,7 +221,7 @@ class FilterService with ChangeNotifier {
     _isStarterSelected = false;
     _isCanapeSelected = false;
     _isSideSelected = false;
-    
+
     // Reset dietary needs state variables
     _isDietaryPassageSelected = false;
     _isDietaryMealSelected = false;
@@ -230,15 +230,15 @@ class FilterService with ChangeNotifier {
     _isDietaryLightSelected = false;
     _isDietaryCharterSelected = false;
     _isDietaryCrewSelected = false;
-    
+
     // Reset UI state variables
     _selectedTagsCount = 0;
     _values = const SfRangeValues(0.0, 5.0);
     _time = '';
-    
+
     // Clear selected tags
     _selectedTags.clear();
-    
+
     notifyListeners();
   }
 
@@ -253,7 +253,7 @@ class FilterService with ChangeNotifier {
     if (_isLightSelected) selectedList.add('Light');
     if (_isCharterSelected) selectedList.add('Charter');
     if (_isCrewSelected) selectedList.add('Crew');
-    
+
     // Course selections
     if (_isBreakfastSelected) selectedList.add('Breakfast');
     if (_isLunchSelected) selectedList.add('Lunch');
@@ -262,7 +262,7 @@ class FilterService with ChangeNotifier {
     if (_isStarterSelected) selectedList.add('Starter');
     if (_isCanapeSelected) selectedList.add('Canape');
     if (_isSideSelected) selectedList.add('Side');
-    
+
     // Dietary needs selections
     if (_isDietaryPassageSelected) selectedList.add('DietaryPassage');
     if (_isDietaryMealSelected) selectedList.add('DietaryMeal');

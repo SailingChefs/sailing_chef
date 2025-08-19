@@ -53,30 +53,39 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                               ? Stack(
                                   children: [
                                     PageView.builder(
-                                      itemCount: viewModel.pinnedLocation.picture.length.clamp(1, 20),
+                                      itemCount: viewModel
+                                          .pinnedLocation.picture.length
+                                          .clamp(1, 20),
                                       controller: viewModel.pageController,
                                       itemBuilder: (context, index) {
                                         // Ensure index is within bounds
-                                        if (index >= viewModel.pinnedLocation.picture.length) {
+                                        if (index >=
+                                            viewModel.pinnedLocation.picture
+                                                .length) {
                                           return Container(
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(27),
+                                              borderRadius:
+                                                  BorderRadius.circular(27),
                                               color: Colors.grey[300],
                                             ),
                                             child: const Center(
-                                              child: Icon(Icons.image_not_supported),
+                                              child: Icon(
+                                                  Icons.image_not_supported),
                                             ),
                                           );
                                         }
-                                        
-                                        var media = viewModel.pinnedLocation.picture[index];
-                                        
-                                        return ImageUtils.networkImageWithFallback(
+
+                                        var media = viewModel
+                                            .pinnedLocation.picture[index];
+
+                                        return ImageUtils
+                                            .networkImageWithFallback(
                                           imageUrl: media,
                                           width: 400,
                                           height: 210,
                                           fit: BoxFit.cover,
-                                          borderRadius: BorderRadius.circular(27),
+                                          borderRadius:
+                                              BorderRadius.circular(27),
                                         );
                                       },
                                     ),
@@ -85,22 +94,33 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                       children: [
                                         Align(
                                           alignment: Alignment.bottomCenter,
-                                          child: viewModel.pinnedLocation.picture.isNotEmpty 
+                                          child: viewModel.pinnedLocation
+                                                  .picture.isNotEmpty
                                               ? SmoothPageIndicator(
-                                                  controller: viewModel.pageController,
-                                                  count: viewModel.pinnedLocation.picture.length.clamp(1, 20), // Clamp to reasonable range
-                                                  axisDirection: Axis.horizontal,
+                                                  controller:
+                                                      viewModel.pageController,
+                                                  count: viewModel
+                                                      .pinnedLocation
+                                                      .picture
+                                                      .length
+                                                      .clamp(1,
+                                                          20), // Clamp to reasonable range
+                                                  axisDirection:
+                                                      Axis.horizontal,
                                                   effect: WormEffect(
                                                     spacing: 5.0,
                                                     radius: 5.0,
                                                     dotWidth: 10.0,
                                                     dotHeight: 10.0,
                                                     strokeWidth: 1,
-                                                    dotColor: kcwhitecolor.withOpacity(0.5),
-                                                    activeDotColor: kcwhitecolor,
+                                                    dotColor: kcwhitecolor
+                                                        .withOpacity(0.5),
+                                                    activeDotColor:
+                                                        kcwhitecolor,
                                                   ),
                                                 )
-                                              : const SizedBox.shrink(), // Hide indicator if no pictures
+                                              : const SizedBox
+                                                  .shrink(), // Hide indicator if no pictures
                                         ),
                                         verticalSpaceSmall
                                       ],
@@ -114,9 +134,11 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                   ),
                                   child: const Center(
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.image_not_supported, size: 48),
+                                        Icon(Icons.image_not_supported,
+                                            size: 48),
                                         SizedBox(height: 8),
                                         Text('No images available'),
                                       ],
@@ -266,7 +288,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                     ),
                     // Company Contact Information Section
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 15, right: 15),
+                      padding:
+                          const EdgeInsets.only(left: 15.0, top: 15, right: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -280,10 +303,12 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           ),
                           verticalSpaceSmall,
                           // Contact Number
-                          if (viewModel.pinnedLocation.contactNumber.isNotEmpty) ...[
+                          if (viewModel
+                              .pinnedLocation.contactNumber.isNotEmpty) ...[
                             Row(
                               children: [
-                                const Icon(Icons.phone, size: 16, color: kcPrimaryColor),
+                                const Icon(Icons.phone,
+                                    size: 16, color: kcPrimaryColor),
                                 horizontalSpaceSmall,
                                 Text(
                                   viewModel.pinnedLocation.contactNumber,
@@ -301,7 +326,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           if (viewModel.pinnedLocation.email.isNotEmpty) ...[
                             Row(
                               children: [
-                                const Icon(Icons.email, size: 16, color: kcPrimaryColor),
+                                const Icon(Icons.email,
+                                    size: 16, color: kcPrimaryColor),
                                 horizontalSpaceSmall,
                                 Expanded(
                                   child: Text(
@@ -322,7 +348,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           if (viewModel.pinnedLocation.link.isNotEmpty) ...[
                             Row(
                               children: [
-                                const Icon(Icons.link, size: 16, color: kcPrimaryColor),
+                                const Icon(Icons.link,
+                                    size: 16, color: kcPrimaryColor),
                                 horizontalSpaceSmall,
                                 Expanded(
                                   child: Text(
@@ -343,7 +370,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                           // Location
                           Row(
                             children: [
-                              const Icon(Icons.location_on, size: 16, color: kcPrimaryColor),
+                              const Icon(Icons.location_on,
+                                  size: 16, color: kcPrimaryColor),
                               horizontalSpaceSmall,
                               Expanded(
                                 child: Text(
@@ -364,7 +392,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                     // Description Section
                     if (viewModel.pinnedLocation.description.isNotEmpty) ...[
                       Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 15, right: 15),
+                        padding: const EdgeInsets.only(
+                            left: 15.0, top: 15, right: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

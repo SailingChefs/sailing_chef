@@ -226,6 +226,5 @@ class DropPinSheetSheetModel extends BaseViewModel {
       variant: DialogType.deletePin,
       title: location.pinnedLocation!.id!,
     );
-    
   }
 }

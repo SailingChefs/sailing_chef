@@ -17,10 +17,10 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
           child: GestureDetector(
             onTap: () async {
               final List<PinnedLocation>? result = await showSearch(
-                context: context, 
+                context: context,
                 delegate: PinsSearchDelegate(),
               );
-              
+
               if (result != null && result.isNotEmpty) {
                 // Navigate to the selected pin on the map
                 viewModel.navigateToSearchResult(result.first);

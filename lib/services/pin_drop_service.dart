@@ -36,7 +36,7 @@ class PinDropService with ListenableServiceMixin {
           .delete();
 
       reviews.removeWhere((element) => element.id == review.id);
-      
+
       EasyLoading.dismiss();
       showToast(message: 'Review deleted successfully');
       notifyListeners();
@@ -48,10 +48,11 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
-  Future<bool> updateReview(ReviewsModel review, String newFeedback, double newRating) async {
+  Future<bool> updateReview(
+      ReviewsModel review, String newFeedback, double newRating) async {
     try {
       EasyLoading.show();
-      
+
       await firebasestore
           .collection('pins')
           .doc(review.pindropId)
@@ -68,7 +69,7 @@ class PinDropService with ListenableServiceMixin {
         reviews[index].feedback = newFeedback;
         reviews[index].rating = newRating;
       }
-      
+
       EasyLoading.dismiss();
       showToast(message: 'Review updated successfully');
       notifyListeners();
@@ -231,7 +232,8 @@ class PinDropService with ListenableServiceMixin {
   //   await reviewDoc.set(review.toFirestore());
   // }
 
-  Future<List<PinnedLocation>> getPinsNearUserLocation(LatLng userLocation) async {
+  Future<List<PinnedLocation>> getPinsNearUserLocation(
+      LatLng userLocation) async {
     try {
       final ref = firebasestore.collection('pins');
       final query = await GeoCollectionReference(ref).fetchWithinWithDistance(

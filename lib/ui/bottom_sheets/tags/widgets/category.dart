@@ -2,7 +2,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet_model.dart';
 
 class CategoryTabsFilterSheet extends ViewModelWidget<TagsSheetModel> {
-
   const CategoryTabsFilterSheet({super.key});
 
   @override

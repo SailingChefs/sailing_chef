@@ -160,7 +160,8 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                           RatingBar.builder(
                             direction: Axis.horizontal,
                             allowHalfRating: true,
-                            initialRating: viewModel.ratings > 0 ? viewModel.ratings : 3.0,
+                            initialRating:
+                                viewModel.ratings > 0 ? viewModel.ratings : 3.0,
                             itemSize: 20,
                             unratedColor: Colors.grey.shade400,
                             itemCount: 5,

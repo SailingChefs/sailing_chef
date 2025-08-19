@@ -14,12 +14,12 @@ class FilterViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _chefService = locator<ChefService>();
   final FilterService _filterService = locator<FilterService>();
-  
+
   String selectedTabMainCourse = '';
   String selectedTabSub = '';
   String selectedTabMainDietaryNeed = '';
   String selectedTabSubDietaryNeed = '';
-  
+
   // Delegate filter state to FilterService
   bool get isPassageSelected => _filterService.isPassageSelected;
   bool get isMealSelected => _filterService.isMealSelected;
@@ -28,7 +28,7 @@ class FilterViewModel extends BaseViewModel {
   bool get isLightSelected => _filterService.isLightSelected;
   bool get isCharterSelected => _filterService.isCharterSelected;
   bool get isCrewSelected => _filterService.isCrewSelected;
-  
+
   bool get isBreakfastSelected => _filterService.isBreakfastSelected;
   bool get isLunchSelected => _filterService.isLunchSelected;
   bool get isDinnerSelected => _filterService.isDinnerSelected;
@@ -36,7 +36,7 @@ class FilterViewModel extends BaseViewModel {
   bool get isStarterSelected => _filterService.isStarterSelected;
   bool get isCanapeSelected => _filterService.isCanapeSelected;
   bool get isSideSelected => _filterService.isSideSelected;
-  
+
   bool get isDietaryPassageSelected => _filterService.isDietaryPassageSelected;
   bool get isDietaryMealSelected => _filterService.isDietaryMealSelected;
   bool get isDietaryPlatedSelected => _filterService.isDietaryPlatedSelected;
@@ -44,7 +44,7 @@ class FilterViewModel extends BaseViewModel {
   bool get isDietaryLightSelected => _filterService.isDietaryLightSelected;
   bool get isDietaryCharterSelected => _filterService.isDietaryCharterSelected;
   bool get isDietaryCrewSelected => _filterService.isDietaryCrewSelected;
-  
+
   int get selectedTagsCount => _filterService.selectedTagsCount;
   SfRangeValues get values => _filterService.values;
   String get time => _filterService.time;

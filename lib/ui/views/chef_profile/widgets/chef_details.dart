@@ -65,7 +65,7 @@ class ProfileDescriptionChefProfileScreen
                   ],
                 ),
           verticalSpaceTiny,
-         user.link == null || user.link!.isEmpty
+          user.link == null || user.link!.isEmpty
               ? const SizedBox()
               : Row(
                   children: [

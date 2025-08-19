@@ -1,4 +1,4 @@
-import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
@@ -57,7 +57,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               controller: viewModel.boatNameController,
                               labelText: 'Boat Name '),
                           verticalSpaceSmall,
-                          CSCPicker(
+                          CSCPickerPlus(
                             showStates: true,
 
                             showCities: true,
@@ -107,16 +107,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                             searchBarRadius: 10.0,
 
-                            onCountryChanged: (value) =>
-                                viewModel.setCountryValue(value.toString()),
+              onCountryChanged: (value) =>
+                viewModel.setCountryValue(value),
 
                             ///triggers once state selected in dropdown
-                            onStateChanged: (value) =>
-                                viewModel.setStateValue(value.toString()),
+              onStateChanged: (value) =>
+                viewModel.setStateValue(value ?? ''),
 
                             ///triggers once city selected in dropdown
-                            onCityChanged: (value) =>
-                                viewModel.setCityValue(value.toString()),
+              onCityChanged: (value) =>
+                viewModel.setCityValue(value ?? ''),
                           ),
                         ],
                       )
@@ -150,7 +150,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                   suffixIcon: false,
                                   labelText: 'Link'),
                               verticalSpaceSmall,
-                              CSCPicker(
+                              CSCPickerPlus(
                                 showStates: true,
 
                                 showCities: true,
@@ -200,16 +200,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                                 searchBarRadius: 10.0,
 
-                                onCountryChanged: (value) =>
-                                    viewModel.setCountryValue(value.toString()),
+                onCountryChanged: (value) =>
+                  viewModel.setCountryValue(value),
 
                                 ///triggers once state selected in dropdown
-                                onStateChanged: (value) =>
-                                    viewModel.setStateValue(value.toString()),
+                onStateChanged: (value) =>
+                  viewModel.setStateValue(value ?? ''),
 
                                 ///triggers once city selected in dropdown
-                                onCityChanged: (value) =>
-                                    viewModel.setCityValue(value.toString()),
+                onCityChanged: (value) =>
+                  viewModel.setCityValue(value ?? ''),
                               ),
                             ],
                           )

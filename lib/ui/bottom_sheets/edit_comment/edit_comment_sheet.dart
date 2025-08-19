@@ -120,9 +120,11 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                         Wrap(
                           spacing: 10,
                           runSpacing: 10,
-                          children: List.generate(viewModel.existingImages.length, (index) {
-                            bool isMarkedForDeletion = viewModel.isExistingImageMarkedForDeletion(index);
-                            
+                          children: List.generate(
+                              viewModel.existingImages.length, (index) {
+                            bool isMarkedForDeletion = viewModel
+                                .isExistingImageMarkedForDeletion(index);
+
                             return Stack(
                               alignment: Alignment.topRight,
                               children: [
@@ -131,21 +133,28 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                                   height: 80,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(viewModel.existingImages[index]),
+                                      image: NetworkImage(
+                                          viewModel.existingImages[index]),
                                       fit: BoxFit.cover,
-                                      colorFilter: isMarkedForDeletion 
-                                        ? ColorFilter.mode(Colors.red.withOpacity(0.3), BlendMode.srcOver) 
-                                        : null,
+                                      colorFilter: isMarkedForDeletion
+                                          ? ColorFilter.mode(
+                                              Colors.red.withOpacity(0.3),
+                                              BlendMode.srcOver)
+                                          : null,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
                                 IconButton(
                                   icon: Icon(
-                                    isMarkedForDeletion ? Icons.refresh : Icons.cancel, 
-                                    color: isMarkedForDeletion ? Colors.green : kcLightGrey
-                                  ),
-                                  onPressed: () => viewModel.removeExistingImage(index),
+                                      isMarkedForDeletion
+                                          ? Icons.refresh
+                                          : Icons.cancel,
+                                      color: isMarkedForDeletion
+                                          ? Colors.green
+                                          : kcLightGrey),
+                                  onPressed: () =>
+                                      viewModel.removeExistingImage(index),
                                   iconSize: 20,
                                   padding: EdgeInsets.zero,
                                   constraints: const BoxConstraints(),
@@ -173,7 +182,8 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                         Wrap(
                           spacing: 10,
                           runSpacing: 10,
-                          children: List.generate(viewModel.images.length, (index) {
+                          children:
+                              List.generate(viewModel.images.length, (index) {
                             return Stack(
                               alignment: Alignment.topRight,
                               children: [
@@ -220,7 +230,8 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                         ),
                         child: const Text('Update Review'),
                       ),
@@ -240,10 +251,10 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
   }
 
   @override
-  EditCommentSheetModel viewModelBuilder(BuildContext context) => 
-    EditCommentSheetModel(
-      comment: request.data['comment'],
-      completer: completer,
-      rating: request.data['rating'] ?? 0.0,
-    );
+  EditCommentSheetModel viewModelBuilder(BuildContext context) =>
+      EditCommentSheetModel(
+        comment: request.data['comment'],
+        completer: completer,
+        rating: request.data['rating'] ?? 0.0,
+      );
 }

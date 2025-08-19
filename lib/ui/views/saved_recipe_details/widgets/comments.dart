@@ -23,8 +23,9 @@ class CommentsDetailsScreen
       List<CommentModel> comments = viewModel.commentsList;
       commentTiles = comments.map((comment) {
         // Check if this comment belongs to the current user
-        bool isUserComment = comment.userId == FirebaseAuth.instance.currentUser!.uid;
-        
+        bool isUserComment =
+            comment.userId == FirebaseAuth.instance.currentUser!.uid;
+
         return Column(
           children: [
             CustomListTileComments(
@@ -35,8 +36,11 @@ class CommentsDetailsScreen
               ratingImages: comment.imageUrl ?? [],
               rating: comment.rating ?? 0,
               isUserComment: isUserComment,
-              onEdit: isUserComment ? () => viewModel.onCommentLongPress(comment) : null,
-              onDelete: isUserComment ? () => viewModel.deleteComment(comment) : null,
+              onEdit: isUserComment
+                  ? () => viewModel.onCommentLongPress(comment)
+                  : null,
+              onDelete:
+                  isUserComment ? () => viewModel.deleteComment(comment) : null,
             ),
           ],
         );
@@ -173,7 +177,8 @@ class CommentsDetailsScreen
                                 const Icon(Icons.check, color: kcPrimaryColor),
                           )
                         : IconButton(
-                            onPressed: () => viewModel.addComment(recipeModel.docId!),
+                            onPressed: () =>
+                                viewModel.addComment(recipeModel.docId!),
                             icon: const Icon(
                               Icons.send,
                               color: kcPrimaryColor,

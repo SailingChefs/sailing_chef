@@ -47,7 +47,7 @@ class FollowService with ListenableServiceMixin {
       log('Error: uid is empty in init method');
       return;
     }
-    
+
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
 
@@ -104,9 +104,10 @@ class FollowService with ListenableServiceMixin {
       log('Error: uid is empty in _getFollowersForUser');
       return [];
     }
-    
+
     try {
-      final docSnapshot = await firebasestore.collection('users').doc(uid).get();
+      final docSnapshot =
+          await firebasestore.collection('users').doc(uid).get();
       if (docSnapshot.exists && docSnapshot.data() != null) {
         final data = docSnapshot.data()!;
         if (data.containsKey('followers') && data['followers'] != null) {
@@ -125,9 +126,10 @@ class FollowService with ListenableServiceMixin {
       log('Error: uid is empty in _getFollowingForUser');
       return [];
     }
-    
+
     try {
-      final docSnapshot = await firebasestore.collection('users').doc(uid).get();
+      final docSnapshot =
+          await firebasestore.collection('users').doc(uid).get();
       if (docSnapshot.exists && docSnapshot.data() != null) {
         final data = docSnapshot.data()!;
         if (data.containsKey('following') && data['following'] != null) {

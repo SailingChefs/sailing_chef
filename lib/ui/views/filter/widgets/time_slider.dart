@@ -41,8 +41,7 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
             activeColor: kcPrimaryColor,
             shouldAlwaysShowTooltip: true,
             tooltipTextFormatterCallback: (value, text) {
-              if((viewModel.values.end - viewModel.values.start) > 1){
-
+              if ((viewModel.values.end - viewModel.values.start) > 1) {
                 if (value == 0 || value == 1) {
                   return "$text hr";
                 }

@@ -65,18 +65,19 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              viewModel.isEditingReview 
-                                ? 'Edit Review' 
-                                : viewModel.isAddingReview
-                                  ? 'Add Review'
-                                  : 'Reviews',
+                              viewModel.isEditingReview
+                                  ? 'Edit Review'
+                                  : viewModel.isAddingReview
+                                      ? 'Add Review'
+                                      : 'Reviews',
                               style: globalTextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: kcBlackColor,
                               ),
                             ),
-                            if (viewModel.isEditingReview || viewModel.isAddingReview)
+                            if (viewModel.isEditingReview ||
+                                viewModel.isAddingReview)
                               TextButton(
                                 onPressed: () {
                                   HapticFeedback.lightImpact();
@@ -98,9 +99,10 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                         ),
                       ),
                       verticalSpaceTiny,
-                      
+
                       // Review form interface (both for edit and add)
-                      if (viewModel.isEditingReview || viewModel.isAddingReview) ...[
+                      if (viewModel.isEditingReview ||
+                          viewModel.isAddingReview) ...[
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -128,7 +130,8 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                               ),
                               verticalSpaceSmall,
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Rating:',
@@ -142,9 +145,9 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                       5,
                                       (index) => IconButton(
                                         icon: Icon(
-                                          index < viewModel.currentRating ? 
-                                            Icons.star : 
-                                            Icons.star_border,
+                                          index < viewModel.currentRating
+                                              ? Icons.star
+                                              : Icons.star_border,
                                           color: kclightgreencolor,
                                         ),
                                         onPressed: () {
@@ -174,7 +177,9 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                     ),
                                   ),
                                   child: Text(
-                                    viewModel.isEditingReview ? 'Save Changes' : 'Add Review',
+                                    viewModel.isEditingReview
+                                        ? 'Save Changes'
+                                        : 'Add Review',
                                     style: globalTextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
@@ -191,113 +196,120 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                           height: 280,
                           width: double.infinity,
                           child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: viewModel.reviews.length,
-                          itemBuilder: (context, index) {
-                            final bool isUserReview = viewModel.isUserReview(viewModel.reviews[index]);
-                            return ListTile(
-                              contentPadding:
-                                  const EdgeInsets.only(left: 5.0, right: 5),
-                              leading: CircleAvatar(
-                                radius: 20,
-                                backgroundImage: viewModel.reviews[index].userImageUrl.isEmpty
-                                    ? const AssetImage('assets/images/default_location.png')
-                                    : NetworkImage(viewModel.reviews[index].userImageUrl) as ImageProvider,
-                              ),
-                              title: Text(
-                                viewModel.reviews[index].userName,
-                                style: globalTextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: kcBlackColor,
+                            shrinkWrap: true,
+                            itemCount: viewModel.reviews.length,
+                            itemBuilder: (context, index) {
+                              final bool isUserReview = viewModel
+                                  .isUserReview(viewModel.reviews[index]);
+                              return ListTile(
+                                contentPadding:
+                                    const EdgeInsets.only(left: 5.0, right: 5),
+                                leading: CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage: viewModel
+                                          .reviews[index].userImageUrl.isEmpty
+                                      ? const AssetImage(
+                                          'assets/images/default_location.png')
+                                      : NetworkImage(viewModel.reviews[index]
+                                          .userImageUrl) as ImageProvider,
                                 ),
-                              ),
-                              subtitle: Text(
-                                viewModel.reviews[index].feedback!,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: globalTextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: kcBlackColor,
+                                title: Text(
+                                  viewModel.reviews[index].userName,
+                                  style: globalTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: kcBlackColor,
+                                  ),
                                 ),
-                              ),
-                              trailing: SizedBox(
-                                width: isUserReview ? 130 : 80,
-                                height: 30,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    // Rating display
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          size: 15,
-                                          color: kclightgreencolor,
+                                subtitle: Text(
+                                  viewModel.reviews[index].feedback!,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: globalTextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: kcBlackColor,
+                                  ),
+                                ),
+                                trailing: SizedBox(
+                                  width: isUserReview ? 130 : 80,
+                                  height: 30,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      // Rating display
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            size: 15,
+                                            color: kclightgreencolor,
+                                          ),
+                                          horizontalSpaceSmall,
+                                          Text(
+                                            viewModel.reviews[index].rating
+                                                .toString(),
+                                            style: globalTextStyle(
+                                              color: kcBlackColor,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      // Edit and delete buttons for user's own reviews
+                                      if (isUserReview) ...[
+                                        horizontalSpaceTiny,
+                                        SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.edit,
+                                              size: 16,
+                                              color: kcPrimaryColor,
+                                            ),
+                                            padding: EdgeInsets.zero,
+                                            constraints: BoxConstraints(),
+                                            splashRadius: 18,
+                                            onPressed: () {
+                                              HapticFeedback.mediumImpact();
+                                              viewModel.editReview(
+                                                  viewModel.reviews[index]);
+                                            },
+                                            tooltip: 'Edit Review',
+                                          ),
                                         ),
-                                        horizontalSpaceSmall,
-                                        Text(
-                                          viewModel.reviews[index].rating.toString(),
-                                          style: globalTextStyle(
-                                            color: kcBlackColor,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
+                                        SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              size: 16,
+                                              color: Colors.red,
+                                            ),
+                                            padding: EdgeInsets.zero,
+                                            constraints: BoxConstraints(),
+                                            splashRadius: 18,
+                                            onPressed: () {
+                                              HapticFeedback.mediumImpact();
+                                              viewModel.deleteReview(
+                                                  viewModel.reviews[index]);
+                                            },
+                                            tooltip: 'Delete Review',
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    
-                                    // Edit and delete buttons for user's own reviews
-                                    if (isUserReview) ...[
-                                      horizontalSpaceTiny,
-                                      SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.edit,
-                                            size: 16,
-                                            color: kcPrimaryColor,
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          constraints: BoxConstraints(),
-                                          splashRadius: 18,
-                                          onPressed: () {
-                                            HapticFeedback.mediumImpact();
-                                            viewModel.editReview(viewModel.reviews[index]);
-                                          },
-                                          tooltip: 'Edit Review',
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.delete,
-                                            size: 16,
-                                            color: Colors.red,
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          constraints: BoxConstraints(),
-                                          splashRadius: 18,
-                                          onPressed: () {
-                                            HapticFeedback.mediumImpact();
-                                            viewModel.deleteReview(viewModel.reviews[index]);
-                                          },
-                                          tooltip: 'Delete Review',
-                                        ),
-                                      ),
                                     ],
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
                       ],
                     ],
                   ),

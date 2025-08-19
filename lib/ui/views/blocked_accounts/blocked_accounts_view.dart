@@ -85,7 +85,8 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                 child: ListTile(
                                   leading: CircleAvatar(
                                     radius: 24.r,
-                                    backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                    backgroundImage:
+                                        ImageUtils.safeNetworkImageForAvatar(
                                       blockUser!.displayPicture,
                                     ),
                                   ),

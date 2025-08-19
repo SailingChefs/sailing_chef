@@ -42,7 +42,7 @@ class UserServices with ListenableServiceMixin {
       if (userShoppingList == null) {
         userShoppingList = await fetchShoppingList();
       }
-      
+
       firebasestore
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
@@ -150,7 +150,7 @@ class UserServices with ListenableServiceMixin {
         showToast(message: 'Invalid user ID');
         return false;
       }
-      
+
       EasyLoading.show();
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('users');

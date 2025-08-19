@@ -2,8 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet_model.dart';
 
 class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
-
-  const CourseTabBarFilerSheet({super.key });
+  const CourseTabBarFilerSheet({super.key});
 
   @override
   Widget build(BuildContext context, TagsSheetModel viewModel) {

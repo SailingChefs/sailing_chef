@@ -7,7 +7,6 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -41,18 +40,12 @@ class DeleteAccountDialogModel extends BaseViewModel {
     try {
       if (isGoogleSignInUser(user)) {
         // Re-authenticate Google user
-        GoogleSignIn googleSignIn = GoogleSignIn();
-        GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-        if (googleUser == null) {
-          throw FirebaseAuthException(
-            code: 'ERROR_ABORTED_BY_USER',
-            message: 'Sign in aborted by user',
-          );
-        }
-        GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        GoogleSignIn googleSignIn = GoogleSignIn.instance;
+        GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
+        GoogleSignInAuthentication googleAuth = googleUser.authentication;
         AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
+          // accessToken: googleAuth.accessToken,
         );
         await user.reauthenticateWithCredential(credential);
       }
@@ -100,7 +93,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
     }
   }
 
-  sureDeltete() async {
+  Future<void> sureDeltete() async {
     navigationService.back();
     EasyLoading.show();
     if (FirebaseAuth.instance.currentUser != null) {

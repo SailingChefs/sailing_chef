@@ -954,12 +954,11 @@ class AddRecipeViewModel extends BaseViewModel {
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {
-    final result =
-        await _bottomSheetService.showCustomSheet(
+    final result = await _bottomSheetService.showCustomSheet(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.tags,
-      data: {'savedTags': tagsList },
+      data: {'savedTags': tagsList},
     );
     if (result == null) return;
     tagsList = result.data.tags;
@@ -1681,5 +1680,4 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   late List<String> imageUrls;
-
 }

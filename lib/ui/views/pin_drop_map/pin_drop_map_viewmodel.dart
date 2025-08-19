@@ -56,7 +56,8 @@ class PinDropMapViewModel extends BaseViewModel {
   GoogleMapController? controllermap;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_navigationpinService];
 
   Future<void> onViewModelReady(String id) async {
     try {
@@ -136,7 +137,8 @@ class PinDropMapViewModel extends BaseViewModel {
       notifyListeners();
     } catch (e) {
       log('Error getting location: $e');
-      showErrorDialog('Could not get current location. Please check your location settings.');
+      showErrorDialog(
+          'Could not get current location. Please check your location settings.');
     }
   }
 
@@ -411,7 +413,8 @@ class PinDropMapViewModel extends BaseViewModel {
 
       // Show pin details dialog after a short delay
       Future.delayed(const Duration(milliseconds: 500), () async {
-        final place = await getCityCountry(pin.location.latitude, pin.location.longitude);
+        final place =
+            await getCityCountry(pin.location.latitude, pin.location.longitude);
         _dialogService.showCustomDialog(
           variant: DialogType.pindetails,
           data: pin,
@@ -424,7 +427,7 @@ class PinDropMapViewModel extends BaseViewModel {
   void onCameraMove(CameraPosition position) {
     // Store the current camera position for use in other methods
     currentCameraPosition = position;
-    
+
     // If a marker is being shown while camera is moving, hide bottom buttons
     if (showMarker) {
       showBottomButtons = false;
@@ -471,10 +474,9 @@ class PinDropMapViewModel extends BaseViewModel {
     if (currentCameraPosition != null) {
       String markerId = const Uuid().v4();
       final pinnedLocationData = PinnedLocationData(
-        LatLng(currentCameraPosition!.target.latitude,
-            currentCameraPosition!.target.longitude),
-        isNew ? null : pinnedLocation
-      );
+          LatLng(currentCameraPosition!.target.latitude,
+              currentCameraPosition!.target.longitude),
+          isNew ? null : pinnedLocation);
 
       final res = await _bottomSheetService.showCustomSheet(
         variant: BottomSheetType.dropPinSheet,

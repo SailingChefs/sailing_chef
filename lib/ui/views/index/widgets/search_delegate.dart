@@ -86,7 +86,9 @@ class RecipeSearchDelegate extends SearchDelegate<List<RecipeModel>> {
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     image: ImageUtils.safeNetworkImage(
-                      recipe.coverImage.isNotEmpty ? recipe.coverImage.first : '',
+                      recipe.coverImage.isNotEmpty
+                          ? recipe.coverImage.first
+                          : '',
                     ),
                     fit: BoxFit.cover,
                   ),

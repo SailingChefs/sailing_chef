@@ -232,7 +232,8 @@ class _ExpandedAppBar extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
+                    image: ImageUtils.safeNetworkImageForAvatar(
+                        receiver.displayPicture),
                   ),
                 ),
               ),
@@ -293,7 +294,8 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
+                  image: ImageUtils.safeNetworkImageForAvatar(
+                      receiver.displayPicture),
                 ),
               ),
             ),

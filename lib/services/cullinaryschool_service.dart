@@ -67,12 +67,12 @@ class CullinaryschoolService with ListenableServiceMixin {
           .update({
         'school_courses': FieldValue.arrayRemove([courseId])
       });
-      
+
       // Then update the local data
       await _deleteCourseFromDatabase(
           userId: userDetails!.uid!, courseId: courseId);
       courses.removeWhere((element) => element.id == courseId);
-      
+
       // Show toast and notify listeners after all operations are complete
       showToast(message: 'Course removed successfully');
       notifyListeners();
@@ -170,7 +170,8 @@ class CullinaryschoolService with ListenableServiceMixin {
         }).toList();
 
         final results = await Future.wait(futures);
-        courses = results.where((course) => course != null).cast<Course>().toList();
+        courses =
+            results.where((course) => course != null).cast<Course>().toList();
       }
     } catch (e) {
       log('Error fetching courses for user $userId: ${e.toString()}');
