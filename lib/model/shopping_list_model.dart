@@ -14,7 +14,7 @@ class ShoppingListModel {
 
   // Constructor for empty data
   factory ShoppingListModel.empty() {
-    return ShoppingListModel(
+    return const ShoppingListModel(
       selectedRecipees: [],
       shoppingRecipeeIngredient: {},
       showShoppingListview: {},

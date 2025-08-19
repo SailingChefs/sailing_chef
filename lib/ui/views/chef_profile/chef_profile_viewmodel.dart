@@ -106,7 +106,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     dummyFollowing = _followService.following.length;
     isFollowing = _followService.followers.contains(FirebaseAuth.instance.currentUser!.uid);
     if (user.userRole != 'guest') {
-      await chefRecipesList(user);
+      chefRecipesList(user);
       // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
       if (user.userRole == 'culinarySchool') {
         _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
@@ -142,8 +142,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     _bottomSheetService.showCustomSheet(variant: BottomSheetType.otherChefProfile, data: user);
   }
 
-  Future<void> onFollow(UserModel user) async {
-    final check = await _followService.addFollower(user);
+  void onFollow(UserModel user) {
+    final check = _followService.addFollower(user);
 
     if (check) {
       user.followers!.add(userDetails.uid!);
@@ -248,7 +248,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   bool checkOwn(UserModel user) {
-    return !user.uid == FirebaseAuth.instance.currentUser!.uid;
+    return user.uid != FirebaseAuth.instance.currentUser!.uid;
   }
 
   Future<void> onClickUrl(String url) async {

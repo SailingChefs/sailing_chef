@@ -738,7 +738,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   bool checkOwn(RecipeModel recipe) {
     // log("The Recipee Owner UID is         :    ${recipe.uid}");
     // log("Current user      UID is         :    ${FirebaseAuth.instance.currentUser!.uid}");
-    return !recipe.uid == FirebaseAuth.instance.currentUser!.uid;
+    return recipe.uid != FirebaseAuth.instance.currentUser!.uid;
   }
 
   @override

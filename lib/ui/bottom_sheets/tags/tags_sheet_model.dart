@@ -25,34 +25,34 @@ class TagsSheetModel extends BaseViewModel {
 
   // Predefined Tags
   List<Tag> get courseTagsList => [
-        Tag(label: 'Breakfast', tagString: 'breakfast'),
-        Tag(label: 'Lunch', tagString: 'lunch'),
-        Tag(label: 'Dinner', tagString: 'dinner'),
-        Tag(label: 'Starter', tagString: 'starter'),
-        Tag(label: 'Canapé', tagString: 'canape'),
-        Tag(label: 'Side', tagString: 'side'),
-        Tag(label: 'Sweet', tagString: 'sweet'),
+        const Tag(label: 'Breakfast', tagString: 'breakfast'),
+        const Tag(label: 'Lunch', tagString: 'lunch'),
+        const Tag(label: 'Dinner', tagString: 'dinner'),
+        const Tag(label: 'Starter', tagString: 'starter'),
+        const Tag(label: 'Canapé', tagString: 'canape'),
+        const Tag(label: 'Side', tagString: 'side'),
+        const Tag(label: 'Sweet', tagString: 'sweet'),
       ];
 
   List<Tag> get categoryTagsList => [
-        Tag(label: 'Passage friendly', tagString: 'passagefriendly'),
-        Tag(label: 'Meal Prep', tagString: 'mealprep'),
-        Tag(label: 'Plated', tagString: 'plated'),
-        Tag(label: 'Family Style', tagString: 'family'),
-        Tag(label: 'Light Meal', tagString: 'light'),
-        Tag(label: 'Charter', tagString: 'charter'),
-        Tag(label: 'Crew', tagString: 'crew'),
+        const Tag(label: 'Passage friendly', tagString: 'passagefriendly'),
+        const Tag(label: 'Meal Prep', tagString: 'mealprep'),
+        const Tag(label: 'Plated', tagString: 'plated'),
+        const Tag(label: 'Family Style', tagString: 'family'),
+        const Tag(label: 'Light Meal', tagString: 'light'),
+        const Tag(label: 'Charter', tagString: 'charter'),
+        const Tag(label: 'Crew', tagString: 'crew'),
       ];
 
   List<Tag> get dietaryNeedsTagsList => [
-        Tag(label: 'Vegetarian', tagString: 'vegetarian'),
-        Tag(label: 'Vegan', tagString: 'vegan'),
-        Tag(label: 'Gluten-Free', tagString: 'glutenfree'),
-        Tag(label: 'Dairy-Free', tagString: 'dairyfree'),
-        Tag(label: 'Nut-Free', tagString: 'nutfree'),
-        Tag(label: 'Pescatarian', tagString: 'pescatarian'),
-        Tag(label: 'Kosher', tagString: 'kosher'),
-        Tag(label: 'Halal', tagString: 'halal'),
+        const Tag(label: 'Vegetarian', tagString: 'vegetarian'),
+        const Tag(label: 'Vegan', tagString: 'vegan'),
+        const Tag(label: 'Gluten-Free', tagString: 'glutenfree'),
+        const Tag(label: 'Dairy-Free', tagString: 'dairyfree'),
+        const Tag(label: 'Nut-Free', tagString: 'nutfree'),
+        const Tag(label: 'Pescatarian', tagString: 'pescatarian'),
+        const Tag(label: 'Kosher', tagString: 'kosher'),
+        const Tag(label: 'Halal', tagString: 'halal'),
       ];
 
   // Selected Tags

@@ -47,8 +47,7 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
-  Future<bool> updateReview(
-      ReviewsModel review, String newFeedback, double newRating) async {
+  Future<bool> updateReview(ReviewsModel review, String newFeedback, double newRating) async {
     try {
       EasyLoading.show();
 
@@ -92,9 +91,7 @@ class PinDropService with ListenableServiceMixin {
     final ref = firebasestore.collection('pins');
     final querySnapshot = await ref.get();
 
-    final pins = querySnapshot.docs
-        .map(PinnedLocation.fromSnapshot)
-        .toList();
+    final pins = querySnapshot.docs.map(PinnedLocation.fromSnapshot).toList();
 
     return pins;
   }
@@ -110,9 +107,7 @@ class PinDropService with ListenableServiceMixin {
           .orderBy('timestamp', descending: true)
           .get();
 
-      final reviews = querySnapshot.docs
-          .map(ReviewsModel.fromSnapshot)
-          .toList();
+      final reviews = querySnapshot.docs.map(ReviewsModel.fromSnapshot).toList();
 
       return reviews;
     } catch (e) {
@@ -145,11 +140,7 @@ class PinDropService with ListenableServiceMixin {
       final docId = docRef.id;
 
       await docRef.update({'doc_id': docId});
-      pins
-          .where((element) => element.id == reviews.pindropId)
-          .first
-          .reviews!
-          .add(reviews);
+      pins.where((element) => element.id == reviews.pindropId).first.reviews!.add(reviews);
       EasyLoading.dismiss();
       showToast(message: 'review added successfully');
       return true;
@@ -161,19 +152,15 @@ class PinDropService with ListenableServiceMixin {
   }
 
   Future<void> saveEditPin(PinnedLocation pinnedLocation) async {
-    await firebasestore
-        .collection('pins')
-        .doc(pinnedLocation.uid)
-        .set(pinnedLocation.toMap());
+    await firebasestore.collection('pins').doc(pinnedLocation.uid).set(pinnedLocation.toMap());
 
     notifyListeners();
   }
 
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     try {
-      final DocumentReference docRef = await FirebaseFirestore.instance
-          .collection('pins')
-          .add(pinnedLocation.toMap());
+      final DocumentReference docRef =
+          await FirebaseFirestore.instance.collection('pins').add(pinnedLocation.toMap());
 
       final id = firebasestore.collection('pins').doc().id;
       pinnedLocation.id = id;
@@ -195,7 +182,7 @@ class PinDropService with ListenableServiceMixin {
       final uploadTask = ref.putFile(imageFile);
 
       final taskSnapshot = await uploadTask;
-      final var downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      final downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       EasyLoading.dismiss();
       return downloadUrl;
@@ -231,8 +218,7 @@ class PinDropService with ListenableServiceMixin {
   //   await reviewDoc.set(review.toFirestore());
   // }
 
-  Future<List<PinnedLocation>> getPinsNearUserLocation(
-      LatLng userLocation) async {
+  Future<List<PinnedLocation>> getPinsNearUserLocation(LatLng userLocation) async {
     try {
       final ref = firebasestore.collection('pins');
       final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
@@ -246,8 +232,7 @@ class PinDropService with ListenableServiceMixin {
         geohashField: 'geohash',
         field: 'geo',
         strictMode: true,
-        geopointFrom: (data) =>
-            (data['geo'] as Map<String, dynamic>)['geopoint'] as GeoPoint,
+        geopointFrom: (data) => (data['geo'] as Map<String, dynamic>)['geopoint'] as GeoPoint,
       );
 
       // Clear existing pins if we're reloading
@@ -276,8 +261,7 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
-  Future<List<PinnedLocation>> getPinsUsingTags(
-      LatLng userLocation, List<String> tags) async {
+  Future<List<PinnedLocation>> getPinsUsingTags(LatLng userLocation, List<String> tags) async {
     final pins = <PinnedLocation>[];
     final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
@@ -299,8 +283,7 @@ class PinDropService with ListenableServiceMixin {
     );
 
     for (final doc in query) {
-      final pin =
-          PinnedLocation.fromSnapshot(doc.documentSnapshot);
+      final pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
       pins.add(pin);
     }
     log('get location $pins');
