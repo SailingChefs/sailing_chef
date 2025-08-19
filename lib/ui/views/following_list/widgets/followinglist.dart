@@ -11,7 +11,7 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_followin
 class FollowingList extends ViewModelWidget<FollowingListViewModel> {
   final UserModel user;
 
-  const FollowingList({super.key, super.reactive, required this.user});
+  const FollowingList({required this.user, super.key, super.reactive});
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
     return viewModel.followingUsers.isEmpty
@@ -25,12 +25,10 @@ class FollowingList extends ViewModelWidget<FollowingListViewModel> {
         : Column(
             children: [
               const SearchBarFollwoing(),
-              viewModel.searchController.text.isNotEmpty
-                  ? SearchList(
+              if (viewModel.searchController.text.isNotEmpty) SearchList(
                       users: viewModel.followingUsers,
                       isFromFollowingList: true,
-                    )
-                  : Container(
+                    ) else Container(
                       height: 500,
                       width: double.infinity,
                       child: ListView.builder(

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-
-import '../app/app.locator.dart';
 
 class SearchService {
   final CollectionReference recipesCollection =
@@ -16,18 +14,18 @@ class SearchService {
 
   Future<List<RecipeModel>> filterRecipes(String query) async {
     try {
-      final QuerySnapshot querySnapshot = await recipesCollection
+      final querySnapshot = await recipesCollection
           .where('title', isGreaterThanOrEqualTo: query)
           .where('title', isLessThan: '$query\uf8ff')
           .get();
 
-      final List<RecipeModel> filteredRecipes = [];
-      for (var doc in querySnapshot.docs) {
-        RecipeModel recipe = RecipeModel.fromSnapshot(doc);
-        UserModel? currUser =
+      final filteredRecipes = <RecipeModel>[];
+      for (final doc in querySnapshot.docs) {
+        final recipe = RecipeModel.fromSnapshot(doc);
+        final currUser =
             await _userService.fetchUserByUID(firebaseAuth.currentUser!.uid);
         if (!currUser.blockedAccounts!.contains(recipe.uid)) {
-          UserModel? user = await _userService.fetchUserByUID(recipe.uid);
+          final user = await _userService.fetchUserByUID(recipe.uid);
           recipe.user = user;
           filteredRecipes.add(recipe);
         }
@@ -43,26 +41,26 @@ class SearchService {
     try {
       if (query.trim().isEmpty) return [];
 
-      final String lowercaseQuery = query.toLowerCase().trim();
+      final lowercaseQuery = query.toLowerCase().trim();
 
       // Combine all results and remove duplicates
-      Set<String> seenIds = {};
-      List<PinnedLocation> allResults = [];
+      final seenIds = <String>{};
+      final allResults = <PinnedLocation>[];
 
       // Search by name (existing functionality)
-      final QuerySnapshot nameQuerySnapshot = await pinsCollection
+      final nameQuerySnapshot = await pinsCollection
           .where('name', isGreaterThanOrEqualTo: query)
           .where('name', isLessThan: '$query\uf8ff')
           .get();
 
       // Also search by lowercase name for case-insensitive search
-      final QuerySnapshot lowercaseNameQuery = await pinsCollection
+      final lowercaseNameQuery = await pinsCollection
           .where('name', isGreaterThanOrEqualTo: lowercaseQuery)
           .where('name', isLessThan: '$lowercaseQuery\uf8ff')
           .get();
 
       // Search by tags (new functionality)
-      final QuerySnapshot tagsQuerySnapshot =
+      final tagsQuerySnapshot =
           await pinsCollection.where('tags', arrayContainsAny: [
         query,
         lowercaseQuery,
@@ -70,29 +68,29 @@ class SearchService {
       ]).get();
 
       // Search by description (new functionality)
-      final QuerySnapshot descriptionQuerySnapshot = await pinsCollection
+      final descriptionQuerySnapshot = await pinsCollection
           .where('description', isGreaterThanOrEqualTo: lowercaseQuery)
           .where('description', isLessThan: '$lowercaseQuery\uf8ff')
           .get();
 
       // Search by place (new functionality)
-      final QuerySnapshot placeQuerySnapshot = await pinsCollection
+      final placeQuerySnapshot = await pinsCollection
           .where('place', isGreaterThanOrEqualTo: lowercaseQuery)
           .where('place', isLessThan: '$lowercaseQuery\uf8ff')
           .get();
 
       // Process all query results
-      for (var querySnapshot in [
+      for (final querySnapshot in [
         nameQuerySnapshot,
         lowercaseNameQuery,
         tagsQuerySnapshot,
         descriptionQuerySnapshot,
         placeQuerySnapshot,
       ]) {
-        for (var doc in querySnapshot.docs) {
+        for (final doc in querySnapshot.docs) {
           if (!seenIds.contains(doc.id)) {
             seenIds.add(doc.id);
-            PinnedLocation pin = PinnedLocation.fromSnapshot(doc);
+            final pin = PinnedLocation.fromSnapshot(doc);
             // Additional client-side filtering for better matches
             if (_isRelevantMatch(pin, lowercaseQuery)) {
               allResults.add(pin);
@@ -113,13 +111,13 @@ class SearchService {
   }
 
   bool _isRelevantMatch(PinnedLocation pin, String query) {
-    final String lowerQuery = query.toLowerCase();
+    final lowerQuery = query.toLowerCase();
 
     // Check name (most important)
     if (pin.name.toLowerCase().contains(lowerQuery)) return true;
 
     // Check tags
-    for (String tag in pin.tags) {
+    for (final tag in pin.tags) {
       if (tag.toLowerCase().contains(lowerQuery)) return true;
     }
 
@@ -133,8 +131,8 @@ class SearchService {
   }
 
   int _calculateRelevanceScore(PinnedLocation pin, String query) {
-    int score = 0;
-    final String lowerQuery = query.toLowerCase();
+    var score = 0;
+    final lowerQuery = query.toLowerCase();
 
     // Exact name match gets highest score
     if (pin.name.toLowerCase() == lowerQuery) score += 100;
@@ -146,7 +144,7 @@ class SearchService {
     if (pin.name.toLowerCase().contains(lowerQuery)) score += 25;
 
     // Tag exact match
-    for (String tag in pin.tags) {
+    for (final tag in pin.tags) {
       if (tag.toLowerCase() == lowerQuery) score += 75;
       if (tag.toLowerCase().contains(lowerQuery)) score += 15;
     }

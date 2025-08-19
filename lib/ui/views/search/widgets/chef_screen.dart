@@ -7,7 +7,7 @@ import 'package:sailing_chefs/ui/views/search/widgets/explore_all_buttons.dart';
 
 class ChefScreen extends ViewModelWidget<SearchViewModel> {
   final List<UserModel> chef;
-  const ChefScreen({super.key, required this.chef});
+  const ChefScreen({required this.chef, super.key});
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
     return viewModel.searchControllerChef.text.isNotEmpty
@@ -19,19 +19,17 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                       (BuildContext context, BoxConstraints constraints) {
                     return ShrinkWrappingViewport(
                       offset: ViewportOffset.zero(),
-                      axisDirection: AxisDirection.down,
                       slivers: [
                         SliverGrid(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            crossAxisSpacing: 0.0,
                             mainAxisSpacing: 18.0,
                             childAspectRatio: 7 / 9,
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
-                              final UserModel che =
+                              final che =
                                   viewModel.searchUser(chef).elementAt(index);
                               return GestureDetector(
                                   onTap: () {
@@ -53,8 +51,6 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                     ),
                                     margin: const EdgeInsets.all(8),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
                                       children: [
                                         Expanded(
                                             child: ClipRRect(
@@ -120,13 +116,11 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                       (BuildContext context, BoxConstraints constraints) {
                     return ShrinkWrappingViewport(
                       offset: ViewportOffset.zero(),
-                      axisDirection: AxisDirection.down,
                       slivers: [
                         SliverGrid(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            crossAxisSpacing: 0.0,
                             mainAxisSpacing: 18.0,
                             childAspectRatio: 8 / 10,
                           ),
@@ -152,8 +146,6 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                   ),
                                   margin: const EdgeInsets.all(8),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
                                           child: ClipRRect(

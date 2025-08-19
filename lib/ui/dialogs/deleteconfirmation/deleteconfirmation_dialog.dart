@@ -3,10 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/deleteconfirmation/deleteconfirmation_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'deleteconfirmation_dialog_model.dart';
 
 class DeleteconfirmationDialog
     extends StackedView<DeleteconfirmationDialogModel> {
@@ -14,10 +13,8 @@ class DeleteconfirmationDialog
   final Function(DialogResponse) completer;
 
   const DeleteconfirmationDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -28,7 +25,7 @@ class DeleteconfirmationDialog
     String? course;
     if (request.title != null) {
       log(request.title.toString());
-      course = request.title!;
+      course = request.title;
     }
     return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),

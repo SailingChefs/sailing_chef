@@ -5,7 +5,7 @@ class DeleteconfirmationDialogModel extends BaseViewModel {
   final _navigatorlocator = locator<NavigationService>();
   final _cullinaryschoolService = locator<CullinaryschoolService>();
 
-  void yesButton(String course) async {
+  Future<void> yesButton(String course) async {
     await _cullinaryschoolService.deleteCullinaryCoursesData(course);
     notifyListeners();
     rebuildUi();

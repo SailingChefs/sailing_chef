@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'info_alert_dialog_model.dart';
+import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog_model.dart';
 
 const double _graphicSize = 60;
 
@@ -9,10 +9,8 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   final Function(DialogResponse) completer;
 
   const InfoAlertDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(

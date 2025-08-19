@@ -25,7 +25,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
   final TextEditingController feedbackController = TextEditingController();
   double currentRating = 0.0;
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await _reviewService.getReviews(pinnedLocation.id!);
     reviews = _reviewService.reviews;
@@ -36,7 +36,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
     return review.userId == _auth.currentUser?.uid;
   }
 
-  void deleteReview(ReviewsModel review) async {
+  Future<void> deleteReview(ReviewsModel review) async {
     if (!isUserReview(review)) return;
 
     final dialogResponse = await _dialogService.showDialog(
@@ -57,7 +57,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
     }
   }
 
-  void editReview(ReviewsModel review) async {
+  Future<void> editReview(ReviewsModel review) async {
     if (!isUserReview(review)) return;
 
     currentEditingReview = review;
@@ -75,7 +75,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void saveEditedReview() async {
+  Future<void> saveEditedReview() async {
     if (currentEditingReview == null) return;
 
     setBusy(true);
@@ -132,8 +132,8 @@ class ReviewsAllDialogModel extends BaseViewModel {
     // Create a new review
     final newReview = ReviewsModel(
       userId: currentUser.uid,
-      userName: currentUser.displayName ?? "Anonymous",
-      userImageUrl: currentUser.photoURL ?? "",
+      userName: currentUser.displayName ?? 'Anonymous',
+      userImageUrl: currentUser.photoURL ?? '',
       pindropId: pinnedLocation.id!,
       feedback: feedbackController.text.trim(),
       timestamp: Timestamp.now(),

@@ -38,7 +38,7 @@ class LoginViewModel extends BaseViewModel {
     }
 
     // Use a regular expression for basic email validation
-    RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     return emailRegex.hasMatch(value)
         ? null
         : 'Please enter a valid email address';
@@ -55,9 +55,9 @@ class LoginViewModel extends BaseViewModel {
         : 'Password must be at least 8 characters long';
   }
 
-  void login() async {
+  Future<void> login() async {
     if (formKey.currentState?.validate() ?? false) {
-      bool success = await AuthService.login(
+      final success = await AuthService.login(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -71,12 +71,12 @@ class LoginViewModel extends BaseViewModel {
           if (userDetails!.userRole == 'guest') {
             locator.removeRegistrationIfExists<BottomNavBarViewModel>();
             locator.registerLazySingleton<BottomNavBarViewModel>(
-                () => BottomNavBarViewModel());
+                BottomNavBarViewModel.new);
             _navigationService.replaceWithBottomBarGuestView();
           } else {
             locator.removeRegistrationIfExists<BottomNavBarViewModel>();
             locator.registerLazySingleton<BottomNavBarViewModel>(
-                () => BottomNavBarViewModel());
+                BottomNavBarViewModel.new);
             _navigationService.replaceWithBottomNavBarView();
           }
         }
@@ -98,7 +98,7 @@ class LoginViewModel extends BaseViewModel {
     _navigationService.replaceWithSignUpView();
   }
 
-  void signInWithGoogleAccount() async {
+  Future<void> signInWithGoogleAccount() async {
     await AuthService().signInWithGoogle();
   }
 }

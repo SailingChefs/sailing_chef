@@ -1,7 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/explore_all_button.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
@@ -17,8 +16,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
     return Column(children: [
       const SearchBarSavedRecipesScreen(),
       verticalSpaceMedium,
-      viewModel.searchSavedController.text.isNotEmpty
-          ? Column(
+      if (viewModel.searchSavedController.text.isNotEmpty) Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -26,7 +24,6 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                       (BuildContext context, BoxConstraints constraints) {
                     return ShrinkWrappingViewport(
                       offset: ViewportOffset.zero(),
-                      axisDirection: AxisDirection.down,
                       slivers: [
                         SliverGrid(
                           gridDelegate:
@@ -38,11 +35,11 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
-                              final RecipeModel recipe =
+                              final recipe =
                                   viewModel.searchRecipes().elementAt(index);
                               return PrimaryGridTile(
                                   chefId: savedRecipesGlobal[index].user!.uid!,
-                                  rating: savedRecipesGlobal[index].rating!,
+                                  rating: savedRecipesGlobal[index].rating,
                                   recipe: recipe,
                                   onTap: () =>
                                       viewModel.toDishDetailsScreen(recipe),
@@ -64,8 +61,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                 verticalSpace(90),
                 const ExploreAllButton(),
               ],
-            )
-          : savedRecipesGlobal.isEmpty
+            ) else savedRecipesGlobal.isEmpty
               ? const Center(child: Text('No Saved Recipe Found'))
               : Column(
                   children: [
@@ -75,7 +71,6 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                           (BuildContext context, BoxConstraints constraints) {
                         return ShrinkWrappingViewport(
                           offset: ViewportOffset.zero(),
-                          axisDirection: AxisDirection.down,
                           slivers: [
                             SliverGrid(
                               gridDelegate:
@@ -90,7 +85,7 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                   return PrimaryGridTile(
                                       chefId:
                                           savedRecipesGlobal[index].user!.uid!,
-                                      rating: savedRecipesGlobal[index].rating!,
+                                      rating: savedRecipesGlobal[index].rating,
                                       recipe: savedRecipesGlobal[index],
                                       onTap: () =>
                                           viewModel.toDishDetailsScreen(

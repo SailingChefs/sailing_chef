@@ -3,9 +3,9 @@ String capitalizeEachWord(String input) {
     return input;
   }
 
-  List<String> words = input.split(' ');
+  final words = input.split(' ');
 
-  for (int i = 0; i < words.length; i++) {
+  for (var i = 0; i < words.length; i++) {
     if (words[i].isNotEmpty) {
       words[i] = words[i][0].toUpperCase() + words[i].substring(1);
     }

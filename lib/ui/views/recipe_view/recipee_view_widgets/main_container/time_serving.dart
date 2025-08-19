@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 class TimeAndServing extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
-  const TimeAndServing({super.key, required this.recipeModel});
+  const TimeAndServing({required this.recipeModel, super.key});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {

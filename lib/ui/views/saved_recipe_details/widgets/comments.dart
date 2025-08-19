@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comments_list.dart';
@@ -12,18 +11,16 @@ class CommentsDetailsScreen
 
   final bool isFromPrivateProfile;
   const CommentsDetailsScreen(
-      {super.key,
-      required this.isFromPrivateProfile,
-      required this.recipeModel});
+      {required this.isFromPrivateProfile, required this.recipeModel, super.key});
 
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    List<Widget> commentTiles = [];
+    var commentTiles = <Widget>[];
     if (viewModel.commentsList.isNotEmpty) {
-      List<CommentModel> comments = viewModel.commentsList;
+      final comments = viewModel.commentsList;
       commentTiles = comments.map((comment) {
         // Check if this comment belongs to the current user
-        bool isUserComment =
+        final isUserComment =
             comment.userId == FirebaseAuth.instance.currentUser!.uid;
 
         return Column(
@@ -80,7 +77,7 @@ class CommentsDetailsScreen
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    return isFromPrivateProfile == false
+    return !isFromPrivateProfile
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -116,9 +113,7 @@ class CommentsDetailsScreen
                   ),
                 ],
               ),
-              viewModel.images.isNotEmpty
-                  ? _buildImagePreview(viewModel)
-                  : Container(),
+              if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel) else Container(),
               verticalSpaceSmall,
               Container(
                 padding:
@@ -159,9 +154,7 @@ class CommentsDetailsScreen
                     RatingBar.builder(
                       initialRating: viewModel.rating,
                       minRating: 1,
-                      direction: Axis.horizontal,
                       allowHalfRating: true,
-                      itemCount: 5,
                       itemSize: 15.0.dg,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
                       itemBuilder: (context, _) => const Icon(
@@ -170,13 +163,11 @@ class CommentsDetailsScreen
                       ),
                       onRatingUpdate: (rating) => viewModel.addRating(rating),
                     ),
-                    viewModel.isEditingComment
-                        ? IconButton(
+                    if (viewModel.isEditingComment) IconButton(
                             onPressed: viewModel.updateComment,
                             icon:
                                 const Icon(Icons.check, color: kcPrimaryColor),
-                          )
-                        : IconButton(
+                          ) else IconButton(
                             onPressed: () =>
                                 viewModel.addComment(recipeModel.docId!),
                             icon: const Icon(
@@ -191,7 +182,7 @@ class CommentsDetailsScreen
               Center(
                 child: TextButton(
                     onPressed: viewModel.seeCommentsAll,
-                    child: viewModel.seeComments == false
+                    child: !viewModel.seeComments
                         ? Text(
                             'See All Reviews',
                             style: globalTextStyle(
@@ -207,8 +198,7 @@ class CommentsDetailsScreen
                                 fontWeight: FontWeight.w500),
                           )),
               ),
-              viewModel.seeComments
-                  ? Column(
+              if (viewModel.seeComments) Column(
                       children: [
                         ...createCommentWidgets(viewModel),
                         if (viewModel.commentsList.isEmpty)
@@ -218,8 +208,7 @@ class CommentsDetailsScreen
                             ),
                           ),
                       ],
-                    )
-                  : const SizedBox(),
+                    ) else const SizedBox(),
               const Divider(),
             ],
           )

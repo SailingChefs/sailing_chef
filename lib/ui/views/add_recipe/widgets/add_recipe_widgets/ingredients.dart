@@ -2,7 +2,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
@@ -36,8 +35,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
           ],
         ),
         verticalSpaceSmall,
-        viewModel.ingredientsList.isNotEmpty
-            ? Column(
+        if (viewModel.ingredientsList.isNotEmpty) Column(
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
@@ -138,7 +136,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                   GestureDetector(
                     onTap: () {
                       viewModel.callIngredientsBottomSheet;
-                      List<Ingredient> ingredients = viewModel.ingredientsList;
+                      final ingredients = viewModel.ingredientsList;
                       viewModel.addIngredients(ingredients);
                     },
                     child: Container(
@@ -172,8 +170,7 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
                     ),
                   ),
                 ],
-              )
-            : GestureDetector(
+              ) else GestureDetector(
                 onTap: viewModel.callIngredientsBottomSheet,
                 child: Container(
                   // height: 50.h,

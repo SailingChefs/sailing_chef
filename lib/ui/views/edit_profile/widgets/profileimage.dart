@@ -11,9 +11,8 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return Stack(
       children: [
-        userDetails!.displayPicture == null &&
-                viewModel.selectedImageFile == null
-            ? Container(
+        if (userDetails!.displayPicture == null &&
+                viewModel.selectedImageFile == null) Container(
                 height: MediaQuery.sizeOf(context).height * 0.12,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
@@ -56,8 +55,7 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
                         size: 50.sp,
                       )),
                 ),
-              )
-            : Stack(
+              ) else Stack(
                 children: [
                   CircleAvatar(
                     radius: 48,

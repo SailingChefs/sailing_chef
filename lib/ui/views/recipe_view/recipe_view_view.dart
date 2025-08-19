@@ -5,10 +5,9 @@ import 'dart:developer';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/container_top.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/maincontainer.dart';
-
-import 'recipe_view_viewmodel.dart';
 
 class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final RecipeModel recipeModel;
@@ -19,8 +18,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
   final String? path;
 
   const RecipeViewView(this.recipeModel, this.selectedImages, this.draftUrls,
-      {Key? key, this.waveFormData, this.path, required this.isFromDraft})
-      : super(key: key);
+      {required this.isFromDraft, super.key, this.waveFormData, this.path});
 
   @override
   Widget builder(
@@ -28,7 +26,7 @@ class RecipeViewView extends StackedView<RecipeViewViewModel> {
     RecipeViewViewModel viewModel,
     Widget? child,
   ) {
-    log("\n\n\n\n\n\t\t\t\tserving sizes are : ${recipeModel.servingSize.toString()}");
+    log('\n\n\n\n\n\t\t\t\tserving sizes are : ${recipeModel.servingSize}');
     return Scaffold(
       // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).colorScheme.background,

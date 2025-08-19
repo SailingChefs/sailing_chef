@@ -1,7 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class LablesText extends StatelessWidget {
-  const LablesText({super.key, required this.text});
+  const LablesText({required this.text, super.key});
   final String text;
   @override
   Widget build(BuildContext context) {

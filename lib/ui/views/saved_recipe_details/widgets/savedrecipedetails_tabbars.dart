@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../saved_recipe_details_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class RecipeViewTabBars extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   const RecipeViewTabBars({super.key});
@@ -23,7 +23,7 @@ class RecipeViewTabBars extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 viewModel.handleTab(0);
                 viewModel.myIngredientsSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -55,7 +55,7 @@ class RecipeViewTabBars extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 viewModel.handleTab(1);
                 viewModel.methodsSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),

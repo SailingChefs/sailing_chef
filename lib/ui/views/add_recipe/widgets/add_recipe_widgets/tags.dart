@@ -21,8 +21,7 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
           ),
         ),
         verticalSpaceSmall,
-        viewModel.tagsList.isEmpty
-            ? GestureDetector(
+        if (viewModel.tagsList.isEmpty) GestureDetector(
                 onTap: () => viewModel.showTagsSheet(context),
                 child: Container(
                   height: 50.h,
@@ -53,8 +52,7 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                     ),
                   ),
                 ),
-              )
-            : FittedBox(
+              ) else FittedBox(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

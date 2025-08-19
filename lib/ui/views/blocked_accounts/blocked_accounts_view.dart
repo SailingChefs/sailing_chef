@@ -1,11 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
-import 'blocked_accounts_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
   const BlockedAccountsView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget builder(
@@ -13,7 +13,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
     BlockedAccountsViewModel viewModel,
     Widget? child,
   ) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
@@ -41,7 +41,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
               ),
               centerTitle: true,
               title: Text(
-                "Blocked Accounts",
+                'Blocked Accounts',
                 style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.black,
@@ -55,31 +55,31 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
               child: viewModel.blockedUsers.isEmpty
                   ? Center(
                       child: Text(
-                        "No Blocked User",
+                        'No Blocked User',
                         style: TextStyle(fontSize: 12.sp),
                       ),
                     )
                   : ListView.builder(
-                      padding: EdgeInsets.only(left: 10.w, right: 0, top: 20.h),
+                      padding: EdgeInsets.only(left: 10.w, top: 20.h),
                       itemCount: viewModel.blockedUsers.length,
-                      itemBuilder: ((context, index) {
+                      itemBuilder: (context, index) {
                         return FutureBuilder(
                           future: viewModel.findUserDetails(
                               uid: viewModel.blockedUsers[index]),
-                          builder: ((context, snapshot) {
+                          builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return const Text('');
                             } else if (snapshot.data == null) {
                               return Center(
                                 child: Text(
-                                  "No Blocked User",
+                                  'No Blocked User',
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 12.sp),
                                 ),
                               );
                             } else {
-                              var blockUser = snapshot.data;
+                              final blockUser = snapshot.data;
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 8.h),
                                 child: ListTile(
@@ -127,9 +127,9 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                 ),
                               );
                             }
-                          }),
+                          },
                         );
-                      }),
+                      },
                     ),
             ),
           );

@@ -1,12 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/user_details/widgets/form.dart';
 import 'package:sailing_chefs/ui/views/user_details/widgets/profile_picture.dart';
 import 'package:sailing_chefs/ui/views/user_details/widgets/top_bar.dart';
 
-import 'user_details_viewmodel.dart';
-
 class UserDetailsView extends StackedView<UserDetailsViewModel> {
-  const UserDetailsView({Key? key, required this.userRole}) : super(key: key);
+  const UserDetailsView({required this.userRole, super.key});
   final String userRole;
 
   @override
@@ -29,9 +28,7 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
                   verticalSpaceMedium,
                   const ProfilePictureUserDetailsScreen(),
                   verticalSpaceMedium,
-                  viewModel.isBusy
-                      ? const CircularProgressIndicator()
-                      : FormUserDetailsScrenn(
+                  if (viewModel.isBusy) const CircularProgressIndicator() else FormUserDetailsScrenn(
                           userRole: userRole,
                         ),
                   verticalSpaceMedium,

@@ -14,15 +14,12 @@ class ReviewsModel {
     required this.userId,
     required this.userName,
     required this.userImageUrl,
-    this.id = '',
-    required this.pindropId,
-    required this.feedback,
-    required this.timestamp,
+    required this.pindropId, required this.feedback, required this.timestamp, this.id = '',
     this.rating,
   });
 
   factory ReviewsModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
     return ReviewsModel(
       id: snapshot.id,
       userId: data['userId'],

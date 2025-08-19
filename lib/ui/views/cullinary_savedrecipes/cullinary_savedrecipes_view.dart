@@ -4,15 +4,14 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 import 'package:stacked/stacked.dart';
 
-import 'cullinary_savedrecipes_viewmodel.dart';
-
 class CullinarySavedrecipesView
     extends StackedView<CullinarySavedrecipesViewModel> {
-  const CullinarySavedrecipesView({Key? key}) : super(key: key);
+  const CullinarySavedrecipesView({super.key});
 
   @override
   Widget builder(
@@ -43,7 +42,6 @@ class CullinarySavedrecipesView
                       (BuildContext context, BoxConstraints constraints) {
                     return ShrinkWrappingViewport(
                       offset: ViewportOffset.zero(),
-                      axisDirection: AxisDirection.down,
                       slivers: [
                         SliverGrid(
                           gridDelegate:

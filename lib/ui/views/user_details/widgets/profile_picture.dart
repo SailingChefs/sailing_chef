@@ -11,8 +11,7 @@ class ProfilePictureUserDetailsScreen
     return Center(
       child: Stack(
         children: [
-          viewModel.selectedImagePath == null
-              ? Container(
+          if (viewModel.selectedImagePath == null) Container(
                   height: MediaQuery.sizeOf(context).height * 0.12,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
@@ -24,8 +23,7 @@ class ProfilePictureUserDetailsScreen
                     backgroundImage: const AssetImage(
                       'assets/images/icons/imageicon.png',
                     ),
-                  )))
-              : CircleAvatar(
+                  ))) else CircleAvatar(
                   radius: 50,
                   backgroundImage: FileImage(
                     File(viewModel.selectedImagePath!),

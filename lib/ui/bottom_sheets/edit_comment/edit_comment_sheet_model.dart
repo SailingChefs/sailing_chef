@@ -1,10 +1,11 @@
 import 'dart:developer';
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class EditCommentSheetModel extends BaseViewModel {
   final CommentModel comment;
@@ -37,8 +38,8 @@ class EditCommentSheetModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void pickImage() async {
-    final List<XFile> selectedImages = await _picker.pickMultiImage();
+  Future<void> pickImage() async {
+    final selectedImages = await _picker.pickMultiImage();
     images.addAll(selectedImages.map((xFile) => File(xFile.path)));
     rebuildUi();
   }
@@ -68,21 +69,21 @@ class EditCommentSheetModel extends BaseViewModel {
       }
 
       // Filter out images marked for deletion
-      List<String> updatedExistingImages = [];
-      for (int i = 0; i < existingImages.length; i++) {
+      final updatedExistingImages = <String>[];
+      for (var i = 0; i < existingImages.length; i++) {
         if (!imagesToDelete.contains(i)) {
           updatedExistingImages.add(existingImages[i]);
         }
       }
 
       // Combine existing and new images
-      List<String> finalImageUrls = [
+      final finalImageUrls = <String>[
         ...updatedExistingImages,
         ...(newImageUrls ?? []),
       ];
 
       // Update the comment model
-      CommentModel updatedComment = CommentModel(
+      final updatedComment = CommentModel(
         id: comment.id,
         userId: comment.userId,
         recipeId: comment.recipeId,
@@ -94,7 +95,7 @@ class EditCommentSheetModel extends BaseViewModel {
         imageUrl: finalImageUrls.isEmpty ? null : finalImageUrls,
       );
 
-      bool success =
+      final success =
           await _commentService.updateCommentInFirestore(updatedComment);
 
       if (success) {
@@ -112,6 +113,6 @@ class EditCommentSheetModel extends BaseViewModel {
   }
 
   void cancel() {
-    completer!(SheetResponse(confirmed: false));
+    completer!(SheetResponse());
   }
 }

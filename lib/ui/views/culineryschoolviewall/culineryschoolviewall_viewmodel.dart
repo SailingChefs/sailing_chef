@@ -7,11 +7,11 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _cullinaryService = locator<CullinaryschoolService>();
   List<UserModel> get cullinary => _cullinaryService.cullinaryscools;
-  toHomeView() {
+  void toHomeView() {
     _navigationService.back();
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await Future.wait([
       _cullinaryService.culinaryInit(),
@@ -21,7 +21,7 @@ class CulineryschoolviewallViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  toUserDetails(UserModel user) {
+  void toUserDetails(UserModel user) {
     _navigationService.navigateToChefProfileView(
         user: user, preventDuplicates: false);
   }

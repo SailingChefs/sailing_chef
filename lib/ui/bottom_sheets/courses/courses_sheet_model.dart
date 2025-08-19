@@ -20,24 +20,24 @@ class CoursesSheetModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CoursesSheetModel(this.completer);
-  void onViewModelReady(Course? course) async {
+  Future<void> onViewModelReady(Course? course) async {
     setBusy(true);
 
     if (course != null) {
       name.text = course.name;
       link.text = course.link;
       desc.text = course.description;
-      numOfDays.text = course.numOfDays.toString();
+      numOfDays.text = course.numOfDays;
       id = course.id!;
     } else {
-      log("course is null");
+      log('course is null');
     }
     setBusy(false);
   }
 
   bool isLinkValid(String input) {
-    if (!input.contains("www.") ||
-        !input.contains(".com") ||
+    if (!input.contains('www.') ||
+        !input.contains('.com') ||
         input.isEmpty ||
         input.length < 10) {
       return false;

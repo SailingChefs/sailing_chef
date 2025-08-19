@@ -16,7 +16,6 @@ class SearchBarFollwoing extends ViewModelWidget<FollowingListViewModel> {
             child: TextField(
               controller: viewModel.searchController,
               onChanged: (value) => viewModel.rebuildUi(),
-              textAlign: TextAlign.start,
               decoration: InputDecoration(
                 hintStyle: TextStyle(
                   color: kcBlackColor.withOpacity(0.6),

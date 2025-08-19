@@ -1,5 +1,4 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar_following.dart';
 
@@ -14,8 +13,7 @@ class FollowingSavedRecipesScreen
     return Column(children: [
       const SearchBarSavedRecipesFollowingScreen(),
       verticalSpaceMedium,
-      viewModel.searchFollowingController.text.isNotEmpty
-          ? SizedBox(
+      if (viewModel.searchFollowingController.text.isNotEmpty) SizedBox(
               height: 500.h,
               child: GridView.builder(
                 itemCount: viewModel.searchFollowingRecipes().length,
@@ -27,11 +25,11 @@ class FollowingSavedRecipesScreen
                   childAspectRatio: 7.4 / 9,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  final RecipeModel recipe =
+                  final recipe =
                       viewModel.searchFollowingRecipes().elementAt(index);
                   return PrimaryGridTile(
                       chefId: recipe.user!.uid!,
-                      rating: recipe.rating!,
+                      rating: recipe.rating,
                       recipe: recipe,
                       onTap: () => viewModel.toDishDetailsScreen(recipe),
                       foodImagePath: recipe.coverImage
@@ -42,8 +40,7 @@ class FollowingSavedRecipesScreen
                       chefImagePath: recipe.user!.displayPicture!);
                 },
               ),
-            )
-          : viewModel.followingRecipes.isEmpty
+            ) else viewModel.followingRecipes.isEmpty
               ? const Center(child: Text('No Following Saved Recipe Found'))
               : SizedBox(
                   height: 500.h,
@@ -61,7 +58,7 @@ class FollowingSavedRecipesScreen
                     itemBuilder: (BuildContext context, int index) {
                       return PrimaryGridTile(
                           chefId: viewModel.followingRecipes[index].user!.uid!,
-                          rating: viewModel.followingRecipes[index].rating!,
+                          rating: viewModel.followingRecipes[index].rating,
                           recipe: viewModel.followingRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(
                               viewModel.followingRecipes[index]),

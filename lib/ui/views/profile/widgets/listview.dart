@@ -4,10 +4,10 @@ import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
 class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
   final List<Course> courses;
-  const ListViewSavedCources({super.key, required this.courses});
+  const ListViewSavedCources({required this.courses, super.key});
   List<Widget> createCourseWidgets(ProfileViewModel viewModel) {
     return [
-      for (var course in viewModel.courses)
+      for (final course in viewModel.courses)
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -86,8 +86,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
         //       },
         //     ),
         //   ),
-        viewModel.courses.isNotEmpty
-            ? Column(
+        if (viewModel.courses.isNotEmpty) Column(
                 children: [
                   verticalSpaceMedium,
                   GestureDetector(
@@ -120,12 +119,10 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                     ),
                   ),
                 ],
-              )
-            : SizedBox(
+              ) else SizedBox(
                 height: screenHeight(context) * 0.31,
                 width: screenWidth(context) * 0.98,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(

@@ -243,7 +243,7 @@ class FilterService with ChangeNotifier {
   }
 
   List<String> selectedOptions() {
-    List<String> selectedList = [];
+    final selectedList = <String>[];
 
     // Category selections
     if (_isPassageSelected) selectedList.add('Passage');

@@ -8,8 +8,8 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.sizeOf(context).height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
     return viewModel.cullinary.isEmpty
         ? Center(
             child: Text(
@@ -55,7 +55,6 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         ),
                         margin: EdgeInsets.only(right: 12.dg, bottom: 8.dg),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.only(

@@ -1,12 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/chef_screen.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/recipe_search.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/search/widgets/tab_bar.dart';
-
-import 'search_viewmodel.dart';
 
 // ignore: must_be_immutable
 class SearchView extends StackedView<SearchViewModel> {
@@ -14,11 +13,7 @@ class SearchView extends StackedView<SearchViewModel> {
   final List<UserModel> chefList;
   int selectedTagsCount;
   SearchView(
-      {Key? key,
-      required this.recipeModel,
-      required this.chefList,
-      required this.selectedTagsCount})
-      : super(key: key);
+      {required this.recipeModel, required this.chefList, required this.selectedTagsCount, super.key});
 
   @override
   Widget builder(
@@ -74,11 +69,9 @@ class SearchView extends StackedView<SearchViewModel> {
                         verticalSpaceMedium,
                         const TabBarSeacrhScreen(),
                         verticalSpaceTiny,
-                        viewModel.isRecipeSelected
-                            ? RecipeScreen(
+                        if (viewModel.isRecipeSelected) RecipeScreen(
                                 recipes: recipeModel,
-                              )
-                            : ChefScreen(
+                              ) else ChefScreen(
                                 chef: chefList,
                               ),
                       ],

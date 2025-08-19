@@ -17,7 +17,7 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [_savedRecipeService];
 
-  void toDishDetailsScreen(int index, RecipeModel recipeModel) async {
+  Future<void> toDishDetailsScreen(int index, RecipeModel recipeModel) async {
     await _navigationService.navigateWithTransition(
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
@@ -30,7 +30,7 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
     );
   }
 
-  getBack() async {
+  Future<void> getBack() async {
     _navigationService.back();
   }
 }

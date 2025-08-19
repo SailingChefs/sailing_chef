@@ -13,7 +13,7 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
   @override
   Widget build(BuildContext context, ShoppingListViewModel viewModel) {
     return Padding(
-      padding: EdgeInsets.only(top: 50.0, bottom: 0, left: 40.w, right: 10),
+      padding: EdgeInsets.only(top: 50.0, left: 40.w, right: 10),
       child: ListTile(
         title: Center(
           child: Text(
@@ -31,8 +31,8 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
               await viewModel.updateShoppingList();
               viewModel.back();
             } catch (e, stackTrace) {
-              log("Failed to update shopping list on pop: $e");
-              log("StackTrace: $stackTrace");
+              log('Failed to update shopping list on pop: $e');
+              log('StackTrace: $stackTrace');
             }
             // Ensure that the pop operation is not blocked
           },
@@ -40,7 +40,7 @@ class TopBarShoppingScreen extends ViewModelWidget<ShoppingListViewModel>
               alignment: Alignment.center,
               height: 26.h,
               width: 26.w,
-              child: SvgPicture.asset("assets/images/icons/close.svg")),
+              child: SvgPicture.asset('assets/images/icons/close.svg')),
         ),
       ),
     );

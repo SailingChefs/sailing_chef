@@ -60,7 +60,7 @@ class UserModel {
   }
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
 
     return UserModel(
       uid: data['uid'],

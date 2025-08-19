@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/services.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
-import '../../../../core/imports/core_imports.dart';
-import '../../../widgets/rounded_tranparent_textfield.dart';
-import '../edit_ingredient_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet_model.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
   final Ingredient ingredient;
@@ -35,7 +35,7 @@ class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
                 keyboardType: TextInputType.datetime,
                 maxLength: 3,
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9/]')),
                   LengthLimitingTextInputFormatter(3),
                 ],
                 labelText: 'Quantity',

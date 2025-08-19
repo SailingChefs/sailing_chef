@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 
-import '../../common/show_toast.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final _nameController = TextEditingController();
@@ -38,7 +38,7 @@ class SignUpViewModel extends BaseViewModel {
       return 'Please enter an email address';
     }
 
-    RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     return emailRegex.hasMatch(value)
         ? null
         : 'Please enter a valid email address';
@@ -61,13 +61,13 @@ class SignUpViewModel extends BaseViewModel {
         : 'Password must be at least 8 characters long';
   };
 
-  void signup() async {
+  Future<void> signup() async {
     if (formKey.currentState?.validate() ?? false) {
       if (selectedSignUpAs.isEmpty) {
         showToast(message: 'Please Select a role');
         return;
       }
-      UserModel signupUser = UserModel(
+      final signupUser = UserModel(
         displayName: textController.text.trim(),
         email: emailController.text.trim(),
         userRole: selectedSignUpAs,
@@ -82,7 +82,7 @@ class SignUpViewModel extends BaseViewModel {
         savedRecipes: [],
         blockedAccounts: [],
       );
-      bool userRegistered = await _authService.signUp(
+      final userRegistered = await _authService.signUp(
           password: passwordController.text.trim(), userModel: signupUser);
 
       if (userRegistered) {
@@ -111,13 +111,10 @@ class SignUpViewModel extends BaseViewModel {
     switch (index) {
       case 0:
         selectedSignUpAs = 'guest';
-        break;
       case 1:
         selectedSignUpAs = 'culinarySchool';
-        break;
       case 2:
         selectedSignUpAs = 'chef';
-        break;
 
       default:
         break;

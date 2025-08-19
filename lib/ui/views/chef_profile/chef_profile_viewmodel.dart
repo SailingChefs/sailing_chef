@@ -1,24 +1,24 @@
 import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../core/imports/core_imports.dart';
-import '../../../services/auth_service.dart';
-import '../profile_share/profile_share_view.dart';
 
 class ChefProfileViewModel extends ReactiveViewModel {
   UserModel userDetails;
@@ -80,18 +80,18 @@ class ChefProfileViewModel extends ReactiveViewModel {
     ));
   }
 
-  chefRecipesList(UserModel user) async {
+  Future<void> chefRecipesList(UserModel user) async {
     if (RecipeService.recipes.isEmpty) {
       _recipeService.initialized();
     } else {
-      log("chefRecipes ${RecipeService.recipes.length}");
-      for (var recipe in RecipeService.recipes) {
+      log('chefRecipes ${RecipeService.recipes.length}');
+      for (final recipe in RecipeService.recipes) {
         log(recipe.uid);
         log('user.uid ${user.uid!}');
         if (recipe.uid == user.uid!) {
           chefRecipes.add(recipe);
         }
-        log("chefRecipes ${chefRecipes.length}");
+        log('chefRecipes ${chefRecipes.length}');
       }
       notifyListeners();
     }
@@ -100,9 +100,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
   int dummyFollowers = 0;
   int dummyFollowing = 0;
 
-  void onViewModelReady(UserModel user) async {
+  Future<void> onViewModelReady(UserModel user) async {
     setBusy(true);
-    log("  onViewModel Ready called ");
+    log('  onViewModel Ready called ');
     await _followService.init(user.uid!, false);
     dummyFollowers = _followService.followers.length;
     dummyFollowing = _followService.following.length;
@@ -133,7 +133,6 @@ class ChefProfileViewModel extends ReactiveViewModel {
         _followService.addFollowerFromDummy(
             user, FirebaseAuth.instance.currentUser!.uid);
         rebuildUi();
-        break;
 
       case 'following':
         isFollowing = false;
@@ -143,7 +142,6 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
         rebuildUi();
 
-        break;
     }
   }
 
@@ -152,17 +150,17 @@ class ChefProfileViewModel extends ReactiveViewModel {
         variant: BottomSheetType.otherChefProfile, data: user);
   }
 
-  void onFollow(UserModel user) async {
-    bool check = await _followService.addFollower(user);
+  Future<void> onFollow(UserModel user) async {
+    final check = await _followService.addFollower(user);
 
-    if (check == true) {
+    if (check) {
       user.followers!.add(userDetails.uid!);
       isFollowing = true;
       return;
     }
 
     isFollowing = false;
-    user.followers!.remove(userDetails.uid!);
+    user.followers!.remove(userDetails.uid);
     return;
   }
 
@@ -198,7 +196,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     notifyListeners();
 
     try {
-      var conversationModel = ConversationModel(
+      final conversationModel = ConversationModel(
         latestMessage: '',
         users: [
           FirebaseAuth.instance.currentUser!.uid,
@@ -207,9 +205,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
         latestMessageType: 'text',
         latestMessageTime: DateTime.now(),
         lastActive: DateTime.now(),
-        uid: "",
+        uid: '',
       );
-      String conversationId = await _serviceConversations
+      final var conversationId = await _serviceConversations
           .createOrUpdateConversation(conversationModel);
       log('conversationId: $conversationId');
       _navigationService.navigateToChatView(
@@ -237,10 +235,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     switch (index) {
       case 0:
         selectedTab = 'Myrecipes';
-        break;
       case 1:
         selectedTab = 'Saved';
-        break;
 
       default:
         break;
@@ -249,7 +245,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void toDishDetailsScreen(index) async {
+  Future<void> toDishDetailsScreen(index) async {
     await _navigationService.navigateToSavedRecipeDetailsView(
         isFromPrivateProfile: false,
         recipeModel: chefRecipes[index],
@@ -271,7 +267,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   Future<void> onClickUrl(String url) async {
     EasyLoading.show();
-    Uri uri = Uri.parse("https://$url");
+    final uri = Uri.parse('https://$url');
     // if (await canLaunchUrlString(url)) {
     //   launchUrlString(url, );
     // }
@@ -281,7 +277,7 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   Future<void> moveToChatScreenWithMessage(
       UserModel chef, String message) async {
-    var conversationModel = ConversationModel(
+    final conversationModel = ConversationModel(
       latestMessage: '',
       users: [
         FirebaseAuth.instance.currentUser!.uid,
@@ -290,9 +286,9 @@ class ChefProfileViewModel extends ReactiveViewModel {
       latestMessageType: 'text',
       latestMessageTime: DateTime.now(),
       lastActive: DateTime.now(),
-      uid: "",
+      uid: '',
     );
-    String conversationId = await _serviceConversations
+    final conversationId = await _serviceConversations
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(

@@ -1,6 +1,5 @@
-import 'package:sailing_chefs/core/imports/core_imports.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class FeedbackViewModel extends BaseViewModel {

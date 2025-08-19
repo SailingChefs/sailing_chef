@@ -1,8 +1,8 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'privacy_policy_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_viewmodel.dart';
 
 class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
-  const PrivacyPolicyView({Key? key}) : super(key: key);
+  const PrivacyPolicyView({super.key});
 
   @override
   Widget builder(

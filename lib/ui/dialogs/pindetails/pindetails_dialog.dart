@@ -2,19 +2,16 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/ui/dialogs/pindetails/pindetails_dialog_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import 'pindetails_dialog_model.dart';
 
 class PindetailsDialog extends StackedView<PindetailsDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const PindetailsDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -62,7 +59,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                         if (index >=
                                             viewModel.pinnedLocation.picture
                                                 .length) {
-                                          return Container(
+                                          return DecoratedBox(
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(27),
@@ -75,7 +72,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                           );
                                         }
 
-                                        var media = viewModel
+                                        final media = viewModel
                                             .pinnedLocation.picture[index];
 
                                         return ImageUtils
@@ -83,7 +80,6 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                           imageUrl: media,
                                           width: 400,
                                           height: 210,
-                                          fit: BoxFit.cover,
                                           borderRadius:
                                               BorderRadius.circular(27),
                                         );
@@ -105,14 +101,11 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                                       .length
                                                       .clamp(1,
                                                           20), // Clamp to reasonable range
-                                                  axisDirection:
-                                                      Axis.horizontal,
                                                   effect: WormEffect(
                                                     spacing: 5.0,
                                                     radius: 5.0,
                                                     dotWidth: 10.0,
                                                     dotHeight: 10.0,
-                                                    strokeWidth: 1,
                                                     dotColor: kcwhitecolor
                                                         .withOpacity(0.5),
                                                     activeDotColor:
@@ -127,7 +120,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                     ),
                                   ],
                                 )
-                              : Container(
+                              : DecoratedBox(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(27),
                                     color: Colors.grey[300],
@@ -214,14 +207,14 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                           viewModel
                                                       .calculateAverageRating(
                                                           viewModel.reviews)
-                                                      .toString() ==
+                                                       ==
                                                   '0.0'
                                               ? viewModel.pinnedLocation.rating
                                                   .toString()
                                               : viewModel
                                                   .calculateAverageRating(
                                                       viewModel.reviews)
-                                                  .toString(),
+                                                  ,
                                           style: globalTextStyle(
                                             color: kcBlackColor,
                                             fontSize: 15,
@@ -258,7 +251,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                 onTap: () {
                                   viewModel.showReviews();
                                 },
-                                child: Container(
+                                child: DecoratedBox(
                                   decoration: const UnderlineTabIndicator(
                                       borderSide:
                                           BorderSide(color: kcPrimaryColor)),

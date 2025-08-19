@@ -75,7 +75,6 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 builder: (BuildContext context, BoxConstraints constraints) {
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
-                axisDirection: AxisDirection.down,
                 slivers: [
                   SliverGrid(
                     gridDelegate:

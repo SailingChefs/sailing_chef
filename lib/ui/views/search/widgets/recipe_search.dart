@@ -8,7 +8,7 @@ import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class RecipeScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
-  const RecipeScreen({super.key, required this.recipes});
+  const RecipeScreen({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -21,7 +21,6 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                     (BuildContext context, BoxConstraints constraints) {
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
-                    axisDirection: AxisDirection.down,
                     slivers: [
                       SliverGrid(
                         gridDelegate:
@@ -33,11 +32,11 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            final RecipeModel recipe = viewModel
+                            final recipe = viewModel
                                 .searchRecipes(recipes)
                                 .elementAt(index);
                             return PrimaryGridTile(
-                                rating: recipe.rating!,
+                                rating: recipe.rating,
                                 chefId: recipe.user!.uid!,
                                 recipe: recipe,
                                 onTap: () =>
@@ -81,7 +80,6 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                         (BuildContext context, BoxConstraints constraints) {
                       return ShrinkWrappingViewport(
                         offset: ViewportOffset.zero(),
-                        axisDirection: AxisDirection.down,
                         slivers: [
                           SliverGrid(
                             gridDelegate:
@@ -95,7 +93,7 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
                                     chefId: recipes[index].uid,
-                                    rating: recipes[index].rating!,
+                                    rating: recipes[index].rating,
                                     recipe: recipes[index],
                                     onTap: () => viewModel
                                         .toDishDetailsScreen(recipes[index]),

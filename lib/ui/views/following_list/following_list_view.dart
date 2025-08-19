@@ -2,20 +2,18 @@
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/follower_list.dart';
-
+import 'package:sailing_chefs/ui/views/following_list/widgets/followinglist.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/tab_bars.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/topbar_following.dart';
-import 'package:sailing_chefs/ui/views/following_list/widgets/followinglist.dart';
-import 'following_list_viewmodel.dart';
 
 class FollowingListView extends StackedView<FollowingListViewModel> {
   final bool isfromFollowing;
   final UserModel user;
 
   const FollowingListView(
-      {Key? key, required this.user, required this.isfromFollowing})
-      : super(key: key);
+      {required this.user, required this.isfromFollowing, super.key});
 
   @override
   Widget builder(
@@ -36,7 +34,6 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
             ),
             body: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   verticalSpaceSmall,
                   const TabBarsFollowing(),
@@ -44,9 +41,7 @@ class FollowingListView extends StackedView<FollowingListViewModel> {
                   Column(
                     children: [
                       verticalSpaceTiny,
-                      viewModel.isFollower
-                          ? FollowerList()
-                          : FollowingList(user: user),
+                      if (viewModel.isFollower) FollowerList() else FollowingList(user: user),
                     ],
                   )
                 ],

@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/filter/filter_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/bottom_buttons.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/category_tab.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/course_tab_bar.dart';
@@ -6,10 +7,8 @@ import 'package:sailing_chefs/ui/views/filter/widgets/dietary_need_tabs.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/time_slider.dart';
 import 'package:sailing_chefs/ui/views/filter/widgets/top_bar.dart';
 
-import 'filter_viewmodel.dart';
-
 class FilterView extends StackedView<FilterViewModel> {
-  const FilterView({Key? key}) : super(key: key);
+  const FilterView({super.key});
 
   @override
   Widget builder(

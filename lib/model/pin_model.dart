@@ -21,25 +21,14 @@ class PinnedLocation {
   List<ReviewsModel>? reviews = [];
 
   PinnedLocation({
-    this.id,
+    required this.contactNumber, required this.place, required this.rating, required this.createdTime, required this.description, required this.email, required this.link, required this.location, required this.name, required this.picture, required this.tags, this.id,
     this.uid,
     this.placemarks,
-    required this.contactNumber,
     this.reviews,
-    required this.place,
-    required this.rating,
-    required this.createdTime,
-    required this.description,
-    required this.email,
-    required this.link,
-    required this.location,
-    required this.name,
-    required this.picture,
-    required this.tags,
   });
 
   factory PinnedLocation.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    final var data = snapshot.data()! as Map<String, dynamic>;
     return PinnedLocation(
       id: snapshot.id,
       uid: data['uid'] ?? '',

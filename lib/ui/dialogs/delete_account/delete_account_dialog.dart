@@ -1,17 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'delete_account_dialog_model.dart';
+import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog_model.dart';
 
 class DeleteAccountDialog extends StackedView<DeleteAccountDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const DeleteAccountDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -30,7 +28,7 @@ class DeleteAccountDialog extends StackedView<DeleteAccountDialogModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              "Are you Sure you want to delete your account?",
+              'Are you Sure you want to delete your account?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

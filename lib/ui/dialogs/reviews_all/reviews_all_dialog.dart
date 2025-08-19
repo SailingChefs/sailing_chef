@@ -4,20 +4,17 @@ import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/reviews_all/reviews_all_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'reviews_all_dialog_model.dart';
 
 class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const ReviewsAllDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -199,7 +196,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                             shrinkWrap: true,
                             itemCount: viewModel.reviews.length,
                             itemBuilder: (context, index) {
-                              final bool isUserReview = viewModel
+                              final isUserReview = viewModel
                                   .isUserReview(viewModel.reviews[index]);
                               return ListTile(
                                 contentPadding:
@@ -266,13 +263,13 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                           width: 30,
                                           height: 30,
                                           child: IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.edit,
                                               size: 16,
                                               color: kcPrimaryColor,
                                             ),
                                             padding: EdgeInsets.zero,
-                                            constraints: BoxConstraints(),
+                                            constraints: const BoxConstraints(),
                                             splashRadius: 18,
                                             onPressed: () {
                                               HapticFeedback.mediumImpact();
@@ -286,13 +283,13 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                           width: 30,
                                           height: 30,
                                           child: IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.delete,
                                               size: 16,
                                               color: Colors.red,
                                             ),
                                             padding: EdgeInsets.zero,
-                                            constraints: BoxConstraints(),
+                                            constraints: const BoxConstraints(),
                                             splashRadius: 18,
                                             onPressed: () {
                                               HapticFeedback.mediumImpact();
@@ -320,7 +317,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                         viewModel.startAddingReview();
                       },
                       child: Center(
-                        child: Container(
+                        child: DecoratedBox(
                           decoration: const UnderlineTabIndicator(
                               borderSide: BorderSide(color: kcPrimaryColor)),
                           child: Text(

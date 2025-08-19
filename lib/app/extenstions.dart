@@ -17,7 +17,7 @@ extension FileExt on File {
       path.endsWith('.heif');
 
   bool get isVideo {
-    List<String> videoExtensions = [
+    final videoExtensions = <String>[
       'mp4',
       'mov',
       'avi',
@@ -99,6 +99,6 @@ extension StringExt on String {
 
 extension StringExtensions on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1)}";
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }

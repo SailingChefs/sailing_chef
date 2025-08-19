@@ -18,7 +18,7 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
           Expanded(
             child: GestureDetector(
               onTap: () => viewModel.handleSignUpAs(2),
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
@@ -55,7 +55,7 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
             flex: 2,
             child: GestureDetector(
               onTap: () => viewModel.handleSignUpAs(1),
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border(
                     right: BorderSide(
@@ -97,7 +97,7 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
           Expanded(
             child: GestureDetector(
               onTap: () => viewModel.handleSignUpAs(0),
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(10),

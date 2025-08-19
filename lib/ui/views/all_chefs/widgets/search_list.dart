@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 
 class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
   final List<UserModel> chefs;
-  const SearchListAllChefs({super.key, required this.chefs});
+  const SearchListAllChefs({required this.chefs, super.key});
 
   @override
   Widget build(BuildContext context, AllChefsViewModel viewModel) {
@@ -23,14 +23,13 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
             SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 0.0,
                 mainAxisSpacing: 5.0,
                 childAspectRatio: 190 / 270,
                 mainAxisExtent: 270,
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  final UserModel user =
+                  final user =
                       viewModel.searchUsers(chefs).elementAt(index);
                   return GestureDetector(
                     onTap: () {
@@ -86,7 +85,7 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
                             padding: EdgeInsets.only(left: 13.0.dg, bottom: 10),
                             child: Text(
                               capitalizeEachWord(
-                                ("${user.recipes!.length}  Dishes"),
+                                '${user.recipes!.length}  Dishes',
                               ),
                               style: TextStyle(
                                 fontSize: 12.sp,

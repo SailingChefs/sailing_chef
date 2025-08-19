@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/edit_profile_details.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/profileimage.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/widgets/topbar_editprofile.dart';
 import 'package:stacked/stacked.dart';
 
-import 'edit_profile_viewmodel.dart';
-
 class EditProfileView extends StackedView<EditProfileViewModel> {
-  const EditProfileView({Key? key}) : super(key: key);
+  const EditProfileView({super.key});
 
   @override
   Widget builder(

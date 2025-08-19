@@ -12,8 +12,7 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(0),
-          topRight: Radius.circular(0),
+          
         ),
       ),
       child: Padding(

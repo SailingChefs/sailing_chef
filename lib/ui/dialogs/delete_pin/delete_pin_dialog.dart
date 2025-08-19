@@ -3,10 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/delete_pin/delete_pin_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'delete_pin_dialog_model.dart';
 
 const double _graphicSize = 60;
 
@@ -15,10 +14,8 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
   final Function(DialogResponse) completer;
 
   const DeletePinDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -29,7 +26,7 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
     String? pin;
     if (request.data != null) {
       pin = request.data;
-      log("hnhnh $pin");
+      log('hnhnh $pin');
     }
 
     return Dialog(

@@ -127,7 +127,7 @@ class TagsSheetModel extends BaseViewModel {
   }
 
   List<String> selectedOptions() {
-    List<String> selectedList = [];
+    final selectedList = <String>[];
     selectedList.addAll(courseTags.map((tag) => tag.label));
     selectedList.addAll(categoryTags.map((tag) => tag.label));
     selectedList.addAll(dietaryNeedsTags.map((tag) => tag.label));

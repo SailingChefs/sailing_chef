@@ -9,7 +9,7 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
   final bool isFromFollowingList;
 
   const SearchList(
-      {super.key, required this.users, required this.isFromFollowingList});
+      {required this.users, required this.isFromFollowingList, super.key});
 
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
@@ -20,7 +20,7 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
             .searchUsers(viewModel.searchController.text, users)
             .length,
         itemBuilder: (context, index) {
-          final UserModel user = viewModel
+          final user = viewModel
               .searchUsers(viewModel.searchController.text, users)
               .elementAt(index);
           return ListTile(

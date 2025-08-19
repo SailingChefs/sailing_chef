@@ -23,7 +23,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   user.displayPicture!.isEmpty ? 'asset' : 'network');
             },
             child: Hero(
-              tag: "profileShareOption",
+              tag: 'profileShareOption',
               child: Container(
                 height: 90.h,
                 width: 90.w,
@@ -59,9 +59,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
             ),
           ),
           horizontalSpaceSmall,
-          user.userRole == 'culinarySchool'
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          if (user.userRole == 'culinarySchool') Column(
                   children: [
                     Text(
                       viewModel.courses.length.toString(),
@@ -83,17 +81,15 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                       ),
                     ),
                   ],
-                )
-              : GestureDetector(
+                ) else GestureDetector(
                   onTap: viewModel.toDishesScreen,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         user.recipes != null
                             ? user.recipes!.length.toString()
-                            : "",
+                            : '',
                         style: globalTextStyle(
                           fontSize: 18.sp,
                           letterSpacing: -0.3,
@@ -119,7 +115,6 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
             onTap: viewModel.goToFollowerList,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   viewModel.isBusy
@@ -152,7 +147,6 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
             onTap: viewModel.goToFollowingList,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   viewModel.isBusy

@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/culinaryschooldlist.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/dish_list.dart';
@@ -8,10 +9,8 @@ import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
-import 'index_viewmodel.dart';
-
 class IndexView extends StackedView<IndexViewModel> {
-  const IndexView({Key? key}) : super(key: key);
+  const IndexView({super.key});
 
   @override
   Widget builder(
@@ -58,15 +57,12 @@ class IndexView extends StackedView<IndexViewModel> {
                             buttonText: 'View all',
                             textColor: kcPrimaryColorDark,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
                           ),
                         ],
                       ),
-                      viewModel.isMySelected
-                          ? viewModel.showShimmer
+                      if (viewModel.isMySelected) viewModel.showShimmer
                               ? const ShimmerChef()
-                              : const ChefListIndexScreen()
-                          : viewModel.showShimmer
+                              : const ChefListIndexScreen() else viewModel.showShimmer
                               ? const ShimmerChef()
                               : const CullinaryListIndexScreen(),
                     ],
@@ -80,8 +76,7 @@ class IndexView extends StackedView<IndexViewModel> {
                   child: DishListIndexScreen(),
                 ),
                 verticalSpaceMedium,
-                viewModel.dishes.isNotEmpty
-                    ? Center(
+                if (viewModel.dishes.isNotEmpty) Center(
                         child: TextButton(
                           onPressed: viewModel.toAllRecipesView,
                           child: Text(
@@ -90,8 +85,7 @@ class IndexView extends StackedView<IndexViewModel> {
                                 fontSize: 14, color: kcPrimaryColor),
                           ),
                         ),
-                      )
-                    : Container(),
+                      ) else Container(),
               ],
             ),
           ),

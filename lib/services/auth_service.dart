@@ -20,7 +20,7 @@ class AuthService {
   }) async {
     try {
       EasyLoading.show();
-      final UserCredential user = await firebaseAuth.signInWithEmailAndPassword(
+      final user = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
       if (!user.user!.emailVerified) {
@@ -33,32 +33,24 @@ class AuthService {
       return true;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case "invalid-email":
+        case 'invalid-email':
           showToast(message: 'Invalid email');
-          break;
-        case "user-disabled":
+        case 'user-disabled':
           showToast(message: 'User disabled');
-          break;
-        case "user-not-found":
+        case 'user-not-found':
           showToast(message: 'User not found');
-          break;
-        case "wrong-password":
+        case 'wrong-password':
           showToast(message: 'Wrong password');
-          break;
         case 'network-request-failed':
           showToast(message: 'No internet connection');
-          break;
         case 'too-many-requests':
           showToast(message: 'Too many requests');
-          break;
         case 'email-already-in-use':
           showToast(message: 'Email already in use');
-          break;
         default:
           showToast(
               message:
                   'Failed to login, Your email might not be verified or password might be incorrect');
-          break;
       }
       EasyLoading.dismiss();
       return false;
@@ -82,7 +74,7 @@ class AuthService {
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: 'Failed to sign out');
-      log("Error signing out: $e");
+      log('Error signing out: $e');
     }
   }
 
@@ -92,7 +84,7 @@ class AuthService {
   }) async {
     try {
       EasyLoading.show();
-      UserCredential userCredential =
+      final userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email!,
         password: password,
@@ -116,22 +108,17 @@ class AuthService {
       return true;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case "invalid-email":
+        case 'invalid-email':
           showToast(message: 'Invalid email');
-          break;
         case 'network-request-failed':
           showToast(message: 'Weak connection, Please try again');
-          break;
         case 'too-many-requests':
           showToast(message: 'Too many requests');
-          break;
         case 'email-already-in-use':
           showToast(message: 'Email already in use');
-          break;
         default:
           showToast(
               message: 'Failed to login, Your email might not be verified');
-          break;
       }
       EasyLoading.dismiss();
       return false;
@@ -146,18 +133,18 @@ class AuthService {
 
   Future<void> signInWithGoogle() async {
     final dialogService = locator<DialogService>();
-    final GoogleSignInAccount googleUser =
+    final googleUser =
         await GoogleSignIn.instance.authenticate();
-    final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+    final googleAuth = googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       // accessToken: googleAuth?.accessToken,
       idToken: googleAuth.idToken,
     );
 
-    final UserCredential userCredential =
+    final userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final User? user = userCredential.user;
+    final user = userCredential.user;
 
     if (user != null) {
       userDetails = UserModel(
@@ -185,7 +172,7 @@ class AuthService {
           variant: DialogType.roleDialog,
         );
       } else {
-        var currentUser = await userService.fetchUserByUID(user.uid);
+        final currentUser = await userService.fetchUserByUID(user.uid);
         if (currentUser.userRole == 'guest') {
           userDetails!.userRole = currentUser.userRole;
           await userService.storeUserDetails(

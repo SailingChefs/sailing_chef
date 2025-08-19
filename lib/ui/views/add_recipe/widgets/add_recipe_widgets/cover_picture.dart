@@ -9,7 +9,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
-import '../../../../widgets/custom_video_player.dart';
+import 'package:sailing_chefs/ui/widgets/custom_video_player.dart';
 
 class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
   const CoverPictureSelector(this.drafts, {super.key});
@@ -26,7 +26,6 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ...viewModel.alreadySelectedImages.map((String url) {
                         final media = viewModel.alreadySelectedImages.elementAt(
@@ -111,7 +110,6 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         }
                       }),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           ...viewModel.selectedImages.map((XFile image) {
                             viewModel.updateVideoSource(
@@ -121,7 +119,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                   .path),
                             );
 
-                            var media = File(image.path);
+                            final media = File(image.path);
 
                             if (media.path.toLowerCase().endsWith('.mp4')) {
                               return Stack(
@@ -262,14 +260,13 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
             ),
           )
         : Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Add Images",
+                    'Add Images',
                     style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
@@ -417,7 +414,6 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       ...viewModel.selectedImages
                                           .map((XFile image) {
@@ -429,7 +425,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                               .path),
                                         );
 
-                                        var media = File(image.path);
+                                        final media = File(image.path);
 
                                         if (media.isVideo) {
                                           return Stack(

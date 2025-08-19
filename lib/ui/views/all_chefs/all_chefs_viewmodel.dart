@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../../../model/user_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 class AllChefsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -12,21 +12,21 @@ class AllChefsViewModel extends BaseViewModel {
   }
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
-    for (var user in chefs) {
+    for (final user in chefs) {
       if (user.displayName!
           .toLowerCase()
           .contains(searchController.text.toLowerCase())) {
-        log("Searched Cheff --------->  ${user.displayName!.toLowerCase()}");
+        log('Searched Cheff --------->  ${user.displayName!.toLowerCase()}');
         yield user;
       }
     }
   }
 
-  void toChefProfile(UserModel chef) async {
+  Future<void> toChefProfile(UserModel chef) async {
     _navigationService.navigateToChefProfileView(user: chef);
   }
 
-  toHomeView() {
+  void toHomeView() {
     _navigationService.back();
   }
 }

@@ -17,7 +17,7 @@ class MessageModel {
   });
 
   factory MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
 
     return MessageModel(
       content: data['content'],

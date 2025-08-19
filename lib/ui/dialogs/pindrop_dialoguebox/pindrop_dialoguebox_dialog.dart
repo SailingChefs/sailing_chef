@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog_model.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
-
-import 'pindrop_dialoguebox_dialog_model.dart';
 
 class PindropDialogueboxDialog
     extends StackedView<PindropDialogueboxDialogModel> {
@@ -12,10 +10,8 @@ class PindropDialogueboxDialog
   final Function(DialogResponse) completer;
 
   const PindropDialogueboxDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -23,7 +19,7 @@ class PindropDialogueboxDialog
     PindropDialogueboxDialogModel viewModel,
     Widget? child,
   ) {
-    final PinnedLocation pinnedLocation = viewModel.pinnedLocation;
+    final pinnedLocation = viewModel.pinnedLocation;
 
     return GestureDetector(
       onTap: () {
@@ -37,7 +33,6 @@ class PindropDialogueboxDialog
         child: viewModel.isBusy
             ? const ShimmerDialog()
             : Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FittedBox(
@@ -61,7 +56,6 @@ class PindropDialogueboxDialog
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
                               padding:
@@ -92,13 +86,13 @@ class PindropDialogueboxDialog
                                     viewModel
                                                 .calculateAverageRating(
                                                     viewModel.reviews)
-                                                .toString() ==
+                                                 ==
                                             '0.0'
                                         ? pinnedLocation.rating.toString()
                                         : viewModel
                                             .calculateAverageRating(
                                                 viewModel.reviews)
-                                            .toString(),
+                                            ,
                                     style: globalTextStyle(
                                       color: kcBlackColor,
                                       fontSize: 16,
@@ -156,7 +150,7 @@ class PindropDialogueboxDialog
 
   @override
   PindropDialogueboxDialogModel viewModelBuilder(BuildContext context) {
-    log("${request.data}");
+    log('${request.data}');
 
     return PindropDialogueboxDialogModel(
       pinnedLocation: request.data,

@@ -1,8 +1,7 @@
 import 'dart:developer';
 
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
-
-import '../../../core/imports/core_imports.dart';
 
 class EditIngredientSheetModel extends BaseViewModel {
   Ingredient ingredient;
@@ -15,7 +14,7 @@ class EditIngredientSheetModel extends BaseViewModel {
 
   String selectedValue =
       ''; // Make sure this matches one of the items in the values list
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     selectedValue = ingredient.unit;
     setBusy(false);
@@ -47,9 +46,9 @@ class EditIngredientSheetModel extends BaseViewModel {
     rebuildUi();
   }
 
-  showUpdatedIngredient() {
-    log(" Name   :  ${ingredient.name}");
-    log(" Quantity   :  ${ingredient.quantity}");
-    log(" Unit   :  ${ingredient.unit}");
+  void showUpdatedIngredient() {
+    log(' Name   :  ${ingredient.name}');
+    log(' Quantity   :  ${ingredient.quantity}');
+    log(' Unit   :  ${ingredient.unit}');
   }
 }

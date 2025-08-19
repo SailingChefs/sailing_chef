@@ -1,16 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'addpindropshow_dialog_model.dart';
+import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog_model.dart';
 
 class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const AddpindropshowDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(

@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'startup_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/startup/startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({Key? key}) : super(key: key);
+  const StartupView({super.key});
 
   @override
   Widget builder(
@@ -22,7 +22,6 @@ class StartupView extends StackedView<StartupViewModel> {
               child: Image.asset(
                 'assets/images/background/background.png',
                 fit: BoxFit.fill,
-                alignment: Alignment.center,
                 height: double.infinity,
                 width: double.infinity,
               ),

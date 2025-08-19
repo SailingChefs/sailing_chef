@@ -21,8 +21,8 @@ class StartupViewModel extends BaseViewModel {
   final IndexViewModel viewmodel = IndexViewModel();
 
   Future<bool> checkFirstTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('first_time') ?? true;
+    final prefs = await SharedPreferences.getInstance();
+    final isFirstTime = prefs.getBool('first_time') ?? true;
 
     if (isFirstTime) {
       await prefs.setBool('first_time', false);
@@ -43,7 +43,7 @@ class StartupViewModel extends BaseViewModel {
         if (firebaseAuth.currentUser == null) {
           _navigationService.replaceWithLoginView();
         } else {
-          if (firebaseAuth.currentUser!.emailVerified == false) {
+          if (!firebaseAuth.currentUser!.emailVerified) {
             _navigationService.replaceWithLoginView();
           } else {
             userDetails = await _userService.getUserDetails();
@@ -68,10 +68,10 @@ class StartupViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void checkDeepLink() async {
-    final PendingDynamicLinkData? data =
+  Future<void> checkDeepLink() async {
+    final data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
+    final deepLink = data?.link;
 
     if (deepLink != null) {
       isDeepLink = true;
@@ -93,7 +93,7 @@ class StartupViewModel extends BaseViewModel {
     String currentRecipe,
   ) async {
     allRecipes = await recipeService.fetchAllRecipes();
-    List<RecipeModel> dishes = List.from(allRecipes!);
+    final dishes = List<RecipeModel>.from(allRecipes!);
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe);
 
     dishes.shuffle();
@@ -102,14 +102,14 @@ class StartupViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-  void _handleDynamicLinks(Uri deepLink) async {
-    final String? recipeId = deepLink.queryParameters['recipe'];
+  Future<void> _handleDynamicLinks(Uri deepLink) async {
+    final recipeId = deepLink.queryParameters['recipe'];
     if (recipeId != null) {
-      RecipeService recipeService = locator<RecipeService>();
-      RecipeModel? recipe = await recipeService.fetchRecipeById(recipeId);
+      final recipeService = locator<RecipeService>();
+      final recipe = await recipeService.fetchRecipeById(recipeId);
       //  getRandomDishes(recipeId);
       if (recipe != null) {
-        NavigationService navigation = locator<NavigationService>();
+        final navigation = locator<NavigationService>();
         navigation.navigateToSavedRecipeDetailsView(
             recipeModel: recipe,
             isFromPrivateProfile: false,

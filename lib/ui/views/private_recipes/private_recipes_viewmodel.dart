@@ -9,13 +9,13 @@ class PrivateRecipesViewModel extends BaseViewModel {
   final RecipeService _recipeService = locator<RecipeService>();
   final NavigationService _navigationService = locator<NavigationService>();
   List<RecipeModel>? privateRecipe;
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     privateRecipe = await _recipeService.fetchPrivateRecipes(userDetails!.uid!);
     setBusy(false);
   }
 
-  getBack() {
+  void getBack() {
     _navigationService.back();
   }
 

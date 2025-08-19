@@ -12,7 +12,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
       child: Row(
         children: [
           Hero(
-            tag: "profileShareOption",
+            tag: 'profileShareOption',
             child: GestureDetector(
               onTap: () {
                 viewModel.profileShare(
@@ -56,9 +56,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
             ),
           ),
           horizontalSpaceMedium,
-          userDetails!.userRole == 'culinarySchool'
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          if (userDetails!.userRole == 'culinarySchool') Column(
                   children: [
                     Text(
                       viewModel.courses.length.toString(),
@@ -80,11 +78,9 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                       ),
                     ),
                   ],
-                )
-              : GestureDetector(
+                ) else GestureDetector(
                   onTap: viewModel.toDishesScreen,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         viewModel.myRecipes.length.toString(),
@@ -113,7 +109,6 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           GestureDetector(
             onTap: viewModel.goToFollowerList,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   userDetails!.followers!.length.toString(),
@@ -142,7 +137,6 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
           GestureDetector(
             onTap: viewModel.goToFollowingList,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   userDetails!.following!.length.toString(),

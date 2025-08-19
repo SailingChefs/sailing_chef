@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/shopping_list/widgets/recipee_title_widget.dart';
 import 'package:sailing_chefs/ui/views/shopping_list/widgets/topBar.dart';
-import '../../../core/global_uservariable.dart';
-import 'shopping_list_viewmodel.dart';
-import 'widgets/recipee_title_widget.dart';
 
 class ShoppingListView extends StackedView<ShoppingListViewModel> {
   // List<Widget> createShoppingListWidgets(
@@ -179,7 +179,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
   //   return widgets;
   // }
 
-  const ShoppingListView({Key? key}) : super(key: key);
+  const ShoppingListView({super.key});
 
   @override
   Widget builder(
@@ -187,14 +187,14 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
     ShoppingListViewModel viewModel,
     Widget? child,
   ) {
-    Size size = MediaQuery.of(context).size;
+    final var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         try {
           await viewModel.updateShoppingList();
         } catch (e, stackTrace) {
-          log("Failed to update shopping list on pop: $e");
-          log("StackTrace: $stackTrace");
+          log('Failed to update shopping list on pop: $e');
+          log('StackTrace: $stackTrace');
         }
         // Ensure that the pop operation is not blocked
         return true;
@@ -236,7 +236,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                               children: [
                                 // verticalSpaceSmall,
                                 // ...createShoppingListWidgets(viewModel, context),
-                                for (var recipee in selectedRecipees)
+                                for (final recipee in selectedRecipees)
                                   Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -251,7 +251,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                               recipee: recipee,
                                               size: size),
                                         ),
-                                        for (var selectIngredient
+                                        for (final selectIngredient
                                             in showShoppingListview[
                                                         recipee.title]
                                                     ?['selected_ingredients'] ??
@@ -275,8 +275,6 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                                   EdgeInsets.only(right: 8.w),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     selectIngredient.serving
@@ -354,7 +352,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
 
                                         //  ^ For unselected ingredient
 
-                                        for (var unSelectIngredient
+                                        for (final unSelectIngredient
                                             in showShoppingListview[
                                                         recipee.title]?[
                                                     'unselected_ingredients'] ??
@@ -379,8 +377,6 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                                   EdgeInsets.only(right: 8.w),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     unSelectIngredient.serving
@@ -480,13 +476,13 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SvgPicture.asset(
-                                    "assets/images/icons/close.svg",
+                                    'assets/images/icons/close.svg',
                                     color: Colors.white,
                                     height: 20.h,
                                   ),
                                   8.w.horizontalSpace,
                                   Text(
-                                    "Clear All",
+                                    'Clear All',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14.sp,

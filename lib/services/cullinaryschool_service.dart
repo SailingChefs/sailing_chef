@@ -7,7 +7,7 @@ import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
-import '../ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class CullinaryschoolService with ListenableServiceMixin {
   List<UserModel> cullinaryscools = [];
@@ -52,7 +52,7 @@ class CullinaryschoolService with ListenableServiceMixin {
         .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs
-            .map((doc) => UserModel.fromSnapshot(doc))
+            .map(UserModel.fromSnapshot)
             .toList());
   }
 
@@ -77,16 +77,16 @@ class CullinaryschoolService with ListenableServiceMixin {
       showToast(message: 'Course removed successfully');
       notifyListeners();
     } catch (e) {
-      log('Error deleting course $courseId: ${e.toString()}');
+      log('Error deleting course $courseId: $e');
       showToast(message: 'Failed to remove course. Please try again.');
     }
   }
 
   Future<List<UserModel>> _fetchCulinaryDocuments() async {
-    List<UserModel> users = [];
+    final users = <UserModel>[];
 
     try {
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where(
             'user_role',
@@ -95,8 +95,8 @@ class CullinaryschoolService with ListenableServiceMixin {
           .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
-      for (var doc in querySnapshot.docs) {
-        UserModel user = UserModel.fromSnapshot(doc);
+      for (final doc in querySnapshot.docs) {
+        final user = UserModel.fromSnapshot(doc);
         if (!userDetails!.blockedAccounts!.contains(user.uid)) {
           users.add(user);
         }
@@ -110,7 +110,7 @@ class CullinaryschoolService with ListenableServiceMixin {
 
   Future<void> _addCourseToDatabase(Course course) async {
     try {
-      DocumentReference courseRef =
+      final DocumentReference courseRef =
           await firebasestore.collection('courses').add(course.toMap());
       course.id = courseRef.id;
       await firebasestore.collection('courses').doc(course.id).update({
@@ -135,7 +135,7 @@ class CullinaryschoolService with ListenableServiceMixin {
       // Remove notifyListeners from here - let the calling method handle UI updates
       return courses;
     } catch (e) {
-      log('Error updating course ${course.id}: ${e.toString()}');
+      log('Error updating course ${course.id}: $e');
       return courses;
     }
   }
@@ -143,28 +143,28 @@ class CullinaryschoolService with ListenableServiceMixin {
   Future<List<Course>> getCoursesFromDatabase({
     required String userId,
   }) async {
-    List<Course> courses = [];
+    var courses = <Course>[];
 
     try {
-      DocumentSnapshot<Map<String, dynamic>> querySnapshot =
+      final querySnapshot =
           await firebasestore.collection('users').doc(userId).get();
 
       if (querySnapshot.exists) {
-        List<String> courseIds =
+        final List<String> courseIds =
             querySnapshot.data()?['school_courses']?.cast<String>() ?? [];
 
         // Use Future.wait to fetch courses in parallel for better performance
         final futures = courseIds.map((courseId) async {
           try {
-            DocumentSnapshot<Map<String, dynamic>> courseSnapshot =
+            final courseSnapshot =
                 await firebasestore.collection('courses').doc(courseId).get();
 
             if (courseSnapshot.exists) {
-              Map<String, dynamic> courseData = courseSnapshot.data()!;
+              final courseData = courseSnapshot.data()!;
               return Course.fromMap(courseData);
             }
           } catch (e) {
-            log('Error fetching course $courseId: ${e.toString()}');
+            log('Error fetching course $courseId: $e');
           }
           return null;
         }).toList();
@@ -174,7 +174,7 @@ class CullinaryschoolService with ListenableServiceMixin {
             results.where((course) => course != null).cast<Course>().toList();
       }
     } catch (e) {
-      log('Error fetching courses for user $userId: ${e.toString()}');
+      log('Error fetching courses for user $userId: $e');
     }
 
     return courses;

@@ -1,16 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'long_press_comment_dialog_model.dart';
+import 'package:sailing_chefs/ui/dialogs/long_press_comment/long_press_comment_dialog_model.dart';
 
 class LongPressCommentDialog extends StackedView<LongPressCommentDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const LongPressCommentDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -28,7 +26,6 @@ class LongPressCommentDialog extends StackedView<LongPressCommentDialogModel> {
             horizontal: 25, vertical: 20), // Increased padding
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
               alignment: Alignment.centerRight,
@@ -61,7 +58,7 @@ class LongPressCommentDialog extends StackedView<LongPressCommentDialogModel> {
                 ),
               ),
               title: Text(
-                "Edit",
+                'Edit',
                 style: TextStyle(
                     fontSize: 20.sp, // Increased font size for readability
                     fontWeight: FontWeight.w700,
@@ -89,7 +86,7 @@ class LongPressCommentDialog extends StackedView<LongPressCommentDialogModel> {
                 ),
               ),
               title: Text(
-                "Delete",
+                'Delete',
                 style: TextStyle(
                     fontSize: 20.sp, // Increased font size for readability
                     fontWeight: FontWeight.w700,

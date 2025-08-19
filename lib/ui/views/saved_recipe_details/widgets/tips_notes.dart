@@ -3,7 +3,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 
 class TipsNotesRecipeDetails extends StatelessWidget {
   final RecipeModel viewModel;
-  const TipsNotesRecipeDetails({super.key, required this.viewModel});
+  const TipsNotesRecipeDetails({required this.viewModel, super.key});
 
   @override
   Widget build(BuildContext context) {

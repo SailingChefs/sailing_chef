@@ -101,9 +101,9 @@
 // }
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'comment_model.dart';
-import 'user_model.dart';
-import 'ingredients_model.dart';
+import 'package:sailing_chefs/model/comment_model.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 
 class RecipeModel {
   String chefNote;
@@ -128,20 +128,10 @@ class RecipeModel {
   RecipeModel({
     required this.visibility,
     required this.chefNote,
-    this.tags,
+    required this.coverImage, required this.createdTime, required this.ingredients, required this.methods, required this.prepTime, required this.servingSize, required this.status, required this.title, required this.uid, required this.waveForm, this.tags,
     this.rating,
     this.ratingCount,
     this.docId,
-    required this.coverImage,
-    required this.createdTime,
-    required this.ingredients,
-    required this.methods,
-    required this.prepTime,
-    required this.servingSize,
-    required this.status,
-    required this.title,
-    required this.uid,
-    required this.waveForm,
     this.user,
     this.comment,
   });
@@ -198,7 +188,7 @@ class RecipeModel {
   }
 
   factory RecipeModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
     return RecipeModel.fromMap(data);
   }
 }

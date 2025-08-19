@@ -3,6 +3,8 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/profile/widgets/my_recipe_profile_screen.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_detals.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/saved_guest_button.dart';
@@ -11,11 +13,8 @@ import 'package:sailing_chefs/ui/views/profile/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/tab_bar.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/top_bar.dart';
 
-import 'profile_viewmodel.dart';
-import 'widgets/my_recipe_profile_screen.dart';
-
 class ProfileView extends StackedView<ProfileViewModel> {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   @override
   Widget builder(
@@ -40,9 +39,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
                 verticalSpace(MediaQuery.of(context).size.height * 0.04),
-                userDetails!.userRole == 'guest'
-                    ? Container()
-                    : FittedBox(
+                if (userDetails!.userRole == 'guest') Container() else FittedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.min,
@@ -60,26 +57,18 @@ class ProfileView extends StackedView<ProfileViewModel> {
                           ],
                         ),
                       ),
-                userDetails!.userRole == 'guest'
-                    ? Column(
+                if (userDetails!.userRole == 'guest') Column(
                         children: [
                           const SavedGuestButton(),
                           verticalSpaceMedium,
-                          viewModel.isBusy
-                              ? const ShimmerLoaderChefView()
-                              : const SavedProfileScreen(),
+                          if (viewModel.isBusy) const ShimmerLoaderChefView() else const SavedProfileScreen(),
                         ],
-                      )
-                    : viewModel.isBusy
+                      ) else viewModel.isBusy
                         ? const ShimmerLoaderChefView()
                         : Column(
                             children: [
-                              viewModel.myRecipes.isEmpty
-                                  ? const SizedBox()
-                                  : verticalSpaceMedium,
-                              viewModel.isMySelected
-                                  ? const MyRecipesProfileScreen()
-                                  : const SavedProfileScreen(),
+                              if (viewModel.myRecipes.isEmpty) const SizedBox() else verticalSpaceMedium,
+                              if (viewModel.isMySelected) const MyRecipesProfileScreen() else const SavedProfileScreen(),
                             ],
                           ),
               ],

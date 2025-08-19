@@ -4,7 +4,7 @@ import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 class ExploreAllButtonSearch extends ViewModelWidget<SearchViewModel> {
   final String text;
   final void Function()? onTap;
-  const ExploreAllButtonSearch({super.key, required this.text, this.onTap});
+  const ExploreAllButtonSearch({required this.text, super.key, this.onTap});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {

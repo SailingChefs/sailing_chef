@@ -11,7 +11,7 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
   final UserModel user;
   final List<SavedRecipeModel> savedRecipes;
   const SavedChefProfileScreen(this.user,
-      {super.key, required this.savedRecipes});
+      {required this.savedRecipes, super.key});
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
@@ -58,7 +58,6 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                           (BuildContext context, BoxConstraints constraints) {
                         return ShrinkWrappingViewport(
                           offset: ViewportOffset.zero(),
-                          axisDirection: AxisDirection.down,
                           slivers: [
                             SliverGrid(
                               gridDelegate:

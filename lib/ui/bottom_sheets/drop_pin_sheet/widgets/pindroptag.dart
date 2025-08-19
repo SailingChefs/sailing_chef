@@ -8,10 +8,8 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const TagsSelectionWidget({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {
@@ -19,7 +17,7 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
       child: SingleChildScrollView(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.95,
-          height: viewModel.isTagsVisible == true
+          height: viewModel.isTagsVisible
               ? MediaQuery.of(context).size.height * 0.53
               : MediaQuery.of(context).size.height * 0.077,
           child: Column(
@@ -56,7 +54,7 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                       Padding(
                         padding: const EdgeInsets.only(right: 15.0),
                         child: SvgPicture.asset(
-                          viewModel.isTagsVisible == true
+                          viewModel.isTagsVisible
                               ? 'assets/images/icons/up.svg'
                               : 'assets/images/icons/downarrow.svg',
                           width: 10,
@@ -73,10 +71,10 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                 visible: viewModel.isTagsVisible,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  height: viewModel.isTagsVisible == true
+                  height: viewModel.isTagsVisible
                       ? MediaQuery.of(context).size.height * 0.41
                       : 0,
-                  width: viewModel.isTagsVisible == true
+                  width: viewModel.isTagsVisible
                       ? MediaQuery.of(context).size.width * 0.95
                       : 0,
                   padding: const EdgeInsets.only(

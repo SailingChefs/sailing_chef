@@ -5,7 +5,7 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
   final Function(SheetResponse response)? completer;
   final bool isNew;
   const ButtonsPindrop(
-      {super.key, required this.completer, required this.isNew});
+      {required this.completer, required this.isNew, super.key});
 
   @override
   Widget build(BuildContext context, DropPinSheetSheetModel viewModel) {

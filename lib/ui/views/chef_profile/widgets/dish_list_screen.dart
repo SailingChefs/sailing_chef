@@ -1,18 +1,17 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
   final UserModel user;
-  const DishListScreen({super.key, required this.user});
+  const DishListScreen({required this.user, super.key});
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
-    final List<RecipeModel> recipes = viewModel.chefRecipes;
+    final recipes = viewModel.chefRecipes;
     return recipes.isNotEmpty
         ? user.userRole != 'culinarySchool' && user.userRole == 'chef'
             ? Padding(
@@ -21,7 +20,6 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                     (BuildContext context, BoxConstraints constraints) {
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
-                    axisDirection: AxisDirection.down,
                     slivers: [
                       SliverGrid(
                         gridDelegate:

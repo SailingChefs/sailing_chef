@@ -1,6 +1,7 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/bottom_slider.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/comments.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/ingredients_class.dart';
@@ -8,7 +9,6 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/methods.dart
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
-import '../saved_recipe_details_viewmodel.dart';
 
 class MainRecipeViewContainer
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -16,11 +16,7 @@ class MainRecipeViewContainer
   final List<RecipeModel> recipeList;
   final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {Key? key,
-      required this.recipeModel,
-      required this.isFromPrivateProfile,
-      required this.recipeList})
-      : super(key: key);
+      {required this.recipeModel, required this.isFromPrivateProfile, required this.recipeList, super.key});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
@@ -48,9 +44,7 @@ class MainRecipeViewContainer
           Methods(
             recipe: recipeModel,
           ),
-          recipeModel.tags!.isEmpty
-              ? Container()
-              : Column(
+          if (recipeModel.tags!.isEmpty) Container() else Column(
                   children: [
                     TipsNotesRecipeDetails(viewModel: recipeModel),
                     verticalSpace(12),
@@ -59,7 +53,6 @@ class MainRecipeViewContainer
           // const ChefNotesRecipeDetails(),
           // verticalSpace(16.h),
           Visibility(
-            visible: true,
             // visible: viewModel.checkOwn(recipeModel),
             child: ViewProfileRow(
               user: recipeModel.user!,

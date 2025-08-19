@@ -23,7 +23,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 viewModel.handleTab(0);
                 viewModel.myRecipeSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -55,7 +55,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 viewModel.handleTab(1);
                 viewModel.savedSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -67,8 +67,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    user.userRole == 'culinarySchool'
-                        ? Text(
+                    if (user.userRole == 'culinarySchool') Text(
                             'Courses',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -76,8 +75,7 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                                   ? kcVeryLightGrey
                                   : kcBlackColor.withOpacity(0.5),
                             ),
-                          )
-                        : Text(
+                          ) else Text(
                             'Saved',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,

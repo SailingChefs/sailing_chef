@@ -31,10 +31,6 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                       labelText: 'Boat Name'),
                   verticalSpaceMedium,
                   CSCPickerPlus(
-                    showStates: true,
-
-                    showCities: true,
-
                     flagState: CountryFlag.DISABLE,
 
                     dropdownDecoration: BoxDecoration(
@@ -48,14 +44,14 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                     ),
 
                     ///placeholders for dropdown search field
-                    countrySearchPlaceholder: "Country",
-                    stateSearchPlaceholder: "State",
-                    citySearchPlaceholder: "City",
+                    countrySearchPlaceholder: 'Country',
+                    stateSearchPlaceholder: 'State',
+                    citySearchPlaceholder: 'City',
 
                     ///labels for dropdown
-                    countryDropdownLabel: "*Country",
-                    stateDropdownLabel: "*State",
-                    cityDropdownLabel: "*City",
+                    countryDropdownLabel: '*Country',
+                    stateDropdownLabel: '*State',
+                    cityDropdownLabel: '*City',
 
                     selectedItemStyle: globalTextStyle(
                       color: kcBlackColor.withOpacity(0.6),

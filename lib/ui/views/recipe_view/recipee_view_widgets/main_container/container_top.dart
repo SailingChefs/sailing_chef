@@ -32,7 +32,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
               );
             },
             itemBuilder: (context, index) {
-              var media = viewModel.selectedImages[index];
+              final media = viewModel.selectedImages[index];
               if (media is String) {
                 if (media.isFirebaseVideoUrl) {
                   return CustomVideoPlayer.network(
@@ -72,9 +72,7 @@ class TopBarRecipeView extends ViewModelWidget<RecipeViewViewModel> {
               child: SmoothPageIndicator(
                 controller: viewModel.pageController,
                 count: viewModel.selectedImages.length,
-                axisDirection: Axis.horizontal,
                 effect: SlideEffect(
-                  spacing: 8.0,
                   radius: 4.0,
                   dotWidth: 9.0,
                   dotHeight: 9.0,

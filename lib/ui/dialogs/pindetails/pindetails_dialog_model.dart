@@ -26,7 +26,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
   PindetailsDialogModel(
       {required this.pinnedLocation, required this.placeMark});
 
-  PageController pageController = PageController(viewportFraction: 1.0);
+  PageController pageController = PageController();
   List<String>? tags;
   final _dialogNavigation = locator<DialogService>();
 
@@ -58,7 +58,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     }
   }
 
-  void editPin() async {
+  Future<void> editPin() async {
     // String markerId = const Uuid().v4();
     // final pinnedLocationData = PinnedLocationData(
     //     LatLng(currentCameraPosition!.target.latitude,
@@ -71,7 +71,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
         pinnedLocation);
     await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.dropPinSheet,
-      data: {"pinnedLocationData": pinnedLocationData, "isNew": false},
+      data: {'pinnedLocationData': pinnedLocationData, 'isNew': false},
     );
     // if (res2?.data == false || res2?.data == null) return;
 
@@ -85,7 +85,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void editMapPin(String markerId) async {
+  Future<void> editMapPin(String markerId) async {
     final pinnedLocationData = PinnedLocationData(
         LatLng(pinnedLocation.location.latitude,
             pinnedLocation.location.longitude),
@@ -104,25 +104,25 @@ class PindetailsDialogModel extends ReactiveViewModel {
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
       log(pinnedLocation.rating.toString());
-      return "0.0"; // Return 0 if there are no comments
+      return '0.0'; // Return 0 if there are no comments
     }
 
-    double totalRating = 0.0;
+    var totalRating = 0.0;
 
     // Calculate the total rating
-    for (var comment in comments) {
+    for (final comment in comments) {
       if (comment.rating != null) {
         totalRating += comment.rating!;
       }
     }
 
     // Calculate the average rating
-    double averageRating = totalRating / comments.length;
+    final averageRating = totalRating / comments.length;
     log(averageRating.toString());
     return averageRating.toStringAsFixed(1);
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await getCurrentLocation();
     for (var i = 0; i < pinnedLocation.tags.length; i++) {

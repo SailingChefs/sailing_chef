@@ -1,19 +1,16 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/widgets/buttons.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/widgets/category.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/widgets/course.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/tags/widgets/dietary.dart';
 
-import 'tags_sheet_model.dart';
-
 class TagsSheet extends StackedView<TagsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const TagsSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -45,15 +42,15 @@ class TagsSheet extends StackedView<TagsSheetModel> {
               children: [
                 // verticalSpaceLarge,
                 verticalSpaceSmall,
-                CourseTabBarFilerSheet(),
+                const CourseTabBarFilerSheet(),
                 verticalSpaceSmall,
-                CategoryTabsFilterSheet(),
+                const CategoryTabsFilterSheet(),
                 verticalSpaceSmall,
-                DietaryNeedTabsFilterSheet(),
+                const DietaryNeedTabsFilterSheet(),
                 // verticalSpaceLarge,
                 verticalSpaceSmall,
                 BottomButtonsTagsSheet(
-                  completer: completer!,
+                  completer: completer,
                 )
               ],
             ),

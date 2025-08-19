@@ -1,13 +1,12 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/shimmer.dart';
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/widgets/listview.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
-import 'culineryschoolviewall_viewmodel.dart';
-
 class CulineryschoolviewallView
     extends StackedView<CulineryschoolviewallViewModel> {
-  const CulineryschoolviewallView({Key? key}) : super(key: key);
+  const CulineryschoolviewallView({super.key});
 
   @override
   Widget builder(

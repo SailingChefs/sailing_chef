@@ -91,7 +91,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         verticalSpaceTiny,
                         const LablesText(text: 'Location'),
                         Visibility(
-                          visible: viewModel.isChange == false,
+                          visible: !viewModel.isChange,
                           child: SemiRoundedTranpaentTextField(
                             suffixIcon: false,
                             prefixIcons: false,
@@ -111,12 +111,8 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                           ),
                         ),
                         Visibility(
-                          visible: viewModel.isChange == true,
+                          visible: viewModel.isChange,
                           child: CSCPickerPlus(
-                            showStates: true,
-
-                            showCities: true,
-
                             flagState: CountryFlag.DISABLE,
 
                             dropdownDecoration: BoxDecoration(
@@ -132,9 +128,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
 
                             ///placeholders for dropdown search field
-                            countrySearchPlaceholder: "Country",
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
+                            countrySearchPlaceholder: 'Country',
+                            stateSearchPlaceholder: 'State',
+                            citySearchPlaceholder: 'City',
 
                             ///labels for dropdown
                             countryDropdownLabel: 'country*',
@@ -241,7 +237,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             verticalSpaceTiny,
                             const LablesText(text: 'Location'),
                             Visibility(
-                              visible: viewModel.isChange == false,
+                              visible: !viewModel.isChange,
                               child: SemiRoundedTranpaentTextField(
                                 suffixIcon: false,
                                 prefixIcons: false,
@@ -261,12 +257,8 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               ),
                             ),
                             Visibility(
-                              visible: viewModel.isChange == true,
+                              visible: viewModel.isChange,
                               child: CSCPickerPlus(
-                                showStates: true,
-
-                                showCities: true,
-
                                 flagState: CountryFlag.DISABLE,
 
                                 dropdownDecoration: BoxDecoration(
@@ -282,9 +274,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 ),
 
                                 ///placeholders for dropdown search field
-                                countrySearchPlaceholder: "Country",
-                                stateSearchPlaceholder: "State",
-                                citySearchPlaceholder: "City",
+                                countrySearchPlaceholder: 'Country',
+                                stateSearchPlaceholder: 'State',
+                                citySearchPlaceholder: 'City',
 
                                 ///labels for dropdown
                                 countryDropdownLabel: 'country*',

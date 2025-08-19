@@ -23,10 +23,9 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: viewModel.isFollower == true
+                    color: viewModel.isFollower
                         ? Colors.black
                         : Colors.transparent,
-                    width: 1.0,
                   ),
                 ),
               ),
@@ -54,10 +53,9 @@ class TabBarsFollowing extends ViewModelWidget<FollowingListViewModel> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: viewModel.isFollowing == true
+                    color: viewModel.isFollowing
                         ? Colors.black
                         : Colors.transparent,
-                    width: 1.0,
                   ),
                 ),
               ),

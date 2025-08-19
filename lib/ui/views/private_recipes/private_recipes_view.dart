@@ -3,14 +3,13 @@ import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/private_recipes/widgets/topbar.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 import 'package:stacked/stacked.dart';
 
-import 'private_recipes_viewmodel.dart';
-
 class PrivateRecipesView extends StackedView<PrivateRecipesViewModel> {
-  const PrivateRecipesView({Key? key}) : super(key: key);
+  const PrivateRecipesView({super.key});
 
   @override
   Widget builder(
@@ -50,7 +49,6 @@ class PrivateRecipesView extends StackedView<PrivateRecipesViewModel> {
                           (BuildContext context, BoxConstraints constraints) {
                         return ShrinkWrappingViewport(
                           offset: ViewportOffset.zero(),
-                          axisDirection: AxisDirection.down,
                           slivers: [
                             SliverGrid(
                               gridDelegate:

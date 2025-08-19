@@ -1,19 +1,16 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/ui/dialogs/rate_experience/rate_experience_dialog_model.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
-
-import 'rate_experience_dialog_model.dart';
 
 class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const RateExperienceDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -36,7 +33,6 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
           padding: const EdgeInsets.only(top: 10.0, left: 15, right: 15),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,11 +55,9 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
               ),
               verticalSpaceSmall,
               RatingBar.builder(
-                direction: Axis.horizontal,
                 allowHalfRating: true,
                 initialRating: viewModel.ratings,
                 itemSize: 30,
-                itemCount: 5,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,

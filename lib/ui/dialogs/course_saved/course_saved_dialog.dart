@@ -4,20 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'course_saved_dialog_model.dart';
 
 class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const CourseSavedDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(

@@ -3,11 +3,11 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 
-import '../saved_recipe_details_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final UserModel user;
-  const ViewProfileRow({super.key, required this.user});
+  const ViewProfileRow({required this.user, super.key});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
@@ -76,9 +76,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ],
             ),
           ),
-          user.uid == userDetails!.uid!
-              ? const SizedBox()
-              : user.userRole == null
+          if (user.uid == userDetails!.uid!) const SizedBox() else user.userRole == null
                   ? const SizedBox()
                   : OutlinedButton(
                       style: OutlinedButton.styleFrom(

@@ -1,15 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'discard_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet_model.dart';
 
 class DiscardSheet extends StackedView<DiscardSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const DiscardSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -30,7 +28,6 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           verticalSpaceMedium,

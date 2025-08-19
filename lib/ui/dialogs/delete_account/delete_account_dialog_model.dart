@@ -7,10 +7,9 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/services/user_services.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import '../../common/show_toast.dart';
 
 class DeleteAccountDialogModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
@@ -18,13 +17,13 @@ class DeleteAccountDialogModel extends BaseViewModel {
   final snackbarService = locator<SnackbarService>();
   final userService = locator<UserServices>();
 
-  void deleteAccount() async {
+  Future<void> deleteAccount() async {
     navigationService.back();
     _dialogService.showCustomDialog(variant: DialogType.enterPass);
   }
 
   bool isGoogleSignInUser(User user) {
-    for (var userInfo in user.providerData) {
+    for (final userInfo in user.providerData) {
       if (userInfo.providerId == 'google.com') {
         return true;
       }
@@ -40,10 +39,10 @@ class DeleteAccountDialogModel extends BaseViewModel {
     try {
       if (isGoogleSignInUser(user)) {
         // Re-authenticate Google user
-        GoogleSignIn googleSignIn = GoogleSignIn.instance;
-        GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
-        GoogleSignInAuthentication googleAuth = googleUser.authentication;
-        AuthCredential credential = GoogleAuthProvider.credential(
+        final googleSignIn = GoogleSignIn.instance;
+        final googleUser = await googleSignIn.authenticate();
+        final googleAuth = googleUser.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleAuth.idToken,
           // accessToken: googleAuth.accessToken,
         );
@@ -60,7 +59,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
 
   Future<bool> deleteGoogleUser() async {
     try {
-      User? user = FirebaseAuth.instance.currentUser;
+      final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         // Re-authenticate the user
         await reauthenticateUser(user);
@@ -70,7 +69,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
         log('Google user deleted successfully: ${user.email}');
 
         // Verify if the user is still signed in
-        User? currentUser = FirebaseAuth.instance.currentUser;
+        final currentUser = FirebaseAuth.instance.currentUser;
         if (currentUser == null) {
           showToast(
             message: 'Account Deleted Permanently',
@@ -78,7 +77,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
           return true;
         } else {
           showToast(
-            message: "Account deletion failed",
+            message: 'Account deletion failed',
           );
           return false;
         }
@@ -86,7 +85,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
       return false;
     } catch (e) {
       showToast(
-        message: "Account deletion failed",
+        message: 'Account deletion failed',
       );
       log('Failed to delete Google user: $e');
       return false;
@@ -99,7 +98,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
     if (FirebaseAuth.instance.currentUser != null) {
       userService.deleteGoogleUserDocument();
       final deleteUser = await deleteGoogleUser();
-      if (deleteUser == true) {
+      if (deleteUser) {
         navigationService.clearStackAndShow(Routes.loginView);
       }
     }

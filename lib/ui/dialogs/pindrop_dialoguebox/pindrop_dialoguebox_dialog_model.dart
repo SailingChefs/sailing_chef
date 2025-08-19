@@ -1,9 +1,8 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
+import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
-
-import '../../../model/reviews.dart';
 
 class PindropDialogueboxDialogModel extends ReactiveViewModel {
   PinnedLocation pinnedLocation;
@@ -24,30 +23,30 @@ class PindropDialogueboxDialogModel extends ReactiveViewModel {
 
   String calculateAverageRating(List<ReviewsModel> comments) {
     if (comments.isEmpty) {
-      return "0.0";
+      return '0.0';
     }
 
-    double totalRating = 0.0;
+    var totalRating = 0.0;
 
     // Calculate the total rating
-    for (var comment in comments) {
+    for (final comment in comments) {
       if (comment.rating != null) {
         totalRating += comment.rating!;
       }
     }
 
     // Calculate the average rating
-    double averageRating = totalRating / comments.length;
+    final averageRating = totalRating / comments.length;
     return averageRating.toStringAsFixed(1);
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await _reviewService.getReviews(pinnedLocation.id!);
     setBusy(false);
   }
 
-  getAddress(double latitude, double longitude) {}
+  void getAddress(double latitude, double longitude) {}
 
   void callDeatilsDialog() {
     _dialogService.showCustomDialog(

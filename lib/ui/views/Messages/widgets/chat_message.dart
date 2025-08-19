@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -9,14 +10,12 @@ import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/image_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatMessage extends ViewModelWidget<ChatViewModel> {
   final MessageModel message;
   final UserModel user;
 
-  const ChatMessage(this.message, {Key? key, required this.user})
-      : super(key: key);
+  const ChatMessage(this.message, {required this.user, super.key});
 
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
@@ -239,7 +238,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                       title: Text(
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          message.fileName.toString()),
+                                          message.fileName),
                                       subtitle: Text(
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -263,7 +262,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                           title: Text(
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
-                                              message.fileName.toString()),
+                                              message.fileName),
                                           subtitle: Text(
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -289,7 +288,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
-                                                  message.fileName.toString()),
+                                                  message.fileName),
                                               subtitle: Text(
                                                   maxLines: 1,
                                                   overflow:
@@ -319,7 +318,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       message.fileName
-                                                          .toString()),
+                                                          ),
                                                   subtitle: Text(
                                                       maxLines: 1,
                                                       overflow:
@@ -350,7 +349,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       message.fileName
-                                                          .toString()),
+                                                          ),
                                                   subtitle: Text(
                                                       maxLines: 1,
                                                       overflow:
@@ -398,9 +397,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                 ),
             ],
           ),
-          nextMessageIsDifferentUser
-              ? Container()
-              : Row(
+          if (nextMessageIsDifferentUser) Container() else Row(
                   mainAxisAlignment: isCurrentUser
                       ? MainAxisAlignment.end
                       : MainAxisAlignment.start,
@@ -418,7 +415,7 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       timestampInMinutes < 60
                           ? '$timestampInMinutes minutes ago'
                           : timestampInHours < 24
-                              ? '${(timestampInHours)} hours ago'
+                              ? '$timestampInHours hours ago'
                               : '${(timestampInMinutes ~/ 60) ~/ 24} days ago',
                       style: globalTextStyle(
                           fontSize: 12, color: kcBlackColor.withOpacity(0.4)),

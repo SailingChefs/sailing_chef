@@ -1,19 +1,16 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/bottom_cookinginstructions.dart';
-
-import 'cooking_instructions_sheet_model.dart';
-import 'widgets/cooking_topbar.dart';
-import 'widgets/listview_cookinginstructions.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/cooking_topbar.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/listview_cookinginstructions.dart';
 
 class CookingInstructionsSheet
     extends StackedView<CookingInstructionsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const CookingInstructionsSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(

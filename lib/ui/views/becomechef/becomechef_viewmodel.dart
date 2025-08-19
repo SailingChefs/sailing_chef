@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-
-import '../../../core/imports/core_imports.dart';
 
 class BecomechefViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -15,12 +13,12 @@ class BecomechefViewModel extends BaseViewModel {
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
 
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
+  String countryValue = '';
+  String stateValue = '';
+  String cityValue = '';
   String? address;
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
 
     setBusy(false);
@@ -34,7 +32,7 @@ class BecomechefViewModel extends BaseViewModel {
     return null;
   }
 
-  getBack() {
+  void getBack() {
     _navigationService.back();
   }
 
@@ -45,7 +43,7 @@ class BecomechefViewModel extends BaseViewModel {
     }
 
     // Use a regular expression for basic URL validation without protocol
-    RegExp urlRegex = RegExp(
+    final urlRegex = RegExp(
       r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
     );
 
@@ -112,13 +110,13 @@ class BecomechefViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void saveEditDetails() async {
+  Future<void> saveEditDetails() async {
     if (formKey.currentState!.validate()) {
       if (countryValue == '') {
         showToast(message: 'Please select your location to proceed');
         return;
       }
-      Map<String, dynamic> userData = {
+      final userData = <String, dynamic>{
         'user_role': 'chef',
         'link': linkController.text,
         'boat_name': boatNameController.text,

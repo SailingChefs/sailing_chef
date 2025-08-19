@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../add_ingredients_sheet_model.dart';
-import '../../../widgets/rounded_tranparent_textfield.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
   const TwoTextFields({super.key});
@@ -27,7 +27,7 @@ class TwoTextFields extends ViewModelWidget<AddIngredientsSheetModel> {
                     keyboardType: TextInputType.datetime,
                     maxLength: 3,
                     inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                      FilteringTextInputFormatter.allow(RegExp('[0-9/]')),
                       LengthLimitingTextInputFormatter(3),
                     ],
                     labelText: 'Quantity',

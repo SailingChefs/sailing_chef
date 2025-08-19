@@ -8,7 +8,7 @@ import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_v
 class SearchBarAllRecipesScreen
     extends ViewModelWidget<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
-  const SearchBarAllRecipesScreen({super.key, required this.recipes});
+  const SearchBarAllRecipesScreen({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
@@ -25,7 +25,6 @@ class SearchBarAllRecipesScreen
               },
               onSubmitted: (value) => viewModel.searchRecipes(recipes),
               controller: viewModel.searchController,
-              textAlign: TextAlign.start,
               decoration: InputDecoration(
                 hintStyle: TextStyle(
                   color: kcBlackColor.withOpacity(0.6),

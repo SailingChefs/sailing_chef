@@ -1,12 +1,11 @@
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/chat_message.dart';
 import 'package:sailing_chefs/ui/views/Messages/widgets/input_field.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
-
-import '../../../core/helpers/capitalize_first_fucntion.dart';
-import 'chat_viewmodel.dart';
 
 class ChatView extends StackedView<ChatViewModel> {
   final String conversationId;
@@ -16,8 +15,7 @@ class ChatView extends StackedView<ChatViewModel> {
   const ChatView(
       {required this.receiver,
       required this.conversationId,
-      super.key,
-      required this.messageFromCource});
+      required this.messageFromCource, super.key});
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
@@ -210,7 +208,6 @@ class _ExpandedAppBar extends StatelessWidget {
       width: double.maxFinite,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpaceSmall,
@@ -272,9 +269,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 10.0, right: 10),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          BackArrowWidget(onTap: () {
-            viewModel.getBack();
-          }),
+          BackArrowWidget(onTap: viewModel.getBack),
           Text(
             capitalizeEachWord(receiver.displayName ?? 'Chef Name'),
             style: globalTextStyle(

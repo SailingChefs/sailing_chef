@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'role_dialog_dialog_model.dart';
 
 const double _graphicSize = 60;
 
@@ -14,10 +13,8 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
   final Function(DialogResponse) completer;
 
   const RoleDialogDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -41,7 +38,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                 onTap: () {
                   viewModel.handleSignUpAs(2);
                 },
-                child: Container(
+                child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
@@ -83,7 +80,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
               flex: 2,
               child: GestureDetector(
                 onTap: () => viewModel.handleSignUpAs(1),
-                child: Container(
+                child: DecoratedBox(
                   decoration: BoxDecoration(
                     border: Border(
                       right: BorderSide(
@@ -130,7 +127,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
             Expanded(
               child: GestureDetector(
                 onTap: () => viewModel.handleSignUpAs(0),
-                child: Container(
+                child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10),

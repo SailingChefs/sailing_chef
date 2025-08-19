@@ -1,9 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/main.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
-
-import '../../../model/ingredients_model.dart';
-
-import '../../../main.dart';
 
 class AddIngredientsSheetModel extends BaseViewModel {
   final Function(SheetResponse response)? completer;

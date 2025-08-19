@@ -4,14 +4,14 @@ import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 // ignore: must_be_immutable
 class CommonTextField extends StatelessWidget {
   CommonTextField(
-      {super.key,
-      required this.hintText,
+      {required this.hintText, super.key,
       this.prefix,
       this.postfix,
       this.width});
 
   final String hintText;
-  final IconData? prefix, postfix;
+  final IconData? prefix;
+  final IconData? postfix;
   final double? width;
   TextEditingController controller = TextEditingController();
   @override

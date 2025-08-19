@@ -1,16 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'block_account_dialog_model.dart';
+import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog_model.dart';
 
 class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const BlockAccountDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -28,7 +26,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Are you Sure you want to block this account?",
+              'Are you Sure you want to block this account?',
               textAlign: TextAlign.center,
               style: globalTextStyle(
                 fontSize: 15.sp,

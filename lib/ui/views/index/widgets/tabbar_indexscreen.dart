@@ -23,7 +23,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                 viewModel.handleTab(0);
                 viewModel.yatchSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -55,7 +55,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                 viewModel.handleTab(1);
                 viewModel.savedSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),

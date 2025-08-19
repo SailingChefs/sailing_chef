@@ -28,9 +28,9 @@ class UserDetailsViewModel extends BaseViewModel {
 
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
+  String countryValue = '';
+  String stateValue = '';
+  String cityValue = '';
   String? address;
 
   File? selectedImageFile;
@@ -115,7 +115,7 @@ class UserDetailsViewModel extends BaseViewModel {
     }
 
     // Use a regular expression for basic URL validation without protocol
-    RegExp urlRegex = RegExp(
+    final urlRegex = RegExp(
       r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
     );
 
@@ -147,7 +147,7 @@ class UserDetailsViewModel extends BaseViewModel {
     return null;
   }
 
-  void saveUserDetails() async {
+  Future<void> saveUserDetails() async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
         showToast(message: 'Please select image to proceed');
@@ -170,11 +170,11 @@ class UserDetailsViewModel extends BaseViewModel {
       }
 
       final imageLink = await _userService.uploadImage(
-        selectedImageFile as File,
+        selectedImageFile!,
         selectedImageFile!.path.split('/').last,
       );
 
-      bool userDetailsStatus = await _userService.storeUserDetails(
+      final userDetailsStatus = await _userService.storeUserDetails(
         {
           'display_name': nameController.text,
           'bio': bioController.text,
@@ -191,12 +191,12 @@ class UserDetailsViewModel extends BaseViewModel {
         if (userDetails!.userRole == 'guest') {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
           locator.registerLazySingleton<BottomNavBarViewModel>(
-              () => BottomNavBarViewModel());
+              BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomBarGuestView();
         } else {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
           locator.registerLazySingleton<BottomNavBarViewModel>(
-              () => BottomNavBarViewModel());
+              BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -207,20 +207,20 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  void saveguestDetails() async {
-    String imageLink = '';
+  Future<void> saveguestDetails() async {
+    var imageLink = '';
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
         imageLink =
-            "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg";
+            'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
       } else {
         imageLink = await _userService.uploadImage(
-          selectedImageFile as File,
+          selectedImageFile!,
           selectedImageFile!.path.split('/').last,
         );
       }
 
-      bool userDetailsStatus = await _userService.storeUserDetails(
+      final userDetailsStatus = await _userService.storeUserDetails(
         {
           'display_name': nameController.text,
           'bio': bioController.text,
@@ -256,7 +256,7 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     nameController.text = capitalizeEachWord(userDetails!.displayName!);
     setBusy(false);

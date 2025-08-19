@@ -12,14 +12,14 @@ class ViewAllDraftsViewModel extends BaseViewModel {
     _navigatorService.navigateToSettingsView();
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await _draftService.initializeddraft();
 
     setBusy(false);
   }
 
-  void toDishCreateScreen(int index) async {
+  Future<void> toDishCreateScreen(int index) async {
     log('toDishCreateScreen');
     await _navigatorService.navigateToAddRecipeView(drafts: draft[index]);
     log(index.toString());

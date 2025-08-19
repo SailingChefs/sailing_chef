@@ -26,7 +26,7 @@ class BlockUserService with ListenableServiceMixin {
 
     try {
       // Check if the document exists
-      final DocumentSnapshot document =
+      final document =
           await usersCollection.doc(firebaseAuth.currentUser!.uid).get();
 
       if (document.exists) {

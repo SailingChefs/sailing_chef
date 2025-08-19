@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 
 class BackArrowWidget extends StatelessWidget {
   final void Function() onTap;
-  const BackArrowWidget({super.key, required this.onTap});
+  const BackArrowWidget({required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

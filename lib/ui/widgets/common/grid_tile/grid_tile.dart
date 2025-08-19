@@ -5,7 +5,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
-import 'grid_tile_model.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile_model.dart';
 
 // ignore: must_be_immutable
 class PrimaryGridTile extends StackedView<GridTileModel> {
@@ -20,15 +20,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String chefId;
 
   PrimaryGridTile({
-    super.key,
-    required this.foodImagePath,
-    required this.chefId,
-    required this.chefImagePath,
+    required this.foodImagePath, required this.chefId, required this.chefImagePath, required this.dishName, required this.duration, required this.onTap, required this.recipe, super.key,
     this.rating,
-    required this.dishName,
-    required this.duration,
-    required this.onTap,
-    required this.recipe,
   });
 
   @override
@@ -37,8 +30,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
     GridTileModel viewModel,
     Widget? child,
   ) {
-    bool isRecipeSaved = false;
-    for (String savedRecipe in userDetails!.savedRecipes!) {
+    var isRecipeSaved = false;
+    for (final savedRecipe in userDetails!.savedRecipes!) {
       if (savedRecipe == recipe.docId) {
         isRecipeSaved = true;
         break;
@@ -103,9 +96,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
               ],
             ),
-            chefId == userDetails!.uid!
-                ? Container()
-                : Positioned(
+            if (chefId == userDetails!.uid!) Container() else Positioned(
                     top: 5.dg,
                     right: 10.dg,
                     child: GestureDetector(
@@ -139,7 +130,6 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 height: 25.h,
                 padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
                 decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
                   color: kcBlackColor.withOpacity(0.4),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.r),

@@ -10,9 +10,8 @@ import 'package:sailing_chefs/services/cullinaryschool_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
-
-import '../../../services/user_services.dart';
 
 class IndexViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -40,7 +39,7 @@ class IndexViewModel extends BaseViewModel {
         _savedRecipeService
       ];
 
-  get toViewCullinarySchool => null;
+  void get toViewCullinarySchool {}
   bool? isInitialised;
   bool showShimmer = false;
 
@@ -50,7 +49,7 @@ class IndexViewModel extends BaseViewModel {
 
   static List<RecipeModel> getRandomDishes(
       RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
-    List<RecipeModel> dishes = List.from(allRecipes);
+    final dishes = List<RecipeModel>.from(allRecipes);
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
 
     dishes.shuffle();
@@ -59,7 +58,7 @@ class IndexViewModel extends BaseViewModel {
     return dishes.length > 5 ? dishes.sublist(0, 5) : dishes;
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     showShimmer = true;
 
     await Future.wait([
@@ -74,9 +73,8 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void toAllChefsView() async {
+  Future<void> toAllChefsView() async {
     await _navigationService.navigateToAllChefsView(
-      preventDuplicates: true,
       chefList: chefList,
     );
   }
@@ -88,7 +86,7 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void savedSelected() async {
+  Future<void> savedSelected() async {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -103,18 +101,18 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void matchAndAssignUsersToDishes() {
-    List<UserModel> allUsers = [...chefList, ...cullinary];
+    final allUsers = <UserModel>[...chefList, ...cullinary];
 
-    for (int i = 0; i < dishes.length; i++) {
+    for (var i = 0; i < dishes.length; i++) {
       if (dishes[i].user == null) {
-        UserModel? matchingUser = allUsers.firstWhere(
+        final matchingUser = allUsers.firstWhere(
           (user) => user.uid == dishes[i].uid,
           orElse: () => UserModel(uid: ''),
         );
         if (matchingUser.uid != null) {
           dishes[i].user = matchingUser;
           if (userDetails!.uid == dishes[i].uid) {
-            dishes[i].user = userDetails!;
+            dishes[i].user = userDetails;
           }
         }
       }
@@ -131,16 +129,15 @@ class IndexViewModel extends BaseViewModel {
     }
   }
 
-  void toDishDetailsScreen(RecipeModel recipe) async {
+  Future<void> toDishDetailsScreen(RecipeModel recipe) async {
     await _navigationService.navigateWithTransition(
       popGesture: true,
-      preventDuplicates: true,
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipe,
           randomRecipeList: IndexViewModel.getRandomDishes(recipe, dishes)),
       curve: Curves.elasticInOut,
-      duration: const Duration(milliseconds: 00),
+      duration: const Duration(),
       transitionStyle: Transition.rightToLeft,
     );
 
@@ -151,10 +148,8 @@ class IndexViewModel extends BaseViewModel {
     switch (index) {
       case 0:
         selectedTab = 'Yacht Chefs';
-        break;
       case 1:
         selectedTab = 'Culinary School';
-        break;
 
       default:
         break;
@@ -163,7 +158,7 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void toViewCullinarySchools() async {
+  Future<void> toViewCullinarySchools() async {
     await _navigationService.navigateToCulineryschoolviewallView();
   }
 

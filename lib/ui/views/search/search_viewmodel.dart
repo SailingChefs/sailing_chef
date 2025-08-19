@@ -31,7 +31,7 @@ class SearchViewModel extends BaseViewModel {
 
   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
-    for (var recipe in recipes) {
+    for (final recipe in recipes) {
       if (recipe.title
           .toLowerCase()
           .contains(searchControllerRecipe.text.toLowerCase())) {
@@ -43,7 +43,7 @@ class SearchViewModel extends BaseViewModel {
 
   Iterable<UserModel> searchUser(List<UserModel> chef) sync* {
     log('came to search');
-    for (var user in chef) {
+    for (final user in chef) {
       if (user.displayName!
           .toLowerCase()
           .contains(searchControllerChef.text.toLowerCase())) {
@@ -53,7 +53,7 @@ class SearchViewModel extends BaseViewModel {
     }
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await _savedRecipeService.init();
     setBusy(false);
@@ -76,10 +76,8 @@ class SearchViewModel extends BaseViewModel {
     switch (index) {
       case 0:
         selectedTab = 'All';
-        break;
       case 1:
         selectedTab = 'Following';
-        break;
 
       default:
         break;

@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 class BottomButtonsTagsSheet extends ViewModelWidget<TagsSheetModel> {
   final Function(SheetResponse response)? completer;
 
-  const BottomButtonsTagsSheet({super.key, required this.completer});
+  const BottomButtonsTagsSheet({required this.completer, super.key});
 
   @override
   Widget build(BuildContext context, TagsSheetModel viewModel) {

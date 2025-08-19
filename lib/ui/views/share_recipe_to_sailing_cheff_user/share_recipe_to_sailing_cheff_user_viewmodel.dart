@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/conversation_model.dart';
+import 'package:sailing_chefs/model/message_model.dart';
+import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
-import '../../../core/global_uservariable.dart';
-import '../../../core/imports/core_imports.dart';
-import '../../../model/conversation_model.dart';
-import '../../../model/message_model.dart';
-import '../../../model/user_model.dart';
-import '../../../services/conversation_service.dart';
 
 class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
   final _serviceConversations = locator<ConversationService>();
@@ -25,7 +25,7 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
     notifyListeners();
 
     try {
-      var conversationModel = ConversationModel(
+      final conversationModel = ConversationModel(
         latestMessage: '',
         users: [
           FirebaseAuth.instance.currentUser!.uid,
@@ -34,9 +34,9 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
         latestMessageType: 'text',
         latestMessageTime: DateTime.now(),
         lastActive: DateTime.now(),
-        uid: "",
+        uid: '',
       );
-      String conversationId = await _serviceConversations
+      final conversationId = await _serviceConversations
           .createOrUpdateConversation(conversationModel);
       log('conversationId: $conversationId');
 
@@ -60,7 +60,7 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void sendMessage(receiverId, conversationId, Uri content) async {
+  Future<void> sendMessage(receiverId, conversationId, Uri content) async {
     addMessage(
         MessageModel(
           content: content.toString(),
@@ -79,16 +79,16 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
     final chatroomID = await getChatRoom(user);
 
     if (chatroomID != null) {
-      sendMessage(user.uid!, chatroomID, dynamicLink);
+      sendMessage(user.uid, chatroomID, dynamicLink);
     }
-    showToast(message: "Link has been Send");
+    showToast(message: 'Link has been Send');
   }
 
   Future<List<UserModel>> fetchChefDocuments() async {
-    List<UserModel> users = [];
+    final users = <UserModel>[];
 
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           // .where(
           //   'user_role',
@@ -97,10 +97,10 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
           .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser?.uid)
           // .orderBy('created_at', descending: true)
           .get();
-      for (var doc in querySnapshot.docs) {
+      for (final doc in querySnapshot.docs) {
         // UserModel? currUser = await _userService
         //     .fetchUserByUID(firebaseAuth.currentUser!.uid);
-        UserModel user = UserModel.fromSnapshot(doc);
+        final user = UserModel.fromSnapshot(doc);
 
         // int recipeCount = await FirebaseFirestore.instance
         //     .collection('recipes')
@@ -125,7 +125,7 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
 
   List<UserModel> allusers = [];
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     allusers = await fetchChefDocuments();
 
     notifyListeners();

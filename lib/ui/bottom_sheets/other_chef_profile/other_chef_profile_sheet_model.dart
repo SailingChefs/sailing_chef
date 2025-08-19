@@ -7,8 +7,8 @@ class OtherChefProfileSheetModel extends BaseViewModel {
   final DialogService _dialogService = locator<DialogService>();
   final Function(SheetResponse response)? completer;
   OtherChefProfileSheetModel({this.completer});
-  void blockAccount(UserModel user) async {
-    log("In Block Account");
+  Future<void> blockAccount(UserModel user) async {
+    log('In Block Account');
     await _dialogService.showCustomDialog(
       variant: DialogType.blockAccount,
       data: user,

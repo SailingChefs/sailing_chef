@@ -7,7 +7,8 @@ class CommonTextField extends ViewModelWidget<AddIngredientsSheetModel> {
   CommonTextField(
       {super.key, this.hintText, this.prefix, this.postfix, this.width});
   final String? hintText;
-  final IconData? prefix, postfix;
+  final IconData? prefix;
+  final IconData? postfix;
   final double? width;
   TextEditingController controller = TextEditingController();
   @override

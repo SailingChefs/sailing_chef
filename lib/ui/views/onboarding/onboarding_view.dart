@@ -1,9 +1,9 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/onboarding/onboarding_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/onboarding/widgets/non_slide_able_widgets/non_slideable_widgets.dart';
-import '../../../core/imports/core_imports.dart';
-import 'onboarding_viewmodel.dart';
 
 class OnboardingView extends StackedView<OnboardingViewModel> {
-  const OnboardingView({Key? key}) : super(key: key);
+  const OnboardingView({super.key});
   @override
   Widget builder(
     BuildContext context,
@@ -42,7 +42,6 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                         padding: const EdgeInsets.all(20.0),
                         child: SizedBox(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               verticalSpace(450.h),
                               Text(

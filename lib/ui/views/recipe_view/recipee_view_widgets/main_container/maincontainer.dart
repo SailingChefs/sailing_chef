@@ -4,20 +4,19 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/chef_notes.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/ingredients_class.dart';
+import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/methods.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/publish_text_button.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/time_serving.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipee_view_widgets/main_container/user_details.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
-import 'ingredients_class.dart';
-import 'methods.dart';
 
 class MainRecipeViewContainer extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipeModel;
   final List<XFile?> selectedImages;
   const MainRecipeViewContainer(this.recipeModel, this.selectedImages,
-      {Key? key})
-      : super(key: key);
+      {super.key});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {

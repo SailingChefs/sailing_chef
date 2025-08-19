@@ -3,7 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 class ImageViewerScreen extends StatelessWidget {
   final String imageUrl;
 
-  const ImageViewerScreen({super.key, required this.imageUrl});
+  const ImageViewerScreen({required this.imageUrl, super.key});
 
   @override
   Widget build(BuildContext context) {

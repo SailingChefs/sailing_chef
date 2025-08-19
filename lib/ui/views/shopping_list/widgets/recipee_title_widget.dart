@@ -1,8 +1,8 @@
-import '../../../../core/global_uservariable.dart';
-import '../../../../core/imports/core_imports.dart';
-import '../../../../model/recipe_model.dart';
-import '../shopping_list_viewmodel.dart';
 import 'package:collection/collection.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_viewmodel.dart';
 
 Widget recipeeTitleWidget(
     {required Size size,
@@ -14,7 +14,6 @@ Widget recipeeTitleWidget(
     height: size.height * 0.08,
     child: Center(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
@@ -48,7 +47,7 @@ Widget recipeeTitleWidget(
                                 [],
                             recipee.ingredients))
                         ? 'deselect all'
-                        : "select all",
+                        : 'select all',
                     style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.black,

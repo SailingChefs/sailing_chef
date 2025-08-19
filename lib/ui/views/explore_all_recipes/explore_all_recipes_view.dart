@@ -1,17 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/all_recipes.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/search_view.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/widgets/shimmer.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
-import 'explore_all_recipes_viewmodel.dart';
-
 class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
-  const ExploreAllRecipesView({Key? key, required this.recipes})
-      : super(key: key);
+  const ExploreAllRecipesView({required this.recipes, super.key});
 
   @override
   Widget builder(
@@ -50,9 +48,7 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
               recipes: recipes,
             ),
             verticalSpace(16),
-            viewModel.isBusy
-                ? const ShimmerLoaderAllRecipes()
-                : viewModel.searchController.text.isEmpty
+            if (viewModel.isBusy) const ShimmerLoaderAllRecipes() else viewModel.searchController.text.isEmpty
                     ? AllRecipesScreen(
                         recipes: recipes,
                       )

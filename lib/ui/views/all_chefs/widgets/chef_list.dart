@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 
 class ChefList extends ViewModelWidget<AllChefsViewModel> {
   final List<UserModel> chefList;
-  const ChefList({super.key, required this.chefList});
+  const ChefList({required this.chefList, super.key});
 
   @override
   Widget build(BuildContext context, AllChefsViewModel viewModel) {
@@ -17,7 +17,6 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
             SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 0.0,
                 mainAxisSpacing: 5.0,
                 childAspectRatio: 7.5 / 9,
               ),
@@ -78,8 +77,8 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                             child: Text(
                               capitalizeEachWord(
                                 chefList[index].recipes!.isEmpty
-                                    ? ('no dishes')
-                                    : ("${chefList[index].recipes!.length}  Dishes"),
+                                    ? 'no dishes'
+                                    : '${chefList[index].recipes!.length}  Dishes',
                               ),
                               style: TextStyle(
                                 fontSize: 12.sp,

@@ -1,14 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
+import 'package:sailing_chefs/ui/views/feedback/feedback_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 
-import 'feedback_viewmodel.dart';
-
 class FeedbackView extends StackedView<FeedbackViewModel> {
-  const FeedbackView({Key? key}) : super(key: key);
+  const FeedbackView({super.key});
 
   @override
   Widget builder(

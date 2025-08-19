@@ -1,11 +1,11 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/sign_up/widget/roleselector_compnent.dart';
 import 'package:sailing_chefs/ui/views/sign_up/widget/sign_up_form.dart';
 import 'package:sailing_chefs/ui/views/sign_up/widget/topbar.dart';
-import '../../../core/imports/core_imports.dart';
-import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {
-  const SignUpView({Key? key}) : super(key: key);
+  const SignUpView({super.key});
 
   @override
   Widget builder(
@@ -60,7 +60,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       const SignUpTopBar(),
                       verticalSpace(MediaQuery.of(context).size.height * 0.05),
                       Text(
-                        'Let\'s create your account',
+                        "Let's create your account",
                         style: globalTextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600,

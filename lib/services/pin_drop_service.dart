@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -64,7 +63,7 @@ class PinDropService with ListenableServiceMixin {
       });
 
       // Update the review in the local list
-      int index = reviews.indexWhere((element) => element.id == review.id);
+      final index = reviews.indexWhere((element) => element.id == review.id);
       if (index != -1) {
         reviews[index].feedback = newFeedback;
         reviews[index].rating = newRating;
@@ -93,8 +92,8 @@ class PinDropService with ListenableServiceMixin {
     final ref = firebasestore.collection('pins');
     final querySnapshot = await ref.get();
 
-    List<PinnedLocation> pins = querySnapshot.docs
-        .map((doc) => PinnedLocation.fromSnapshot(doc))
+    final pins = querySnapshot.docs
+        .map(PinnedLocation.fromSnapshot)
         .toList();
 
     return pins;
@@ -103,7 +102,7 @@ class PinDropService with ListenableServiceMixin {
   Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
     log('pinId:$pinId');
     try {
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('pins')
           .doc(pinId)
           .collection('reviews')
@@ -111,8 +110,8 @@ class PinDropService with ListenableServiceMixin {
           .orderBy('timestamp', descending: true)
           .get();
 
-      List<ReviewsModel> reviews = querySnapshot.docs
-          .map((doc) => ReviewsModel.fromSnapshot(doc))
+      final reviews = querySnapshot.docs
+          .map(ReviewsModel.fromSnapshot)
           .toList();
 
       return reviews;
@@ -123,7 +122,7 @@ class PinDropService with ListenableServiceMixin {
   }
 
   Future<bool> addComment(ReviewsModel comment) async {
-    bool uploaded = await addReviewsToFirestore(comment);
+    final uploaded = await addReviewsToFirestore(comment);
     if (!uploaded) {
       return false;
     }
@@ -137,13 +136,13 @@ class PinDropService with ListenableServiceMixin {
   Future<bool> addReviewsToFirestore(ReviewsModel reviews) async {
     try {
       EasyLoading.show();
-      DocumentReference docRef = await firebasestore
+      final DocumentReference docRef = await firebasestore
           .collection('pins')
           .doc(reviews.pindropId)
           .collection('reviews')
           .add(reviews.toJson());
 
-      String docId = docRef.id;
+      final docId = docRef.id;
 
       await docRef.update({'doc_id': docId});
       pins
@@ -172,11 +171,11 @@ class PinDropService with ListenableServiceMixin {
 
   Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
     try {
-      DocumentReference docRef = await FirebaseFirestore.instance
+      final DocumentReference docRef = await FirebaseFirestore.instance
           .collection('pins')
           .add(pinnedLocation.toMap());
 
-      String id = firebasestore.collection('pins').doc().id;
+      final id = firebasestore.collection('pins').doc().id;
       pinnedLocation.id = id;
       await docRef.update({'id': id});
       pins.add(PinnedLocation.fromMap(pinnedLocation.toMap()));
@@ -191,12 +190,12 @@ class PinDropService with ListenableServiceMixin {
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
       EasyLoading.show();
-      Reference ref = firebaseStorage.ref().child('pinImages/$fileName');
+      final ref = firebaseStorage.ref().child('pinImages/$fileName');
 
-      UploadTask uploadTask = ref.putFile(imageFile);
+      final uploadTask = ref.putFile(imageFile);
 
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      final taskSnapshot = await uploadTask;
+      final var downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       EasyLoading.dismiss();
       return downloadUrl;
@@ -208,7 +207,7 @@ class PinDropService with ListenableServiceMixin {
   }
 
   Future<List<String>> uploadImages(List<XFile> imageFiles) async {
-    final List<String> downloadUrls = [];
+    final downloadUrls = <String>[];
     EasyLoading.show();
     for (final imageFile in imageFiles) {
       final fileName = imageFile.name;
@@ -257,14 +256,14 @@ class PinDropService with ListenableServiceMixin {
       }
 
       // Process pins in batches for better performance
-      final List<Future<PinnedLocation>> pinFutures = query.map((doc) async {
-        PinnedLocation pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
+      final pinFutures = query.map((doc) async {
+        final pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
         pin.reviews = await fetchReviewsByPinId(pin.id!);
         return pin;
       }).toList();
 
       // Wait for all pins to load
-      List<PinnedLocation> loadedPins = await Future.wait(pinFutures);
+      final loadedPins = await Future.wait(pinFutures);
       pins.addAll(loadedPins);
 
       log('Loaded ${pins.length} pins');
@@ -279,7 +278,7 @@ class PinDropService with ListenableServiceMixin {
 
   Future<List<PinnedLocation>> getPinsUsingTags(
       LatLng userLocation, List<String> tags) async {
-    final List<PinnedLocation> pins = [];
+    final pins = <PinnedLocation>[];
     final ref = firebasestore.collection('pins');
     final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
       center: GeoFirePoint(
@@ -296,15 +295,15 @@ class PinDropService with ListenableServiceMixin {
         'tags',
         arrayContainsAny: tags,
       ),
-      geopointFrom: (data) => (data['geo'])['geopoint'] as GeoPoint,
+      geopointFrom: (data) => data['geo']['geopoint'] as GeoPoint,
     );
 
     for (final doc in query) {
-      final PinnedLocation pin =
+      final pin =
           PinnedLocation.fromSnapshot(doc.documentSnapshot);
       pins.add(pin);
     }
-    log("get location ${pins.toString()}");
+    log('get location $pins');
     notifyListeners();
     return pins;
   }

@@ -8,12 +8,11 @@ class SaveRecipeButton extends StatelessWidget {
   final double fontSize;
   final Color textColor;
   final FontWeight fontWeight;
-  final IconData? prefix, postfix;
+  final IconData? prefix;
+  final IconData? postfix;
 
   const SaveRecipeButton({
-    super.key,
-    required this.onPressed,
-    required this.buttonText,
+    required this.onPressed, required this.buttonText, super.key,
     this.fontSize = 14,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.normal,

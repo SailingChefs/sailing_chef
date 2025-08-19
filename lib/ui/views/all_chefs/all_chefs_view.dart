@@ -1,16 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/chef_list.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/widgets/topbar.dart';
 
-import 'all_chefs_viewmodel.dart';
-
 class AllChefsView extends StackedView<AllChefsViewModel> {
   final List<UserModel> chefList;
-  AllChefsView({Key? key, required this.chefList}) : super(key: key);
+  AllChefsView({required this.chefList, super.key});
 
   final searchController = TextEditingController();
 
@@ -35,9 +33,7 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                   ),
                 ),
                 verticalSpace(13),
-                viewModel.searchController.text.isEmpty
-                    ? ChefList(chefList: chefList)
-                    : SearchListAllChefs(chefs: chefList),
+                if (viewModel.searchController.text.isEmpty) ChefList(chefList: chefList) else SearchListAllChefs(chefs: chefList),
               ],
             ),
           )),

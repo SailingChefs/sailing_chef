@@ -20,12 +20,6 @@ class CategoryTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
         Wrap(
           spacing: 8,
           runSpacing: 16,
-          alignment: WrapAlignment.start,
-          crossAxisAlignment: WrapCrossAlignment.start,
-          direction: Axis.horizontal,
-          runAlignment: WrapAlignment.start,
-          verticalDirection: VerticalDirection.down,
-          clipBehavior: Clip.none,
           children: [
             GestureDetector(
               onTap: () {

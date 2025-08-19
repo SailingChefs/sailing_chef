@@ -35,10 +35,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
               ),
               inputFormatters: [
                 //add numbers too
-                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9!@#\$ ]")),
+                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9!@#\$ ]')),
               ],
               textCapitalization: TextCapitalization.words,
-              autocorrect: true,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a name';

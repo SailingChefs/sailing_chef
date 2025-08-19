@@ -276,7 +276,7 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
 
   Widget _buildResultItemImage(PinnedLocation pin) {
     // Only use a valid image URL, otherwise fallback to asset
-    final String? imageUrl =
+    final imageUrl =
         (pin.picture.isNotEmpty && pin.picture.first.isNotEmpty)
             ? pin.picture.first
             : null;
@@ -300,7 +300,6 @@ class PinsSearchDelegate extends SearchDelegate<List<PinnedLocation>> {
           imageUrl: imageUrl,
           width: 50.w,
           height: 50.h,
-          fit: BoxFit.cover,
         ),
       ),
     );

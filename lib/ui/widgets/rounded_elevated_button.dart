@@ -17,9 +17,7 @@ class RoundedElevatedButton extends StatelessWidget {
   final String? font;
 
   const RoundedElevatedButton({
-    super.key,
-    required this.onPressed,
-    required this.buttonText,
+    required this.onPressed, required this.buttonText, required this.isEnabled, super.key,
     this.width,
     this.height,
     this.borderRadius = 30,
@@ -29,7 +27,6 @@ class RoundedElevatedButton extends StatelessWidget {
     this.textFontSize = 14,
     this.textColor = kcTextColor,
     this.textFontWeight = FontWeight.w400,
-    required this.isEnabled,
     this.font,
   });
 

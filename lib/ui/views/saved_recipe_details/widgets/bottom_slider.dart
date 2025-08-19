@@ -7,15 +7,13 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<RecipeModel> recipeList;
   const BottomSlider(
-      {super.key,
-      required this.isFromPrivateProfile,
-      required this.recipeList});
+      {required this.isFromPrivateProfile, required this.recipeList, super.key});
   final bool isFromPrivateProfile;
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return recipeList.isEmpty
         ? Container()
-        : isFromPrivateProfile == false
+        : !isFromPrivateProfile
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -34,7 +32,7 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                         scrollDirection: Axis.horizontal,
                         itemCount: recipeList.length,
                         itemBuilder: (context, index) {
-                          bool isRecipeSaved = false;
+                          var isRecipeSaved = false;
 
                           if (userDetails!.savedRecipes!
                               .contains(recipeList[index].docId)) {

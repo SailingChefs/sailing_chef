@@ -12,7 +12,7 @@ class ChefNotesRecipeDetails
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Chef Notes",
+          'Chef Notes',
           style: globalTextStyle(
             fontSize: 15.0.sp,
             fontWeight: FontWeight.w700,
@@ -30,10 +30,9 @@ class ChefNotesRecipeDetails
           child: viewModel.isBusy
               ? const CircularProgressIndicator()
               : Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
+                    DecoratedBox(
                       decoration: const BoxDecoration(
                         color: kcPrimaryColor,
                         shape: BoxShape.circle,
@@ -71,7 +70,6 @@ class ChefNotesRecipeDetails
                               playerWaveStyle: PlayerWaveStyle(
                                 fixedWaveColor: Colors.black,
                                 liveWaveColor: kcBlackColor.withOpacity(0.5),
-                                spacing: 5,
                                 seekLineColor: Colors.black,
                                 showSeekLine: false,
                               ),

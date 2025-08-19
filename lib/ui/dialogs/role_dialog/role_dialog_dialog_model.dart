@@ -9,13 +9,10 @@ class RoleDialogDialogModel extends BaseViewModel {
     switch (index) {
       case 0:
         selectedSignUpAs = 'guest';
-        break;
       case 1:
         selectedSignUpAs = 'culinarySchool';
-        break;
       case 2:
         selectedSignUpAs = 'chef';
-        break;
 
       default:
         break;

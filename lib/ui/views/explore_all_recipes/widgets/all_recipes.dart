@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
-  const AllRecipesScreen({super.key, required this.recipes});
+  const AllRecipesScreen({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {

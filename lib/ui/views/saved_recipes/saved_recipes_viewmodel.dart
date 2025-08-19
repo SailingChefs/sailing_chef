@@ -34,7 +34,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
 
   Iterable<RecipeModel> searchRecipes() sync* {
     log('came to search');
-    for (var recipe in savedRecipes) {
+    for (final recipe in savedRecipes) {
       if (recipe.title
           .toLowerCase()
           .contains(searchSavedController.text.toLowerCase())) {
@@ -46,7 +46,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
 
   Iterable<RecipeModel> searchFollowingRecipes() sync* {
     log('came to search');
-    for (var recipe in followingRecipes) {
+    for (final recipe in followingRecipes) {
       if (recipe.title
           .toLowerCase()
           .contains(searchFollowingController.text.toLowerCase())) {
@@ -61,7 +61,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
       await _recipeService.initialized();
       return;
     } else {
-      for (var recipe in RecipeService.recipes) {
+      for (final recipe in RecipeService.recipes) {
         if (userDetails!.savedRecipes!
             .any((element) => element == recipe.docId)) {
           savedRecipes.add(recipe);
@@ -70,7 +70,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     }
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await Future.wait([
       followingChefRecipe(),
@@ -83,7 +83,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     if (RecipeService.recipes.isEmpty) {
       followingRecipes = await _recipeService.fetchFollowingRecipesByUID();
     } else {
-      for (var recipe in RecipeService.recipes) {
+      for (final recipe in RecipeService.recipes) {
         if (userDetails!.following!.any((element) => element == recipe.uid)) {
           followingRecipes.add(recipe);
         }
@@ -107,10 +107,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     switch (index) {
       case 0:
         selectedTab = 'All';
-        break;
       case 1:
         selectedTab = 'Following';
-        break;
 
       default:
         break;

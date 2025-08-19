@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'social_icons_sheet_model.dart';
-
 class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const SocialIconsSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
   @override
   Widget builder(
     BuildContext context,
@@ -35,7 +32,6 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
@@ -79,26 +75,20 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
               case 1:
                 viewmodel.shareRecipeToWhatsapp(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
-                break;
               case 2:
                 viewmodel.shareRecipeToFacebook(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
-                break;
               case 3:
                 viewmodel.shareRecipeToEmail(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
-                break;
               case 4:
                 viewmodel.shareRecipeToInstagram(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
-                break;
               case 5:
                 viewmodel.sharetoSailingCheffUser(request.data as RecipeModel);
-                break;
               case 6:
                 viewmodel.shareByCopy(request.data as RecipeModel);
                 completer!(SheetResponse(confirmed: true));
-                break;
               default:
             }
           },

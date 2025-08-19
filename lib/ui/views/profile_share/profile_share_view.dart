@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/profile_share/profile_share_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-
-import 'profile_share_viewmodel.dart';
 
 class ProfileShareView extends StackedView<ProfileShareViewModel> {
   final String image;
   final String type;
-  const ProfileShareView({Key? key, required this.image, required this.type})
-      : super(key: key);
+  const ProfileShareView({required this.image, required this.type, super.key});
 
   @override
   Widget builder(
@@ -18,32 +16,26 @@ class ProfileShareView extends StackedView<ProfileShareViewModel> {
     ProfileShareViewModel viewModel,
     Widget? child,
   ) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () {
-          Get.back();
-        },
+        onTap: Get.back,
         child: Container(
           height: size.height,
           width: size.width,
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Hero(
-              tag: "profileShareOption",
+              tag: 'profileShareOption',
               child: Column(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // (size.height * 0.15).verticalSpace,
-                  type.startsWith('a')
-                      ? CircleAvatar(
+                  if (type.startsWith('a')) CircleAvatar(
                           radius: size.width * 0.35,
                           backgroundImage: AssetImage(image),
-                        )
-                      : CircleAvatar(
+                        ) else CircleAvatar(
                           radius: size.width * 0.35,
                           backgroundImage: ImageUtils.safeNetworkImageForAvatar(
                             image,

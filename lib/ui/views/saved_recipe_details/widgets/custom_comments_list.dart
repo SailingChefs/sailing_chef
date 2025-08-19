@@ -20,13 +20,7 @@ class CustomListTileComments extends StatelessWidget {
   final Function()? onDelete;
 
   const CustomListTileComments({
-    super.key,
-    required this.name,
-    required this.rating,
-    required this.date,
-    required this.ratingImages,
-    required this.description,
-    required this.image,
+    required this.name, required this.rating, required this.date, required this.ratingImages, required this.description, required this.image, super.key,
     this.isUserComment = false,
     this.onEdit,
     this.onDelete,
@@ -51,7 +45,6 @@ class CustomListTileComments extends StatelessWidget {
           backgroundDecoration: const BoxDecoration(
             color: Colors.black,
           ),
-          gaplessPlayback: false,
           loadingBuilder: (context, progress) => const Center(
             child: CircularProgressIndicator(),
           ),
@@ -112,7 +105,7 @@ class CustomListTileComments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('dd-MM-yyyy').format(date.toDate());
+    final formattedDate = DateFormat('dd-MM-yyyy').format(date.toDate());
     return Column(
       children: [
         ListTile(
@@ -146,7 +139,6 @@ class CustomListTileComments extends StatelessWidget {
                     Icons.star,
                     color: kclightgreencolor,
                   ),
-                  itemCount: 5,
                   itemSize: 15.0, // Made even smaller
                 ),
                 if (isUserComment)
@@ -232,8 +224,7 @@ class CustomListTileComments extends StatelessWidget {
                 ),
               ),
               verticalSpaceSmall,
-              ratingImages.isNotEmpty
-                  ? SizedBox(
+              if (ratingImages.isNotEmpty) SizedBox(
                       height: 100.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -262,8 +253,7 @@ class CustomListTileComments extends StatelessWidget {
                           );
                         },
                       ),
-                    )
-                  : const SizedBox(),
+                    ) else const SizedBox(),
             ],
           ),
         ),

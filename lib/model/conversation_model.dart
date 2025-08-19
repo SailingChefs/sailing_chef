@@ -11,13 +11,7 @@ class ConversationModel {
   UserModel? user;
 
   ConversationModel({
-    this.user,
-    required this.lastActive,
-    required this.latestMessage,
-    required this.latestMessageTime,
-    required this.latestMessageType,
-    required this.uid,
-    required this.users,
+    required this.lastActive, required this.latestMessage, required this.latestMessageTime, required this.latestMessageType, required this.uid, required this.users, this.user,
   });
   factory ConversationModel.fromDocument(
       DocumentSnapshot doc, UserModel? otherUser) {

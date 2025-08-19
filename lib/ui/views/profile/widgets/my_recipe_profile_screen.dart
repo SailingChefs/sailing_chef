@@ -44,7 +44,6 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   .sort((a, b) => b.createdTime.compareTo(a.createdTime));
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
-                axisDirection: AxisDirection.down,
                 slivers: [
                   SliverGrid(
                     gridDelegate:

@@ -15,16 +15,13 @@ class CommentModel {
     required this.userId,
     required this.userName,
     required this.userImageUrl,
-    this.id = '',
-    required this.recipeId,
-    required this.content,
-    required this.timestamp,
+    required this.recipeId, required this.content, required this.timestamp, this.id = '',
     this.imageUrl,
     this.rating,
   });
 
   factory CommentModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
     return CommentModel(
       id: snapshot.id,
       userId: data['userId'],

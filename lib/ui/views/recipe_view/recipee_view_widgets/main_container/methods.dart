@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 class Methods extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipe;
 
-  const Methods({super.key, required this.recipe});
+  const Methods({required this.recipe, super.key});
   List<Widget> createIngredientWidgets() {
     return [
       for (int i = 0; i < recipe.methods.length; i++)
@@ -58,7 +58,7 @@ class Methods extends ViewModelWidget<RecipeViewViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Method",
+          'Method',
           style: globalTextStyle(
             fontSize: 15.0.sp,
             fontWeight: FontWeight.w700,

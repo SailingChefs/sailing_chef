@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../../../common/app_colors.dart';
 
 class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
   const RecipeViewTabBars({super.key});
@@ -29,7 +28,7 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
                 viewModel.handleTab(0);
                 viewModel.myIngredientsSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -61,7 +60,7 @@ class RecipeViewTabBars extends ViewModelWidget<RecipeViewViewModel> {
                 viewModel.handleTab(1);
                 viewModel.methodsSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),

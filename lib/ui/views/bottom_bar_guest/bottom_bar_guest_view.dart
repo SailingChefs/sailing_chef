@@ -3,16 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
+import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart';
 import 'package:stacked/stacked.dart';
 
-import 'bottom_bar_guest_viewmodel.dart';
-
 class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
-  const BottomBarGuestView({Key? key}) : super(key: key);
+  const BottomBarGuestView({super.key});
 
   @override
   Widget builder(
@@ -82,7 +81,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
           ],
         ),
       ),
-      viewModelBuilder: () => BottomBarGuestViewModel(),
+      viewModelBuilder: BottomBarGuestViewModel.new,
     );
   }
 

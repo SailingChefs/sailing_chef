@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-import 'comingsoon_viewmodel.dart';
-
 class ComingsoonView extends StackedView<ComingsoonViewModel> {
-  const ComingsoonView({Key? key}) : super(key: key);
+  const ComingsoonView({super.key});
 
   @override
   Widget builder(

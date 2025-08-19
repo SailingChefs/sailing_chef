@@ -5,27 +5,27 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/selectedtab.dart';
 class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
   const TagsSelectionWidget({
     required this.id,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final String id;
   @override
   Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          double screenWidth = constraints.maxWidth;
-          double screenHeight = constraints.maxHeight;
+          final screenWidth = constraints.maxWidth;
+          final screenHeight = constraints.maxHeight;
 
-          double containerWidth = screenWidth * 0.95;
-          double containerHeight = screenHeight * 0.6;
-          double padding = screenWidth * 0.03;
-          double verticalPadding = screenHeight * 0.15;
-          double textFontSize = screenWidth * 0.04;
-          double iconSize = screenWidth * 0.06;
-          double spaceSize = screenWidth * 0.07;
-          double buttonWidth = screenWidth * 0.4;
-          double buttonHeight = screenHeight * 0.07;
-          double borderRadius = screenWidth * 0.07;
+          final containerWidth = screenWidth * 0.95;
+          final containerHeight = screenHeight * 0.6;
+          final padding = screenWidth * 0.03;
+          final verticalPadding = screenHeight * 0.15;
+          final textFontSize = screenWidth * 0.04;
+          final iconSize = screenWidth * 0.06;
+          final spaceSize = screenWidth * 0.07;
+          final buttonWidth = screenWidth * 0.4;
+          final buttonHeight = screenHeight * 0.07;
+          final borderRadius = screenWidth * 0.07;
 
           return SingleChildScrollView(
             child: Padding(
@@ -177,7 +177,6 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                       ),
                       verticalSpace(spaceSize),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           GestureDetector(
                             onTap: () => viewModel.clearTags(),
@@ -185,7 +184,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                               decoration: const BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                      width: 1.0, color: kcBlackColor),
+                                      ),
                                 ),
                               ),
                               child: Text(

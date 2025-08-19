@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/instances.dart';
@@ -13,16 +12,16 @@ class UserdataServiceService {
   static UserModel user = UserModel();
   final _userService = UserServices();
   Future<List<UserModel>> fetchUsersDocuments() async {
-    List<UserModel> users = [];
+    final users = <UserModel>[];
 
     try {
       EasyLoading.show();
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where('uid', isEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
-      for (var doc in querySnapshot.docs) {
+      for (final doc in querySnapshot.docs) {
         user = UserModel.fromSnapshot(doc);
         users.add(user);
       }
@@ -40,14 +39,14 @@ class UserdataServiceService {
     try {
       EasyLoading.show();
       // Extract the file path from the download URL
-      String filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
+      var filePath = Uri.decodeFull(Uri.parse(downloadUrl).path);
 
       // Remove the leading '/' from the file path
       filePath = filePath.substring(38);
       log(filePath);
 
       // Get a reference to the file in Firebase Storage
-      Reference storageRef = firebaseStorage.ref().child(filePath);
+      final storageRef = firebaseStorage.ref().child(filePath);
 
       // Delete the file
       await storageRef.delete();
@@ -64,9 +63,9 @@ class UserdataServiceService {
       Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
-      CollectionReference usersCollection = firebasestore.collection('users');
+      final CollectionReference usersCollection = firebasestore.collection('users');
 
-      DocumentSnapshot userSnapshot = await usersCollection.doc(uid).get();
+      final userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());
       if (userSnapshot.exists) {
         await usersCollection.doc(uid).update(userModel);

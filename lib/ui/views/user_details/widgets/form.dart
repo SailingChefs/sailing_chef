@@ -20,8 +20,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
             child: Column(
               children: [
                 verticalSpaceMedium,
-                (userRole == 'chef')
-                    ? Column(
+                if (userRole == 'chef') Column(
                         children: [
                           SemiRoundedTranpaentTextField(
                             validator: (value) => viewModel.validateName(value),
@@ -58,10 +57,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               labelText: 'Boat Name '),
                           verticalSpaceSmall,
                           CSCPickerPlus(
-                            showStates: true,
-
-                            showCities: true,
-
                             flagState: CountryFlag.DISABLE,
 
                             dropdownDecoration: BoxDecoration(
@@ -77,14 +72,9 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             ),
 
                             ///placeholders for dropdown search field
-                            countrySearchPlaceholder: "Country",
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
-
-                            ///labels for dropdown
-                            countryDropdownLabel: "Country",
-                            stateDropdownLabel: "State",
-                            cityDropdownLabel: "City",
+                            countrySearchPlaceholder: 'Country',
+                            stateSearchPlaceholder: 'State',
+                            citySearchPlaceholder: 'City',
 
                             selectedItemStyle: TextStyle(
                               color: Colors.black.withOpacity(0.6),
@@ -119,8 +109,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 viewModel.setCityValue(value ?? ''),
                           ),
                         ],
-                      )
-                    : (userRole == 'culinarySchool')
+                      ) else (userRole == 'culinarySchool')
                         ? Column(
                             children: [
                               SemiRoundedTranpaentTextField(
@@ -151,10 +140,6 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                   labelText: 'Link'),
                               verticalSpaceSmall,
                               CSCPickerPlus(
-                                showStates: true,
-
-                                showCities: true,
-
                                 flagState: CountryFlag.DISABLE,
 
                                 dropdownDecoration: BoxDecoration(
@@ -170,14 +155,14 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 ),
 
                                 ///placeholders for dropdown search field
-                                countrySearchPlaceholder: "Country",
-                                stateSearchPlaceholder: "State",
-                                citySearchPlaceholder: "City",
+                                countrySearchPlaceholder: 'Country',
+                                stateSearchPlaceholder: 'State',
+                                citySearchPlaceholder: 'City',
 
                                 ///labels for dropdown
-                                countryDropdownLabel: "*Country",
-                                stateDropdownLabel: "*State",
-                                cityDropdownLabel: "*City",
+                                countryDropdownLabel: '*Country',
+                                stateDropdownLabel: '*State',
+                                cityDropdownLabel: '*City',
 
                                 selectedItemStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.6),

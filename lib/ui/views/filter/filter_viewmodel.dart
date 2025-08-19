@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/filter_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
@@ -89,35 +88,32 @@ class FilterViewModel extends BaseViewModel {
         if (_filterService.isBreakfastSelected) {
           _filterService.isBreakfastSelected = false;
           _filterService.selectedTagsCount--;
-          log("Breakfast Removed");
+          log('Breakfast Removed');
         } else {
           _filterService.isBreakfastSelected = true;
           _filterService.selectedTagsCount++;
-          log("Breakfast Selected");
+          log('Breakfast Selected');
         }
-        break;
       case 1:
         if (_filterService.isLunchSelected) {
           _filterService.isLunchSelected = false;
           _filterService.selectedTagsCount--;
-          log("Lunch Removed");
+          log('Lunch Removed');
         } else {
           _filterService.isLunchSelected = true;
           _filterService.selectedTagsCount++;
-          log("Lunch Selected");
+          log('Lunch Selected');
         }
-        break;
       case 2:
         if (_filterService.isDinnerSelected) {
           _filterService.isDinnerSelected = false;
           _filterService.selectedTagsCount--;
-          log("Dinner Removed");
+          log('Dinner Removed');
         } else {
           _filterService.isDinnerSelected = true;
           _filterService.selectedTagsCount++;
-          log("Dinner Selected");
+          log('Dinner Selected');
         }
-        break;
       default:
         break;
     }
@@ -134,7 +130,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isPassageSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 1:
         if (_filterService.isMealSelected) {
           _filterService.isMealSelected = false;
@@ -143,7 +138,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isMealSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 2:
         if (_filterService.isPlatedSelected) {
           _filterService.isPlatedSelected = false;
@@ -152,7 +146,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isPlatedSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 3:
         if (_filterService.isFamilySelected) {
           _filterService.isFamilySelected = false;
@@ -161,7 +154,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isFamilySelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       default:
         break;
     }
@@ -178,7 +170,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryPassageSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 1:
         if (_filterService.isDietaryMealSelected) {
           _filterService.isDietaryMealSelected = false;
@@ -187,7 +178,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryMealSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 2:
         if (_filterService.isDietaryPlatedSelected) {
           _filterService.isDietaryPlatedSelected = false;
@@ -196,7 +186,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryPlatedSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 3:
         if (_filterService.isDietaryFamilySelected) {
           _filterService.isDietaryFamilySelected = false;
@@ -205,7 +194,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryFamilySelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       default:
         break;
     }
@@ -222,7 +210,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isStarterSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 1:
         if (_filterService.isCanapeSelected) {
           _filterService.isCanapeSelected = false;
@@ -231,7 +218,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isCanapeSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 2:
         if (_filterService.isSideSelected) {
           _filterService.isSideSelected = false;
@@ -240,7 +226,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isSideSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 3:
         if (_filterService.isSweetSelected) {
           _filterService.isSweetSelected = false;
@@ -249,7 +234,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isSweetSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       default:
         break;
     }
@@ -270,17 +254,17 @@ class FilterViewModel extends BaseViewModel {
   }
 
   void apply() {
-    List<RecipeModel> filteredRecipes = RecipeService.recipes.where((recipe) {
+    final filteredRecipes = RecipeService.recipes.where((recipe) {
       // Check if any tag in the recipe matches any tag in the specified tags list
-      bool tagMatch =
+      final tagMatch =
           recipe.tags!.any((tag) => selectedOptions().contains(tag));
 
       // Parse prep time of the recipe into hours
-      double prepTimeHours = _parsePrepTime(recipe.prepTime) / 60;
-      log('prep time ${prepTimeHours.toString()}');
+      final prepTimeHours = _parsePrepTime(recipe.prepTime) / 60;
+      log('prep time $prepTimeHours');
 
       // Check if prep time falls within the specified range
-      bool timeInRange =
+      final timeInRange =
           prepTimeHours >= values.start && prepTimeHours <= values.end;
 
       // Return true if both tag and time conditions are met
@@ -291,7 +275,7 @@ class FilterViewModel extends BaseViewModel {
       }
     }).toList();
 
-    log('filtered ${filteredRecipes.length.toString()}');
+    log('filtered ${filteredRecipes.length}');
 
     _navigationService.navigateToSearchView(
       recipeModel: filteredRecipes,
@@ -304,21 +288,21 @@ class FilterViewModel extends BaseViewModel {
     if (prepTime == null || prepTime.isEmpty) return 0.0;
 
     // Extract numeric values from the string using regex
-    RegExp regex = RegExp(r'\d+');
-    Iterable<Match> matches = regex.allMatches(prepTime);
+    final regex = RegExp(r'\d+');
+    final Iterable<Match> matches = regex.allMatches(prepTime);
 
     if (matches.isEmpty) return 0.0;
 
-    double totalMinutes = 0.0;
+    var totalMinutes = 0.0;
 
-    for (Match match in matches) {
-      double value = double.parse(match.group(0)!);
+    for (final match in matches) {
+      final value = double.parse(match.group(0)!);
 
       // Check if the value is followed by 'h' or 'hour' (indicating hours)
       if (prepTime
           .substring(match.end)
           .toLowerCase()
-          .startsWith(RegExp(r'h|hour'))) {
+          .startsWith(RegExp('h|hour'))) {
         totalMinutes += value * 60; // Convert hours to minutes
       } else {
         // Assume it's minutes if not specified as hours
@@ -339,7 +323,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isFamilySelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 1:
         if (_filterService.isLightSelected) {
           _filterService.isLightSelected = false;
@@ -348,7 +331,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isLightSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 2:
         if (_filterService.isCharterSelected) {
           _filterService.isCharterSelected = false;
@@ -357,7 +339,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isCharterSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 3:
         if (_filterService.isCrewSelected) {
           _filterService.isCrewSelected = false;
@@ -366,7 +347,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isCrewSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       default:
         break;
     }
@@ -391,7 +371,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryFamilySelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 1:
         if (_filterService.isDietaryLightSelected) {
           _filterService.isDietaryLightSelected = false;
@@ -400,7 +379,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryLightSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 2:
         if (_filterService.isDietaryCharterSelected) {
           _filterService.isDietaryCharterSelected = false;
@@ -409,7 +387,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryCharterSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       case 3:
         if (_filterService.isDietaryCrewSelected) {
           _filterService.isDietaryCrewSelected = false;
@@ -418,7 +395,6 @@ class FilterViewModel extends BaseViewModel {
           _filterService.isDietaryCrewSelected = true;
           _filterService.selectedTagsCount++;
         }
-        break;
       default:
         break;
     }

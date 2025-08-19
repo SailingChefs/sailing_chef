@@ -13,7 +13,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Chef\'s Note',
+          "Chef's Note",
           style: globalTextStyle(
             fontSize: 14.sp,
             letterSpacing: -0.5,
@@ -22,9 +22,8 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
           ),
         ),
         verticalSpaceTiny,
-        (drafts?.chefNote.isNotEmpty ?? false) &&
-                (drafts?.waveForm.isNotEmpty ?? false)
-            ? Container(
+        if ((drafts?.chefNote.isNotEmpty ?? false) &&
+                (drafts?.waveForm.isNotEmpty ?? false)) Container(
                 height: 48,
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -32,10 +31,9 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
+                    DecoratedBox(
                       decoration: const BoxDecoration(
                         color: kcPrimaryColor,
                         shape: BoxShape.circle,
@@ -74,7 +72,6 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                               playerWaveStyle: PlayerWaveStyle(
                                 fixedWaveColor: Colors.black,
                                 liveWaveColor: kcBlackColor.withOpacity(0.5),
-                                spacing: 5,
                                 seekLineColor: Colors.black,
                                 showSeekLine: false,
                               ),
@@ -88,8 +85,7 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                               fontWeight: FontWeight.w600,
                               color: kcBlackColor,
                             )),
-                        viewModel.recipeModel != null
-                            ? viewModel.recipeModel!.chefNote.isNotEmpty
+                        if (viewModel.recipeModel != null) viewModel.recipeModel!.chefNote.isNotEmpty
                                 ? Row(
                                     children: [
                                       GestureDetector(
@@ -115,14 +111,12 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                                         : const Icon(
                                             Icons.volume_up,
                                           ),
-                                  )
-                            : Container(),
+                                  ) else Container(),
                       ],
                     ),
                   ],
                 ),
-              )
-            : const AddRecipeChefsNote()
+              ) else const AddRecipeChefsNote()
       ],
     );
   }

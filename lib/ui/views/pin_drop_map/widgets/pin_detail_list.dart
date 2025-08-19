@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
@@ -16,7 +15,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
             ? viewModel.pins[index]
             : viewModel.filteredPins[index];
 
-        final String imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
+        final imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
 
         return GestureDetector(
           onTap: () => viewModel.callDetailsDialog(pin),
@@ -48,7 +47,6 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                 child: viewModel.isBusy
                     ? const ShimmerDialog()
                     : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Image section with fixed proportions
@@ -64,7 +62,6 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 imageUrl: imageUrl,
                                 width: imageWidth,
                                 height: cardHeight,
-                                fit: BoxFit.cover,
                                 borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(27),
                                   bottomLeft: Radius.circular(27),

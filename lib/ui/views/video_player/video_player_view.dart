@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/ui/views/video_player/video_player_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-import 'video_player_viewmodel.dart';
-
 class VideoPlayerView extends StackedView<VideoPlayerViewModel> {
-  const VideoPlayerView({Key? key}) : super(key: key);
+  const VideoPlayerView({super.key});
 
   @override
   Widget builder(

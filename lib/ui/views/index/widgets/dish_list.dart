@@ -1,7 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_dishes.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -11,7 +10,7 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    final List<RecipeModel> dishes = viewModel.dishes;
+    final dishes = viewModel.dishes;
 
     return viewModel.showShimmer
         ? const ShimmerDishes()
@@ -36,7 +35,6 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
-                    axisDirection: AxisDirection.down,
                     slivers: [
                       SliverGrid(
                         gridDelegate:

@@ -14,7 +14,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
 
   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
-    for (var recipe in recipes) {
+    for (final recipe in recipes) {
       if (recipe.title
           .toLowerCase()
           .contains(searchController.text.toLowerCase())) {
@@ -35,11 +35,11 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
     _navigatorService.back();
   }
 
-  toFilterView() {
+  void toFilterView() {
     _navigatorService.navigateToFilterView();
   }
 
-  toDishDetailsScreen(RecipeModel recip) {
+  void toDishDetailsScreen(RecipeModel recip) {
     _navigatorService.navigateToSavedRecipeDetailsView(
       isFromPrivateProfile: false,
       recipeModel: recip,

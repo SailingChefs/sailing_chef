@@ -6,12 +6,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/helpers/checkdatatype.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/buttons.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/link_textfield.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/pindroptag.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/widgets/textfield_droppin.dart';
-
-import 'drop_pin_sheet_sheet_model.dart';
 
 class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final Function(SheetResponse response)? completer;
@@ -19,11 +18,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const DropPinSheetSheet(
-      {Key? key,
-      required this.completer,
-      required this.request,
-      required this.isNew})
-      : super(key: key);
+      {required this.completer, required this.request, required this.isNew, super.key});
 
   @override
   Widget builder(
@@ -44,7 +39,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 16, left: 16.w, right: 16.w),
-        child: Container(
+        child: DecoratedBox(
           decoration: const BoxDecoration(
               color: kcwhitecolor,
               borderRadius: BorderRadius.only(
@@ -158,13 +153,11 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                             ),
                           ),
                           RatingBar.builder(
-                            direction: Axis.horizontal,
                             allowHalfRating: true,
                             initialRating:
                                 viewModel.ratings > 0 ? viewModel.ratings : 3.0,
                             itemSize: 20,
                             unratedColor: Colors.grey.shade400,
-                            itemCount: 5,
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 0.005),
                             itemBuilder: (context, _) => const Icon(

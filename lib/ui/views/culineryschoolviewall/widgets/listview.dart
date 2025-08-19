@@ -91,8 +91,7 @@ class ListViewCulinaryChool
                                   color: kcBlackColor,
                                 ),
                               ),
-                              viewModel.cullinary[index].namedLocation != null
-                                  ? Column(
+                              if (viewModel.cullinary[index].namedLocation != null) Column(
                                       children: [
                                         verticalSpace(5),
                                         SizedBox(
@@ -118,8 +117,7 @@ class ListViewCulinaryChool
                                         ),
                                         verticalSpace(5),
                                       ],
-                                    )
-                                  : const SizedBox(),
+                                    ) else const SizedBox(),
                               Text(
                                 '${viewModel.cullinary[index].schoolCourses!.length} Courses',
                                 style: globalTextStyle(

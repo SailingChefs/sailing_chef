@@ -27,7 +27,7 @@ class ImageUtils {
     if (isValidImageUrl(imageUrl)) {
       return NetworkImage(imageUrl!);
     }
-    return AssetImage(placeholderImage);
+    return const AssetImage(placeholderImage);
   }
 
   /// Returns a safe ImageProvider for CircleAvatar with null handling
@@ -35,7 +35,7 @@ class ImageUtils {
     if (isValidImageUrl(imageUrl)) {
       return NetworkImage(imageUrl!);
     }
-    return AssetImage(placeholderImageAvatar);
+    return const AssetImage(placeholderImageAvatar);
   }
 
   /// Checks if the image URL is valid and not empty, returns null if invalid
@@ -54,7 +54,7 @@ class ImageUtils {
     BoxFit fit = BoxFit.cover,
     BorderRadius? borderRadius,
   }) {
-    Widget imageWidget = isValidImageUrl(imageUrl)
+    final Widget imageWidget = isValidImageUrl(imageUrl)
         ? Image.network(
             imageUrl!,
             width: width,

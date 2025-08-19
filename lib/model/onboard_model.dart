@@ -12,12 +12,12 @@ class OnboardModel {
   });
 
   Widget getFormattedDescription() {
-    List<InlineSpan> formattedSpans = [];
+    final formattedSpans = <InlineSpan>[];
 
-    List<String> parts = description.split('@');
+    final parts = description.split('@');
 
-    for (int i = 0; i < parts.length; i++) {
-      String part = parts[i];
+    for (var i = 0; i < parts.length; i++) {
+      final part = parts[i];
       if (i % 2 == 0) {
         formattedSpans.add(TextSpan(text: part));
       } else {

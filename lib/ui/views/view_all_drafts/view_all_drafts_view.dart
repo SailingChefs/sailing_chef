@@ -1,11 +1,10 @@
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/draftgrid.dart';
 
-import 'view_all_drafts_viewmodel.dart';
-
 class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
-  const ViewAllDraftsView({Key? key}) : super(key: key);
+  const ViewAllDraftsView({super.key});
 
   @override
   Widget builder(
@@ -52,16 +51,14 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
             // verticalSpace(41),
 
             verticalSpaceSmall,
-            viewModel.isBusy
-                ? SizedBox(
+            if (viewModel.isBusy) SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.7,
                     child: const Center(
                       child: CircularProgressIndicator(
                         color: kcPrimaryColor,
                       ),
                     ),
-                  )
-                : viewModel.draft.isEmpty
+                  ) else viewModel.draft.isEmpty
                     ? SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.7,
                         width: double.infinity,

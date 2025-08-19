@@ -4,7 +4,7 @@ import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
 
 class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
   final List<UserModel> chefs;
-  const SearchBarAllChefsScreen({super.key, required this.chefs});
+  const SearchBarAllChefsScreen({required this.chefs, super.key});
 
   @override
   Widget build(BuildContext context, AllChefsViewModel viewModel) {
@@ -13,7 +13,6 @@ class SearchBarAllChefsScreen extends ViewModelWidget<AllChefsViewModel> {
       child: TextField(
         controller: viewModel.searchController,
         onChanged: (value) => viewModel.rebuildUi(),
-        textAlign: TextAlign.start,
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: kcBlackColor.withOpacity(0.6),

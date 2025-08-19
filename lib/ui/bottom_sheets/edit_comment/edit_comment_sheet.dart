@@ -1,17 +1,15 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_comment/edit_comment_sheet_model.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import 'edit_comment_sheet_model.dart';
 
 class EditCommentSheet extends StackedView<EditCommentSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
 
   const EditCommentSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -65,9 +63,7 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                   RatingBar.builder(
                     initialRating: viewModel.rating,
                     minRating: 1,
-                    direction: Axis.horizontal,
                     allowHalfRating: true,
-                    itemCount: 5,
                     itemSize: 30.0,
                     itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                     itemBuilder: (context, _) => const Icon(
@@ -122,7 +118,7 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
                           runSpacing: 10,
                           children: List.generate(
                               viewModel.existingImages.length, (index) {
-                            bool isMarkedForDeletion = viewModel
+                            final isMarkedForDeletion = viewModel
                                 .isExistingImageMarkedForDeletion(index);
 
                             return Stack(

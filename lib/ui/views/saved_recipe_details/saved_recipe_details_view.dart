@@ -6,19 +6,16 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/maincontainer.dart';
 
-import 'widgets/save_share.dart';
-import 'widgets/top_image.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/top_image.dart';
 
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> randomRecipeList;
   final bool isFromPrivateProfile;
   const SavedRecipeDetailsView({
-    Key? key,
-    required this.recipeModel,
-    required this.isFromPrivateProfile,
-    required this.randomRecipeList,
-  }) : super(key: key);
+    required this.recipeModel, required this.isFromPrivateProfile, required this.randomRecipeList, super.key,
+  });
 
   @override
   Widget builder(
@@ -33,8 +30,8 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
               try {
                 await viewModel.updateShoppingList();
               } catch (e, stackTrace) {
-                log("Failed to update shopping list on pop: $e");
-                log("StackTrace: $stackTrace");
+                log('Failed to update shopping list on pop: $e');
+                log('StackTrace: $stackTrace');
               }
               // Ensure that the pop operation is not blocked
               return true;
@@ -49,8 +46,8 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
                       try {
                         await viewModel.updateShoppingList();
                       } catch (e, stackTrace) {
-                        log("Failed to update shopping list on pop: $e");
-                        log("StackTrace: $stackTrace");
+                        log('Failed to update shopping list on pop: $e');
+                        log('StackTrace: $stackTrace');
                       }
                       viewModel.moveBack();
                     },

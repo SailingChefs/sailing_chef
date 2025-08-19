@@ -19,11 +19,11 @@ class EnterPassDialogModel extends BaseViewModel {
     _navigationService.navigateToForgetPasswordView();
   }
 
-  void deleteAccount() async {
-    bool check = await _userService.checkPassword(passwordController.text);
+  Future<void> deleteAccount() async {
+    final check = await _userService.checkPassword(passwordController.text);
 
-    if (check == true) {
-      bool deleted =
+    if (check) {
+      final deleted =
           await _userService.deleteUserAndDocument(passwordController.text);
 
       deleted
@@ -32,7 +32,7 @@ class EnterPassDialogModel extends BaseViewModel {
             )
           : showToast(message: 'Account Deletion was interrupted');
 
-      if (deleted == true) {
+      if (deleted) {
         await _authService.signOut();
         _navigationService.replaceWithLoginView();
       }

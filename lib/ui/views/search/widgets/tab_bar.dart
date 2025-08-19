@@ -21,7 +21,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                 viewModel.handleTab(0);
                 viewModel.allSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),
@@ -53,7 +53,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                 viewModel.handleTab(1);
                 viewModel.followingSelected();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.dg),

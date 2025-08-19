@@ -1,22 +1,19 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredientssheet_topbar.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/listview_quantity_name.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/two_textfields_inarow.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
-
-import 'add_ingredients_sheet_model.dart';
-import 'widgets/listview_quantity_name.dart';
 
 class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
 
   const AddIngredientsSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(

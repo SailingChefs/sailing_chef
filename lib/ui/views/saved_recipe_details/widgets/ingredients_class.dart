@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 
 class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const IngredientsClass({super.key, required this.recipeModel});
+  const IngredientsClass({required this.recipeModel, super.key});
 
   List<Widget> createIngredientWidgets(
       List<Ingredient> ingredients, SavedRecipeDetailsViewModel viewModel) {
@@ -22,7 +22,6 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 130.w,
@@ -110,9 +109,9 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    var updatedIngredients =
+    final updatedIngredients =
         viewModel.getUpdatedIngredients(viewModel.servings);
-    var allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
+    final allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
     // log(recipeModel.ingredients.first.id!);
 
@@ -145,8 +144,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    viewModel.checkShoppingListAll(recipeModel)
-                        ? Text(
+                    if (viewModel.checkShoppingListAll(recipeModel)) Text(
                             'remove all',
                             style: globalTextStyle(
                               fontSize: 12.sp,
@@ -154,8 +152,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                               letterSpacing: -0.2,
                               fontWeight: FontWeight.w500,
                             ),
-                          )
-                        : Text(
+                          ) else Text(
                             'add all to shopping list',
                             style: globalTextStyle(
                               fontSize: 12.sp,

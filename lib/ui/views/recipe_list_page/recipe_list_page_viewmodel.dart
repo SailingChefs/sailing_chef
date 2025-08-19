@@ -11,7 +11,7 @@ class RecipeListPageViewModel extends BaseViewModel {
   RecipeListPageViewModel({required this.isFromDraft});
   final RecipeService _recipeService = locator<RecipeService>();
   List<RecipeModel> recipes = [];
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
 
     recipes =
@@ -32,7 +32,7 @@ class RecipeListPageViewModel extends BaseViewModel {
   //     }
   //   }
   // }
-  void toHomeView() async {
+  Future<void> toHomeView() async {
     if (isFromDraft) {
       _navigationService.clearStackAndShowView(BottomNavBarView());
       // _navigationService.replaceWithBottomNavBarView();
@@ -42,7 +42,7 @@ class RecipeListPageViewModel extends BaseViewModel {
     _navigationService.clearStackAndShowView(BottomNavBarView());
   }
 
-  void onPopInvoked(bool didPop) async {
+  Future<void> onPopInvoked(bool didPop) async {
     if (isFromDraft) {
       _navigationService.clearStackAndShowView(BottomNavBarView());
       return;
@@ -51,7 +51,7 @@ class RecipeListPageViewModel extends BaseViewModel {
     _navigationService.back(result: true);
   }
 
-  toDishDetailsScreen(RecipeModel recipe) {
+  void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
         recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
   }

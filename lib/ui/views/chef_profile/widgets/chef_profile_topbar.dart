@@ -7,7 +7,7 @@ class ChefProfileTopBar extends ViewModelWidget<ChefProfileViewModel>
   final bool? isCurrentUser;
   final UserModel user;
 
-  const ChefProfileTopBar({super.key, this.isCurrentUser, required this.user});
+  const ChefProfileTopBar({required this.user, super.key, this.isCurrentUser});
 
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {

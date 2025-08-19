@@ -1,6 +1,5 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/user_services.dart';
-
-import '../../../core/imports/core_imports.dart';
 
 class ForgetPasswordViewModel extends BaseViewModel {
   final _emailController = TextEditingController();
@@ -22,13 +21,13 @@ class ForgetPasswordViewModel extends BaseViewModel {
       return 'Please enter an email address';
     }
 
-    RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     return emailRegex.hasMatch(value)
         ? null
         : 'Please enter a valid email address';
   }
 
-  void sendEmailLink({required String email}) async {
+  Future<void> sendEmailLink({required String email}) async {
     await userService.clickOnForgetPassword(email: email);
     navigationService.back();
   }

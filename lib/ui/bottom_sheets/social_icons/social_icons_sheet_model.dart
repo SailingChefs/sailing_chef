@@ -1,10 +1,9 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../core/imports/core_imports.dart';
 
 class SocialIconsSheetModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -149,7 +148,7 @@ class SocialIconsSheetModel extends BaseViewModel {
   //   }
   // }
 
-  sharetoSailingCheffUser(RecipeModel recipe) async {
+  Future<void> sharetoSailingCheffUser(RecipeModel recipe) async {
     final dynamicLinkParams = DynamicLinkParameters(
       link: Uri.parse('https://sailingchefs.page.link?recipe=${recipe.docId}'),
       uriPrefix: 'https://sailingchefs.page.link',

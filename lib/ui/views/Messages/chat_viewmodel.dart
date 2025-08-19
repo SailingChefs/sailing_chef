@@ -32,7 +32,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   void onViewModelReady() {
-    log("message $messageFromCource");
+    log('message $messageFromCource');
     // scrollController.addListener(() {
     //   isAtTop = scrollController.offset <= kToolbarHeight;
     //   if (scrollController.position.pixels < 180) {
@@ -57,7 +57,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   bool get uploadingFile => _uploadingFile;
 
   Stream<List<ConversationModel>> getConversation() {
-    Stream<List<ConversationModel>> conversations =
+    final var conversations =
         _conversationService.getConversations();
 
     return conversations;
@@ -68,14 +68,14 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   Future<void> getImage(
       ImageSource source, String receiverId, conversationId) async {
     final pickedFile = await ImagePicker()
-        .pickImage(source: source, preferredCameraDevice: CameraDevice.rear);
+        .pickImage(source: source);
 
     if (pickedFile != null) {
       selectedImageFile = pickedFile;
 
       rebuildUi();
       _uploadingImage = true;
-      String imageUrl = await _conversationService.uploadImage(
+      final imageUrl = await _conversationService.uploadImage(
           File(selectedImageFile!.path), selectedImageFile!.name);
       _uploadingImage = false;
       await addMessage(
@@ -95,7 +95,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     }
   }
 
-  void sendMessage(receiverId, conversationId,
+  Future<void> sendMessage(receiverId, conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
       addMessage(
@@ -136,7 +136,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   bool validateLink(String? value) {
-    RegExp urlRegex = RegExp(
+    final urlRegex = RegExp(
       r'^(?:https?:\/\/|www\.|)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]*)?(?:\?(?:[a-zA-Z0-9_\-\.~%!*$?&+:@=,;]+))?$',
       caseSensitive: false,
     );
@@ -144,7 +144,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   Future<void> onClickUrl(String url) async {
-    Uri uri = Uri.parse(url);
+    var uri = Uri.parse(url);
 
     if (uri.scheme.isEmpty) {
       uri = Uri.parse('https:$url');
@@ -165,7 +165,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   }
 
   @override
-  void onData(data) {
+  void onData(List<MessageModel>? data) {
     if (data == null) return;
     messages = data;
     textController.clear();
@@ -179,8 +179,8 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   Stream<List<MessageModel>> get stream =>
       _conversationService.getMessages(convoId);
 
-  void getFile(String receiverId, String conversationId) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+  Future<void> getFile(String receiverId, String conversationId) async {
+    final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['zip', 'pdf', 'doc', 'docx'],
     );
@@ -188,14 +188,14 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       _uploadingFile = true;
       rebuildUi();
       pickFile = File(result.files.single.path!);
-      String fileName = result.files.single.path!.split('/').last;
-      Reference storageRef =
+      final fileName = result.files.single.path!.split('/').last;
+      final storageRef =
           FirebaseStorage.instance.ref().child('files/$fileName');
-      UploadTask uploadTask = storageRef.putFile(pickFile!);
+      final uploadTask = storageRef.putFile(pickFile!);
 
-      TaskSnapshot taskSnapshot = await uploadTask;
+      final taskSnapshot = await uploadTask;
 
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      final downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       addMessage(
           MessageModel(
@@ -211,7 +211,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       _uploadingFile = false;
       rebuildUi();
     } else {
-      log("No file selected");
+      log('No file selected');
     }
   }
 

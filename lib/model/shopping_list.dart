@@ -113,7 +113,7 @@ class ShoppingItem {
   }
 
   factory ShoppingItem.fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot.data()! as Map<String, dynamic>;
     return ShoppingItem(
       recipeName: data['recipe_name'],
       ingredientName: data['ingredient_name'],

@@ -1,14 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_following_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/all_saved_recipes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/tab_bar.dart';
 
-import 'saved_recipes_viewmodel.dart';
-
 class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
   const SavedRecipesView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget builder(
@@ -42,9 +41,7 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                   verticalSpaceMedium,
                   const TabBarSavedRecipesScreen(),
                   verticalSpaceMedium,
-                  viewModel.isAllSelected
-                      ? const AllSavedRecipesScreen()
-                      : const FollowingSavedRecipesScreen(),
+                  if (viewModel.isAllSelected) const AllSavedRecipesScreen() else const FollowingSavedRecipesScreen(),
                 ],
               ),
             )),

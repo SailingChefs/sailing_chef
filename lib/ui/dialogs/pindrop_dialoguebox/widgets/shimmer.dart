@@ -7,7 +7,6 @@ class ShimmerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FittedBox(
@@ -28,7 +27,6 @@ class ShimmerDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Padding(
                       padding: EdgeInsets.only(left: 5.0, top: 15),

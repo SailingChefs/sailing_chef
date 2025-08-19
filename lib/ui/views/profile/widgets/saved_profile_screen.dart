@@ -15,11 +15,8 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
         ? Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                viewModel.isBusy
-                    ? const CircularProgressIndicator()
-                    : userDetails!.schoolCourses!.isNotEmpty
+                if (viewModel.isBusy) const CircularProgressIndicator() else userDetails!.schoolCourses!.isNotEmpty
                         ? ListViewSavedCources(
                             courses: viewModel.courses,
                           )
@@ -27,7 +24,6 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                             height: screenHeight(context) * 0.31,
                             width: screenWidth(context) * 0.98,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
@@ -92,7 +88,6 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     (BuildContext context, BoxConstraints constraints) {
                   return ShrinkWrappingViewport(
                     offset: ViewportOffset.zero(),
-                    axisDirection: AxisDirection.down,
                     slivers: [
                       SliverGrid(
                         gridDelegate:

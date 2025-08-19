@@ -1,15 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'other_chef_profile_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet_model.dart';
 
 class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const OtherChefProfileSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -30,7 +28,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
+          DecoratedBox(
             decoration: const BoxDecoration(
               color: kcWhiteColor,
               borderRadius: BorderRadius.all(
@@ -38,7 +36,6 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
               ),
             ),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () => completer!(SheetResponse(

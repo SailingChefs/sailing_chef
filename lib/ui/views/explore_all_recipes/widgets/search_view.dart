@@ -6,7 +6,7 @@ import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
 
 class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
-  const SearchViewAllRecipes({super.key, required this.recipes});
+  const SearchViewAllRecipes({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
@@ -25,7 +25,7 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 childAspectRatio: 7.4 / 9,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final RecipeModel recipe =
+                final recipe =
                     viewModel.searchRecipes(recipes).elementAt(index);
                 return PrimaryGridTile(
                     chefId: recipe.user!.uid!,

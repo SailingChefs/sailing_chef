@@ -1,6 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
-import '../../../widgets/back_arrow.dart';
+import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
   const IngredientsSheetTopBar({super.key});

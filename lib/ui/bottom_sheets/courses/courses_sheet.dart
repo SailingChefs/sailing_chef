@@ -1,20 +1,17 @@
 import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/widgets/buttons.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/courses/widgets/link_field.dart';
-
-import 'courses_sheet_model.dart';
 
 class CoursesSheet extends StackedView<CoursesSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
 
   const CoursesSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -114,7 +111,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                         ],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -137,8 +134,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                       verticalSpaceMedium,
                       CoursesButtons(completer: completer),
                       verticalSpaceMedium,
-                      request.data != null
-                          ? GestureDetector(
+                      if (request.data != null) GestureDetector(
                               onTap: () {
                                 completer!(SheetResponse(confirmed: true));
                                 viewModel.deleteCourse(course!.id.toString());
@@ -160,8 +156,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ]),
-                            )
-                          : Container(),
+                            ) else Container(),
                       verticalSpaceMedium,
                     ],
                   ),

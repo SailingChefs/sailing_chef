@@ -1,6 +1,5 @@
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/onboard_model.dart';
-
-import '../../../core/imports/core_imports.dart';
 
 class OnboardingViewModel extends BaseViewModel {
   final PageController pageController = PageController();
@@ -18,7 +17,7 @@ class OnboardingViewModel extends BaseViewModel {
   ];
 
   static List<OnboardModel> _initializeOnboardPages() {
-    List<OnboardModel> pages = [
+    final pages = <OnboardModel>[
       OnboardModel(
           image: 'assets/images/background/onboarding1.png',
           title: 'Discovering seagoing chefs and their best recipes.',
@@ -37,7 +36,7 @@ class OnboardingViewModel extends BaseViewModel {
           description: descriptions[3]),
     ];
 
-    for (var model in pages) {
+    for (final model in pages) {
       model.getFormattedDescription();
     }
 

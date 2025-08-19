@@ -1,8 +1,8 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet_model.dart';
 
-import '../../../widgets/bottom_sheet_btn.dart';
-import '../../../widgets/rounded_tranparent_textfield.dart';
+import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
+import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 class BottomCookingInstructions
     extends ViewModelWidget<CookingInstructionsSheetModel> {

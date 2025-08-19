@@ -51,7 +51,6 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             textFontSize: 12.sp,
             width: 243.12.w,
             height: 51.h,
-            borderRadius: 30,
             textColor: kclightgreencolor,
             isEnabled: viewModel.isSignupButtonEnabled(),
             onPressed: () => viewModel.signup(),

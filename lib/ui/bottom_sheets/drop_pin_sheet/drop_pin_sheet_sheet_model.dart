@@ -45,7 +45,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
             await _navigationpinService.uploadImages(selectedImageFile!);
       }
 
-      PinnedLocation pinnedLocation = PinnedLocation(
+      final pinnedLocation = PinnedLocation(
         contactNumber: phone.text,
         uid: userDetails!.uid,
         place: place,
@@ -81,20 +81,20 @@ class DropPinSheetSheetModel extends BaseViewModel {
     } else if (selectedTabSelections.isEmpty) {
       showToast(message: 'Please select at least one tag!');
     } else if (ratings == 0) {
-      log("Rating validation failed: $ratings");
+      log('Rating validation failed: $ratings');
       showToast(message: 'Please add ratings!');
     } else {
-      log("Validation issue but ratings=$ratings");
+      log('Validation issue but ratings=$ratings');
     }
   }
 
   Future<String> getCityCountry(double latitude, double longitude) async {
     try {
-      List<Placemark> placemarks =
+      final placemarks =
           await placemarkFromCoordinates(latitude, longitude);
       // ignore: unnecessary_null_comparison
       if (placemarks != null && placemarks.isNotEmpty) {
-        Placemark placemark = placemarks.first;
+        final placemark = placemarks.first;
         return ' ${placemark.locality}, ${placemark.country}';
       } else {
         return 'Unknown';
@@ -123,7 +123,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   }
 
   Future<void> getPfpImage() async {
-    final List<XFile> pickedFile = await picker.pickMultiImage(
+    final pickedFile = await picker.pickMultiImage(
       imageQuality:
           const int.fromEnvironment('imageQuality', defaultValue: 100),
       maxHeight: 500,
@@ -160,7 +160,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? linkErrorMessage;
 
   bool isLinkValid(String input) {
-    if (!input.contains("www.") || !input.contains(".com")) {
+    if (!input.contains('www.') || !input.contains('.com')) {
       return false;
     }
     try {
@@ -178,7 +178,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   void setRating(double value) {
     ratings = value;
-    log("Rating updated to: $value");
+    log('Rating updated to: $value');
     notifyListeners();
     rebuildUi();
   }
@@ -224,7 +224,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
   Future<void> deletePin() async {
     await _dialogService.showCustomDialog(
       variant: DialogType.deletePin,
-      title: location.pinnedLocation!.id!,
+      title: location.pinnedLocation!.id,
     );
   }
 }

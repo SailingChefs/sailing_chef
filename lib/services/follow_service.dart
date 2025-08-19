@@ -15,7 +15,7 @@ class FollowService with ListenableServiceMixin {
   List<String> following = [];
 
   Future<void> addFollowerFromDummy(UserModel user, String userId) async {
-    log("Ädding follower to firebase");
+    log('Ädding follower to firebase');
     // await
     firebasestore.collection('users').doc(user.uid).update({
       'followers': FieldValue.arrayUnion([userId]),
@@ -27,7 +27,7 @@ class FollowService with ListenableServiceMixin {
   }
 
   Future<void> removeFollowerFromDummy(UserModel user, String userId) async {
-    log("Removing follower From firebase");
+    log('Removing follower From firebase');
 
     // await
     firebasestore.collection('users').doc(user.uid).update({
@@ -51,7 +51,7 @@ class FollowService with ListenableServiceMixin {
     followers = await _getFollowersForUser(uid);
     following = await _getFollowingForUser(uid);
 
-    if (fetch == true) {
+    if (fetch) {
       usersFollowers.clear();
       usersFollowing.clear();
       await _getFollowUserDetails();
@@ -64,14 +64,14 @@ class FollowService with ListenableServiceMixin {
   List<UserModel> usersFollowing = [];
 
   Future<void> _getFollowUserDetails() async {
-    for (var follower in followers) {
+    for (final follower in followers) {
       usersFollowers.add(await _userServices.fetchUserByUID(follower));
     }
     log('followerslength: ${usersFollowers.length}');
   }
 
   Future<void> _getFollowingUserDetails() async {
-    for (var following in following) {
+    for (final following in following) {
       usersFollowing.add(await _userServices.fetchUserByUID(following));
     }
 
@@ -225,9 +225,9 @@ class FollowService with ListenableServiceMixin {
       });
       userDetails!.following!.removeWhere((element) => element == user.uid);
       if (user.userRole == 'chef') {
-        user.followers!.remove(userDetails!.uid!);
+        user.followers!.remove(userDetails!.uid);
       } else if (user.userRole == 'culinary') {
-        user.followers!.remove(userDetails!.uid!);
+        user.followers!.remove(userDetails!.uid);
       }
       EasyLoading.dismiss();
       notifyListeners();

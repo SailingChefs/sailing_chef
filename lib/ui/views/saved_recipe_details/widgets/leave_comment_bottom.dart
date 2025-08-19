@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final String recipeId;
 
-  const LeaveComment({super.key, required this.recipeId});
+  const LeaveComment({required this.recipeId, super.key});
 
   Widget _buildImagePreview(SavedRecipeDetailsViewModel viewModel) {
     return Wrap(

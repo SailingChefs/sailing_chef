@@ -1,15 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'drop_pin_buttons_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet_model.dart';
 
 class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const DropPinButtonsSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -23,8 +21,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(0),
-            topRight: Radius.circular(0),
+            
           ),
         ),
         child: Padding(

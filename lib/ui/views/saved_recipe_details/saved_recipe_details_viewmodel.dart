@@ -6,12 +6,14 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fraction/fraction.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -22,16 +24,11 @@ import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
-
 import 'package:sailing_chefs/services/shopping_list_service.dart';
-
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
-
-import '../../../core/imports/core_imports.dart';
-import '../../../services/user_services.dart';
-import 'package:fraction/fraction.dart';
 
 class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   final RecipeModel recipeModel;
@@ -83,13 +80,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     try {
       if (quantity.contains('/')) {
         // If the quantity contains a fraction, convert it to a Fraction object
-        Fraction fraction = Fraction.fromString(quantity);
-        Fraction result =
-            fraction * Fraction(serving, 1); // Convert int serving to Fraction
+        final fraction = Fraction.fromString(quantity);
+        final result =
+            fraction * Fraction(serving); // Convert int serving to Fraction
         return result.toString();
       } else {
         // If it's a whole number, just multiply it as an integer
-        int parsedQuantity = int.parse(quantity);
+        final parsedQuantity = int.parse(quantity);
         return (parsedQuantity * serving).toString();
       }
     } catch (e) {
@@ -99,16 +96,16 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  updateShoppingList() async {
+  Future<void> updateShoppingList() async {
     try {
       await userService.updateShoppingList();
     } catch (e, stackTrace) {
-      log("Failed to update shopping list in view model: $e");
-      log("StackTrace: $stackTrace");
+      log('Failed to update shopping list in view model: $e');
+      log('StackTrace: $stackTrace');
     }
   }
 
-  addorRemoveAllIIngredients({required RecipeModel recipee}) {
+  void addorRemoveAllIIngredients({required RecipeModel recipee}) {
     shoppingListService.addAllItemstoShoppingList(recipee: recipee);
     rebuildUi();
 
@@ -178,7 +175,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 // **********************************************************
 // **********************************************************
 // **********************************************************
-  onLongPressComment(CommentModel comment) async {
+  Future<void> onLongPressComment(CommentModel comment) async {
     if (comment.userId != FirebaseAuth.instance.currentUser!.uid) return;
 
     final res = await _dialogService.showCustomDialog(
@@ -199,7 +196,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  void deleteComment(CommentModel comment) async {
+  Future<void> deleteComment(CommentModel comment) async {
     final res = await commentService.deleteComment(comment);
 
     if (res) {
@@ -264,7 +261,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       currentEditingComment!.content = commentController.text;
       currentEditingComment!.rating = rating;
 
-      bool success =
+      final success =
           await commentService.updateCommentInFirestore(currentEditingComment!);
       if (success) {
         showToast(message: 'Comment updated successfully');
@@ -313,7 +310,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void checkSave(String recipeId) {
-    for (RecipeModel savedRecipe in savedRecipeList) {
+    for (final savedRecipe in savedRecipeList) {
       if (savedRecipe.docId == recipeId) {
         isRecipeSaved = !isRecipeSaved;
         break;
@@ -328,8 +325,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         shoppingListService,
       ];
 
-  void pickImage() async {
-    final List<XFile> selectedImages = await _picker.pickMultiImage();
+  Future<void> pickImage() async {
+    final selectedImages = await _picker.pickMultiImage();
 
     images.addAll(selectedImages.map((xFile) => File(xFile.path)));
     rebuildUi();
@@ -346,15 +343,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       return '0.0';
     }
 
-    double totalRating = 0.0;
+    var totalRating = 0.0;
 
-    for (var comment in comments) {
+    for (final comment in comments) {
       if (comment.rating != null) {
         totalRating += comment.rating!;
       }
     }
 
-    double averageRating = totalRating / comments.length;
+    final averageRating = totalRating / comments.length;
 
     return averageRating.toStringAsFixed(1);
   }
@@ -362,7 +359,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
-    var conversationModel = ConversationModel(
+    final conversationModel = ConversationModel(
       latestMessage: '',
       users: [
         FirebaseAuth.instance.currentUser!.uid,
@@ -371,9 +368,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       latestMessageType: 'text',
       latestMessageTime: DateTime.now(),
       lastActive: DateTime.now(),
-      uid: "",
+      uid: '',
     );
-    String conversationId = await _serviceConversations
+    final conversationId = await _serviceConversations
         .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
@@ -386,7 +383,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   void addRating(double ratings) {
-    log("Rating $ratings");
+    log('Rating $ratings');
     rating = ratings;
     rebuildUi();
     notifyListeners();
@@ -428,7 +425,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   //     showToast(message: 'Comment Added');
   //   }
   // }
-  void addComment(String recipeId) async {
+  Future<void> addComment(String recipeId) async {
     bool uploaded;
     List<String>? imageUrls;
 
@@ -452,7 +449,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       return;
     }
 
-    CommentModel newComment = CommentModel(
+    final newComment = CommentModel(
       userId: userDetails!.uid!,
       recipeId: recipeId,
       content: commentController.text,
@@ -508,9 +505,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         recipee: recipee, ingredient: ingredient);
   }
 
-  void addAllItemsToCart(RecipeModel recipe) async {
-    List<ShoppingItem> shoppingList = [];
-    for (var ingredient in recipe.ingredients) {
+  Future<void> addAllItemsToCart(RecipeModel recipe) async {
+    final shoppingList = <ShoppingItem>[];
+    for (final ingredient in recipe.ingredients) {
       shoppingList.add(ShoppingItem(
           recipeName: recipe.title,
           ingredientName: ingredient.name,
@@ -571,10 +568,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     switch (index) {
       case 0:
         selectedTab = 'Ingredients';
-        break;
       case 1:
         selectedTab = 'Method';
-        break;
 
       default:
         break;
@@ -583,26 +578,26 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  String formattedDuration = "";
+  String formattedDuration = '';
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
-      Duration duration = Duration(milliseconds: playerController.maxDuration);
-      int minutes = duration.inMinutes;
-      int seconds = duration.inSeconds % 60;
+      final duration = Duration(milliseconds: playerController.maxDuration);
+      final minutes = duration.inMinutes;
+      final seconds = duration.inSeconds % 60;
       formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
       notifyListeners();
     }
   }
 
   Future<void> downloadAudio() async {
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
+    final tempDir = await getTemporaryDirectory();
+    final tempPath = tempDir.path;
     final response = await http.get(Uri.parse(recipeModel.chefNote));
-    File audioFile = File("$tempPath/audio.mpeg4");
+    final audioFile = File('$tempPath/audio.mpeg4');
     if (response.statusCode == 200) {
       await audioFile.writeAsBytes(response.bodyBytes);
 
-      log("Download Complete");
+      log('Download Complete');
       await playerController
           .preparePlayer(
         path: audioFile.path,
@@ -612,7 +607,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         durationCalculate(audioFile);
       });
 
-      log("Player Ready");
+      log('Player Ready');
     }
     durationCalculate(audioFile);
   }
@@ -623,23 +618,23 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     });
   }
 
-  void startListening() async {
-    log("start Listening ${isPlaying.toString()}");
+  Future<void> startListening() async {
+    log('start Listening $isPlaying');
     isPlaying = true;
     rebuildUi();
     playerController.onCurrentDurationChanged.listen((positionData) {
-      Duration position = Duration(milliseconds: positionData);
+      final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
 
     await playerController.setFinishMode(finishMode: FinishMode.pause);
 
-    log("start Listening ends ${isPlaying.toString()}");
+    log('start Listening ends $isPlaying');
 
     durationStop();
   }
 
-  void updateDuration(Duration position) async {
+  Future<void> updateDuration(Duration position) async {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
@@ -647,16 +642,16 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  void stopListening() async {
-    log("stop Listening ${isPlaying.toString()}");
+  Future<void> stopListening() async {
+    log('stop Listening $isPlaying');
     await playerController.pausePlayer();
     isPlaying = false;
     log(isPlaying.toString());
     rebuildUi();
-    log("stop Listening ends ${isPlaying.toString()}");
+    log('stop Listening ends $isPlaying');
   }
 
-  void onViewModelReady(String recipeId) async {
+  Future<void> onViewModelReady(String recipeId) async {
     setBusy(true);
     EasyLoading.show();
 
@@ -672,13 +667,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     checkSave(recipeId);
     EasyLoading.dismiss();
 
-    log("\n\n\n\n\t\t\t\tShopping List : ${shoppingRecipeeIngredient.toString()}");
+    log('\n\n\n\n\t\t\t\tShopping List : $shoppingRecipeeIngredient');
 
     setBusy(false);
   }
 
   int servings = 1;
-  Fraction updatedQuantity = Fraction(1, 1);
+  Fraction updatedQuantity = Fraction(1);
 
   Fraction parseInput(String input) {
     if (input.contains('/')) {
@@ -745,7 +740,7 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       // updatedQuantity = updatedQuantity.reduce();
 
       // Convert the fraction to a string
-      String updatedQuantityString = baseQuantity.toString();
+      final updatedQuantityString = baseQuantity.toString();
 
       return Ingredient(
         serving: servings,
@@ -774,8 +769,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   Future<void> publicRecipe(RecipeModel recipe) async {
-    bool saved = await recipeService.updatePrivateRecipe(recipe);
-    if (saved == true) {
+    final saved = await recipeService.updatePrivateRecipe(recipe);
+    if (saved) {
       RecipeService.recipes.add(recipe);
       _navigationService.replaceWithBottomNavBarView();
     } else {

@@ -24,7 +24,7 @@ class FollowingListViewModel extends ReactiveViewModel {
     _navigationloactor.back();
   }
 
-  void onViewModelReady(String userId) async {
+  Future<void> onViewModelReady(String userId) async {
     setBusy(true);
     await _followService.init(userId, true);
     isFollowing = isFromFollowing;
@@ -35,20 +35,20 @@ class FollowingListViewModel extends ReactiveViewModel {
   }
 
   Iterable<UserModel> searchUsers(String query, List<UserModel> users) sync* {
-    for (var user in users) {
+    for (final user in users) {
       if (user.displayName!.toLowerCase().contains(query.toLowerCase())) {
         yield user;
       }
     }
   }
 
-  void onFollowTap(UserModel user) async {
+  Future<void> onFollowTap(UserModel user) async {
     await _followService.removeFollowing(user);
     notifyListeners();
     rebuildUi();
   }
 
-  void deleteFollower(UserModel user) async {
+  Future<void> deleteFollower(UserModel user) async {
     await _followService.deleteFollower(user);
     rebuildUi();
   }

@@ -17,7 +17,6 @@ class SearchBarSavedRecipesScreen
             onEditingComplete: () => viewModel.rebuildUi(),
             onSubmitted: (value) => viewModel.rebuildUi(),
             onChanged: (value) => viewModel.rebuildUi(),
-            textAlign: TextAlign.start,
             decoration: InputDecoration(
               hintStyle: TextStyle(
                 color: kcBlackColor.withOpacity(0.6),

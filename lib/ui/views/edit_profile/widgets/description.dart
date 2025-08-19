@@ -14,14 +14,13 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   final Color? fillColor;
 
   const SemiRoundedTranpaentTextFieldBio({
-    super.key,
+    required this.labelText, super.key,
     this.validator,
     this.keyboardType,
     this.fillColor,
     this.inputFormatters,
     this.readOnly = false,
     this.controller,
-    required this.labelText,
     this.prefixIcon,
     this.postfixIcon,
   });
@@ -29,7 +28,7 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
-      readOnly: readOnly!,
+      readOnly: readOnly,
       labelText: '',
       validator: validator,
       keyboardType: keyboardType,

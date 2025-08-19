@@ -1,9 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:intl/intl.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_viewmodel.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:intl/intl.dart';
 
 class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
   const TimeSliderFilterScreen({super.key});
@@ -28,24 +28,21 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
                 globalTextStyle(fontSize: 12.sp, color: kcPrimaryColor),
           ),
           child: SfRangeSlider(
-            min: 0.0,
             onChangeEnd: (value) {
               viewModel.addTimeFilter();
             },
             max: 12.0,
             values: viewModel.values,
-            showLabels: false,
             interval: 6,
-            showTicks: false,
             stepSize: 1,
             activeColor: kcPrimaryColor,
             shouldAlwaysShowTooltip: true,
             tooltipTextFormatterCallback: (value, text) {
               if ((viewModel.values.end - viewModel.values.start) > 1) {
                 if (value == 0 || value == 1) {
-                  return "$text hr";
+                  return '$text hr';
                 }
-                return "$text hrs";
+                return '$text hrs';
               }
               return text;
             },

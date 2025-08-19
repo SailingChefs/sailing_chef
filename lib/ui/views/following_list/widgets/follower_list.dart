@@ -31,12 +31,10 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                       color: kcBlackColor,
                     )),
               ),
-              viewModel.searchController.text.isNotEmpty
-                  ? SearchList(
+              if (viewModel.searchController.text.isNotEmpty) SearchList(
                       users: viewModel.followersUsers,
                       isFromFollowingList: false,
-                    )
-                  : Container(
+                    ) else Container(
                       height: 500,
                       width: double.infinity,
                       child: ListView.builder(

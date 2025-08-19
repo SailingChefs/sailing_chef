@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
-import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
@@ -23,7 +22,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
               : ListView.builder(
                   itemCount: viewModel.courses.length,
                   itemBuilder: (context, index) {
-                    Course course = viewModel.courses[index];
+                    final course = viewModel.courses[index];
                     return Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

@@ -8,8 +8,8 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
 
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return viewModel.chefList.isEmpty
         ? Center(
@@ -54,7 +54,6 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                         ),
                         margin: EdgeInsets.only(right: 12.w, bottom: 8.h),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.only(

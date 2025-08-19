@@ -6,16 +6,14 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
-import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
-import 'recipe_list_page_viewmodel.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
   final bool isFromDraft;
   const RecipeListPageView({
-    Key? key,
-    required this.isFromDraft,
-  }) : super(key: key);
+    required this.isFromDraft, super.key,
+  });
 
   @override
   Widget builder(
@@ -54,7 +52,7 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
               : ListView.builder(
                   itemCount: viewModel.recipes.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final RecipeModel recipe = viewModel.recipes[index];
+                    final recipe = viewModel.recipes[index];
                     return GestureDetector(
                       onTap: () => viewModel.toDishDetailsScreen(recipe),
                       child: Padding(

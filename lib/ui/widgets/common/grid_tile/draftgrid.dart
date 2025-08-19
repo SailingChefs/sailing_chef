@@ -1,7 +1,7 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import 'grid_tile_model.dart';
+import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile_model.dart';
 
 class DraftGridTile extends StackedView<GridTileModel> {
   final String? foodImagePath;
@@ -10,11 +10,8 @@ class DraftGridTile extends StackedView<GridTileModel> {
   final String recipeId;
 
   const DraftGridTile({
-    super.key,
+    required this.dishName, required this.onTap, required this.recipeId, super.key,
     this.foodImagePath,
-    required this.dishName,
-    required this.onTap,
-    required this.recipeId,
   });
 
   @override

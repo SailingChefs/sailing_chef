@@ -1,8 +1,7 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../../../widgets/custom_textbtn.dart';
 
 class BottomDetailsOnboardingScreen
     extends ViewModelWidget<OnboardingViewModel> {
@@ -15,9 +14,7 @@ class BottomDetailsOnboardingScreen
         SmoothPageIndicator(
           controller: viewModel.pageController,
           count: 4,
-          axisDirection: Axis.horizontal,
           effect: SlideEffect(
-            spacing: 8.0,
             radius: 4.0,
             dotWidth: 9.0,
             dotHeight: 9.0,
@@ -39,7 +36,6 @@ class BottomDetailsOnboardingScreen
                     viewModel.tosignUp();
                   },
                   buttonText: 'sign up',
-                  fontWeight: FontWeight.w600,
                 ),
                 Container(
                   height: 1.0,
@@ -58,8 +54,8 @@ class BottomDetailsOnboardingScreen
 }
 
 double _getTextWidth(String text, TextStyle style) {
-  final TextPainter textPainter = TextPainter(
-    text: TextSpan(text: "$text   ", style: style),
+  final textPainter = TextPainter(
+    text: TextSpan(text: '$text   ', style: style),
     textDirection: TextDirection.ltr,
   )..layout();
   return textPainter.width;

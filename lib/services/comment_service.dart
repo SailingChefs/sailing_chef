@@ -1,31 +1,30 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 
-import '../ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
 
   List<CommentModel> comments = [];
-  getComments(String recipeId) async {
+  Future<void> getComments(String recipeId) async {
     comments = await fetchCommentsByRecipeId(recipeId);
 
     notifyListeners();
   }
 
-  clearComments() {
+  void clearComments() {
     comments.clear();
   }
 
   Future<bool> deleteComment(CommentModel comment) async {
-    bool deleted = await deleteCommentToFirestore(comment);
+    final deleted = await deleteCommentToFirestore(comment);
     return deleted;
   }
 
@@ -34,7 +33,7 @@ class CommentService with ListenableServiceMixin {
       EasyLoading.show();
 
       // Get a reference to the comments subcollection of the specified recipe ID
-      CollectionReference commentsCollection = firebasestore
+      final CollectionReference commentsCollection = firebasestore
           .collection('recipes')
           .doc(comment.recipeId)
           .collection('comments');
@@ -52,7 +51,7 @@ class CommentService with ListenableServiceMixin {
   }
 
   Future<bool> addComment(CommentModel comment) async {
-    bool uploaded = await addCommentToFirestore(comment);
+    final uploaded = await addCommentToFirestore(comment);
     if (!uploaded) {
       return false;
     }
@@ -91,14 +90,14 @@ class CommentService with ListenableServiceMixin {
       EasyLoading.show();
 
       // Get a reference to the comments subcollection of the specified recipe ID
-      CollectionReference commentsCollection = firebasestore
+      final CollectionReference commentsCollection = firebasestore
           .collection('recipes')
           .doc(comment.recipeId)
           .collection('comments');
 
       // Add the new comment to the comments subcollection
-      DocumentReference docRef = await commentsCollection.add(comment.toJson());
-      String commentId = docRef.id; // Get the docId
+      final docRef = await commentsCollection.add(comment.toJson());
+      final commentId = docRef.id; // Get the docId
       comment.id = commentId; // Update the commentId
 
       await docRef.update(
@@ -118,7 +117,7 @@ class CommentService with ListenableServiceMixin {
     try {
       EasyLoading.show();
 
-      DocumentReference commentDocRef = firebasestore
+      final DocumentReference commentDocRef = firebasestore
           .collection('recipes')
           .doc(comment.recipeId)
           .collection('comments')
@@ -138,7 +137,7 @@ class CommentService with ListenableServiceMixin {
   Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
     try {
       // Access the subcollection 'comments' within the specific 'recipe' document
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('recipes')
           .doc(recipeId)
           .collection('comments')
@@ -146,8 +145,8 @@ class CommentService with ListenableServiceMixin {
           .get();
 
       // Convert the querySnapshot documents to a list of CommentModel
-      List<CommentModel> comments = querySnapshot.docs
-          .map((doc) => CommentModel.fromSnapshot(doc))
+      final comments = querySnapshot.docs
+          .map(CommentModel.fromSnapshot)
           .toList();
 
       return comments;
@@ -158,17 +157,17 @@ class CommentService with ListenableServiceMixin {
   }
 
   Future<List<String>> uploadImagesToFirebase(List<File> images) async {
-    List<String> imageUrls = [];
+    final imageUrls = <String>[];
 
     try {
       EasyLoading.show();
-      for (var image in images) {
-        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-        Reference ref =
+      for (final image in images) {
+        final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        final ref =
             firebaseStorage.ref().child('images/comments/$fileName');
-        UploadTask uploadTask = ref.putFile(File(image.path));
-        TaskSnapshot taskSnapshot = await uploadTask;
-        String imageUrl = await taskSnapshot.ref.getDownloadURL();
+        final uploadTask = ref.putFile(File(image.path));
+        final taskSnapshot = await uploadTask;
+        final imageUrl = await taskSnapshot.ref.getDownloadURL();
         imageUrls.add(imageUrl);
       }
 

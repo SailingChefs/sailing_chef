@@ -26,15 +26,15 @@ class ChefService with ListenableServiceMixin {
         .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs
-            .map((doc) => UserModel.fromSnapshot(doc))
+            .map(UserModel.fromSnapshot)
             .toList());
   }
 
   Future<List<UserModel>> fetchChefDocuments() async {
-    List<UserModel> users = [];
+    final users = <UserModel>[];
 
     try {
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('users')
           .where(
             'user_role',
@@ -43,10 +43,10 @@ class ChefService with ListenableServiceMixin {
           .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
           // .orderBy('created_at', descending: true)
           .get();
-      for (var doc in querySnapshot.docs) {
+      for (final doc in querySnapshot.docs) {
         // UserModel? currUser = await _userService
         //     .fetchUserByUID(firebaseAuth.currentUser!.uid);
-        UserModel user = UserModel.fromSnapshot(doc);
+        final user = UserModel.fromSnapshot(doc);
 
         // int recipeCount = await FirebaseFirestore.instance
         //     .collection('recipes')
@@ -80,10 +80,10 @@ class ChefService with ListenableServiceMixin {
   }
 
   Future<List<UserModel>> fetchChefDishesDocuments(UserModel user) async {
-    List<UserModel> users = [];
+    final users = <UserModel>[];
 
     try {
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('recipes')
           .where(
             'uid',
@@ -92,8 +92,8 @@ class ChefService with ListenableServiceMixin {
           .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
           .get();
 
-      for (var doc in querySnapshot.docs) {
-        UserModel? currUser =
+      for (final doc in querySnapshot.docs) {
+        final currUser =
             await _userService.fetchUserByUID(firebaseAuth.currentUser!.uid);
         user = UserModel.fromSnapshot(doc);
         if (!currUser.blockedAccounts!.contains(user.uid)) {

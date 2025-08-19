@@ -34,7 +34,7 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
               if (value.isNotEmpty) {
                 viewModel.setLinkErrorMessage(viewModel.isLinkValid(value)
                     ? null
-                    : "Please enter a valid link");
+                    : 'Please enter a valid link');
               } else {
                 viewModel.setLinkErrorMessage(null);
               }

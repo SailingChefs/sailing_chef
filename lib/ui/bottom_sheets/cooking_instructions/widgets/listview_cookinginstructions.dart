@@ -1,7 +1,7 @@
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../cooking_instructions_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet_model.dart';
 
 class ListViewCookingInstructions
     extends ViewModelWidget<CookingInstructionsSheetModel> {
@@ -18,9 +18,8 @@ class ListViewCookingInstructions
           final instruction = viewModel.instructionsList[index];
           return Padding(
             padding: const EdgeInsets.only(
-                left: 25.0, right: 0, top: 15, bottom: 15),
+                left: 25.0, top: 15, bottom: 15),
             child: Align(
-              alignment: Alignment.center,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

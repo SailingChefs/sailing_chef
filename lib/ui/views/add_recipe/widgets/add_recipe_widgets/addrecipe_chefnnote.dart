@@ -39,7 +39,6 @@ class AddRecipeChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                     : viewModel.hasRecordedAudio && !viewModel.isRecording
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               IconButton(
                                 onPressed: viewModel.isPlaying
@@ -94,8 +93,6 @@ class AddRecipeChefsNote extends ViewModelWidget<AddRecipeViewModel> {
                             enableGesture: true,
                             waveStyle: WaveStyle(
                               waveColor: kcBlackColor.withOpacity(0.5),
-                              showDurationLabel: false,
-                              spacing: 8.0,
                               showBottom: false,
                               extendWaveform: true,
                               showMiddleLine: false,

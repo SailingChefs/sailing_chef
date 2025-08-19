@@ -1,12 +1,12 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/login/login_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_elevated_button.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import '../../widgets/custom_textbtn.dart';
-import 'login_viewmodel.dart';
 
 class LoginView extends StackedView<LoginViewModel> {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget builder(
@@ -136,7 +136,6 @@ class LoginView extends StackedView<LoginViewModel> {
                               buttonText: 'forgot password?',
                               fontWeight: FontWeight.w400,
                               fontSize: 14.sp,
-                              textColor: kcWhiteColor,
                             ),
                             verticalSpace(
                                 MediaQuery.of(context).size.height * 0.045),

@@ -1,13 +1,12 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 
-import 'share_recipe_to_sailing_cheff_user_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/share_recipe_to_sailing_cheff_user/share_recipe_to_sailing_cheff_user_viewmodel.dart';
 
 class ShareRecipeToSailingCheffUserView
     extends StackedView<ShareRecipeToSailingCheffUserViewModel> {
   final Uri link;
-  const ShareRecipeToSailingCheffUserView({required this.link, Key? key})
-      : super(key: key);
+  const ShareRecipeToSailingCheffUserView({required this.link, super.key});
 
   @override
   Widget builder(
@@ -39,7 +38,7 @@ class ShareRecipeToSailingCheffUserView
         ),
         centerTitle: true,
         title: Text(
-          "Share with S.C Users",
+          'Share with S.C Users',
           style: TextStyle(
               fontSize: 16.sp,
               color: Colors.white,
@@ -99,7 +98,7 @@ class ShareRecipeToSailingCheffUserView
     );
   }
 
-  showIndicator(BuildContext context) {
+  Future showIndicator(BuildContext context) {
     return showDialog(
         context: context,
         builder: (builder) {

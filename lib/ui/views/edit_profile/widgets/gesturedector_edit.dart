@@ -1,10 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-import '../edit_profile_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_viewmodel.dart';
 
 class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
   const GestureDetectorEdit(this.left, this.top, {super.key});
-  final double? left, top;
+  final double? left;
+  final double? top;
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return Positioned(

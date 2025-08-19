@@ -5,20 +5,19 @@ import 'dart:developer';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 
-import 'bottom_nav_bar_viewmodel.dart';
-
 class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   int? index;
 
-  BottomNavBarView({this.index, Key? key}) : super(key: key);
+  BottomNavBarView({this.index, super.key});
 
   @override
-  Widget builder(context, viewModel, child) {
+  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: index != null

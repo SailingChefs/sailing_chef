@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/dialogs/success/success_dialog_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'success_dialog_model.dart';
 
 const double _graphicSize = 60;
 
@@ -13,10 +12,8 @@ class SuccessDialog extends StackedView<SuccessDialogModel> {
   final Function(DialogResponse) completer;
 
   const SuccessDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(

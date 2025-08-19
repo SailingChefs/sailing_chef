@@ -2,10 +2,10 @@
 
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
-import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
 class ProfileDescriptionChefProfileScreen
     extends ViewModelWidget<ChefProfileViewModel> {
@@ -19,9 +19,7 @@ class ProfileDescriptionChefProfileScreen
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          user.displayName == null || user.displayName!.isEmpty
-              ? const SizedBox()
-              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (user.displayName == null || user.displayName!.isEmpty) const SizedBox() else Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   verticalSpaceSmall,
                   Text(
                     capitalizeEachWord(user.displayName!),
@@ -32,9 +30,7 @@ class ProfileDescriptionChefProfileScreen
                         color: kcBlackColor),
                   ),
                 ]),
-          user.namedLocation == null && user.boatName == null
-              ? Container()
-              : Text(
+          if (user.namedLocation == null && user.boatName == null) Container() else Text(
                   user.namedLocation == null
                       ? capitalizeEachWord(userDetails!.boatName!)
                       : user.boatName!.isEmpty
@@ -48,9 +44,7 @@ class ProfileDescriptionChefProfileScreen
                     color: kcBlackColor,
                   ),
                 ),
-          user.bio == null || user.bio!.isEmpty
-              ? const SizedBox()
-              : Column(
+          if (user.bio == null || user.bio!.isEmpty) const SizedBox() else Column(
                   children: [
                     verticalSpaceTiny,
                     Text(
@@ -65,9 +59,7 @@ class ProfileDescriptionChefProfileScreen
                   ],
                 ),
           verticalSpaceTiny,
-          user.link == null || user.link!.isEmpty
-              ? const SizedBox()
-              : Row(
+          if (user.link == null || user.link!.isEmpty) const SizedBox() else Row(
                   children: [
                     SvgPicture.asset(
                       'assets/images/icons/link.svg',

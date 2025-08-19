@@ -10,7 +10,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
   const ChatListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, viewModel) {
+  Widget build(BuildContext context, ChatListViewModel viewModel) {
     return StreamBuilder<List<ConversationModel>>(
         stream: viewModel.getConversation(),
         builder: (context, snapshot) {
@@ -31,17 +31,17 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                               physics: const ClampingScrollPhysics(),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                ConversationModel conversation =
+                                final conversation =
                                     snapshot.data![index];
 
-                                DateTime dateTime = DateTime.parse(
+                                final dateTime = DateTime.parse(
                                     conversation.latestMessageTime.toString());
-                                int hour = dateTime.hour;
-                                int minute = dateTime.minute;
+                                final hour = dateTime.hour;
+                                final minute = dateTime.minute;
 
-                                String period = (hour < 12) ? 'AM' : 'PM';
+                                final period = (hour < 12) ? 'AM' : 'PM';
 
-                                int hour12 = (hour > 12) ? (hour - 12) : hour;
+                                var hour12 = (hour > 12) ? (hour - 12) : hour;
                                 if (hour12 == 0) {
                                   hour12 = 12;
                                 }
@@ -72,7 +72,7 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                               ? Text(
                                                   conversation.latestMessage
                                                       .capitalize()
-                                                      .toString(),
+                                                      ,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   maxLines: 1,

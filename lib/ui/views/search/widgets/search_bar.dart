@@ -10,7 +10,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
   int? selectedTagsCount;
   SearchBarSearchScreen(this.selectedTagsCount,
-      {super.key, required this.recipes});
+      {required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -20,7 +20,6 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
           width: MediaQuery.sizeOf(context).width * 0.795,
           height: 40.dg,
           child: TextField(
-            textAlign: TextAlign.start,
             controller: viewModel.isRecipeSelected
                 ? viewModel.searchControllerRecipe
                 : viewModel.searchControllerChef,

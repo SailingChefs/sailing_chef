@@ -2,12 +2,12 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 
-import '../saved_recipe_details_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipe;
 
-  const Methods({super.key, required this.recipe});
+  const Methods({required this.recipe, super.key});
   List<Widget> createIngredientWidgets() {
     return [
       for (int i = 0; i < recipe.methods.length; i++)
@@ -59,7 +59,7 @@ class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Method",
+          'Method',
           style: globalTextStyle(
             fontSize: 15.0.sp,
             fontWeight: FontWeight.w700,

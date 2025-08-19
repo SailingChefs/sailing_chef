@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -12,10 +11,9 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/saved_recipe_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../profile_share/profile_share_view.dart';
 
 class ProfileViewModel extends ReactiveViewModel {
   bool isEdit = false;
@@ -71,7 +69,7 @@ class ProfileViewModel extends ReactiveViewModel {
   }
 
   Future<void> onClickUrl(String url) async {
-    Uri uri = Uri.parse(url);
+    var uri = Uri.parse(url);
 
     if (uri.scheme.isEmpty) {
       uri = Uri.parse('https:$url');
@@ -80,7 +78,7 @@ class ProfileViewModel extends ReactiveViewModel {
     await launchUrl(uri);
   }
 
-  void savedSelected() async {
+  Future<void> savedSelected() async {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -103,7 +101,6 @@ class ProfileViewModel extends ReactiveViewModel {
   void toSettings(BuildContext context) {
     _navigationService.navigateToSettingsView(
       transition: TransitionsBuilders.slideLeft,
-      preventDuplicates: true,
     );
 
     // Navigator.of(context).push(MaterialPageRoute(
@@ -120,10 +117,8 @@ class ProfileViewModel extends ReactiveViewModel {
     switch (index) {
       case 0:
         selectedTab = 'Myrecipes';
-        break;
       case 1:
         selectedTab = 'Saved';
-        break;
       default:
         break;
     }
@@ -136,7 +131,7 @@ class ProfileViewModel extends ReactiveViewModel {
       await _recipeService.initialized();
       return;
     } else if (RecipeService.recipes.isNotEmpty) {
-      for (var recipes in RecipeService.recipes) {
+      for (final recipes in RecipeService.recipes) {
         if (recipes.uid == userDetails!.uid) {
           myRecipes.add(recipes);
         }
@@ -170,7 +165,7 @@ class ProfileViewModel extends ReactiveViewModel {
     _navigationService.navigateToFilterView();
   }
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     setBusy(true);
     await myRecipesList();
 
@@ -205,7 +200,7 @@ class ProfileViewModel extends ReactiveViewModel {
           randomRecipeList: IndexViewModel.getRandomDishes(
               recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 0),
+      duration: const Duration(),
       transitionStyle: Transition.downToUp,
     );
   }

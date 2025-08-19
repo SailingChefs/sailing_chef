@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/ui/common/ui_helpers.dart';
+import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/becomechef/widgets/editdata.dart';
 import 'package:sailing_chefs/ui/views/becomechef/widgets/topbar_editprofile.dart';
 import 'package:stacked/stacked.dart';
 
-import 'becomechef_viewmodel.dart';
-import 'package:sailing_chefs/ui/common/ui_helpers.dart';
-
 class BecomechefView extends StackedView<BecomechefViewModel> {
-  const BecomechefView({Key? key}) : super(key: key);
+  const BecomechefView({super.key});
 
   @override
   Widget builder(

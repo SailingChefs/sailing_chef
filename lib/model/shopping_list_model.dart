@@ -1,5 +1,5 @@
-import 'ingredients_model.dart';
-import 'recipe_model.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
+import 'package:sailing_chefs/model/recipe_model.dart';
 
 class ShoppingListModel {
   final List<RecipeModel> selectedRecipees;

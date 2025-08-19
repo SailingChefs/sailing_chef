@@ -1,18 +1,15 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
-import '../../views/saved_recipe_details/widgets/text_field_comment.dart';
-import '../../widgets/bottom_sheet_btn.dart';
-import 'edit_ingredient_sheet_model.dart';
-import 'widgets/two_fields.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/widgets/two_fields.dart';
+import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/text_field_comment.dart';
+import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const EditIngredientSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
+    required this.completer, required this.request, super.key,
+  });
 
   @override
   Widget builder(
@@ -20,7 +17,7 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
     EditIngredientSheetModel viewModel,
     Widget? child,
   ) {
-    TextEditingController quantityController =
+    final quantityController =
         TextEditingController(text: request.data['ingredient'].quantity);
     // final TextEditingController quantityController;
     return Container(

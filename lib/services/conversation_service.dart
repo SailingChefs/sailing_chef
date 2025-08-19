@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/message_model.dart';
-import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:stacked/stacked.dart';
@@ -23,15 +21,15 @@ class ConversationService with ListenableServiceMixin {
     final CollectionReference conversationsCollection =
         firebasestore.collection('conversations');
 
-    String conversationId = ''; // Initialize with a default value
+    var conversationId = ''; // Initialize with a default value
 
     try {
       // Sort users to ensure consistent order for comparison
-      var sortedUsers = List<String>.from(conversation.users)..sort();
-      var participantsFilter = sortedUsers.join(",");
+      final sortedUsers = List<String>.from(conversation.users)..sort();
+      final participantsFilter = sortedUsers.join(',');
 
       // Check for existing conversation
-      QuerySnapshot existingConversations = await conversationsCollection
+      final existingConversations = await conversationsCollection
           .where('sortedParticipants', isEqualTo: participantsFilter)
           .limit(1)
           .get();
@@ -42,7 +40,7 @@ class ConversationService with ListenableServiceMixin {
         log('Existing conversation ID: $conversationId');
       } else {
         // No existing conversation found, create a new one
-        DocumentReference docRef = await conversationsCollection.add(conversation
+        final docRef = await conversationsCollection.add(conversation
             .toJson()
           ..['sortedParticipants'] =
               participantsFilter); // Include sorted list as a string for easier matching
@@ -67,12 +65,12 @@ class ConversationService with ListenableServiceMixin {
         .where('users', arrayContains: firebaseAuth.currentUser!.uid)
         .snapshots()
         .asyncMap((QuerySnapshot querySnapshot) async {
-      List<ConversationModel> conversations = [];
-      for (var doc in querySnapshot.docs) {
-        List<String> users = List<String>.from(doc.get('users'));
-        String otherUserId =
+      final conversations = <ConversationModel>[];
+      for (final doc in querySnapshot.docs) {
+        final users = List<String>.from(doc.get('users'));
+        final otherUserId =
             users.firstWhere((id) => id != firebaseAuth.currentUser!.uid);
-        UserModel? otherUser = await _userService.fetchUserByUID(otherUserId);
+        final otherUser = await _userService.fetchUserByUID(otherUserId);
         conversations.add(ConversationModel.fromDocument(doc, otherUser));
       }
       return conversations;
@@ -195,13 +193,13 @@ class ConversationService with ListenableServiceMixin {
 
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
-      Reference ref =
+      final ref =
           firebaseStorage.ref().child('conversationImages/$fileName');
 
-      UploadTask uploadTask = ref.putFile(imageFile);
+      final uploadTask = ref.putFile(imageFile);
 
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      final taskSnapshot = await uploadTask;
+      final downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       return downloadUrl;
     } catch (e) {
@@ -218,13 +216,13 @@ class ConversationService with ListenableServiceMixin {
           .collection('conversations')
           .doc(conversationId)
           .collection('messages');
-      final Query orderedQuery =
+      final orderedQuery =
           messagesCollection.orderBy('timestamp', descending: false);
 
       final snapshots = orderedQuery.snapshots();
 
       await for (final snapshot in snapshots) {
-        log("Loaded docs: ${snapshot.docs.length}");
+        log('Loaded docs: ${snapshot.docs.length}');
         final messages = List<MessageModel>.empty(growable: true);
 
         for (final doc in snapshot.docs) {

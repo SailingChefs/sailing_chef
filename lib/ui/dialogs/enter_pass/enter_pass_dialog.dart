@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/dialogs/enter_pass/enter_pass_dialog_model.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
-import 'enter_pass_dialog_model.dart';
 
 class EnterPassDialog extends StackedView<EnterPassDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
   const EnterPassDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
+    required this.request, required this.completer, super.key,
+  });
 
   @override
   Widget builder(
@@ -19,7 +17,7 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
     EnterPassDialogModel viewModel,
     Widget? child,
   ) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Material(
       type: MaterialType.transparency,
       child: Center(
@@ -40,7 +38,6 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
                 ),
               ]),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -78,7 +75,7 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
                 child: CupertinoButton(
                   onPressed: viewModel.vaigateToForgetPassword,
                   child: Text(
-                    "forgot password?",
+                    'forgot password?',
                     style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
@@ -91,7 +88,6 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
                   children: [
                     GestureDetector(
                       onTap: () {

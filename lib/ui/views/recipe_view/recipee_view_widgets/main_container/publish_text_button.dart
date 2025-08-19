@@ -7,7 +7,7 @@ class PublishTextButton extends ViewModelWidget<RecipeViewViewModel> {
   final RecipeModel recipe;
   final List<XFile?> selectedImages;
   const PublishTextButton(
-      {super.key, required this.recipe, required this.selectedImages});
+      {required this.recipe, required this.selectedImages, super.key});
 
   @override
   Widget build(BuildContext context, RecipeViewViewModel viewModel) {

@@ -2,10 +2,9 @@
 
 import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
+import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
-
-import '../../../../core/helpers/capitalize_first_fucntion.dart';
 
 class ProfileDescriptionProfileScreen
     extends ViewModelWidget<ProfileViewModel> {
@@ -29,9 +28,7 @@ class ProfileDescriptionProfileScreen
                 fontWeight: FontWeight.w700,
                 color: kcBlackColor),
           ),
-          userDetails!.userRole == 'guest'
-              ? Container()
-              : userDetails!.namedLocation == null &&
+          if (userDetails!.userRole == 'guest') Container() else userDetails!.namedLocation == null &&
                       userDetails!.boatName == null
                   ? Container()
                   : Text(
@@ -62,9 +59,7 @@ class ProfileDescriptionProfileScreen
             ),
           ),
           verticalSpace(8),
-          userDetails!.userRole == 'guest'
-              ? Container()
-              : userDetails!.link!.isEmpty
+          if (userDetails!.userRole == 'guest') Container() else userDetails!.link!.isEmpty
                   ? Container()
                   : Row(
                       children: [

@@ -8,13 +8,11 @@ class CustomVideoPlayer extends StatefulWidget {
   final String? url;
 
   const CustomVideoPlayer.file({
-    super.key,
-    required this.pathh,
+    required this.pathh, super.key,
   }) : url = null;
 
   const CustomVideoPlayer.network({
-    super.key,
-    required this.url,
+    required this.url, super.key,
   }) : pathh = null;
 
   @override
@@ -26,7 +24,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   late VideoPlayerController controller;
   late Future<void> futureController;
 
-  initVideo() {
+  void initVideo() {
     controller = widget.pathh != null
         ? VideoPlayerController.file(
             File(widget.pathh!),

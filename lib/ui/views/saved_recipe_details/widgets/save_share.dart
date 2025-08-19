@@ -7,14 +7,13 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipe;
   const SaveShare(
-      {super.key, required this.isFromPrivateProfile, required this.recipe});
+      {required this.isFromPrivateProfile, required this.recipe, super.key});
   final bool isFromPrivateProfile;
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     return Row(
       children: [
-        isFromPrivateProfile == false
-            ? GestureDetector(
+        if (!isFromPrivateProfile) GestureDetector(
                 onTap: () {
                   viewModel.showSocialIconsBottomSheet();
                 },
@@ -31,8 +30,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     size: 20.0.sp,
                   ),
                 ),
-              )
-            : GestureDetector(
+              ) else GestureDetector(
                 onTap: () {
                   showToast(
                       message: 'Long Tap to share This rceipe publically!');
@@ -55,8 +53,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 ),
               ),
         horizontalSpaceTiny,
-        recipe.user!.uid != userDetails!.uid
-            ? GestureDetector(
+        if (recipe.user!.uid != userDetails!.uid) GestureDetector(
                 onTap: () {
                   viewModel.thisRecipeSaved(
                     recipe,
@@ -81,8 +78,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                           size: 20.dg,
                         ),
                 ),
-              )
-            : Container(),
+              ) else Container(),
       ],
     );
   }

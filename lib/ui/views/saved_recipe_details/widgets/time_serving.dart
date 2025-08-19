@@ -5,7 +5,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 class TimeAndServingRecipeShow
     extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
-  const TimeAndServingRecipeShow({super.key, required this.recipeModel});
+  const TimeAndServingRecipeShow({required this.recipeModel, super.key});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {

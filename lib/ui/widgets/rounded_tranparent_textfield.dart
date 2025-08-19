@@ -61,21 +61,21 @@ class RoundedTransparentTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String close = 'assets/images/icons/eye_button_close.png';
-    Widget closeEye = Image.asset(
+    const close = 'assets/images/icons/eye_button_close.png';
+    final Widget closeEye = Image.asset(
       close,
       color: kcWhiteColor,
       width: 2.w,
       height: 6.h,
     );
-    String open = 'assets/images/icons/eye_button.png';
-    Widget openEye = Image.asset(
+    const open = 'assets/images/icons/eye_button.png';
+    final Widget openEye = Image.asset(
       open,
       color: kcBlackColor.withOpacity(0.4),
       width: 2.w,
       height: 6.h,
     );
-    List<TextInputFormatter>? inputFormattersList = inputFormatters ?? [];
+    final inputFormattersList = inputFormatters ?? [];
     if (maxLength != null) {
       inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
     }
@@ -86,8 +86,6 @@ class RoundedTransparentTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       focusNode: focsNode,
-      autocorrect: true,
-      enableSuggestions: true,
       keyboardType: keyboardType,
       textCapitalization: TextCapitalization.sentences,
       controller: controller,
@@ -151,7 +149,7 @@ class RoundedTransparentTextField extends StatelessWidget {
           vertical: 10.0,
           horizontal: 15.0,
         ),
-        prefixIcon: prefixIcon == true
+        prefixIcon: prefixIcon ?? false
             ? Icon(
                 prefixIconData,
                 color: editIconColor,
@@ -163,7 +161,7 @@ class RoundedTransparentTextField extends StatelessWidget {
                 ? null
                 : GestureDetector(
                     onTap: onVisibilityToggle,
-                    child: ispassvisible == true ? closeEye : openEye)),
+                    child: ispassvisible ?? false ? closeEye : openEye)),
       ),
     );
   }
