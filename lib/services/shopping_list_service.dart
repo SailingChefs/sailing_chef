@@ -35,7 +35,7 @@ class ShoppingListService with ListenableServiceMixin {
   //   }
   // }
 
-  clearAllShoppingList() {
+  void clearAllShoppingList() {
     shoppingList.clear();
     shoppingRecipeeIngredient.clear();
     recipeeDatails.clear();
@@ -44,12 +44,12 @@ class ShoppingListService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  addAllItemstoShoppingList({required RecipeModel recipee}) {
-    List<Ingredient> unSelectedIngredients = [];
-    List<Ingredient> selectedIngredients = [];
-    selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
-            ?["selected_ingredients"] as List<Ingredient>? ??
-        <Ingredient>[];
+  void addAllItemstoShoppingList({required RecipeModel recipee}) {
+    final unSelectedIngredients = <Ingredient>[];
+    var selectedIngredients = <Ingredient>[];
+    selectedIngredients =
+        shoppingRecipeeIngredient[recipee.docId]?['selected_ingredients'] as List<Ingredient>? ??
+            <Ingredient>[];
 
     if (selectedIngredients.isEmpty) {
       selectedIngredients.addAll(recipee.ingredients);
@@ -70,14 +70,14 @@ class ShoppingListService with ListenableServiceMixin {
     }
 
     shoppingRecipeeIngredient[recipee.docId!] = {
-      "selected_ingredients": selectedIngredients,
-      "unselected_ingredients": unSelectedIngredients,
+      'selected_ingredients': selectedIngredients,
+      'unselected_ingredients': unSelectedIngredients,
       'recipee_name': recipee.title,
     };
 
     showShoppingListview[recipee.title] = {
-      "selected_ingredients": selectedIngredients,
-      "unselected_ingredients": unSelectedIngredients,
+      'selected_ingredients': selectedIngredients,
+      'unselected_ingredients': unSelectedIngredients,
       'recipee_id': recipee.docId,
     };
 
@@ -88,9 +88,8 @@ class ShoppingListService with ListenableServiceMixin {
       {required RecipeModel recipee, required Ingredient ingredient}) {
     final allIngredients = recipee.ingredients;
 
-    List<Ingredient> selectedIngredients =
-        shoppingRecipeeIngredient[recipee.docId]?["selected_ingredients"]
-                as List<Ingredient>? ??
+    final selectedIngredients =
+        shoppingRecipeeIngredient[recipee.docId]?['selected_ingredients'] as List<Ingredient>? ??
             <Ingredient>[];
 
     if (selectedIngredients.contains(ingredient)) {
@@ -104,25 +103,25 @@ class ShoppingListService with ListenableServiceMixin {
     }).toList();
 
     shoppingRecipeeIngredient[recipee.docId!] = {
-      "selected_ingredients": selectedIngredients,
-      "unselected_ingredients": unSelectedIngredients,
+      'selected_ingredients': selectedIngredients,
+      'unselected_ingredients': unSelectedIngredients,
       'recipee_name': recipee.title,
     };
 
     showShoppingListview[recipee.title] = {
-      "selected_ingredients": selectedIngredients,
-      "unselected_ingredients": unSelectedIngredients,
+      'selected_ingredients': selectedIngredients,
+      'unselected_ingredients': unSelectedIngredients,
       'recipee_id': recipee.docId,
     };
 
     if (selectedIngredients.isEmpty) {
       // selectedRecipees.remove(recipee);
-      log("Slected Ingredient is empty");
+      log('Slected Ingredient is empty');
     } else if (!selectedRecipees.contains(recipee.title) &&
         selectedIngredients.contains(ingredient)) {
       selectedRecipees.contains(recipee) ? null : selectedRecipees.add(recipee);
     }
-    log("shoppingListIngredients : ${shoppingRecipeeIngredient.toString()}");
+    log('shoppingListIngredients : $shoppingRecipeeIngredient');
     notifyListeners();
   }
 
@@ -203,17 +202,16 @@ class ShoppingListService with ListenableServiceMixin {
     required RecipeModel recipee,
     required Ingredient ingredient,
   }) {
-    final selectedIngredients = showShoppingListview[recipee.title]
-            ?['selected_ingredients'] as List<Ingredient>? ??
-        [];
+    final selectedIngredients =
+        showShoppingListview[recipee.title]?['selected_ingredients'] as List<Ingredient>? ?? [];
     return selectedIngredients.contains(ingredient);
   }
 
   bool checkAllSelectedIngredients({
     required RecipeModel recipee,
   }) {
-    return shoppingRecipeeIngredient[recipee.docId!]?['unselected_ingredients']
-            .isEmpty ??
+    return (shoppingRecipeeIngredient[recipee.docId!]?['unselected_ingredients'] as List?)
+            ?.isEmpty ??
         false;
   }
   // ~
@@ -230,35 +228,32 @@ class ShoppingListService with ListenableServiceMixin {
   }
 
   Future<List<ShoppingItem>> getShoppingLists() async {
-    QuerySnapshot snapshot =
+    final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('shopping_list').get();
-    List<ShoppingItem> shoppingLists = snapshot.docs
-        .map((doc) => ShoppingItem.fromMap(doc.data() as Map<String, dynamic>))
+    final shoppingLists = snapshot.docs
+        .map((doc) => ShoppingItem.fromMap(doc.data()! as Map<String, dynamic>))
         .toList();
     return shoppingLists;
   }
 
   Future<List<ShoppingItem>> _fetchAll() async {
     try {
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('shopping_list')
           .where('user_id', isEqualTo: userDetails!.uid)
           .get();
-      List<ShoppingItem> list = querySnapshot.docs
-          .map((doc) => ShoppingItem.fromSnapshot(doc))
-          .toList();
+      final list = querySnapshot.docs.map(ShoppingItem.fromSnapshot).toList();
 
       return list;
     } catch (e, stackTrace) {
-      log("Issue While Fetching shoppingList :  ${stackTrace.toString()}");
+      log('Issue While Fetching shoppingList :  $stackTrace');
       return [];
     }
   }
 
   Future<void> saveShoppingList(ShoppingItem item) async {
     try {
-      final DocumentReference docRef =
-          FirebaseFirestore.instance.collection('shopping_list').doc();
+      final DocumentReference docRef = FirebaseFirestore.instance.collection('shopping_list').doc();
       item.id = docRef.id;
       await docRef.set(item.toJson());
       shoppingList.add(item);
@@ -269,37 +264,30 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
-  Future<void> addOrRemoveFromShoppingList(ShoppingItem item) async {
+  void addOrRemoveFromShoppingList(ShoppingItem item) {
     EasyLoading.show();
-    if (shoppingList
-        .any((element) => element.ingredientId == item.ingredientId)) {
-      ShoppingItem items = shoppingList
-          .where((element) => element.ingredientId == item.ingredientId)
-          .first;
+    if (shoppingList.any((element) => element.ingredientId == item.ingredientId)) {
+      final items =
+          shoppingList.where((element) => element.ingredientId == item.ingredientId).first;
       _removeFromShoppingList(items);
       notifyListeners();
       EasyLoading.dismiss();
-      return;
-    } else {
-      _saveShoppingList(item);
-      notifyListeners();
-      EasyLoading.dismiss();
-      return;
     }
+    _saveShoppingList(item);
+    notifyListeners();
+    EasyLoading.dismiss();
   }
 
-  Future<void> addOrRemoveAllFromShoppingList(
-      List<ShoppingItem> items, RecipeModel recipe) async {
+  void addOrRemoveAllFromShoppingList(List<ShoppingItem> items, RecipeModel recipe) {
     EasyLoading.show();
     if (checkShoppingListAll(recipe)) {
-      for (var element in shoppingList) {
+      for (final element in shoppingList) {
         _removeFromShoppingList(element);
       }
       EasyLoading.dismiss();
     } else {
-      for (var item in items) {
-        if (shoppingList
-                .any((element) => element.ingredientId == item.ingredientId) &&
+      for (final item in items) {
+        if (shoppingList.any((element) => element.ingredientId == item.ingredientId) &&
             item.recipeId == recipe.docId) {
         } else {
           _saveShoppingList(item);
@@ -309,18 +297,16 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
-  Future<void> addOrRemoveAllFromShopping(
-      List<ShoppingItem> items, ShoppingItem recipe) async {
+  void addOrRemoveAllFromShopping(List<ShoppingItem> items, ShoppingItem recipe) {
     EasyLoading.show();
     if (checkShoppingList(recipe)) {
-      for (var element in shoppingList) {
+      for (final element in shoppingList) {
         _removeFromShoppingList(element);
       }
       EasyLoading.dismiss();
     } else {
-      for (var item in items) {
-        if (shoppingList
-                .any((element) => element.ingredientId == item.ingredientId) &&
+      for (final item in items) {
+        if (shoppingList.any((element) => element.ingredientId == item.ingredientId) &&
             item.recipeId == recipe.recipeId) {
         } else {
           _saveShoppingList(item);
@@ -331,16 +317,12 @@ class ShoppingListService with ListenableServiceMixin {
   }
 
   bool checkShoppingListAll(RecipeModel recipeModel) {
-    return shoppingList
-            .where((element) => element.recipeId == recipeModel.docId)
-            .length ==
+    return shoppingList.where((element) => element.recipeId == recipeModel.docId).length ==
         recipeModel.ingredients.length;
   }
 
   bool checkShoppingList(ShoppingItem recipeModel) {
-    return shoppingList
-            .where((element) => element.recipeId == recipeModel.recipeId)
-            .length ==
+    return shoppingList.where((element) => element.recipeId == recipeModel.recipeId).length ==
         recipeModel;
   }
 
@@ -352,7 +334,7 @@ class ShoppingListService with ListenableServiceMixin {
 
       notifyListeners();
     } catch (e, stackTrace) {
-      log("Issue While removing :  ${stackTrace.toString()}");
+      log('Issue While removing :  $stackTrace');
     }
   }
 
@@ -368,30 +350,27 @@ class ShoppingListService with ListenableServiceMixin {
       shoppingList.add(item);
       notifyListeners();
     } catch (e, stackTrace) {
-      log("Issue While Saving  :  ${stackTrace.toString()}");
+      log('Issue While Saving  :  $stackTrace');
     }
   }
 
   Future<List<RecipeModel>> getRecipesWithShoppingListIngredients() async {
     try {
       // Get all ingredient IDs from the shopping list
-      List<String> ingredientIds =
-          shoppingList.map((item) => item.ingredientId).toList();
+      final ingredientIds = shoppingList.map((item) => item.ingredientId).toList();
 
       // Query the recipes collection where ingredients contain any of the ingredient IDs
-      QuerySnapshot querySnapshot = await firebasestore
+      final QuerySnapshot querySnapshot = await firebasestore
           .collection('recipes')
           .where('ingredientIds', arrayContainsAny: ingredientIds)
           .get();
 
       // Map the results to a list of RecipeModel
-      List<RecipeModel> recipes = querySnapshot.docs
-          .map((doc) => RecipeModel.fromSnapshot(doc))
-          .toList();
+      final recipes = querySnapshot.docs.map(RecipeModel.fromSnapshot).toList();
 
       return recipes;
     } catch (e, stackTrace) {
-      log("Issue While getRecipesWithShoppingListIngredients : ${stackTrace.toString()}");
+      log('Issue While getRecipesWithShoppingListIngredients : $stackTrace');
       return [];
     }
   }

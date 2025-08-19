@@ -6,8 +6,7 @@ import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
 import 'package:sailing_chefs/services/shopping_list_service.dart';
-
-import '../../../services/user_services.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 
 class ShoppingListViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
@@ -25,7 +24,7 @@ class ShoppingListViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [shoppingListService];
 
-  void onViewModelReady() async {
+  void onViewModelReady() {
     setBusy(true);
     // getAllShoppingList();
 
@@ -34,12 +33,12 @@ class ShoppingListViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  updateShoppingList() async {
+  Future<void> updateShoppingList() async {
     try {
       await userService.updateShoppingList();
     } catch (e, stackTrace) {
-      log("Failed to update shopping list in view model: $e");
-      log("StackTrace: $stackTrace");
+      log('Failed to update shopping list in view model: $e');
+      log('StackTrace: $stackTrace');
     }
   }
 
@@ -48,7 +47,7 @@ class ShoppingListViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  addRemoveAllIngredientsToShoppingList(RecipeModel recipee) {
+  void addRemoveAllIngredientsToShoppingList(RecipeModel recipee) {
     shoppingListService.addAllItemstoShoppingList(recipee: recipee);
     rebuildUi();
   }
@@ -84,17 +83,17 @@ class ShoppingListViewModel extends ReactiveViewModel {
     _navigationService.back();
   }
 
-  Future<void> removeRecipe(ShoppingItem shoppingList) async {
+  void removeRecipe(ShoppingItem shoppingList) {
     shoppingList.isRemoved = true;
     notifyListeners();
-    await shoppingListService.addOrRemoveFromShoppingList(shoppingList);
+    shoppingListService.addOrRemoveFromShoppingList(shoppingList);
     rebuildUi();
   }
 
-  Future<void> addAllItemsToCart(List<ShoppingItem> ingredients) async {
+  void addAllItemsToCart(List<ShoppingItem> ingredients) {
     localShoppingList.addAll(ingredients);
     notifyListeners();
-    await shoppingListService.addOrRemoveAllFromShoppingList(
+    shoppingListService.addOrRemoveAllFromShoppingList(
         ingredients,
         RecipeModel(
           docId: '',
@@ -120,9 +119,8 @@ class ShoppingListViewModel extends ReactiveViewModel {
   void addOneItemToCart(
       // ShoppingItem ingredient
       {required Ingredient ingredient,
-      required RecipeModel recipee}) async {
-    shoppingListService.addNewIngredienttoSHoppingList(
-        recipee: recipee, ingredient: ingredient);
+      required RecipeModel recipee}) {
+    shoppingListService.addNewIngredienttoSHoppingList(recipee: recipee, ingredient: ingredient);
 
     // if (!localShoppingList.contains(ingredient)) {
     //   isDeleted = false;

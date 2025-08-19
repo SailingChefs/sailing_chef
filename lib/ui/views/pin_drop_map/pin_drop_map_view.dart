@@ -1,16 +1,15 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/bottom_buttons.dart';
-import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/pin_detail_list.dart';
-import 'package:uuid/uuid.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/bottom_buttons.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/pin_detail_list.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/tags.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/topbar_search.dart';
-
-import 'pin_drop_map_viewmodel.dart';
-import 'widgets/tags.dart';
+import 'package:uuid/uuid.dart';
 
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
-  const PinDropMapView({Key? key}) : super(key: key);
+  const PinDropMapView({super.key});
 
   @override
   Widget builder(
@@ -18,7 +17,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
     PinDropMapViewModel viewModel,
     Widget? child,
   ) {
-    String markerId = const Uuid().v4();
+    final markerId = const Uuid().v4();
     return viewModel.isBusy
         ? const Center(
             child: CircularProgressIndicator(
@@ -41,7 +40,6 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                         children: [
                           GoogleMap(
                             onTap: (argument) => viewModel.onMapTap(),
-                            mapType: MapType.normal,
                             zoomControlsEnabled: false,
                             mapToolbarEnabled: false,
                             myLocationEnabled: true,
@@ -50,25 +48,25 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                             onCameraMove: (position) {
                               viewModel.onCameraMove(position);
                             },
-                            onCameraIdle: () async {
+                            onCameraIdle: () {
                               viewModel.showBottomSheet();
                             },
-                            initialCameraPosition:
-                                viewModel.initialCameraPosition!,
+                            initialCameraPosition: viewModel.initialCameraPosition!,
                             onMapCreated: (controller) {
                               viewModel.controllermap = controller;
                             },
                             markers: viewModel.allMarkers.values.toSet(),
                           ),
-                          viewModel.showMarker
-                              ? Center(
-                                  child: SvgPicture.asset(
-                                    'assets/images/misc/location.svg',
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                )
-                              : Container(),
+                          if (viewModel.showMarker)
+                            Center(
+                              child: SvgPicture.asset(
+                                'assets/images/misc/location.svg',
+                                height: 40,
+                                width: 40,
+                              ),
+                            )
+                          else
+                            Container(),
                         ],
                       ),
                     ),
@@ -100,32 +98,33 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                     ],
                   ),
                 ),
-                viewModel.showBottomButtons == true &&
-                        viewModel.showMarker == true
-                    ? const Positioned(
-                        bottom: 0,
-                        child: BottomButtonPinsDropView(
-                            // isNew: true,
-                            ),
-                      )
-                    : Container(),
-                viewModel.showList == true ||
-                        viewModel.totalFilters != 0 &&
-                            viewModel.allMarkers.isNotEmpty
-                    ? Positioned(
-                        bottom: 10,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 150,
-                          child: const PinDetailList(),
+                if (viewModel.showBottomButtons && viewModel.showMarker)
+                  const Positioned(
+                    bottom: 0,
+                    child: BottomButtonPinsDropView(
+                        // isNew: true,
                         ),
-                      )
-                    : Container(),
-                viewModel.isSelected
-                    ? Container()
-                    : TagsSelectionWidget(
-                        id: markerId,
-                      ),
+                  )
+                else
+                  Container(),
+                if (viewModel.showList ||
+                    viewModel.totalFilters != 0 && viewModel.allMarkers.isNotEmpty)
+                  Positioned(
+                    bottom: 10,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 150,
+                      child: const PinDetailList(),
+                    ),
+                  )
+                else
+                  Container(),
+                if (viewModel.isSelected)
+                  Container()
+                else
+                  TagsSelectionWidget(
+                    id: markerId,
+                  ),
               ],
             ),
           );
@@ -133,7 +132,7 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
 
   @override
   void onViewModelReady(PinDropMapViewModel viewModel) {
-    String markerId = const Uuid().v4();
+    final markerId = const Uuid().v4();
 
     viewModel.onViewModelReady(markerId);
     super.onViewModelReady(viewModel);
