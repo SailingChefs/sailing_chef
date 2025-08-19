@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +15,7 @@ import 'package:video_player/video_player.dart';
 class RecipeViewViewModel extends BaseViewModel {
   final bool isFromDraft;
 
-  PageController pageController = PageController(viewportFraction: 1.0);
+  PageController pageController = PageController();
   late final PlayerController playerController;
   late VideoPlayerController controller;
   final navigationService = locator<NavigationService>();
@@ -41,25 +42,27 @@ class RecipeViewViewModel extends BaseViewModel {
     this.prevImageUrls,
     this.newImageUrls,
     this.recipe, {
+    required this.isFromDraft,
     this.waveFormData,
     this.path,
-    required this.isFromDraft,
   });
 
   late int servings;
 
   String formattedDuration = '';
 
-  void onViewModelReady() async {
+  Future<void> onViewModelReady() async {
     isclicked = false;
     servings = recipe!.servingSize;
     setBusy(true);
-    playerController = PlayerController();
 
-    await playerController.preparePlayer(
-      path: path!,
-      volume: 100,
-    );
+    // TODO: Check recorded audio file
+    // playerController = PlayerController();
+
+    // await playerController.preparePlayer(
+    //   path: path!,
+    //   volume: 100,
+    // );
 
     await durationCalculate(File(path!));
 
@@ -111,10 +114,10 @@ class RecipeViewViewModel extends BaseViewModel {
       waveFormData =
           await playerController.extractWaveformData(path: path.path);
       if (waveFormData!.isNotEmpty) {
-        Duration duration = Duration(
+        final duration = Duration(
             milliseconds: await playerController.getDuration(DurationType.max));
-        int minutes = duration.inMinutes;
-        int seconds = duration.inSeconds % 60;
+        final minutes = duration.inMinutes;
+        final seconds = duration.inSeconds % 60;
         formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
       }
     }
@@ -126,21 +129,21 @@ class RecipeViewViewModel extends BaseViewModel {
     });
   }
 
-  void startListening() async {
-    log("start Listening ${isPlaying.toString()}");
+  Future<void> startListening() async {
+    log('start Listening $isPlaying');
     isPlaying = true;
     rebuildUi();
     playerController.onCurrentDurationChanged.listen((positionData) {
-      Duration position = Duration(milliseconds: positionData);
+      final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
     await playerController.setFinishMode(finishMode: FinishMode.pause);
 
-    log("start Listening ends ${isPlaying.toString()}");
+    log('start Listening ends $isPlaying');
     durationStop();
   }
 
-  void updateDuration(Duration position) async {
+  void updateDuration(Duration position) {
     if (position > Duration.zero) {
       formattedDuration =
           "${position.inMinutes}:${(position.inSeconds % 60).toString().padLeft(2, '0')}";
@@ -148,13 +151,13 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
-  void stopListening() async {
-    log("stop Listening ${isPlaying.toString()}");
+  Future<void> stopListening() async {
+    log('stop Listening $isPlaying');
     await playerController.pausePlayer();
     isPlaying = false;
     log(isPlaying.toString());
     rebuildUi();
-    log("stop Listening ends ${isPlaying.toString()}");
+    log('stop Listening ends $isPlaying');
   }
 
   void myIngredientsSelected() {
@@ -175,9 +178,10 @@ class RecipeViewViewModel extends BaseViewModel {
     navigationService.back();
   }
 
-  void saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
-    log("to Recipe List");
-    List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+  Future<void> saveRecipe(
+      RecipeModel recipe, List<XFile?> selectedImages) async {
+    log('to Recipe List');
+    final imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
     // String chefNote = '';
     // if (path!.isNotEmpty) {
@@ -185,7 +189,7 @@ class RecipeViewViewModel extends BaseViewModel {
     // }
 
     try {
-      log("serving size ${recipe.servingSize.toString()}");
+      log('serving size ${recipe.servingSize}');
       await _recipeService
           .addRecipeToFirestore(
         RecipeModel(
@@ -218,11 +222,11 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
-  void saveRecipeToPrivate(
+  Future<void> saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {
-    List<String> imageUrls = await _recipeService.uploadMediaToFirebase(
+    final imageUrls = await _recipeService.uploadMediaToFirebase(
         selectedImages, recipe.docId!);
-    String chefNote = '';
+    var chefNote = '';
     if (path!.isNotEmpty) {
       chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
     }
@@ -256,10 +260,8 @@ class RecipeViewViewModel extends BaseViewModel {
     switch (index) {
       case 0:
         selectedTab = 'Ingredients';
-        break;
       case 1:
         selectedTab = 'Method';
-        break;
 
       default:
         break;
@@ -291,7 +293,7 @@ class RecipeViewViewModel extends BaseViewModel {
     const duration = Duration(seconds: 3);
     _timer = Timer.periodic(duration, (Timer timer) {
       if (pageController.hasClients) {
-        int nextPage = pageController.page!.toInt() + 1;
+        var nextPage = pageController.page!.toInt() + 1;
         if (nextPage >= length) {
           nextPage = 0;
         }

@@ -51,7 +51,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                             onCameraIdle: () {
                               viewModel.showBottomSheet();
                             },
-                            initialCameraPosition: viewModel.initialCameraPosition!,
+                            initialCameraPosition:
+                                viewModel.initialCameraPosition!,
                             onMapCreated: (controller) {
                               viewModel.controllermap = controller;
                             },
@@ -108,7 +109,8 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                 else
                   Container(),
                 if (viewModel.showList ||
-                    viewModel.totalFilters != 0 && viewModel.allMarkers.isNotEmpty)
+                    viewModel.totalFilters != 0 &&
+                        viewModel.allMarkers.isNotEmpty)
                   Positioned(
                     bottom: 10,
                     child: SizedBox(

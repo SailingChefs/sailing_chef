@@ -15,12 +15,12 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return const Material(
+    return Material(
       elevation: 10,
       child: SafeArea(
         child: Scaffold(
-          // backgroundColor: Color.fromARGB(255, 0, 255, 234),
-          body: SingleChildScrollView(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: const SingleChildScrollView(
             child: Column(
               children: [
                 TopBarSettingsProfile(),

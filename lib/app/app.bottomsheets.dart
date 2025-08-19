@@ -46,7 +46,7 @@ void setupBottomSheetUi() {
     BottomSheetType.dropPinSheet: (context, request, completer) => DropPinSheetSheet(
           request: request,
           completer: completer,
-          isNew: false,
+          isNew: true,
         ),
     BottomSheetType.dropPinButtons: (context, request, completer) =>
         DropPinButtonsSheet(request: request, completer: completer),

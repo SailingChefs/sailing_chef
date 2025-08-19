@@ -56,7 +56,8 @@ class PinDropMapViewModel extends BaseViewModel {
   GoogleMapController? controllermap;
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_navigationpinService];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_navigationpinService];
 
   Future<void> onViewModelReady(String id) async {
     try {
@@ -136,7 +137,8 @@ class PinDropMapViewModel extends BaseViewModel {
       notifyListeners();
     } catch (e) {
       log('Error getting location: $e');
-      showErrorDialog('Could not get current location. Please check your location settings.');
+      showErrorDialog(
+          'Could not get current location. Please check your location settings.');
     }
   }
 
@@ -164,7 +166,8 @@ class PinDropMapViewModel extends BaseViewModel {
 
   LatLng? tapPosition;
 
-  Marker createMarker(String markerId, LatLng location, [bool isSelected = false]) {
+  Marker createMarker(String markerId, LatLng location,
+      [bool isSelected = false]) {
     final marker = Marker(
       markerId: MarkerId(markerId),
       position: location,
@@ -248,7 +251,8 @@ class PinDropMapViewModel extends BaseViewModel {
       );
 
       for (final pin in pins) {
-        addMarkers(pin.id ?? id, LatLng(pin.location.latitude, pin.location.longitude));
+        addMarkers(pin.id ?? id,
+            LatLng(pin.location.latitude, pin.location.longitude));
         pinnedLocation = pin;
       }
       notifyListeners();
@@ -277,7 +281,8 @@ class PinDropMapViewModel extends BaseViewModel {
       rebuildUi();
 
       for (final pin in filteredPin) {
-        addMarkers(pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
+        addMarkers(
+            pin.id!, LatLng(pin.location.latitude, pin.location.longitude));
         pinnedLocation = pin;
       }
 
@@ -317,17 +322,19 @@ class PinDropMapViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  Marker createMarkerwithTags(String markerId, LatLng location, [bool isSelected = false]) {
+  Marker createMarkerwithTags(String markerId, LatLng location,
+      [bool isSelected = false]) {
     final marker = Marker(
       markerId: MarkerId(markerId),
       draggable: true,
       position: location,
       onTap: () async {
-        final place = await getCityCountry(
-            pinnedLocation.location.latitude, pinnedLocation.location.longitude);
+        final place = await getCityCountry(pinnedLocation.location.latitude,
+            pinnedLocation.location.longitude);
 
         final pins = await _navigationpinService.getPinsUsingTags(
-            LatLng(currentPosition.latitude, currentPosition.longitude), tagTabSelections);
+            LatLng(currentPosition.latitude, currentPosition.longitude),
+            tagTabSelections);
 
         for (final pinInList in pins) {
           if (pinInList.location.latitude == location.latitude &&
@@ -402,7 +409,8 @@ class PinDropMapViewModel extends BaseViewModel {
 
       // Show pin details dialog after a short delay
       Future.delayed(const Duration(milliseconds: 500), () async {
-        final place = await getCityCountry(pin.location.latitude, pin.location.longitude);
+        final place =
+            await getCityCountry(pin.location.latitude, pin.location.longitude);
         _dialogService.showCustomDialog(
           variant: DialogType.pindetails,
           data: pin,
@@ -462,7 +470,8 @@ class PinDropMapViewModel extends BaseViewModel {
     if (currentCameraPosition != null) {
       final markerId = const Uuid().v4();
       final pinnedLocationData = PinnedLocationData(
-          LatLng(currentCameraPosition!.target.latitude, currentCameraPosition!.target.longitude),
+          LatLng(currentCameraPosition!.target.latitude,
+              currentCameraPosition!.target.longitude),
           isNew ? null : pinnedLocation);
 
       final res = await _bottomSheetService.showCustomSheet(
@@ -474,7 +483,8 @@ class PinDropMapViewModel extends BaseViewModel {
         // Only add marker and reset view if pin was successfully dropped
         addMarkers(
           markerId,
-          LatLng(currentCameraPosition!.target.latitude, currentCameraPosition!.target.longitude),
+          LatLng(currentCameraPosition!.target.latitude,
+              currentCameraPosition!.target.longitude),
         );
         showBottomButtons = false;
         showMarker = false;

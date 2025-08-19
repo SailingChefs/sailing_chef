@@ -107,16 +107,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                             searchBarRadius: 10.0,
 
-              onCountryChanged: (value) =>
-                viewModel.setCountryValue(value),
+                            onCountryChanged: (value) =>
+                                viewModel.setCountryValue(value),
 
                             ///triggers once state selected in dropdown
-              onStateChanged: (value) =>
-                viewModel.setStateValue(value ?? ''),
+                            onStateChanged: (value) =>
+                                viewModel.setStateValue(value ?? ''),
 
                             ///triggers once city selected in dropdown
-              onCityChanged: (value) =>
-                viewModel.setCityValue(value ?? ''),
+                            onCityChanged: (value) =>
+                                viewModel.setCityValue(value ?? ''),
                           ),
                         ],
                       )
@@ -200,16 +200,16 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                                 searchBarRadius: 10.0,
 
-                onCountryChanged: (value) =>
-                  viewModel.setCountryValue(value),
+                                onCountryChanged: (value) =>
+                                    viewModel.setCountryValue(value),
 
                                 ///triggers once state selected in dropdown
-                onStateChanged: (value) =>
-                  viewModel.setStateValue(value ?? ''),
+                                onStateChanged: (value) =>
+                                    viewModel.setStateValue(value ?? ''),
 
                                 ///triggers once city selected in dropdown
-                onCityChanged: (value) =>
-                  viewModel.setCityValue(value ?? ''),
+                                onCityChanged: (value) =>
+                                    viewModel.setCityValue(value ?? ''),
                               ),
                             ],
                           )

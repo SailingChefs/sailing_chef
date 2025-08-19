@@ -47,9 +47,9 @@ class ShoppingListService with ListenableServiceMixin {
   void addAllItemstoShoppingList({required RecipeModel recipee}) {
     final unSelectedIngredients = <Ingredient>[];
     var selectedIngredients = <Ingredient>[];
-    selectedIngredients =
-        shoppingRecipeeIngredient[recipee.docId]?['selected_ingredients'] as List<Ingredient>? ??
-            <Ingredient>[];
+    selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
+            ?['selected_ingredients'] as List<Ingredient>? ??
+        <Ingredient>[];
 
     if (selectedIngredients.isEmpty) {
       selectedIngredients.addAll(recipee.ingredients);
@@ -88,9 +88,9 @@ class ShoppingListService with ListenableServiceMixin {
       {required RecipeModel recipee, required Ingredient ingredient}) {
     final allIngredients = recipee.ingredients;
 
-    final selectedIngredients =
-        shoppingRecipeeIngredient[recipee.docId]?['selected_ingredients'] as List<Ingredient>? ??
-            <Ingredient>[];
+    final selectedIngredients = shoppingRecipeeIngredient[recipee.docId]
+            ?['selected_ingredients'] as List<Ingredient>? ??
+        <Ingredient>[];
 
     if (selectedIngredients.contains(ingredient)) {
       selectedIngredients.removeWhere((element) => element.id == ingredient.id);
@@ -202,15 +202,17 @@ class ShoppingListService with ListenableServiceMixin {
     required RecipeModel recipee,
     required Ingredient ingredient,
   }) {
-    final selectedIngredients =
-        showShoppingListview[recipee.title]?['selected_ingredients'] as List<Ingredient>? ?? [];
+    final selectedIngredients = showShoppingListview[recipee.title]
+            ?['selected_ingredients'] as List<Ingredient>? ??
+        [];
     return selectedIngredients.contains(ingredient);
   }
 
   bool checkAllSelectedIngredients({
     required RecipeModel recipee,
   }) {
-    return (shoppingRecipeeIngredient[recipee.docId!]?['unselected_ingredients'] as List?)
+    return (shoppingRecipeeIngredient[recipee.docId!]?['unselected_ingredients']
+                as List?)
             ?.isEmpty ??
         false;
   }
@@ -253,7 +255,8 @@ class ShoppingListService with ListenableServiceMixin {
 
   Future<void> saveShoppingList(ShoppingItem item) async {
     try {
-      final DocumentReference docRef = FirebaseFirestore.instance.collection('shopping_list').doc();
+      final DocumentReference docRef =
+          FirebaseFirestore.instance.collection('shopping_list').doc();
       item.id = docRef.id;
       await docRef.set(item.toJson());
       shoppingList.add(item);
@@ -266,9 +269,11 @@ class ShoppingListService with ListenableServiceMixin {
 
   void addOrRemoveFromShoppingList(ShoppingItem item) {
     EasyLoading.show();
-    if (shoppingList.any((element) => element.ingredientId == item.ingredientId)) {
-      final items =
-          shoppingList.where((element) => element.ingredientId == item.ingredientId).first;
+    if (shoppingList
+        .any((element) => element.ingredientId == item.ingredientId)) {
+      final items = shoppingList
+          .where((element) => element.ingredientId == item.ingredientId)
+          .first;
       _removeFromShoppingList(items);
       notifyListeners();
       EasyLoading.dismiss();
@@ -278,7 +283,8 @@ class ShoppingListService with ListenableServiceMixin {
     EasyLoading.dismiss();
   }
 
-  void addOrRemoveAllFromShoppingList(List<ShoppingItem> items, RecipeModel recipe) {
+  void addOrRemoveAllFromShoppingList(
+      List<ShoppingItem> items, RecipeModel recipe) {
     EasyLoading.show();
     if (checkShoppingListAll(recipe)) {
       for (final element in shoppingList) {
@@ -287,7 +293,8 @@ class ShoppingListService with ListenableServiceMixin {
       EasyLoading.dismiss();
     } else {
       for (final item in items) {
-        if (shoppingList.any((element) => element.ingredientId == item.ingredientId) &&
+        if (shoppingList
+                .any((element) => element.ingredientId == item.ingredientId) &&
             item.recipeId == recipe.docId) {
         } else {
           _saveShoppingList(item);
@@ -297,7 +304,8 @@ class ShoppingListService with ListenableServiceMixin {
     }
   }
 
-  void addOrRemoveAllFromShopping(List<ShoppingItem> items, ShoppingItem recipe) {
+  void addOrRemoveAllFromShopping(
+      List<ShoppingItem> items, ShoppingItem recipe) {
     EasyLoading.show();
     if (checkShoppingList(recipe)) {
       for (final element in shoppingList) {
@@ -306,7 +314,8 @@ class ShoppingListService with ListenableServiceMixin {
       EasyLoading.dismiss();
     } else {
       for (final item in items) {
-        if (shoppingList.any((element) => element.ingredientId == item.ingredientId) &&
+        if (shoppingList
+                .any((element) => element.ingredientId == item.ingredientId) &&
             item.recipeId == recipe.recipeId) {
         } else {
           _saveShoppingList(item);
@@ -317,12 +326,16 @@ class ShoppingListService with ListenableServiceMixin {
   }
 
   bool checkShoppingListAll(RecipeModel recipeModel) {
-    return shoppingList.where((element) => element.recipeId == recipeModel.docId).length ==
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.docId)
+            .length ==
         recipeModel.ingredients.length;
   }
 
   bool checkShoppingList(ShoppingItem recipeModel) {
-    return shoppingList.where((element) => element.recipeId == recipeModel.recipeId).length ==
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.recipeId)
+            .length ==
         recipeModel;
   }
 
@@ -357,7 +370,8 @@ class ShoppingListService with ListenableServiceMixin {
   Future<List<RecipeModel>> getRecipesWithShoppingListIngredients() async {
     try {
       // Get all ingredient IDs from the shopping list
-      final ingredientIds = shoppingList.map((item) => item.ingredientId).toList();
+      final ingredientIds =
+          shoppingList.map((item) => item.ingredientId).toList();
 
       // Query the recipes collection where ingredients contain any of the ingredient IDs
       final QuerySnapshot querySnapshot = await firebasestore

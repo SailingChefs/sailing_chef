@@ -1,8 +1,7 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-
-import '../onboarding/onboarding_view.dart';
+import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -51,7 +50,7 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToPrivacyPolicyView();
   }
 
-  void signOutUser() async {
+  Future<void> signOutUser() async {
     await _authService.signOut();
     _navigationService.clearStackAndShowView(const OnboardingView());
   }
@@ -66,5 +65,9 @@ class SettingsViewModel extends BaseViewModel {
 
   void sendFeedback() {
     _navigationService.navigateToFeedbackView();
+  }
+
+  void getAdmin() {
+    _navigationService.navigateToAdminView();
   }
 }

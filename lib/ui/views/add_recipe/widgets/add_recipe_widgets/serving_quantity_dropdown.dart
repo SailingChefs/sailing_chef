@@ -13,14 +13,26 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Serving',
-          style: globalTextStyle(
-            fontSize: 14.sp,
-            letterSpacing: -0.5,
-            fontWeight: FontWeight.w600,
-            color: kcBlackColor,
-          ),
+        Row(
+          children: [
+            Text(
+              'Serving',
+              style: globalTextStyle(
+                fontSize: 14.sp,
+                letterSpacing: -0.5,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor,
+              ),
+            ),
+            horizontalSpaceTiny,
+            Text(
+              '*',
+              style: globalTextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: kcErrorColor),
+            ),
+          ],
         ),
         verticalSpaceSmall,
         Container(
@@ -43,7 +55,6 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                     return null;
                   },
                   controller: viewModel.servingSize,
-                  autofocus: false,
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
                   focusNode: _focusNode,

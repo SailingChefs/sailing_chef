@@ -23,27 +23,22 @@ class EditProfileViewModel extends BaseViewModel {
   final ImagePicker picker = ImagePicker();
   File? selectedImageFile;
   String? selectedImagePath;
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
+  String countryValue = '';
+  String stateValue = '';
+  String cityValue = '';
   String? address;
   bool isChange = false;
-  void onViewModelReady() async {
+  void onViewModelReady() {
     setBusy(true);
 
-    nameController.text =
-        userDetails!.displayName == null ? '' : userDetails!.displayName!;
-    emailController.text =
-        userDetails!.email == null ? '' : userDetails!.email!;
+    nameController.text = userDetails!.displayName == null ? '' : userDetails!.displayName!;
+    emailController.text = userDetails!.email == null ? '' : userDetails!.email!;
     linkController.text = userDetails!.link == null ? '' : userDetails!.link!;
     bioController.text = userDetails!.bio == null ? '' : userDetails!.bio!;
-    location.text =
-        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
-    address =
-        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    location.text = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    address = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
 
-    boatController.text =
-        userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
     log(boatController.text);
 
     setBusy(false);
@@ -106,7 +101,7 @@ class EditProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  getBack() {
+  void getBack() {
     _navigationService.back();
   }
 
@@ -136,31 +131,30 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  void saveEditDetailsCullinary() async {
+  Future<void> saveEditDetailsCullinary() async {
     log('Iam here');
     // address = '$cityValue,$stateValue,$countryValue';
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
-        selectedImageFile as File,
+        selectedImageFile!,
         selectedImageFile!.path.split('/').last,
       );
 
-      log(imageLink.toString());
-      Map<String, dynamic> userData = {
+      log(imageLink);
+      final userData = <String, dynamic>{
         'display_picture': imageLink,
         'display_name': nameController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'address': address
       };
-      await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
       _navigationService.navigateToBottomNavBarView();
       notifyListeners();
     } else {
-      Map<String, dynamic> userData = {
+      final userData = <String, dynamic>{
         'display_name': nameController.text,
         'link': linkController.text,
         'bio': bioController.text,
@@ -176,18 +170,18 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  void saveEditDetailsChef() async {
+  Future<void> saveEditDetailsChef() async {
     // address = '$cityValue,$stateValue,$countryValue';
 
     log('Iam here');
     if (selectedImageFile != null) {
       await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
       final imageLink = await _userService.uploadImage(
-        selectedImageFile as File,
+        selectedImageFile!,
         selectedImageFile!.path.split('/').last,
       );
 
-      Map<String, dynamic> userData = {
+      final userData = <String, dynamic>{
         'display_picture': imageLink,
         'display_name': nameController.text,
         'link': linkController.text,
@@ -195,52 +189,47 @@ class EditProfileViewModel extends BaseViewModel {
         'boat_name': boatController.text,
         'address': address,
       };
-      await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
       _navigationService.navigateToBottomNavBarView();
     } else {
-      Map<String, dynamic> userData = {
+      final userData = <String, dynamic>{
         'display_name': nameController.text,
         'link': linkController.text,
         'bio': bioController.text,
         'boat_name': boatController.text,
         'address': address,
       };
-      await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails = await _userService.getUserDetails();
       _navigationService.navigateToBottomNavBarView();
     }
   }
 
-  void saveEditDetailsGuest(String name, String bio) async {
+  Future<void> saveEditDetailsGuest(String name, String bio) async {
     if (formKey.currentState!.validate()) {
       if (selectedImageFile != null) {
-        await userDataService
-            .deleteFileFromStorage(userDetails!.displayPicture!);
+        await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
         final imageLink = await _userService.uploadImage(
-          selectedImageFile as File,
+          selectedImageFile!,
           selectedImageFile!.path.split('/').last,
         );
-        Map<String, dynamic> userData = {
+        final userData = <String, dynamic>{
           'display_picture': imageLink,
           'display_name': name,
           'bio': bio,
         };
-        await userDataService.storeUserDetails(
-            userData, FirebaseAuth.instance.currentUser!.uid);
+        await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
         userDetails = await _userService.getUserDetails();
         _navigationService.navigateToBottomNavBarView();
         notifyListeners();
       }
     } else {
-      Map<String, dynamic> userData = {
+      final userData = <String, dynamic>{
         'display_name': name,
         'bio': bio,
       };
-      await userDataService.storeUserDetails(
-          userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
       _navigationService.navigateToBottomNavBarView();
     }
   }

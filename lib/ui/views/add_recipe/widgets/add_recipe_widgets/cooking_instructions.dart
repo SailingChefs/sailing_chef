@@ -35,114 +35,79 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
           ],
         ),
         verticalSpaceSmall,
-        viewModel.methodsList.isNotEmpty
-            ? Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: viewModel.methodsList.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      final instruction = viewModel.methodsList[index];
-                      return Padding(
-                        padding: EdgeInsets.only(top: 5.0.h, bottom: 5.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 0.68,
-                              decoration: BoxDecoration(
-                                color: kcPrimaryColor.withOpacity(0.07),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(30)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
-                                  instruction.capitalize(),
-                                  style: globalTextStyle(
-                                    fontSize: 12.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: kcBlackColor.withOpacity(0.5),
-                                  ),
-                                ),
+        if (viewModel.methodsList.isNotEmpty)
+          Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: viewModel.methodsList.length,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  final instruction = viewModel.methodsList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(top: 5.0.h, bottom: 5.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.68,
+                          decoration: BoxDecoration(
+                            color: kcPrimaryColor.withOpacity(0.07),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              instruction.capitalize(),
+                              style: globalTextStyle(
+                                fontSize: 12.sp,
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w600,
+                                color: kcBlackColor.withOpacity(0.5),
                               ),
                             ),
-                            horizontalSpaceTiny,
-                            GestureDetector(
-                              onTap: () {
-                                // viewModel.ingredientsList.removeAt(index);
-                                // viewModel.notifyListeners();
-                                viewModel.editIngredient(
-                                    viewModel.ingredientsList[index], index);
-                              },
-                              child: SvgPicture.asset(
-                                'assets/images/misc/edit.svg',
-                                height: 20,
-                              ),
-                            ),
-                            horizontalSpaceSmall,
-                            GestureDetector(
-                              onTap: () {
-                                viewModel.deleteMethod(index);
-                              },
-                              child: SvgPicture.asset(
-                                'assets/images/misc/bin.svg',
-                                height: 16.h,
-                                width: 14.w,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                  verticalSpaceTiny,
-                  GestureDetector(
-                    onTap: () {
-                      // viewModel.callCookingInstructionBottomSheet();
-                      List<String> methods = viewModel.methodsList;
-                      viewModel.addMethods(methods);
-                    },
-                    child: Container(
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: kcPrimaryColor.withOpacity(0.07),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.add,
-                            color: kcBlackColor.withOpacity(0.5),
-                            size: 22.0.dg,
+                        horizontalSpaceTiny,
+                        GestureDetector(
+                          onTap: () {
+                            // viewModel.ingredientsList.removeAt(index);
+                            // viewModel.notifyListeners();
+                            viewModel.editIngredient(
+                                viewModel.ingredientsList[index], index);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/misc/edit.svg',
+                            height: 20,
                           ),
-                          horizontalSpaceSmall,
-                          Text(
-                            'Add one or multiple steps',
-                            style: globalTextStyle(
-                              fontSize: 12.sp,
-                              letterSpacing: -0.5,
-                              fontWeight: FontWeight.w600,
-                              color: kcBlackColor.withOpacity(0.5),
-                            ),
+                        ),
+                        horizontalSpaceSmall,
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.deleteMethod(index);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/misc/bin.svg',
+                            height: 16.h,
+                            width: 14.w,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              )
-            : GestureDetector(
+                  );
+                },
+              ),
+              verticalSpaceTiny,
+              GestureDetector(
                 onTap: () {
-                  viewModel.callCookingInstructionBottomSheet();
+                  // viewModel.callCookingInstructionBottomSheet();
+                  final methods = viewModel.methodsList;
+                  viewModel.addMethods(methods);
                 },
                 child: Container(
+                  height: 50,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
@@ -151,13 +116,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                   ),
                   child: Row(
                     children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add,
-                            color: kcBlackColor.withOpacity(0.5),
-                            size: 22.0.dg,
-                          )),
+                      Icon(
+                        Icons.add,
+                        color: kcBlackColor.withOpacity(0.5),
+                        size: 22.0.dg,
+                      ),
                       horizontalSpaceSmall,
                       Text(
                         'Add one or multiple steps',
@@ -172,6 +135,42 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                   ),
                 ),
               ),
+            ],
+          )
+        else
+          GestureDetector(
+            onTap: () {
+              viewModel.callCookingInstructionBottomSheet();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: kcPrimaryColor.withOpacity(0.07),
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add,
+                        color: kcBlackColor.withOpacity(0.5),
+                        size: 22.0.dg,
+                      )),
+                  horizontalSpaceSmall,
+                  Text(
+                    'Add one or multiple steps',
+                    style: globalTextStyle(
+                      fontSize: 12.sp,
+                      letterSpacing: -0.5,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
       ],
     );
   }
