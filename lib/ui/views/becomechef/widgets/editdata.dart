@@ -1,4 +1,4 @@
-import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/primarycolor_rounded_elevated_button.dart';
@@ -9,7 +9,6 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
   @override
   Widget build(BuildContext context, BecomechefViewModel viewModel) {
-
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -31,7 +30,7 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                       suffixIcon: false,
                       labelText: 'Boat Name'),
                   verticalSpaceMedium,
-                  CSCPicker(
+                  CSCPickerPlus(
                     showStates: true,
 
                     showCities: true,
@@ -39,16 +38,14 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
                     flagState: CountryFlag.DISABLE,
 
                     dropdownDecoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: kcPrimaryColor.withOpacity(0.09),
-                       ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      color: kcPrimaryColor.withOpacity(0.09),
+                    ),
 
                     disabledDropdownDecoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: kcPrimaryColor.withOpacity(0.09),
-                       ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      color: kcPrimaryColor.withOpacity(0.09),
+                    ),
 
                     ///placeholders for dropdown search field
                     countrySearchPlaceholder: "Country",
@@ -68,34 +65,36 @@ class BecomeChefForm extends ViewModelWidget<BecomechefViewModel> {
 
                     ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                     dropdownHeadingStyle: globalTextStyle(
-                        color: kcBlackColor.withOpacity(0.6),
-                        fontSize: 14.sp,
-                       fontWeight: FontWeight.w500,),
+                      color: kcBlackColor.withOpacity(0.6),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
 
                     ///DropdownDialog Item style [OPTIONAL PARAMETER]
                     dropdownItemStyle: globalTextStyle(
                       color: kcBlackColor.withOpacity(0.6),
-                        fontSize: 14.sp,
-                       fontWeight: FontWeight.w500,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
 
                     dropdownDialogRadius: 10.0,
 
                     searchBarRadius: 10.0,
 
-                    onCountryChanged: (value) =>
-                        viewModel.setCountryValue(value.toString()),
+          onCountryChanged: (value) =>
+            viewModel.setCountryValue(value),
 
                     ///triggers once state selected in dropdown
-                    onStateChanged: (value) =>
-                        viewModel.setStateValue(value.toString()),
+          onStateChanged: (value) =>
+            viewModel.setStateValue(value ?? ''),
 
                     ///triggers once city selected in dropdown
-                    onCityChanged: (value) =>
-                        viewModel.setCityValue(value.toString()),
+          onCityChanged: (value) =>
+            viewModel.setCityValue(value ?? ''),
                   ),
                   verticalSpaceMedium,
                   PrimaryColorRoundedElevatedButton(
+                    100.w,
                     onPressed: () {
                       viewModel.saveEditDetails();
                     },

@@ -1,6 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
-platform :ios, '11.0'
+platform :ios, '14.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -32,7 +31,16 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  pod 'FirebaseFirestore',
+    :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git',
+    :tag => '11.15.0'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # Add Google Maps SDK
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+
   target 'RunnerTests' do
     inherit! :search_paths
   end
@@ -41,5 +49,23 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Ensure the frameworks are correctly linked
+    if ['GoogleMaps', 'Google-Maps-iOS-Utils'].include? target.name
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = '5.0'
+      end
+    end
+
+    # Modify this block to set the xcconfig path directly
+    if target.name == 'Runner'
+      target.build_configurations.each do |config|
+        xcconfig_path = 'Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig'
+        config.build_settings['CONFIGURATION_FILE'] = xcconfig_path
+      end
+    end
   end
 end
+
+
+

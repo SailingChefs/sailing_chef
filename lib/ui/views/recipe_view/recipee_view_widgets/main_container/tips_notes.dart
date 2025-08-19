@@ -13,12 +13,12 @@ class TipsNotes extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Tips & Notes',
-               style: globalTextStyle(
-            fontSize: 15.0.sp,
-            fontWeight: FontWeight.w700,
-            color: kcBlackColor,
-          ),
+                'Recipe Tags',
+                style: globalTextStyle(
+                  fontSize: 15.0.sp,
+                  fontWeight: FontWeight.w700,
+                  color: kcBlackColor,
+                ),
               ),
               verticalSpaceMedium,
               SizedBox(

@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:sailing_chefs/app/app.locator.dart';
-import 'package:sailing_chefs/app/app.router.dart';
+// ignore_for_file: deprecated_member_use
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+
+import '../../common/show_toast.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final _nameController = TextEditingController();
@@ -22,9 +21,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   TextEditingController get textController => _nameController;
-
   TextEditingController get passwordController => _passwordController;
-
   TextEditingController get emailController => _emailController;
 
   final _navigationService = locator<NavigationService>();
@@ -66,23 +63,28 @@ class SignUpViewModel extends BaseViewModel {
 
   void signup() async {
     if (formKey.currentState?.validate() ?? false) {
+      if (selectedSignUpAs.isEmpty) {
+        showToast(message: 'Please Select a role');
+        return;
+      }
+      UserModel signupUser = UserModel(
+        displayName: textController.text.trim(),
+        email: emailController.text.trim(),
+        userRole: selectedSignUpAs,
+        uid: '',
+        bio: '',
+        boatName: '',
+        createdTime: DateTime.now(),
+        displayPicture: '',
+        followers: [],
+        following: [],
+        link: '',
+        savedRecipes: [],
+        blockedAccounts: [],
+      );
       bool userRegistered = await _authService.signUp(
-          password: passwordController.text.trim(),
-          userModel: UserModel(
-            displayName: textController.text.trim(),
-            email: emailController.text.trim(),
-            userRole: selectedSignUpAs,
-            uid: '',
-            bio: '',
-            boatName: '',
-            createdTime: DateTime.now(),
-            displayPicture: '',
-            followers: [],
-            following: [],
-            link: '',
-            savedRecipes: [],
-            blockedAccounts: [],
-          ));
+          password: passwordController.text.trim(), userModel: signupUser);
+
       if (userRegistered) {
         _navigationService.replaceWithUserDetailsView(
             userRole: selectedSignUpAs);
@@ -103,7 +105,7 @@ class SignUpViewModel extends BaseViewModel {
     _navigationService.replaceWithLoginView();
   }
 
-  String selectedSignUpAs = 'guest';
+  String selectedSignUpAs = '';
 
   void handleSignUpAs(int index) {
     switch (index) {

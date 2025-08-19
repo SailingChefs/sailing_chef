@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/widgets/profile_description.dart';
@@ -21,7 +24,6 @@ class ProfileView extends StackedView<ProfileViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarProfileScreen(),
@@ -29,38 +31,36 @@ class ProfileView extends StackedView<ProfileViewModel> {
           padding: const EdgeInsets.only(
             left: 15.0,
             right: 15.0,
-           top: 30
           ),
           child: SingleChildScrollView(
             controller: viewModel.scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
                 verticalSpace(MediaQuery.of(context).size.height * 0.04),
                 userDetails!.userRole == 'guest'
                     ? Container()
                     : FittedBox(
-                      child: Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const TabBarProfileScreen(),
                             IconButton(
                               onPressed: viewModel.toFilterView,
-                              icon: Icon(
-                                FlutterRemix.equalizer_line,
+                              icon: SvgPicture.asset(
+                                'assets/images/misc/equilizer.svg',
                                 color: filterIconColor,
-                                size: 25.sp,
+                                width: 30.dg,
+                                height: 30.dg,
                               ),
-
                             ),
                           ],
                         ),
-                    ),
-                userDetails!.userRole == 'guest' 
+                      ),
+                userDetails!.userRole == 'guest'
                     ? Column(
                         children: [
                           const SavedGuestButton(),
@@ -74,7 +74,9 @@ class ProfileView extends StackedView<ProfileViewModel> {
                         ? const ShimmerLoaderChefView()
                         : Column(
                             children: [
-                                viewModel.myRecipes.isEmpty ? const SizedBox() : verticalSpaceMedium,
+                              viewModel.myRecipes.isEmpty
+                                  ? const SizedBox()
+                                  : verticalSpaceMedium,
                               viewModel.isMySelected
                                   ? const MyRecipesProfileScreen()
                                   : const SavedProfileScreen(),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
@@ -8,7 +9,7 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_followin
 class FollowerList extends ViewModelWidget<FollowingListViewModel> {
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
-    return viewModel.followers.isEmpty
+    return viewModel.followersUsers.isEmpty
         ? Column(
             children: [
               verticalSpaceMassive,
@@ -47,8 +48,9 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   viewModel.followersUsers[index]);
                             },
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                viewModel.followersUsers[index].displayPicture!,
+                              backgroundImage:
+                                  ImageUtils.safeNetworkImageForAvatar(
+                                viewModel.followersUsers[index].displayPicture,
                               ),
                             ),
                             title: Text(
@@ -59,32 +61,6 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                                   fontWeight: FontWeight.w600,
                                   color: kcBlackColor,
                                 )),
-                            // trailing: SizedBox(
-                            //   width: 80.w,
-                            //   height: 34.h,
-                            //   child: TextButton(
-                            //     style: ButtonStyle(
-                            //       shape: MaterialStatePropertyAll(
-                            //           RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       )),
-                            //       backgroundColor:
-                            //           MaterialStateProperty.all<Color>(
-                            //               kcPrimaryColor),
-                            //     ),
-                            //     onPressed: () {
-                            //       viewModel.deleteFollower(
-                            //           viewModel.followersUsers[index]);
-                            //     },
-                            //     child: Text(
-                            //       'Remove',
-                            //       style: TextStyle(
-                            //           color: kcwhitecolor,
-                            //           fontSize: 14.sp,
-                            //           fontWeight: FontWeight.w500),
-                            //     ),
-                            //   ),
-                            // ),
                           );
                         },
                       ),

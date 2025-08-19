@@ -21,8 +21,15 @@ class TagsSheet extends StackedView<TagsSheetModel> {
     TagsSheetModel viewModel,
     Widget? child,
   ) {
+    // Set the initial selected tags
+    if (!viewModel.initialTagsSet) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewModel.setInitialSelectedTags(request.data['savedTags']);
+        viewModel.initialTagsSet = true;
+      });
+    }
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
         color: kcWhiteColor,
@@ -36,21 +43,21 @@ class TagsSheet extends StackedView<TagsSheetModel> {
           SingleChildScrollView(
             child: Column(
               children: [
-                verticalSpaceLarge,
-                const CourseTabBarFilerSheet(),
+                // verticalSpaceLarge,
                 verticalSpaceSmall,
-                const CategoryTabsFilterSheet(),
+                CourseTabBarFilerSheet(),
                 verticalSpaceSmall,
-                const DietaryNeedTabsFilterSheet(),
-                verticalSpaceMassive,
+                CategoryTabsFilterSheet(),
+                verticalSpaceSmall,
+                DietaryNeedTabsFilterSheet(),
+                // verticalSpaceLarge,
+                verticalSpaceSmall,
+                BottomButtonsTagsSheet(
+                  completer: completer!,
+                )
               ],
             ),
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: BottomButtonsTagsSheet(
-                completer: completer!,
-              )),
         ],
       ),
     );

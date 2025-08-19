@@ -1,5 +1,5 @@
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'blocked_accounts_viewmodel.dart';
 
 class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
@@ -15,20 +15,29 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
   ) {
     Size size = MediaQuery.of(context).size;
     return viewModel.isBusy
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(
+            color: kcPrimaryColor,
+          ))
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
             appBar: AppBar(
-              leadingWidth: 70,
               leading: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
-                child:   GestureDetector(
-
-            behavior: HitTestBehavior.translucent,
-            onTap:  viewModel.back,
-            child: SvgPicture.asset('assets/images/icons/backbutton.svg',height: 20.h,width: 20.w,)
-
-          ),
+                padding: EdgeInsets.only(left: 8.0.w),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: viewModel.back,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 26.h,
+                    width: 26.w,
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: kcBlackColor,
+                      size: 18.sp,
+                    ),
+                  ),
+                ),
               ),
               centerTitle: true,
               title: Text(
@@ -76,8 +85,10 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                 child: ListTile(
                                   leading: CircleAvatar(
                                     radius: 24.r,
-                                    backgroundImage: NetworkImage(
-                                        blockUser!.displayPicture ?? ''),
+                                    backgroundImage:
+                                        ImageUtils.safeNetworkImageForAvatar(
+                                      blockUser!.displayPicture,
+                                    ),
                                   ),
                                   title: Text(
                                     blockUser.displayName ?? '',

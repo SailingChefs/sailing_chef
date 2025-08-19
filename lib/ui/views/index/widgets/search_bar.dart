@@ -10,7 +10,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
   @override
   Widget build(BuildContext context, IndexViewModel viewModel) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Expanded(
           child: GestureDetector(
@@ -19,28 +19,29 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
               viewModel.toSearch();
             },
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.7,
               height: MediaQuery.of(context).size.height * 0.05,
-              padding:
-                  const EdgeInsets.only(left: 16.0),
+              margin: EdgeInsets.symmetric(horizontal: 16.0.dg),
               decoration: BoxDecoration(
-                color: kcbuttoncolor.withOpacity(0.08),
+                color: kcPrimaryColor.withOpacity(0.09),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/icons/search.svg', color: searchIconColor,
-                    width: 18.dg,height: 18.h,),
-                  
+                  SvgPicture.asset(
+                    'assets/images/icons/search.svg',
+                    color: searchIconColor,
+                    width: 16.w,
+                    height: 16.h,
+                  ),
                   horizontalSpaceSmall,
                   Text(
                     'Search',
                     style: globalTextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       letterSpacing: -0.5,
                       color: searchIconColor,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
@@ -48,14 +49,18 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
             ),
           ),
         ),
-        verticalSpaceMedium,
         IconButton(
           onPressed: viewModel.goToFilterView,
-          icon: SvgPicture.asset('assets/images/icons/filter.svg',color: filterIconColor,width: 30,height: 30,),
+          icon: SvgPicture.asset(
+            'assets/images/misc/equilizer.svg',
+            color: filterIconColor,
+            width: 30.dg,
+            height: 30.dg,
+          ),
           color: kcPrimaryColor,
           iconSize: 32.h,
-         
         ),
+        horizontalSpaceSmall,
       ],
     );
   }

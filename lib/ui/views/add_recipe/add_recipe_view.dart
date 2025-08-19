@@ -1,7 +1,8 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_form.dart';
+import 'package:sailing_chefs/ui/views/add_recipe/widgets/add_recipe_widgets/topbar.dart';
 
 import 'add_recipe_viewmodel.dart';
 
@@ -20,55 +21,39 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
   ) {
     List<Ingredient>? ingredientsList;
     return SizedBox(
-      child: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator())
-          : Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: Theme.of(context).colorScheme.background,
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                title: Text(
-                  'Create Recipe',
-                  style: globalTextStyle(
-                      fontSize: 16.0.dg,
-                      color: kcBlackColor,
-                      letterSpacing: -0.3,
-                      fontWeight: FontWeight.w500,
-                      ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: const TopBarAddRecipeScreen(),
+        body: viewModel.isBusy && drafts != null
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: kcPrimaryColor,
                 ),
-                centerTitle: true,
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: viewModel.showDraftDialog,
-                      child: Icon(
-                        Icons.file_copy,
-                        color: kcPrimaryColor,
-                        size: 24.sp,
-                      ),
-                    ),
+              )
+            : GestureDetector(
+                onTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    left: 25.0,
+                    right: 25.0,
                   ),
-                ],
-              ),
-              body: Container(
-                padding: const EdgeInsets.only(
-                  left: 25.0,
-                  right: 25.0,
-                ),
-                child: Column(
-                  children: [
-                    verticalSpaceMedium,
-                    Expanded(
-                      child: AddRecipeFormAddRecipeScreen(
-                        drafts,
-                        ingredientsList,
+                  child: Column(
+                    children: [
+                      verticalSpaceMedium,
+                      Expanded(
+                        child: AddRecipeFormAddRecipeScreen(
+                          drafts,
+                          ingredientsList,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+      ),
     );
   }
 

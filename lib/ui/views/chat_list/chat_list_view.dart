@@ -19,13 +19,15 @@ class ChatListView extends StackedView<ChatListViewModel> {
         ? const ShimmerLoaderChatList()
         : SafeArea(
             child: Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Colors.white,
                 body: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const TopBarChatListScreen(),
+                      // verticalSpaceMedium,
+                      // const SearchBarAllChatsScreen(),
                       verticalSpaceMedium,
                       const ChatListScreen(),
                     ],
@@ -34,6 +36,11 @@ class ChatListView extends StackedView<ChatListViewModel> {
           );
   }
 
+  // @override
+  // onViewModelReady(ChatListViewModel viewModel) {
+  //   viewModel.onViewModelReady();
+  //   super.onViewModelReady(viewModel);
+  // }
   @override
   ChatListViewModel viewModelBuilder(
     BuildContext context,

@@ -12,26 +12,30 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: () {
-              viewModel.getBack();
-            },
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 8.0.dg),
-              height: 30.h,
-              width: 30.w,
-              decoration: const BoxDecoration(
-                color: kcVeryLightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kcBlackColor,
-                size: 20.sp,
-              ),
-            ),
-          ),
+          const SizedBox(),
+          // GestureDetector(
+          //   onTap: () {
+          //     // viewModel.getBack();
+          //   },
+          //   child: Container(
+          //     alignment: Alignment.center,
+          //     padding: EdgeInsets.only(left: 8.0.dg),
+          //     height: 30.h,
+          //     width: 30.w,
+          //     decoration: const BoxDecoration(
+          //       color: kcVeryLightGrey,
+          //       shape: BoxShape.circle,
+          //     ),
+          //     child: Icon(
+          //       Icons.arrow_back_ios,
+          //       color: kcBlackColor,
+          //       size: 20.sp,
+          //     ),
+          //   ),
+          // ),
+
+          const SizedBox(),
+          const SizedBox(),
           Text(
             'Your Profile',
             style: globalTextStyle(
@@ -39,9 +43,10 @@ class TopBarUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
                 color: Colors.black.withOpacity(0.6),
                 fontWeight: FontWeight.w700),
           ),
+          const SizedBox(),
           CustomTextButton(
             onPressed: () {
-              // viewModel.skipToHome();
+              viewModel.skipToHome();
             },
             buttonText: 'Skip',
             textColor: Colors.black.withOpacity(0.6),

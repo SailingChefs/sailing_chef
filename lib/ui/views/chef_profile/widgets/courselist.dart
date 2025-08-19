@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
-  const ListViewChefSavedCources({super.key});
-
+  const ListViewChefSavedCources(this.user, {super.key});
+  final UserModel user;
   @override
   Widget build(BuildContext context, ChefProfileViewModel viewModel) {
     screenHeight(context);
@@ -60,7 +61,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    // viewModel.callCourseNameBottomSheett(viewModel.courses[index]);
+                                    viewModel.enquireNow(user, index);
                                   },
                                   child: Container(
                                     height: 40,

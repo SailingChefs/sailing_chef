@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -6,16 +7,18 @@
 
 import 'package:stacked_services/stacked_services.dart';
 
-import 'app.locator.dart';
 import '../ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import '../ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 import '../ui/bottom_sheets/courses/courses_sheet.dart';
 import '../ui/bottom_sheets/discard/discard_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
 import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
+import '../ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
 import '../ui/bottom_sheets/notice/notice_sheet.dart';
 import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
+import '../ui/bottom_sheets/social_icons/social_icons_sheet.dart';
 import '../ui/bottom_sheets/tags/tags_sheet.dart';
+import 'app.locator.dart';
 
 enum BottomSheetType {
   notice,
@@ -27,6 +30,8 @@ enum BottomSheetType {
   courses,
   tags,
   discard,
+  socialIcons,
+  editIngredient,
 }
 
 void setupBottomSheetUi() {
@@ -40,7 +45,11 @@ void setupBottomSheetUi() {
     BottomSheetType.cookingInstructions: (context, request, completer) =>
         CookingInstructionsSheet(request: request, completer: completer),
     BottomSheetType.dropPinSheet: (context, request, completer) =>
-        DropPinSheetSheet(request: request, completer: completer),
+        DropPinSheetSheet(
+          request: request,
+          completer: completer,
+          isNew: false,
+        ),
     BottomSheetType.dropPinButtons: (context, request, completer) =>
         DropPinButtonsSheet(request: request, completer: completer),
     BottomSheetType.otherChefProfile: (context, request, completer) =>
@@ -51,6 +60,10 @@ void setupBottomSheetUi() {
         TagsSheet(request: request, completer: completer),
     BottomSheetType.discard: (context, request, completer) =>
         DiscardSheet(request: request, completer: completer),
+    BottomSheetType.socialIcons: (context, request, completer) =>
+        SocialIconsSheet(request: request, completer: completer),
+    BottomSheetType.editIngredient: (context, request, completer) =>
+        EditIngredientSheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

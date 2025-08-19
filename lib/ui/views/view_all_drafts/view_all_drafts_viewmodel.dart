@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
@@ -17,7 +19,10 @@ class ViewAllDraftsViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void toDishCreateScreen(int index) {
-    _navigatorService.navigateToAddRecipeView(drafts: draft[index]);
+  void toDishCreateScreen(int index) async {
+    log('toDishCreateScreen');
+    await _navigatorService.navigateToAddRecipeView(drafts: draft[index]);
+    log(index.toString());
+    notifyListeners();
   }
 }

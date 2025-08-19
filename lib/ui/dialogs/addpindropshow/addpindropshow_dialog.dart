@@ -1,10 +1,6 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 
-
 import 'addpindropshow_dialog_model.dart';
-
-
 
 class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
   final DialogRequest request;
@@ -22,11 +18,10 @@ class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
     AddpindropshowDialogModel viewModel,
     Widget? child,
   ) {
-
     Future.delayed(const Duration(seconds: 1), () {
       completer(DialogResponse(confirmed: true));
     });
-    
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
       insetPadding: const EdgeInsets.only(
@@ -34,7 +29,6 @@ class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
         right: 90,
         bottom: 250,
       ),
-      
       backgroundColor: Colors.white,
       alignment: Alignment.bottomRight,
       clipBehavior: Clip.none,
@@ -58,10 +52,7 @@ class AddpindropshowDialog extends StackedView<AddpindropshowDialogModel> {
     );
   }
 
-  
-
   @override
   AddpindropshowDialogModel viewModelBuilder(BuildContext context) =>
       AddpindropshowDialogModel();
-      
 }

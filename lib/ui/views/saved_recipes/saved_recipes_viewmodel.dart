@@ -15,7 +15,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final TextEditingController searchFollowingController =
       TextEditingController();
 
-  List<RecipeModel>  savedRecipes = [];
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
+
   List<RecipeModel> followingRecipes = [];
 
   String selectedTab = 'All';
@@ -31,8 +32,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  Iterable<RecipeModel> searchRecipes(
-      ) sync* {
+  Iterable<RecipeModel> searchRecipes() sync* {
     log('came to search');
     for (var recipe in savedRecipes) {
       if (recipe.title
@@ -43,8 +43,8 @@ class SavedRecipesViewModel extends ReactiveViewModel {
       }
     }
   }
-   Iterable<RecipeModel> searchFollowingRecipes(
-      ) sync* {
+
+  Iterable<RecipeModel> searchFollowingRecipes() sync* {
     log('came to search');
     for (var recipe in followingRecipes) {
       if (recipe.title
@@ -55,42 +55,42 @@ class SavedRecipesViewModel extends ReactiveViewModel {
       }
     }
   }
-   Future<void> mySavedRecipes() async {
-   if(RecipeService.recipes.isEmpty){
+
+  Future<void> mySavedRecipes() async {
+    if (RecipeService.recipes.isEmpty) {
       await _recipeService.initialized();
-     return;
-   }
-   else{
-    for(var recipe in RecipeService.recipes)
-    {
-      if(userDetails!.savedRecipes!.any((element) => element == recipe.docId)){
-        savedRecipes.add(recipe);
+      return;
+    } else {
+      for (var recipe in RecipeService.recipes) {
+        if (userDetails!.savedRecipes!
+            .any((element) => element == recipe.docId)) {
+          savedRecipes.add(recipe);
+        }
       }
     }
-   }
   }
 
   void onViewModelReady() async {
     setBusy(true);
     await Future.wait([
-          mySavedRecipes(),
-    followingChefRecipe(),
-      ]);
-   
+      followingChefRecipe(),
+    ]);
+
     setBusy(false);
   }
+
   Future<void> followingChefRecipe() async {
-    if(RecipeService.recipes.isEmpty){
+    if (RecipeService.recipes.isEmpty) {
       followingRecipes = await _recipeService.fetchFollowingRecipesByUID();
-    }
-    else{
-      for(var recipe in RecipeService.recipes){
-        if(userDetails!.following!.any((element) => element == recipe.uid)){
+    } else {
+      for (var recipe in RecipeService.recipes) {
+        if (userDetails!.following!.any((element) => element == recipe.uid)) {
           followingRecipes.add(recipe);
         }
       }
     }
   }
+
   void toAllDishesScreen() {
     _navigationService.navigateToExploreAllRecipesView(
         recipes: RecipeService.recipes);
@@ -125,20 +125,19 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   }
 
   void toDishDetailsScreen(RecipeModel recipe) {
-   
     _navigationService.navigateWithTransition(
-      SavedRecipeDetailsView(recipeModel: recipe,
-        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
-        ),
-     
+      SavedRecipeDetailsView(
+        isFromPrivateProfile: false,
+        recipeModel: recipe,
+        randomRecipeList:
+            IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
+      ),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
-    
-     
-      
     );
   }
+
   void toFilterScreen() {
     _navigationService.navigateToFilterView();
   }

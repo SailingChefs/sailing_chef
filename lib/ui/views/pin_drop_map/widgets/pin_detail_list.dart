@@ -1,0 +1,143 @@
+import 'dart:developer';
+
+import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
+import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
+import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
+
+class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
+  const PinDetailList({super.key});
+
+  @override
+  Widget build(BuildContext context, PinDropMapViewModel viewModel) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        final pin = viewModel.filteredPins.isEmpty
+            ? viewModel.pins[index]
+            : viewModel.filteredPins[index];
+
+        final String imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
+
+        return GestureDetector(
+          onTap: () => viewModel.callDetailsDialog(pin),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final screenWidth = MediaQuery.of(context).size.width;
+              final screenHeight = MediaQuery.of(context).size.height;
+              final cardHeight = screenHeight * 0.18;
+              final imageWidth = screenWidth * 0.26;
+
+              return Container(
+                height: cardHeight,
+                width: screenWidth * 0.8,
+                margin: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(27),
+                  color: kcWhiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    )
+                  ],
+                ),
+                child: viewModel.isBusy
+                    ? const ShimmerDialog()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Image section with fixed proportions
+                          SizedBox(
+                            width: imageWidth,
+                            height: cardHeight,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(27),
+                                bottomLeft: Radius.circular(27),
+                              ),
+                              child: ImageUtils.networkImageWithFallback(
+                                imageUrl: imageUrl,
+                                width: imageWidth,
+                                height: cardHeight,
+                                fit: BoxFit.cover,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(27),
+                                  bottomLeft: Radius.circular(27),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Content section
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Rating
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        color: kclightgreencolor,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        viewModel.calculateAverageRating(
+                                          pin.reviews ?? [],
+                                        ),
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  // Name and Place
+                                  Text(
+                                    pin.name,
+                                    style: globalTextStyle(
+                                      color: kcBlackColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    pin.place,
+                                    style: globalTextStyle(
+                                      color: kcBlackColor.withOpacity(0.4),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+              );
+            },
+          ),
+        );
+      },
+      scrollDirection: Axis.horizontal,
+      itemCount: viewModel.filteredPins.isEmpty
+          ? viewModel.pins.length
+          : viewModel.filteredPins.length,
+      shrinkWrap: true,
+    );
+  }
+}

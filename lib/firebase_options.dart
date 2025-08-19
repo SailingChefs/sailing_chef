@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -59,10 +56,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBpzT46q83H88YZxaX32aLZyHECfdRfZdQ',
-    appId: '1:66812962587:ios:c80fe67cca4e6825e655be',
+    appId: '1:66812962587:ios:14c552471591069ae655be',
     messagingSenderId: '66812962587',
     projectId: 'sailingchefs-3e3cb',
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
-    iosBundleId: 'com.stackwise.sailingChefs',
+    androidClientId: '66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com',
+    iosClientId: '66812962587-7lt5sv8vmpncg9akdu64qdtlouufqe18.apps.googleusercontent.com',
+    iosBundleId: 'com.SailingChefs.dev.emile',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBUleuxvhTvY6GIow7h6JLMnW1XapaejyQ',
+    appId: '1:66812962587:web:abafa323691e4a45e655be',
+    messagingSenderId: '66812962587',
+    projectId: 'sailingchefs-3e3cb',
+    authDomain: 'sailingchefs-3e3cb.firebaseapp.com',
+    storageBucket: 'sailingchefs-3e3cb.appspot.com',
+    measurementId: 'G-EEH9TH82Q1',
+  );
+
 }

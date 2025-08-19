@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
@@ -11,13 +13,17 @@ import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 import 'bottom_nav_bar_viewmodel.dart';
 
 class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
-  const BottomNavBarView({Key? key}) : super(key: key);
+  int? index;
+
+  BottomNavBarView({this.index, Key? key}) : super(key: key);
 
   @override
   Widget builder(context, viewModel, child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: getViewForIndex(viewModel.currentIndex),
+      body: index != null
+          ? getViewForIndex(index!)
+          : getViewForIndex(viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: kcWhiteColor,
@@ -26,40 +32,69 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
         unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
-        currentIndex: viewModel.currentIndex,
+        // currentIndex: index != null ? index : viewModel.currentIndex,
+        currentIndex: index != null ? index! : viewModel.currentIndex,
         onTap: viewModel.setIndex,
-        items:  [
+        items: [
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/homeselected.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/homeselected.svg',color: Colors.grey[500],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/homeselected.svg',
+              color: Colors.grey[500],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/locationIcon.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/locationIcon.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/locationIcon.svg',
+              color: Colors.grey[600],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/centerplus.svg',
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/centerplus.svg',),
+            icon: SvgPicture.asset(
+              'assets/images/icons/centerplus.svg',
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/chat.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/chat.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/chat.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/chat.svg',
+              color: Colors.grey[600],
+            ),
           ),
           BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset('assets/images/icons/profile.svg',color: kcPrimaryColor,),
+            activeIcon: SvgPicture.asset(
+              'assets/images/icons/profile.svg',
+              color: kcPrimaryColor,
+            ),
             label: '',
-            icon: SvgPicture.asset('assets/images/icons/profile.svg',color: Colors.grey[600],),
+            icon: SvgPicture.asset(
+              'assets/images/icons/profile.svg',
+              color: Colors.grey[600],
+            ),
           ),
         ],
       ),
     );
   }
-  
-  @override  
+
+  @override
   bool get disposeViewModel => false;
 
   @override
@@ -69,14 +104,19 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
+        log(index.toString());
         return const IndexView();
       case 1:
+        log(index.toString());
         return const PinDropMapView();
       case 2:
+        log(index.toString());
         return const AddRecipeView();
       case 3:
+        log(index.toString());
         return const ChatListView();
       case 4:
+        log(index.toString());
         return const ProfileView();
       default:
         return const Text('On Index Number  4');

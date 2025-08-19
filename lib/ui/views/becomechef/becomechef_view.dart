@@ -16,7 +16,7 @@ class BecomechefView extends StackedView<BecomechefViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           child: Column(
             children: [

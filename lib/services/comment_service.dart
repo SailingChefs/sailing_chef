@@ -12,7 +12,7 @@ import '../ui/common/show_toast.dart';
 
 class CommentService with ListenableServiceMixin {
   final UserServices userService = UserServices();
-  
+
   List<CommentModel> comments = [];
   getComments(String recipeId) async {
     comments = await fetchCommentsByRecipeId(recipeId);
@@ -22,6 +22,33 @@ class CommentService with ListenableServiceMixin {
 
   clearComments() {
     comments.clear();
+  }
+
+  Future<bool> deleteComment(CommentModel comment) async {
+    bool deleted = await deleteCommentToFirestore(comment);
+    return deleted;
+  }
+
+  Future<bool> deleteCommentToFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
+
+      // Get a reference to the comments subcollection of the specified recipe ID
+      CollectionReference commentsCollection = firebasestore
+          .collection('recipes')
+          .doc(comment.recipeId)
+          .collection('comments');
+
+      await commentsCollection.doc(comment.id).delete();
+
+      EasyLoading.dismiss();
+      showToast(message: 'Comment deleted successfully');
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error deleteing comment : $error');
+      return false;
+    }
   }
 
   Future<bool> addComment(CommentModel comment) async {
@@ -70,7 +97,12 @@ class CommentService with ListenableServiceMixin {
           .collection('comments');
 
       // Add the new comment to the comments subcollection
-      await commentsCollection.add(comment.toJson());
+      DocumentReference docRef = await commentsCollection.add(comment.toJson());
+      String commentId = docRef.id; // Get the docId
+      comment.id = commentId; // Update the commentId
+
+      await docRef.update(
+          {'commentId': commentId}); // Update the commentId in Firestore
 
       EasyLoading.dismiss();
       showToast(message: 'Comment added successfully');
@@ -82,28 +114,48 @@ class CommentService with ListenableServiceMixin {
     }
   }
 
- Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
-  try {
-    // Access the subcollection 'comments' within the specific 'recipe' document
-    QuerySnapshot querySnapshot = await firebasestore
-        .collection('recipes')
-        .doc(recipeId)
-        .collection('comments')
-        .orderBy('timestamp', descending: true)
-        .get();
+  Future<bool> updateCommentInFirestore(CommentModel comment) async {
+    try {
+      EasyLoading.show();
 
-    // Convert the querySnapshot documents to a list of CommentModel
-    List<CommentModel> comments = querySnapshot.docs
-        .map((doc) => CommentModel.fromSnapshot(doc))
-        .toList();
+      DocumentReference commentDocRef = firebasestore
+          .collection('recipes')
+          .doc(comment.recipeId)
+          .collection('comments')
+          .doc(comment.id);
 
-    return comments;
-  } catch (e) {
-    // Handle errors and return an empty list
-    return [];
+      await commentDocRef.update(comment.toJson());
+
+      EasyLoading.dismiss();
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error updating comment in Firestore: $error');
+      return false;
+    }
   }
-}
 
+  Future<List<CommentModel>> fetchCommentsByRecipeId(String recipeId) async {
+    try {
+      // Access the subcollection 'comments' within the specific 'recipe' document
+      QuerySnapshot querySnapshot = await firebasestore
+          .collection('recipes')
+          .doc(recipeId)
+          .collection('comments')
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      // Convert the querySnapshot documents to a list of CommentModel
+      List<CommentModel> comments = querySnapshot.docs
+          .map((doc) => CommentModel.fromSnapshot(doc))
+          .toList();
+
+      return comments;
+    } catch (e) {
+      // Handle errors and return an empty list
+      return [];
+    }
+  }
 
   Future<List<String>> uploadImagesToFirebase(List<File> images) async {
     List<String> imageUrls = [];

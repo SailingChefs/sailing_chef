@@ -1,7 +1,8 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
-class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel> implements PreferredSizeWidget {
+class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel>
+    implements PreferredSizeWidget {
   const TopBarProfileScreen({super.key});
 
   @override
@@ -31,7 +32,9 @@ class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel> implements P
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: GestureDetector(
-                onTap: viewModel.toSettings,
+                onTap: () {
+                  viewModel.toSettings(context);
+                },
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(left: 2.0.dg),
@@ -54,8 +57,7 @@ class TopBarProfileScreen extends ViewModelWidget<ProfileViewModel> implements P
       ],
     );
   }
-  
-  @override
 
+  @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

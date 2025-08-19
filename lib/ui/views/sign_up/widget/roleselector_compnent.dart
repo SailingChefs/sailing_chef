@@ -1,8 +1,8 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_viewmodel.dart';
 
 class RoleSelector extends ViewModelWidget<SignUpViewModel> {
-
   const RoleSelector({super.key});
 
   @override
@@ -15,7 +15,7 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
       ),
       child: Row(
         children: [
-           Expanded(
+          Expanded(
             child: GestureDetector(
               onTap: () => viewModel.handleSignUpAs(2),
               child: Container(
@@ -23,7 +23,6 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
-                 
                   ),
                   color: viewModel.selectedSignUpAs == 'chef'
                       ? kcPrimaryColor
@@ -32,8 +31,12 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/icons/chef.png',
+                    SizedBox(
+                      width: 14,
+                      height: 14,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/hat.svg',
+                      ),
                     ),
                     verticalSpaceTiny,
                     const Text(
@@ -48,7 +51,6 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
               ),
             ),
           ),
-          
           Expanded(
             flex: 2,
             child: GestureDetector(
@@ -69,15 +71,18 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                       ? kcPrimaryColor
                       : Colors.transparent,
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.school_rounded,
-                      color: kcWhiteColor,
+                    SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/school.svg',
+                      ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Culinary school',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -95,24 +100,25 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                       topRight: Radius.circular(10),
+                    topRight: Radius.circular(10),
                     bottomRight: Radius.circular(10),
-                    
                   ),
                   color: viewModel.selectedSignUpAs == 'guest'
                       ? kcPrimaryColor
-                      
                       : Colors.transparent,
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.person,
-                      color: kcWhiteColor,
+                    SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: SvgPicture.asset(
+                        'assets/images/icons/guest.svg',
+                      ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Guest',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -124,7 +130,6 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
               ),
             ),
           ),
-         
         ],
       ),
     );

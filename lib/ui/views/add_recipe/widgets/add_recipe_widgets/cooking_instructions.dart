@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
@@ -15,7 +16,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
         Row(
           children: [
             Text(
-              'Cooking Instructions(Method)',
+              'Method',
               style: globalTextStyle(
                 fontSize: 14.sp,
                 letterSpacing: -0.5,
@@ -45,22 +46,21 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                     itemBuilder: (context, index) {
                       final instruction = viewModel.methodsList[index];
                       return Padding(
-                        padding:  EdgeInsets.only(top: 5.0.h, bottom: 5.h),
+                        padding: EdgeInsets.only(top: 5.0.h, bottom: 5.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width:
-                                  MediaQuery.sizeOf(context).width * 0.78,
+                              width: MediaQuery.sizeOf(context).width * 0.68,
                               decoration: BoxDecoration(
                                 color: kcPrimaryColor.withOpacity(0.07),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(30)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(30)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Text(
-                                  instruction,
+                                  instruction.capitalize(),
                                   style: globalTextStyle(
                                     fontSize: 12.sp,
                                     letterSpacing: -0.5,
@@ -70,6 +70,20 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                                 ),
                               ),
                             ),
+                            horizontalSpaceTiny,
+                            GestureDetector(
+                              onTap: () {
+                                // viewModel.ingredientsList.removeAt(index);
+                                // viewModel.notifyListeners();
+                                viewModel.editIngredient(
+                                    viewModel.ingredientsList[index], index);
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/misc/edit.svg',
+                                height: 20,
+                              ),
+                            ),
+                            horizontalSpaceSmall,
                             GestureDetector(
                               onTap: () {
                                 viewModel.deleteMethod(index);
@@ -93,6 +107,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       viewModel.addMethods(methods);
                     },
                     child: Container(
+                      height: 50,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
@@ -102,13 +117,11 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                       ),
                       child: Row(
                         children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                color: kcBlackColor.withOpacity(0.5),
-                                size: 16.0.dg,
-                              )),
+                          Icon(
+                            Icons.add,
+                            color: kcBlackColor.withOpacity(0.5),
+                            size: 22.0.dg,
+                          ),
                           horizontalSpaceSmall,
                           Text(
                             'Add one or multiple steps',
@@ -143,7 +156,7 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           icon: Icon(
                             Icons.add,
                             color: kcBlackColor.withOpacity(0.5),
-                            size: 16.0.dg,
+                            size: 22.0.dg,
                           )),
                       horizontalSpaceSmall,
                       Text(

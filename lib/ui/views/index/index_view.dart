@@ -6,6 +6,7 @@ import 'package:sailing_chefs/ui/views/index/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_chef.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/tabbar_indexscreen.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/top_bar.dart';
+import 'package:sailing_chefs/ui/widgets/custom_textbtn.dart';
 
 import 'index_viewmodel.dart';
 
@@ -22,37 +23,77 @@ class IndexView extends StackedView<IndexViewModel> {
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarIndexScreen(),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-          child: Column(
-            children: [
-              // const TopBarIndexScreen(),
-              verticalSpace(10),
-              const TabBarIndexScreen(),
-              verticalSpace(10),
-              viewModel.isMySelected
-                  ? viewModel.showShimmer
-                      ? const ShimmerChef()
-                      : const ChefListIndexScreen()
-                  : viewModel.showShimmer
-                      ? const ShimmerChef()
-                      : const CullinaryListIndexScreen(),
-              verticalSpace(10),
-              const SearchBarIndexView(),
-              verticalSpace(10),
-              const DishListIndexScreen(),
-              verticalSpaceMedium,
-              
-              viewModel.dishes.isNotEmpty ? Center(
-                child: TextButton(
-                  onPressed: viewModel.toAllRecipesView,
-                  child: Text(
-                    'View All Recipes',
-                    style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),
+        body: RefreshIndicator(
+          onRefresh: viewModel.onRefresh,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: Column(
+                    children: [
+                      verticalSpace(10),
+                      const TabBarIndexScreen(),
+                      verticalSpace(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            viewModel.selectedTab == 'Yacht Chefs'
+                                ? 'Meet your Chefs'
+                                : 'Explore Cullinary schools',
+                            style: globalTextStyle(
+                              fontSize: 16.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
+                            ),
+                          ),
+                          CustomTextButton(
+                            onPressed: viewModel.isBusy
+                                ? () {}
+                                : viewModel.selectedTab == 'Yacht Chefs'
+                                    ? viewModel.toAllChefsView
+                                    : viewModel.toViewCullinarySchools,
+                            buttonText: 'View all',
+                            textColor: kcPrimaryColorDark,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
+                      viewModel.isMySelected
+                          ? viewModel.showShimmer
+                              ? const ShimmerChef()
+                              : const ChefListIndexScreen()
+                          : viewModel.showShimmer
+                              ? const ShimmerChef()
+                              : const CullinaryListIndexScreen(),
+                    ],
                   ),
                 ),
-              ): Container(),
-            ],
+                verticalSpace(10),
+                const SearchBarIndexView(),
+                verticalSpace(10),
+                const Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: DishListIndexScreen(),
+                ),
+                verticalSpaceMedium,
+                viewModel.dishes.isNotEmpty
+                    ? Center(
+                        child: TextButton(
+                          onPressed: viewModel.toAllRecipesView,
+                          child: Text(
+                            'View All Recipes',
+                            style: globalTextStyle(
+                                fontSize: 14, color: kcPrimaryColor),
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
           ),
         ),
       ),

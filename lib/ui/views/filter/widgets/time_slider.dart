@@ -25,20 +25,29 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
           data: SfRangeSliderThemeData(
             tooltipBackgroundColor: Colors.transparent,
             tooltipTextStyle:
-                globalTextStyle(fontSize: 12.sp, color: kcPrimaryColorDark),
+                globalTextStyle(fontSize: 12.sp, color: kcPrimaryColor),
           ),
           child: SfRangeSlider(
             min: 0.0,
-            max: 24.0,
+            onChangeEnd: (value) {
+              viewModel.addTimeFilter();
+            },
+            max: 12.0,
             values: viewModel.values,
             showLabels: false,
-            interval: 8,
+            interval: 6,
             showTicks: false,
             stepSize: 1,
-            activeColor: kcPrimaryColorDark,
+            activeColor: kcPrimaryColor,
             shouldAlwaysShowTooltip: true,
             tooltipTextFormatterCallback: (value, text) {
-              return "$text hrs";
+              if ((viewModel.values.end - viewModel.values.start) > 1) {
+                if (value == 0 || value == 1) {
+                  return "$text hr";
+                }
+                return "$text hrs";
+              }
+              return text;
             },
             dateIntervalType: DateIntervalType.hours,
             dateFormat: DateFormat.H(),
@@ -57,12 +66,12 @@ class TimeSliderFilterScreen extends ViewModelWidget<FilterViewModel> {
                 fontSize: 12.sp, color: kcBlackColor.withOpacity(0.2)),
           ),
           Text(
-            '8 Hrs',
+            '6 Hrs',
             style: globalTextStyle(
                 fontSize: 12.sp, color: kcBlackColor.withOpacity(0.2)),
           ),
           Text(
-            '24+ Hrs',
+            '12+ Hrs',
             style: globalTextStyle(
                 fontSize: 12.sp, color: kcBlackColor.withOpacity(0.2)),
           ),

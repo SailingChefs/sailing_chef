@@ -25,7 +25,7 @@ class SavedGuestButton extends ViewModelWidget<ProfileViewModel> {
             ),
           ),
           IconButton(
-              onPressed:viewModel.toFilterView,
+              onPressed: viewModel.toFilterView,
               icon: const Icon(
                 FlutterRemix.equalizer_line,
                 color: kcPrimaryColor,

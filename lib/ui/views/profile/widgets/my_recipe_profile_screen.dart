@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
@@ -12,11 +13,12 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
   Widget build(BuildContext context, ProfileViewModel viewModel) {
     return viewModel.myRecipes.isEmpty
         ? SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.29,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  verticalSpaceLarge,
                   Text(
                     'Create your first recipe today',
                     style: globalTextStyle(
@@ -24,9 +26,10 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600),
                   ),
-                  verticalSpaceSmall,
+                  verticalSpaceTiny,
                   SvgPicture.asset(
                     'assets/images/icons/arrow.svg',
+                    height: 150.h,
                     // ignore: deprecated_member_use
                     color: kcPrimaryColor,
                   )
@@ -37,6 +40,8 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
             padding: const EdgeInsets.all(8.0),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
+              viewModel.myRecipes
+                  .sort((a, b) => b.createdTime.compareTo(a.createdTime));
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
                 axisDirection: AxisDirection.down,
@@ -58,7 +63,7 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           onTap: () => viewModel.toDishDetailsScreen(
                               index, viewModel.myRecipes[index]),
                           foodImagePath: viewModel.myRecipes[index].coverImage
-                              .where((element) => element.contains('.jpg'))
+                              .where((element) => element.isFirebaseImageUrl)
                               .first,
                           dishName: viewModel.myRecipes[index].title,
                           duration: viewModel.myRecipes[index].prepTime,

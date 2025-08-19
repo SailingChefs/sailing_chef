@@ -19,9 +19,10 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final Color? fillColor;
   final double? size;
   final Widget? suffixIconData;
-    final MaxLengthEnforcement? maxLengthEnforcement;
+  final MaxLengthEnforcement? maxLengthEnforcement;
+  FocusNode? focusNode;
 
-  const SemiRoundedTranpaentTextField(
+  SemiRoundedTranpaentTextField(
       {super.key,
       this.validator,
       this.fillColor,
@@ -29,7 +30,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.keyboardType,
       this.borderRadius,
       this.inputFormatters,
-      this.readOnly ,
+      this.readOnly,
       this.controller,
       this.labelText,
       this.prefixIcon,
@@ -38,14 +39,16 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.maxLines,
       this.size,
       this.suffixIcon,
-
-      this.prefixIcons, this.maxLengthEnforcement});
+      this.prefixIcons,
+      this.focusNode,
+      this.maxLengthEnforcement});
 
   @override
   Widget build(BuildContext context) {
     return RoundedTransparentTextField(
       // readOnly: readOnly ,
       labelText: labelText!,
+      focsNode: focusNode,
       maxLength: maxLength,
       maxLines: maxLines,
       prefixIconData: prefixIcon,

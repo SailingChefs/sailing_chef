@@ -1,5 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredients_class.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredientssheet_topbar.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/two_textfields_inarow.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
@@ -55,18 +55,21 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             SizedBox(
               width: double.infinity,
               child: CommonTextField(
-                hintText: 'Add one or multiple steps',
+                hintText: 'Add ingredients',
                 prefix: Icons.drag_indicator,
               ),
             ),
             verticalSpaceTiny,
             const TwoTextFields(),
             verticalSpaceTiny,
-            SaveRecipeButton(
-              onPressed: viewModel.addIngredientToList,
-              buttonText: 'Add Ingredient',
-              prefix: Icons.add,
+            Center(
+              child: SaveRecipeButton(
+                onPressed: viewModel.addIngredientToList,
+                buttonText: 'Add Ingredient',
+                prefix: Icons.add,
+              ),
             ),
+            verticalSpaceSmall,
           ],
         ),
       ),
@@ -83,4 +86,3 @@ class AddIngredientsSheetResponse {
 
   const AddIngredientsSheetResponse({required this.ingredientsList});
 }
-

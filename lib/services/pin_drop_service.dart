@@ -10,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
-import 'package:sailing_chefs/model/pindrop_review.dart';
 import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
@@ -18,25 +17,90 @@ import 'package:sailing_chefs/ui/common/show_toast.dart';
 class PinDropService with ListenableServiceMixin {
   final UserServices userService = UserServices();
   List<ReviewsModel> reviews = [];
-
-  List<PinnedLocation> pins=[];
+  bool isInitialized = false;
+  List<PinnedLocation> pins = [];
 
   Future<void> getReviews(String pinId) async {
     reviews = await fetchReviewsByPinId(pinId);
     notifyListeners();
   }
 
-  Future<void> getPins(LatLng location) async {
-    pins.clear();
-    
-    pins = await getPinsNearUserLocation(location);
-   
-    notifyListeners();
+  Future<bool> deleteReview(ReviewsModel review) async {
+    try {
+      EasyLoading.show();
+      await firebasestore
+          .collection('pins')
+          .doc(review.pindropId)
+          .collection('reviews')
+          .doc(review.id)
+          .delete();
 
+      reviews.removeWhere((element) => element.id == review.id);
+
+      EasyLoading.dismiss();
+      showToast(message: 'Review deleted successfully');
+      notifyListeners();
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error deleting review: $error');
+      return false;
+    }
+  }
+
+  Future<bool> updateReview(
+      ReviewsModel review, String newFeedback, double newRating) async {
+    try {
+      EasyLoading.show();
+
+      await firebasestore
+          .collection('pins')
+          .doc(review.pindropId)
+          .collection('reviews')
+          .doc(review.id)
+          .update({
+        'feedback': newFeedback,
+        'rating': newRating,
+      });
+
+      // Update the review in the local list
+      int index = reviews.indexWhere((element) => element.id == review.id);
+      if (index != -1) {
+        reviews[index].feedback = newFeedback;
+        reviews[index].rating = newRating;
+      }
+
+      EasyLoading.dismiss();
+      showToast(message: 'Review updated successfully');
+      notifyListeners();
+      return true;
+    } catch (error) {
+      EasyLoading.dismiss();
+      showToast(message: 'Error updating review: $error');
+      return false;
+    }
+  }
+
+  // Future<void> getPins(LatLng location) async {
+  //   // pins.clear();
+  //   if(isInitialized) return;
+  //   pins = await getPinsNearUserLocation(location);
+  //   notifyListeners();
+
+  // }
+
+  Future<List<PinnedLocation>> getPins(LatLng location) async {
+    final ref = firebasestore.collection('pins');
+    final querySnapshot = await ref.get();
+
+    List<PinnedLocation> pins = querySnapshot.docs
+        .map((doc) => PinnedLocation.fromSnapshot(doc))
+        .toList();
+
+    return pins;
   }
 
   Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
-
     log('pinId:$pinId');
     try {
       QuerySnapshot querySnapshot = await firebasestore
@@ -47,8 +111,9 @@ class PinDropService with ListenableServiceMixin {
           .orderBy('timestamp', descending: true)
           .get();
 
-      List<ReviewsModel> reviews =
-          querySnapshot.docs.map((doc) => ReviewsModel.fromSnapshot(doc)).toList();
+      List<ReviewsModel> reviews = querySnapshot.docs
+          .map((doc) => ReviewsModel.fromSnapshot(doc))
+          .toList();
 
       return reviews;
     } catch (e) {
@@ -81,7 +146,11 @@ class PinDropService with ListenableServiceMixin {
       String docId = docRef.id;
 
       await docRef.update({'doc_id': docId});
-
+      pins
+          .where((element) => element.id == reviews.pindropId)
+          .first
+          .reviews!
+          .add(reviews);
       EasyLoading.dismiss();
       showToast(message: 'review added successfully');
       return true;
@@ -92,12 +161,31 @@ class PinDropService with ListenableServiceMixin {
     }
   }
 
-  Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
-    Map<String, dynamic> data = pinnedLocation.toMap();
-    await FirebaseFirestore.instance.collection('pins').add(data);
-    pins.add(pinnedLocation);
-    notifyListeners();
+  Future<void> saveEditPin(PinnedLocation pinnedLocation) async {
+    await firebasestore
+        .collection('pins')
+        .doc(pinnedLocation.uid)
+        .set(pinnedLocation.toMap());
 
+    notifyListeners();
+  }
+
+  Future<void> savePinnedLocation(PinnedLocation pinnedLocation) async {
+    try {
+      DocumentReference docRef = await FirebaseFirestore.instance
+          .collection('pins')
+          .add(pinnedLocation.toMap());
+
+      String id = firebasestore.collection('pins').doc().id;
+      pinnedLocation.id = id;
+      await docRef.update({'id': id});
+      pins.add(PinnedLocation.fromMap(pinnedLocation.toMap()));
+      // fetchReviewsByPinId(pinnedLocation.id!);
+
+      notifyListeners();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<String> uploadImage(File imageFile, String fileName) async {
@@ -134,42 +222,59 @@ class PinDropService with ListenableServiceMixin {
     return downloadUrls;
   }
 
-  Future<void> addReview(String pinId, Review review) async {
-    final CollectionReference pinsCollection =
-        FirebaseFirestore.instance.collection('pins');
-    final DocumentReference pinDoc = pinsCollection.doc(pinId);
-    final CollectionReference reviewsCollection = pinDoc.collection('reviews');
-    final DocumentReference reviewDoc = reviewsCollection.doc();
+  // Future<void> addReview(String pinId, Review review) async {
+  //   final CollectionReference pinsCollection =
+  //       FirebaseFirestore.instance.collection('pins');
+  //   final DocumentReference pinDoc = pinsCollection.doc(pinId);
+  //   final CollectionReference reviewsCollection = pinDoc.collection('reviews');
+  //   final DocumentReference reviewDoc = reviewsCollection.doc();
 
-    await reviewDoc.set(review.toFirestore());
-  }
+  //   await reviewDoc.set(review.toFirestore());
+  // }
 
   Future<List<PinnedLocation>> getPinsNearUserLocation(
       LatLng userLocation) async {
-    final List<PinnedLocation> pins = [];
-    final ref = firebasestore.collection('pins');
-    final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
-      center: GeoFirePoint(
-        GeoPoint(
-          userLocation.latitude,
-          userLocation.longitude,
+    try {
+      final ref = firebasestore.collection('pins');
+      final query = await GeoCollectionReference(ref).fetchWithinWithDistance(
+        center: GeoFirePoint(
+          GeoPoint(
+            userLocation.latitude,
+            userLocation.longitude,
+          ),
         ),
-      ),
-      radiusInKm: 50,
-      geohashField: 'geohash',
-      field: 'geo',
-      strictMode: true,
-      geopointFrom: (data) =>
-          (data['geo'] as Map<String, dynamic>)['geopoint'] as GeoPoint,
-    );
+        radiusInKm: 50,
+        geohashField: 'geohash',
+        field: 'geo',
+        strictMode: true,
+        geopointFrom: (data) =>
+            (data['geo'] as Map<String, dynamic>)['geopoint'] as GeoPoint,
+      );
 
-    for (final doc in query) {
-      final PinnedLocation pin =
-          PinnedLocation.fromSnapshot(doc.documentSnapshot);
-      pins.add(pin);
+      // Clear existing pins if we're reloading
+      if (!isInitialized) {
+        pins.clear();
+      }
+
+      // Process pins in batches for better performance
+      final List<Future<PinnedLocation>> pinFutures = query.map((doc) async {
+        PinnedLocation pin = PinnedLocation.fromSnapshot(doc.documentSnapshot);
+        pin.reviews = await fetchReviewsByPinId(pin.id!);
+        return pin;
+      }).toList();
+
+      // Wait for all pins to load
+      List<PinnedLocation> loadedPins = await Future.wait(pinFutures);
+      pins.addAll(loadedPins);
+
+      log('Loaded ${pins.length} pins');
+      isInitialized = true;
+      notifyListeners();
+      return pins;
+    } catch (e) {
+      log('Error loading pins: $e');
+      return [];
     }
-    log(pins.toString());
-    return pins;
   }
 
   Future<List<PinnedLocation>> getPinsUsingTags(

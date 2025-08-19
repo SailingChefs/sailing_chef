@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:66812962587:android:f03afe9f66caf284e655be",
+        "mobilesdk_app_id": "1:66812962587:android:91f687098d06b30ce655be",
         "android_client_info": {
-          "package_name": "com.stackwise.sailingChefs"
+          "package_name": "com.example.testing"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
@@ -20,18 +25,59 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.drudotstech.SailingChefs"
+              }
+            }
+          ]
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:66812962587:android:d12967c9b26256bde655be",
+        "mobilesdk_app_id": "1:66812962587:android:f03afe9f66caf284e655be",
         "android_client_info": {
-          "package_name": "com.stackwise.sailingchefs.com"
+          "package_name": "com.stackwise.sailingChefs"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stackwise.sailingChefs",
+            "certificate_hash": "d53380d16c2891f3f3719d63ed8243a2bfc9946c"
+          }
+        },
+        {
+          "client_id": "66812962587-ivn1motdam2p0tbonhoaq0kkf2tujkbp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stackwise.sailingChefs",
+            "certificate_hash": "39731b6acceecc425087f729f407962119ed884b"
+          }
+        },
+        {
+          "client_id": "66812962587-plqaq6tt1jp39juk1glprs2pn534fcg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stackwise.sailingChefs",
+            "certificate_hash": "19cd022e664cfcb163eeef8d84105f62040a049c"
+          }
+        },
+        {
+          "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
@@ -39,7 +85,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.drudotstech.SailingChefs"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66812962587:android:2b62a04c22026d0de655be",
+        "android_client_info": {
+          "package_name": "com.stackwiseagency.egold"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.drudotstech.SailingChefs"
+              }
+            }
+          ]
         }
       }
     }

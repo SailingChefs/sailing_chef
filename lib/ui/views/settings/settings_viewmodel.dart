@@ -1,8 +1,8 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/ui/views/login/login_view.dart';
+
+import '../onboarding/onboarding_view.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -10,13 +10,13 @@ class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void getBack() {
-    if(userDetails!.userRole == 'chef' || userDetails!.userRole == 'culinarySchool'){
-      _navigationService.navigateToBottomNavBarView();
-    }
-    else{
-      _navigationService.navigateToBottomBarGuestView();
-    }
-    
+    // if (userDetails!.userRole == 'chef' ||
+    //     userDetails!.userRole == 'culinarySchool') {
+    //   _navigationService.navigateToBottomNavBarView();
+    // } else {
+    //   _navigationService.navigateToBottomBarGuestView();
+    // }
+    _navigationService.back();
   }
 
   void deleteAccount() {
@@ -35,6 +35,10 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToPinDropMapView();
   }
 
+  void getToShoppingList() {
+    _navigationService.navigateToShoppingListView();
+  }
+
   void getEditProfile() {
     _navigationService.navigateToEditProfileView();
   }
@@ -48,7 +52,19 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void signOutUser() async {
-    await  _authService.signOut();
-    _navigationService.clearStackAndShowView(const LoginView());
+    await _authService.signOut();
+    _navigationService.clearStackAndShowView(const OnboardingView());
+  }
+
+  void getSavedRecipes() {
+    _navigationService.navigateToCullinarySavedrecipesView();
+  }
+
+  void goToPrivateRecipes() {
+    _navigationService.navigateToPrivateRecipesView();
+  }
+
+  void sendFeedback() {
+    _navigationService.navigateToFeedbackView();
   }
 }

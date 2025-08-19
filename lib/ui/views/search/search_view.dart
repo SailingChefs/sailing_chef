@@ -8,11 +8,16 @@ import 'package:sailing_chefs/ui/views/search/widgets/tab_bar.dart';
 
 import 'search_viewmodel.dart';
 
+// ignore: must_be_immutable
 class SearchView extends StackedView<SearchViewModel> {
   final List<RecipeModel> recipeModel;
   final List<UserModel> chefList;
-  const SearchView(
-      {Key? key, required this.recipeModel, required this.chefList})
+  int selectedTagsCount;
+  SearchView(
+      {Key? key,
+      required this.recipeModel,
+      required this.chefList,
+      required this.selectedTagsCount})
       : super(key: key);
 
   @override
@@ -63,6 +68,7 @@ class SearchView extends StackedView<SearchViewModel> {
                         // const TopBarSearchScreen(),
                         verticalSpaceMedium,
                         SearchBarSearchScreen(
+                          selectedTagsCount,
                           recipes: recipeModel,
                         ),
                         verticalSpaceMedium,

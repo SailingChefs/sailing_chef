@@ -1,4 +1,4 @@
-import 'package:sailing_chefs/core/helpers/avergae_calculator.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
@@ -28,13 +28,12 @@ class SearchViewAllRecipes extends ViewModelWidget<ExploreAllRecipesViewModel> {
                 final RecipeModel recipe =
                     viewModel.searchRecipes(recipes).elementAt(index);
                 return PrimaryGridTile(
-
-                  chefId: recipe.user!.uid!,
-                  rating: calculateAverageRating(recipes[index].comment!),
+                    chefId: recipe.user!.uid!,
+                    rating: recipe.rating,
                     recipe: recipe,
                     onTap: () => viewModel.toDishDetailsScreen(recipe),
                     foodImagePath: recipe.coverImage
-                        .where((element) => element.contains('.jpg'))
+                        .where((element) => element.isFirebaseImageUrl)
                         .first,
                     dishName: recipe.title,
                     duration: recipe.prepTime,

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
@@ -13,7 +14,7 @@ class SearchViewModel extends BaseViewModel {
   final TextEditingController searchControllerRecipe = TextEditingController();
   final TextEditingController searchControllerChef = TextEditingController();
 
-  List<RecipeModel> get savedRecipes => _savedRecipeService.savedRecipes;
+  List<RecipeModel> get savedRecipes => savedRecipesGlobal;
 
   String selectedTab = 'All';
   bool isRecipeSelected = true;
@@ -89,11 +90,14 @@ class SearchViewModel extends BaseViewModel {
 
   void goBack() {
     log('tapped');
+    // _navigationService.replaceWithBottomNavBarView();
+
     _navigationService.back();
   }
 
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
+        isFromPrivateProfile: false,
         recipeModel: recipe,
         randomRecipeList:
             IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
