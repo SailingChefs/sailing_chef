@@ -7,6 +7,7 @@ import 'package:sailing_chefs/ui/views/following_list/widgets/search_list.dart';
 import 'package:sailing_chefs/ui/views/following_list/widgets/searchbar_following.dart';
 
 class FollowerList extends ViewModelWidget<FollowingListViewModel> {
+  const FollowerList();
   @override
   Widget build(BuildContext context, FollowingListViewModel viewModel) {
     return viewModel.followersUsers.isEmpty
@@ -31,38 +32,38 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                       color: kcBlackColor,
                     )),
               ),
-              if (viewModel.searchController.text.isNotEmpty) SearchList(
-                      users: viewModel.followersUsers,
-                      isFromFollowingList: false,
-                    ) else Container(
-                      height: 500,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        itemCount: viewModel.followersUsers.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            onTap: () {
-                              viewModel.toUserDetails(
-                                  viewModel.followersUsers[index]);
-                            },
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  ImageUtils.safeNetworkImageForAvatar(
-                                viewModel.followersUsers[index].displayPicture,
-                              ),
-                            ),
-                            title: Text(
-                                viewModel.followersUsers[index].displayName!,
-                                style: globalTextStyle(
-                                  fontSize: 14.sp,
-                                  letterSpacing: -0.5,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
-                                )),
-                          );
+              if (viewModel.searchController.text.isNotEmpty)
+                SearchList(
+                  users: viewModel.followersUsers,
+                  isFromFollowingList: false,
+                )
+              else
+                Container(
+                  height: 500,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    itemCount: viewModel.followersUsers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        onTap: () {
+                          viewModel.toUserDetails(viewModel.followersUsers[index]);
                         },
-                      ),
-                    ),
+                        leading: CircleAvatar(
+                          backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                            viewModel.followersUsers[index].displayPicture,
+                          ),
+                        ),
+                        title: Text(viewModel.followersUsers[index].displayName!,
+                            style: globalTextStyle(
+                              fontSize: 14.sp,
+                              letterSpacing: -0.5,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
+                            )),
+                      );
+                    },
+                  ),
+                ),
             ],
           );
   }

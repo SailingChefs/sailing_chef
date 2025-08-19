@@ -25,8 +25,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   final bottomsheetService = locator<BottomSheetService>();
   final _chefService = locator<ChefService>();
-  final CullinaryschoolService _cullinarySchoolService =
-      locator<CullinaryschoolService>();
+  final CullinaryschoolService _cullinarySchoolService = locator<CullinaryschoolService>();
 
   String selectedTab = 'Myrecipes';
   bool isMySelected = true;
@@ -50,10 +49,8 @@ class ProfileViewModel extends ReactiveViewModel {
     // _navigationService.navigateToProfileShareView();
     Navigator.of(context).push(PageRouteBuilder(
       opaque: false, // Ensures the new page doesn't cover the background
-      barrierColor: Colors.grey.shade900
-          .withOpacity(0.95), // Makes the background transparent
-      pageBuilder: (context, _, __) =>
-          ProfileShareView(image: image, type: type),
+      barrierColor: Colors.grey.shade900.withOpacity(0.95), // Makes the background transparent
+      pageBuilder: (context, _, __) => ProfileShareView(image: image, type: type),
     ));
   }
 
@@ -78,7 +75,7 @@ class ProfileViewModel extends ReactiveViewModel {
     await launchUrl(uri);
   }
 
-  Future<void> savedSelected() async {
+  void savedSelected() {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -88,14 +85,12 @@ class ProfileViewModel extends ReactiveViewModel {
 
   void goToFollowerList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(
-            user: userDetails!, isfromFollowing: false));
+        arguments: FollowingListViewArguments(user: userDetails!, isfromFollowing: false));
   }
 
   void goToFollowingList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(
-            user: userDetails!, isfromFollowing: true));
+        arguments: FollowingListViewArguments(user: userDetails!, isfromFollowing: true));
   }
 
   void toSettings(BuildContext context) {
@@ -129,7 +124,6 @@ class ProfileViewModel extends ReactiveViewModel {
   Future<void> myRecipesList() async {
     if (RecipeService.recipes.isEmpty) {
       await _recipeService.initialized();
-      return;
     } else if (RecipeService.recipes.isNotEmpty) {
       for (final recipes in RecipeService.recipes) {
         if (recipes.uid == userDetails!.uid) {
@@ -182,7 +176,7 @@ class ProfileViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  Future<void> ini() async {}
+  void ini() {}
 
   void toDishesScreen() {
     scrollController.animateTo(
@@ -197,8 +191,7 @@ class ProfileViewModel extends ReactiveViewModel {
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipeModel,
-          randomRecipeList: IndexViewModel.getRandomDishes(
-              recipeModel, RecipeService.recipes)),
+          randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
       duration: const Duration(),
       transitionStyle: Transition.downToUp,

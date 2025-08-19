@@ -65,15 +65,10 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: GestureDetector(
                           onTap: () {
-                            if (viewModel.location.pinnedLocation != null) {
-                              viewModel.getPfpImage();
-                            } else {
-                              viewModel.getPfpImage();
-                            }
+                            viewModel.getPfpImage();
                           },
                           child: viewModel.location.pinnedLocation != null
-                              ? viewModel.location.pinnedLocation!.picture
-                                          .isNotEmpty &&
+                              ? viewModel.location.pinnedLocation!.picture.isNotEmpty &&
                                       viewModel.selectedImageFile == null
                                   ? Container(
                                       height: 40.h,
@@ -83,11 +78,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(50)),
+                                          borderRadius: const BorderRadius.all(Radius.circular(50)),
                                           child: Image.network(
-                                            viewModel.location.pinnedLocation!
-                                                .picture.first,
+                                            viewModel.location.pinnedLocation!.picture.first,
                                             fit: BoxFit.cover,
                                           )),
                                     )
@@ -101,13 +94,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                                           ),
                                           child: ClipRRect(
                                               borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(50)),
+                                                  const BorderRadius.all(Radius.circular(50)),
                                               child: Image.file(
-                                                File(viewModel
-                                                    .selectedImageFile!
-                                                    .first
-                                                    .path),
+                                                File(viewModel.selectedImageFile!.first.path),
                                                 fit: BoxFit.cover,
                                               )),
                                         )
@@ -121,11 +110,9 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(50)),
+                                          borderRadius: const BorderRadius.all(Radius.circular(50)),
                                           child: Image.file(
-                                            File(viewModel
-                                                .selectedImageFile!.first.path),
+                                            File(viewModel.selectedImageFile!.first.path),
                                             fit: BoxFit.cover,
                                           )),
                                     )

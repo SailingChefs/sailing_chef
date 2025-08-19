@@ -19,8 +19,7 @@ class UserServices with ListenableServiceMixin {
   final DialogService _dialogService = locator<DialogService>();
 
   Future<ShoppingListModel> fetchShoppingList() async {
-    final userDoc =
-        firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid);
+    final userDoc = firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid);
 
     final querySnapshot = await userDoc.collection('shopping_list').get();
 
@@ -59,8 +58,7 @@ class UserServices with ListenableServiceMixin {
       throw Exception('User not signed in or created');
     }
 
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
+    final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
     final userSnapshot = await usersCollection.doc(user.uid).get();
     userModel.userDocId = userSnapshot.id;
@@ -71,9 +69,8 @@ class UserServices with ListenableServiceMixin {
           );
 
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   Future<void> storeUserRole(UserModel userModel, String role) async {
@@ -83,13 +80,11 @@ class UserServices with ListenableServiceMixin {
       throw Exception('User not signed in or created');
     }
 
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
+    final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
     await usersCollection.doc(userDetails!.uid).update({'user_role': role});
 
-    final querySnapshot =
-        await usersCollection.where('email', isEqualTo: userModel.email).get();
+    final querySnapshot = await usersCollection.where('email', isEqualTo: userModel.email).get();
 
     if (querySnapshot.docs.isNotEmpty) {
       final DocumentSnapshot userSnapshot = querySnapshot.docs.first;
@@ -112,9 +107,8 @@ class UserServices with ListenableServiceMixin {
     try {
       final CollectionReference usersCollection = firebasestore.collection('users');
 
-      final userSnapshot = await usersCollection
-          .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
-          .get();
+      final userSnapshot =
+          await usersCollection.where('uid', isEqualTo: firebaseAuth.currentUser!.uid).get();
 
       log(userSnapshot.docs.toString());
 
@@ -127,9 +121,8 @@ class UserServices with ListenableServiceMixin {
 
         // return  UserModel();
         return UserModel.fromSnapshot(userDoc);
-      } else {
-        throw Exception('User not found in Firestore');
       }
+      throw Exception('User not found in Firestore');
     } catch (e) {
       showToast(message: e.toString());
       // Handle errors as needed
@@ -137,8 +130,7 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
-  Future<bool> storeUserDetails(
-      Map<String, dynamic> userModel, String uid) async {
+  Future<bool> storeUserDetails(Map<String, dynamic> userModel, String uid) async {
     try {
       // Validate that uid is not empty
       if (uid.isEmpty) {
@@ -148,8 +140,7 @@ class UserServices with ListenableServiceMixin {
       }
 
       EasyLoading.show();
-      final CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('users');
+      final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
       final userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());
@@ -158,11 +149,10 @@ class UserServices with ListenableServiceMixin {
         EasyLoading.dismiss();
         showToast(message: 'User Data Uploaded successfully');
         return true;
-      } else {
-        EasyLoading.dismiss();
-        await usersCollection.doc(uid).set(userModel);
-        return true;
       }
+      EasyLoading.dismiss();
+      await usersCollection.doc(uid).set(userModel);
+      return true;
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());
@@ -198,14 +188,12 @@ class UserServices with ListenableServiceMixin {
 
   Future<UserModel> fetchUserByUID(String uid) async {
     try {
-      final DocumentSnapshot snapshot =
-          await firebasestore.collection('users').doc(uid).get();
+      final DocumentSnapshot snapshot = await firebasestore.collection('users').doc(uid).get();
       if (snapshot.exists) {
         return UserModel.fromSnapshot(snapshot);
-      } else {
-        log('No user found with uid: $uid');
-        return UserModel();
       }
+      log('No user found with uid: $uid');
+      return UserModel();
     } catch (e) {
       log('Error fetching user: $e');
       return UserModel();
@@ -214,13 +202,11 @@ class UserServices with ListenableServiceMixin {
 
   Future<bool> doesUserExist(String uid) async {
     try {
-      final userSnapshot =
-          await firebasestore.collection('users').doc(uid).get();
+      final userSnapshot = await firebasestore.collection('users').doc(uid).get();
       if (userSnapshot.exists) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     } catch (e) {
       log('Error fetching user: $e');
       return false;
@@ -248,8 +234,7 @@ class UserServices with ListenableServiceMixin {
       }
 
       // Create credentials with the provided email and password
-      final credential =
-          EmailAuthProvider.credential(email: user.email!, password: password);
+      final credential = EmailAuthProvider.credential(email: user.email!, password: password);
 
       // Re-authenticate the user with the provided credentials
       await user.reauthenticateWithCredential(credential);
@@ -268,7 +253,7 @@ class UserServices with ListenableServiceMixin {
       EasyLoading.show();
 
       // Re-authenticate the user
-      final var user = FirebaseAuth.instance.currentUser;
+      final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         EasyLoading.dismiss();
         return false;
@@ -278,8 +263,7 @@ class UserServices with ListenableServiceMixin {
       final email = userDetails!.email!; // Get the user's email
       final password = passworde; // Get the user's password
 
-      final credential =
-          EmailAuthProvider.credential(email: email, password: password);
+      final credential = EmailAuthProvider.credential(email: email, password: password);
       await user.reauthenticateWithCredential(credential);
       // Proceed with the deletion after re-authentication
 
@@ -330,10 +314,7 @@ class UserServices with ListenableServiceMixin {
         await doc.reference.delete();
       }
 
-      await FirebaseFirestore.instance
-          .collection('recipes')
-          .get()
-          .then((recipesSnapshot) async {
+      await FirebaseFirestore.instance.collection('recipes').get().then((recipesSnapshot) async {
         for (final recipeDoc in recipesSnapshot.docs) {
           await FirebaseFirestore.instance
               .collection('recipes')
@@ -348,10 +329,7 @@ class UserServices with ListenableServiceMixin {
           });
         }
       });
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .delete();
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
 
       // if (userDetails!.userRole == 'culinarySchool') {
       //   for (var courseId in userDetails!.schoolCourses!) {
@@ -426,10 +404,7 @@ class UserServices with ListenableServiceMixin {
       await doc.reference.delete();
     }
 
-    await FirebaseFirestore.instance
-        .collection('recipes')
-        .get()
-        .then((recipesSnapshot) async {
+    await FirebaseFirestore.instance.collection('recipes').get().then((recipesSnapshot) async {
       for (final recipeDoc in recipesSnapshot.docs) {
         await FirebaseFirestore.instance
             .collection('recipes')

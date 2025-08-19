@@ -9,8 +9,7 @@ import 'package:sailing_chefs/ui/views/search/search_viewmodel.dart';
 class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
   final List<RecipeModel> recipes;
   int? selectedTagsCount;
-  SearchBarSearchScreen(this.selectedTagsCount,
-      {required this.recipes, super.key});
+  SearchBarSearchScreen(this.selectedTagsCount, {required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context, SearchViewModel viewModel) {
@@ -32,11 +31,8 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               ),
               filled: true,
               fillColor: kcWhiteColor,
-              labelStyle: TextStyle(
-                  fontSize: 14.sp, color: kcBlackColor.withOpacity(0.6)),
-              labelText: viewModel.isRecipeSelected
-                  ? 'Find Recipes...'
-                  : 'Find Chefs...',
+              labelStyle: TextStyle(fontSize: 14.sp, color: kcBlackColor.withOpacity(0.6)),
+              labelText: viewModel.isRecipeSelected ? 'Find Recipes...' : 'Find Chefs...',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
                 borderSide: BorderSide(color: kcBlackColor.withOpacity(0.2)),
@@ -47,9 +43,8 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
-                borderSide: BorderSide(
-                    color: kcBlackColor
-                        .withOpacity(0.2)), // Unfocused border color
+                borderSide:
+                    BorderSide(color: kcBlackColor.withOpacity(0.2)), // Unfocused border color
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0.r),
@@ -100,7 +95,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
                   shape: BoxShape.circle,
                 ),
                 child: Text(
-                  selectedTagsCount.toString(),
+                  selectedTagsCount?.toString(),
                   style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
                 ),
               ),

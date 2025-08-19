@@ -190,13 +190,11 @@ class UserDetailsViewModel extends BaseViewModel {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomBarGuestView();
         } else {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -211,8 +209,7 @@ class UserDetailsViewModel extends BaseViewModel {
     var imageLink = '';
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
-        imageLink =
-            'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
+        imageLink = 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
       } else {
         imageLink = await _userService.uploadImage(
           selectedImageFile!,
@@ -256,7 +253,7 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> onViewModelReady() async {
+  void onViewModelReady() {
     setBusy(true);
     nameController.text = capitalizeEachWord(userDetails!.displayName!);
     setBusy(false);

@@ -15,16 +15,14 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (final recipe in recipes) {
-      if (recipe.title
-          .toLowerCase()
-          .contains(searchController.text.toLowerCase())) {
+      if (recipe.title.toLowerCase().contains(searchController.text.toLowerCase())) {
         // rebuildUi();
         yield recipe;
       }
     }
   }
 
-  Future<void> onViewModelReady() async {
+  void onViewModelReady() {
     setBusy(true);
     // await _savedRecipeService.init();
 
@@ -43,8 +41,7 @@ class ExploreAllRecipesViewModel extends BaseViewModel {
     _navigatorService.navigateToSavedRecipeDetailsView(
       isFromPrivateProfile: false,
       recipeModel: recip,
-      randomRecipeList:
-          IndexViewModel.getRandomDishes(recip, RecipeService.recipes),
+      randomRecipeList: IndexViewModel.getRandomDishes(recip, RecipeService.recipes),
     );
   }
 }

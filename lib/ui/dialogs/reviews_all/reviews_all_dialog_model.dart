@@ -11,8 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 class ReviewsAllDialogModel extends BaseViewModel {
   PinnedLocation pinnedLocation;
   String placeMark;
-  ReviewsAllDialogModel(
-      {required this.pinnedLocation, required this.placeMark});
+  ReviewsAllDialogModel({required this.pinnedLocation, required this.placeMark});
   final _reviewService = locator<PinDropService>();
   final _dialogService = locator<DialogService>();
   final _auth = FirebaseAuth.instance;
@@ -57,7 +56,7 @@ class ReviewsAllDialogModel extends BaseViewModel {
     }
   }
 
-  Future<void> editReview(ReviewsModel review) async {
+  void editReview(ReviewsModel review) {
     if (!isUserReview(review)) return;
 
     currentEditingReview = review;

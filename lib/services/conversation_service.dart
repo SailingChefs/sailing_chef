@@ -15,17 +15,15 @@ import 'package:stacked/stacked.dart';
 class ConversationService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
 
-  Future<String> createOrUpdateConversation(
-      ConversationModel conversation) async {
+  Future<String> createOrUpdateConversation(ConversationModel conversation) async {
     // final FirebaseFirestore db = FirebaseFirestore.instance;
-    final CollectionReference conversationsCollection =
-        firebasestore.collection('conversations');
+    final CollectionReference conversationsCollection = firebasestore.collection('conversations');
 
     var conversationId = ''; // Initialize with a default value
 
     try {
       // Sort users to ensure consistent order for comparison
-      final sortedUsers = List<String>.from(conversation.users)..sort();
+      final sortedUsers = List<String>.of(conversation.users)..sort();
       final participantsFilter = sortedUsers.join(',');
 
       // Check for existing conversation
@@ -40,8 +38,7 @@ class ConversationService with ListenableServiceMixin {
         log('Existing conversation ID: $conversationId');
       } else {
         // No existing conversation found, create a new one
-        final docRef = await conversationsCollection.add(conversation
-            .toJson()
+        final docRef = await conversationsCollection.add(conversation.toJson()
           ..['sortedParticipants'] =
               participantsFilter); // Include sorted list as a string for easier matching
         conversationId = docRef.id;
@@ -68,8 +65,7 @@ class ConversationService with ListenableServiceMixin {
       final conversations = <ConversationModel>[];
       for (final doc in querySnapshot.docs) {
         final users = List<String>.from(doc.get('users'));
-        final otherUserId =
-            users.firstWhere((id) => id != firebaseAuth.currentUser!.uid);
+        final otherUserId = users.firstWhere((id) => id != firebaseAuth.currentUser!.uid);
         final otherUser = await _userService.fetchUserByUID(otherUserId);
         conversations.add(ConversationModel.fromDocument(doc, otherUser));
       }
@@ -163,8 +159,7 @@ class ConversationService with ListenableServiceMixin {
 
   Future<void> sendMessage(MessageModel message, String conversationId,
       {String? imageUrl, String? file}) async {
-    final CollectionReference conversationsCollection =
-        firebasestore.collection('conversations');
+    final CollectionReference conversationsCollection = firebasestore.collection('conversations');
     final CollectionReference messagesCollection =
         conversationsCollection.doc(conversationId).collection('messages');
 
@@ -193,8 +188,7 @@ class ConversationService with ListenableServiceMixin {
 
   Future<String> uploadImage(File imageFile, String fileName) async {
     try {
-      final ref =
-          firebaseStorage.ref().child('conversationImages/$fileName');
+      final ref = firebaseStorage.ref().child('conversationImages/$fileName');
 
       final uploadTask = ref.putFile(imageFile);
 
@@ -212,12 +206,9 @@ class ConversationService with ListenableServiceMixin {
   Stream<List<MessageModel>> getMessages(String conversationId) async* {
     try {
       EasyLoading.show();
-      final CollectionReference messagesCollection = firebasestore
-          .collection('conversations')
-          .doc(conversationId)
-          .collection('messages');
-      final orderedQuery =
-          messagesCollection.orderBy('timestamp', descending: false);
+      final CollectionReference messagesCollection =
+          firebasestore.collection('conversations').doc(conversationId).collection('messages');
+      final orderedQuery = messagesCollection.orderBy('timestamp', descending: false);
 
       final snapshots = orderedQuery.snapshots();
 

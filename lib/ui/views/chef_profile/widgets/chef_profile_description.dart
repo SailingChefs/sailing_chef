@@ -31,24 +31,19 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                   color: kcVeryLightGrey,
                   shape: BoxShape.circle,
                 ),
-                child: user.displayPicture == null ||
-                        user.displayPicture!.isEmpty
+                child: user.displayPicture == null || user.displayPicture!.isEmpty
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/misc/blank_image.png')),
+                        child: const Image(image: AssetImage('assets/images/misc/blank_image.png')),
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: CachedNetworkImage(
                           imageUrl: user.displayPicture!,
-                          height:
-                              MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                          height: MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
                           fit: BoxFit.cover,
                           width: double.maxFinite,
-                          progressIndicatorBuilder: (context, url, progress) =>
-                              Container(
+                          progressIndicatorBuilder: (context, url, progress) => Container(
                             decoration: const BoxDecoration(
                               color: kcsgreycolor,
                             ),
@@ -59,57 +54,58 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
             ),
           ),
           horizontalSpaceSmall,
-          if (user.userRole == 'culinarySchool') Column(
-                  children: [
-                    Text(
-                      viewModel.courses.length.toString(),
-                      style: globalTextStyle(
-                        fontSize: 18.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
-                    ),
-                    verticalSpaceTiny,
-                    Text(
-                      'Courses',
-                      style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
-                    ),
-                  ],
-                ) else GestureDetector(
-                  onTap: viewModel.toDishesScreen,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        user.recipes != null
-                            ? user.recipes!.length.toString()
-                            : '',
-                        style: globalTextStyle(
-                          fontSize: 18.sp,
-                          letterSpacing: -0.3,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                      ),
-                      verticalSpaceTiny,
-                      Text(
-                        'Dishes',
-                        style: globalTextStyle(
-                          fontSize: 14.sp,
-                          letterSpacing: -0.3,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
+          if (user.userRole == 'culinarySchool')
+            Column(
+              children: [
+                Text(
+                  viewModel.courses.length.toString(),
+                  style: globalTextStyle(
+                    fontSize: 18.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6),
                   ),
                 ),
+                verticalSpaceTiny,
+                Text(
+                  'Courses',
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
+                ),
+              ],
+            )
+          else
+            GestureDetector(
+              onTap: viewModel.toDishesScreen,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    user.recipes != null ? user.recipes!.length.toString() : '',
+                    style: globalTextStyle(
+                      fontSize: 18.sp,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
+                  verticalSpaceTiny,
+                  Text(
+                    'Dishes',
+                    style: globalTextStyle(
+                      fontSize: 14.sp,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           horizontalSpaceSmall,
           GestureDetector(
             onTap: viewModel.goToFollowerList,
@@ -117,11 +113,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  viewModel.isBusy
-                      // ? user.followers!.length.toString()
-                      ? viewModel.dummyFollowers.toString()
-                      // : viewModel.followers.length.toString(),
-                      : viewModel.dummyFollowers.toString(),
+                  viewModel.dummyFollowers.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,
@@ -149,11 +141,8 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  viewModel.isBusy
-                      ? viewModel.dummyFollowing.toString()
-                      :
-                      // user.following!.length.toString(),
-                      viewModel.dummyFollowing.toString(),
+                  // user.following!.length.toString(),
+                  viewModel.dummyFollowing.toString(),
                   style: globalTextStyle(
                     fontSize: 18.sp,
                     letterSpacing: -0.3,

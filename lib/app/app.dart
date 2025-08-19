@@ -200,4 +200,6 @@ import 'package:stacked_services/stacked_services.dart';
 // @stacked-dialog
   ],
 )
-class App {}
+class App {
+  const App();
+}

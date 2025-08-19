@@ -13,16 +13,14 @@ class AllChefsViewModel extends BaseViewModel {
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
     for (final user in chefs) {
-      if (user.displayName!
-          .toLowerCase()
-          .contains(searchController.text.toLowerCase())) {
+      if (user.displayName!.toLowerCase().contains(searchController.text.toLowerCase())) {
         log('Searched Cheff --------->  ${user.displayName!.toLowerCase()}');
         yield user;
       }
     }
   }
 
-  Future<void> toChefProfile(UserModel chef) async {
+  void toChefProfile(UserModel chef) {
     _navigationService.navigateToChefProfileView(user: chef);
   }
 

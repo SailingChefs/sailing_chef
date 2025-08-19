@@ -15,13 +15,13 @@ class ChatView extends StackedView<ChatViewModel> {
   const ChatView(
       {required this.receiver,
       required this.conversationId,
-      required this.messageFromCource, super.key});
+      required this.messageFromCource,
+      super.key});
 
   @override
   Widget builder(BuildContext context, ChatViewModel viewModel, Widget? child) {
     return ViewModelBuilder<ChatViewModel>.reactive(
-        viewModelBuilder: () =>
-            ChatViewModel(messageFromCource!, convoId: conversationId),
+        viewModelBuilder: () => ChatViewModel(messageFromCource!, convoId: conversationId),
         onViewModelReady: (viewModel) {
           WidgetsBinding.instance.addPostFrameCallback((_) {});
         },
@@ -89,16 +89,13 @@ class _MessageListAndAppBar extends StatelessWidget {
                 children: [
                   verticalSpaceMedium,
                   _ExpandedAppBar(viewModel, receiver, conversationId),
-                  for (int index = 0;
-                      index < viewModel.messages.length + 1;
-                      index++)
+                  for (int index = 0; index < viewModel.messages.length + 1; index++)
                     if (index < viewModel.messages.length)
                       ChatMessage(
                         viewModel.messages[index],
                         user: receiver,
                       )
-                    else if (index >= viewModel.messages.length &&
-                        viewModel.uploadingImage)
+                    else if (index >= viewModel.messages.length && viewModel.uploadingImage)
                       Column(
                         children: [
                           Align(
@@ -125,14 +122,12 @@ class _MessageListAndAppBar extends StatelessWidget {
                           verticalSpaceSmall,
                         ],
                       )
-                    else if (index >= viewModel.messages.length &&
-                        viewModel.uploadingFile)
+                    else if (index >= viewModel.messages.length && viewModel.uploadingFile)
                       Column(
                         children: [
                           Container(
                             constraints: BoxConstraints(
-                              maxWidth:
-                                  MediaQuery.of(context).size.width * 0.68,
+                              maxWidth: MediaQuery.of(context).size.width * 0.68,
                             ),
                             decoration: BoxDecoration(
                               color: kcWhiteColor,
@@ -150,15 +145,11 @@ class _MessageListAndAppBar extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
                                   title: const Text(
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      'File Name'),
+                                      maxLines: 1, overflow: TextOverflow.ellipsis, 'File Name'),
                                   subtitle: const Text(
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      'File Path'),
+                                      maxLines: 1, overflow: TextOverflow.ellipsis, 'File Path'),
                                   trailing: GestureDetector(
-                                      onTap: () async {},
+                                      onTap: () {},
                                       child: const Icon(
                                         Icons.download,
                                         color: kcsgreycolor,
@@ -229,8 +220,7 @@ class _ExpandedAppBar extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: ImageUtils.safeNetworkImageForAvatar(
-                        receiver.displayPicture),
+                    image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
                   ),
                 ),
               ),
@@ -267,8 +257,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           BackArrowWidget(onTap: viewModel.getBack),
           Text(
             capitalizeEachWord(receiver.displayName ?? 'Chef Name'),
@@ -289,8 +278,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ImageUtils.safeNetworkImageForAvatar(
-                      receiver.displayPicture),
+                  image: ImageUtils.safeNetworkImageForAvatar(receiver.displayPicture),
                 ),
               ),
             ),

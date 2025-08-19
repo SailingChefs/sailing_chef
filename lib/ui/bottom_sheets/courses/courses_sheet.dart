@@ -10,7 +10,9 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
   final SheetRequest request;
 
   const CoursesSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override
@@ -134,29 +136,28 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                       verticalSpaceMedium,
                       CoursesButtons(completer: completer),
                       verticalSpaceMedium,
-                      if (request.data != null) GestureDetector(
-                              onTap: () {
-                                completer!(SheetResponse(confirmed: true));
-                                viewModel.deleteCourse(course!.id.toString());
-                              },
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      FlutterRemix.delete_bin_6_line,
-                                      color: kcBlackColor.withOpacity(0.6),
-                                      size: 20,
-                                    ),
-                                    horizontalSpaceSmall,
-                                    Text(
-                                      'Delete this course',
-                                      style: globalTextStyle(
-                                          color: kcallertcolor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ]),
-                            ) else Container(),
+                      if (request.data != null)
+                        GestureDetector(
+                          onTap: () {
+                            completer!(SheetResponse(confirmed: true));
+                            viewModel.deleteCourse(course!.id?.toString());
+                          },
+                          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                            Icon(
+                              FlutterRemix.delete_bin_6_line,
+                              color: kcBlackColor.withOpacity(0.6),
+                              size: 20,
+                            ),
+                            horizontalSpaceSmall,
+                            Text(
+                              'Delete this course',
+                              style: globalTextStyle(
+                                  color: kcallertcolor, fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                          ]),
+                        )
+                      else
+                        Container(),
                       verticalSpaceMedium,
                     ],
                   ),
@@ -173,6 +174,5 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
   }
 
   @override
-  CoursesSheetModel viewModelBuilder(BuildContext context) =>
-      CoursesSheetModel(completer);
+  CoursesSheetModel viewModelBuilder(BuildContext context) => CoursesSheetModel(completer);
 }

@@ -12,15 +12,14 @@ class CoursesSheetModel extends BaseViewModel {
   final TextEditingController link = TextEditingController();
   final TextEditingController desc = TextEditingController();
   final TextEditingController numOfDays = TextEditingController();
-  final CullinaryschoolService _cullinaryService =
-      locator<CullinaryschoolService>();
+  final CullinaryschoolService _cullinaryService = locator<CullinaryschoolService>();
   final DialogService _dialogSaved = locator<DialogService>();
   String id = '';
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CoursesSheetModel(this.completer);
-  Future<void> onViewModelReady(Course? course) async {
+  void onViewModelReady(Course? course) {
     setBusy(true);
 
     if (course != null) {
@@ -36,10 +35,7 @@ class CoursesSheetModel extends BaseViewModel {
   }
 
   bool isLinkValid(String input) {
-    if (!input.contains('www.') ||
-        !input.contains('.com') ||
-        input.isEmpty ||
-        input.length < 10) {
+    if (!input.contains('www.') || !input.contains('.com') || input.isEmpty || input.length < 10) {
       return false;
     }
     try {

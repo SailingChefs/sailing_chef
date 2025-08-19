@@ -59,8 +59,7 @@ class UserdataServiceService {
     }
   }
 
-  Future<bool> storeUserDetails(
-      Map<String, dynamic> userModel, String uid) async {
+  Future<bool> storeUserDetails(Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
       final CollectionReference usersCollection = firebasestore.collection('users');
@@ -73,12 +72,11 @@ class UserdataServiceService {
         // showToast(message: 'User Data Uploaded successfully');
         userDetails = await _userService.getUserDetails();
         return true;
-      } else {
-        EasyLoading.dismiss();
-        await usersCollection.doc(uid).set(userModel);
-        userDetails = await _userService.getUserDetails();
-        return true;
       }
+      EasyLoading.dismiss();
+      await usersCollection.doc(uid).set(userModel);
+      userDetails = await _userService.getUserDetails();
+      return true;
     } catch (e) {
       EasyLoading.dismiss();
       showToast(message: e.toString());

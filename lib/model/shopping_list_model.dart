@@ -6,7 +6,7 @@ class ShoppingListModel {
   final Map<String, Map<String, dynamic>> shoppingRecipeeIngredient;
   final Map<String, Map<String, dynamic>> showShoppingListview;
 
-  ShoppingListModel({
+  const ShoppingListModel({
     required this.selectedRecipees,
     required this.shoppingRecipeeIngredient,
     required this.showShoppingListview,
@@ -23,31 +23,26 @@ class ShoppingListModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'selectedRecipees':
-          selectedRecipees.map((recipe) => recipe.toMap()).toList(),
+      'selectedRecipees': selectedRecipees.map((recipe) => recipe.toMap()).toList(),
       'shoppingRecipeeIngredient': shoppingRecipeeIngredient.map((key, value) {
         return MapEntry(key, {
-          'selected_ingredients':
-              (value['selected_ingredients'] as List<dynamic>)
-                  .map((ingredient) => (ingredient as Ingredient).toJson())
-                  .toList(),
-          'unselected_ingredients':
-              (value['unselected_ingredients'] as List<dynamic>)
-                  .map((ingredient) => (ingredient as Ingredient).toJson())
-                  .toList(),
+          'selected_ingredients': (value['selected_ingredients'] as List<dynamic>)
+              .map((ingredient) => (ingredient as Ingredient).toJson())
+              .toList(),
+          'unselected_ingredients': (value['unselected_ingredients'] as List<dynamic>)
+              .map((ingredient) => (ingredient as Ingredient).toJson())
+              .toList(),
           'recipee_name': value['recipee_name'],
         });
       }),
       'showShoppingListview': showShoppingListview.map((key, value) {
         return MapEntry(key, {
-          'selected_ingredients':
-              (value['selected_ingredients'] as List<dynamic>)
-                  .map((ingredient) => (ingredient as Ingredient).toJson())
-                  .toList(),
-          'unselected_ingredients':
-              (value['unselected_ingredients'] as List<dynamic>)
-                  .map((ingredient) => (ingredient as Ingredient).toJson())
-                  .toList(),
+          'selected_ingredients': (value['selected_ingredients'] as List<dynamic>)
+              .map((ingredient) => (ingredient as Ingredient).toJson())
+              .toList(),
+          'unselected_ingredients': (value['unselected_ingredients'] as List<dynamic>)
+              .map((ingredient) => (ingredient as Ingredient).toJson())
+              .toList(),
           'recipee_id': value['recipee_id'],
         });
       }),
@@ -59,37 +54,28 @@ class ShoppingListModel {
       selectedRecipees: (json['selectedRecipees'] as List<dynamic>)
           .map((recipe) => RecipeModel.fromMap(recipe))
           .toList(),
-      shoppingRecipeeIngredient: Map<String, Map<String, dynamic>>.from(
-              json['shoppingRecipeeIngredient'])
-          .map((key, value) {
+      shoppingRecipeeIngredient:
+          Map<String, Map<String, dynamic>>.from(json['shoppingRecipeeIngredient'])
+              .map((key, value) {
         return MapEntry(key, {
-          'selected_ingredients':
-              (value['selected_ingredients'] as List<dynamic>)
-                  .map((ingredient) =>
-                      Ingredient.fromMap(ingredient as Map<String, dynamic>))
-                  .toList(),
-          'unselected_ingredients':
-              (value['unselected_ingredients'] as List<dynamic>)
-                  .map((ingredient) =>
-                      Ingredient.fromMap(ingredient as Map<String, dynamic>))
-                  .toList(),
+          'selected_ingredients': (value['selected_ingredients'] as List<dynamic>)
+              .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+              .toList(),
+          'unselected_ingredients': (value['unselected_ingredients'] as List<dynamic>)
+              .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+              .toList(),
           'recipee_name': value['recipee_name'],
         });
       }),
       showShoppingListview:
-          Map<String, Map<String, dynamic>>.from(json['showShoppingListview'])
-              .map((key, value) {
+          Map<String, Map<String, dynamic>>.from(json['showShoppingListview']).map((key, value) {
         return MapEntry(key, {
-          'selected_ingredients':
-              (value['selected_ingredients'] as List<dynamic>)
-                  .map((ingredient) =>
-                      Ingredient.fromMap(ingredient as Map<String, dynamic>))
-                  .toList(),
-          'unselected_ingredients':
-              (value['unselected_ingredients'] as List<dynamic>)
-                  .map((ingredient) =>
-                      Ingredient.fromMap(ingredient as Map<String, dynamic>))
-                  .toList(),
+          'selected_ingredients': (value['selected_ingredients'] as List<dynamic>)
+              .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+              .toList(),
+          'unselected_ingredients': (value['unselected_ingredients'] as List<dynamic>)
+              .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+              .toList(),
           'recipee_id': value['recipee_id'],
         });
       }),

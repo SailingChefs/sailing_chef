@@ -11,10 +11,15 @@ class ConversationModel {
   UserModel? user;
 
   ConversationModel({
-    required this.lastActive, required this.latestMessage, required this.latestMessageTime, required this.latestMessageType, required this.uid, required this.users, this.user,
+    required this.lastActive,
+    required this.latestMessage,
+    required this.latestMessageTime,
+    required this.latestMessageType,
+    required this.uid,
+    required this.users,
+    this.user,
   });
-  factory ConversationModel.fromDocument(
-      DocumentSnapshot doc, UserModel? otherUser) {
+  factory ConversationModel.fromDocument(DocumentSnapshot doc, UserModel? otherUser) {
     return ConversationModel(
       lastActive: (doc.get('lastActive') as Timestamp).toDate(),
       latestMessage: doc.get('latestMessage'),
@@ -33,7 +38,7 @@ class ConversationModel {
       'latestMessageTime': latestMessageTime,
       'latestMessageType': latestMessageType,
       'uid': uid,
-      'users': List<dynamic>.from(users),
+      'users': List<dynamic>.of(users),
     };
   }
 }

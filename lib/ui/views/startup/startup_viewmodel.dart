@@ -50,8 +50,7 @@ class StartupViewModel extends BaseViewModel {
             userShoppingList = await _userService.fetchShoppingList();
 
             selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-            shoppingRecipeeIngredient =
-                userShoppingList?.shoppingRecipeeIngredient ?? {};
+            shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
             showShoppingListview = userShoppingList?.showShoppingListview ?? {};
 
             if (userDetails!.userRole == 'guest') {
@@ -69,8 +68,7 @@ class StartupViewModel extends BaseViewModel {
   }
 
   Future<void> checkDeepLink() async {
-    final data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
+    final data = await FirebaseDynamicLinks.instance.getInitialLink();
     final deepLink = data?.link;
 
     if (deepLink != null) {
@@ -93,7 +91,7 @@ class StartupViewModel extends BaseViewModel {
     String currentRecipe,
   ) async {
     allRecipes = await recipeService.fetchAllRecipes();
-    final dishes = List<RecipeModel>.from(allRecipes!);
+    final dishes = List<RecipeModel>.of(allRecipes!);
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe);
 
     dishes.shuffle();
@@ -111,9 +109,7 @@ class StartupViewModel extends BaseViewModel {
       if (recipe != null) {
         final navigation = locator<NavigationService>();
         navigation.navigateToSavedRecipeDetailsView(
-            recipeModel: recipe,
-            isFromPrivateProfile: false,
-            randomRecipeList: []);
+            recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
       }
     }
   }

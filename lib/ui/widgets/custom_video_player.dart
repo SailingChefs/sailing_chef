@@ -8,11 +8,13 @@ class CustomVideoPlayer extends StatefulWidget {
   final String? url;
 
   const CustomVideoPlayer.file({
-    required this.pathh, super.key,
+    required this.pathh,
+    super.key,
   }) : url = null;
 
   const CustomVideoPlayer.network({
-    required this.url, super.key,
+    required this.url,
+    super.key,
   }) : pathh = null;
 
   @override
@@ -35,8 +37,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
   @override
   void initState() {
-    initVideo();
     super.initState();
+    initVideo();
   }
 
   @override
@@ -56,10 +58,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
               color: kcPrimaryColor,
             ),
           );
-        } else {
-          return GestureDetector(
-              onTap: _playPause, child: VideoPlayer(controller));
         }
+        return GestureDetector(onTap: _playPause, child: VideoPlayer(controller));
       },
     );
   }

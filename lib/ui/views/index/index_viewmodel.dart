@@ -31,13 +31,8 @@ class IndexViewModel extends BaseViewModel {
   List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   @override
   // ignore: override_on_non_overriding_member
-  List<ListenableServiceMixin> get listenableServices => [
-        _savedRecipeService,
-        _recipeService,
-        _cullinaryService,
-        _chefService,
-        _savedRecipeService
-      ];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_savedRecipeService, _recipeService, _cullinaryService, _chefService, _savedRecipeService];
 
   void get toViewCullinarySchool {}
   bool? isInitialised;
@@ -49,7 +44,7 @@ class IndexViewModel extends BaseViewModel {
 
   static List<RecipeModel> getRandomDishes(
       RecipeModel currentRecipe, List<RecipeModel> allRecipes) {
-    final dishes = List<RecipeModel>.from(allRecipes);
+    final dishes = List<RecipeModel>.of(allRecipes);
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe.docId);
 
     dishes.shuffle();
@@ -86,7 +81,7 @@ class IndexViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  Future<void> savedSelected() async {
+  void savedSelected() {
     isSavedSelected = true;
 
     isMySelected = false;
@@ -120,13 +115,7 @@ class IndexViewModel extends BaseViewModel {
   }
 
   void toChefProfile(UserModel chef) {
-    if (chef.uid == FirebaseAuth.instance.currentUser!.uid) {
-      _navigationService.navigateToChefProfileView(user: chef);
-    } else {
-      _navigationService.navigateToChefProfileView(
-        user: chef,
-      );
-    }
+    _navigationService.navigateToChefProfileView(user: chef);
   }
 
   Future<void> toDishDetailsScreen(RecipeModel recipe) async {
@@ -174,7 +163,7 @@ class IndexViewModel extends BaseViewModel {
     _navigationService.navigateToSettingsView();
   }
 
-  Future<void> callonRefresh() async {
+  void callonRefresh() {
     onViewModelReady();
   }
 
@@ -183,8 +172,7 @@ class IndexViewModel extends BaseViewModel {
     userShoppingList = await userService.fetchShoppingList();
 
     selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-    shoppingRecipeeIngredient =
-        userShoppingList?.shoppingRecipeeIngredient ?? {};
+    shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
     showShoppingListview = userShoppingList?.showShoppingListview ?? {};
   }
 }

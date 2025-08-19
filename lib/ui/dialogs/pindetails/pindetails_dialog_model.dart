@@ -23,8 +23,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
   late LocationPermission permission;
   Position? currentPosition;
 
-  PindetailsDialogModel(
-      {required this.pinnedLocation, required this.placeMark});
+  PindetailsDialogModel({required this.pinnedLocation, required this.placeMark});
 
   PageController pageController = PageController();
   List<String>? tags;
@@ -35,15 +34,13 @@ class PindetailsDialogModel extends ReactiveViewModel {
 
   void showPreviousImage() {
     if (pageController.page! > 0) {
-      pageController.previousPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
   void showNextImage() {
     if (pageController.page! < pinnedLocation.picture.length - 1) {
-      pageController.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
@@ -66,8 +63,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     //     null);
 
     final pinnedLocationData = PinnedLocationData(
-        LatLng(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude),
+        LatLng(pinnedLocation.location.latitude, pinnedLocation.location.longitude),
         pinnedLocation);
     await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.dropPinSheet,
@@ -87,8 +83,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
 
   Future<void> editMapPin(String markerId) async {
     final pinnedLocationData = PinnedLocationData(
-        LatLng(pinnedLocation.location.latitude,
-            pinnedLocation.location.longitude),
+        LatLng(pinnedLocation.location.latitude, pinnedLocation.location.longitude),
         pinnedLocation);
     final res2 = await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.dropPinSheet,
@@ -127,7 +122,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     await getCurrentLocation();
     for (var i = 0; i < pinnedLocation.tags.length; i++) {
       tags = pinnedLocation.tags;
-      log(tags.toString());
+      log(tags?.toString());
     }
 
     // notifyListeners();
@@ -139,18 +134,17 @@ class PindetailsDialogModel extends ReactiveViewModel {
     try {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        return Future.error('Location services are disabled.');
+        return await Future.error('Location services are disabled.');
       }
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          return Future.error('Location permissions are denied');
+          return await Future.error('Location permissions are denied');
         }
       }
-      currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      log(currentPosition.toString());
+      currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      log(currentPosition?.toString());
       rebuildUi();
       return currentPosition!;
     } catch (e) {

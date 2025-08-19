@@ -5,5 +5,5 @@ class PinnedLocationData {
   final LatLng? location;
   final PinnedLocation? pinnedLocation;
 
-  PinnedLocationData(this.location, this.pinnedLocation);
+  const PinnedLocationData(this.location, this.pinnedLocation);
 }

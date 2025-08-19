@@ -22,15 +22,14 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
       SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipeModel,
-          randomRecipeList: IndexViewModel.getRandomDishes(
-              recipeModel, RecipeService.recipes)),
+          randomRecipeList: IndexViewModel.getRandomDishes(recipeModel, RecipeService.recipes)),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),
       transitionStyle: Transition.downToUp,
     );
   }
 
-  Future<void> getBack() async {
+  void getBack() {
     _navigationService.back();
   }
 }

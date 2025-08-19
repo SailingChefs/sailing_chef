@@ -9,7 +9,9 @@ class TagsSheet extends StackedView<TagsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const TagsSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override
@@ -68,5 +70,5 @@ class TagsSheet extends StackedView<TagsSheetModel> {
 
 class TagsSheetResponse {
   final List<String> tags;
-  TagsSheetResponse({required this.tags});
+  const TagsSheetResponse({required this.tags});
 }

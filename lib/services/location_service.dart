@@ -2,6 +2,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 class LocationService {
+  const LocationService();
+
   /// Determine the current position of the device.
   ///
   /// When the location services are not enabled or permissions
@@ -39,8 +41,7 @@ class LocationService {
 
     if (permission == LocationPermission.deniedForever) {
       showToast(
-          message:
-              'Location permissions are permanently denied, we cannot request permissions.');
+          message: 'Location permissions are permanently denied, we cannot request permissions.');
       // Permissions are denied forever, handle appropriately.
       await Geolocator.openLocationSettings();
       return Future.error(

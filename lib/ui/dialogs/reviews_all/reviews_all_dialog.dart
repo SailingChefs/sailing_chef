@@ -13,7 +13,9 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
   final Function(DialogResponse) completer;
 
   const ReviewsAllDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override
@@ -25,10 +27,8 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
     return viewModel.isBusy
         ? const Center(child: CircularProgressIndicator())
         : Dialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            insetPadding: const EdgeInsets.only(
-                left: 33, right: 33, bottom: 140, top: 25),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            insetPadding: const EdgeInsets.only(left: 33, right: 33, bottom: 140, top: 25),
             backgroundColor: Colors.white,
             child: SizedBox(
               width: 365,
@@ -37,17 +37,14 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 19.0, left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 19.0, left: 15, right: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SizedBox(),
                         GestureDetector(
-                          onTap: () =>
-                              completer(DialogResponse(confirmed: true)),
-                          child: Icon(Icons.close,
-                              size: 17, color: kcBlackColor.withOpacity(0.8)),
+                          onTap: () => completer(DialogResponse(confirmed: true)),
+                          child: Icon(Icons.close, size: 17, color: kcBlackColor.withOpacity(0.8)),
                         ),
                       ],
                     ),
@@ -56,8 +53,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 19.0, left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 19.0, left: 15, right: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -73,8 +69,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                 color: kcBlackColor,
                               ),
                             ),
-                            if (viewModel.isEditingReview ||
-                                viewModel.isAddingReview)
+                            if (viewModel.isEditingReview || viewModel.isAddingReview)
                               TextButton(
                                 onPressed: () {
                                   HapticFeedback.lightImpact();
@@ -98,8 +93,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                       verticalSpaceTiny,
 
                       // Review form interface (both for edit and add)
-                      if (viewModel.isEditingReview ||
-                          viewModel.isAddingReview) ...[
+                      if (viewModel.isEditingReview || viewModel.isAddingReview) ...[
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -127,8 +121,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                               ),
                               verticalSpaceSmall,
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Rating:',
@@ -174,9 +167,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                     ),
                                   ),
                                   child: Text(
-                                    viewModel.isEditingReview
-                                        ? 'Save Changes'
-                                        : 'Add Review',
+                                    viewModel.isEditingReview ? 'Save Changes' : 'Add Review',
                                     style: globalTextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
@@ -196,19 +187,15 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                             shrinkWrap: true,
                             itemCount: viewModel.reviews.length,
                             itemBuilder: (context, index) {
-                              final isUserReview = viewModel
-                                  .isUserReview(viewModel.reviews[index]);
+                              final isUserReview = viewModel.isUserReview(viewModel.reviews[index]);
                               return ListTile(
-                                contentPadding:
-                                    const EdgeInsets.only(left: 5.0, right: 5),
+                                contentPadding: const EdgeInsets.only(left: 5.0, right: 5),
                                 leading: CircleAvatar(
                                   radius: 20,
-                                  backgroundImage: viewModel
-                                          .reviews[index].userImageUrl.isEmpty
-                                      ? const AssetImage(
-                                          'assets/images/default_location.png')
-                                      : NetworkImage(viewModel.reviews[index]
-                                          .userImageUrl) as ImageProvider,
+                                  backgroundImage: viewModel.reviews[index].userImageUrl.isEmpty
+                                      ? const AssetImage('assets/images/default_location.png')
+                                      : NetworkImage(viewModel.reviews[index].userImageUrl)
+                                          as ImageProvider,
                                 ),
                                 title: Text(
                                   viewModel.reviews[index].userName,
@@ -245,8 +232,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                           ),
                                           horizontalSpaceSmall,
                                           Text(
-                                            viewModel.reviews[index].rating
-                                                .toString(),
+                                            viewModel.reviews[index].rating?.toString(),
                                             style: globalTextStyle(
                                               color: kcBlackColor,
                                               fontSize: 14,
@@ -273,8 +259,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                             splashRadius: 18,
                                             onPressed: () {
                                               HapticFeedback.mediumImpact();
-                                              viewModel.editReview(
-                                                  viewModel.reviews[index]);
+                                              viewModel.editReview(viewModel.reviews[index]);
                                             },
                                             tooltip: 'Edit Review',
                                           ),
@@ -293,8 +278,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                             splashRadius: 18,
                                             onPressed: () {
                                               HapticFeedback.mediumImpact();
-                                              viewModel.deleteReview(
-                                                  viewModel.reviews[index]);
+                                              viewModel.deleteReview(viewModel.reviews[index]);
                                             },
                                             tooltip: 'Delete Review',
                                           ),
@@ -345,8 +329,6 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
   }
 
   @override
-  ReviewsAllDialogModel viewModelBuilder(BuildContext context) =>
-      ReviewsAllDialogModel(
-          pinnedLocation: request.data as PinnedLocation,
-          placeMark: request.title.toString());
+  ReviewsAllDialogModel viewModelBuilder(BuildContext context) => ReviewsAllDialogModel(
+      pinnedLocation: request.data as PinnedLocation, placeMark: request.title?.toString());
 }

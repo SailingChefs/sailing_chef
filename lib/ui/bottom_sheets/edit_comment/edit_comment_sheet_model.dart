@@ -27,7 +27,7 @@ class EditCommentSheetModel extends BaseViewModel {
   void onViewModelReady() {
     commentController.text = comment.content ?? '';
     if (comment.imageUrl != null && comment.imageUrl!.isNotEmpty) {
-      existingImages = List.from(comment.imageUrl!);
+      existingImages = List.of(comment.imageUrl!);
     }
     rebuildUi();
   }
@@ -95,8 +95,7 @@ class EditCommentSheetModel extends BaseViewModel {
         imageUrl: finalImageUrls.isEmpty ? null : finalImageUrls,
       );
 
-      final success =
-          await _commentService.updateCommentInFirestore(updatedComment);
+      final success = await _commentService.updateCommentInFirestore(updatedComment);
 
       if (success) {
         showToast(message: 'Comment updated successfully');

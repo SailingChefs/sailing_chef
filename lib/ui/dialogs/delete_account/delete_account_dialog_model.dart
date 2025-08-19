@@ -17,7 +17,7 @@ class DeleteAccountDialogModel extends BaseViewModel {
   final snackbarService = locator<SnackbarService>();
   final userService = locator<UserServices>();
 
-  Future<void> deleteAccount() async {
+  void deleteAccount() {
     navigationService.back();
     _dialogService.showCustomDialog(variant: DialogType.enterPass);
   }
@@ -75,12 +75,11 @@ class DeleteAccountDialogModel extends BaseViewModel {
             message: 'Account Deleted Permanently',
           );
           return true;
-        } else {
-          showToast(
-            message: 'Account deletion failed',
-          );
-          return false;
         }
+        showToast(
+          message: 'Account deletion failed',
+        );
+        return false;
       }
       return false;
     } catch (e) {

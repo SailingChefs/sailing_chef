@@ -12,8 +12,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   final _savedRecipeService = locator<SavedRecipeService>();
   final _recipeService = locator<RecipeService>();
   final TextEditingController searchSavedController = TextEditingController();
-  final TextEditingController searchFollowingController =
-      TextEditingController();
+  final TextEditingController searchFollowingController = TextEditingController();
 
   List<RecipeModel> get savedRecipes => savedRecipesGlobal;
 
@@ -35,9 +34,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   Iterable<RecipeModel> searchRecipes() sync* {
     log('came to search');
     for (final recipe in savedRecipes) {
-      if (recipe.title
-          .toLowerCase()
-          .contains(searchSavedController.text.toLowerCase())) {
+      if (recipe.title.toLowerCase().contains(searchSavedController.text.toLowerCase())) {
         // rebuildUi();
         yield recipe;
       }
@@ -47,9 +44,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   Iterable<RecipeModel> searchFollowingRecipes() sync* {
     log('came to search');
     for (final recipe in followingRecipes) {
-      if (recipe.title
-          .toLowerCase()
-          .contains(searchFollowingController.text.toLowerCase())) {
+      if (recipe.title.toLowerCase().contains(searchFollowingController.text.toLowerCase())) {
         // rebuildUi();
         yield recipe;
       }
@@ -59,13 +54,10 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   Future<void> mySavedRecipes() async {
     if (RecipeService.recipes.isEmpty) {
       await _recipeService.initialized();
-      return;
-    } else {
-      for (final recipe in RecipeService.recipes) {
-        if (userDetails!.savedRecipes!
-            .any((element) => element == recipe.docId)) {
-          savedRecipes.add(recipe);
-        }
+    }
+    for (final recipe in RecipeService.recipes) {
+      if (userDetails!.savedRecipes!.any((element) => element == recipe.docId)) {
+        savedRecipes.add(recipe);
       }
     }
   }
@@ -92,8 +84,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
   }
 
   void toAllDishesScreen() {
-    _navigationService.navigateToExploreAllRecipesView(
-        recipes: RecipeService.recipes);
+    _navigationService.navigateToExploreAllRecipesView(recipes: RecipeService.recipes);
   }
 
   void followingSelected() {
@@ -127,8 +118,7 @@ class SavedRecipesViewModel extends ReactiveViewModel {
       SavedRecipeDetailsView(
         isFromPrivateProfile: false,
         recipeModel: recipe,
-        randomRecipeList:
-            IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
+        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
       ),
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 500),

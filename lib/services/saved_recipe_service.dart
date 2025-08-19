@@ -33,8 +33,7 @@ class SavedRecipeService with ListenableServiceMixin {
     }
 
     for (final recipe in RecipeService.recipes) {
-      if (userDetails!.savedRecipes!
-          .any((element) => element == recipe.docId)) {
+      if (userDetails!.savedRecipes!.any((element) => element == recipe.docId)) {
         savedRecipes.add(recipe);
       }
     }
@@ -44,15 +43,14 @@ class SavedRecipeService with ListenableServiceMixin {
     try {
       await firebasestore
           .collection('users')
-          .doc(firebaseAuth.currentUser!
-              .uid) // Assuming currentUser contains the user's data
+          .doc(firebaseAuth.currentUser!.uid) // Assuming currentUser contains the user's data
           .update({
         'saved_Recipes': FieldValue.arrayUnion([savedRecipe.docId])
       });
       savedRecipes.add(savedRecipe);
       userDetails!.savedRecipes!.add(savedRecipe.docId!);
       savedRecipesGlobal.add(savedRecipe);
-      log(userDetails!.savedRecipes.toString());
+      log(userDetails!.savedRecipes?.toString());
       // showToast(message: 'Recipe saved successfully');
       notifyListeners();
     } catch (e) {
@@ -62,10 +60,7 @@ class SavedRecipeService with ListenableServiceMixin {
 
   Future<void> _removeSavedRecipe(String recipeId) async {
     try {
-      await firebasestore
-          .collection('users')
-          .doc(firebaseAuth.currentUser!.uid)
-          .update({
+      await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
         'saved_Recipes': FieldValue.arrayRemove([recipeId])
       });
 
@@ -80,15 +75,13 @@ class SavedRecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<bool> addSavedRecipe(RecipeModel savedRecipe) async {
+  bool addSavedRecipe(RecipeModel savedRecipe) {
     try {
       // if (!isInitialised) {
       //   throw "Service not initialised";
       // }
 
-      if (userDetails!.savedRecipes!
-          .map((e) => e)
-          .contains(savedRecipe.docId)) {
+      if (userDetails!.savedRecipes!.map((e) => e).contains(savedRecipe.docId)) {
         _removeSavedRecipe(savedRecipe.docId!);
       } else {
         _addSavedRecipe(savedRecipe);
@@ -105,45 +98,38 @@ class SavedRecipeService with ListenableServiceMixin {
 
   Future<List<SavedRecipeModel>> fetchUserSavedRecipes(String userId) async {
     try {
-      final DocumentSnapshot userDoc =
-          await firebasestore.collection('users').doc(userId).get();
+      final DocumentSnapshot userDoc = await firebasestore.collection('users').doc(userId).get();
 
       if (userDoc.exists) {
-        final savedRecipeIds =
-            userDoc.data() as Map<String, dynamic>?;
+        final savedRecipeIds = userDoc.data() as Map<String, dynamic>?;
 
         // Initialize an empty list to store saved recipes
         final savedRecipes = <SavedRecipeModel>[];
 
         // If the user has saved recipes, fetch each recipe and add it to the list
-        if (savedRecipeIds != null &&
-            savedRecipeIds.containsKey('saved_Recipes')) {
-          final savedRecipeIdsList =
-              savedRecipeIds['saved_Recipes'] as List<dynamic>;
+        if (savedRecipeIds != null && savedRecipeIds.containsKey('saved_Recipes')) {
+          final savedRecipeIdsList = savedRecipeIds['saved_Recipes'] as List<dynamic>;
           for (final recipeId in savedRecipeIdsList) {
             final DocumentSnapshot recipeDoc =
                 await firebasestore.collection('recipes').doc(recipeId).get();
             if (recipeDoc.exists) {
               final recipeModel = RecipeModel.fromSnapshot(recipeDoc);
               final recipeUserId = recipeModel.uid;
-              final DocumentSnapshot userSnapshot = await firebasestore
-                  .collection('users')
-                  .doc(recipeUserId)
-                  .get();
+              final DocumentSnapshot userSnapshot =
+                  await firebasestore.collection('users').doc(recipeUserId).get();
               if (userSnapshot.exists) {
                 final userModel = UserModel.fromSnapshot(userSnapshot);
                 recipeModel.user = userModel;
-                savedRecipes.add(SavedRecipeModel(
-                    recipeId: recipeModel.docId!, recipeModel: recipeModel));
+                savedRecipes
+                    .add(SavedRecipeModel(recipeId: recipeModel.docId!, recipeModel: recipeModel));
               }
             }
           }
         }
 
         return savedRecipes;
-      } else {
-        return [];
       }
+      return [];
     } catch (e) {
       return [];
     }

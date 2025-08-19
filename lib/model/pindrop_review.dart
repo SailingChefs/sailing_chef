@@ -7,11 +7,8 @@ class Review {
   final double rating;
   final String reviewText;
 
-  Review(
-      {required this.userId,
-      required this.uid,
-      required this.rating,
-      required this.reviewText});
+  const Review(
+      {required this.userId, required this.uid, required this.rating, required this.reviewText});
 
   factory Review.fromFirestore(DocumentSnapshot doc) {
     return Review(

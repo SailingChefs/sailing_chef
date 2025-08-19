@@ -13,13 +13,11 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
 
   Future<void> yesButton(RecipeModel recipe, final images, final path) async {
     List<String> imageUrls;
-    log(recipe.docId.toString());
-    imageUrls = images.isNotEmpty
-        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!)
-        : [];
-    final chefNote = path.isNotEmpty
-        ? await _recipeService.uploadChefNoteToFirebaseStorage(path!)
-        : '';
+    log(recipe.docId?.toString());
+    imageUrls =
+        images.isNotEmpty ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!) : [];
+    final chefNote =
+        path.isNotEmpty ? await _recipeService.uploadChefNoteToFirebaseStorage(path!) : '';
     recipe.coverImage += imageUrls;
     recipe.chefNote = chefNote;
     final saved = await _recipeService.addOrUpdateDraft(recipe);
@@ -32,8 +30,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
   }
 
   void noButton(RecipeModel model, final selectedImages, final path) {
-    _bottomSheetService
-        .showCustomSheet(variant: BottomSheetType.discard, data: {
+    _bottomSheetService.showCustomSheet(variant: BottomSheetType.discard, data: {
       'model': model,
       'images': selectedImages,
       'path': path,
