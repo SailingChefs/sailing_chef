@@ -18,6 +18,7 @@ class UserModel {
   final List<String>? schoolCourses;
   final List<String>? recipes;
   final String? namedLocation;
+  final bool isAdmin;
 
   UserModel({
     this.schoolCourses,
@@ -37,6 +38,7 @@ class UserModel {
     this.link,
     this.savedRecipes,
     this.blockedAccounts,
+    this.isAdmin = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -56,6 +58,7 @@ class UserModel {
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
+      'is_admin': isAdmin,
     };
   }
 
@@ -79,6 +82,7 @@ class UserModel {
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
       recipes: List<String>.from(data['recipes'] ?? []),
       namedLocation: data['address'],
+      isAdmin: data['is_admin'] ?? false,
     );
   }
 }

@@ -39,38 +39,50 @@ class ProfileView extends StackedView<ProfileViewModel> {
                 const ProfileDetailsProfileScreen(),
                 const ProfileDescriptionProfileScreen(),
                 verticalSpace(MediaQuery.of(context).size.height * 0.04),
-                if (userDetails!.userRole == 'guest') Container() else FittedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.min,
+                if (userDetails!.userRole == 'guest')
+                  Container()
+                else
+                  FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const TabBarProfileScreen(),
+                        IconButton(
+                          onPressed: viewModel.toFilterView,
+                          icon: SvgPicture.asset(
+                            'assets/images/misc/equilizer.svg',
+                            color: filterIconColor,
+                            width: 30.dg,
+                            height: 30.dg,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (userDetails!.userRole == 'guest')
+                  Column(
+                    children: [
+                      const SavedGuestButton(),
+                      verticalSpaceMedium,
+                      if (viewModel.isBusy)
+                        const ShimmerLoaderChefView()
+                      else
+                        const SavedProfileScreen(),
+                    ],
+                  )
+                else
+                  viewModel.isBusy
+                      ? const ShimmerLoaderChefView()
+                      : Column(
                           children: [
-                            const TabBarProfileScreen(),
-                            IconButton(
-                              onPressed: viewModel.toFilterView,
-                              icon: SvgPicture.asset(
-                                'assets/images/misc/equilizer.svg',
-                                color: filterIconColor,
-                                width: 30.dg,
-                                height: 30.dg,
-                              ),
-                            ),
+                            // if (viewModel.myRecipes.isEmpty) const SizedBox() else verticalSpaceMedium,
+                            if (viewModel.isMySelected)
+                              const MyRecipesProfileScreen()
+                            else
+                              const SavedProfileScreen(),
                           ],
                         ),
-                      ),
-                if (userDetails!.userRole == 'guest') Column(
-                        children: [
-                          const SavedGuestButton(),
-                          verticalSpaceMedium,
-                          if (viewModel.isBusy) const ShimmerLoaderChefView() else const SavedProfileScreen(),
-                        ],
-                      ) else viewModel.isBusy
-                        ? const ShimmerLoaderChefView()
-                        : Column(
-                            children: [
-                              if (viewModel.myRecipes.isEmpty) const SizedBox() else verticalSpaceMedium,
-                              if (viewModel.isMySelected) const MyRecipesProfileScreen() else const SavedProfileScreen(),
-                            ],
-                          ),
               ],
             ),
           ),

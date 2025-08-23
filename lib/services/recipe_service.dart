@@ -22,7 +22,7 @@ class RecipeService with ListenableServiceMixin {
   bool isInitialized = false;
   Map<String, UserModel> userCache = {};
   Future<void> initialized() async {
-    recipes = await fetchAllRecipes();
+    recipes = await fetchAllPublicRecipes();
 
     notifyListeners();
   }
@@ -72,7 +72,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Stream<List<RecipeModel>> fetchRecipesAsStream() {
+  Stream<List<RecipeModel>> fetchPublishedRecipesAsStream() {
     return firebasestore
         .collection('recipes')
         .where('visibility', isEqualTo: 'Public')
@@ -94,6 +94,34 @@ class RecipeService with ListenableServiceMixin {
         final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
         final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
+
+        recipes.add(recipe);
+      }
+      return recipes;
+    });
+  }
+
+  Stream<List<RecipeModel>> fetchPublicRecipesAsStream() {
+    return firebasestore
+        .collection('recipes')
+        .where('visibility', isEqualTo: 'Public')
+        .snapshots()
+        .asyncMap((snapshot) async {
+      final recipes = <RecipeModel>[];
+      for (final doc in snapshot.docs) {
+        final recipe = RecipeModel.fromSnapshot(doc);
+
+        if (userCache.containsKey(recipe.uid)) {
+          recipe.user = userCache[recipe.uid];
+        } else {
+          final user = await _userService.fetchUserByUID(recipe.uid);
+          recipe.user = user;
+          userCache[recipe.uid] = user;
+        }
+
+        // final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        // final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        // recipe.comment = comments;
 
         recipes.add(recipe);
       }
@@ -376,7 +404,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<List<RecipeModel>> fetchAllRecipes() async {
+  Future<List<RecipeModel>> fetchAllPublicRecipes() async {
     try {
       // Fetches all documents from the 'recipes' collection
       final QuerySnapshot snapshot = await firebasestore
@@ -401,6 +429,20 @@ class RecipeService with ListenableServiceMixin {
       }
 
       return recipes;
+    } catch (e) {
+      log('Error fetching recipes: $e');
+      return []; // Return an empty list on error
+    }
+  }
+
+  Future<List<RecipeModel>> fetchAllMyRecipes() async {
+    try {
+      // Fetches all documents from the 'recipes' collection
+      final QuerySnapshot snapshot =
+          await firebasestore.collection('recipes').where('uid', isEqualTo: userDetails!.uid).get();
+
+      // Maps each DocumentSnapshot to a RecipeModel
+      return snapshot.docs.map(RecipeModel.fromSnapshot).toList();
     } catch (e) {
       log('Error fetching recipes: $e');
       return []; // Return an empty list on error
@@ -451,7 +493,7 @@ class RecipeService with ListenableServiceMixin {
       if (draftExists) {
         final DocumentReference docRef = firebasestore.collection('recipes').doc(recipe.docId);
 
-        await docRef.update({'visibility': 'Public'});
+        await docRef.update({'visibility': 'Public', 'status': 'pending'});
 
         showToast(message: 'Saved Recipe Publically');
       }
@@ -486,6 +528,19 @@ class RecipeService with ListenableServiceMixin {
     } catch (e) {
       log('Error fetching private recipes: $e');
       return [];
+    }
+  }
+
+  Future<void> updateRecipeStatus(String recipeId, Map<String, String> value) async {
+    try {
+      EasyLoading.show();
+      await firebasestore.collection('recipes').doc(recipeId).update(value);
+      EasyLoading.dismiss();
+      showToast(message: 'Recipe set to review successfully');
+    } catch (e) {
+      EasyLoading.dismiss();
+      log('Error setting recipe as review: $e');
+      showToast(message: 'Error setting recipe as review: $e');
     }
   }
 }

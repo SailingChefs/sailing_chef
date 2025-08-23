@@ -4,7 +4,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
-
+import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile_model.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +20,14 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
   final String chefId;
 
   PrimaryGridTile({
-    required this.foodImagePath, required this.chefId, required this.chefImagePath, required this.dishName, required this.duration, required this.onTap, required this.recipe, super.key,
+    required this.foodImagePath,
+    required this.chefId,
+    required this.chefImagePath,
+    required this.dishName,
+    required this.duration,
+    required this.onTap,
+    required this.recipe,
+    super.key,
     this.rating,
   });
 
@@ -67,8 +74,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       imageUrl: foodImagePath,
                       fit: BoxFit.cover,
                       width: double.maxFinite,
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          Container(
+                      progressIndicatorBuilder: (context, url, progress) => Container(
                         decoration: const BoxDecoration(
                           color: kcsgreycolor,
                         ),
@@ -96,32 +102,35 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 ),
               ],
             ),
-            if (chefId == userDetails!.uid!) Container() else Positioned(
-                    top: 5.dg,
-                    right: 10.dg,
-                    child: GestureDetector(
-                      onTap: () => viewModel.onBookmarkTap(recipe),
-                      child: Container(
-                        width: 30.w,
-                        height: 30.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                        child: isRecipeSaved
-                            ? Icon(
-                                Icons.bookmark,
-                                size: 18.dg,
-                                color: kcWhiteColor,
-                              )
-                            : Icon(
-                                Icons.bookmark_outline,
-                                size: 18.dg,
-                                color: kcWhiteColor,
-                              ),
-                      ),
+            if (chefId == userDetails!.uid!)
+              Container()
+            else
+              Positioned(
+                top: 5.dg,
+                right: 10.dg,
+                child: GestureDetector(
+                  onTap: () => viewModel.onBookmarkTap(recipe),
+                  child: Container(
+                    width: 30.w,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: kcBlackColor.withOpacity(0.6),
                     ),
+                    child: isRecipeSaved
+                        ? Icon(
+                            Icons.bookmark,
+                            size: 18.dg,
+                            color: kcWhiteColor,
+                          )
+                        : Icon(
+                            Icons.bookmark_outline,
+                            size: 18.dg,
+                            color: kcWhiteColor,
+                          ),
                   ),
+                ),
+              ),
             Positioned(
               left: 5.dg,
               bottom: 30.dg,
@@ -219,7 +228,33 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 //           ),
                 //         ),
                 // ),
-                )
+                ),
+            if (['pending', 'review'].contains(recipe.status))
+              Positioned(
+                right: 8.dg,
+                top: 8.dg,
+                child: Container(
+                  // width: 90.w,
+                  height: 25.h,
+                  padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
+                  decoration: BoxDecoration(
+                    color: recipe.status == 'pending' ? Colors.yellow : Colors.orange,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.r),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        recipe.status.capitalizeFirst(),
+                        maxLines: 1,
+                        style: globalTextStyle(fontSize: 10.sp, color: kcBlackColor),
+                      )
+                    ],
+                  ),
+                ),
+              ),
           ]),
         ));
   }

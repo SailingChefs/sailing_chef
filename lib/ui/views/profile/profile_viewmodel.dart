@@ -56,7 +56,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices =>
-      [_savedrecipeService, _cullinarySchoolService, _followService];
+      [_savedrecipeService, _cullinarySchoolService, _followService, _recipeService, _chefService];
 
   void myRecipeSelected() {
     isMySelected = true;
@@ -121,16 +121,21 @@ class ProfileViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  Future<void> myRecipesList() async {
-    if (RecipeService.recipes.isEmpty) {
-      await _recipeService.initialized();
-    } else if (RecipeService.recipes.isNotEmpty) {
-      for (final recipes in RecipeService.recipes) {
-        if (recipes.uid == userDetails!.uid) {
-          myRecipes.add(recipes);
-        }
-      }
+  Future<List<RecipeModel>> myRecipesList() async {
+    if (myRecipes.isEmpty) {
+      myRecipes = await _recipeService.fetchAllMyRecipes();
     }
+    return Future.value(myRecipes);
+
+    // if (RecipeService.recipes.isEmpty) {
+    //   await _recipeService.initialized();
+    // } else if (RecipeService.recipes.isNotEmpty) {
+    //   for (final recipes in RecipeService.recipes) {
+    //     if (recipes.uid == userDetails!.uid) {
+    //       myRecipes.add(recipes);
+    //     }
+    //   }
+    // }
   }
 
   // Future<void> matchAndAssignUsersToDishes() async {
@@ -161,7 +166,7 @@ class ProfileViewModel extends ReactiveViewModel {
 
   Future<void> onViewModelReady() async {
     setBusy(true);
-    await myRecipesList();
+    myRecipes = await _recipeService.fetchAllMyRecipes();
 
     // await matchAndAssignUsersToDishes();
 

@@ -11,72 +11,74 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
 
   @override
   Widget build(BuildContext context, ProfileViewModel viewModel) {
-    return viewModel.myRecipes.isEmpty
-        ? SizedBox(
-            height: MediaQuery.of(context).size.height * 0.29,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  verticalSpaceLarge,
-                  Text(
-                    'Create your first recipe today',
-                    style: globalTextStyle(
-                        color: kcPrimaryColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  verticalSpaceTiny,
-                  SvgPicture.asset(
-                    'assets/images/icons/arrow.svg',
-                    height: 150.h,
-                    // ignore: deprecated_member_use
-                    color: kcPrimaryColor,
-                  )
-                ],
-              ),
-            ))
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-              viewModel.myRecipes
-                  .sort((a, b) => b.createdTime.compareTo(a.createdTime));
-              return ShrinkWrappingViewport(
-                offset: ViewportOffset.zero(),
-                slivers: [
-                  SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15.0,
-                      mainAxisSpacing: 18.0,
-                      childAspectRatio: 7.4 / 9,
+    return FutureBuilder(
+        future: viewModel.myRecipesList(),
+        builder: (context, asyncSnapshot) {
+          final myRecipes = asyncSnapshot.data;
+
+          return (myRecipes?.isEmpty ?? true)
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.29,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        verticalSpaceLarge,
+                        Text(
+                          'Create your first recipe today',
+                          style: globalTextStyle(
+                              color: kcPrimaryColor, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                        verticalSpaceTiny,
+                        SvgPicture.asset(
+                          'assets/images/icons/arrow.svg',
+                          height: 150.h,
+                          // ignore: deprecated_member_use
+                          color: kcPrimaryColor,
+                        )
+                      ],
                     ),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return PrimaryGridTile(
-                          chefId: userDetails!.uid!,
-                          rating: viewModel.myRecipes[index].rating,
-                          recipe: viewModel.myRecipes[index],
-                          onTap: () => viewModel.toDishDetailsScreen(
-                              index, viewModel.myRecipes[index]),
-                          foodImagePath: viewModel.myRecipes[index].coverImage
-                              .where((element) => element.isFirebaseImageUrl)
-                              .first,
-                          dishName: viewModel.myRecipes[index].title,
-                          duration: viewModel.myRecipes[index].prepTime,
-                          chefImagePath: userDetails!.displayPicture == null
-                              ? ''
-                              : userDetails!.displayPicture!,
-                        );
-                      },
-                      childCount: viewModel.myRecipes.length,
-                    ),
-                  ),
-                ],
-              );
-            }),
-          );
+                  ))
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+                    myRecipes!.sort((a, b) => b.createdTime.compareTo(a.createdTime));
+                    return ShrinkWrappingViewport(
+                      offset: ViewportOffset.zero(),
+                      slivers: [
+                        SliverGrid(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 15.0,
+                            mainAxisSpacing: 18.0,
+                            childAspectRatio: 7.4 / 9,
+                          ),
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              final recipe = myRecipes[index];
+
+                              return PrimaryGridTile(
+                                chefId: userDetails!.uid!,
+                                rating: recipe.rating,
+                                recipe: recipe,
+                                onTap: () => viewModel.toDishDetailsScreen(index, recipe),
+                                foodImagePath: recipe.coverImage
+                                    .where((element) => element.isFirebaseImageUrl)
+                                    .first,
+                                dishName: recipe.title,
+                                duration: recipe.prepTime,
+                                chefImagePath: userDetails!.displayPicture == null
+                                    ? ''
+                                    : userDetails!.displayPicture!,
+                              );
+                            },
+                            childCount: myRecipes.length,
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+                );
+        });
   }
 }

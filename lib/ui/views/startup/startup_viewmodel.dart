@@ -90,7 +90,7 @@ class StartupViewModel extends BaseViewModel {
   Future<List<RecipeModel>> getRandomDishes(
     String currentRecipe,
   ) async {
-    allRecipes = await recipeService.fetchAllRecipes();
+    allRecipes = await recipeService.fetchAllPublicRecipes();
     final dishes = List<RecipeModel>.of(allRecipes!);
     dishes.removeWhere((recipe) => recipe.docId == currentRecipe);
 

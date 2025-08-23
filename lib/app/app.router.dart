@@ -13,7 +13,6 @@ import 'package:sailing_chefs/core/imports/core_imports.dart' as _i43;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i44;
 import 'package:sailing_chefs/model/user_model.dart' as _i45;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i13;
-import 'package:sailing_chefs/ui/views/admin/admin_view.dart' as _i41;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i25;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i28;
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart'
@@ -42,6 +41,8 @@ import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart
     as _i26;
 import 'package:sailing_chefs/ui/views/index/index_view.dart' as _i12;
 import 'package:sailing_chefs/ui/views/login/login_view.dart' as _i5;
+import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart'
+    as _i41;
 import 'package:sailing_chefs/ui/views/Messages/chat_view.dart' as _i31;
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart' as _i3;
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart'
@@ -158,7 +159,7 @@ class Routes {
   static const shareRecipeToSailingCheffUserView =
       '/share-recipe-to-sailing-cheff-user-view';
 
-  static const adminView = '/admin-view';
+  static const manageRecipesView = '/manage-recipes-view';
 
   static const all = <String>{
     startupView,
@@ -200,7 +201,7 @@ class Routes {
     feedbackView,
     profileShareView,
     shareRecipeToSailingCheffUserView,
-    adminView,
+    manageRecipesView,
   };
 }
 
@@ -260,7 +261,7 @@ class StackedRouter extends _i1.RouterBase {
       Routes.shareRecipeToSailingCheffUserView,
       page: _i40.ShareRecipeToSailingCheffUserView,
     ),
-    _i1.RouteDef(Routes.adminView, page: _i41.AdminView),
+    _i1.RouteDef(Routes.manageRecipesView, page: _i41.ManageRecipesView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -640,12 +641,12 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i41.AdminView: (data) {
-      final args = data.getArgs<AdminViewArguments>(
-        orElse: () => const AdminViewArguments(),
+    _i41.ManageRecipesView: (data) {
+      final args = data.getArgs<ManageRecipesViewArguments>(
+        orElse: () => const ManageRecipesViewArguments(),
       );
       return _i42.MaterialPageRoute<dynamic>(
-        builder: (context) => _i41.AdminView(key: args.key),
+        builder: (context) => _i41.ManageRecipesView(key: args.key),
         settings: data,
       );
     },
@@ -1642,8 +1643,8 @@ class ShareRecipeToSailingCheffUserViewArguments {
   }
 }
 
-class AdminViewArguments {
-  const AdminViewArguments({this.key});
+class ManageRecipesViewArguments {
+  const ManageRecipesViewArguments({this.key});
 
   final _i43.Key? key;
 
@@ -1653,7 +1654,7 @@ class AdminViewArguments {
   }
 
   @override
-  bool operator ==(covariant AdminViewArguments other) {
+  bool operator ==(covariant ManageRecipesViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key;
   }
@@ -2433,7 +2434,7 @@ extension NavigatorStateExtension on _i47.NavigationService {
     );
   }
 
-  Future<dynamic> navigateToAdminView({
+  Future<dynamic> navigateToManageRecipesView({
     _i43.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -2442,8 +2443,8 @@ extension NavigatorStateExtension on _i47.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(
-      Routes.adminView,
-      arguments: AdminViewArguments(key: key),
+      Routes.manageRecipesView,
+      arguments: ManageRecipesViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -3219,7 +3220,7 @@ extension NavigatorStateExtension on _i47.NavigationService {
     );
   }
 
-  Future<dynamic> replaceWithAdminView({
+  Future<dynamic> replaceWithManageRecipesView({
     _i43.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -3228,8 +3229,8 @@ extension NavigatorStateExtension on _i47.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(
-      Routes.adminView,
-      arguments: AdminViewArguments(key: key),
+      Routes.manageRecipesView,
+      arguments: ManageRecipesViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

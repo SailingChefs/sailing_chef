@@ -14,6 +14,7 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/filter_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
@@ -58,4 +59,5 @@ void setupLocator({
   locator.registerLazySingleton(SearchService.new);
   locator.registerLazySingleton(CullinaryschoolService.new);
   locator.registerLazySingleton(PinDropService.new);
+  locator.registerLazySingleton(FilterService.new);
 }

@@ -117,7 +117,7 @@ class UserServices with ListenableServiceMixin {
 
         // showToast(message: 'User Data fetched successfully');
 
-        UserModel.fromSnapshot(userDoc);
+        // UserModel.fromSnapshot(userDoc);
 
         // return  UserModel();
         return UserModel.fromSnapshot(userDoc);

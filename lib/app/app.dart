@@ -6,6 +6,7 @@ import 'package:sailing_chefs/services/chef_service.dart';
 import 'package:sailing_chefs/services/comment_service.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:sailing_chefs/services/cullinaryschool_service.dart';
+import 'package:sailing_chefs/services/filter_service.dart';
 import 'package:sailing_chefs/services/follow_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
@@ -44,7 +45,6 @@ import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
-import 'package:sailing_chefs/ui/views/admin/admin_view.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
@@ -64,6 +64,7 @@ import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/login/login_view.dart';
+import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
 import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart';
@@ -136,7 +137,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: FeedbackView),
     MaterialRoute(page: ProfileShareView),
     MaterialRoute(page: ShareRecipeToSailingCheffUserView),
-    MaterialRoute(page: AdminView),
+    MaterialRoute(page: ManageRecipesView),
 // @stacked-route
   ],
   dependencies: [
@@ -163,6 +164,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: SearchService),
     LazySingleton(classType: CullinaryschoolService),
     LazySingleton(classType: PinDropService),
+    LazySingleton(classType: FilterService),
 
 // @stacked-service
   ],

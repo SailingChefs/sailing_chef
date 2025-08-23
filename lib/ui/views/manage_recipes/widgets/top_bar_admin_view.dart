@@ -1,12 +1,13 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/ui/views/admin/admin_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_viewmodel.dart';
 
-class TopBarAdminView extends ViewModelWidget<AdminViewModel> implements PreferredSizeWidget {
+class TopBarAdminView extends ViewModelWidget<ManageRecipesViewModel>
+    implements PreferredSizeWidget {
   const TopBarAdminView(this.title, {super.key});
   final String title;
 
   @override
-  Widget build(BuildContext context, AdminViewModel viewModel) {
+  Widget build(BuildContext context, ManageRecipesViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(

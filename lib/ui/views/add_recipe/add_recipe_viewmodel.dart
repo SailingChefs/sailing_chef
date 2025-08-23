@@ -76,8 +76,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   bool get isWaveformAndChefNoteEmpty {
-    return (waveFormData?.length ?? 0) == 0 &&
-        (recipeModel?.chefNote ?? '').isEmpty;
+    return (waveFormData?.length ?? 0) == 0 && (recipeModel?.chefNote ?? '').isEmpty;
   }
 
   Future<void> editIngredient(Ingredient ingredient, int listIndex) async {
@@ -191,9 +190,7 @@ class AddRecipeViewModel extends BaseViewModel {
     if (value!.isEmpty) {
       return 'Please enter your name';
     }
-    return value.length >= 3
-        ? null
-        : 'Title must be at least 3 characters long';
+    return value.length >= 3 ? null : 'Title must be at least 3 characters long';
   }
 
   Future<void> onViewModelReady() async {
@@ -211,8 +208,7 @@ class AddRecipeViewModel extends BaseViewModel {
       }
       // selectedTime = recipeModel!.prepTime as TimeOfDay?;
       tagsList = recipeModel!.tags!;
-      if (recipeModel!.chefNote.isNotEmpty &&
-          recipeModel!.waveForm.isNotEmpty) {
+      if (recipeModel!.chefNote.isNotEmpty && recipeModel!.waveForm.isNotEmpty) {
         waveFormData = recipeModel!.waveForm;
         // await downloadAudio();
       }
@@ -293,8 +289,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> addIngredients(List<Ingredient> newIngredients) async {
-    final result = await _bottomSheetService
-        .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
+    final result = await _bottomSheetService.showCustomSheet<dynamic, AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
     if (result == null) return;
@@ -305,8 +300,8 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> addMethods(List<String> newMethods) async {
-    final method = await _bottomSheetService
-        .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
+    final method =
+        await _bottomSheetService.showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
       variant: BottomSheetType.cookingInstructions,
     );
     updatedMethodsList = method?.data.instructionsListResponse.toList() ?? [];
@@ -355,8 +350,7 @@ class AddRecipeViewModel extends BaseViewModel {
   void deleteCurrentRecording() {
     hasRecordedAudio = false;
     if (recipeModel!.chefNote.isNotEmpty) {
-      _recipeService.deleteAudioFromDocument(
-          recipeModel!.docId!, recipeModel!.chefNote);
+      _recipeService.deleteAudioFromDocument(recipeModel!.docId!, recipeModel!.chefNote);
       formattedDuration = '0:00';
       recipeModel!.chefNote = '';
       recipeModel!.waveForm.clear();
@@ -375,8 +369,7 @@ class AddRecipeViewModel extends BaseViewModel {
 
   void fireBaseImage(String recipeId, index) {
     alreadySelectedImages.removeAt(index);
-    _recipeService.deleteIndexImageFromDocument(
-        recipeId, alreadySelectedImages[index]);
+    _recipeService.deleteIndexImageFromDocument(recipeId, alreadySelectedImages[index]);
     _userSerice.deleteFileFromStorage(alreadySelectedImages[index]);
     notifyListeners();
     rebuildUi();
@@ -404,8 +397,7 @@ class AddRecipeViewModel extends BaseViewModel {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Select Time',
-              style: globalTextStyle(color: Colors.black, fontSize: 20)),
+          title: Text('Select Time', style: globalTextStyle(color: Colors.black, fontSize: 20)),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -438,9 +430,8 @@ class AddRecipeViewModel extends BaseViewModel {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15.0,
                     ),
-                    child: Text('Cancel',
-                        style:
-                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                    child:
+                        Text('Cancel', style: globalTextStyle(color: kcwhitecolor, fontSize: 15)),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -455,19 +446,15 @@ class AddRecipeViewModel extends BaseViewModel {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                     ),
-                    child: Text('Set Time',
-                        style:
-                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                    child:
+                        Text('Set Time', style: globalTextStyle(color: kcwhitecolor, fontSize: 15)),
                   ),
                   onPressed: () {
                     log(_hourController.text);
-                    final hour = _hourController.text.isEmpty
-                        ? 0
-                        : int.parse(_hourController.text);
+                    final hour = _hourController.text.isEmpty ? 0 : int.parse(_hourController.text);
 
-                    final minute = _minuteController.text.isEmpty
-                        ? 0
-                        : int.parse(_minuteController.text);
+                    final minute =
+                        _minuteController.text.isEmpty ? 0 : int.parse(_minuteController.text);
 
                     selectedTime = TimeOfDay(hour: hour, minute: minute);
                     Navigator.of(context).pop();
@@ -509,10 +496,8 @@ class AddRecipeViewModel extends BaseViewModel {
           thumbnails.add(XFile(image.path));
           log('added image thumbnail');
         } else {
-          controller = VideoPlayerController.file(images
-              .where((element) => File(element.path).isVideo)
-              .first
-              .toFile);
+          controller = VideoPlayerController.file(
+              images.where((element) => File(element.path).isVideo).first.toFile);
           controller.play();
           final thumbnailss = await VideoThumbnail.thumbnailFile(
             video: image.path,
@@ -545,8 +530,7 @@ class AddRecipeViewModel extends BaseViewModel {
       showToast(message: 'Please add cooking time');
     }
     recipeModel == null
-        ? _dialogService
-            .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+        ? _dialogService.showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
             'model': RecipeModel(
               visibility: 'private',
               chefNote: 'recorderController',
@@ -555,8 +539,7 @@ class AddRecipeViewModel extends BaseViewModel {
               ingredients: ingredientsList,
               tags: tagsList,
               methods: methodsList,
-              prepTime:
-                  prepreationTime == '' ? formatDuration() : prepreationTime!,
+              prepTime: (prepreationTime?.isEmpty ?? true) ? formatDuration() : prepreationTime!,
               servingSize: selectedQuantity,
               status: 'draft',
               title: titleController.text.trim().toLowerCase(),
@@ -567,19 +550,16 @@ class AddRecipeViewModel extends BaseViewModel {
             'images': selectedImages,
             'path': path,
           })
-        : _dialogService
-            .showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+        : _dialogService.showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
             'model': RecipeModel(
               visibility: 'private',
               chefNote: 'recorderController',
-              coverImage:
-                  alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+              coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
               createdTime: Timestamp.now(),
               ingredients: ingredientsList,
               tags: tagsList,
               methods: methodsList,
-              prepTime:
-                  prepreationTime == '' ? formatDuration() : prepreationTime!,
+              prepTime: prepreationTime == '' ? formatDuration() : prepreationTime!,
               servingSize: selectedQuantity,
               status: 'draft',
               title: titleController.text.trim().toLowerCase(),
@@ -593,8 +573,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> callIngredientsBottomSheet() async {
-    final result = await _bottomSheetService
-        .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
+    final result = await _bottomSheetService.showCustomSheet<dynamic, AddIngredientsSheetResponse>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.addIngredients,
@@ -610,8 +589,8 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> callCookingInstructionBottomSheet() async {
-    final method = await _bottomSheetService
-        .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
+    final method =
+        await _bottomSheetService.showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.cookingInstructions,
@@ -662,8 +641,7 @@ class AddRecipeViewModel extends BaseViewModel {
         methodsList.isNotEmpty &&
         ingredientsList.isNotEmpty) {
       final hasImage = selectedImages.any((image) => image.isImage);
-      final hasAlreadySelectedImages =
-          alreadySelectedImages.any((image) => image.isNotEmpty);
+      final hasAlreadySelectedImages = alreadySelectedImages.any((image) => image.isNotEmpty);
 
       if (!hasImage && !hasAlreadySelectedImages) {
         showToast(message: 'Please add at least one image');
@@ -674,14 +652,12 @@ class AddRecipeViewModel extends BaseViewModel {
           recipeModel: RecipeModel(
             visibility: selectedValue,
             chefNote: '',
-            coverImage:
-                alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+            coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
             ingredients: ingredientsList,
             methods: methodsList,
             tags: tagsList,
-            prepTime:
-                prepreationTime == '' ? formatDuration() : prepreationTime!,
+            prepTime: prepreationTime == '' ? formatDuration() : prepreationTime!,
             servingSize: selectedQuantity,
             status: 'draft',
             title: titleController.text.trim().toLowerCase(),
@@ -729,14 +705,12 @@ class AddRecipeViewModel extends BaseViewModel {
           recipeModel: RecipeModel(
             visibility: selectedValue,
             chefNote: '',
-            coverImage:
-                alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+            coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
             ingredients: ingredientsList,
             methods: methodsList,
             tags: tagsList,
-            prepTime:
-                prepreationTime == '' ? formatDuration() : prepreationTime!,
+            prepTime: prepreationTime == '' ? formatDuration() : prepreationTime!,
             servingSize: int.parse(servingSize.text),
             status: '',
             title: titleController.text.trim().toLowerCase(),

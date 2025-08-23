@@ -68,6 +68,6 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void getAdmin() {
-    _navigationService.navigateToAdminView();
+    _navigationService.navigateToManageRecipesView();
   }
 }
