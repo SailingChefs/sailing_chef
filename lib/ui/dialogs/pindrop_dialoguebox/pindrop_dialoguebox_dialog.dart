@@ -145,7 +145,7 @@ class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel
 
     return PindropDialogueboxDialogModel(
       pinnedLocation: request.data,
-      placeMark: request.title?.toString(),
+      placeMark: request.title ?? 'No title provided',
       // curLat: request.additionalButtonTitle!,
       // curLong: request.description!
     );

@@ -32,3 +32,4 @@ dart_code_metrics:
     avoid-undisposed-instances: error
     dispose-fields: error
     avoid-passing-self-as-argument: ignore
+    avoid-dynamic: info

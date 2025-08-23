@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
-
 import 'package:sailing_chefs/ui/views/share_recipe_to_sailing_cheff_user/share_recipe_to_sailing_cheff_user_viewmodel.dart';
 
 class ShareRecipeToSailingCheffUserView
@@ -57,12 +56,12 @@ class ShareRecipeToSailingCheffUserView
                     ),
                   ),
                   title: Text(
-                    user.displayName?.toString(),
+                    user.displayName ?? 'No display name',
                     style: TextStyle(
                         fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                    user.email?.toString(),
+                    user.email ?? 'No email',
                     style: TextStyle(
                         fontSize: 12.sp, color: Colors.black54, fontWeight: FontWeight.normal),
                   ),

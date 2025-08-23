@@ -50,7 +50,7 @@ class SavedRecipeService with ListenableServiceMixin {
       savedRecipes.add(savedRecipe);
       userDetails!.savedRecipes!.add(savedRecipe.docId!);
       savedRecipesGlobal.add(savedRecipe);
-      log(userDetails!.savedRecipes?.toString());
+      log(userDetails!.savedRecipes?.toString() ?? 'No saved recipes found');
       // showToast(message: 'Recipe saved successfully');
       notifyListeners();
     } catch (e) {

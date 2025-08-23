@@ -111,5 +111,6 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
 
   @override
   RateExperienceDialogModel viewModelBuilder(BuildContext context) => RateExperienceDialogModel(
-      pinnedLocation: request.data as PinnedLocation, placeMark: request.title?.toString());
+      pinnedLocation: request.data as PinnedLocation,
+      placeMark: request.title ?? 'No title provided');
 }

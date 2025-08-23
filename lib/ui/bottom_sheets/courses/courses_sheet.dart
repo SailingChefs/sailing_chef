@@ -140,7 +140,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                         GestureDetector(
                           onTap: () {
                             completer!(SheetResponse(confirmed: true));
-                            viewModel.deleteCourse(course!.id?.toString());
+                            viewModel.deleteCourse(course?.id ?? '');
                           },
                           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             Icon(

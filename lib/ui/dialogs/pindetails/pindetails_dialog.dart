@@ -444,5 +444,6 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
 
   @override
   PindetailsDialogModel viewModelBuilder(BuildContext context) => PindetailsDialogModel(
-      pinnedLocation: request.data as PinnedLocation, placeMark: request.title?.toString());
+      pinnedLocation: request.data as PinnedLocation,
+      placeMark: request.title ?? 'No title provided');
 }

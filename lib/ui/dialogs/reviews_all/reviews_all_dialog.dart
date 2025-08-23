@@ -93,7 +93,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                       verticalSpaceTiny,
 
                       // Review form interface (both for edit and add)
-                      if (viewModel.isEditingReview || viewModel.isAddingReview) ...[
+                      if (viewModel.isEditingReview || viewModel.isAddingReview)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -178,8 +178,8 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                               ),
                             ],
                           ),
-                        ),
-                      ] else ...[
+                        )
+                      else
                         SizedBox(
                           height: 280,
                           width: double.infinity,
@@ -232,7 +232,8 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                           ),
                                           horizontalSpaceSmall,
                                           Text(
-                                            viewModel.reviews[index].rating?.toString(),
+                                            viewModel.reviews[index].rating?.toString() ??
+                                                'No rating',
                                             style: globalTextStyle(
                                               color: kcBlackColor,
                                               fontSize: 14,
@@ -291,7 +292,6 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                             },
                           ),
                         ),
-                      ],
                     ],
                   ),
                   if (!viewModel.isEditingReview && !viewModel.isAddingReview)
@@ -330,5 +330,6 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
 
   @override
   ReviewsAllDialogModel viewModelBuilder(BuildContext context) => ReviewsAllDialogModel(
-      pinnedLocation: request.data as PinnedLocation, placeMark: request.title?.toString());
+      pinnedLocation: request.data as PinnedLocation,
+      placeMark: request.title ?? 'No title provided');
 }

@@ -25,7 +25,7 @@ class DeleteconfirmationDialog extends StackedView<DeleteconfirmationDialogModel
   ) {
     String? course;
     if (request.title != null) {
-      log(request.title?.toString());
+      log(request.title ?? 'No title provided');
       course = request.title;
     }
     return Dialog(

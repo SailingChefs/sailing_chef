@@ -122,7 +122,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
     await getCurrentLocation();
     for (var i = 0; i < pinnedLocation.tags.length; i++) {
       tags = pinnedLocation.tags;
-      log(tags?.toString());
+      log(tags?.toString() ?? 'No tags found');
     }
 
     // notifyListeners();
@@ -144,7 +144,7 @@ class PindetailsDialogModel extends ReactiveViewModel {
         }
       }
       currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      log(currentPosition?.toString());
+      log(currentPosition?.toString() ?? 'No current position found');
       rebuildUi();
       return currentPosition!;
     } catch (e) {

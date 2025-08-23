@@ -95,7 +95,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
                   shape: BoxShape.circle,
                 ),
                 child: Text(
-                  selectedTagsCount?.toString(),
+                  selectedTagsCount?.toString() ?? 'No selected tags',
                   style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
                 ),
               ),

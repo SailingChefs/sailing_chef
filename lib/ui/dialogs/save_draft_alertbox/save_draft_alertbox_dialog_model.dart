@@ -13,7 +13,7 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
 
   Future<void> yesButton(RecipeModel recipe, final images, final path) async {
     List<String> imageUrls;
-    log(recipe.docId?.toString());
+    log(recipe.docId?.toString() ?? 'No docId found for recipe');
     imageUrls =
         images.isNotEmpty ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!) : [];
     final chefNote =
