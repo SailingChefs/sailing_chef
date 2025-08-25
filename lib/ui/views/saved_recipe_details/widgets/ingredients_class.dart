@@ -111,7 +111,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
     final updatedIngredients =
         viewModel.getUpdatedIngredients(viewModel.servings);
-    final allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
+    final allIngredients =
+        createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
     // log(recipeModel.ingredients.first.id!);
 
@@ -144,23 +145,26 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (viewModel.checkShoppingListAll(recipeModel)) Text(
-                            'remove all',
-                            style: globalTextStyle(
-                              fontSize: 12.sp,
-                              color: kcBlackColor,
-                              letterSpacing: -0.2,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ) else Text(
-                            'add all to shopping list',
-                            style: globalTextStyle(
-                              fontSize: 12.sp,
-                              color: kcBlackColor,
-                              letterSpacing: -0.2,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                    if (viewModel.checkShoppingListAll(recipeModel))
+                      Text(
+                        'remove all',
+                        style: globalTextStyle(
+                          fontSize: 12.sp,
+                          color: kcBlackColor,
+                          letterSpacing: -0.2,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    else
+                      Text(
+                        'add all to shopping list',
+                        style: globalTextStyle(
+                          fontSize: 12.sp,
+                          color: kcBlackColor,
+                          letterSpacing: -0.2,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     horizontalSpaceSmall,
                     Container(
                       width: 12.0.w,

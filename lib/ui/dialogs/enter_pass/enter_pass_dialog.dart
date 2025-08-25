@@ -8,7 +8,9 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
   final Function(DialogResponse) completer;
 
   const EnterPassDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

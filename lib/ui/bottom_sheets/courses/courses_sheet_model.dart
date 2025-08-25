@@ -12,7 +12,8 @@ class CoursesSheetModel extends BaseViewModel {
   final TextEditingController link = TextEditingController();
   final TextEditingController desc = TextEditingController();
   final TextEditingController numOfDays = TextEditingController();
-  final CullinaryschoolService _cullinaryService = locator<CullinaryschoolService>();
+  final CullinaryschoolService _cullinaryService =
+      locator<CullinaryschoolService>();
   final DialogService _dialogSaved = locator<DialogService>();
   String id = '';
 
@@ -35,7 +36,10 @@ class CoursesSheetModel extends BaseViewModel {
   }
 
   bool isLinkValid(String input) {
-    if (!input.contains('www.') || !input.contains('.com') || input.isEmpty || input.length < 10) {
+    if (!input.contains('www.') ||
+        !input.contains('.com') ||
+        input.isEmpty ||
+        input.length < 10) {
       return false;
     }
     try {

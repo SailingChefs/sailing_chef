@@ -12,7 +12,9 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
   final SheetRequest request;
 
   const AddIngredientsSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override

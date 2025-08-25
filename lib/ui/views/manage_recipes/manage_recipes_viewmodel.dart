@@ -81,6 +81,7 @@ class ManageRecipesViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }

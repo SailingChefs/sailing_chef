@@ -95,7 +95,8 @@ class EditCommentSheetModel extends BaseViewModel {
         imageUrl: finalImageUrls.isEmpty ? null : finalImageUrls,
       );
 
-      final success = await _commentService.updateCommentInFirestore(updatedComment);
+      final success =
+          await _commentService.updateCommentInFirestore(updatedComment);
 
       if (success) {
         showToast(message: 'Comment updated successfully');

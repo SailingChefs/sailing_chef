@@ -96,6 +96,13 @@ class PinDropService with ListenableServiceMixin {
     return pins;
   }
 
+  Stream<List<PinnedLocation>> getPinsAsStream() {
+    final ref = firebasestore.collection('pins');
+    final snapshots = ref.snapshots();
+
+    return snapshots.map((snapshot) => snapshot.docs.map(PinnedLocation.fromSnapshot).toList());
+  }
+
   Future<List<ReviewsModel>> fetchReviewsByPinId(String pinId) async {
     log('pinId:$pinId');
     try {
@@ -289,5 +296,18 @@ class PinDropService with ListenableServiceMixin {
     log('get location $pins');
     notifyListeners();
     return pins;
+  }
+
+  Future<void> updatePinStatus(String recipeId, Map<String, String> value) async {
+    try {
+      EasyLoading.show();
+      await firebasestore.collection('pins').doc(recipeId).update(value);
+      EasyLoading.dismiss();
+      showToast(message: 'Pin set to review successfully');
+    } catch (e) {
+      EasyLoading.dismiss();
+      log('Error setting pin as review: $e');
+      showToast(message: 'Error setting pin as review: $e');
+    }
   }
 }

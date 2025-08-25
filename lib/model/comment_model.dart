@@ -15,7 +15,10 @@ class CommentModel {
     required this.userId,
     required this.userName,
     required this.userImageUrl,
-    required this.recipeId, required this.content, required this.timestamp, this.id = '',
+    required this.recipeId,
+    required this.content,
+    required this.timestamp,
+    this.id = '',
     this.imageUrl,
     this.rating,
   });

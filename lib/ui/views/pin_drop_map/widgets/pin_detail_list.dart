@@ -1,7 +1,8 @@
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
+import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
+import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_viewmodel.dart';
 
 class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
@@ -11,9 +12,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
   Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        final pin = viewModel.filteredPins.isEmpty
-            ? viewModel.pins[index]
-            : viewModel.filteredPins[index];
+        final pin =
+            viewModel.filteredPins.isEmpty ? viewModel.pins[index] : viewModel.filteredPins[index];
 
         final imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
 
@@ -78,23 +78,60 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 children: [
                                   // Rating
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Icon(
-                                        Icons.star,
-                                        color: kclightgreencolor,
-                                        size: 18,
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: kclightgreencolor,
+                                            size: 18,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            viewModel.calculateAverageRating(
+                                              pin.reviews ?? [],
+                                            ),
+                                            style: globalTextStyle(
+                                              color: kcBlackColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        viewModel.calculateAverageRating(
-                                          pin.reviews ?? [],
+                                      if ([
+                                        PinnedLocationStatus.pending,
+                                        PinnedLocationStatus.review
+                                      ].contains(pin.status))
+                                        Positioned(
+                                          right: 8.dg,
+                                          top: 8.dg,
+                                          child: Container(
+                                            // width: 90.w,
+                                            height: 25.h,
+                                            padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
+                                            decoration: BoxDecoration(
+                                              color: pin.status == PinnedLocationStatus.pending
+                                                  ? Colors.yellow
+                                                  : Colors.orange,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(20.r),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  pin.status.name.capitalizeFirst(),
+                                                  maxLines: 1,
+                                                  style: globalTextStyle(
+                                                      fontSize: 10.sp, color: kcBlackColor),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                        style: globalTextStyle(
-                                          color: kcBlackColor,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 8),
@@ -131,9 +168,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
         );
       },
       scrollDirection: Axis.horizontal,
-      itemCount: viewModel.filteredPins.isEmpty
-          ? viewModel.pins.length
-          : viewModel.filteredPins.length,
+      itemCount:
+          viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
       shrinkWrap: true,
     );
   }

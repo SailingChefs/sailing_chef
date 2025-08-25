@@ -22,92 +22,93 @@ class ChefNotes extends ViewModelWidget<RecipeViewViewModel> {
                 ),
               ),
               verticalSpaceSmall,
-              if (viewModel.isBusy) const ShimmerContainer(
-                      height: 48,
-                      width: double.maxFinite,
-                    ) else Container(
-                      height: 48,
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: kcMediumGrey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(50),
+              if (viewModel.isBusy)
+                const ShimmerContainer(
+                  height: 48,
+                  width: double.maxFinite,
+                )
+              else
+                Container(
+                  height: 48,
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: kcMediumGrey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      DecoratedBox(
+                        decoration: const BoxDecoration(
+                          color: kcPrimaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: viewModel.isPlaying
+                              ? viewModel.stopListening
+                              : viewModel.startListening,
+                          icon: viewModel.isPlaying
+                              ? const Icon(
+                                  Icons.stop,
+                                  color: kcWhiteColor,
+                                )
+                              : const Icon(
+                                  Icons.play_arrow,
+                                  color: kcWhiteColor,
+                                ),
+                        ),
                       ),
-                      child: Row(
+                      Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          DecoratedBox(
-                            decoration: const BoxDecoration(
-                              color: kcPrimaryColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              onPressed: viewModel.isPlaying
-                                  ? viewModel.stopListening
-                                  : viewModel.startListening,
-                              icon: viewModel.isPlaying
-                                  ? const Icon(
-                                      Icons.stop,
-                                      color: kcWhiteColor,
-                                    )
-                                  : const Icon(
-                                      Icons.play_arrow,
-                                      color: kcWhiteColor,
-                                    ),
+                          SizedBox(
+                            width: screenWidth(context) * 0.50,
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: AudioFileWaveforms(
+                                waveformType: WaveformType.fitWidth,
+                                enableSeekGesture: false,
+                                size: const Size(
+                                    double.maxFinite, double.maxFinite),
+                                playerController: viewModel.playerController,
+                                waveformData: viewModel.waveFormData == null
+                                    ? []
+                                    : viewModel.waveFormData!,
+                                playerWaveStyle: PlayerWaveStyle(
+                                  fixedWaveColor: Colors.black,
+                                  liveWaveColor: kcBlackColor.withOpacity(0.5),
+                                  seekLineColor: Colors.black,
+                                  showSeekLine: false,
+                                ),
+                              ),
                             ),
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: screenWidth(context) * 0.50,
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: AudioFileWaveforms(
-                                    waveformType: WaveformType.fitWidth,
-                                    enableSeekGesture: false,
-                                    size: const Size(
-                                        double.maxFinite, double.maxFinite),
-                                    playerController:
-                                        viewModel.playerController,
-                                    waveformData: viewModel.waveFormData == null
-                                        ? []
-                                        : viewModel.waveFormData!,
-                                    playerWaveStyle: PlayerWaveStyle(
-                                      fixedWaveColor: Colors.black,
-                                      liveWaveColor:
-                                          kcBlackColor.withOpacity(0.5),
-                                      seekLineColor: Colors.black,
-                                      showSeekLine: false,
-                                    ),
+                          horizontalSpaceTiny,
+                          Text(
+                            viewModel.formattedDuration.isEmpty
+                                ? '0:00'
+                                : '${viewModel.formattedDuration} ',
+                            style: globalTextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: kcBlackColor,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: viewModel.onVolumeUpIconPressed,
+                            icon: viewModel.isMute
+                                ? const Icon(
+                                    Icons.volume_off,
+                                  )
+                                : const Icon(
+                                    Icons.volume_up,
                                   ),
-                                ),
-                              ),
-                              horizontalSpaceTiny,
-                              Text(
-                                viewModel.formattedDuration.isEmpty
-                                    ? '0:00'
-                                    : '${viewModel.formattedDuration} ',
-                                style: globalTextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: kcBlackColor,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: viewModel.onVolumeUpIconPressed,
-                                icon: viewModel.isMute
-                                    ? const Icon(
-                                        Icons.volume_off,
-                                      )
-                                    : const Icon(
-                                        Icons.volume_up,
-                                      ),
-                              ),
-                            ],
                           ),
                         ],
                       ),
-                    ),
+                    ],
+                  ),
+                ),
             ],
           );
   }

@@ -12,7 +12,9 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const SocialIconsSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
   @override
   Widget builder(

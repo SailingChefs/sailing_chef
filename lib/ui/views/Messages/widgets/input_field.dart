@@ -8,7 +8,9 @@ import 'package:sailing_chefs/ui/views/Messages/chat_viewmodel.dart';
 // ignore: must_be_immutable
 class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
   const InputFieldChatScreen({
-    required this.user, required this.conversationId, super.key,
+    required this.user,
+    required this.conversationId,
+    super.key,
   });
   final UserModel user;
   final String conversationId;
@@ -20,9 +22,7 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
       height: 63,
       decoration: BoxDecoration(
         color: kcbuttoncolor.withOpacity(0.03),
-        borderRadius: const BorderRadius.only(
-          
-        ),
+        borderRadius: const BorderRadius.only(),
       ),
       padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
       child: Column(

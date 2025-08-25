@@ -11,7 +11,9 @@ class CommentsDetailsScreen
 
   final bool isFromPrivateProfile;
   const CommentsDetailsScreen(
-      {required this.isFromPrivateProfile, required this.recipeModel, super.key});
+      {required this.isFromPrivateProfile,
+      required this.recipeModel,
+      super.key});
 
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -113,7 +115,10 @@ class CommentsDetailsScreen
                   ),
                 ],
               ),
-              if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel) else Container(),
+              if (viewModel.images.isNotEmpty)
+                _buildImagePreview(viewModel)
+              else
+                Container(),
               verticalSpaceSmall,
               Container(
                 padding:
@@ -163,19 +168,21 @@ class CommentsDetailsScreen
                       ),
                       onRatingUpdate: (rating) => viewModel.addRating(rating),
                     ),
-                    if (viewModel.isEditingComment) IconButton(
-                            onPressed: viewModel.updateComment,
-                            icon:
-                                const Icon(Icons.check, color: kcPrimaryColor),
-                          ) else IconButton(
-                            onPressed: () =>
-                                viewModel.addComment(recipeModel.docId!),
-                            icon: const Icon(
-                              Icons.send,
-                              color: kcPrimaryColor,
-                              size: 24,
-                            ),
-                          ),
+                    if (viewModel.isEditingComment)
+                      IconButton(
+                        onPressed: viewModel.updateComment,
+                        icon: const Icon(Icons.check, color: kcPrimaryColor),
+                      )
+                    else
+                      IconButton(
+                        onPressed: () =>
+                            viewModel.addComment(recipeModel.docId!),
+                        icon: const Icon(
+                          Icons.send,
+                          color: kcPrimaryColor,
+                          size: 24,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -198,17 +205,20 @@ class CommentsDetailsScreen
                                 fontWeight: FontWeight.w500),
                           )),
               ),
-              if (viewModel.seeComments) Column(
-                      children: [
-                        ...createCommentWidgets(viewModel),
-                        if (viewModel.commentsList.isEmpty)
-                          const Center(
-                            child: Text(
-                              'No comments yet',
-                            ),
-                          ),
-                      ],
-                    ) else const SizedBox(),
+              if (viewModel.seeComments)
+                Column(
+                  children: [
+                    ...createCommentWidgets(viewModel),
+                    if (viewModel.commentsList.isEmpty)
+                      const Center(
+                        child: Text(
+                          'No comments yet',
+                        ),
+                      ),
+                  ],
+                )
+              else
+                const SizedBox(),
               const Divider(),
             ],
           )

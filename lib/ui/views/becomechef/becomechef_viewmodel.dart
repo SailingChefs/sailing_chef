@@ -122,7 +122,8 @@ class BecomechefViewModel extends BaseViewModel {
         'boat_name': boatNameController.text,
         'address': address,
       };
-      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
 
       _navigationService.navigateToBottomNavBarView();
     }

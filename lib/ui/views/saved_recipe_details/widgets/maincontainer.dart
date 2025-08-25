@@ -16,7 +16,10 @@ class MainRecipeViewContainer
   final List<RecipeModel> recipeList;
   final bool isFromPrivateProfile;
   const MainRecipeViewContainer(
-      {required this.recipeModel, required this.isFromPrivateProfile, required this.recipeList, super.key});
+      {required this.recipeModel,
+      required this.isFromPrivateProfile,
+      required this.recipeList,
+      super.key});
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
@@ -44,12 +47,15 @@ class MainRecipeViewContainer
           Methods(
             recipe: recipeModel,
           ),
-          if (recipeModel.tags!.isEmpty) Container() else Column(
-                  children: [
-                    TipsNotesRecipeDetails(viewModel: recipeModel),
-                    verticalSpace(12),
-                  ],
-                ),
+          if (recipeModel.tags!.isEmpty)
+            Container()
+          else
+            Column(
+              children: [
+                TipsNotesRecipeDetails(viewModel: recipeModel),
+                verticalSpace(12),
+              ],
+            ),
           // const ChefNotesRecipeDetails(),
           // verticalSpace(16.h),
           Visibility(

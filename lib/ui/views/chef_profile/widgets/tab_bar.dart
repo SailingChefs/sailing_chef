@@ -67,23 +67,26 @@ class TabBarChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (user.userRole == 'culinarySchool') Text(
-                            'Courses',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: viewModel.selectedTab == 'Saved'
-                                  ? kcVeryLightGrey
-                                  : kcBlackColor.withOpacity(0.5),
-                            ),
-                          ) else Text(
-                            'Saved',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: viewModel.selectedTab == 'Saved'
-                                  ? kcVeryLightGrey
-                                  : kcBlackColor.withOpacity(0.5),
-                            ),
-                          ),
+                    if (user.userRole == 'culinarySchool')
+                      Text(
+                        'Courses',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTab == 'Saved'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.5),
+                        ),
+                      )
+                    else
+                      Text(
+                        'Saved',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTab == 'Saved'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.5),
+                        ),
+                      ),
                   ],
                 ),
               ),

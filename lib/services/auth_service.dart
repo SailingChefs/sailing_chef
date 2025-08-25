@@ -84,8 +84,7 @@ class AuthService {
   }) async {
     try {
       EasyLoading.show();
-      final userCredential =
-          await firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email!,
         password: password,
       );
@@ -133,8 +132,7 @@ class AuthService {
 
   Future<void> signInWithGoogle() async {
     final dialogService = locator<DialogService>();
-    final googleUser =
-        await GoogleSignIn.instance.authenticate();
+    final googleUser = await GoogleSignIn.instance.authenticate();
     final googleAuth = googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       // accessToken: googleAuth?.accessToken,
@@ -172,18 +170,10 @@ class AuthService {
           variant: DialogType.roleDialog,
         );
       } else {
-        final currentUser = await userService.fetchUserByUID(user.uid);
-        if (currentUser.userRole == 'guest') {
-          userDetails!.userRole = currentUser.userRole;
-          await userService.storeUserDetails(
-              userDetails!.toJson(), userDetails!.uid!);
-          navigationService.replaceWithBottomBarGuestView();
-        } else {
-          userDetails!.userRole = currentUser.userRole;
-          await userService.storeUserDetails(
-              userDetails!.toJson(), userDetails!.uid!);
-          navigationService.replaceWithBottomNavBarView();
-        }
+        userDetails = await userService.fetchUserByUID(user.uid);
+        await userService.storeUserDetails(
+            userDetails!.toJson(), userDetails!.uid!);
+        navigationService.replaceWithBottomNavBarView();
       }
 
       // else if (userDetails!.userRole == 'guest') {

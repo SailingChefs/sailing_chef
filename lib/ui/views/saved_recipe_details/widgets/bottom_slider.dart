@@ -7,7 +7,9 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final List<RecipeModel> recipeList;
   const BottomSlider(
-      {required this.isFromPrivateProfile, required this.recipeList, super.key});
+      {required this.isFromPrivateProfile,
+      required this.recipeList,
+      super.key});
   final bool isFromPrivateProfile;
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {

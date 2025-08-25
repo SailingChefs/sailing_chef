@@ -48,13 +48,16 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
               recipes: recipes,
             ),
             verticalSpace(16),
-            if (viewModel.isBusy) const ShimmerLoaderAllRecipes() else viewModel.searchController.text.isEmpty
-                    ? AllRecipesScreen(
-                        recipes: recipes,
-                      )
-                    : SearchViewAllRecipes(
-                        recipes: recipes,
-                      ),
+            if (viewModel.isBusy)
+              const ShimmerLoaderAllRecipes()
+            else
+              viewModel.searchController.text.isEmpty
+                  ? AllRecipesScreen(
+                      recipes: recipes,
+                    )
+                  : SearchViewAllRecipes(
+                      recipes: recipes,
+                    ),
           ],
         ),
       ),

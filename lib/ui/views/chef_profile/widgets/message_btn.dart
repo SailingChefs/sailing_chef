@@ -12,7 +12,9 @@ class MessageBtuton extends StatelessWidget {
   final IconData? postfix;
 
   const MessageBtuton({
-    required this.onPressed, required this.buttonText, super.key,
+    required this.onPressed,
+    required this.buttonText,
+    super.key,
     this.fontSize = 14,
     this.textColor = kcWhiteColor,
     this.fontWeight = FontWeight.normal,

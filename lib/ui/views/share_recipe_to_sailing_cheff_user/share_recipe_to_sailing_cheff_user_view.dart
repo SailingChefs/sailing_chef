@@ -38,7 +38,10 @@ class ShareRecipeToSailingCheffUserView
         centerTitle: true,
         title: Text(
           'Share with S.C Users',
-          style: TextStyle(fontSize: 16.sp, color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: 16.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.w600),
         ),
       ),
       body: Container(
@@ -58,12 +61,16 @@ class ShareRecipeToSailingCheffUserView
                   title: Text(
                     user.displayName ?? 'No display name',
                     style: TextStyle(
-                        fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
                     user.email ?? 'No email',
                     style: TextStyle(
-                        fontSize: 12.sp, color: Colors.black54, fontWeight: FontWeight.normal),
+                        fontSize: 12.sp,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.normal),
                   ),
                   trailing: InkWell(
                     onTap: () {

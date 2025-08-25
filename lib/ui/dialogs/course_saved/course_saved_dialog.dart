@@ -13,7 +13,9 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
   final Function(DialogResponse) completer;
 
   const CourseSavedDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

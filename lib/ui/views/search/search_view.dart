@@ -13,7 +13,10 @@ class SearchView extends StackedView<SearchViewModel> {
   final List<UserModel> chefList;
   int selectedTagsCount;
   SearchView(
-      {required this.recipeModel, required this.chefList, required this.selectedTagsCount, super.key});
+      {required this.recipeModel,
+      required this.chefList,
+      required this.selectedTagsCount,
+      super.key});
 
   @override
   Widget builder(
@@ -69,11 +72,14 @@ class SearchView extends StackedView<SearchViewModel> {
                         verticalSpaceMedium,
                         const TabBarSeacrhScreen(),
                         verticalSpaceTiny,
-                        if (viewModel.isRecipeSelected) RecipeScreen(
-                                recipes: recipeModel,
-                              ) else ChefScreen(
-                                chef: chefList,
-                              ),
+                        if (viewModel.isRecipeSelected)
+                          RecipeScreen(
+                            recipes: recipeModel,
+                          )
+                        else
+                          ChefScreen(
+                            chef: chefList,
+                          ),
                       ],
                     ),
                   )),

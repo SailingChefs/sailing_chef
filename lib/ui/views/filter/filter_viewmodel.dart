@@ -256,14 +256,16 @@ class FilterViewModel extends BaseViewModel {
   void apply() {
     final filteredRecipes = RecipeService.recipes.where((recipe) {
       // Check if any tag in the recipe matches any tag in the specified tags list
-      final tagMatch = recipe.tags!.any((tag) => selectedOptions().contains(tag));
+      final tagMatch =
+          recipe.tags!.any((tag) => selectedOptions().contains(tag));
 
       // Parse prep time of the recipe into hours
       final prepTimeHours = _parsePrepTime(recipe.prepTime) / 60;
       log('prep time $prepTimeHours');
 
       // Check if prep time falls within the specified range
-      final timeInRange = prepTimeHours >= values.start && prepTimeHours <= values.end;
+      final timeInRange =
+          prepTimeHours >= values.start && prepTimeHours <= values.end;
 
       // Return true if both tag and time conditions are met
       if (selectedOptions().isEmpty) {
@@ -296,7 +298,10 @@ class FilterViewModel extends BaseViewModel {
       final value = double.parse(match.group(0)!);
 
       // Check if the value is followed by 'h' or 'hour' (indicating hours)
-      if (prepTime.substring(match.end).toLowerCase().startsWith(RegExp('h|hour'))) {
+      if (prepTime
+          .substring(match.end)
+          .toLowerCase()
+          .startsWith(RegExp('h|hour'))) {
         totalMinutes += value * 60; // Convert hours to minutes
       } else {
         // Assume it's minutes if not specified as hours

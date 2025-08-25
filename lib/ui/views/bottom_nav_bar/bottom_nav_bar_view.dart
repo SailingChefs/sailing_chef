@@ -17,7 +17,8 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   BottomNavBarView({this.index, super.key});
 
   @override
-  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
+  Widget builder(
+      BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: index != null

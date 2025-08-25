@@ -4,7 +4,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog_model.dart';
 import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/widgets/shimmer.dart';
 
-class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel> {
+class PindropDialogueboxDialog
+    extends StackedView<PindropDialogueboxDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
@@ -40,7 +41,8 @@ class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel
                     fit: BoxFit.fitHeight,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(27), bottomLeft: Radius.circular(27)),
+                          topLeft: Radius.circular(27),
+                          bottomLeft: Radius.circular(27)),
                       child: Image.network(
                         pinnedLocation.picture.first,
                         fit: BoxFit.cover,
@@ -58,7 +60,8 @@ class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0, top: 15),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, top: 15),
                               child: Text(
                                 overflow: TextOverflow.ellipsis,
                                 pinnedLocation.tags[0],
@@ -73,7 +76,8 @@ class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Icon(
                                     Icons.star,
@@ -81,9 +85,12 @@ class PindropDialogueboxDialog extends StackedView<PindropDialogueboxDialogModel
                                   ),
                                   horizontalSpaceSmall,
                                   Text(
-                                    viewModel.calculateAverageRating(viewModel.reviews) == '0.0'
+                                    viewModel.calculateAverageRating(
+                                                viewModel.reviews) ==
+                                            '0.0'
                                         ? pinnedLocation.rating.toString()
-                                        : viewModel.calculateAverageRating(viewModel.reviews),
+                                        : viewModel.calculateAverageRating(
+                                            viewModel.reviews),
                                     style: globalTextStyle(
                                       color: kcBlackColor,
                                       fontSize: 16,

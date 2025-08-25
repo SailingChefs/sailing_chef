@@ -14,7 +14,9 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
   final Function(DialogResponse) completer;
 
   const DeletePinDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

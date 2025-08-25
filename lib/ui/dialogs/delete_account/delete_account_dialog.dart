@@ -8,7 +8,9 @@ class DeleteAccountDialog extends StackedView<DeleteAccountDialogModel> {
   final Function(DialogResponse) completer;
 
   const DeleteAccountDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

@@ -32,15 +32,18 @@ class ProfileShareView extends StackedView<ProfileShareViewModel> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // (size.height * 0.15).verticalSpace,
-                  if (type.startsWith('a')) CircleAvatar(
-                          radius: size.width * 0.35,
-                          backgroundImage: AssetImage(image),
-                        ) else CircleAvatar(
-                          radius: size.width * 0.35,
-                          backgroundImage: ImageUtils.safeNetworkImageForAvatar(
-                            image,
-                          ),
-                        ),
+                  if (type.startsWith('a'))
+                    CircleAvatar(
+                      radius: size.width * 0.35,
+                      backgroundImage: AssetImage(image),
+                    )
+                  else
+                    CircleAvatar(
+                      radius: size.width * 0.35,
+                      backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                        image,
+                      ),
+                    ),
                   verticalSpaceMedium,
                   // Container(
                   //   decoration: BoxDecoration(

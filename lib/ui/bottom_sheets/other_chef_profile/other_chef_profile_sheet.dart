@@ -6,7 +6,9 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const OtherChefProfileSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override
@@ -35,52 +37,51 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
                 Radius.circular(10),
               ),
             ),
-            child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => completer!(SheetResponse(
-                      confirmed: true,
-                    )),
-                    child: Container(
-                      height: 55,
-                      decoration: const BoxDecoration(
-                        color: kcWhiteColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text('Report Profile',
-                            style: globalTextStyle(
-                                fontSize: 16.sp,
-                                letterSpacing: -0.3,
-                                fontWeight: FontWeight.w500,
-                                color: kcBlackColor)),
-                      ),
+            child: Column(children: [
+              GestureDetector(
+                onTap: () => completer!(SheetResponse(
+                  confirmed: true,
+                )),
+                child: Container(
+                  height: 55,
+                  decoration: const BoxDecoration(
+                    color: kcWhiteColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
                   ),
-                  const Divider(),
-                  GestureDetector(
-                    onTap: () => viewModel.blockAccount(request.data),
-                    child: Container(
-                      height: 55,
-                      decoration: const BoxDecoration(
-                        color: kcWhiteColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text('Block Profile',
-                            style: globalTextStyle(
-                                fontSize: 16.sp,
-                                letterSpacing: -0.3,
-                                fontWeight: FontWeight.w500,
-                                color: kcBlackColor)),
-                      ),
+                  child: Center(
+                    child: Text('Report Profile',
+                        style: globalTextStyle(
+                            fontSize: 16.sp,
+                            letterSpacing: -0.3,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor)),
+                  ),
+                ),
+              ),
+              const Divider(),
+              GestureDetector(
+                onTap: () => viewModel.blockAccount(request.data),
+                child: Container(
+                  height: 55,
+                  decoration: const BoxDecoration(
+                    color: kcWhiteColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
                   ),
-                ]),
+                  child: Center(
+                    child: Text('Block Profile',
+                        style: globalTextStyle(
+                            fontSize: 16.sp,
+                            letterSpacing: -0.3,
+                            fontWeight: FontWeight.w500,
+                            color: kcBlackColor)),
+                  ),
+                ),
+              ),
+            ]),
           ),
           verticalSpaceMedium,
           GestureDetector(

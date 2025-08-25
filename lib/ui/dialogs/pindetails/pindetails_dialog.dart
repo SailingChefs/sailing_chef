@@ -209,7 +209,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
-                                    viewModel.tags!.join(', '),
+                                    viewModel.tags?.join(', ') ?? '',
                                     style: globalTextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,

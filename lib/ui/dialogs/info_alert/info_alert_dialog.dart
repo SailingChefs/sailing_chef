@@ -9,7 +9,9 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   final Function(DialogResponse) completer;
 
   const InfoAlertDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

@@ -30,8 +30,13 @@ class IndexViewModel extends BaseViewModel {
   List<RecipeModel> get savedRecipes => savedRecipesGlobal;
   @override
   // ignore: override_on_non_overriding_member
-  List<ListenableServiceMixin> get listenableServices =>
-      [_savedRecipeService, _recipeService, _cullinaryService, _chefService, _savedRecipeService];
+  List<ListenableServiceMixin> get listenableServices => [
+        _savedRecipeService,
+        _recipeService,
+        _cullinaryService,
+        _chefService,
+        _savedRecipeService
+      ];
 
   void get toViewCullinarySchool {}
   bool? isInitialised;
@@ -171,7 +176,8 @@ class IndexViewModel extends BaseViewModel {
     userShoppingList = await userService.fetchShoppingList();
 
     selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-    shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
+    shoppingRecipeeIngredient =
+        userShoppingList?.shoppingRecipeeIngredient ?? {};
     showShoppingListview = userShoppingList?.showShoppingListview ?? {};
   }
 }

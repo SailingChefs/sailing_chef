@@ -145,9 +145,8 @@ class CommentService with ListenableServiceMixin {
           .get();
 
       // Convert the querySnapshot documents to a list of CommentModel
-      final comments = querySnapshot.docs
-          .map(CommentModel.fromSnapshot)
-          .toList();
+      final comments =
+          querySnapshot.docs.map(CommentModel.fromSnapshot).toList();
 
       return comments;
     } catch (e) {
@@ -163,8 +162,7 @@ class CommentService with ListenableServiceMixin {
       EasyLoading.show();
       for (final image in images) {
         final fileName = DateTime.now().millisecondsSinceEpoch.toString();
-        final ref =
-            firebaseStorage.ref().child('images/comments/$fileName');
+        final ref = firebaseStorage.ref().child('images/comments/$fileName');
         final uploadTask = ref.putFile(File(image.path));
         final taskSnapshot = await uploadTask;
         final imageUrl = await taskSnapshot.ref.getDownloadURL();

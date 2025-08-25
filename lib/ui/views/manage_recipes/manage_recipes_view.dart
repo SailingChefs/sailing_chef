@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_viewmodel.dart';
-import 'package:sailing_chefs/ui/views/manage_recipes/views/manage_recipes.dart';
-import 'package:sailing_chefs/ui/views/manage_recipes/widgets/top_bar_admin_view.dart';
+import 'package:sailing_chefs/ui/views/manage_recipes/widgets/manage_recipes.dart';
+import 'package:sailing_chefs/ui/widgets/top_bar_admin_view.dart';
 import 'package:stacked/stacked.dart';
 
 class ManageRecipesView extends StackedView<ManageRecipesViewModel> {
@@ -16,7 +16,7 @@ class ManageRecipesView extends StackedView<ManageRecipesViewModel> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: const TopBarAdminView('Manage Recipes'),
+        appBar: const TopBarAdminView<ManageRecipesViewModel>('Manage Recipes'),
         body: DefaultTabController(
           length: 3,
           child: Column(

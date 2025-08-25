@@ -6,7 +6,9 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const DropPinButtonsSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override
@@ -20,9 +22,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
         height: MediaQuery.of(context).size.height * 0.1,
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            
-          ),
+          borderRadius: BorderRadius.only(),
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8),

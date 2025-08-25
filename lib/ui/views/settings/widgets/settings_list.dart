@@ -16,10 +16,33 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
             onTap: () {
-              viewModel.getAdmin();
+              viewModel.goToManageRecipes();
             },
             title: Text(
               'Manage Recipes (Admin)',
+              style: globalTextStyle(
+                fontSize: 14.0.dg,
+                color: kcBlackColor,
+                letterSpacing: -0.3,
+                // fontWeight: FontWeight.w900,
+              ),
+            ),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: kcBlackColor.withOpacity(0.87),
+              size: 14.dg,
+            ),
+          ),
+          Divider(
+            color: kcBlackColor.withOpacity(0.08),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+            onTap: () {
+              viewModel.goToManagePins();
+            },
+            title: Text(
+              'Manage Pins (Admin)',
               style: globalTextStyle(
                 fontSize: 14.0.dg,
                 color: kcBlackColor,
@@ -160,7 +183,8 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           )
         else
           Container(),
-        if (userDetails!.userRole == 'culinarySchool' || userDetails!.userRole == 'chef')
+        if (userDetails!.userRole == 'culinarySchool' ||
+            userDetails!.userRole == 'chef')
           Column(
             children: [
               Divider(

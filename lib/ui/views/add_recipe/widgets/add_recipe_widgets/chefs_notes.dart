@@ -23,100 +23,105 @@ class ChefsNote extends ViewModelWidget<AddRecipeViewModel> {
         ),
         verticalSpaceTiny,
         if ((drafts?.chefNote.isNotEmpty ?? false) &&
-                (drafts?.waveForm.isNotEmpty ?? false)) Container(
-                height: 48,
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: kcPrimaryColor.withOpacity(0.07),
-                  borderRadius: BorderRadius.circular(50),
+            (drafts?.waveForm.isNotEmpty ?? false))
+          Container(
+            height: 48,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: kcPrimaryColor.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: kcPrimaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: viewModel.isPlaying
+                        ? viewModel.stopListening
+                        : viewModel.startListening,
+                    icon: viewModel.isPlaying
+                        ? const Icon(
+                            Icons.stop,
+                            color: kcWhiteColor,
+                          )
+                        : const Icon(
+                            Icons.play_arrow,
+                            color: kcWhiteColor,
+                          ),
+                  ),
                 ),
-                child: Row(
+                Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: kcPrimaryColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: viewModel.isPlaying
-                            ? viewModel.stopListening
-                            : viewModel.startListening,
-                        icon: viewModel.isPlaying
-                            ? const Icon(
-                                Icons.stop,
-                                color: kcWhiteColor,
-                              )
-                            : const Icon(
-                                Icons.play_arrow,
-                                color: kcWhiteColor,
-                              ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: screenWidth(context) * 0.47.w,
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: AudioFileWaveforms(
-                              waveformType: WaveformType.fitWidth,
-                              enableSeekGesture: false,
-                              size: const Size(
-                                  double.maxFinite, double.maxFinite),
-                              playerController: viewModel.playerController,
-                              waveformData: viewModel.waveFormData == null
-                                  ? []
-                                  : viewModel.waveFormData!,
-                              playerWaveStyle: PlayerWaveStyle(
-                                fixedWaveColor: Colors.black,
-                                liveWaveColor: kcBlackColor.withOpacity(0.5),
-                                seekLineColor: Colors.black,
-                                showSeekLine: false,
-                              ),
-                            ),
+                    SizedBox(
+                      width: screenWidth(context) * 0.47.w,
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: AudioFileWaveforms(
+                          waveformType: WaveformType.fitWidth,
+                          enableSeekGesture: false,
+                          size: const Size(double.maxFinite, double.maxFinite),
+                          playerController: viewModel.playerController,
+                          waveformData: viewModel.waveFormData == null
+                              ? []
+                              : viewModel.waveFormData!,
+                          playerWaveStyle: PlayerWaveStyle(
+                            fixedWaveColor: Colors.black,
+                            liveWaveColor: kcBlackColor.withOpacity(0.5),
+                            seekLineColor: Colors.black,
+                            showSeekLine: false,
                           ),
                         ),
-                        horizontalSpaceTiny,
-                        Text('${viewModel.formattedDuration} ',
-                            style: globalTextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: kcBlackColor,
-                            )),
-                        if (viewModel.recipeModel != null) viewModel.recipeModel!.chefNote.isNotEmpty
-                                ? Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          viewModel.deleteCurrentRecording();
-                                        },
-                                        child: const Icon(
-                                          Icons.delete,
-                                          color: kcPrimaryColorDark,
-                                        ),
-                                      ),
-                                      horizontalSpaceSmall,
-                                    ],
-                                  )
-                                : IconButton(
-                                    onPressed: () {
-                                      viewModel.onVolumeUpIconPressed();
-                                    },
-                                    icon: viewModel.isMute
-                                        ? const Icon(
-                                            Icons.volume_off,
-                                          )
-                                        : const Icon(
-                                            Icons.volume_up,
-                                          ),
-                                  ) else Container(),
-                      ],
+                      ),
                     ),
+                    horizontalSpaceTiny,
+                    Text('${viewModel.formattedDuration} ',
+                        style: globalTextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: kcBlackColor,
+                        )),
+                    if (viewModel.recipeModel != null)
+                      viewModel.recipeModel!.chefNote.isNotEmpty
+                          ? Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    viewModel.deleteCurrentRecording();
+                                  },
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: kcPrimaryColorDark,
+                                  ),
+                                ),
+                                horizontalSpaceSmall,
+                              ],
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                viewModel.onVolumeUpIconPressed();
+                              },
+                              icon: viewModel.isMute
+                                  ? const Icon(
+                                      Icons.volume_off,
+                                    )
+                                  : const Icon(
+                                      Icons.volume_up,
+                                    ),
+                            )
+                    else
+                      Container(),
                   ],
                 ),
-              ) else const AddRecipeChefsNote()
+              ],
+            ),
+          )
+        else
+          const AddRecipeChefsNote()
       ],
     );
   }

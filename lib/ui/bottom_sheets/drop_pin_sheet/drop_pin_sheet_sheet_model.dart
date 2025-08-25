@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
@@ -56,7 +57,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
         tags: selectedTabSelections,
         location: GeoPoint(location.location!.latitude, location.location!.longitude),
         rating: ratings,
-        // place: place,
+        status: PinnedLocationStatus.pending,
       );
 
       isNew
@@ -209,7 +210,7 @@ class DropPinSheetSheetModel extends BaseViewModel {
       email.text = location.pinnedLocation!.email;
       phone.text = location.pinnedLocation!.contactNumber;
       description.text = location.pinnedLocation!.description;
-      selectedImagePath = location.pinnedLocation!.picture.first;
+      selectedImagePath = location.pinnedLocation!.picture[0];
       selectedTabSelections = location.pinnedLocation!.tags;
       ratings = location.pinnedLocation!.rating;
     }

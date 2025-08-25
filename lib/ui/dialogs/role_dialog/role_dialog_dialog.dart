@@ -13,7 +13,9 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
   final Function(DialogResponse) completer;
 
   const RoleDialogDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

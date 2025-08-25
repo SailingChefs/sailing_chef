@@ -7,7 +7,9 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
   final Function(DialogResponse) completer;
 
   const BlockAccountDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

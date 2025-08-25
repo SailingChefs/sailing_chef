@@ -45,26 +45,35 @@ class ChefProfileView extends StackedView<ChefProfileViewModel> {
                   Visibility(
                       visible: viewModel.checkOwn(user),
                       child: Follow_Message_Btns(user: user)),
-                  if (user.userRole == 'chef') viewModel.isBusy
-                          ? const ShimmerLoaderChefView()
-                          : DishListScreen(user: user) else Container(),
+                  if (user.userRole == 'chef')
+                    viewModel.isBusy
+                        ? const ShimmerLoaderChefView()
+                        : DishListScreen(user: user)
+                  else
+                    Container(),
                   verticalSpaceTiny,
-                  if (user.userRole == 'guest') viewModel.isBusy
-                          ? const ShimmerLoaderChefView()
-                          : SavedChefProfileScreen(user,
-                              savedRecipes: viewModel.userSavedRecipe!) else user.userRole == 'culinarySchool'
-                          ? Column(
-                              children: [
-                                TabBarChefProfileScreen(user),
-                                if (viewModel.isMySelected) viewModel.isBusy
-                                        ? const ShimmerLoaderChefView()
-                                        : const RecipesProfileScreen() else SavedChefProfileScreen(
-                                        user,
-                                        savedRecipes: const [],
-                                      ),
-                              ],
-                            )
-                          : Container(),
+                  if (user.userRole == 'guest')
+                    viewModel.isBusy
+                        ? const ShimmerLoaderChefView()
+                        : SavedChefProfileScreen(user,
+                            savedRecipes: viewModel.userSavedRecipe!)
+                  else
+                    user.userRole == 'culinarySchool'
+                        ? Column(
+                            children: [
+                              TabBarChefProfileScreen(user),
+                              if (viewModel.isMySelected)
+                                viewModel.isBusy
+                                    ? const ShimmerLoaderChefView()
+                                    : const RecipesProfileScreen()
+                              else
+                                SavedChefProfileScreen(
+                                  user,
+                                  savedRecipes: const [],
+                                ),
+                            ],
+                          )
+                        : Container(),
                 ],
               ),
             ),

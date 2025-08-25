@@ -19,15 +19,19 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
 
   @override
   Widget build(BuildContext context, ChatViewModel viewModel) {
-    final isCurrentUser = message.senderId == FirebaseAuth.instance.currentUser!.uid;
+    final isCurrentUser =
+        message.senderId == FirebaseAuth.instance.currentUser!.uid;
     final messageIndex = viewModel.messages.indexOf(message);
-    final nextMessageIsDifferentUser = messageIndex + 1 < viewModel.messages.length &&
-        viewModel.messages[messageIndex + 1].senderId == message.senderId;
+    final nextMessageIsDifferentUser =
+        messageIndex + 1 < viewModel.messages.length &&
+            viewModel.messages[messageIndex + 1].senderId == message.senderId;
 
     final last = messageIndex < viewModel.messages.length &&
         viewModel.messages[messageIndex].senderId == message.senderId;
-    final timestampInHours = DateTime.now().difference(message.timestamp).inHours;
-    final timestampInMinutes = DateTime.now().difference(message.timestamp).inMinutes;
+    final timestampInHours =
+        DateTime.now().difference(message.timestamp).inHours;
+    final timestampInMinutes =
+        DateTime.now().difference(message.timestamp).inMinutes;
     // final timestampInDays = DateTime.now().difference(message.timestamp).inDays;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel.scrollController.animateTo(
@@ -45,17 +49,23 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
         horizontal: 10.0,
       ),
       child: Column(
-        mainAxisAlignment: isCurrentUser ? MainAxisAlignment.start : MainAxisAlignment.end,
-        crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        mainAxisAlignment:
+            isCurrentUser ? MainAxisAlignment.start : MainAxisAlignment.end,
+        crossAxisAlignment:
+            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment:
+                isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              if (!isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
+              if (!isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
-                  backgroundImage: ImageUtils.conditionalNetworkImage(user.displayPicture),
+                  backgroundImage:
+                      ImageUtils.conditionalNetworkImage(user.displayPicture),
                   child: ImageUtils.isValidImageUrl(user.displayPicture)
                       ? null
                       : const Icon(Icons.person),
@@ -66,8 +76,9 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                   maxWidth: MediaQuery.of(context).size.width * 0.69,
                 ),
                 child: Column(
-                  crossAxisAlignment:
-                      isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  crossAxisAlignment: isCurrentUser
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
                   children: [
                     if (message.type == 'image')
                       GestureDetector(
@@ -99,25 +110,26 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                             imageUrl: message.content,
                             width: 120.0,
                             height: 178.0,
-                            progressIndicatorBuilder: (context, url, progress) => Container(
-                                width: 120,
-                                height: 178,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: isCurrentUser
-                                          ? const Radius.circular(20)
-                                          : const Radius.circular(0),
-                                      bottomLeft: isCurrentUser
-                                          ? const Radius.circular(20)
-                                          : const Radius.circular(0),
-                                      topRight: !isCurrentUser
-                                          ? const Radius.circular(20)
-                                          : const Radius.circular(0),
-                                      bottomRight: !isCurrentUser
-                                          ? const Radius.circular(20)
-                                          : const Radius.circular(0)),
-                                )),
+                            progressIndicatorBuilder:
+                                (context, url, progress) => Container(
+                                    width: 120,
+                                    height: 178,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          bottomLeft: isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          topRight: !isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0),
+                                          bottomRight: !isCurrentUser
+                                              ? const Radius.circular(20)
+                                              : const Radius.circular(0)),
+                                    )),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -126,7 +138,9 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       Container(
                         padding: const EdgeInsets.all(15.0),
                         decoration: BoxDecoration(
-                          color: isCurrentUser ? kcchatboxecolor : kcPrimaryColor.withOpacity(0.2),
+                          color: isCurrentUser
+                              ? kcchatboxecolor
+                              : kcPrimaryColor.withOpacity(0.2),
                           borderRadius: BorderRadius.only(
                             topLeft: const Radius.circular(30),
                             topRight: const Radius.circular(30),
@@ -180,9 +194,13 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                               ),
                               child: ListTile(
                                   title: const Text(
-                                      maxLines: 1, overflow: TextOverflow.ellipsis, 'File Name'),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Name'),
                                   subtitle: const Text(
-                                      maxLines: 1, overflow: TextOverflow.ellipsis, 'File Path'),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      'File Path'),
                                   trailing: GestureDetector(
                                       onTap: () {},
                                       child: const Icon(
@@ -227,7 +245,8 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                           },
                                           child: const Icon(Icons.download)),
                                       leading: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                           child: Image.asset(
                                             'assets/images/icons/pdf.png',
                                             width: 50.0,
@@ -248,9 +267,11 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                               onTap: () async {
                                                 await launch(message.content);
                                               },
-                                              child: const Icon(Icons.download)),
+                                              child:
+                                                  const Icon(Icons.download)),
                                           leading: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                               child: Image.asset(
                                                 'assets/images/icons/docx.png',
                                                 width: 50.0,
@@ -261,19 +282,25 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                           ? ListTile(
                                               title: Text(
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   message.fileName),
                                               subtitle: Text(
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   message.content),
                                               trailing: GestureDetector(
                                                   onTap: () async {
-                                                    await launch(message.content);
+                                                    await launch(
+                                                        message.content);
                                                   },
-                                                  child: const Icon(Icons.download)),
+                                                  child: const Icon(
+                                                      Icons.download)),
                                               leading: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                   child: Image.asset(
                                                     'assets/images/icons/docx.png',
                                                     width: 50.0,
@@ -284,19 +311,25 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                               ? ListTile(
                                                   title: Text(
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       message.fileName),
                                                   subtitle: Text(
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       message.content),
                                                   trailing: GestureDetector(
                                                       onTap: () async {
-                                                        await launch(message.content);
+                                                        await launch(
+                                                            message.content);
                                                       },
-                                                      child: const Icon(Icons.download)),
+                                                      child: const Icon(
+                                                          Icons.download)),
                                                   leading: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10.0),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
                                                     child: Image.asset(
                                                       'assets/images/icons/zip.png',
                                                       width: 50.0,
@@ -308,19 +341,25 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                               : ListTile(
                                                   title: Text(
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       message.fileName),
                                                   subtitle: Text(
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       message.content),
                                                   trailing: GestureDetector(
                                                       onTap: () async {
-                                                        await launch(message.content);
+                                                        await launch(
+                                                            message.content);
                                                       },
-                                                      child: const Icon(Icons.download)),
+                                                      child: const Icon(
+                                                          Icons.download)),
                                                   leading: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10.0),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
                                                     child: Image.asset(
                                                       'assets/images/icons/gallary.png',
                                                       width: 50.0,
@@ -334,9 +373,13 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                 ),
               ),
               horizontalSpaceTiny,
-              if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
+              if (isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
                 const SizedBox(),
-              if (isCurrentUser && messageIndex > 0 && !nextMessageIsDifferentUser)
+              if (isCurrentUser &&
+                  messageIndex > 0 &&
+                  !nextMessageIsDifferentUser)
                 CircleAvatar(
                   radius: 15.0,
                   backgroundImage: ImageUtils.safeNetworkImageForAvatar(
@@ -352,7 +395,9 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
             Container()
           else
             Row(
-              mainAxisAlignment: isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+              mainAxisAlignment: isCurrentUser
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
               children: [
                 horizontalSpaceSmall,
                 horizontalSpaceSmall,
@@ -369,7 +414,8 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                       : timestampInHours < 24
                           ? '$timestampInHours hours ago'
                           : '${(timestampInMinutes ~/ 60) ~/ 24} days ago',
-                  style: globalTextStyle(fontSize: 12, color: kcBlackColor.withOpacity(0.4)),
+                  style: globalTextStyle(
+                      fontSize: 12, color: kcBlackColor.withOpacity(0.4)),
                 ),
                 horizontalSpaceSmall,
                 horizontalSpaceSmall,

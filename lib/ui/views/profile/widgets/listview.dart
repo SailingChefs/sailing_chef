@@ -86,83 +86,86 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
         //       },
         //     ),
         //   ),
-        if (viewModel.courses.isNotEmpty) Column(
-                children: [
-                  verticalSpaceMedium,
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.callCourseNameBottomSheet();
-                    },
-                    child: Container(
-                      width: 165,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: kcPrimaryColor,
-                        borderRadius: BorderRadius.circular(38),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.add_circle,
-                            color: kcwhitecolor,
-                            size: 26,
-                          ),
-                          horizontalSpaceTiny,
-                          Text(
-                            'Add courses',
-                            style: globalTextStyle(
-                                fontSize: 14, color: kcwhitecolor),
-                          )
-                        ],
-                      ),
-                    ),
+        if (viewModel.courses.isNotEmpty)
+          Column(
+            children: [
+              verticalSpaceMedium,
+              GestureDetector(
+                onTap: () {
+                  viewModel.callCourseNameBottomSheet();
+                },
+                child: Container(
+                  width: 165,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: kcPrimaryColor,
+                    borderRadius: BorderRadius.circular(38),
                   ),
-                ],
-              ) else SizedBox(
-                height: screenHeight(context) * 0.31,
-                width: screenWidth(context) * 0.98,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Allow chefs to book your courses',
-                      style: globalTextStyle(
-                          fontSize: 14.0.dg,
-                          color: filterIconColor,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    verticalSpaceMedium,
-                    GestureDetector(
-                      onTap: viewModel.callCourseNameBottomSheet,
-                      child: Container(
-                        width: 165,
-                        height: 55,
-                        decoration: BoxDecoration(
-                          color: kcPrimaryColor,
-                          borderRadius: BorderRadius.circular(38),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.add_circle,
-                              color: kcwhitecolor,
-                              size: 26,
-                            ),
-                            horizontalSpaceTiny,
-                            Text(
-                              'Add courses',
-                              style: globalTextStyle(
-                                  fontSize: 14, color: kcwhitecolor),
-                            )
-                          ],
-                        ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.add_circle,
+                        color: kcwhitecolor,
+                        size: 26,
                       ),
-                    ),
-                  ],
+                      horizontalSpaceTiny,
+                      Text(
+                        'Add courses',
+                        style:
+                            globalTextStyle(fontSize: 14, color: kcwhitecolor),
+                      )
+                    ],
+                  ),
                 ),
               ),
+            ],
+          )
+        else
+          SizedBox(
+            height: screenHeight(context) * 0.31,
+            width: screenWidth(context) * 0.98,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Allow chefs to book your courses',
+                  style: globalTextStyle(
+                      fontSize: 14.0.dg,
+                      color: filterIconColor,
+                      fontWeight: FontWeight.w600),
+                ),
+                verticalSpaceMedium,
+                GestureDetector(
+                  onTap: viewModel.callCourseNameBottomSheet,
+                  child: Container(
+                    width: 165,
+                    height: 55,
+                    decoration: BoxDecoration(
+                      color: kcPrimaryColor,
+                      borderRadius: BorderRadius.circular(38),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.add_circle,
+                          color: kcwhitecolor,
+                          size: 26,
+                        ),
+                        horizontalSpaceTiny,
+                        Text(
+                          'Add courses',
+                          style: globalTextStyle(
+                              fontSize: 14, color: kcwhitecolor),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
       ],
     );
   }

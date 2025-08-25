@@ -56,54 +56,57 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
             ),
           ),
           horizontalSpaceMedium,
-          if (userDetails!.userRole == 'culinarySchool') Column(
-                  children: [
-                    Text(
-                      viewModel.courses.length.toString(),
-                      style: globalTextStyle(
-                        fontSize: 18.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w600,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
-                    ),
-                    verticalSpaceTiny,
-                    Text(
-                      'Courses',
-                      style: globalTextStyle(
-                        fontSize: 14.sp,
-                        letterSpacing: -0.3,
-                        fontWeight: FontWeight.w400,
-                        color: kcBlackColor.withOpacity(0.6),
-                      ),
-                    ),
-                  ],
-                ) else GestureDetector(
-                  onTap: viewModel.toDishesScreen,
-                  child: Column(
-                    children: [
-                      Text(
-                        viewModel.myRecipes.length.toString(),
-                        style: globalTextStyle(
-                          fontSize: 18.sp,
-                          letterSpacing: -0.3,
-                          fontWeight: FontWeight.w600,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                      ),
-                      verticalSpaceTiny,
-                      Text(
-                        'Dishes',
-                        style: globalTextStyle(
-                          fontSize: 14.sp,
-                          letterSpacing: -0.3,
-                          fontWeight: FontWeight.w400,
-                          color: kcBlackColor.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
+          if (userDetails!.userRole == 'culinarySchool')
+            Column(
+              children: [
+                Text(
+                  viewModel.courses.length.toString(),
+                  style: globalTextStyle(
+                    fontSize: 18.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w600,
+                    color: kcBlackColor.withOpacity(0.6),
                   ),
                 ),
+                verticalSpaceTiny,
+                Text(
+                  'Courses',
+                  style: globalTextStyle(
+                    fontSize: 14.sp,
+                    letterSpacing: -0.3,
+                    fontWeight: FontWeight.w400,
+                    color: kcBlackColor.withOpacity(0.6),
+                  ),
+                ),
+              ],
+            )
+          else
+            GestureDetector(
+              onTap: viewModel.toDishesScreen,
+              child: Column(
+                children: [
+                  Text(
+                    viewModel.myRecipes.length.toString(),
+                    style: globalTextStyle(
+                      fontSize: 18.sp,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
+                  verticalSpaceTiny,
+                  Text(
+                    'Dishes',
+                    style: globalTextStyle(
+                      fontSize: 14.sp,
+                      letterSpacing: -0.3,
+                      fontWeight: FontWeight.w400,
+                      color: kcBlackColor.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           horizontalSpaceMedium,
           horizontalSpaceSmall,
           GestureDetector(

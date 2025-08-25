@@ -81,7 +81,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       if (quantity.contains('/')) {
         // If the quantity contains a fraction, convert it to a Fraction object
         final fraction = Fraction.fromString(quantity);
-        final result = fraction * Fraction(serving); // Convert int serving to Fraction
+        final result =
+            fraction * Fraction(serving); // Convert int serving to Fraction
         return result.toString();
       } // If it's a whole number, just multiply it as an integer
       final parsedQuantity = int.parse(quantity);
@@ -110,7 +111,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   bool checkkAllIngredients({required RecipeModel recipee}) {
-    final check = shoppingListService.checkAllSelectedIngredients(recipee: recipee);
+    final check =
+        shoppingListService.checkAllSelectedIngredients(recipee: recipee);
     // rebuildUi();
     return check;
   }
@@ -174,7 +176,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> onLongPressComment(CommentModel comment) async {
     if (comment.userId != FirebaseAuth.instance.currentUser!.uid) return;
 
-    final res = await _dialogService.showCustomDialog(variant: DialogType.longPressComment);
+    final res = await _dialogService.showCustomDialog(
+        variant: DialogType.longPressComment);
     log(res!.data.toString());
 
     if (res.data == null) return;
@@ -256,7 +259,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       currentEditingComment!.content = commentController.text;
       currentEditingComment!.rating = rating;
 
-      final success = await commentService.updateCommentInFirestore(currentEditingComment!);
+      final success =
+          await commentService.updateCommentInFirestore(currentEditingComment!);
       if (success) {
         showToast(message: 'Comment updated successfully');
         isEditingComment = false;
@@ -364,8 +368,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       lastActive: DateTime.now(),
       uid: '',
     );
-    final conversationId =
-        await _serviceConversations.createOrUpdateConversation(conversationModel);
+    final conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
         messageFromCource: '', receiver: chef, conversationId: conversationId);
@@ -437,7 +441,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
     // Make sure there's at least a rating or content
     if (validRating == null &&
-        (commentController.text.isEmpty || commentController.text.trim().isEmpty)) {
+        (commentController.text.isEmpty ||
+            commentController.text.trim().isEmpty)) {
       showToast(message: 'Please provide a rating or comment');
       return;
     }
@@ -459,15 +464,19 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       commentController.clear();
       images.clear();
       rating = 0;
-      RecipeService.recipes.where((element) => element.docId == recipeId).first.rating =
-          calculateAverageRating(commentService.comments);
+      RecipeService.recipes
+          .where((element) => element.docId == recipeId)
+          .first
+          .rating = calculateAverageRating(commentService.comments);
       rebuildUi();
       showToast(message: 'Comment Added');
     }
   }
 
-  void addOneItemToCart({required RecipeModel recipee, required Ingredient ingredient}) {
-    shoppingListService.addNewIngredienttoSHoppingList(ingredient: ingredient, recipee: recipee);
+  void addOneItemToCart(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    shoppingListService.addNewIngredienttoSHoppingList(
+        ingredient: ingredient, recipee: recipee);
 
     // log(shoppingListService.shoppingRecipeeIngredient.toString());
     // log("\n\n");
@@ -488,8 +497,10 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  bool checkSelected({required RecipeModel recipee, required Ingredient ingredient}) {
-    return shoppingListService.checkSelectedIngredient(recipee: recipee, ingredient: ingredient);
+  bool checkSelected(
+      {required RecipeModel recipee, required Ingredient ingredient}) {
+    return shoppingListService.checkSelectedIngredient(
+        recipee: recipee, ingredient: ingredient);
   }
 
   void addAllItemsToCart(RecipeModel recipe) {
@@ -517,7 +528,9 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   }
 
   bool checkShoppingListAll(RecipeModel recipeModel) {
-    return shoppingList.where((element) => element.recipeId == recipeModel.docId).length ==
+    return shoppingList
+            .where((element) => element.recipeId == recipeModel.docId)
+            .length ==
         recipeModel.ingredients.length;
   }
 
@@ -527,7 +540,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         SavedRecipeDetailsView(
           isFromPrivateProfile: false,
           recipeModel: recipe,
-          randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
+          randomRecipeList:
+              IndexViewModel.getRandomDishes(recipe, RecipeService.recipes),
         ),
         transitionStyle: Transition.fade,
         preventDuplicates: false);

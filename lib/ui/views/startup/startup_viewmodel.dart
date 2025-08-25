@@ -50,7 +50,8 @@ class StartupViewModel extends BaseViewModel {
             userShoppingList = await _userService.fetchShoppingList();
 
             selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-            shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
+            shoppingRecipeeIngredient =
+                userShoppingList?.shoppingRecipeeIngredient ?? {};
             showShoppingListview = userShoppingList?.showShoppingListview ?? {};
 
             if (userDetails!.userRole == 'guest') {
@@ -109,7 +110,9 @@ class StartupViewModel extends BaseViewModel {
       if (recipe != null) {
         final navigation = locator<NavigationService>();
         navigation.navigateToSavedRecipeDetailsView(
-            recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
+            recipeModel: recipe,
+            isFromPrivateProfile: false,
+            randomRecipeList: []);
       }
     }
   }

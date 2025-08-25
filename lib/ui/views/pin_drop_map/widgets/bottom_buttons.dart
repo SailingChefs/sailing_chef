@@ -11,9 +11,7 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
       height: MediaQuery.of(context).size.height * 0.1,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          
-        ),
+        borderRadius: BorderRadius.only(),
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8),

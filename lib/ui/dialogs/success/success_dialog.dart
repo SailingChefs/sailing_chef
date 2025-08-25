@@ -12,7 +12,9 @@ class SuccessDialog extends StackedView<SuccessDialogModel> {
   final Function(DialogResponse) completer;
 
   const SuccessDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

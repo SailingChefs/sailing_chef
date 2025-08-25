@@ -42,7 +42,8 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
                   const SizedBox(),
                   GestureDetector(
                     onTap: () => completer(DialogResponse(confirmed: true)),
-                    child: Icon(Icons.close, size: 17, color: kcBlackColor.withOpacity(0.8)),
+                    child: Icon(Icons.close,
+                        size: 17, color: kcBlackColor.withOpacity(0.8)),
                   ),
                 ],
               ),
@@ -87,7 +88,8 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
                     width: 144,
                     height: 45,
                     decoration: BoxDecoration(
-                        color: kcPrimaryColor, borderRadius: BorderRadius.circular(30)),
+                        color: kcPrimaryColor,
+                        borderRadius: BorderRadius.circular(30)),
                     child: Center(
                       child: Text(
                         'Submit Review',
@@ -110,7 +112,8 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
   }
 
   @override
-  RateExperienceDialogModel viewModelBuilder(BuildContext context) => RateExperienceDialogModel(
-      pinnedLocation: request.data as PinnedLocation,
-      placeMark: request.title ?? 'No title provided');
+  RateExperienceDialogModel viewModelBuilder(BuildContext context) =>
+      RateExperienceDialogModel(
+          pinnedLocation: request.data as PinnedLocation,
+          placeMark: request.title ?? 'No title provided');
 }

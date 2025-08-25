@@ -67,23 +67,26 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (userDetails!.userRole == 'culinarySchool') Text(
-                            'Courses',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: viewModel.selectedTab == 'Saved'
-                                  ? kcVeryLightGrey
-                                  : kcBlackColor.withOpacity(0.6),
-                            ),
-                          ) else Text(
-                            'Saved',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: viewModel.selectedTab == 'Saved'
-                                  ? kcVeryLightGrey
-                                  : kcBlackColor.withOpacity(0.6),
-                            ),
-                          ),
+                    if (userDetails!.userRole == 'culinarySchool')
+                      Text(
+                        'Courses',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTab == 'Saved'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
+                        ),
+                      )
+                    else
+                      Text(
+                        'Saved',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: viewModel.selectedTab == 'Saved'
+                              ? kcVeryLightGrey
+                              : kcBlackColor.withOpacity(0.6),
+                        ),
+                      ),
                   ],
                 ),
               ),

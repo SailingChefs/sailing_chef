@@ -27,7 +27,9 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                         Text(
                           'Create your first recipe today',
                           style: globalTextStyle(
-                              color: kcPrimaryColor, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                              color: kcPrimaryColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600),
                         ),
                         verticalSpaceTiny,
                         SvgPicture.asset(
@@ -41,13 +43,16 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   ))
               : Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-                    myRecipes!.sort((a, b) => b.createdTime.compareTo(a.createdTime));
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    myRecipes!
+                        .sort((a, b) => b.createdTime.compareTo(a.createdTime));
                     return ShrinkWrappingViewport(
                       offset: ViewportOffset.zero(),
                       slivers: [
                         SliverGrid(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 15.0,
                             mainAxisSpacing: 18.0,
@@ -61,15 +66,18 @@ class MyRecipesProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                 chefId: userDetails!.uid!,
                                 rating: recipe.rating,
                                 recipe: recipe,
-                                onTap: () => viewModel.toDishDetailsScreen(index, recipe),
+                                onTap: () => viewModel.toDishDetailsScreen(
+                                    index, recipe),
                                 foodImagePath: recipe.coverImage
-                                    .where((element) => element.isFirebaseImageUrl)
+                                    .where(
+                                        (element) => element.isFirebaseImageUrl)
                                     .first,
                                 dishName: recipe.title,
                                 duration: recipe.prepTime,
-                                chefImagePath: userDetails!.displayPicture == null
-                                    ? ''
-                                    : userDetails!.displayPicture!,
+                                chefImagePath:
+                                    userDetails!.displayPicture == null
+                                        ? ''
+                                        : userDetails!.displayPicture!,
                               );
                             },
                             childCount: myRecipes.length,

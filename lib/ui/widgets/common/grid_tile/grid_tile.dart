@@ -74,7 +74,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       imageUrl: foodImagePath,
                       fit: BoxFit.cover,
                       width: double.maxFinite,
-                      progressIndicatorBuilder: (context, url, progress) => Container(
+                      progressIndicatorBuilder: (context, url, progress) =>
+                          Container(
                         decoration: const BoxDecoration(
                           color: kcsgreycolor,
                         ),
@@ -238,7 +239,9 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                   height: 25.h,
                   padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
                   decoration: BoxDecoration(
-                    color: recipe.status == 'pending' ? Colors.yellow : Colors.orange,
+                    color: recipe.status == 'pending'
+                        ? Colors.yellow
+                        : Colors.orange,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.r),
                     ),
@@ -249,7 +252,8 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       Text(
                         recipe.status.capitalizeFirst(),
                         maxLines: 1,
-                        style: globalTextStyle(fontSize: 10.sp, color: kcBlackColor),
+                        style: globalTextStyle(
+                            fontSize: 10.sp, color: kcBlackColor),
                       )
                     ],
                   ),

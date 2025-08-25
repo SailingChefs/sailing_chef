@@ -14,7 +14,8 @@ class SemiRoundedTranpaentTextFieldBio extends StatelessWidget {
   final Color? fillColor;
 
   const SemiRoundedTranpaentTextFieldBio({
-    required this.labelText, super.key,
+    required this.labelText,
+    super.key,
     this.validator,
     this.keyboardType,
     this.fillColor,

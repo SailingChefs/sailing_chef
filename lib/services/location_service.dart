@@ -41,7 +41,8 @@ class LocationService {
 
     if (permission == LocationPermission.deniedForever) {
       showToast(
-          message: 'Location permissions are permanently denied, we cannot request permissions.');
+          message:
+              'Location permissions are permanently denied, we cannot request permissions.');
       // Permissions are denied forever, handle appropriately.
       await Geolocator.openLocationSettings();
       return Future.error(

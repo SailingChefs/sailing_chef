@@ -25,9 +25,8 @@ class ChefService with ListenableServiceMixin {
         )
         .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
         .snapshots()
-        .map((querySnapshot) => querySnapshot.docs
-            .map(UserModel.fromSnapshot)
-            .toList());
+        .map((querySnapshot) =>
+            querySnapshot.docs.map(UserModel.fromSnapshot).toList());
   }
 
   Future<List<UserModel>> fetchChefDocuments() async {

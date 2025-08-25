@@ -111,10 +111,11 @@ class RecipeViewViewModel extends BaseViewModel {
 
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
-      waveFormData = await playerController.extractWaveformData(path: path.path);
+      waveFormData =
+          await playerController.extractWaveformData(path: path.path);
       if (waveFormData!.isNotEmpty) {
-        final duration =
-            Duration(milliseconds: await playerController.getDuration(DurationType.max));
+        final duration = Duration(
+            milliseconds: await playerController.getDuration(DurationType.max));
         final minutes = duration.inMinutes;
         final seconds = duration.inSeconds % 60;
         formattedDuration = "$minutes:${seconds.toString().padLeft(2, '0')}";
@@ -177,9 +178,11 @@ class RecipeViewViewModel extends BaseViewModel {
     navigationService.back();
   }
 
-  Future<void> saveRecipe(RecipeModel recipe, List<XFile?> selectedImages) async {
+  Future<void> saveRecipe(
+      RecipeModel recipe, List<XFile?> selectedImages) async {
     log('to Recipe List');
-    final imageUrls = await _recipeService.uploadMediaToFirebase(selectedImages, recipe.docId!);
+    final imageUrls = await _recipeService.uploadMediaToFirebase(
+        selectedImages, recipe.docId!);
     // String chefNote = '';
     // if (path!.isNotEmpty) {
     //   chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
@@ -219,8 +222,10 @@ class RecipeViewViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> saveRecipeToPrivate(RecipeModel recipe, List<XFile?> selectedImages) async {
-    final imageUrls = await _recipeService.uploadMediaToFirebase(selectedImages, recipe.docId!);
+  Future<void> saveRecipeToPrivate(
+      RecipeModel recipe, List<XFile?> selectedImages) async {
+    final imageUrls = await _recipeService.uploadMediaToFirebase(
+        selectedImages, recipe.docId!);
     var chefNote = '';
     if (path!.isNotEmpty) {
       chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);

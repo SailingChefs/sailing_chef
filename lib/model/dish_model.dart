@@ -13,7 +13,8 @@ class DishModel {
       required this.dishName,
       required this.dishImagePath,
       required this.dishPreparationTime,
-      required this.dishChefImage, this.dishChefId});
+      required this.dishChefImage,
+      this.dishChefId});
 
   factory DishModel.fromSnapshot(DocumentSnapshot snapshot) {
     return DishModel(

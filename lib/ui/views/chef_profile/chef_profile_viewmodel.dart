@@ -73,8 +73,10 @@ class ChefProfileViewModel extends ReactiveViewModel {
     // _navigationService.navigateToProfileShareView();
     Navigator.of(context).push(PageRouteBuilder(
       opaque: false, // Ensures the new page doesn't cover the background
-      barrierColor: Colors.grey.shade900.withOpacity(0.95), // Makes the background transparent
-      pageBuilder: (context, _, __) => ProfileShareView(image: image, type: type),
+      barrierColor: Colors.grey.shade900
+          .withOpacity(0.95), // Makes the background transparent
+      pageBuilder: (context, _, __) =>
+          ProfileShareView(image: image, type: type),
     ));
   }
 
@@ -104,7 +106,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _followService.init(user.uid!, false);
     dummyFollowers = _followService.followers.length;
     dummyFollowing = _followService.following.length;
-    isFollowing = _followService.followers.contains(FirebaseAuth.instance.currentUser!.uid);
+    isFollowing = _followService.followers
+        .contains(FirebaseAuth.instance.currentUser!.uid);
     if (user.userRole != 'guest') {
       chefRecipesList(user);
       // chefRecipes = await _recipeService.fetchRecipesByUID(user.uid!);
@@ -112,7 +115,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
         _cullinarySchoolService.cullinaryCoursesInit(user.uid!);
       }
     } else if (user.userRole == 'guest') {
-      userSavedRecipe = await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
+      userSavedRecipe =
+          await _savedRecipeService.fetchUserSavedRecipes(user.uid!);
     }
 
     setBusy(false);
@@ -126,20 +130,23 @@ class ChefProfileViewModel extends ReactiveViewModel {
       case 'follower':
         isFollowing = true;
         dummyFollowers++;
-        _followService.addFollowerFromDummy(user, FirebaseAuth.instance.currentUser!.uid);
+        _followService.addFollowerFromDummy(
+            user, FirebaseAuth.instance.currentUser!.uid);
         rebuildUi();
 
       case 'following':
         isFollowing = false;
         dummyFollowers--;
-        _followService.removeFollowerFromDummy(user, FirebaseAuth.instance.currentUser!.uid);
+        _followService.removeFollowerFromDummy(
+            user, FirebaseAuth.instance.currentUser!.uid);
 
         rebuildUi();
     }
   }
 
   void showBottomSheet(UserModel user) {
-    _bottomSheetService.showCustomSheet(variant: BottomSheetType.otherChefProfile, data: user);
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.otherChefProfile, data: user);
   }
 
   void onFollow(UserModel user) {
@@ -165,12 +172,14 @@ class ChefProfileViewModel extends ReactiveViewModel {
 
   void goToFollowerList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails, isfromFollowing: false));
+        arguments: FollowingListViewArguments(
+            user: userDetails, isfromFollowing: false));
   }
 
   void goToFollowingList() {
     _navigationService.navigateTo(Routes.followingListView,
-        arguments: FollowingListViewArguments(user: userDetails, isfromFollowing: true));
+        arguments: FollowingListViewArguments(
+            user: userDetails, isfromFollowing: true));
   }
 
   bool _isProcessing = false; // Add a flag
@@ -196,11 +205,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
         lastActive: DateTime.now(),
         uid: '',
       );
-      final conversationId =
-          await _serviceConversations.createOrUpdateConversation(conversationModel);
+      final conversationId = await _serviceConversations
+          .createOrUpdateConversation(conversationModel);
       log('conversationId: $conversationId');
       _navigationService.navigateToChatView(
-          messageFromCource: '', receiver: chef, conversationId: conversationId);
+          messageFromCource: '',
+          receiver: chef,
+          conversationId: conversationId);
     } catch (e) {
       log('Error: $e');
     } finally {
@@ -210,7 +221,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   void toSettings(bool isCurrentUser, String uid) {
-    _navigationService.navigateToSettingsView(isCurrentUser: isCurrentUser, uid: uid);
+    _navigationService.navigateToSettingsView(
+        isCurrentUser: isCurrentUser, uid: uid);
   }
 
   void moveBack() {
@@ -235,8 +247,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     await _navigationService.navigateToSavedRecipeDetailsView(
         isFromPrivateProfile: false,
         recipeModel: chefRecipes[index],
-        randomRecipeList:
-            IndexViewModel.getRandomDishes(chefRecipes[index], RecipeService.recipes));
+        randomRecipeList: IndexViewModel.getRandomDishes(
+            chefRecipes[index], RecipeService.recipes));
 
     notifyListeners();
   }
@@ -261,7 +273,8 @@ class ChefProfileViewModel extends ReactiveViewModel {
     EasyLoading.dismiss();
   }
 
-  Future<void> moveToChatScreenWithMessage(UserModel chef, String message) async {
+  Future<void> moveToChatScreenWithMessage(
+      UserModel chef, String message) async {
     final conversationModel = ConversationModel(
       latestMessage: '',
       users: [
@@ -273,11 +286,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
       lastActive: DateTime.now(),
       uid: '',
     );
-    final conversationId =
-        await _serviceConversations.createOrUpdateConversation(conversationModel);
+    final conversationId = await _serviceConversations
+        .createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
-        messageFromCource: message, receiver: chef, conversationId: conversationId);
+        messageFromCource: message,
+        receiver: chef,
+        conversationId: conversationId);
   }
 
   void enquireNow(user, index) {

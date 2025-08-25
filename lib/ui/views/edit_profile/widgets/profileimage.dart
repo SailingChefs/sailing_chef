@@ -12,63 +12,66 @@ class EditProfileImage extends ViewModelWidget<EditProfileViewModel> {
     return Stack(
       children: [
         if (userDetails!.displayPicture == null &&
-                viewModel.selectedImageFile == null) Container(
-                height: MediaQuery.sizeOf(context).height * 0.12,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      kcPrimaryColor,
-                      kcPrimaryColor,
-                      kcWhiteColor,
-                      kcPrimaryColor,
-                      kcPrimaryColor,
-                      kcPrimaryColor
-                    ],
-                  ),
-                ),
-                child: Center(
-                  child: Container(
-                      height: MediaQuery.sizeOf(context).height * 0.10,
-                      width: MediaQuery.sizeOf(context).height * 0.10,
-                      decoration: BoxDecoration(
-                        color: kcWhiteColor,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: kcWhiteColor, width: 4.0.w),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            kcPrimaryColor,
-                            kcPrimaryColor,
-                            kcWhiteColor,
-                            kcPrimaryColor,
-                            kcPrimaryColor,
-                          ],
-                        ),
-                      ),
-                      child: Icon(
-                        Icons.person_outlined,
-                        color: kcWhiteColor,
-                        size: 50.sp,
-                      )),
-                ),
-              ) else Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundColor: kcWhiteColor,
-                    backgroundImage: viewModel.selectedImageFile != null
-                        ? FileImage(viewModel.selectedImageFile!)
-                            as ImageProvider<Object>?
-                        : ImageUtils.safeNetworkImageForAvatar(
-                            userDetails!.displayPicture),
-                  ),
-                  const GestureDetectorEdit(68, 68),
+            viewModel.selectedImageFile == null)
+          Container(
+            height: MediaQuery.sizeOf(context).height * 0.12,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  kcPrimaryColor,
+                  kcPrimaryColor,
+                  kcWhiteColor,
+                  kcPrimaryColor,
+                  kcPrimaryColor,
+                  kcPrimaryColor
                 ],
               ),
+            ),
+            child: Center(
+              child: Container(
+                  height: MediaQuery.sizeOf(context).height * 0.10,
+                  width: MediaQuery.sizeOf(context).height * 0.10,
+                  decoration: BoxDecoration(
+                    color: kcWhiteColor,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: kcWhiteColor, width: 4.0.w),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        kcPrimaryColor,
+                        kcPrimaryColor,
+                        kcWhiteColor,
+                        kcPrimaryColor,
+                        kcPrimaryColor,
+                      ],
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.person_outlined,
+                    color: kcWhiteColor,
+                    size: 50.sp,
+                  )),
+            ),
+          )
+        else
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 48,
+                backgroundColor: kcWhiteColor,
+                backgroundImage: viewModel.selectedImageFile != null
+                    ? FileImage(viewModel.selectedImageFile!)
+                        as ImageProvider<Object>?
+                    : ImageUtils.safeNetworkImageForAvatar(
+                        userDetails!.displayPicture),
+              ),
+              const GestureDetectorEdit(68, 68),
+            ],
+          ),
         const GestureDetectorEdit(220, 70),
       ],
     );

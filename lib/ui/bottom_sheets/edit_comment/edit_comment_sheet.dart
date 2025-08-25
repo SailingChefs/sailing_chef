@@ -8,7 +8,9 @@ class EditCommentSheet extends StackedView<EditCommentSheetModel> {
   final SheetRequest request;
 
   const EditCommentSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override

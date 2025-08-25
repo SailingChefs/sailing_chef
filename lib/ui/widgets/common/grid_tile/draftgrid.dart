@@ -10,7 +10,10 @@ class DraftGridTile extends StackedView<GridTileModel> {
   final String recipeId;
 
   const DraftGridTile({
-    required this.dishName, required this.onTap, required this.recipeId, super.key,
+    required this.dishName,
+    required this.onTap,
+    required this.recipeId,
+    super.key,
     this.foodImagePath,
   });
 

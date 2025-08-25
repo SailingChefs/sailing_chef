@@ -11,24 +11,27 @@ class ProfilePictureUserDetailsScreen
     return Center(
       child: Stack(
         children: [
-          if (viewModel.selectedImagePath == null) Container(
-                  height: MediaQuery.sizeOf(context).height * 0.12,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                      child: CircleAvatar(
-                    backgroundColor: kcwhitecolor,
-                    radius: MediaQuery.of(context).size.width * 0.18,
-                    backgroundImage: const AssetImage(
-                      'assets/images/icons/imageicon.png',
-                    ),
-                  ))) else CircleAvatar(
-                  radius: 50,
-                  backgroundImage: FileImage(
-                    File(viewModel.selectedImagePath!),
-                  ),
+          if (viewModel.selectedImagePath == null)
+            Container(
+                height: MediaQuery.sizeOf(context).height * 0.12,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
                 ),
+                child: Center(
+                    child: CircleAvatar(
+                  backgroundColor: kcwhitecolor,
+                  radius: MediaQuery.of(context).size.width * 0.18,
+                  backgroundImage: const AssetImage(
+                    'assets/images/icons/imageicon.png',
+                  ),
+                )))
+          else
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: FileImage(
+                File(viewModel.selectedImagePath!),
+              ),
+            ),
           Positioned(
             bottom: 0,
             right: 130,

@@ -183,8 +183,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                 border: Border(
-                                  bottom: BorderSide(
-                                      ),
+                                  bottom: BorderSide(),
                                 ),
                               ),
                               child: Text(

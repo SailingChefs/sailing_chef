@@ -59,10 +59,12 @@ class UserdataServiceService {
     }
   }
 
-  Future<bool> storeUserDetails(Map<String, dynamic> userModel, String uid) async {
+  Future<bool> storeUserDetails(
+      Map<String, dynamic> userModel, String uid) async {
     try {
       EasyLoading.show();
-      final CollectionReference usersCollection = firebasestore.collection('users');
+      final CollectionReference usersCollection =
+          firebasestore.collection('users');
 
       final userSnapshot = await usersCollection.doc(uid).get();
       log(userSnapshot.exists.toString());

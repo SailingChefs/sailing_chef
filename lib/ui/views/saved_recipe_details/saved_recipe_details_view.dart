@@ -14,7 +14,10 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final List<RecipeModel> randomRecipeList;
   final bool isFromPrivateProfile;
   const SavedRecipeDetailsView({
-    required this.recipeModel, required this.isFromPrivateProfile, required this.randomRecipeList, super.key,
+    required this.recipeModel,
+    required this.isFromPrivateProfile,
+    required this.randomRecipeList,
+    super.key,
   });
 
   @override

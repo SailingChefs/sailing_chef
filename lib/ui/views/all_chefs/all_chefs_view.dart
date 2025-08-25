@@ -33,7 +33,10 @@ class AllChefsView extends StackedView<AllChefsViewModel> {
                   ),
                 ),
                 verticalSpace(13),
-                if (viewModel.searchController.text.isEmpty) ChefList(chefList: chefList) else SearchListAllChefs(chefs: chefList),
+                if (viewModel.searchController.text.isEmpty)
+                  ChefList(chefList: chefList)
+                else
+                  SearchListAllChefs(chefs: chefList),
               ],
             ),
           )),

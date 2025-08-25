@@ -6,7 +6,9 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const DiscardSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override

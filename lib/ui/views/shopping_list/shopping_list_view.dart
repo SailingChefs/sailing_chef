@@ -237,168 +237,218 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                 // verticalSpaceSmall,
                                 // ...createShoppingListWidgets(viewModel, context),
                                 for (final recipee in selectedRecipees)
-                                  Column(mainAxisSize: MainAxisSize.min, children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        viewModel.addRemoveAllIngredientsToShoppingList(recipee);
-                                      },
-                                      child: recipeeTitleWidget(
-                                          viewModel: viewModel, recipee: recipee, size: size),
-                                    ),
-                                    for (final selectIngredient
-                                        in showShoppingListview[recipee.title]
-                                                ?['selected_ingredients'] ??
-                                            [])
-                                      GestureDetector(
-                                        onTap: () {
-                                          final selectedRecipe = selectedRecipees.indexWhere(
-                                              (element) => element.docId == recipee.docId);
+                                  Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            viewModel
+                                                .addRemoveAllIngredientsToShoppingList(
+                                                    recipee);
+                                          },
+                                          child: recipeeTitleWidget(
+                                              viewModel: viewModel,
+                                              recipee: recipee,
+                                              size: size),
+                                        ),
+                                        for (final selectIngredient
+                                            in showShoppingListview[
+                                                        recipee.title]
+                                                    ?['selected_ingredients'] ??
+                                                [])
+                                          GestureDetector(
+                                            onTap: () {
+                                              final selectedRecipe =
+                                                  selectedRecipees.indexWhere(
+                                                      (element) =>
+                                                          element.docId ==
+                                                          recipee.docId);
 
-                                          //  ((element) => element.docId == recipee.docId);
-                                          viewModel.addOneItemToCart(
-                                              ingredient: selectIngredient,
-                                              recipee: selectedRecipees[selectedRecipe]);
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.only(right: 8.w),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                selectIngredient.serving.toString(),
-                                                style: globalTextStyle(
-                                                  fontSize: 15,
-                                                  letterSpacing: -0.5,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: kcBlackColor.withOpacity(0.87),
-                                                ),
-                                              ),
-                                              8.w.horizontalSpace,
-                                              Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                  '${selectIngredient.quantity} ${selectIngredient.unit}',
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: globalTextStyle(
-                                                    decoration: TextDecoration.lineThrough,
-                                                    fontSize: 15,
-                                                    letterSpacing: -0.5,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: kcBlackColor.withOpacity(0.87),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Text(
-                                                  capitalizeEachWord(selectIngredient.name),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: globalTextStyle(
-                                                    decoration: TextDecoration.lineThrough,
-                                                    fontSize: 13,
-                                                    letterSpacing: -0.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: kcBlackColor.withOpacity(0.87),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 0,
-                                                child: Container(
-                                                  width: 15.0,
-                                                  height: 15.0,
-                                                  decoration: BoxDecoration(
-                                                    color: kcPrimaryColorDark,
-                                                    shape: BoxShape.circle,
-                                                    border: Border.all(
-                                                      color: kcPrimaryColorDark,
+                                              //  ((element) => element.docId == recipee.docId);
+                                              viewModel.addOneItemToCart(
+                                                  ingredient: selectIngredient,
+                                                  recipee: selectedRecipees[
+                                                      selectedRecipe]);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.w),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    selectIngredient.serving
+                                                        .toString(),
+                                                    style: globalTextStyle(
+                                                      fontSize: 15,
+                                                      letterSpacing: -0.5,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.87),
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-                                    //  ^ For unselected ingredient
-
-                                    for (final unSelectIngredient
-                                        in showShoppingListview[recipee.title]
-                                                ?['unselected_ingredients'] ??
-                                            [])
-                                      GestureDetector(
-                                        onTap: () {
-                                          final selectedRecipe = selectedRecipees.indexWhere(
-                                              (element) => element.docId == recipee.docId);
-
-                                          //  ((element) => element.docId == recipee.docId);
-                                          viewModel.addOneItemToCart(
-                                              ingredient: unSelectIngredient,
-                                              recipee: selectedRecipees[selectedRecipe]);
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.only(right: 8.w),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                unSelectIngredient.serving.toString(),
-                                                style: globalTextStyle(
-                                                  fontSize: 15,
-                                                  letterSpacing: -0.5,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: kcBlackColor.withOpacity(0.87),
-                                                ),
-                                              ),
-                                              8.w.horizontalSpace,
-                                              Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                  '${unSelectIngredient.quantity} ${unSelectIngredient.unit}',
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: globalTextStyle(
-                                                    decoration: TextDecoration.none,
-                                                    fontSize: 15,
-                                                    letterSpacing: -0.5,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: kcBlackColor.withOpacity(0.87),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Text(
-                                                  capitalizeEachWord(unSelectIngredient.name),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: globalTextStyle(
-                                                    decoration: TextDecoration.none,
-                                                    fontSize: 13,
-                                                    letterSpacing: -0.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: kcBlackColor.withOpacity(0.87),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 0,
-                                                child: Container(
-                                                  width: 15.0,
-                                                  height: 15.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle,
-                                                    border: Border.all(
-                                                      color: kcPrimaryColorDark,
+                                                  8.w.horizontalSpace,
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      '${selectIngredient.quantity} ${selectIngredient.unit}',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: globalTextStyle(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        fontSize: 15,
+                                                        letterSpacing: -0.5,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: kcBlackColor
+                                                            .withOpacity(0.87),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Text(
+                                                      capitalizeEachWord(
+                                                          selectIngredient
+                                                              .name),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: globalTextStyle(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        fontSize: 13,
+                                                        letterSpacing: -0.5,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: kcBlackColor
+                                                            .withOpacity(0.87),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 0,
+                                                    child: Container(
+                                                      width: 15.0,
+                                                      height: 15.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            kcPrimaryColorDark,
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                          color:
+                                                              kcPrimaryColorDark,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                  ]),
+
+                                        //  ^ For unselected ingredient
+
+                                        for (final unSelectIngredient
+                                            in showShoppingListview[
+                                                        recipee.title]?[
+                                                    'unselected_ingredients'] ??
+                                                [])
+                                          GestureDetector(
+                                            onTap: () {
+                                              final selectedRecipe =
+                                                  selectedRecipees.indexWhere(
+                                                      (element) =>
+                                                          element.docId ==
+                                                          recipee.docId);
+
+                                              //  ((element) => element.docId == recipee.docId);
+                                              viewModel.addOneItemToCart(
+                                                  ingredient:
+                                                      unSelectIngredient,
+                                                  recipee: selectedRecipees[
+                                                      selectedRecipe]);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.w),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    unSelectIngredient.serving
+                                                        .toString(),
+                                                    style: globalTextStyle(
+                                                      fontSize: 15,
+                                                      letterSpacing: -0.5,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.87),
+                                                    ),
+                                                  ),
+                                                  8.w.horizontalSpace,
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      '${unSelectIngredient.quantity} ${unSelectIngredient.unit}',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: globalTextStyle(
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        fontSize: 15,
+                                                        letterSpacing: -0.5,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: kcBlackColor
+                                                            .withOpacity(0.87),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Text(
+                                                      capitalizeEachWord(
+                                                          unSelectIngredient
+                                                              .name),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: globalTextStyle(
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        fontSize: 13,
+                                                        letterSpacing: -0.5,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: kcBlackColor
+                                                            .withOpacity(0.87),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 0,
+                                                    child: Container(
+                                                      width: 15.0,
+                                                      height: 15.0,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                          color:
+                                                              kcPrimaryColorDark,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                      ]),
                               ],
                             ),
                           ),
@@ -418,8 +468,10 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24.r),
-                                  color: const Color(0xff6C908D).withOpacity(0.5)),
-                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                  color:
+                                      const Color(0xff6C908D).withOpacity(0.5)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 8.h),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

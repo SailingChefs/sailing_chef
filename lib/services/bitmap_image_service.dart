@@ -1,17 +1,28 @@
 import 'dart:developer';
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sailing_chefs/model/pin_model.dart';
 
 class BitmapImageService {
   BitmapDescriptor? _icon;
   BitmapDescriptor? _selectedIcon;
 
-  BitmapDescriptor getIcon(bool isSelected) {
+  BitmapDescriptor getIcon(bool isSelected, PinnedLocationStatus status) {
     log(isSelected.toString());
-    return (isSelected ? _selectedIcon : _icon) ??
-        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+    return switch (status) {
+      PinnedLocationStatus.published => isSelected
+          ? (BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue))
+          : (BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)),
+      PinnedLocationStatus.review =>
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+      PinnedLocationStatus.pending =>
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
+    };
+    // return (isSelected ? _selectedIcon : _icon) ??
+    //     BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
   }
 
   Future initialise(BuildContext context) async {
@@ -21,13 +32,13 @@ class BitmapImageService {
     // Create smaller, crisp icons for better map visibility
     _icon = await _createCustomMarkerIcon(
       'assets/images/icons/green.png',
-      const Size(40, 40), // Reduced size for normal pins
+      const Size(40, 50), // Reduced size for normal pins
       devicePixelRatio,
     );
 
     _selectedIcon = await _createCustomMarkerIcon(
       'assets/images/icons/location.png',
-      const Size(60, 60), // Slightly larger for selected state
+      const Size(50, 60), // Slightly larger for selected state
       devicePixelRatio,
     );
   }

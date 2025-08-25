@@ -3,6 +3,20 @@ import 'package:dart_geohash/dart_geohash.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:sailing_chefs/model/reviews.dart';
 
+enum PinnedLocationStatus {
+  pending,
+  review,
+  published;
+
+  static PinnedLocationStatus fromString(String? s) {
+    if (s == null) return PinnedLocationStatus.pending;
+    return PinnedLocationStatus.values.firstWhere(
+      (e) => e.name == s,
+      orElse: () => PinnedLocationStatus.pending,
+    );
+  }
+}
+
 class PinnedLocation {
   String? id;
   final String contactNumber;
@@ -17,6 +31,7 @@ class PinnedLocation {
   final double rating;
   final String place;
   final String? uid;
+  final PinnedLocationStatus status;
   List<Placemark>? placemarks;
   List<ReviewsModel>? reviews = [];
 
@@ -32,6 +47,7 @@ class PinnedLocation {
     required this.name,
     required this.picture,
     required this.tags,
+    required this.status,
     this.id,
     this.uid,
     this.placemarks,
@@ -41,20 +57,20 @@ class PinnedLocation {
   factory PinnedLocation.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()! as Map<String, dynamic>;
     return PinnedLocation(
-      id: snapshot.id,
-      uid: data['uid'] ?? '',
-      place: data['place'] ?? '',
-      contactNumber: data['contact_number'] ?? '',
-      createdTime: data['created_time'] ?? Timestamp.now(),
-      description: data['description'] ?? '',
-      email: data['email'] ?? '',
-      link: data['link'] ?? '',
-      location: data['location'] ?? const GeoPoint(0.0, 0.0),
-      name: data['name'] ?? '',
-      picture: List<String>.from(data['picture'] ?? []),
-      tags: List<String>.from(data['tags'] ?? []),
-      rating: (data['ratings'] as num).toDouble(),
-    );
+        id: snapshot.id,
+        uid: data['uid'] ?? '',
+        place: data['place'] ?? '',
+        contactNumber: data['contact_number'] ?? '',
+        createdTime: data['created_time'] ?? Timestamp.now(),
+        description: data['description'] ?? '',
+        email: data['email'] ?? '',
+        link: data['link'] ?? '',
+        location: data['location'] ?? const GeoPoint(0.0, 0.0),
+        name: data['name'] ?? '',
+        picture: List<String>.from(data['picture'] ?? []),
+        tags: List<String>.from(data['tags'] ?? []),
+        rating: (data['ratings'] as num).toDouble(),
+        status: PinnedLocationStatus.fromString(data['status'] as String?));
   }
 
   Map<String, dynamic> toMap() {
@@ -75,6 +91,7 @@ class PinnedLocation {
       'tags': tags,
       'ratings': rating,
       'geohash': geoHash,
+      'status': status.name,
     };
   }
 
@@ -93,6 +110,7 @@ class PinnedLocation {
         picture: map['picture'],
         name: map['name'],
         reviews: map['reviews'] ?? [],
-        link: map['link']);
+        link: map['link'],
+        status: PinnedLocationStatus.fromString(map['status'] as String?));
   }
 }

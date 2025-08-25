@@ -14,7 +14,10 @@ class ReviewsModel {
     required this.userId,
     required this.userName,
     required this.userImageUrl,
-    required this.pindropId, required this.feedback, required this.timestamp, this.id = '',
+    required this.pindropId,
+    required this.feedback,
+    required this.timestamp,
+    this.id = '',
     this.rating,
   });
 

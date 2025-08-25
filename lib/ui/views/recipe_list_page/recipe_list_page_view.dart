@@ -12,7 +12,8 @@ import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
   final bool isFromDraft;
   const RecipeListPageView({
-    required this.isFromDraft, super.key,
+    required this.isFromDraft,
+    super.key,
   });
 
   @override

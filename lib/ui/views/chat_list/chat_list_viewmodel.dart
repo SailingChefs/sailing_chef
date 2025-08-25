@@ -32,16 +32,23 @@ class ChatListViewModel extends BaseViewModel {
       if (firebaseAuth.currentUser!.uid == selectedConversation.users[0]) {
         check = await _userService.doesUserExist(selectedConversation.users[1]);
         if (check) {
-          final user = await _userService.fetchUserByUID(selectedConversation.users[1]);
+          final user =
+              await _userService.fetchUserByUID(selectedConversation.users[1]);
           _navigationService.navigateToChatView(
-              messageFromCource: '', receiver: user, conversationId: selectedConversation.uid);
+              messageFromCource: '',
+              receiver: user,
+              conversationId: selectedConversation.uid);
         }
-      } else if (firebaseAuth.currentUser!.uid == selectedConversation.users[1]) {
+      } else if (firebaseAuth.currentUser!.uid ==
+          selectedConversation.users[1]) {
         check = await _userService.doesUserExist(selectedConversation.users[0]);
         if (check) {
-          final user = await _userService.fetchUserByUID(selectedConversation.users[0]);
+          final user =
+              await _userService.fetchUserByUID(selectedConversation.users[0]);
           _navigationService.navigateToChatView(
-              messageFromCource: '', receiver: user, conversationId: selectedConversation.uid);
+              messageFromCource: '',
+              receiver: user,
+              conversationId: selectedConversation.uid);
         }
       }
       // log('chefList: $check');

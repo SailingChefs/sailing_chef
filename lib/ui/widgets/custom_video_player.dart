@@ -59,7 +59,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
             ),
           );
         }
-        return GestureDetector(onTap: _playPause, child: VideoPlayer(controller));
+        return GestureDetector(
+            onTap: _playPause, child: VideoPlayer(controller));
       },
     );
   }

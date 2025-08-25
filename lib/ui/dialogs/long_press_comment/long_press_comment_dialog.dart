@@ -7,7 +7,9 @@ class LongPressCommentDialog extends StackedView<LongPressCommentDialogModel> {
   final Function(DialogResponse) completer;
 
   const LongPressCommentDialog({
-    required this.request, required this.completer, super.key,
+    required this.request,
+    required this.completer,
+    super.key,
   });
 
   @override

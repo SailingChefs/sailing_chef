@@ -46,20 +46,22 @@ class FollowerList extends ViewModelWidget<FollowingListViewModel> {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         onTap: () {
-                          viewModel.toUserDetails(viewModel.followersUsers[index]);
+                          viewModel
+                              .toUserDetails(viewModel.followersUsers[index]);
                         },
                         leading: CircleAvatar(
                           backgroundImage: ImageUtils.safeNetworkImageForAvatar(
                             viewModel.followersUsers[index].displayPicture,
                           ),
                         ),
-                        title: Text(viewModel.followersUsers[index].displayName!,
-                            style: globalTextStyle(
-                              fontSize: 14.sp,
-                              letterSpacing: -0.5,
-                              fontWeight: FontWeight.w600,
-                              color: kcBlackColor,
-                            )),
+                        title:
+                            Text(viewModel.followersUsers[index].displayName!,
+                                style: globalTextStyle(
+                                  fontSize: 14.sp,
+                                  letterSpacing: -0.5,
+                                  fontWeight: FontWeight.w600,
+                                  color: kcBlackColor,
+                                )),
                       );
                     },
                   ),

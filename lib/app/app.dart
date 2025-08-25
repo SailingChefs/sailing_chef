@@ -86,6 +86,7 @@ import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -138,6 +139,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ProfileShareView),
     MaterialRoute(page: ShareRecipeToSailingCheffUserView),
     MaterialRoute(page: ManageRecipesView),
+    MaterialRoute(page: ManagePinsView),
 // @stacked-route
   ],
   dependencies: [

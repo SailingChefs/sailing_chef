@@ -6,7 +6,10 @@ class SelectedWidgetPinDrop extends ViewModelWidget<PinDropMapViewModel> {
   final int index;
   final VoidCallback selection;
   const SelectedWidgetPinDrop({
-    required this.selectedTabSelection, required this.index, required this.selection, super.key,
+    required this.selectedTabSelection,
+    required this.index,
+    required this.selection,
+    super.key,
   });
 
   @override

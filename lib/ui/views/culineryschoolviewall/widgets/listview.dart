@@ -91,33 +91,35 @@ class ListViewCulinaryChool
                                   color: kcBlackColor,
                                 ),
                               ),
-                              if (viewModel.cullinary[index].namedLocation != null) Column(
-                                      children: [
-                                        verticalSpace(5),
-                                        SizedBox(
-                                          width: 170.w,
-                                          child: Text(
-                                            viewModel.cullinary[index]
-                                                .namedLocation!,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: globalTextStyle(
-                                              letterSpacing: -0.3,
-                                              fontSize: viewModel
-                                                          .cullinary[index]
-                                                          .namedLocation!
-                                                          .length >
-                                                      20
-                                                  ? 12.sp
-                                                  : 14.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: kcBlackColor,
-                                            ),
-                                          ),
+                              if (viewModel.cullinary[index].namedLocation !=
+                                  null)
+                                Column(
+                                  children: [
+                                    verticalSpace(5),
+                                    SizedBox(
+                                      width: 170.w,
+                                      child: Text(
+                                        viewModel
+                                            .cullinary[index].namedLocation!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: globalTextStyle(
+                                          letterSpacing: -0.3,
+                                          fontSize: viewModel.cullinary[index]
+                                                      .namedLocation!.length >
+                                                  20
+                                              ? 12.sp
+                                              : 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcBlackColor,
                                         ),
-                                        verticalSpace(5),
-                                      ],
-                                    ) else const SizedBox(),
+                                      ),
+                                    ),
+                                    verticalSpace(5),
+                                  ],
+                                )
+                              else
+                                const SizedBox(),
                               Text(
                                 '${viewModel.cullinary[index].schoolCourses!.length} Courses',
                                 style: globalTextStyle(

@@ -51,59 +51,62 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
             // verticalSpace(41),
 
             verticalSpaceSmall,
-            if (viewModel.isBusy) SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.7,
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: kcPrimaryColor,
+            if (viewModel.isBusy)
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.7,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: kcPrimaryColor,
+                  ),
+                ),
+              )
+            else
+              viewModel.draft.isEmpty
+                  ? SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.7,
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          'No Draft Recipes Yet!',
+                          style: globalTextStyle(
+                            fontSize: 14,
+                            color: kcPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
-                  ) else viewModel.draft.isEmpty
-                    ? SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.7,
-                        width: double.infinity,
-                        child: Center(
-                          child: Text(
-                            'No Draft Recipes Yet!',
-                            style: globalTextStyle(
-                              fontSize: 14,
-                              color: kcPrimaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                    )
+                  : SizedBox(
+                      height: screenHeight(context) * 0.802,
+                      child: GridView.builder(
+                        itemCount: viewModel.draft.length,
+                        // physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15.0,
+                          mainAxisSpacing: 18.0,
+                          childAspectRatio: 7.4 / 9,
                         ),
-                      )
-                    : SizedBox(
-                        height: screenHeight(context) * 0.802,
-                        child: GridView.builder(
-                          itemCount: viewModel.draft.length,
-                          // physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 15.0,
-                            mainAxisSpacing: 18.0,
-                            childAspectRatio: 7.4 / 9,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return DraftGridTile(
-                              recipeId: viewModel.draft[index].docId!,
-                              onTap: () {
-                                viewModel.toDishCreateScreen(index);
-                              },
-                              foodImagePath: viewModel
-                                      .draft[index].coverImage.isEmpty
-                                  ? 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
-                                  : viewModel.draft[index].coverImage
-                                      .where((element) =>
-                                          element.isFirebaseImageUrl)
-                                      .first,
-                              dishName: viewModel.draft[index].title,
-                            );
-                          },
-                        ),
-                      )
+                        itemBuilder: (BuildContext context, int index) {
+                          return DraftGridTile(
+                            recipeId: viewModel.draft[index].docId!,
+                            onTap: () {
+                              viewModel.toDishCreateScreen(index);
+                            },
+                            foodImagePath: viewModel
+                                    .draft[index].coverImage.isEmpty
+                                ? 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+                                : viewModel.draft[index].coverImage
+                                    .where(
+                                        (element) => element.isFirebaseImageUrl)
+                                    .first,
+                            dishName: viewModel.draft[index].title,
+                          );
+                        },
+                      ),
+                    )
           ],
         ),
       ),

@@ -29,8 +29,7 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  final user =
-                      viewModel.searchUsers(chefs).elementAt(index);
+                  final user = viewModel.searchUsers(chefs).elementAt(index);
                   return GestureDetector(
                     onTap: () {
                       // viewModel.toChefProfile(chefList[index]);

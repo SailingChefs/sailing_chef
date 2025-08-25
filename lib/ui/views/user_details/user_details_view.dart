@@ -28,9 +28,12 @@ class UserDetailsView extends StackedView<UserDetailsViewModel> {
                   verticalSpaceMedium,
                   const ProfilePictureUserDetailsScreen(),
                   verticalSpaceMedium,
-                  if (viewModel.isBusy) const CircularProgressIndicator() else FormUserDetailsScrenn(
-                          userRole: userRole,
-                        ),
+                  if (viewModel.isBusy)
+                    const CircularProgressIndicator()
+                  else
+                    FormUserDetailsScrenn(
+                      userRole: userRole,
+                    ),
                   verticalSpaceMedium,
                 ],
               ),

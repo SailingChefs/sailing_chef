@@ -7,7 +7,8 @@ import 'package:sailing_chefs/ui/dialogs/deleteconfirmation/deleteconfirmation_d
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class DeleteconfirmationDialog extends StackedView<DeleteconfirmationDialogModel> {
+class DeleteconfirmationDialog
+    extends StackedView<DeleteconfirmationDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 

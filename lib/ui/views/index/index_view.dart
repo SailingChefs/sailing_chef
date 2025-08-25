@@ -60,11 +60,14 @@ class IndexView extends StackedView<IndexViewModel> {
                           ),
                         ],
                       ),
-                      if (viewModel.isMySelected) viewModel.showShimmer
-                              ? const ShimmerChef()
-                              : const ChefListIndexScreen() else viewModel.showShimmer
-                              ? const ShimmerChef()
-                              : const CullinaryListIndexScreen(),
+                      if (viewModel.isMySelected)
+                        viewModel.showShimmer
+                            ? const ShimmerChef()
+                            : const ChefListIndexScreen()
+                      else
+                        viewModel.showShimmer
+                            ? const ShimmerChef()
+                            : const CullinaryListIndexScreen(),
                     ],
                   ),
                 ),
@@ -76,16 +79,19 @@ class IndexView extends StackedView<IndexViewModel> {
                   child: DishListIndexScreen(),
                 ),
                 verticalSpaceMedium,
-                if (viewModel.dishes.isNotEmpty) Center(
-                        child: TextButton(
-                          onPressed: viewModel.toAllRecipesView,
-                          child: Text(
-                            'View All Recipes',
-                            style: globalTextStyle(
-                                fontSize: 14, color: kcPrimaryColor),
-                          ),
-                        ),
-                      ) else Container(),
+                if (viewModel.dishes.isNotEmpty)
+                  Center(
+                    child: TextButton(
+                      onPressed: viewModel.toAllRecipesView,
+                      child: Text(
+                        'View All Recipes',
+                        style: globalTextStyle(
+                            fontSize: 14, color: kcPrimaryColor),
+                      ),
+                    ),
+                  )
+                else
+                  Container(),
               ],
             ),
           ),

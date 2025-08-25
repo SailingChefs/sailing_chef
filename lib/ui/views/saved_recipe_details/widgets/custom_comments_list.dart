@@ -20,7 +20,13 @@ class CustomListTileComments extends StatelessWidget {
   final Function()? onDelete;
 
   const CustomListTileComments({
-    required this.name, required this.rating, required this.date, required this.ratingImages, required this.description, required this.image, super.key,
+    required this.name,
+    required this.rating,
+    required this.date,
+    required this.ratingImages,
+    required this.description,
+    required this.image,
+    super.key,
     this.isUserComment = false,
     this.onEdit,
     this.onDelete,
@@ -224,36 +230,39 @@ class CustomListTileComments extends StatelessWidget {
                 ),
               ),
               verticalSpaceSmall,
-              if (ratingImages.isNotEmpty) SizedBox(
-                      height: 100.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: ratingImages.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () => openImagePreview(context, index),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  imageUrl: ratingImages[index],
-                                  height: 84.h,
-                                  width: 84.w,
-                                  fit: BoxFit.cover,
-                                  progressIndicatorBuilder:
-                                      (context, url, progress) => Container(
-                                    decoration: const BoxDecoration(
-                                      color: kcsgreycolor,
-                                    ),
-                                  ),
+              if (ratingImages.isNotEmpty)
+                SizedBox(
+                  height: 100.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: ratingImages.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => openImagePreview(context, index),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              imageUrl: ratingImages[index],
+                              height: 84.h,
+                              width: 84.w,
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder:
+                                  (context, url, progress) => Container(
+                                decoration: const BoxDecoration(
+                                  color: kcsgreycolor,
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    ) else const SizedBox(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              else
+                const SizedBox(),
             ],
           ),
         ),

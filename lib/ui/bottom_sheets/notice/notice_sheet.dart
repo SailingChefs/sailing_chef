@@ -9,7 +9,9 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   final Function(SheetResponse)? completer;
   final SheetRequest request;
   const NoticeSheet({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override

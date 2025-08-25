@@ -8,7 +8,12 @@ class RecipeeItem extends StatelessWidget {
   final String chef;
 
   const RecipeeItem({
-    required this.image, required this.title, required this.description, required this.time, required this.chef, super.key,
+    required this.image,
+    required this.title,
+    required this.description,
+    required this.time,
+    required this.chef,
+    super.key,
   });
 
   @override

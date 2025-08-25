@@ -8,7 +8,9 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const TagsSelectionWidget({
-    required this.completer, required this.request, super.key,
+    required this.completer,
+    required this.request,
+    super.key,
   });
 
   @override

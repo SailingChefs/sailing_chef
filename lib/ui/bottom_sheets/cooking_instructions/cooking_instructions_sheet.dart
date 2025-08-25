@@ -4,7 +4,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/bott
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/cooking_topbar.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/listview_cookinginstructions.dart';
 
-class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel> {
+class CookingInstructionsSheet
+    extends StackedView<CookingInstructionsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const CookingInstructionsSheet({
@@ -39,7 +40,9 @@ class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel
                 child: Text(
                   request.title ?? 'Cooking Instructions',
                   style: globalTextStyle(
-                      fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kcBlackColor),
                 ),
               ),
               verticalSpaceMedium,
@@ -59,5 +62,6 @@ class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel
 
 class CookingInstructionsSheetResponse {
   final List<String> instructionsListResponse;
-  const CookingInstructionsSheetResponse({required this.instructionsListResponse});
+  const CookingInstructionsSheetResponse(
+      {required this.instructionsListResponse});
 }

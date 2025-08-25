@@ -18,7 +18,10 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const DropPinSheetSheet(
-      {required this.completer, required this.request, required this.isNew, super.key});
+      {required this.completer,
+      required this.request,
+      required this.isNew,
+      super.key});
 
   @override
   Widget builder(
