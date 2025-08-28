@@ -34,7 +34,7 @@
 			</dict>
 		</array>
 		<key>CFBundleVersion</key>
-		<string>6</string>
+		<string>13</string>
 		<key>GIDClientID</key>
 		<string>66812962587-7lt5sv8vmpncg9akdu64qdtlouufqe18.apps.googleusercontent.com</string>
 		<key>LSApplicationQueriesSchemes</key>
@@ -58,6 +58,9 @@
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>This app needs access to your location while the app is in use for navigation
 			purposes.</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>This app needs access to your location both when in use and in the background for
+			continuous location tracking and navigation services.</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>This app requires Mic permission for audio recording.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
@@ -86,5 +89,7 @@
 		<string>production</string>
 		<key>io.flutter.embedded_views_preview</key>
 		<string>YES</string>
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false />
 	</dict>
 </plist>

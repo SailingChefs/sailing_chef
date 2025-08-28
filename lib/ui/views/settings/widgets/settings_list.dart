@@ -183,8 +183,7 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
           )
         else
           Container(),
-        if (userDetails!.userRole == 'culinarySchool' ||
-            userDetails!.userRole == 'chef')
+        if (userDetails!.userRole == 'culinarySchool' || userDetails!.userRole == 'chef')
           Column(
             children: [
               Divider(
