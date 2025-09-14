@@ -32,6 +32,7 @@ class BecomechefViewModel extends BaseViewModel {
     return null;
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }

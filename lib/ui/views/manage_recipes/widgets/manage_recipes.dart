@@ -31,7 +31,7 @@ class ManageRecipes extends StatelessWidget {
           return false;
       }
       return true;
-    } catch (e, st) {
+    } catch (e) {
       showToast(message: 'Action failed');
       return false;
     }

@@ -106,6 +106,7 @@ class EditProfileViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }

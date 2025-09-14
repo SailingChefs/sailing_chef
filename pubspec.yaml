@@ -64,8 +64,8 @@ dependencies:
   stacked: ^3.4.0
   stacked_services: ^1.1.0
   stacked_shared: any
-  syncfusion_flutter_core: ^30.2.4
-  syncfusion_flutter_sliders: ^30.2.4
+  syncfusion_flutter_core: ^31.1.19
+  syncfusion_flutter_sliders: ^31.1.19
   url_launcher: ^6.2.6
   uuid: ^4.4.2
 

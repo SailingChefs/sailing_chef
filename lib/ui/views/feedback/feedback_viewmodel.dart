@@ -24,6 +24,7 @@ class FeedbackViewModel extends BaseViewModel {
     }
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }

@@ -8,6 +8,7 @@ class SettingsViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
 
+  @override
   void getBack() {
     // if (userDetails!.userRole == 'chef' ||
     //     userDetails!.userRole == 'culinarySchool') {

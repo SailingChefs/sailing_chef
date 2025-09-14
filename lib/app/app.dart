@@ -64,6 +64,7 @@ import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
 import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/login/login_view.dart';
+import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart';
 import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
@@ -86,7 +87,6 @@ import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart';
 // @stacked-import
 
 @StackedApp(

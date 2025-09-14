@@ -15,6 +15,7 @@ class PrivateRecipesViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }

@@ -213,6 +213,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     }
   }
 
+  @override
   void getBack() {
     _navigationLoactor.back();
   }

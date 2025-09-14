@@ -30,6 +30,7 @@ class CullinarySavedrecipesViewModel extends ReactiveViewModel {
     );
   }
 
+  @override
   void getBack() {
     _navigationService.back();
   }
