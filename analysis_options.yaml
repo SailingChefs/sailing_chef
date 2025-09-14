@@ -11,6 +11,7 @@ analyzer:
     avoid_setters_without_getters: ignore
     flutter_style_todos: ignore
     argument_type_not_assignable: warning
+    depend_on_referenced_packages: error
 
   exclude:
     - "lib/src/core/localization/generated/**"

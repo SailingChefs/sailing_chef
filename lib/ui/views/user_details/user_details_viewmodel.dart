@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -116,7 +117,10 @@ class UserDetailsViewModel extends BaseViewModel {
 
     // Use a regular expression for basic URL validation without protocol
     final urlRegex = RegExp(
-      r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w/.]*)?$',
+      // Allow optional http:// or https://, optional www., domain and optional path/query.
+      // Accepts characters commonly used in URLs: alphanumerics, -, ., /, ?, &, =, %, and _
+      r'^(?:https:\/\/)?(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w\-.?&=/%]*)?$',
+      caseSensitive: false,
     );
 
     // Check if the input matches the URL pattern
@@ -174,11 +178,19 @@ class UserDetailsViewModel extends BaseViewModel {
         selectedImageFile!.path.split('/').last,
       );
 
+      // Prepare link value: remove leading https:// (or http://) if present
+      var processedLink = linkController.text.trim().toLowerCase();
+      if (processedLink.startsWith('https://')) {
+        processedLink = processedLink.substring('https://'.length);
+      } else if (processedLink.startsWith('http://')) {
+        processedLink = processedLink.substring('http://'.length);
+      }
+
       final userDetailsStatus = await _userService.storeUserDetails(
         {
           'display_name': nameController.text,
           'bio': bioController.text,
-          'link': linkController.text,
+          'link': processedLink,
           'boat_name': boatNameController.text,
           'address': address,
           'display_picture': imageLink,
@@ -190,13 +202,11 @@ class UserDetailsViewModel extends BaseViewModel {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomBarGuestView();
         } else {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -211,8 +221,7 @@ class UserDetailsViewModel extends BaseViewModel {
     var imageLink = '';
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
-        imageLink =
-            'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
+        imageLink = 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
       } else {
         imageLink = await _userService.uploadImage(
           selectedImageFile!,
@@ -262,19 +271,21 @@ class UserDetailsViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void skipToHome() {
+  Future<void> skipToHome() async {
     if (userDetails!.userRole == 'guest') {
-      _navigationService.clearStackAndShowView(
+      _navigationService.clearStackAndShowView<Widget>(
         const BottomBarGuestView(),
       );
     } else {
+      await FirebaseAuth.instance.currentUser!.reload();
+
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        _navigationService.clearStackAndShowView(
+        _navigationService.clearStackAndShowView<Widget>(
           BottomNavBarView(),
         );
       } else {
         // _snakbarService.showSnackbar(message: "Please varify your email first");
-        showToast(message: 'Please varify your email first');
+        showToast(message: 'Please verify your email first');
       }
     }
   }

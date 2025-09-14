@@ -56,15 +56,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBpzT46q83H88YZxaX32aLZyHECfdRfZdQ',
-    appId: '1:66812962587:ios:14c552471591069ae655be',
+    appId: '1:66812962587:ios:9e68ed6e74ad4d83e655be',
     messagingSenderId: '66812962587',
     projectId: 'sailingchefs-3e3cb',
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
-    androidClientId:
-        '66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com',
-    iosClientId:
-        '66812962587-7lt5sv8vmpncg9akdu64qdtlouufqe18.apps.googleusercontent.com',
-    iosBundleId: 'com.SailingChefs.dev.emile',
+    androidClientId: '66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com',
+    iosClientId: '66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com',
+    iosBundleId: 'com.drudotstech.SailingChefs',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
@@ -76,4 +74,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
     measurementId: 'G-EEH9TH82Q1',
   );
+
 }

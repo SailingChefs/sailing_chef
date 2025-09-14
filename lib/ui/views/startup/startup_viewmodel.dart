@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:sailing_chefs/app/app.locator.dart';
 import 'package:sailing_chefs/app/app.router.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
@@ -50,8 +49,7 @@ class StartupViewModel extends BaseViewModel {
             userShoppingList = await _userService.fetchShoppingList();
 
             selectedRecipees = userShoppingList?.selectedRecipees ?? [];
-            shoppingRecipeeIngredient =
-                userShoppingList?.shoppingRecipeeIngredient ?? {};
+            shoppingRecipeeIngredient = userShoppingList?.shoppingRecipeeIngredient ?? {};
             showShoppingListview = userShoppingList?.showShoppingListview ?? {};
 
             if (userDetails!.userRole == 'guest') {
@@ -68,21 +66,21 @@ class StartupViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> checkDeepLink() async {
-    final data = await FirebaseDynamicLinks.instance.getInitialLink();
-    final deepLink = data?.link;
+  void checkDeepLink() {
+    // final data = await FirebaseDynamicLinks.instance.getInitialLink();
+    // final deepLink = data?.link;
 
-    if (deepLink != null) {
-      isDeepLink = true;
-      _handleDynamicLinks(deepLink);
-    }
+    // if (deepLink != null) {
+    //   isDeepLink = true;
+    //   _handleDynamicLinks(deepLink);
+    // }
 
-    FirebaseDynamicLinks.instance.onLink.listen((PendingDynamicLinkData? link) {
-      isDeepLink = true;
-      _handleDynamicLinks(link!.link);
-    }).onError((error) {
-      log('onLink error: $error');
-    });
+    // FirebaseDynamicLinks.instance.onLink.listen((PendingDynamicLinkData? link) {
+    //   isDeepLink = true;
+    //   _handleDynamicLinks(link!.link);
+    // }).onError((error) {
+    //   log('onLink error: $error');
+    // });
   }
 
   RecipeService recipeService = locator<RecipeService>();
@@ -110,9 +108,7 @@ class StartupViewModel extends BaseViewModel {
       if (recipe != null) {
         final navigation = locator<NavigationService>();
         navigation.navigateToSavedRecipeDetailsView(
-            recipeModel: recipe,
-            isFromPrivateProfile: false,
-            randomRecipeList: []);
+            recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: []);
       }
     }
   }
