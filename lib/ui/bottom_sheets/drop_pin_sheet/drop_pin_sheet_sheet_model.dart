@@ -38,7 +38,29 @@ class DropPinSheetSheetModel extends BaseViewModel {
   String? emailError;
   String? descriptionError;
   Future<void> savePinDrop() async {
-    if (formKey.currentState!.validate()) {
+    if (selectedImageFile == null) {
+      showToast(message: 'Please upload image!');
+    } else if (selectedTabSelections.isEmpty) {
+      showToast(message: 'Please select at least one tag!');
+    } else if (ratings == 0) {
+      log('Rating validation failed: $ratings');
+      showToast(message: 'Please add ratings!');
+    } else if (name.text.isEmpty) {
+      log('One or more fields are empty');
+      showToast(message: 'Please add a name');
+    } else if (description.text.isEmpty) {
+      log('One or more fields are empty');
+      showToast(message: 'Please add a description');
+    } else if (link.text.isEmpty || !isLinkValid(link.text)) {
+      log('Link validation failed: ${link.text}');
+      showToast(message: 'Please enter a valid link');
+    } else if (email.text.isEmpty) {
+      log('Email validation failed: ${email.text}');
+      showToast(message: 'Please enter a valid email');
+    } else if (phone.text.isEmpty) {
+      log('Phone number validation failed: ${phone.text}');
+      showToast(message: 'Please enter a valid phone number');
+    } else if (formKey.currentState!.validate()) {
       final place = await getCityCountry(location.location!.latitude, location.location!.longitude);
       if (selectedImageFile != null) {
         imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
@@ -74,15 +96,9 @@ class DropPinSheetSheetModel extends BaseViewModel {
       ratings = 0;
       reset();
       completer!(SheetResponse(data: true));
-    } else if (imageUrls == null) {
-      showToast(message: 'Please upload image!');
-    } else if (selectedTabSelections.isEmpty) {
-      showToast(message: 'Please select at least one tag!');
-    } else if (ratings == 0) {
-      log('Rating validation failed: $ratings');
-      showToast(message: 'Please add ratings!');
     } else {
-      log('Validation issue but ratings=$ratings');
+      log('Please complete the form');
+      showToast(message: 'Please complete the form');
     }
   }
 
@@ -119,14 +135,14 @@ class DropPinSheetSheetModel extends BaseViewModel {
   }
 
   Future<void> getPfpImage() async {
-    final pickedFile = await picker.pickMultiImage(
+    final pickedFiles = await picker.pickMultiImage(
       imageQuality: const int.fromEnvironment('imageQuality', defaultValue: 100),
       maxHeight: 500,
       maxWidth: 500,
     );
     // ignore: unnecessary_null_comparison
-    if (pickedFile != null) {
-      selectedImageFile = pickedFile;
+    if (pickedFiles != null && pickedFiles.isNotEmpty) {
+      selectedImageFile = pickedFiles;
 
       selectedImagePath = selectedImageFile!.first.path;
       notifyListeners();

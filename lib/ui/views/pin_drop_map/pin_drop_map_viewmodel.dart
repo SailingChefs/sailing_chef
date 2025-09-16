@@ -67,23 +67,25 @@ class PinDropMapViewModel extends BaseViewModel {
       setBusy(true);
 
       await getCurrentLocation().timeout(
-        const Duration(seconds: 15),
+        const Duration(seconds: 30),
         onTimeout: () => throw TimeoutException('Location fetch timed out'),
       );
-      await showAllMarkers(id);
+    } catch (e) {
+      await Geolocator.getLastKnownPosition();
 
+      log('Error in onViewModelReady: $e');
+      showErrorDialog('Failed to initialize map: $e');
+    } finally {
       initialCameraPosition = CameraPosition(
         target: LatLng(currentPosition.latitude, currentPosition.longitude),
         zoom: 12,
       );
+      await showAllMarkers(id);
 
       await loadPinsNearUser();
 
       setBusy(false);
-    } catch (e) {
-      setBusy(false);
-      log('Error in onViewModelReady: $e');
-      showErrorDialog('Failed to initialize map: $e');
+      notifyListeners();
     }
   }
 
@@ -140,10 +142,11 @@ class PinDropMapViewModel extends BaseViewModel {
   Future<void> getCurrentLocation() async {
     try {
       currentPosition = await _locationService.determinePosition();
-      notifyListeners();
     } catch (e) {
       log('Error getting location: $e');
       showErrorDialog('Could not get current location. Please check your location settings.');
+    } finally {
+      notifyListeners();
     }
   }
 

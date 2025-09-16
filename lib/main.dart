@@ -45,9 +45,9 @@ void main() {
       // ..textStyle = globalTextStyle(fontSize: 14)
       ..indicatorColor = kcwhitecolor
       ..maskColor = kcBlackColor
-      ..userInteractions = false
+      ..userInteractions = true
       ..displayDuration = const Duration(seconds: 1)
-      ..dismissOnTap = false;
+      ..maskType = EasyLoadingMaskType.none;
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) async {
       // final PendingDynamicLinkData? data =

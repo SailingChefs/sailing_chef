@@ -18,10 +18,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const DropPinSheetSheet(
-      {required this.completer,
-      required this.request,
-      required this.isNew,
-      super.key});
+      {required this.completer, required this.request, required this.isNew, super.key});
 
   @override
   Widget builder(
@@ -61,12 +58,9 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                     func: () {
                       viewModel.getPfpImage();
                     },
-                    hinttext: 'Name',
-                    suffixIcon: SvgPicture.asset(
-                        'assets/images/icons/pinimage.svg',
-                        width: 30,
-                        height: 30,
-                        color: kcBlackColor.withOpacity(0.87)),
+                    hinttext: 'Name*',
+                    suffixIcon: SvgPicture.asset('assets/images/icons/pinimage.svg',
+                        width: 30, height: 30, color: kcBlackColor.withOpacity(0.87)),
                     color: kcBlackColor.withOpacity(0.6),
                     contoll: viewModel.name,
                   ),
@@ -127,7 +121,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                       return null;
                     },
                     decoration: InputDecoration(
-                      hintText: 'Description',
+                      hintText: 'Description*',
                       border: InputBorder.none,
                       hintStyle: globalTextStyle(
                         fontSize: 14.sp,
@@ -147,7 +141,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Add your Review',
+                            'Review*',
                             style: globalTextStyle(
                               fontSize: 14.sp,
                               letterSpacing: -0.5,
@@ -157,12 +151,10 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                           ),
                           RatingBar.builder(
                             allowHalfRating: true,
-                            initialRating:
-                                viewModel.ratings > 0 ? viewModel.ratings : 3.0,
+                            initialRating: viewModel.ratings > 0 ? viewModel.ratings : 3.0,
                             itemSize: 20,
                             unratedColor: Colors.grey.shade400,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 0.005),
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 0.005),
                             itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: kcPrimaryColor,
@@ -180,8 +172,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                     ),
                   ),
                   verticalSpaceLarge,
-                  ButtonsPindrop(
-                      completer: completer, isNew: request.data['isNew']),
+                  ButtonsPindrop(completer: completer, isNew: request.data['isNew']),
                   verticalSpaceMedium,
                   // request.data != null
                   //     ? GestureDetector(
@@ -226,7 +217,6 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
 
   @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
-      DropPinSheetSheetModel(
-          completer, request.data['pinnedLocationData'] as PinnedLocationData,
+      DropPinSheetSheetModel(completer, request.data['pinnedLocationData'] as PinnedLocationData,
           isNew: request.data['isNew']);
 }

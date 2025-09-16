@@ -174,7 +174,7 @@ class PinDropService with ListenableServiceMixin {
       await docRef.update({'id': id});
       pins.add(PinnedLocation.fromMap(pinnedLocation.toMap()));
       // fetchReviewsByPinId(pinnedLocation.id!);
-
+      pins = pins.toSet().toList();
       notifyListeners();
     } catch (e) {
       log(e.toString());
@@ -257,6 +257,7 @@ class PinDropService with ListenableServiceMixin {
       // Wait for all pins to load
       final loadedPins = await Future.wait(pinFutures);
       pins.addAll(loadedPins);
+      pins = pins.toSet().toList();
 
       log('Loaded ${pins.length} pins');
       isInitialized = true;

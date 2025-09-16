@@ -55,22 +55,38 @@ class PinnedLocation {
   });
 
   factory PinnedLocation.fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data()! as Map<String, dynamic>;
+    final raw = snapshot.data();
+    final data = (raw is Map<String, dynamic>) ? raw : <String, dynamic>{};
+
+    double toDouble(dynamic v) {
+      if (v is num) return v.toDouble();
+      if (v is String) return double.tryParse(v) ?? 0.0;
+      return 0.0;
+    }
+
+    List<String> toStringList(dynamic v) {
+      if (v is Iterable) {
+        return v.map((e) => e.toString()).toList(growable: false);
+      }
+      return const <String>[];
+    }
+
     return PinnedLocation(
-        id: snapshot.id,
-        uid: data['uid'] ?? '',
-        place: data['place'] ?? '',
-        contactNumber: data['contact_number'] ?? '',
-        createdTime: data['created_time'] ?? Timestamp.now(),
-        description: data['description'] ?? '',
-        email: data['email'] ?? '',
-        link: data['link'] ?? '',
-        location: data['location'] ?? const GeoPoint(0.0, 0.0),
-        name: data['name'] ?? '',
-        picture: List<String>.from(data['picture'] ?? []),
-        tags: List<String>.from(data['tags'] ?? []),
-        rating: (data['ratings'] as num).toDouble(),
-        status: PinnedLocationStatus.fromString(data['status'] as String?));
+      id: snapshot.id,
+      uid: data['uid'] as String?,
+      place: (data['place'] as String?) ?? '',
+      contactNumber: (data['contact_number'] as String?) ?? '',
+      createdTime: (data['created_time'] as Timestamp?) ?? Timestamp.now(),
+      description: (data['description'] as String?) ?? '',
+      email: (data['email'] as String?) ?? '',
+      link: (data['link'] as String?) ?? '',
+      location: (data['location'] as GeoPoint?) ?? const GeoPoint(0.0, 0.0),
+      name: (data['name'] as String?) ?? '',
+      picture: toStringList(data['picture']),
+      tags: toStringList(data['tags']),
+      rating: toDouble(data['ratings']),
+      status: PinnedLocationStatus.fromString(data['status'] as String?),
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -96,21 +112,47 @@ class PinnedLocation {
   }
 
   static PinnedLocation fromMap(Map<String, dynamic> map) {
+    double toDouble(dynamic v) {
+      if (v is num) return v.toDouble();
+      if (v is String) return double.tryParse(v) ?? 0.0;
+      return 0.0;
+    }
+
+    List<String> toStringList(dynamic v) {
+      if (v is Iterable) {
+        return v.map((e) => e.toString()).toList(growable: false);
+      }
+      return const <String>[];
+    }
+
     return PinnedLocation(
-        place: map['place'] ?? '',
-        id: map['id'],
-        uid: map['uid'],
-        location: map['location'] ?? const GeoPoint(0.0, 0.0),
-        contactNumber: map['contact_number'],
-        rating: map['ratings'],
-        createdTime: map['created_time'],
-        description: map['description'],
-        email: map['email'],
-        tags: map['tags'],
-        picture: map['picture'],
-        name: map['name'],
-        reviews: map['reviews'] ?? [],
-        link: map['link'],
-        status: PinnedLocationStatus.fromString(map['status'] as String?));
+      place: (map['place'] as String?) ?? '',
+      id: map['id'] as String?,
+      uid: map['uid'] as String?,
+      location: (map['location'] as GeoPoint?) ?? const GeoPoint(0.0, 0.0),
+      contactNumber: (map['contact_number'] as String?) ?? '',
+      rating: toDouble(map['ratings']),
+      createdTime: (map['created_time'] as Timestamp?) ?? Timestamp.now(),
+      description: (map['description'] as String?) ?? '',
+      email: (map['email'] as String?) ?? '',
+      tags: toStringList(map['tags']),
+      picture: toStringList(map['picture']),
+      name: (map['name'] as String?) ?? '',
+      link: (map['link'] as String?) ?? '',
+      status: PinnedLocationStatus.fromString(map['status'] as String?),
+    );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! PinnedLocation) return false;
+    // If both have non-null ids, compare by id (canonical identity)
+    if (id != null && other.id != null) return id == other.id;
+    // Otherwise, don't consider distinct instances equal
+    return false;
+  }
+
+  @override
+  int get hashCode => id?.hashCode ?? identityHashCode(this);
 }

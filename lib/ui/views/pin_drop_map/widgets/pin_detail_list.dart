@@ -11,6 +11,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
   @override
   Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return ListView.builder(
+      itemCount:
+          viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
       itemBuilder: (context, index) {
         final pin =
             viewModel.filteredPins.isEmpty ? viewModel.pins[index] : viewModel.filteredPins[index];
@@ -46,40 +48,39 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                 ),
                 child: viewModel.isBusy
                     ? const ShimmerDialog()
-                    : Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    : Stack(
                         children: [
-                          // Image section with fixed proportions
-                          SizedBox(
-                            width: imageWidth,
-                            height: cardHeight,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(27),
-                                bottomLeft: Radius.circular(27),
-                              ),
-                              child: ImageUtils.networkImageWithFallback(
-                                imageUrl: imageUrl,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Image section with fixed proportions
+                              SizedBox(
                                 width: imageWidth,
                                 height: cardHeight,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(27),
-                                  bottomLeft: Radius.circular(27),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(27),
+                                    bottomLeft: Radius.circular(27),
+                                  ),
+                                  child: ImageUtils.networkImageWithFallback(
+                                    imageUrl: imageUrl,
+                                    width: imageWidth,
+                                    height: cardHeight,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(27),
+                                      bottomLeft: Radius.circular(27),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          // Content section
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Rating
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // Content section
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+                                      // Rating
                                       Row(
                                         children: [
                                           const Icon(
@@ -100,66 +101,62 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                           ),
                                         ],
                                       ),
-                                      if ([
-                                        PinnedLocationStatus.pending,
-                                        PinnedLocationStatus.review
-                                      ].contains(pin.status))
-                                        Positioned(
-                                          right: 8.dg,
-                                          top: 8.dg,
-                                          child: Container(
-                                            // width: 90.w,
-                                            height: 25.h,
-                                            padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
-                                            decoration: BoxDecoration(
-                                              color: pin.status == PinnedLocationStatus.pending
-                                                  ? Colors.yellow
-                                                  : Colors.orange,
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(20.r),
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  pin.status.name.capitalizeFirst(),
-                                                  maxLines: 1,
-                                                  style: globalTextStyle(
-                                                      fontSize: 10.sp, color: kcBlackColor),
-                                                )
-                                              ],
-                                            ),
-                                          ),
+                                      const SizedBox(height: 8),
+                                      // Name and Place
+                                      Text(
+                                        pin.name,
+                                        style: globalTextStyle(
+                                          color: kcBlackColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
                                         ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        pin.place,
+                                        style: globalTextStyle(
+                                          color: kcBlackColor.withOpacity(0.4),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ],
                                   ),
-                                  const SizedBox(height: 8),
-                                  // Name and Place
-                                  Text(
-                                    pin.name,
-                                    style: globalTextStyle(
-                                      color: kcBlackColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if ([PinnedLocationStatus.pending, PinnedLocationStatus.review]
+                              .contains(pin.status))
+                            Positioned(
+                              right: 8.dg,
+                              top: 8.dg,
+                              child: Container(
+                                height: 25.h,
+                                padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
+                                decoration: BoxDecoration(
+                                  color: pin.status == PinnedLocationStatus.pending
+                                      ? Colors.yellow
+                                      : Colors.orange,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20.r),
                                   ),
-                                  Text(
-                                    pin.place,
-                                    style: globalTextStyle(
-                                      color: kcBlackColor.withOpacity(0.4),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      pin.status.name.capitalizeFirst(),
+                                      maxLines: 1,
+                                      style: globalTextStyle(fontSize: 10.sp, color: kcBlackColor),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
               );
@@ -168,8 +165,6 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
         );
       },
       scrollDirection: Axis.horizontal,
-      itemCount:
-          viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
       shrinkWrap: true,
     );
   }
