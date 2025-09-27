@@ -1,11 +1,11 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/add_ingredient_textfield.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/ingredientssheet_topbar.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/listview_quantity_name.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/widgets/two_textfields_inarow.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
-import 'package:sailing_chefs/ui/widgets/common_textfield.dart';
 
 class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
   final Function(SheetResponse response)? completer;
@@ -44,8 +44,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             Center(
               child: Text(
                 request.title ?? 'Add your ingredients',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
             verticalSpaceTiny,
@@ -53,13 +52,13 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             verticalSpaceMedium,
             SizedBox(
               width: double.infinity,
-              child: CommonTextField(
+              child: AddIngredientTextField(
                 hintText: 'Add ingredients',
                 prefix: Icons.drag_indicator,
               ),
             ),
             verticalSpaceTiny,
-            const TwoTextFields(),
+            const AddIngredientsTwoTextFields(),
             verticalSpaceTiny,
             Center(
               child: SaveRecipeButton(

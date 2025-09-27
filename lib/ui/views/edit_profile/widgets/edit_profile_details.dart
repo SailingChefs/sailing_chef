@@ -37,9 +37,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           maxLines: 5,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(250)
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(250)],
                           controller: viewModel.bioController,
                           fillColor: kcPrimaryColor.withOpacity(0.08),
                           borderRadius: 27.dg,
@@ -116,14 +114,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             flagState: CountryFlag.DISABLE,
 
                             dropdownDecoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.r)),
+                              borderRadius: BorderRadius.all(Radius.circular(20.r)),
                               color: kcPrimaryColor.withOpacity(0.07),
                             ),
 
                             disabledDropdownDecoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.r)),
+                              borderRadius: BorderRadius.all(Radius.circular(20.r)),
                               color: kcPrimaryColor.withOpacity(0.07),
                             ),
 
@@ -161,16 +157,13 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                             searchBarRadius: 10.0,
 
-                            onCountryChanged: (value) =>
-                                viewModel.setCountryValue(value),
+                            onCountryChanged: (value) => viewModel.setCountryValue(value),
 
                             ///triggers once state selected in dropdown
-                            onStateChanged: (value) =>
-                                viewModel.setStateValue(value ?? ''),
+                            onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
 
                             ///triggers once city selected in dropdown
-                            onCityChanged: (value) =>
-                                viewModel.setCityValue(value ?? ''),
+                            onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
                           ),
                         ),
                       ],
@@ -207,9 +200,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             SemiRoundedTranpaentTextField(
                               suffixIcon: false,
                               maxLines: 5,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(250)
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(250)],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
@@ -262,14 +253,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 flagState: CountryFlag.DISABLE,
 
                                 dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.r)),
+                                  borderRadius: BorderRadius.all(Radius.circular(20.r)),
                                   color: kcPrimaryColor.withOpacity(0.07),
                                 ),
 
                                 disabledDropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.r)),
+                                  borderRadius: BorderRadius.all(Radius.circular(20.r)),
                                   color: kcPrimaryColor.withOpacity(0.07),
                                 ),
 
@@ -307,16 +296,13 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
 
                                 searchBarRadius: 10.0,
 
-                                onCountryChanged: (value) =>
-                                    viewModel.setCountryValue(value),
+                                onCountryChanged: (value) => viewModel.setCountryValue(value),
 
                                 ///triggers once state selected in dropdown
-                                onStateChanged: (value) =>
-                                    viewModel.setStateValue(value ?? ''),
+                                onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
 
                                 ///triggers once city selected in dropdown
-                                onCityChanged: (value) =>
-                                    viewModel.setCityValue(value ?? ''),
+                                onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
                               ),
                             ),
                           ],
@@ -353,9 +339,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               maxLines: 5,
                               borderRadius: 27.dg,
                               suffixIcon: false,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(250)
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(250)],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
@@ -368,15 +352,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                     PrimaryColorRoundedElevatedButton(
                       100.w,
                       onPressed: () {
+                        final name = viewModel.nameController.text.trim();
+                        final bio = viewModel.bioController.text.trim();
+
                         viewModel.saveEditDetailsGuest(
-                            viewModel.nameController.text.isEmpty
-                                ? UserdataServiceService.user.displayName!
-                                : viewModel.nameController.text.isEmpty
-                                    ? UserdataServiceService.user.displayName!
-                                    : viewModel.nameController.text,
-                            viewModel.bioController.text.isEmpty
-                                ? UserdataServiceService.user.bio!
-                                : viewModel.bioController.text);
+                            name.isEmpty ? (UserdataServiceService.user.displayName ?? '') : name,
+                            bio.isEmpty ? (UserdataServiceService.user.bio ?? '') : bio);
                       },
                       buttonText: 'Save',
                     ),

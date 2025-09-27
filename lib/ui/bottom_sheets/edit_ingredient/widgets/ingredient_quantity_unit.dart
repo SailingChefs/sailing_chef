@@ -6,22 +6,19 @@ import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet_model.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
-class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
+class IngredientQuantityUnit extends ViewModelWidget<EditIngredientSheetModel> {
   final Ingredient ingredient;
-  TextEditingController quantityController;
-  TwoFields(this.quantityController, this.ingredient, {super.key});
+  const IngredientQuantityUnit(this.ingredient, {super.key});
 
   @override
   Widget build(BuildContext context, EditIngredientSheetModel viewModel) {
     // Ensure the selected value is in the list of values
-    if (!viewModel.values.contains(viewModel.selectedValue) &&
-        viewModel.values.isNotEmpty) {
+    if (!viewModel.values.contains(viewModel.selectedValue) && viewModel.values.isNotEmpty) {
       viewModel.selectedValue = viewModel.values.first;
     }
 
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 28.0, right: 10, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 28.0, right: 10, top: 10, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -31,7 +28,7 @@ class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: RoundedTransparentTextField(
-                controller: quantityController,
+                controller: viewModel.ingredientQuantityController,
                 keyboardType: TextInputType.datetime,
                 maxLength: 3,
                 inputFormatters: [
@@ -69,8 +66,7 @@ class TwoFields extends ViewModelWidget<EditIngredientSheetModel> {
                       viewModel.updateValue(newValue);
                     }
                   },
-                  items: viewModel.values
-                      .map<DropdownMenuItem<String>>((String value) {
+                  items: viewModel.values.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),

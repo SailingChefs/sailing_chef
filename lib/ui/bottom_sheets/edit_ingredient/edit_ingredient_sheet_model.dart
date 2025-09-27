@@ -1,21 +1,27 @@
-import 'dart:developer';
-
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 
 class EditIngredientSheetModel extends BaseViewModel {
   Ingredient ingredient;
-  final int listIndex;
-  EditIngredientSheetModel(this.ingredient, this.listIndex);
+  // final int listIndex;
+  final Function(SheetResponse response)? completer;
+
+  EditIngredientSheetModel(
+    this.ingredient,
+    this.completer,
+  );
 
   TextEditingController ingredientNameController = TextEditingController();
   TextEditingController ingredientQuantityController = TextEditingController();
   String ingredientType = '';
 
-  String selectedValue =
-      ''; // Make sure this matches one of the items in the values list
+  String selectedValue = ''; // Make sure this matches one of the items in the values list
+
   void onViewModelReady() {
     setBusy(true);
+    ingredientNameController.text = ingredient.name;
+    ingredientQuantityController.text = ingredient.quantity;
+
     selectedValue = ingredient.unit;
     setBusy(false);
 
@@ -33,22 +39,21 @@ class EditIngredientSheetModel extends BaseViewModel {
     'bunch',
     'bowl'
   ]; // Example values
-
-  void setValues() {
-    ingredient.name = ingredientNameController.text;
-    ingredient.quantity = ingredientQuantityController.text;
-    ingredient.unit = selectedValue;
-  }
-
-  void updateValue(String newValue) {
-    selectedValue = newValue;
-    // notifyListeners();
+  void updateValue(String value) {
+    selectedValue = value;
+    notifyListeners();
     rebuildUi();
   }
 
-  void showUpdatedIngredient() {
-    log(' Name   :  ${ingredient.name}');
-    log(' Quantity   :  ${ingredient.quantity}');
-    log(' Unit   :  ${ingredient.unit}');
+  void onSaved() {
+    completer?.call(SheetResponse(
+      confirmed: true,
+      data: Ingredient(
+          id: ingredient.id,
+          name: ingredientNameController.text,
+          quantity: ingredientQuantityController.text,
+          unit: selectedValue,
+          serving: ingredient.serving),
+    ));
   }
 }

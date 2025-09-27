@@ -153,8 +153,7 @@ class RecipeModel {
       'cover_image': coverImage,
       'tags': tags,
       'created_time': createdTime,
-      'ingredients':
-          ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'ingredients': ingredients.map((ingredient) => ingredient.toJson()).toList(),
       'methods': methods,
       'prep_time': prepTime,
       'serving_size': servingSize,
@@ -170,30 +169,30 @@ class RecipeModel {
 
   factory RecipeModel.fromMap(Map<String, dynamic> map) {
     return RecipeModel(
-      visibility: map['visibility'] ?? '',
-      docId: map['doc_id'] ?? '',
-      chefNote: map['chef_note'] ?? '',
-      coverImage: List<String>.from(map['cover_image'] ?? []),
-      createdTime: map['created_time'] ?? Timestamp.now(),
-      ingredients: (map['ingredients'] as List<dynamic>)
-          .map((ingredient) =>
-              Ingredient.fromMap(ingredient as Map<String, dynamic>))
+      visibility: map['visibility'] as String? ?? '',
+      docId: map['doc_id'] as String? ?? '',
+      chefNote: map['chef_note'] as String? ?? '',
+      coverImage: List<String>.from((map['cover_image'] as List<dynamic>?) ?? []),
+      createdTime: (map['created_time'] as Timestamp?) ?? Timestamp.now(),
+      ingredients: ((map['ingredients'] as List<dynamic>?) ?? [])
+          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
-      methods: List<String>.from(map['methods'] ?? []),
-      prepTime: map['prep_time'] ?? '',
-      servingSize: map['serving_size'] ?? 0,
-      status: map['status'] ?? '',
-      title: map['title'] ?? '',
-      waveForm: List<double>.from(map['waveForm'] ?? []),
-      uid: map['uid'] ?? '',
+      methods: List<String>.from((map['methods'] as List<dynamic>?) ?? []),
+      prepTime: map['prep_time'] as String? ?? '',
+      servingSize: map['serving_size'] as int? ?? 0,
+      status: map['status'] as String? ?? '',
+      title: map['title'] as String? ?? '',
+      waveForm: List<double>.from((map['waveForm'] as List<dynamic>?) ?? []),
+      uid: map['uid'] as String? ?? '',
       rating: map['rating'] ?? 0.0,
-      ratingCount: map['ratingCount'] ?? 0.0,
+      ratingCount: (map['ratingCount'] as num?)?.toDouble() ?? 0.0,
       comment: map['comment'] != null
-          ? (map['comment'] as List<dynamic>)
-              .map((comment) => CommentModel.fromSnapshot(comment))
-              .toList()
+          ? ((map['comment'] as List<dynamic>)
+              .cast<DocumentSnapshot>()
+              .map(CommentModel.fromSnapshot)
+              .toList())
           : null,
-      tags: List<String>.from(map['tags'] ?? []),
+      tags: List<String>.from((map['tags'] as List<dynamic>?) ?? []),
     );
   }
 

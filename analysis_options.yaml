@@ -4,14 +4,15 @@ analyzer:
     avoid_positional_boolean_parameters: ignore
     for_in_of_invalid_type: warning
     inference_failure_on_instance_creation: info
-    invalid_assignment: warning
+    invalid_assignment: error
     non_bool_condition: warning
     parameter_assignments: info
     # use_build_context_synchronously: ignore
     avoid_setters_without_getters: ignore
     flutter_style_todos: ignore
-    argument_type_not_assignable: warning
+    argument_type_not_assignable: error
     depend_on_referenced_packages: error
+    inference_failure_on_untyped_parameter: error
 
   exclude:
     - "lib/src/core/localization/generated/**"

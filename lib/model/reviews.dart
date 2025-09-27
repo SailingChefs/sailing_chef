@@ -25,15 +25,14 @@ class ReviewsModel {
     final data = snapshot.data()! as Map<String, dynamic>;
     return ReviewsModel(
       id: snapshot.id,
-      userId: data['userId'],
-      pindropId: data['pinId'] ?? '',
-      feedback: data['feedback'] ?? '',
-      userName: data['userName'] ?? '',
-      userImageUrl: data['userImageUrl'] ?? '',
-      timestamp: data['created_time'] ?? Timestamp.now(),
-      rating: (data['rating'] != null)
-          ? double.tryParse(data['rating'].toString()) ?? 0.0
-          : 0.0,
+      userId: (data['userId'] as String?) ?? '',
+      pindropId: (data['pinId'] as String?) ?? '',
+      feedback: data['feedback'] as String?,
+      userName: (data['userName'] as String?) ?? '',
+      userImageUrl: (data['userImageUrl'] as String?) ?? '',
+      timestamp:
+          data['created_time'] is Timestamp ? data['created_time'] as Timestamp : Timestamp.now(),
+      rating: (data['rating'] != null) ? double.tryParse(data['rating'].toString()) ?? 0.0 : 0.0,
     );
   }
   Map<String, dynamic> toJson() {

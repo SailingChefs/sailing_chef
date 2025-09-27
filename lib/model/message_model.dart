@@ -20,23 +20,23 @@ class MessageModel {
     final data = snapshot.data()! as Map<String, dynamic>;
 
     return MessageModel(
-      content: data['content'],
-      receiverId: data['receiverId'],
-      senderId: data['senderId'],
+      content: data['content'] as String,
+      receiverId: data['receiverId'] as String,
+      senderId: data['senderId'] as String,
       timestamp: (data['timestamp'] as Timestamp).toDate(),
-      type: data['type'],
-      fileName: data['fileName'],
+      type: data['type'] as String,
+      fileName: data['fileName'] as String,
     );
   }
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      content: map['content'],
-      receiverId: map['receiverId'],
-      senderId: map['senderId'],
+      content: map['content'] as String,
+      receiverId: map['receiverId'] as String,
+      senderId: map['senderId'] as String,
       timestamp: (map['timestamp'] as Timestamp).toDate(),
-      type: map['type'],
-      fileName: map['fileName'],
+      type: map['type'] as String,
+      fileName: map['fileName'] as String,
     );
   }
 

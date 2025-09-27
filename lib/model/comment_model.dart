@@ -27,16 +27,14 @@ class CommentModel {
     final data = snapshot.data()! as Map<String, dynamic>;
     return CommentModel(
       id: snapshot.id,
-      userId: data['userId'],
-      recipeId: data['recipeId'] ?? '',
-      content: data['content'] ?? '',
-      userName: data['userName'] ?? '',
-      userImageUrl: data['userImageUrl'] ?? '',
-      timestamp: data['timestamp'] ?? Timestamp.now(),
-      imageUrl: List<String>.from(data['imageUrl'] ?? []),
-      rating: (data['rating'] != null)
-          ? double.tryParse(data['rating'].toString()) ?? 0.0
-          : 0.0,
+      userId: (data['userId'] as String?) ?? '',
+      recipeId: (data['recipeId'] as String?) ?? '',
+      content: data['content'] as String?,
+      userName: (data['userName'] as String?) ?? '',
+      userImageUrl: (data['userImageUrl'] as String?) ?? '',
+      timestamp: (data['timestamp'] as Timestamp?) ?? Timestamp.now(),
+      imageUrl: List<String>.from((data['imageUrl'] as List<dynamic>?) ?? const []),
+      rating: data['rating'] != null ? (double.tryParse(data['rating'].toString()) ?? 0.0) : 0.0,
     );
   }
   Map<String, dynamic> toJson() {

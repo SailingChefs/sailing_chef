@@ -1,6 +1,5 @@
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet_model.dart';
 
 class ListViewQuantityName extends ViewModelWidget<AddIngredientsSheetModel> {

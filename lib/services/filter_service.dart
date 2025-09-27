@@ -246,11 +246,11 @@ class FilterService with ChangeNotifier {
     final selectedList = <String>[];
 
     // Category selections
-    if (_isPassageSelected) selectedList.add('Passage');
-    if (_isMealSelected) selectedList.add('Meal');
+    if (_isPassageSelected) selectedList.add('Passage Friendly');
+    if (_isMealSelected) selectedList.add('Meal Prep');
     if (_isPlatedSelected) selectedList.add('Plated');
-    if (_isFamilySelected) selectedList.add('Family');
-    if (_isLightSelected) selectedList.add('Light');
+    if (_isFamilySelected) selectedList.add('Family Style');
+    if (_isLightSelected) selectedList.add('Light Meal');
     if (_isCharterSelected) selectedList.add('Charter');
     if (_isCrewSelected) selectedList.add('Crew');
 
@@ -260,7 +260,7 @@ class FilterService with ChangeNotifier {
     if (_isDinnerSelected) selectedList.add('Dinner');
     if (_isSweetSelected) selectedList.add('Sweet');
     if (_isStarterSelected) selectedList.add('Starter');
-    if (_isCanapeSelected) selectedList.add('Canape');
+    if (_isCanapeSelected) selectedList.add('Canapé');
     if (_isSideSelected) selectedList.add('Side');
 
     // Dietary needs selections

@@ -64,12 +64,29 @@ class Ingredient {
   }
 
   factory Ingredient.fromMap(Map<String, dynamic> map) {
+    final id = map['id']?.toString() ?? '';
+    final name = map['name']?.toString() ?? '';
+    final quantity = map['quantity']?.toString() ?? '';
+    final unit = map['unit']?.toString() ?? '';
+
+    final dynamic rawServing = map['serving'];
+    final int serving;
+    if (rawServing is int) {
+      serving = rawServing;
+    } else if (rawServing is String) {
+      serving = int.tryParse(rawServing) ?? 1;
+    } else if (rawServing == null) {
+      serving = 1;
+    } else {
+      serving = int.tryParse(rawServing.toString()) ?? 1;
+    }
+
     return Ingredient(
-      id: map['id'],
-      name: map['name'],
-      quantity: map['quantity'],
-      unit: map['unit'],
-      serving: map['serving'] ?? 1,
+      id: id,
+      name: name,
+      quantity: quantity,
+      unit: unit,
+      serving: serving,
     );
   }
 

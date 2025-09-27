@@ -19,15 +19,14 @@ class ConversationModel {
     required this.users,
     this.user,
   });
-  factory ConversationModel.fromDocument(
-      DocumentSnapshot doc, UserModel? otherUser) {
+  factory ConversationModel.fromDocument(DocumentSnapshot doc, UserModel? otherUser) {
     return ConversationModel(
       lastActive: (doc.get('lastActive') as Timestamp).toDate(),
-      latestMessage: doc.get('latestMessage'),
+      latestMessage: doc.get('latestMessage') as String,
       latestMessageTime: (doc.get('latestMessageTime') as Timestamp).toDate(),
-      latestMessageType: doc.get('latestMessageType'),
+      latestMessageType: doc.get('latestMessageType') as String,
       uid: doc.id,
-      users: List<String>.from(doc.get('users')),
+      users: List<String>.from(doc.get('users') as List<dynamic>),
       user: otherUser,
     );
   }

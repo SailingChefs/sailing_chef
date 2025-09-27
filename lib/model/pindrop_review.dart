@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sailing_chefs/core/instances.dart';
 
 class Review {
   final String uid;
@@ -8,17 +7,14 @@ class Review {
   final String reviewText;
 
   const Review(
-      {required this.userId,
-      required this.uid,
-      required this.rating,
-      required this.reviewText});
+      {required this.userId, required this.uid, required this.rating, required this.reviewText});
 
   factory Review.fromFirestore(DocumentSnapshot doc) {
     return Review(
       uid: doc.id,
-      rating: doc['rating'],
-      reviewText: doc['review_text'],
-      userId: firebaseAuth.currentUser!.uid,
+      rating: (doc['rating'] as num).toDouble(),
+      reviewText: doc['review_text'] as String,
+      userId: doc['user_id'] as String,
     );
   }
 

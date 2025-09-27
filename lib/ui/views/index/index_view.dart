@@ -40,7 +40,7 @@ class IndexView extends StackedView<IndexViewModel> {
                           Text(
                             viewModel.selectedTab == 'Yacht Chefs'
                                 ? 'Meet your Chefs'
-                                : 'Explore Cullinary schools',
+                                : 'Explore Culinary schools',
                             style: globalTextStyle(
                               fontSize: 16.sp,
                               letterSpacing: -0.5,
@@ -61,9 +61,7 @@ class IndexView extends StackedView<IndexViewModel> {
                         ],
                       ),
                       if (viewModel.isMySelected)
-                        viewModel.showShimmer
-                            ? const ShimmerChef()
-                            : const ChefListIndexScreen()
+                        viewModel.showShimmer ? const ShimmerChef() : const ChefListIndexScreen()
                       else
                         viewModel.showShimmer
                             ? const ShimmerChef()
@@ -85,8 +83,7 @@ class IndexView extends StackedView<IndexViewModel> {
                       onPressed: viewModel.toAllRecipesView,
                       child: Text(
                         'View All Recipes',
-                        style: globalTextStyle(
-                            fontSize: 14, color: kcPrimaryColor),
+                        style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),
                       ),
                     ),
                   )

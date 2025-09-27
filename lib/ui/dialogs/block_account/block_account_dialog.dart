@@ -1,5 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog_model.dart';
 
 class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
@@ -65,7 +65,7 @@ class BlockAccountDialog extends StackedView<BlockAccountDialogModel> {
                   horizontalSpaceMedium,
                   GestureDetector(
                     onTap: () {
-                      viewModel.blockAccount(request.data);
+                      viewModel.blockAccount(request.data as UserModel);
                     },
                     child: Container(
                       height: 45,

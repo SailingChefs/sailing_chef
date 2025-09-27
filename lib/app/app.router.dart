@@ -16,68 +16,46 @@ import 'package:sailing_chefs/ui/views/Messages/chat_view.dart' as _i31;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i13;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i25;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i28;
-import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart'
-    as _i27;
-import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart'
-    as _i19;
-import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
-    as _i7;
+import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart' as _i27;
+import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart' as _i19;
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart' as _i7;
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i22;
-import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
-    as _i21;
+import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart' as _i21;
 import 'package:sailing_chefs/ui/views/comingsoon/comingsoon_view.dart' as _i14;
 import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewall_view.dart'
     as _i30;
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_view.dart'
     as _i35;
-import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart'
-    as _i23;
-import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart'
-    as _i32;
+import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart' as _i23;
+import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart' as _i32;
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart' as _i38;
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart' as _i11;
-import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart'
-    as _i17;
-import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart'
-    as _i26;
+import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart' as _i17;
+import 'package:sailing_chefs/ui/views/forget_password/forget_password_view.dart' as _i26;
 import 'package:sailing_chefs/ui/views/index/index_view.dart' as _i12;
 import 'package:sailing_chefs/ui/views/login/login_view.dart' as _i5;
-import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart'
-    as _i42;
-import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart'
-    as _i41;
+import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart' as _i42;
+import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart' as _i41;
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart' as _i3;
-import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart'
-    as _i16;
-import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart'
-    as _i29;
-import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_view.dart'
-    as _i36;
+import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart' as _i16;
+import 'package:sailing_chefs/ui/views/privacy_policy/privacy_policy_view.dart' as _i29;
+import 'package:sailing_chefs/ui/views/private_recipes/private_recipes_view.dart' as _i36;
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart' as _i9;
-import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart'
-    as _i39;
-import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart'
-    as _i15;
-import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart'
-    as _i18;
-import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart'
-    as _i20;
-import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart'
-    as _i8;
+import 'package:sailing_chefs/ui/views/profile_share/profile_share_view.dart' as _i39;
+import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_view.dart' as _i15;
+import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_view.dart' as _i18;
+import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_view.dart' as _i20;
+import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_view.dart' as _i8;
 import 'package:sailing_chefs/ui/views/search/search_view.dart' as _i34;
 import 'package:sailing_chefs/ui/views/settings/settings_view.dart' as _i10;
 import 'package:sailing_chefs/ui/views/share_recipe_to_sailing_cheff_user/share_recipe_to_sailing_cheff_user_view.dart'
     as _i40;
-import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart'
-    as _i37;
+import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart' as _i37;
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_view.dart' as _i4;
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart' as _i2;
-import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart'
-    as _i6;
-import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart'
-    as _i24;
-import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart'
-    as _i33;
+import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart' as _i6;
+import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart' as _i24;
+import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart' as _i33;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i48;
 
@@ -158,8 +136,7 @@ class Routes {
 
   static const profileShareView = '/profile-share-view';
 
-  static const shareRecipeToSailingCheffUserView =
-      '/share-recipe-to-sailing-cheff-user-view';
+  static const shareRecipeToSailingCheffUserView = '/share-recipe-to-sailing-cheff-user-view';
 
   static const manageRecipesView = '/manage-recipes-view';
 
@@ -310,8 +287,7 @@ class StackedRouter extends _i1.RouterBase {
     _i6.UserDetailsView: (data) {
       final args = data.getArgs<UserDetailsViewArguments>(nullOk: false);
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i6.UserDetailsView(userRole: args.userRole, key: args.key),
+        builder: (context) => _i6.UserDetailsView(userRole: args.userRole, key: args.key),
         settings: data,
       );
     },
@@ -320,8 +296,7 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const BottomNavBarViewArguments(),
       );
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i7.BottomNavBarView(index: args.index, key: args.key),
+        builder: (context) => _i7.BottomNavBarView(index: args.index, key: args.key),
         settings: data,
       );
     },
@@ -379,8 +354,7 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const AddRecipeViewArguments(),
       );
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i13.AddRecipeView(drafts: args.drafts, key: args.key),
+        builder: (context) => _i13.AddRecipeView(drafts: args.drafts, key: args.key),
         settings: data,
       );
     },
@@ -462,8 +436,7 @@ class StackedRouter extends _i1.RouterBase {
     _i21.ChefProfileView: (data) {
       final args = data.getArgs<ChefProfileViewArguments>(nullOk: false);
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i21.ChefProfileView(user: args.user, key: args.key),
+        builder: (context) => _i21.ChefProfileView(user: args.user, key: args.key),
         settings: data,
       );
     },
@@ -497,8 +470,7 @@ class StackedRouter extends _i1.RouterBase {
     _i25.AllChefsView: (data) {
       final args = data.getArgs<AllChefsViewArguments>(nullOk: false);
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i25.AllChefsView(chefList: args.chefList, key: args.key),
+        builder: (context) => _i25.AllChefsView(chefList: args.chefList, key: args.key),
         settings: data,
       );
     },
@@ -562,8 +534,7 @@ class StackedRouter extends _i1.RouterBase {
     _i32.ExploreAllRecipesView: (data) {
       final args = data.getArgs<ExploreAllRecipesViewArguments>(nullOk: false);
       return _i43.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i32.ExploreAllRecipesView(recipes: args.recipes, key: args.key),
+        builder: (context) => _i32.ExploreAllRecipesView(recipes: args.recipes, key: args.key),
         settings: data,
       );
     },
@@ -871,9 +842,7 @@ class SettingsViewArguments {
   @override
   bool operator ==(covariant SettingsViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key &&
-        other.isCurrentUser == isCurrentUser &&
-        other.uid == uid;
+    return other.key == key && other.isCurrentUser == isCurrentUser && other.uid == uid;
   }
 
   @override
@@ -1039,9 +1008,7 @@ class FollowingListViewArguments {
   @override
   bool operator ==(covariant FollowingListViewArguments other) {
     if (identical(this, other)) return true;
-    return other.user == user &&
-        other.isfromFollowing == isfromFollowing &&
-        other.key == key;
+    return other.user == user && other.isfromFollowing == isfromFollowing && other.key == key;
   }
 
   @override
@@ -1421,10 +1388,7 @@ class ChatViewArguments {
 
   @override
   int get hashCode {
-    return receiver.hashCode ^
-        conversationId.hashCode ^
-        messageFromCource.hashCode ^
-        key.hashCode;
+    return receiver.hashCode ^ conversationId.hashCode ^ messageFromCource.hashCode ^ key.hashCode;
   }
 }
 
@@ -1506,10 +1470,7 @@ class SearchViewArguments {
 
   @override
   int get hashCode {
-    return recipeModel.hashCode ^
-        chefList.hashCode ^
-        selectedTagsCount.hashCode ^
-        key.hashCode;
+    return recipeModel.hashCode ^ chefList.hashCode ^ selectedTagsCount.hashCode ^ key.hashCode;
   }
 }
 
@@ -1708,8 +1669,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.startupView,
@@ -1726,8 +1686,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.onboardingView,
@@ -1744,8 +1703,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.signUpView,
@@ -1762,8 +1720,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.loginView,
@@ -1781,8 +1738,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.userDetailsView,
@@ -1800,8 +1756,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.bottomNavBarView,
@@ -1818,8 +1773,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.savedRecipesView,
@@ -1836,8 +1790,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.profileView,
@@ -1856,8 +1809,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.settingsView,
@@ -1878,8 +1830,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.filterView,
@@ -1896,8 +1847,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.indexView,
@@ -1915,8 +1865,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.addRecipeView,
@@ -1933,8 +1882,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.comingsoonView,
@@ -1952,8 +1900,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.recipeListPageView,
@@ -1973,8 +1920,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.pinDropMapView,
@@ -1993,8 +1939,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.followingListView,
@@ -2021,8 +1966,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.recipeViewView,
@@ -2047,8 +1991,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.bottomBarGuestView,
@@ -2068,8 +2011,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.savedRecipeDetailsView,
@@ -2092,8 +2034,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.chefProfileView,
@@ -2110,8 +2051,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.chatListView,
@@ -2128,8 +2068,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.editProfileView,
@@ -2146,8 +2085,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.videoPlayerView,
@@ -2165,8 +2103,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.allChefsView,
@@ -2183,8 +2120,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.forgetPasswordView,
@@ -2201,8 +2137,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.blockedAccountsView,
@@ -2219,8 +2154,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.becomechefView,
@@ -2237,8 +2171,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.privacyPolicyView,
@@ -2255,8 +2188,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.culineryschoolviewallView,
@@ -2276,8 +2208,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.chatView,
@@ -2300,8 +2231,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.exploreAllRecipesView,
@@ -2318,8 +2248,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.viewAllDraftsView,
@@ -2339,8 +2268,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.searchView,
@@ -2362,8 +2290,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.cullinarySavedrecipesView,
@@ -2380,8 +2307,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.privateRecipesView,
@@ -2398,8 +2324,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.shoppingListView,
@@ -2416,8 +2341,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.feedbackView,
@@ -2436,8 +2360,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.profileShareView,
@@ -2455,8 +2378,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.shareRecipeToSailingCheffUserView,
@@ -2476,8 +2398,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.manageRecipesView,
@@ -2494,8 +2415,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo<dynamic>(
       Routes.managePinsView,
@@ -2512,8 +2432,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.startupView,
@@ -2530,8 +2449,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.onboardingView,
@@ -2548,8 +2466,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.signUpView,
@@ -2566,8 +2483,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.loginView,
@@ -2585,8 +2501,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.userDetailsView,
@@ -2604,8 +2519,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.bottomNavBarView,
@@ -2622,8 +2536,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.savedRecipesView,
@@ -2640,8 +2553,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.profileView,
@@ -2660,8 +2572,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.settingsView,
@@ -2682,8 +2593,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.filterView,
@@ -2700,8 +2610,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.indexView,
@@ -2719,8 +2628,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.addRecipeView,
@@ -2737,8 +2645,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.comingsoonView,
@@ -2756,8 +2663,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.recipeListPageView,
@@ -2777,8 +2683,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.pinDropMapView,
@@ -2797,8 +2702,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.followingListView,
@@ -2825,8 +2729,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.recipeViewView,
@@ -2851,8 +2754,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.bottomBarGuestView,
@@ -2872,8 +2774,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.savedRecipeDetailsView,
@@ -2896,8 +2797,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.chefProfileView,
@@ -2914,8 +2814,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.chatListView,
@@ -2932,8 +2831,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.editProfileView,
@@ -2950,8 +2848,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.videoPlayerView,
@@ -2969,8 +2866,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.allChefsView,
@@ -2987,8 +2883,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.forgetPasswordView,
@@ -3005,8 +2900,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.blockedAccountsView,
@@ -3023,8 +2917,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.becomechefView,
@@ -3041,8 +2934,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.privacyPolicyView,
@@ -3059,8 +2951,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.culineryschoolviewallView,
@@ -3080,8 +2971,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.chatView,
@@ -3104,8 +2994,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.exploreAllRecipesView,
@@ -3122,8 +3011,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.viewAllDraftsView,
@@ -3143,8 +3031,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.searchView,
@@ -3166,8 +3053,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.cullinarySavedrecipesView,
@@ -3184,8 +3070,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.privateRecipesView,
@@ -3202,8 +3087,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.shoppingListView,
@@ -3220,8 +3104,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.feedbackView,
@@ -3240,8 +3123,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.profileShareView,
@@ -3259,8 +3141,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.shareRecipeToSailingCheffUserView,
@@ -3280,8 +3161,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.manageRecipesView,
@@ -3298,8 +3178,7 @@ extension NavigatorStateExtension on _i48.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return replaceWith<dynamic>(
       Routes.managePinsView,

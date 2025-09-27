@@ -18,9 +18,9 @@ class SavedRecipeModel {
   factory SavedRecipeModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()! as Map<String, dynamic>;
     return SavedRecipeModel(
-      recipeId: data['recipeId'],
+      recipeId: data['recipeId'] as String,
       recipeModel: data['recipeModel'] != null
-          ? RecipeModel.fromSnapshot(data['recipeModel'])
+          ? RecipeModel.fromSnapshot(data['recipeModel'] as DocumentSnapshot<Object?>)
           : null,
     );
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
@@ -36,8 +37,7 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> doesDraftExist(String uid) async {
     log(uid);
     try {
-      final DocumentSnapshot snapshot =
-          await firebasestore.collection('recipes').doc(uid).get();
+      final DocumentSnapshot snapshot = await firebasestore.collection('recipes').doc(uid).get();
       if (snapshot.exists) {
         return true;
       }
@@ -57,8 +57,7 @@ class RecipeService with ListenableServiceMixin {
 
         final QuerySnapshot commentsSnapshot =
             await docSnapshot.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         final user = await _userService.fetchUserByUID(recipe.uid);
@@ -93,10 +92,8 @@ class RecipeService with ListenableServiceMixin {
           userCache[recipe.uid] = user;
         }
 
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         recipes.add(recipe);
@@ -135,8 +132,7 @@ class RecipeService with ListenableServiceMixin {
 
   Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
-      final CollectionReference collection =
-          firebasestore.collection('recipes');
+      final CollectionReference collection = firebasestore.collection('recipes');
       final documentReference = collection.doc(id);
 
       await documentReference.update({
@@ -155,8 +151,7 @@ class RecipeService with ListenableServiceMixin {
 
       log(draftExists.toString());
       if (draftExists) {
-        final DocumentReference docRef =
-            firebasestore.collection('recipes').doc(recipe.docId);
+        final DocumentReference docRef = firebasestore.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
 
@@ -183,14 +178,9 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     log('addRecipeToFirestore ${recipe.docId}');
     EasyLoading.show();
-    const CircularProgressIndicator(
-      color: kcMediumGrey,
-    );
     try {
-      final QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('doc_id', isEqualTo: recipe.docId)
-          .get();
+      final QuerySnapshot snapshot =
+          await firebasestore.collection('recipes').where('doc_id', isEqualTo: recipe.docId).get();
 
       if (snapshot.docs.isNotEmpty && recipe.docId != null) {
         final DocumentReference docRef =
@@ -202,10 +192,7 @@ class RecipeService with ListenableServiceMixin {
         await docRef.update({
           'doc_id': docId,
         });
-        await firebasestore
-            .collection('users')
-            .doc(firebaseAuth.currentUser!.uid)
-            .update({
+        await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(recipe.docId!);
@@ -221,10 +208,7 @@ class RecipeService with ListenableServiceMixin {
         final docId = docRef.id;
 
         await docRef.update({'doc_id': docId});
-        await firebasestore
-            .collection('users')
-            .doc(firebaseAuth.currentUser!.uid)
-            .update({
+        await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(docId);
@@ -246,9 +230,11 @@ class RecipeService with ListenableServiceMixin {
   Future<String> uploadChefNoteToFirebaseStorage(String filePath) async {
     try {
       final file = File(filePath);
+      if (!file.existsSync() || file.lengthSync() == 0) {
+        return '';
+      }
       EasyLoading.show();
-      final storageReference =
-          firebaseStorage.ref().child('audio/${DateTime.now()}.mpeg4');
+      final storageReference = firebaseStorage.ref().child('audio/${DateTime.now()}.mpeg4');
       final uploadTask = storageReference.putFile(file);
       // ignore: avoid_print
       await uploadTask.whenComplete(() => print('File Uploaded'));
@@ -256,7 +242,7 @@ class RecipeService with ListenableServiceMixin {
       return await storageReference.getDownloadURL();
     } catch (e) {
       EasyLoading.dismiss();
-      showToast(message: 'Error uploading audio files to Firebase Storage: $e');
+      // showToast(message: 'Error uploading audio files to Firebase Storage: $e');
       log('Error uploading audio to Firebase Storage: $e');
       return '';
     }
@@ -266,47 +252,101 @@ class RecipeService with ListenableServiceMixin {
     List<XFile?> mediaFiles,
     String id,
   ) async {
-    final mediaUrls = <String>[];
+    // Returns list of download URLs for successfully uploaded media files (images/videos).
+    // Null entries in mediaFiles are skipped. Errors on individual files are logged but don't fail the entire batch.
+    if (mediaFiles.isEmpty) return [];
+
+    final uploadedUrls = <String>[];
+    EasyLoading.show(status: 'Uploading media...');
     try {
-      EasyLoading.show();
       for (final media in mediaFiles) {
-        String fileName;
-        String fileExtension;
-
-        if (media!.isVideo) {
-          fileExtension = '.mp4';
-          fileName =
-              DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
-        } else {
-          fileExtension = '.jpg';
-          fileName =
-              DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+        if (media == null) continue; // Skip null safely
+        final url = await _uploadSingleMedia(media, id);
+        if (url != null) {
+          uploadedUrls.add(url);
         }
-
-        final ref = firebaseStorage.ref().child('images/recipes/$fileName');
-        final uploadTask = ref.putFile(File(media.path));
-        final taskSnapshot = await uploadTask;
-        final mediaUrl = await taskSnapshot.ref.getDownloadURL();
-
-        mediaUrls.add(mediaUrl);
-        log(mediaUrls.toString());
       }
+      return uploadedUrls;
+    } catch (e, st) {
+      log('Batch media upload failed: $e\n$st');
+      showToast(message: 'Media upload failed: $e');
+      return uploadedUrls; // Return any partial successes
+    } finally {
       EasyLoading.dismiss();
-      return mediaUrls;
-    } catch (error) {
-      EasyLoading.dismiss();
-      showToast(
-          message: 'Error uploading media files to Firebase Storage: $error');
-      log('Error uploading media files to Firebase Storage: $error');
-
-      return [];
     }
+  }
+
+  // Upload a single media file (image or video) with proper extension & metadata.
+  Future<String?> _uploadSingleMedia(XFile media, String recipeId) async {
+    try {
+      final file = File(media.path);
+      if (!await file.exists()) {
+        log('File does not exist: ${media.path}');
+        return null;
+      }
+
+      final originalExt = _extractFileExtension(media.path); // e.g. jpg / mp4
+      final isVideo = media.isVideo;
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      // Namespace by recipe id to avoid collisions & allow easier cleanup.
+      final folder = isVideo ? 'videos' : 'images';
+      final fileName = '${recipeId}_$timestamp.$originalExt';
+      final storagePath = 'recipes/$recipeId/$folder/$fileName';
+
+      final metadata = SettableMetadata(
+        contentType: _guessContentType(originalExt, isVideo),
+        customMetadata: {
+          'recipe_id': recipeId,
+          'original_name': media.name,
+          'uploaded_at': DateTime.now().toIso8601String(),
+          'type': isVideo ? 'video' : 'image',
+        },
+      );
+
+      final ref = firebaseStorage.ref().child(storagePath);
+      final uploadTask = ref.putFile(file, metadata);
+      final snapshot = await uploadTask;
+      final url = await snapshot.ref.getDownloadURL();
+      log('Uploaded $storagePath => $url');
+      return url;
+    } catch (e, st) {
+      log('Error uploading single media ${media.path}: $e\n$st');
+      return null;
+    }
+  }
+
+  String _extractFileExtension(String path) {
+    final parts = path.split('.');
+    if (parts.length < 2) return 'jpg'; // default fallback
+    return parts.last.toLowerCase();
+  }
+
+  String _guessContentType(String ext, bool isVideo) {
+    final lower = ext.toLowerCase();
+    if (isVideo) {
+      const mp4Group = {'mp4', 'm4v', '3gp', '3g2', 'mpg', 'mpeg', 'ts', 'mts', 'm2ts'};
+      if (mp4Group.contains(lower)) return 'video/mp4';
+      if (lower == 'mov') return 'video/quicktime';
+      if (lower == 'webm') return 'video/webm';
+      if (lower == 'mkv') return 'video/x-matroska';
+      if (lower == 'avi') return 'video/x-msvideo';
+      if (lower == 'wmv') return 'video/x-ms-wmv';
+      return 'video/mp4'; // fallback
+    }
+    const jpegGroup = {'jpg', 'jpeg'};
+    if (jpegGroup.contains(lower)) return 'image/jpeg';
+    if (lower == 'png') return 'image/png';
+    if (lower == 'gif') return 'image/gif';
+    if (lower == 'webp') return 'image/webp';
+    if (lower == 'heic' || lower == 'heif') return 'image/heic';
+    if (lower == 'svg') return 'image/svg+xml';
+    if (lower == 'bmp') return 'image/bmp';
+    return 'image/jpeg'; // fallback
   }
 
   Future<void> deleteAudioFromDocument(String id, String url) async {
     try {
-      final CollectionReference collection =
-          firebasestore.collection('recipes');
+      final CollectionReference collection = firebasestore.collection('recipes');
       final documentReference = collection.doc(id);
       EasyLoading.show();
       var filePath = Uri.decodeFull(Uri.parse(url).path);
@@ -368,10 +408,8 @@ class RecipeService with ListenableServiceMixin {
         final recipe = RecipeModel.fromSnapshot(doc);
 
         // Fetch comments for the current recipe
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         // Fetch user details by UID and assign it to the recipe
@@ -404,10 +442,8 @@ class RecipeService with ListenableServiceMixin {
           final recipe = RecipeModel.fromSnapshot(doc);
 
           // Fetch comments for the current recipe
-          final QuerySnapshot commentsSnapshot =
-              await doc.reference.collection('comments').get();
-          final comments =
-              commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+          final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+          final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
           recipe.comment = comments;
 
           // Fetch user details by UID and assign it to the recipe
@@ -461,10 +497,8 @@ class RecipeService with ListenableServiceMixin {
   Future<List<RecipeModel>> fetchAllMyRecipes() async {
     try {
       // Fetches all documents from the 'recipes' collection
-      final QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('uid', isEqualTo: userDetails!.uid)
-          .get();
+      final QuerySnapshot snapshot =
+          await firebasestore.collection('recipes').where('uid', isEqualTo: userDetails!.uid).get();
 
       // Maps each DocumentSnapshot to a RecipeModel
       return snapshot.docs.map(RecipeModel.fromSnapshot).toList();
@@ -488,20 +522,15 @@ class RecipeService with ListenableServiceMixin {
       for (final doc in snapshot.docs) {
         final draftRecipe = RecipeModel.fromSnapshot(doc);
 
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         draftRecipe.comment = comments;
 
         final user = await _userService.fetchUserByUID(draftRecipe.uid);
         draftRecipe.user = user;
 
         if (drafts.any((element) => element.docId == doc.id)) {
-          await firebasestore
-              .collection('recipes')
-              .doc(doc.id)
-              .update(draftRecipe.toMap());
+          await firebasestore.collection('recipes').doc(doc.id).update(draftRecipe.toMap());
         } else {
           draftRecipe.docId = doc.id;
           draftRecipes.add(draftRecipe);
@@ -521,18 +550,17 @@ class RecipeService with ListenableServiceMixin {
       log('draft exits $draftExists');
       EasyLoading.show();
       if (draftExists) {
-        final DocumentReference docRef =
-            firebasestore.collection('recipes').doc(recipe.docId);
+        final DocumentReference docRef = firebasestore.collection('recipes').doc(recipe.docId);
 
         await docRef.update({'visibility': 'Public', 'status': 'pending'});
 
-        showToast(message: 'Saved Recipe Publically');
+        showToast(message: 'Saved Recipe Publicly');
       }
       EasyLoading.dismiss();
       return true;
     } catch (error) {
       EasyLoading.dismiss();
-      showToast(message: 'Error Saving Recipe Publically: $error');
+      showToast(message: 'Error saving recipe publicly: $error');
       return false;
     }
   }
@@ -562,8 +590,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<void> updateRecipeStatus(
-      String recipeId, Map<String, String> value) async {
+  Future<void> updateRecipeStatus(String recipeId, Map<String, String> value) async {
     try {
       EasyLoading.show();
       await firebasestore.collection('recipes').doc(recipeId).update(value);

@@ -1,9 +1,10 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet_model.dart';
 
 class DiscardSheet extends StackedView<DiscardSheetModel> {
-  final Function(SheetResponse response)? completer;
+  final void Function(SheetResponse response)? completer;
   final SheetRequest request;
   const DiscardSheet({
     required this.completer,
@@ -17,9 +18,11 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
     DiscardSheetModel viewModel,
     Widget? child,
   ) {
-    final RecipeModel recipe = request.data['model'];
-    final images = request.data['images'];
-    final path = request.data['path'];
+    final recipe = request.data['model'] as RecipeModel;
+    final images = request.data['images'] as List<XFile?>;
+    final audioNotePath = request.data['path'] as String;
+    final isDraft = request.data['isDraft'] as bool? ?? false;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
@@ -35,8 +38,7 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
           verticalSpaceMedium,
           Text(
             'Discard edits?',
-            style: globalTextStyle(
-                fontSize: 22, fontWeight: FontWeight.w600, color: kcBlackColor),
+            style: globalTextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: kcBlackColor),
           ),
           verticalSpaceMedium,
           Text(
@@ -54,7 +56,7 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
             children: [
               GestureDetector(
                 onTap: () {
-                  viewModel.discardButton();
+                  viewModel.discardButton(isDraft);
                   completer!(SheetResponse(confirmed: true));
                 },
                 child: Container(
@@ -84,7 +86,7 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
               GestureDetector(
                 onTap: () {
                   completer!(SheetResponse(confirmed: true));
-                  viewModel.saveButton(recipe, images, path);
+                  viewModel.saveButton(recipe, images, audioNotePath);
                 },
                 child: Container(
                   height: 40,
@@ -118,5 +120,5 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
 
   @override
   DiscardSheetModel viewModelBuilder(BuildContext context) =>
-      DiscardSheetModel(recipe: request.data['model']);
+      DiscardSheetModel(recipe: request.data['model'] as RecipeModel);
 }

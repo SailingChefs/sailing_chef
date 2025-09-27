@@ -64,8 +64,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
 
   final messageController = TextEditingController();
 
-  Future<void> getImage(
-      ImageSource source, String receiverId, conversationId) async {
+  Future<void> getImage(ImageSource source, String receiverId, String conversationId) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
@@ -93,7 +92,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
     }
   }
 
-  Future<void> sendMessage(receiverId, conversationId,
+  Future<void> sendMessage(String receiverId, String conversationId,
       {String? imageUrl, String? fileUrl, String? fileName}) async {
     if (messageController.text.isNotEmpty) {
       addMessage(
@@ -174,8 +173,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
   File? pickFile;
 
   @override
-  Stream<List<MessageModel>> get stream =>
-      _conversationService.getMessages(convoId);
+  Stream<List<MessageModel>> get stream => _conversationService.getMessages(convoId);
 
   Future<void> getFile(String receiverId, String conversationId) async {
     final result = await FilePicker.platform.pickFiles(
@@ -187,8 +185,7 @@ class ChatViewModel extends StreamViewModel<List<MessageModel>> {
       rebuildUi();
       pickFile = File(result.files.single.path!);
       final fileName = result.files.single.path!.split('/').last;
-      final storageRef =
-          FirebaseStorage.instance.ref().child('files/$fileName');
+      final storageRef = FirebaseStorage.instance.ref().child('files/$fileName');
       final uploadTask = storageRef.putFile(pickFile!);
 
       final taskSnapshot = await uploadTask;

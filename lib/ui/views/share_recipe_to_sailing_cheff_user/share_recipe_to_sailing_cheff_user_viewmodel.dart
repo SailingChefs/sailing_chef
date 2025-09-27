@@ -36,8 +36,8 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
         lastActive: DateTime.now(),
         uid: '',
       );
-      final conversationId = await _serviceConversations
-          .createOrUpdateConversation(conversationModel);
+      final conversationId =
+          await _serviceConversations.createOrUpdateConversation(conversationModel);
       log('conversationId: $conversationId');
 
       return conversationId;
@@ -60,7 +60,7 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void sendMessage(receiverId, conversationId, Uri content) {
+  void sendMessage(String receiverId, String conversationId, Uri content) {
     addMessage(
         MessageModel(
           content: content.toString(),
@@ -74,12 +74,11 @@ class ShareRecipeToSailingCheffUserViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  Future<void> sendLinkToSailingChefUser(
-      UserModel user, Uri dynamicLink) async {
+  Future<void> sendLinkToSailingChefUser(UserModel user, Uri dynamicLink) async {
     final chatroomID = await getChatRoom(user);
 
     if (chatroomID != null) {
-      sendMessage(user.uid, chatroomID, dynamicLink);
+      sendMessage(user.uid!, chatroomID, dynamicLink);
     }
     showToast(message: 'Link has been Send');
   }

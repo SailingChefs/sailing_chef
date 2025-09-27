@@ -3,7 +3,9 @@ import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class TopBarAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel>
     implements PreferredSizeWidget {
-  const TopBarAddRecipeScreen({super.key});
+  const TopBarAddRecipeScreen({this.isDraft = false, super.key});
+
+  final bool isDraft;
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
@@ -12,9 +14,26 @@ class TopBarAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(
-            width: 20,
-          ),
+          if (isDraft)
+            Padding(
+              padding: EdgeInsets.only(left: 8.0.w),
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: viewModel.back,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 26.h,
+                  width: 24.w,
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: kcBlackColor,
+                    size: 18.sp,
+                  ),
+                ),
+              ),
+            )
+          else
+            const SizedBox(width: 32),
           Text(
             'Create Recipe',
             style: globalTextStyle(
@@ -27,9 +46,9 @@ class TopBarAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel>
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: viewModel.showDraftDialog,
+              onTap: () => viewModel.showDraftDialog(isDraft),
               child: Icon(
-                Icons.file_copy,
+                Icons.save,
                 color: kcPrimaryColor,
                 size: 24.sp,
               ),

@@ -1,12 +1,14 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet_model.dart';
-import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/widgets/two_fields.dart';
-import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/text_field_comment.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/widgets/edit_ingredient_textfield.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/widgets/ingredient_quantity_unit.dart';
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 
 class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
+
   const EditIngredientSheet({
     required this.completer,
     required this.request,
@@ -19,8 +21,8 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
     EditIngredientSheetModel viewModel,
     Widget? child,
   ) {
-    final quantityController =
-        TextEditingController(text: request.data['ingredient'].quantity);
+    final ingredient = request.data as Ingredient;
+
     // final TextEditingController quantityController;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -38,7 +40,7 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
           // const IngredientsSheetTopBar(),
           Center(
             child: Text(
-              'Save Ingredient',
+              'Edit Ingredient',
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
             ),
           ),
@@ -50,18 +52,18 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
               border: Border.all(color: kcVeryLightGrey),
             ),
             width: double.infinity,
-            child: CommonTextField(
-              hintText: request.data['ingredient'].name ?? '',
-              prefix: Icons.drag_indicator,
+            margin: const EdgeInsets.only(right: 16, left: 40),
+            child: EditIngredientTextField(
+              hintText: viewModel.ingredientNameController.text,
             ),
           ),
           verticalSpaceTiny,
-          TwoFields(quantityController, request.data['ingredient']),
+          IngredientQuantityUnit(ingredient),
           verticalSpaceTiny,
           Center(
             child: SaveRecipeButton(
               onPressed: () {
-                viewModel.showUpdatedIngredient();
+                viewModel.onSaved();
               },
               buttonText: 'Save Ingredient',
               prefix: Icons.add,
@@ -75,8 +77,7 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
 
   @override
   EditIngredientSheetModel viewModelBuilder(BuildContext context) =>
-      EditIngredientSheetModel(
-          request.data['ingredient'], request.data['listIndex']);
+      EditIngredientSheetModel(request.data as Ingredient, completer);
 
   @override
   void onViewModelReady(EditIngredientSheetModel viewModel) {

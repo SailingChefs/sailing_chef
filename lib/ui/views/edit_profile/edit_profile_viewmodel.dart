@@ -202,29 +202,22 @@ class EditProfileViewModel extends BaseViewModel {
 
   Future<void> saveEditDetailsGuest(String name, String bio) async {
     if (formKey.currentState!.validate()) {
+      final userData = <String, dynamic>{
+        'display_name': name,
+        'bio': bio,
+      };
       if (selectedImageFile != null) {
         await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
         final imageLink = await _userService.uploadImage(
           selectedImageFile!,
           selectedImageFile!.path.split('/').last,
         );
-        final userData = <String, dynamic>{
-          'display_picture': imageLink,
-          'display_name': name,
-          'bio': bio,
-        };
-        await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
-        userDetails = await _userService.getUserDetails();
-        _navigationService.navigateToBottomNavBarView();
-        notifyListeners();
+        userData['display_picture'] = imageLink;
       }
-    } else {
-      final userData = <String, dynamic>{
-        'display_name': name,
-        'bio': bio,
-      };
       await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
+      userDetails = await _userService.getUserDetails();
       _navigationService.navigateToBottomNavBarView();
+      notifyListeners();
     }
   }
 

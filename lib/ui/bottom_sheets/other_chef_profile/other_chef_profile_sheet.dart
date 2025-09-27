@@ -1,5 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-
+import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet_model.dart';
 
 class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
@@ -62,7 +62,7 @@ class OtherChefProfileSheet extends StackedView<OtherChefProfileSheetModel> {
               ),
               const Divider(),
               GestureDetector(
-                onTap: () => viewModel.blockAccount(request.data),
+                onTap: () => viewModel.blockAccount(request.data as UserModel),
                 child: Container(
                   height: 55,
                   decoration: const BoxDecoration(

@@ -27,7 +27,7 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
   ) {
     String? pin;
     if (request.data != null) {
-      pin = request.data;
+      pin = request.data as String?;
       log('hnhnh $pin');
     }
 
@@ -86,6 +86,5 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
   }
 
   @override
-  DeletePinDialogModel viewModelBuilder(BuildContext context) =>
-      DeletePinDialogModel();
+  DeletePinDialogModel viewModelBuilder(BuildContext context) => DeletePinDialogModel();
 }

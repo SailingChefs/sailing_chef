@@ -3,9 +3,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_s
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
 // ignore: must_be_immutable
-class CommonTextField extends ViewModelWidget<AddIngredientsSheetModel> {
-  CommonTextField(
-      {super.key, this.hintText, this.prefix, this.postfix, this.width});
+class AddIngredientTextField extends ViewModelWidget<AddIngredientsSheetModel> {
+  AddIngredientTextField({super.key, this.hintText, this.prefix, this.postfix, this.width});
   final String? hintText;
   final IconData? prefix;
   final IconData? postfix;

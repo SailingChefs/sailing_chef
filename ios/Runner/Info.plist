@@ -29,14 +29,14 @@
 				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>com.googleusercontent.apps.66812962587-4m16ped1sode45koqnv2q2u46oon5d7s</string>
+					<string>com.googleusercontent.apps.66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um</string>
 				</array>
 			</dict>
 		</array>
 		<key>CFBundleVersion</key>
 		<string>13</string>
 		<key>GIDClientID</key>
-		<string>66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com</string>
+		<string>66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um.apps.googleusercontent.com</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
 			<string>sms</string>
@@ -77,13 +77,6 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>aps-environment</key>
 		<string>production</string>

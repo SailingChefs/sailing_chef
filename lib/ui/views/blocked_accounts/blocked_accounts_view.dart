@@ -14,41 +14,39 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
     Widget? child,
   ) {
     final size = MediaQuery.of(context).size;
-    return viewModel.isBusy
-        ? const Center(
-            child: CircularProgressIndicator(
-            color: kcPrimaryColor,
-          ))
-        : Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            appBar: AppBar(
-              leading: Padding(
-                padding: EdgeInsets.only(left: 8.0.w),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: viewModel.back,
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 26.h,
-                    width: 26.w,
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: kcBlackColor,
-                      size: 18.sp,
-                    ),
-                  ),
-                ),
-              ),
-              centerTitle: true,
-              title: Text(
-                'Blocked Accounts',
-                style: TextStyle(
-                    fontSize: 18.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        backgroundColor: kcBackgroundColor,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 8.0.w),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: viewModel.back,
+            child: Container(
+              alignment: Alignment.center,
+              height: 26.h,
+              width: 26.w,
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: kcBlackColor,
+                size: 18.sp,
               ),
             ),
-            body: SizedBox(
+          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Blocked Accounts',
+          style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: viewModel.isBusy
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kcPrimaryColor,
+            ))
+          : SizedBox(
               height: size.height,
               width: size.width,
               // padding: const EdgeInsets.only(left: 25.0, right: 25.0),
@@ -64,18 +62,15 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                       itemCount: viewModel.blockedUsers.length,
                       itemBuilder: (context, index) {
                         return FutureBuilder(
-                          future: viewModel.findUserDetails(
-                              uid: viewModel.blockedUsers[index]),
+                          future: viewModel.findUserDetails(uid: viewModel.blockedUsers[index]),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
                               return const Text('');
                             } else if (snapshot.data == null) {
                               return Center(
                                 child: Text(
                                   'No Blocked User',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12.sp),
+                                  style: TextStyle(color: Colors.black, fontSize: 12.sp),
                                 ),
                               );
                             }
@@ -85,8 +80,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 24.r,
-                                  backgroundImage:
-                                      ImageUtils.safeNetworkImageForAvatar(
+                                  backgroundImage: ImageUtils.safeNetworkImageForAvatar(
                                     blockUser!.displayPicture,
                                   ),
                                 ),
@@ -116,8 +110,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                                       user: blockUser,
                                     );
                                   },
-                                  itemBuilder: (BuildContext context) =>
-                                      <PopupMenuEntry<String>>[
+                                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                     const PopupMenuItem<String>(
                                       value: 'unblock',
                                       child: Text('Unblock User'),
@@ -131,7 +124,7 @@ class BlockedAccountsView extends StackedView<BlockedAccountsViewModel> {
                       },
                     ),
             ),
-          );
+    );
   }
 
   @override

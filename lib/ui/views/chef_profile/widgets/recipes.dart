@@ -13,11 +13,9 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
             width: 400,
             height: 325,
             child: Center(
-              child: Text('No Recipies Yet',
+              child: Text('No Recipes Yet',
                   style: globalTextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: kcBlackColor)),
+                      fontSize: 13, fontWeight: FontWeight.w500, color: kcBlackColor)),
             ),
           )
 
@@ -71,14 +69,12 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
         // )
         : Padding(
             padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
+            child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
               return ShrinkWrappingViewport(
                 offset: ViewportOffset.zero(),
                 slivers: [
                   SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 15.0,
                       mainAxisSpacing: 18.0,
@@ -96,8 +92,7 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                               .first,
                           dishName: viewModel.chefRecipes[index].title,
                           duration: viewModel.chefRecipes[index].prepTime,
-                          chefImagePath: viewModel
-                              .chefRecipes[index].user!.displayPicture!,
+                          chefImagePath: viewModel.chefRecipes[index].user!.displayPicture!,
                         );
                       },
                       childCount: viewModel.chefRecipes.length,

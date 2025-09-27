@@ -107,42 +107,39 @@ class ShoppingItem {
       'ingredient_id': ingredientId,
       'recipe_id': recipeId,
       'is_removed': isRemoved,
-      'ingredients':
-          ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'ingredients': ingredients.map((ingredient) => ingredient.toJson()).toList(),
     };
   }
 
   factory ShoppingItem.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()! as Map<String, dynamic>;
     return ShoppingItem(
-      recipeName: data['recipe_name'],
-      ingredientName: data['ingredient_name'],
-      quantity: data['quantity'],
-      unit: data['unit'],
-      ingredientId: data['ingredient_id'] ?? '',
-      id: data['id'] ?? '',
-      recipeId: data['recipe_id'],
-      isRemoved: data['is_removed'] ?? false,
+      recipeName: data['recipe_name'] as String,
+      ingredientName: data['ingredient_name'] as String,
+      quantity: data['quantity'] as String,
+      unit: data['unit'] as String,
+      ingredientId: (data['ingredient_id'] as String?) ?? '',
+      id: (data['id'] as String?) ?? '',
+      recipeId: data['recipe_id'] as String,
+      isRemoved: (data['is_removed'] as bool?) ?? false,
       ingredients: (data['ingredients'] as List<dynamic>? ?? [])
-          .map((ingredient) =>
-              Ingredient.fromMap(ingredient as Map<String, dynamic>))
+          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
     );
   }
 
   factory ShoppingItem.fromMap(Map<String, dynamic> map) {
     return ShoppingItem(
-      recipeName: map['recipe_name'] ?? '',
-      ingredientName: map['ingredient_name'] ?? '',
-      quantity: map['quantity'] ?? '',
-      unit: map['unit'] ?? '',
-      ingredientId: map['ingredient_id'] ?? '',
-      id: map['id'] ?? '',
-      recipeId: map['recipe_id'] ?? '',
-      isRemoved: map['is_removed'] ?? false,
+      recipeName: (map['recipe_name'] as String?) ?? '',
+      ingredientName: (map['ingredient_name'] as String?) ?? '',
+      quantity: (map['quantity'] as String?) ?? '',
+      unit: (map['unit'] as String?) ?? '',
+      ingredientId: (map['ingredient_id'] as String?) ?? '',
+      id: (map['id'] as String?) ?? '',
+      recipeId: (map['recipe_id'] as String?) ?? '',
+      isRemoved: (map['is_removed'] as bool?) ?? false,
       ingredients: (map['ingredients'] as List<dynamic>? ?? [])
-          .map((ingredient) =>
-              Ingredient.fromMap(ingredient as Map<String, dynamic>))
+          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
     );
   }

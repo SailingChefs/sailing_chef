@@ -26,8 +26,8 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
         child: Container(
           width: size.width,
           margin: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.05, vertical: size.height * 0.05),
+          padding:
+              EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.05),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.r),
               color: Colors.white,
@@ -77,11 +77,9 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
                 child: CupertinoButton(
                   onPressed: viewModel.vaigateToForgetPassword,
                   child: Text(
-                    'forgot password?',
+                    'Forgot password?',
                     style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: kcBlackColor),
+                        fontSize: 12.sp, fontWeight: FontWeight.bold, color: kcBlackColor),
                   ),
                 ),
               ),
@@ -244,6 +242,5 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
   }
 
   @override
-  EnterPassDialogModel viewModelBuilder(BuildContext context) =>
-      EnterPassDialogModel();
+  EnterPassDialogModel viewModelBuilder(BuildContext context) => EnterPassDialogModel();
 }

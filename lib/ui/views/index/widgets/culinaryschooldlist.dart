@@ -13,23 +13,18 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
     return viewModel.cullinary.isEmpty
         ? Center(
             child: Text(
-              'No Cullinary School Found',
-              style: globalTextStyle(
-                  fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
+              'No Culinary School Found',
+              style: globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
             ),
           )
         : Column(
             children: <Widget>[
               verticalSpaceSmall,
               SizedBox(
-                height: screenHeight <= 680.0
-                    ? screenHeight * 0.25
-                    : screenHeight * 0.27,
+                height: screenHeight <= 680.0 ? screenHeight * 0.25 : screenHeight * 0.27,
                 width: double.maxFinite,
                 child: ListView.builder(
-                  itemCount: viewModel.cullinary.length > 20
-                      ? 5
-                      : viewModel.cullinary.length,
+                  itemCount: viewModel.cullinary.length > 20 ? 5 : viewModel.cullinary.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -65,22 +60,15 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                                  0.25.h -
-                                              48.h,
+                                      height: MediaQuery.sizeOf(context).height * 0.25.h - 48.h,
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl:
-                                          cullinaruschools.displayPicture!,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                                  0.25.h -
-                                              48.h,
+                                      imageUrl: cullinaruschools.displayPicture!,
+                                      height: MediaQuery.sizeOf(context).height * 0.25.h - 48.h,
                                       fit: BoxFit.cover,
                                       width: double.maxFinite,
-                                      progressIndicatorBuilder:
-                                          (context, url, progress) => Container(
+                                      progressIndicatorBuilder: (context, url, progress) =>
+                                          Container(
                                         decoration: const BoxDecoration(
                                           color: kcsgreycolor,
                                         ),
@@ -88,11 +76,9 @@ class CullinaryListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8.0.w, right: 8.0.w, top: 15.0.h),
+                              padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
-                                capitalizeEachWord(
-                                    cullinaruschools.displayName!),
+                                capitalizeEachWord(cullinaruschools.displayName!),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,

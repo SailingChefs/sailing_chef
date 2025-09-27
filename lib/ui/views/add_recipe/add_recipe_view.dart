@@ -23,7 +23,7 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: const TopBarAddRecipeScreen(),
+        appBar: TopBarAddRecipeScreen(isDraft: drafts != null),
         body: viewModel.isBusy && drafts != null
             ? const Center(
                 child: CircularProgressIndicator(

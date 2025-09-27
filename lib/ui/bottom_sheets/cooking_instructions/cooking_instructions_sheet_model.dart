@@ -5,8 +5,7 @@ class CookingInstructionsSheetModel extends BaseViewModel {
   final Function(SheetResponse response)? completer;
   CookingInstructionsSheetModel({required this.completer});
   final _navigationService = locator<NavigationService>();
-  final TextEditingController cookingInstructionController =
-      TextEditingController();
+  final TextEditingController cookingInstructionController = TextEditingController();
   List<String> instructionsList = [];
 
   void popBack() {
@@ -14,12 +13,9 @@ class CookingInstructionsSheetModel extends BaseViewModel {
   }
 
   void saveData() {
-    if (completer != null) {
-      completer!(SheetResponse(
-          confirmed: true,
-          data: CookingInstructionsSheetResponse(
-              instructionsListResponse: instructionsList)));
-    }
+    completer?.call(SheetResponse(
+        confirmed: true,
+        data: CookingInstructionsSheetResponse(instructionsListResponse: instructionsList)));
   }
 
   void addInstruction() {

@@ -18,7 +18,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   final SheetRequest request;
 
   const DropPinSheetSheet(
-      {required this.completer, required this.request, required this.isNew, super.key});
+      {required this.completer, required this.request, this.isNew = true, super.key});
 
   @override
   Widget builder(
@@ -172,7 +172,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                     ),
                   ),
                   verticalSpaceLarge,
-                  ButtonsPindrop(completer: completer, isNew: request.data['isNew']),
+                  ButtonsPindrop(completer: completer, isNew: request.data['isNew'] as bool),
                   verticalSpaceMedium,
                   // request.data != null
                   //     ? GestureDetector(
@@ -218,5 +218,5 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
   @override
   DropPinSheetSheetModel viewModelBuilder(BuildContext context) =>
       DropPinSheetSheetModel(completer, request.data['pinnedLocationData'] as PinnedLocationData,
-          isNew: request.data['isNew']);
+          isNew: request.data['isNew'] as bool);
 }

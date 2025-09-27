@@ -43,11 +43,8 @@ void setupBottomSheetUi() {
         AddIngredientsSheet(request: request, completer: completer),
     BottomSheetType.cookingInstructions: (context, request, completer) =>
         CookingInstructionsSheet(request: request, completer: completer),
-    BottomSheetType.dropPinSheet: (context, request, completer) => DropPinSheetSheet(
-          request: request,
-          completer: completer,
-          isNew: true,
-        ),
+    BottomSheetType.dropPinSheet: (context, request, completer) =>
+        DropPinSheetSheet(request: request, completer: completer),
     BottomSheetType.dropPinButtons: (context, request, completer) =>
         DropPinButtonsSheet(request: request, completer: completer),
     BottomSheetType.otherChefProfile: (context, request, completer) =>

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
@@ -8,8 +9,7 @@ import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SaveDraftAlertboxDialog
-    extends StackedView<SaveDraftAlertboxDialogModel> {
+class SaveDraftAlertboxDialog extends StackedView<SaveDraftAlertboxDialogModel> {
   final DialogRequest? request;
   final Function(DialogResponse)? completer;
 
@@ -25,9 +25,11 @@ class SaveDraftAlertboxDialog
     SaveDraftAlertboxDialogModel viewModel,
     Widget? child,
   ) {
-    final RecipeModel recipe = request!.data['model'];
-    final images = request!.data['images'];
-    final path = request!.data['path'];
+    final recipe = request!.data['model'] as RecipeModel;
+    final images = request!.data['images'] as List<XFile?>;
+    final path = request!.data['path'] as String;
+    final isDraft = request!.data['isDraft'] as bool;
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       backgroundColor: kcWhiteColor,
@@ -75,7 +77,7 @@ class SaveDraftAlertboxDialog
                             TextButton(
                               onPressed: () {
                                 completer!(DialogResponse(confirmed: true));
-                                viewModel.noButton(recipe, images, path);
+                                viewModel.noButton(recipe, images, path, isDraft);
                               },
                               child: Text(
                                 'No',

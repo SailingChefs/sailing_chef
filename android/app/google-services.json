@@ -7,42 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:66812962587:android:91f687098d06b30ce655be",
-        "android_client_info": {
-          "package_name": "com.example.testing"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.drudotstech.SailingChefs"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:66812962587:android:f03afe9f66caf284e655be",
         "android_client_info": {
           "package_name": "com.stackwise.sailingChefs"
@@ -91,10 +55,11 @@
               "client_type": 3
             },
             {
-              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
+              "client_id": "66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.drudotstech.SailingChefs"
+                "bundle_id": "com.drudotstech.SailingChefs",
+                "app_store_id": "1670288814"
               }
             }
           ]
@@ -127,10 +92,11 @@
               "client_type": 3
             },
             {
-              "client_id": "66812962587-4m16ped1sode45koqnv2q2u46oon5d7s.apps.googleusercontent.com",
+              "client_id": "66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.drudotstech.SailingChefs"
+                "bundle_id": "com.drudotstech.SailingChefs",
+                "app_store_id": "1670288814"
               }
             }
           ]

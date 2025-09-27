@@ -14,7 +14,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
         children: [
           RoundedTransparentTextField(
             controller: viewModel.textController,
-            labelText: 'name & surname',
+            labelText: 'Full name',
             onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateName,
             fillColor: filledcolorlogin.withOpacity(0.3),
@@ -24,7 +24,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
           RoundedTransparentTextField(
             controller: viewModel.emailController,
             fillColor: filledcolorlogin.withOpacity(0.3),
-            labelText: 'email',
+            labelText: 'Email',
             onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateEmail,
             keyboardType: TextInputType.emailAddress,
@@ -32,7 +32,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
           verticalSpace(MediaQuery.of(context).size.height * 0.020),
           RoundedTransparentTextField(
             controller: viewModel.passwordController,
-            labelText: 'password',
+            labelText: 'Password',
             fillColor: filledcolorlogin.withOpacity(0.3),
             ispassvisible: viewModel.showPassword,
             keyboardType: TextInputType.visiblePassword,
@@ -54,7 +54,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             textColor: kclightgreencolor,
             isEnabled: viewModel.isSignupButtonEnabled(),
             onPressed: () => viewModel.signup(),
-            buttonText: 'create account',
+            buttonText: 'Create account',
           ),
         ],
       ),

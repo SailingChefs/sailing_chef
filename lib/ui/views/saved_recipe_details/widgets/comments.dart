@@ -147,7 +147,7 @@ class CommentsDetailsScreen
                             viewModel.addComment(recipeModel.docId!),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Add your Review',
+                          hintText: 'Add your review',
                           hintStyle: globalTextStyle(
                               fontSize: 14.0.sp,
                               letterSpacing: -0.3,
@@ -190,15 +190,15 @@ class CommentsDetailsScreen
                 child: TextButton(
                     onPressed: viewModel.seeCommentsAll,
                     child: !viewModel.seeComments
-                        ? Text(
-                            'See All Reviews',
+            ? Text(
+              'See all reviews',
                             style: globalTextStyle(
                                 color: kcPrimaryColor,
                                 fontSize: 14.0.sp,
                                 fontWeight: FontWeight.w500),
                           )
-                        : Text(
-                            'Hide Reviews',
+            : Text(
+              'Hide reviews',
                             style: globalTextStyle(
                                 color: kcPrimaryColor,
                                 fontSize: 14.0.sp,

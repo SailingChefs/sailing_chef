@@ -12,6 +12,10 @@ class ViewAllDraftsViewModel extends BaseViewModel {
     _navigatorService.navigateToSettingsView();
   }
 
+  void back() {
+    _navigatorService.back();
+  }
+
   Future<void> onViewModelReady() async {
     setBusy(true);
     await _draftService.initializeddraft();

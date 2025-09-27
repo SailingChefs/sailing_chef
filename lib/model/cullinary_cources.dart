@@ -15,11 +15,11 @@ class Course {
 
   factory Course.fromMap(Map<String, dynamic> data) {
     return Course(
-      name: data['name'],
-      link: data['link'],
-      description: data['description'],
-      numOfDays: data['numOfDays'],
-      id: data['id'],
+      name: (data['name'] as String?) ?? '',
+      link: (data['link'] as String?) ?? '',
+      description: (data['description'] as String?) ?? '',
+      numOfDays: (data['numOfDays'] as String?) ?? '',
+      id: data['id'] as String?,
     );
   }
 

@@ -28,9 +28,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: kcErrorColor),
+                  fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcErrorColor),
             ),
           ],
         ),
@@ -52,6 +50,7 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter serving quantity';
                     }
+
                     return null;
                   },
                   controller: viewModel.servingSize,

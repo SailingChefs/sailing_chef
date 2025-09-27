@@ -7,6 +7,7 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
+import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
@@ -25,7 +26,6 @@ import 'package:sailing_chefs/services/shopping_list_service.dart';
 import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 final locator = StackedLocator.instance;
