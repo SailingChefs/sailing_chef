@@ -537,6 +537,8 @@ class RecipeService with ListenableServiceMixin {
         }
       }
 
+      drafts = draftRecipes;
+
       return draftRecipes;
     } catch (e) {
       log('Error fetching draft recipes: $e');

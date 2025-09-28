@@ -10,8 +10,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/time_serving
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/tips_notes.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/view_profile_row.dart';
 
-class MainRecipeViewContainer
-    extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+class MainRecipeViewContainer extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
   final List<RecipeModel> recipeList;
   final bool isFromPrivateProfile;
@@ -58,17 +57,17 @@ class MainRecipeViewContainer
             ),
           // const ChefNotesRecipeDetails(),
           // verticalSpace(16.h),
-          Visibility(
-            // visible: viewModel.checkOwn(recipeModel),
-            child: ViewProfileRow(
-              user: recipeModel.user!,
+          if (recipeModel.user != null)
+            Visibility(
+              visible: viewModel.checkOwn(recipeModel),
+              child: ViewProfileRow(
+                user: recipeModel.user!,
+              ),
             ),
-          ),
           Visibility(
             visible: viewModel.checkOwn(recipeModel),
             child: CommentsDetailsScreen(
-                isFromPrivateProfile: isFromPrivateProfile,
-                recipeModel: recipeModel),
+                isFromPrivateProfile: isFromPrivateProfile, recipeModel: recipeModel),
           ),
           verticalSpace(12),
           BottomSlider(
