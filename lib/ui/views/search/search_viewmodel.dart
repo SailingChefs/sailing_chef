@@ -32,9 +32,7 @@ class SearchViewModel extends BaseViewModel {
   Iterable<RecipeModel> searchRecipes(List<RecipeModel> recipes) sync* {
     log('came to search');
     for (final recipe in recipes) {
-      if (recipe.title
-          .toLowerCase()
-          .contains(searchControllerRecipe.text.toLowerCase())) {
+      if (recipe.title.toLowerCase().contains(searchControllerRecipe.text.toLowerCase())) {
         // rebuildUi();
         yield recipe;
       }
@@ -44,9 +42,7 @@ class SearchViewModel extends BaseViewModel {
   Iterable<UserModel> searchUser(List<UserModel> chef) sync* {
     log('came to search');
     for (final user in chef) {
-      if (user.displayName!
-          .toLowerCase()
-          .contains(searchControllerChef.text.toLowerCase())) {
+      if (user.displayName!.toLowerCase().contains(searchControllerChef.text.toLowerCase())) {
         // rebuildUi();
         yield user;
       }
@@ -93,12 +89,15 @@ class SearchViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
+  void popTwice() {
+    _navigationService.popRepeated(2);
+  }
+
   void toDishDetailsScreen(RecipeModel recipe) {
     _navigationService.navigateToSavedRecipeDetailsView(
         isFromPrivateProfile: false,
         recipeModel: recipe,
-        randomRecipeList:
-            IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
+        randomRecipeList: IndexViewModel.getRandomDishes(recipe, RecipeService.recipes));
   }
 
   void toChefProfile(UserModel chef) {

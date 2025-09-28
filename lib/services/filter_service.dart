@@ -20,14 +20,15 @@ class FilterService with ChangeNotifier {
   bool _isCanapeSelected = false;
   bool _isSideSelected = false;
 
-  // Dietary needs state variables
-  bool _isDietaryPassageSelected = false;
-  bool _isDietaryMealSelected = false;
-  bool _isDietaryPlatedSelected = false;
-  bool _isDietaryFamilySelected = false;
-  bool _isDietaryLightSelected = false;
-  bool _isDietaryCharterSelected = false;
-  bool _isDietaryCrewSelected = false;
+  // Dietary needs state variables (updated to actual dietary tags)
+  bool _isVegetarianSelected = false;
+  bool _isVeganSelected = false;
+  bool _isGlutenFreeSelected = false;
+  bool _isDairyFreeSelected = false;
+  bool _isNutFreeSelected = false;
+  bool _isPescatarianSelected = false;
+  bool _isKosherSelected = false;
+  bool _isHalalSelected = false;
 
   int _selectedTagsCount = 0;
   SfRangeValues _values = const SfRangeValues(0.0, 5.0);
@@ -52,13 +53,14 @@ class FilterService with ChangeNotifier {
   bool get isCanapeSelected => _isCanapeSelected;
   bool get isSideSelected => _isSideSelected;
 
-  bool get isDietaryPassageSelected => _isDietaryPassageSelected;
-  bool get isDietaryMealSelected => _isDietaryMealSelected;
-  bool get isDietaryPlatedSelected => _isDietaryPlatedSelected;
-  bool get isDietaryFamilySelected => _isDietaryFamilySelected;
-  bool get isDietaryLightSelected => _isDietaryLightSelected;
-  bool get isDietaryCharterSelected => _isDietaryCharterSelected;
-  bool get isDietaryCrewSelected => _isDietaryCrewSelected;
+  bool get isVegetarianSelected => _isVegetarianSelected;
+  bool get isVeganSelected => _isVeganSelected;
+  bool get isGlutenFreeSelected => _isGlutenFreeSelected;
+  bool get isDairyFreeSelected => _isDairyFreeSelected;
+  bool get isNutFreeSelected => _isNutFreeSelected;
+  bool get isPescatarianSelected => _isPescatarianSelected;
+  bool get isKosherSelected => _isKosherSelected;
+  bool get isHalalSelected => _isHalalSelected;
 
   int get selectedTagsCount => _selectedTagsCount;
   SfRangeValues get values => _values;
@@ -136,38 +138,43 @@ class FilterService with ChangeNotifier {
     notifyListeners();
   }
 
-  set isDietaryPassageSelected(bool value) {
-    _isDietaryPassageSelected = value;
+  set isVegetarianSelected(bool value) {
+    _isVegetarianSelected = value;
     notifyListeners();
   }
 
-  set isDietaryMealSelected(bool value) {
-    _isDietaryMealSelected = value;
+  set isVeganSelected(bool value) {
+    _isVeganSelected = value;
     notifyListeners();
   }
 
-  set isDietaryPlatedSelected(bool value) {
-    _isDietaryPlatedSelected = value;
+  set isGlutenFreeSelected(bool value) {
+    _isGlutenFreeSelected = value;
     notifyListeners();
   }
 
-  set isDietaryFamilySelected(bool value) {
-    _isDietaryFamilySelected = value;
+  set isDairyFreeSelected(bool value) {
+    _isDairyFreeSelected = value;
     notifyListeners();
   }
 
-  set isDietaryLightSelected(bool value) {
-    _isDietaryLightSelected = value;
+  set isNutFreeSelected(bool value) {
+    _isNutFreeSelected = value;
     notifyListeners();
   }
 
-  set isDietaryCharterSelected(bool value) {
-    _isDietaryCharterSelected = value;
+  set isPescatarianSelected(bool value) {
+    _isPescatarianSelected = value;
     notifyListeners();
   }
 
-  set isDietaryCrewSelected(bool value) {
-    _isDietaryCrewSelected = value;
+  set isKosherSelected(bool value) {
+    _isKosherSelected = value;
+    notifyListeners();
+  }
+
+  set isHalalSelected(bool value) {
+    _isHalalSelected = value;
     notifyListeners();
   }
 
@@ -223,13 +230,14 @@ class FilterService with ChangeNotifier {
     _isSideSelected = false;
 
     // Reset dietary needs state variables
-    _isDietaryPassageSelected = false;
-    _isDietaryMealSelected = false;
-    _isDietaryPlatedSelected = false;
-    _isDietaryFamilySelected = false;
-    _isDietaryLightSelected = false;
-    _isDietaryCharterSelected = false;
-    _isDietaryCrewSelected = false;
+    _isVegetarianSelected = false;
+    _isVeganSelected = false;
+    _isGlutenFreeSelected = false;
+    _isDairyFreeSelected = false;
+    _isNutFreeSelected = false;
+    _isPescatarianSelected = false;
+    _isKosherSelected = false;
+    _isHalalSelected = false;
 
     // Reset UI state variables
     _selectedTagsCount = 0;
@@ -264,13 +272,14 @@ class FilterService with ChangeNotifier {
     if (_isSideSelected) selectedList.add('Side');
 
     // Dietary needs selections
-    if (_isDietaryPassageSelected) selectedList.add('DietaryPassage');
-    if (_isDietaryMealSelected) selectedList.add('DietaryMeal');
-    if (_isDietaryPlatedSelected) selectedList.add('DietaryPlated');
-    if (_isDietaryFamilySelected) selectedList.add('DietaryFamily');
-    if (_isDietaryLightSelected) selectedList.add('DietaryLight');
-    if (_isDietaryCharterSelected) selectedList.add('DietaryCharter');
-    if (_isDietaryCrewSelected) selectedList.add('DietaryCrew');
+    if (_isVegetarianSelected) selectedList.add('Vegetarian');
+    if (_isVeganSelected) selectedList.add('Vegan');
+    if (_isGlutenFreeSelected) selectedList.add('Gluten-Free');
+    if (_isDairyFreeSelected) selectedList.add('Dairy-Free');
+    if (_isNutFreeSelected) selectedList.add('Nut-Free');
+    if (_isPescatarianSelected) selectedList.add('Pescatarian');
+    if (_isKosherSelected) selectedList.add('Kosher');
+    if (_isHalalSelected) selectedList.add('Halal');
 
     return selectedList;
   }

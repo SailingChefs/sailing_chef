@@ -54,6 +54,16 @@ class SearchView extends StackedView<SearchViewModel> {
                         ),
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                          onPressed: viewModel.popTwice,
+                          icon: Icon(
+                            Icons.close,
+                            size: 30.dg,
+                            color: kcPrimaryColor,
+                          ),
+                          padding: EdgeInsets.only(right: 24.0.dg)),
+                    ],
                     //,
                   ),
                   body: SingleChildScrollView(

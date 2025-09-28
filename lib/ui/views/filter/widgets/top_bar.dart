@@ -9,22 +9,20 @@ class TopBarFilterScreen extends ViewModelWidget<FilterViewModel> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        horizontalSpaceSmall,
-        Text(
-          'Filter',
-          style: globalTextStyle(
-              fontSize: 20.0.dg,
-              color: kcBlackColor,
-              fontWeight: FontWeight.w600),
-        ),
         IconButton(
           onPressed: viewModel.goBack,
           icon: Icon(
-            Icons.close_rounded,
+            Icons.arrow_back,
             size: 30.dg,
             color: kcPrimaryColor,
           ),
         ),
+        Text(
+          'Filter',
+          style:
+              globalTextStyle(fontSize: 20.0.dg, color: kcBlackColor, fontWeight: FontWeight.w600),
+        ),
+        horizontalSpaceLarge,
       ],
     );
   }

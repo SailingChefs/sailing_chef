@@ -36,13 +36,15 @@ class FilterViewModel extends BaseViewModel {
   bool get isCanapeSelected => _filterService.isCanapeSelected;
   bool get isSideSelected => _filterService.isSideSelected;
 
-  bool get isDietaryPassageSelected => _filterService.isDietaryPassageSelected;
-  bool get isDietaryMealSelected => _filterService.isDietaryMealSelected;
-  bool get isDietaryPlatedSelected => _filterService.isDietaryPlatedSelected;
-  bool get isDietaryFamilySelected => _filterService.isDietaryFamilySelected;
-  bool get isDietaryLightSelected => _filterService.isDietaryLightSelected;
-  bool get isDietaryCharterSelected => _filterService.isDietaryCharterSelected;
-  bool get isDietaryCrewSelected => _filterService.isDietaryCrewSelected;
+  // Dietary selections (updated)
+  bool get isVegetarianSelected => _filterService.isVegetarianSelected;
+  bool get isVeganSelected => _filterService.isVeganSelected;
+  bool get isGlutenFreeSelected => _filterService.isGlutenFreeSelected;
+  bool get isDairyFreeSelected => _filterService.isDairyFreeSelected;
+  bool get isNutFreeSelected => _filterService.isNutFreeSelected;
+  bool get isPescatarianSelected => _filterService.isPescatarianSelected;
+  bool get isKosherSelected => _filterService.isKosherSelected;
+  bool get isHalalSelected => _filterService.isHalalSelected;
 
   int get selectedTagsCount => _filterService.selectedTagsCount;
   SfRangeValues get values => _filterService.values;
@@ -162,36 +164,36 @@ class FilterViewModel extends BaseViewModel {
 
   void handleMainTabsDietaryNeed(int index) {
     switch (index) {
-      case 0:
-        if (_filterService.isDietaryPassageSelected) {
-          _filterService.isDietaryPassageSelected = false;
+      case 0: // Vegetarian
+        if (_filterService.isVegetarianSelected) {
+          _filterService.isVegetarianSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryPassageSelected = true;
+          _filterService.isVegetarianSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 1:
-        if (_filterService.isDietaryMealSelected) {
-          _filterService.isDietaryMealSelected = false;
+      case 1: // Vegan
+        if (_filterService.isVeganSelected) {
+          _filterService.isVeganSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryMealSelected = true;
+          _filterService.isVeganSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 2:
-        if (_filterService.isDietaryPlatedSelected) {
-          _filterService.isDietaryPlatedSelected = false;
+      case 2: // Gluten-Free
+        if (_filterService.isGlutenFreeSelected) {
+          _filterService.isGlutenFreeSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryPlatedSelected = true;
+          _filterService.isGlutenFreeSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 3:
-        if (_filterService.isDietaryFamilySelected) {
-          _filterService.isDietaryFamilySelected = false;
+      case 3: // Dairy-Free
+        if (_filterService.isDairyFreeSelected) {
+          _filterService.isDairyFreeSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryFamilySelected = true;
+          _filterService.isDairyFreeSelected = true;
           _filterService.selectedTagsCount++;
         }
       default:
@@ -358,36 +360,36 @@ class FilterViewModel extends BaseViewModel {
 
   void handleSubTabsDietary(int index) {
     switch (index) {
-      case 0:
-        if (_filterService.isDietaryFamilySelected) {
-          _filterService.isDietaryFamilySelected = false;
+      case 0: // Nut-Free
+        if (_filterService.isNutFreeSelected) {
+          _filterService.isNutFreeSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryFamilySelected = true;
+          _filterService.isNutFreeSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 1:
-        if (_filterService.isDietaryLightSelected) {
-          _filterService.isDietaryLightSelected = false;
+      case 1: // Pescatarian
+        if (_filterService.isPescatarianSelected) {
+          _filterService.isPescatarianSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryLightSelected = true;
+          _filterService.isPescatarianSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 2:
-        if (_filterService.isDietaryCharterSelected) {
-          _filterService.isDietaryCharterSelected = false;
+      case 2: // Kosher
+        if (_filterService.isKosherSelected) {
+          _filterService.isKosherSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryCharterSelected = true;
+          _filterService.isKosherSelected = true;
           _filterService.selectedTagsCount++;
         }
-      case 3:
-        if (_filterService.isDietaryCrewSelected) {
-          _filterService.isDietaryCrewSelected = false;
+      case 3: // Halal
+        if (_filterService.isHalalSelected) {
+          _filterService.isHalalSelected = false;
           _filterService.selectedTagsCount--;
         } else {
-          _filterService.isDietaryCrewSelected = true;
+          _filterService.isHalalSelected = true;
           _filterService.selectedTagsCount++;
         }
       default:
