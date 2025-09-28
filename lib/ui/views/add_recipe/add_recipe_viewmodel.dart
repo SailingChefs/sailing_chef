@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
@@ -38,9 +39,10 @@ class AddRecipeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _recipeService = locator<RecipeService>();
   final _userSerice = locator<UserdataServiceService>();
+
   late Directory directory;
   String audioNotePath = '';
-  String selectedValue = 'Public';
+  String selectedValue1 = 'Public';
   List<XFile> selectedImages = [];
   String? prepreationTime;
   List<XFile> thumbnails = [];
@@ -91,9 +93,17 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> editMethod(String method, int listIndex) async {
-    final editedMethod = await _bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.cookingInstructions,
-        data: {'method': method, 'listIndex': listIndex});
+    final editedMethod = await _bottomSheetService
+        .showCustomSheet<CookingInstructionsSheetResponse, dynamic>(
+            variant: BottomSheetType.cookingInstructions,
+            data: {'method': method, 'listIndex': listIndex});
+
+    if (editedMethod == null) return;
+    updatedMethodsList = methodsList.toList();
+    updatedMethodsList[listIndex] = editedMethod.data!.method!;
+    methodsList = updatedMethodsList.toList();
+    rebuildUi();
+    notifyListeners();
   }
 
   // {
@@ -306,14 +316,13 @@ class AddRecipeViewModel extends BaseViewModel {
 
   Future<void> addMethods(List<String> newMethods) async {
     final method =
-        await _bottomSheetService.showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
+        await _bottomSheetService.showCustomSheet<CookingInstructionsSheetResponse, dynamic>(
       variant: BottomSheetType.cookingInstructions,
+      data: {'listIndex': newMethods.length},
     );
-    updatedMethodsList =
-        (method?.data as CookingInstructionsSheetResponse?)?.instructionsListResponse.toList() ??
-            [];
-    updatedMethodsList.addAll(newMethods);
-    methodsList = updatedMethodsList;
+    updatedMethodsList = method?.data?.instructionsListResponse.toList() ?? [];
+    newMethods.addAll(updatedMethodsList);
+    methodsList = newMethods;
     notifyListeners();
 
     rebuildUi();
@@ -598,6 +607,8 @@ class AddRecipeViewModel extends BaseViewModel {
         'images': selectedImages,
         'path': audioNotePath,
         'isDraft': isDraft,
+      }).then((_) {
+        _recipeService.fetchDraftRecipes(userDetails!.uid!);
       });
     }
   }
@@ -676,7 +687,7 @@ class AddRecipeViewModel extends BaseViewModel {
         final shouldClear = await _navigationService.navigateToRecipeViewView(
           isFromDraft: true,
           recipeModel: RecipeModel(
-            visibility: selectedValue,
+            visibility: selectedValue1,
             chefNote: '',
             coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
@@ -711,7 +722,7 @@ class AddRecipeViewModel extends BaseViewModel {
           thumbnails.clear();
           methodsList.clear();
           selectedTimeMethod = '';
-          selectedValue = 'public';
+          selectedValue1 = 'public';
           count = 0;
           waveFormData!.clear();
           prepreationTime = '';
@@ -729,7 +740,7 @@ class AddRecipeViewModel extends BaseViewModel {
         final shouldClear = await _navigationService.navigateToRecipeViewView(
           isFromDraft: false,
           recipeModel: RecipeModel(
-            visibility: selectedValue,
+            visibility: selectedValue1,
             chefNote: '',
             coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
@@ -767,7 +778,7 @@ class AddRecipeViewModel extends BaseViewModel {
           methodsList.clear();
           selectedTimeMethod = '';
 
-          selectedValue = 'public';
+          selectedValue1 = 'public';
           count = 0;
           waveFormData!.clear();
           prepreationTime = '';
@@ -810,7 +821,7 @@ class AddRecipeViewModel extends BaseViewModel {
     methodsList = [];
     selectedTimeMethod = '';
 
-    selectedValue = 'public';
+    selectedValue1 = 'public';
     count = 1;
     audioNotePath = '';
     waveFormData = [];

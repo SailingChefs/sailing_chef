@@ -37,6 +37,7 @@ class CommentModel {
       rating: data['rating'] != null ? (double.tryParse(data['rating'].toString()) ?? 0.0) : 0.0,
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

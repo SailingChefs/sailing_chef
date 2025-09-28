@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
@@ -18,7 +19,7 @@ class ViewAllDraftsViewModel extends BaseViewModel {
 
   Future<void> onViewModelReady() async {
     setBusy(true);
-    await _draftService.initializeddraft();
+    await _draftService.fetchDraftRecipes(userDetails!.uid!);
 
     setBusy(false);
   }

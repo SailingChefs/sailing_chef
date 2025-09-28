@@ -4,8 +4,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/bott
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/cooking_topbar.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/listview_cookinginstructions.dart';
 
-class CookingInstructionsSheet
-    extends StackedView<CookingInstructionsSheetModel> {
+class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const CookingInstructionsSheet({
@@ -20,6 +19,9 @@ class CookingInstructionsSheet
     CookingInstructionsSheetModel viewModel,
     Widget? child,
   ) {
+    final listIndex = request.data['listIndex'] as int?;
+    final method = request.data['method'] as String?;
+
     return SingleChildScrollView(
       child: SizedBox(
         width: double.infinity,
@@ -35,19 +37,19 @@ class CookingInstructionsSheet
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CookingTopBar(),
+              CookingTopBar(listIndex, method != null),
               Center(
                 child: Text(
-                  request.title ?? 'Cooking Instructions',
+                  '${method == null ? 'Add' : 'Edit'} Instructions',
                   style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor),
+                      fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
                 ),
               ),
               verticalSpaceMedium,
-              const ListViewCookingInstructions(),
-              const BottomCookingInstructions(),
+              ListViewCookingInstructions(
+                listIndex: listIndex ?? 0,
+              ),
+              BottomCookingInstructions(method, listIndex),
             ],
           ),
         ),
@@ -62,6 +64,7 @@ class CookingInstructionsSheet
 
 class CookingInstructionsSheetResponse {
   final List<String> instructionsListResponse;
-  const CookingInstructionsSheetResponse(
-      {required this.instructionsListResponse});
+  final String? method;
+
+  const CookingInstructionsSheetResponse({required this.instructionsListResponse, this.method});
 }

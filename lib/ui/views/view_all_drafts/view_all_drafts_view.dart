@@ -50,7 +50,7 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
               // verticalSpace(41),
 
               verticalSpaceSmall,
-              if (viewModel.isBusy)
+              if (viewModel.isBusy && viewModel.draft.isEmpty)
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.7,
                   child: const Center(

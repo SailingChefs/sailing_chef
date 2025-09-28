@@ -25,7 +25,7 @@ class BitmapImageService {
     //     BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
   }
 
-  Future initialise(BuildContext context) async {
+  Future<void> initialise(BuildContext context) async {
     // Use device pixel ratio for crisp icons
     final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
 

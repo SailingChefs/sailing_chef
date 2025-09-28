@@ -3,7 +3,10 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_inst
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
 
 class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
-  const CookingTopBar({super.key});
+  const CookingTopBar(this.listIndex, this.isEdit, {super.key});
+
+  final int? listIndex;
+  final bool isEdit;
 
   @override
   Widget build(BuildContext context, CookingInstructionsSheetModel viewModel) {
@@ -15,8 +18,10 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
           BackArrowWidget(onTap: viewModel.popBack),
           GestureDetector(
             onTap: () {
-              if (viewModel.instructionsList.isNotEmpty) {
+              if (viewModel.instructionsList.isNotEmpty && !isEdit) {
                 viewModel.saveData();
+              } else {
+                viewModel.editInstruction(listIndex!);
               }
             },
             child: Text(
@@ -24,7 +29,7 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
               style: globalTextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: viewModel.instructionsList.isEmpty
+                  color: viewModel.instructionsList.isEmpty && !isEdit
                       ? Colors.grey.shade300
                       : kcPrimaryColor.withOpacity(0.9)),
             ),

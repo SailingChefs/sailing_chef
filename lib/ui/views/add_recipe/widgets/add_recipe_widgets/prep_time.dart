@@ -28,9 +28,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 horizontalSpaceTiny,
                 Text('*',
                     style: globalTextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: kcErrorColor)),
+                        fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcErrorColor)),
               ],
             ),
             GestureDetector(
@@ -38,17 +36,16 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
               child: Container(
                 // height: 45.h,
                 // width: 115.w,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0.r),
                   color: kcVeryLightGrey.withOpacity(0.2),
                 ),
-                child: viewModel.selectedTime != null &&
-                        viewModel.formattedDuration != '0h'
+                child: viewModel.selectedTime != null && viewModel.formattedDuration != '0h'
                     ? Center(
                         child: Text(
-                          viewModel.formatDuration(),
+                          // TODO: add the duration object
+                          '1 hour',
                           style: globalTextStyle(
                             fontSize: 12.sp,
                             letterSpacing: -0.5,
