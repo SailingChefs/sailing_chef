@@ -28,11 +28,24 @@ android {
         applicationId = "com.stackwise.sailingChefs"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
+
+    // flavorDimensions "track"
+    // productFlavors {
+    //     internal {
+    //         dimension "track"
+    //         applicationIdSuffix ".internal"
+    //         manifestPlaceholders = [applicationLabel: "[Internal] Sailing Chefs"]
+    //     }
+    //     stable {
+    //         dimension "track"
+    //         manifestPlaceholders = [applicationLabel: "Sailing Chefs"]
+    //     }
+    // }
 
     buildTypes {
         release {
