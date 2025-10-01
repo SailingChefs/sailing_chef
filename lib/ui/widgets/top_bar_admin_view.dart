@@ -16,7 +16,7 @@ class TopBarAdminView<T extends BaseViewModel> extends ViewModelWidget<T>
             padding: EdgeInsets.only(left: 8.0.w),
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () => context.navigateBack(),
+              onTap: Navigator.of(context).pop,
               child: Container(
                 alignment: Alignment.center,
                 height: 26.h,

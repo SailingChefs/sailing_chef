@@ -16,8 +16,8 @@ class RoundedTransparentTextField extends StatelessWidget {
   final int? maxLength;
   final int? maxLines;
   final Color? textColor;
-  final Function(String)? onChanged;
-  final Function()? onVisibilityToggle;
+  final void Function(String)? onChanged;
+  final void Function()? onVisibilityToggle;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool? readOnly;
@@ -27,9 +27,11 @@ class RoundedTransparentTextField extends StatelessWidget {
   final double? size;
   final bool? ispassvisible;
   final TextStyle? style;
-  FocusNode? focsNode;
+  final FocusNode? focsNode;
+  // When false, long-press selection (and thus accidental focus via long-press-drag) is disabled.
+  final bool? enableInteractiveSelection;
 
-  RoundedTransparentTextField({
+  const RoundedTransparentTextField({
     super.key,
     this.controller,
     this.style,
@@ -57,6 +59,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.maxLengthEnforcement,
     this.inputFormatters,
     this.focsNode,
+    this.enableInteractiveSelection = false,
   });
 
   @override
@@ -82,7 +85,8 @@ class RoundedTransparentTextField extends StatelessWidget {
     return TextFormField(
       readOnly: readOnly ?? false,
       cursorColor: kcPrimaryColor,
-      showCursor: true,
+      // Removing `showCursor: true` so only the focused field displays a cursor.
+      // Forcing it to true made multiple text fields show cursors simultaneously.
       onChanged: onChanged,
       obscureText: obscureText,
       focusNode: focsNode,
@@ -93,45 +97,29 @@ class RoundedTransparentTextField extends StatelessWidget {
       maxLines: maxLines ?? 1,
       validator: validator,
       inputFormatters: inputFormattersList,
-      buildCounter: (
-        BuildContext context, {
-        required int currentLength,
-        required bool isFocused,
-        required int? maxLength,
-      }) {
-        return null;
-      },
+      enableInteractiveSelection: enableInteractiveSelection,
       style: style ??
           globalTextStyle(
-              fontSize: 13.sp,
-              color: textColor ?? kcWhiteColor,
-              fontWeight: FontWeight.w400),
+              fontSize: 13.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         hintText: labelText,
         hintStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
         filled: true,
         fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
         labelStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
@@ -149,7 +137,7 @@ class RoundedTransparentTextField extends StatelessWidget {
           vertical: 10.0,
           horizontal: 15.0,
         ),
-        prefixIcon: prefixIcon ?? false
+        prefixIcon: (prefixIcon ?? false)
             ? Icon(
                 prefixIconData,
                 color: editIconColor,
@@ -161,7 +149,7 @@ class RoundedTransparentTextField extends StatelessWidget {
                 ? null
                 : GestureDetector(
                     onTap: onVisibilityToggle,
-                    child: ispassvisible ?? false ? closeEye : openEye)),
+                    child: (ispassvisible ?? false) ? closeEye : openEye)),
       ),
     );
   }

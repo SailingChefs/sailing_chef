@@ -20,9 +20,10 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
   final double? size;
   final Widget? suffixIconData;
   final MaxLengthEnforcement? maxLengthEnforcement;
-  FocusNode? focusNode;
+  final FocusNode? focusNode;
+  final bool? enableInteractiveSelection;
 
-  SemiRoundedTranpaentTextField(
+  const SemiRoundedTranpaentTextField(
       {super.key,
       this.validator,
       this.fillColor,
@@ -41,7 +42,8 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       this.suffixIcon,
       this.prefixIcons,
       this.focusNode,
-      this.maxLengthEnforcement});
+      this.maxLengthEnforcement,
+      this.enableInteractiveSelection = false});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class SemiRoundedTranpaentTextField extends StatelessWidget {
       borderRadius: borderRadius ?? 10.dg,
       textColor: Colors.black.withOpacity(0.6),
       controller: controller, maxLengthEnforcement: maxLengthEnforcement,
+      enableInteractiveSelection: enableInteractiveSelection,
     );
   }
 }

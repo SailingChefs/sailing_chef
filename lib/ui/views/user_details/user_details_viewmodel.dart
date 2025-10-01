@@ -25,7 +25,11 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 
-  final bioFocusNode = FocusNode();
+  // Focus nodes with skipTraversal so they are only focused via explicit taps
+  // final nameFocusNode = FocusNode(skipTraversal: true);
+  // final bioFocusNode = FocusNode(skipTraversal: true);
+  // final linkFocusNode = FocusNode(skipTraversal: true);
+  // final boatNameFocusNode = FocusNode(skipTraversal: true);
 
   Map<String, dynamic>? userlocation;
   final ImagePicker picker = ImagePicker();
@@ -288,5 +292,19 @@ class UserDetailsViewModel extends BaseViewModel {
         showToast(message: 'Please verify your email first');
       }
     }
+  }
+
+  @override
+  void dispose() {
+    // nameFocusNode.dispose();
+    // bioFocusNode.dispose();
+    // linkFocusNode.dispose();
+    // boatNameFocusNode.dispose();
+    nameController.dispose();
+    bioController.dispose();
+    linkController.dispose();
+    boatNameController.dispose();
+    locationController.dispose();
+    super.dispose();
   }
 }
