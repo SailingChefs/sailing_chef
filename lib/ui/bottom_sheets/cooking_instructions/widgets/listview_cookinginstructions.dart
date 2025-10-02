@@ -23,7 +23,7 @@ class ListViewCookingInstructions extends ViewModelWidget<CookingInstructionsShe
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Step ${listIndex + 1}',
+                    'Step ${index + listIndex + 1}',
                     style: TextStyle(fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
                   ),
                   verticalSpaceTiny,

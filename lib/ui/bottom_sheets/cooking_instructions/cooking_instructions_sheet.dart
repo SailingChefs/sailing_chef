@@ -19,8 +19,10 @@ class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel
     CookingInstructionsSheetModel viewModel,
     Widget? child,
   ) {
-    final listIndex = request.data['listIndex'] as int?;
-    final method = request.data['method'] as String?;
+    final data = request.data as Map<String, dynamic>?;
+
+    final listIndex = data?['listIndex'] as int?;
+    final method = data?['method'] as String?;
 
     return SingleChildScrollView(
       child: SizedBox(
