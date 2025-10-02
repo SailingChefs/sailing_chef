@@ -248,7 +248,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                     ),
                                     for (final Ingredient selectIngredient
                                         in showShoppingListview[recipee.title]
-                                                ?['selected_ingredients'] ??
+                                                ?['unselected_ingredients'] ??
                                             [])
                                       GestureDetector(
                                         onTap: () {
@@ -326,7 +326,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
 
                                     for (final Ingredient unSelectIngredient
                                         in showShoppingListview[recipee.title]
-                                                ?['unselected_ingredients'] ??
+                                                ?['selected_ingredients'] ??
                                             [])
                                       GestureDetector(
                                         onTap: () {

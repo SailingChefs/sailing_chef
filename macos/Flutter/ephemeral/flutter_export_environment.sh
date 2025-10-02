@@ -1,6 +1,6 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Volumes/Extended/fvm/versions/3.35.4"
+export "FLUTTER_ROOT=/Volumes/Extended/fvm/versions/3.35.5"
 export "FLUTTER_APPLICATION_PATH=/Volumes/Extended/Developer/SailingChefs/sailing_chef"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
