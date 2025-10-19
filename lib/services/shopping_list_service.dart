@@ -44,7 +44,7 @@ class ShoppingListService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  void addAllItemstoShoppingList({required RecipeModel recipee}) {
+  void addAllItemstoShoppingList({required RecipeModel recipee, required int servings}) {
     final unSelectedIngredients = <Ingredient>[];
     var selectedIngredients = <Ingredient>[];
     selectedIngredients =
@@ -80,6 +80,7 @@ class ShoppingListService with ListenableServiceMixin {
       'selected_ingredients': selectedIngredients,
       'unselected_ingredients': unSelectedIngredients,
       'recipee_id': recipee.docId,
+      'servings': servings,
     };
 
     notifyListeners();

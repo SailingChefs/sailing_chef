@@ -17,8 +17,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              viewModel.addOneItemToCart(
-                  ingredient: ingredient, recipee: recipeModel);
+              viewModel.addOneItemToCart(ingredient: ingredient, recipee: recipeModel);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,8 +76,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   decoration: BoxDecoration(
                     color:
                         //  viewModel.checkShoppingList(ingredient)
-                        viewModel.checkSelected(
-                                recipee: recipeModel, ingredient: ingredient)
+                        viewModel.checkSelected(recipee: recipeModel, ingredient: ingredient)
                             ? kcPrimaryColorDark
                             : Colors.transparent,
                     shape: BoxShape.circle,
@@ -88,8 +86,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   ),
                   child:
                       // viewModel.checkShoppingList(ingredient)
-                      viewModel.checkSelected(
-                              recipee: recipeModel, ingredient: ingredient)
+                      viewModel.checkSelected(recipee: recipeModel, ingredient: ingredient)
                           ? Icon(
                               Icons.check,
                               color: kcWhiteColor,
@@ -109,10 +106,8 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {
-    final updatedIngredients =
-        viewModel.getUpdatedIngredients(viewModel.servings);
-    final allIngredients =
-        createIngredientWidgets(updatedIngredients, viewModel);
+    final updatedIngredients = viewModel.getUpdatedIngredients(viewModel.servings);
+    final allIngredients = createIngredientWidgets(updatedIngredients, viewModel);
     // log(updatedIngredients.first.id!);
     // log(recipeModel.ingredients.first.id!);
 
@@ -132,12 +127,12 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                viewModel.addorRemoveAllIIngredients(recipee: recipeModel);
+                viewModel.addorRemoveAllIIngredients(
+                    recipee: recipeModel, servings: viewModel.servings);
                 // viewModel.addAllItemsToCart(recipeModel);
               },
               child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.0.w),
                 decoration: BoxDecoration(
                   color: kcPrimaryColorDark.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(32.0.dg),
@@ -170,8 +165,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       width: 12.0.w,
                       height: 12.0.h,
                       decoration: BoxDecoration(
-                        color: viewModel.checkkAllIngredients(
-                                recipee: recipeModel)
+                        color: viewModel.checkkAllIngredients(recipee: recipeModel)
                             //  viewModel
                             //         .checkShoppingListAll(viewModel.recipeModel)
                             ? kcBlackColor.withOpacity(0.8)

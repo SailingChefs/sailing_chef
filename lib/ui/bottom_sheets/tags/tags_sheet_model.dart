@@ -18,7 +18,7 @@ class Tag {
 
 class TagsSheetModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final Function(SheetResponse response)? completer;
+  final void Function(SheetResponse<TagsSheetResponse> response)? completer;
   bool initialTagsSet = false;
 
   TagsSheetModel({required this.completer});
@@ -68,7 +68,6 @@ class TagsSheetModel extends BaseViewModel {
       selectionSet.add(item);
     }
     notifyListeners();
-    rebuildUi();
   }
 
   // Specific toggle functions for each category
@@ -98,7 +97,7 @@ class TagsSheetModel extends BaseViewModel {
   }
 
   void goBack() {
-    _navigationService.back();
+    _navigationService.back<void>();
   }
 
   void reset() {
@@ -106,7 +105,6 @@ class TagsSheetModel extends BaseViewModel {
     categoryTags.clear();
     dietaryNeedsTags.clear();
     notifyListeners();
-    rebuildUi();
   }
 
   void setInitialSelectedTags(List<String> savedTags) {
@@ -131,8 +129,11 @@ class TagsSheetModel extends BaseViewModel {
   }
 
   void apply() {
-    if (completer != null) {
-      completer!(SheetResponse(confirmed: true, data: TagsSheetResponse(tags: selectedOptions())));
-    }
+    completer?.call(
+      SheetResponse(
+        confirmed: true,
+        data: TagsSheetResponse(tags: selectedOptions()),
+      ),
+    );
   }
 }

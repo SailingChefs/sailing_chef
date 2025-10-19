@@ -44,8 +44,7 @@ class PrepTime extends ViewModelWidget<AddRecipeViewModel> {
                 child: viewModel.selectedTime != null && viewModel.formattedDuration != '0h'
                     ? Center(
                         child: Text(
-                          // TODO: add the duration object
-                          '1 hour',
+                          viewModel.formattedDuration,
                           style: globalTextStyle(
                             fontSize: 12.sp,
                             letterSpacing: -0.5,

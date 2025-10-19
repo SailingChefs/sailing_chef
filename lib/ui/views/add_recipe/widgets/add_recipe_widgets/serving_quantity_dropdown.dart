@@ -4,9 +4,8 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_viewmodel.dart';
 
 class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
-  ServingQuantity(this.drafts, {super.key});
+  const ServingQuantity(this.drafts, {super.key});
   final RecipeModel? drafts;
-  final FocusNode _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {
@@ -56,13 +55,12 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
                   controller: viewModel.servingSize,
                   keyboardType: TextInputType.number,
                   cursorColor: kcPrimaryColor,
-                  focusNode: _focusNode,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(3)
                   ],
                   decoration: InputDecoration(
-                    hintText: '0',
+                    hintText: '1',
                     hintStyle: globalTextStyle(
                       fontSize: 14.sp,
                       letterSpacing: -0.5,

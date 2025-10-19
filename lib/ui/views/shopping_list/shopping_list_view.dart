@@ -241,7 +241,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                   Column(mainAxisSize: MainAxisSize.min, children: [
                                     GestureDetector(
                                       onTap: () {
-                                        viewModel.addRemoveAllIngredientsToShoppingList(recipee);
+                                        viewModel.addRemoveAllIngredientsToShoppingList(recipee, 0);
                                       },
                                       child: recipeeTitleWidget(
                                           viewModel: viewModel, recipee: recipee, size: size),
@@ -278,7 +278,7 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                               Expanded(
                                                 flex: 2,
                                                 child: Text(
-                                                  '${selectIngredient.quantity} ${selectIngredient.unit}',
+                                                  '${int.parse(selectIngredient.quantity) * (showShoppingListview[recipee.title]?['servings'] as int? ?? 1)} ${selectIngredient.unit}',
                                                   overflow: TextOverflow.ellipsis,
                                                   style: globalTextStyle(
                                                     decoration: TextDecoration.lineThrough,
@@ -343,20 +343,20 @@ class ShoppingListView extends StackedView<ShoppingListViewModel> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(
-                                                unSelectIngredient.serving.toString(),
-                                                style: globalTextStyle(
-                                                  fontSize: 15,
-                                                  letterSpacing: -0.5,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: kcBlackColor.withOpacity(0.87),
-                                                ),
-                                              ),
-                                              8.w.horizontalSpace,
+                                              // Text(
+                                              //   unSelectIngredient.serving.toString(),
+                                              //   style: globalTextStyle(
+                                              //     fontSize: 15,
+                                              //     letterSpacing: -0.5,
+                                              //     fontWeight: FontWeight.w500,
+                                              //     color: kcBlackColor.withOpacity(0.87),
+                                              //   ),
+                                              // ),
+                                              // 8.w.horizontalSpace,
                                               Expanded(
                                                 flex: 2,
                                                 child: Text(
-                                                  '${unSelectIngredient.quantity} ${unSelectIngredient.unit}',
+                                                  '${int.parse(unSelectIngredient.quantity) * (showShoppingListview[recipee.title]?['servings'] as int? ?? 1)} ${unSelectIngredient.unit}',
                                                   overflow: TextOverflow.ellipsis,
                                                   style: globalTextStyle(
                                                     decoration: TextDecoration.none,

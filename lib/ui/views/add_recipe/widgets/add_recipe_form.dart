@@ -14,8 +14,7 @@ import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 class AddRecipeFormAddRecipeScreen extends ViewModelWidget<AddRecipeViewModel> {
   final List<Ingredient>? ingredientsList;
   final RecipeModel? drafts;
-  const AddRecipeFormAddRecipeScreen(this.drafts, this.ingredientsList,
-      {super.key});
+  const AddRecipeFormAddRecipeScreen(this.drafts, this.ingredientsList, {super.key});
 
   @override
   Widget build(BuildContext context, AddRecipeViewModel viewModel) {

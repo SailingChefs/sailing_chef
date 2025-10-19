@@ -187,8 +187,7 @@ class RecipeViewViewModel extends BaseViewModel {
 
     try {
       log('serving size ${recipe.servingSize}');
-      await _recipeService
-          .addRecipeToFirestore(
+      await _recipeService.addRecipeToFirestore(
         RecipeModel(
           visibility: recipe.visibility,
           chefNote: '',
@@ -205,12 +204,12 @@ class RecipeViewViewModel extends BaseViewModel {
           docId: recipe.docId,
           waveForm: waveFormData == null ? [] : waveFormData!,
         ),
-      )
-          .then((value) {
-        //todo: you can sent index to replaceWithBottomNavBarView() but then bottom bar ceases to work
-        navigationService.replaceWithProfileView();
-        // final result = navigationService.replaceWithBottomNavBarView(index: 4);
-      });
+      );
+
+      // TODO: you can sent index to replaceWithBottomNavBarView() but then bottom bar ceases to work
+      // navigationService.replaceWithProfileView();
+      // navigationService.replaceWithBottomNavBarView(index: 4);
+      navigationService.back<bool>(result: true);
     } catch (e) {
       showToast(message: 'Something went wrong');
       log(

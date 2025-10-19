@@ -12,18 +12,15 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
 
 class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
-  int? index;
+  final int? index;
 
-  BottomNavBarView({this.index, super.key});
+  const BottomNavBarView({this.index, super.key});
 
   @override
-  Widget builder(
-      BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
+  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: index != null
-          ? getViewForIndex(index!)
-          : getViewForIndex(viewModel.currentIndex),
+      body: getViewForIndex(index ?? viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: kcWhiteColor,
@@ -32,8 +29,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
         unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
-        // currentIndex: index != null ? index : viewModel.currentIndex,
-        currentIndex: index != null ? index! : viewModel.currentIndex,
+        currentIndex: index ?? viewModel.currentIndex,
         onTap: viewModel.setIndex,
         items: [
           BottomNavigationBarItem(
@@ -98,8 +94,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   bool get disposeViewModel => false;
 
   @override
-  BottomNavBarViewModel viewModelBuilder(BuildContext context) =>
-      locator<BottomNavBarViewModel>();
+  BottomNavBarViewModel viewModelBuilder(BuildContext context) => locator<BottomNavBarViewModel>();
 
   Widget getViewForIndex(int index) {
     switch (index) {

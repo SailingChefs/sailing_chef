@@ -102,8 +102,8 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     }
   }
 
-  void addorRemoveAllIIngredients({required RecipeModel recipee}) {
-    shoppingListService.addAllItemstoShoppingList(recipee: recipee);
+  void addorRemoveAllIIngredients({required RecipeModel recipee, required int servings}) {
+    shoppingListService.addAllItemstoShoppingList(recipee: recipee, servings: servings);
     rebuildUi();
 
     log(shoppingRecipeeIngredient.toString());

@@ -1,5 +1,6 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -20,7 +21,9 @@ import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -31,14 +34,15 @@ class AddRecipeViewModel extends BaseViewModel {
   AddRecipeViewModel({this.recipeModel});
 
   PageController pageController = PageController();
-  late final RecorderController recorderController;
-  late final PlayerController playerController;
+  late RecorderController recorderController;
+  late PlayerController playerController;
   late VideoPlayerController controller;
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
   final _recipeService = locator<RecipeService>();
   final _userSerice = locator<UserdataServiceService>();
+  final _bottomNavBarView = locator<BottomNavBarViewModel>();
 
   late Directory directory;
   String audioNotePath = '';
@@ -56,7 +60,7 @@ class AddRecipeViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<Ingredient> ingredientsList = [];
   List<Ingredient> updatedIngredientsList = [];
-  TextEditingController servingSize = TextEditingController();
+  TextEditingController servingSize = TextEditingController()..text = '1';
   List<String> methodsList = [];
   List<String> updatedMethodsList = [];
   List<String> tagsList = [];
@@ -69,6 +73,10 @@ class AddRecipeViewModel extends BaseViewModel {
   bool isclicked = false;
 
   List<double>? waveFormData;
+
+  // Subscriptions for player controller streams to avoid memory leaks
+  StreamSubscription<dynamic>? _onCompletionSub;
+  StreamSubscription<int>? _onDurationSub;
 
   bool get isRecording => recorderController.isRecording;
 
@@ -123,14 +131,14 @@ class AddRecipeViewModel extends BaseViewModel {
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {
-    final result = await _bottomSheetService.showCustomSheet(
+    final result = await _bottomSheetService.showCustomSheet<TagsSheetResponse, dynamic>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.tags,
       data: {'savedTags': tagsList},
     );
     if (result == null) return;
-    tagsList = (result.data.tags as List).cast<String>();
+    tagsList = result.data!.tags;
 
     log('tagsList: $tagsList');
     rebuildUi();
@@ -169,7 +177,7 @@ class AddRecipeViewModel extends BaseViewModel {
       ],
     );
     if (croppedImage != null) {
-      // ! we need "a value of File Type" so here we are converting the from CropperdFile to File
+      //! TODO: we need "a value of File Type" so here we are converting the from CropperdFile to File
       final croppedFile = XFile(
         croppedImage.path,
       );
@@ -178,13 +186,13 @@ class AddRecipeViewModel extends BaseViewModel {
 
       rebuildUi();
       notifyListeners();
-      final fileSizeInBytes = await File(croppedFile.path).length();
+      final fileSizeInBytesAfter = await File(croppedFile.path).length();
 
       // Convert bytes to kilobytes
-      final fileSizeInKB = fileSizeInBytes / 1024;
+      final fileSizeInKBAfter = fileSizeInBytesAfter / 1024;
 
       // Print the file size in kilobytes
-      log('after Cropper File size is : $fileSizeInKB KB');
+      log('after Cropper File size is : $fileSizeInKBAfter KB');
     } else {
       log('cropped image is null');
     }
@@ -258,7 +266,8 @@ class AddRecipeViewModel extends BaseViewModel {
   bool isMute = false;
 
   void durationStop() {
-    playerController.onCompletion.listen((event) {
+    _onCompletionSub?.cancel();
+    _onCompletionSub = playerController.onCompletion.listen((event) {
       stopListening();
     });
   }
@@ -268,7 +277,8 @@ class AddRecipeViewModel extends BaseViewModel {
     isPlaying = true;
     rebuildUi();
 
-    playerController.onCurrentDurationChanged.listen((positionData) {
+    _onDurationSub?.cancel();
+    _onDurationSub = playerController.onCurrentDurationChanged.listen((positionData) {
       final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -350,7 +360,8 @@ class AddRecipeViewModel extends BaseViewModel {
       path: audioNotePath,
       volume: 100,
     );
-    playerController.onCurrentDurationChanged.listen((positionData) {
+    _onDurationSub?.cancel();
+    _onDurationSub = playerController.onCurrentDurationChanged.listen((positionData) {
       final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -411,7 +422,7 @@ class AddRecipeViewModel extends BaseViewModel {
       }
     });
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -469,12 +480,20 @@ class AddRecipeViewModel extends BaseViewModel {
                   ),
                   onPressed: () {
                     log(_hourController.text);
-                    final hour = _hourController.text.isEmpty ? 0 : int.parse(_hourController.text);
+                    final hour =
+                        _hourController.text.isEmpty ? 0 : int.tryParse(_hourController.text);
 
                     final minute =
-                        _minuteController.text.isEmpty ? 0 : int.parse(_minuteController.text);
+                        _minuteController.text.isEmpty ? 0 : int.tryParse(_minuteController.text);
+
+                    if (hour == null || minute == null) {
+                      showToast(message: 'Please enter valid numbers for hours and minutes');
+                      return;
+                    }
 
                     selectedTime = TimeOfDay(hour: hour, minute: minute);
+                    formattedDuration = formatDuration();
+
                     Navigator.of(context).pop();
                     rebuildUi();
                   },
@@ -555,14 +574,17 @@ class AddRecipeViewModel extends BaseViewModel {
 
     if (ingredientsList.isEmpty) {
       showToast(message: 'Please add ingredients');
+      return;
     } else if (methodsList.isEmpty) {
       showToast(message: 'Please add cooking instructions');
+      return;
     } else if (prepreationTime == null) {
       showToast(message: 'Please add cooking time');
+      return;
     }
 
     if (recipeModel == null) {
-      _dialogService.showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+      _dialogService.showCustomDialog<void, dynamic>(variant: DialogType.saveDraftAlertbox, data: {
         'model': RecipeModel(
           visibility: 'private',
           chefNote: 'recorderController',
@@ -586,7 +608,7 @@ class AddRecipeViewModel extends BaseViewModel {
         'isDraft': isDraft,
       });
     } else {
-      _dialogService.showCustomDialog(variant: DialogType.saveDraftAlertbox, data: {
+      _dialogService.showCustomDialog<void, dynamic>(variant: DialogType.saveDraftAlertbox, data: {
         'model': RecipeModel(
           visibility: 'private',
           chefNote: 'recorderController',
@@ -626,7 +648,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void popBack() {
-    _navigationService.back();
+    _navigationService.back<void>();
   }
 
   Future<void> callCookingInstructionBottomSheet() async {
@@ -672,7 +694,6 @@ class AddRecipeViewModel extends BaseViewModel {
     // }
     if (titleController.text.trim().isNotEmpty &&
         // ignore: unrelated_type_equality_checks
-
         (prepreationTime != null) &&
         methodsList.isNotEmpty &&
         ingredientsList.isNotEmpty &&
@@ -682,6 +703,7 @@ class AddRecipeViewModel extends BaseViewModel {
 
       if (!hasImage && !hasAlreadySelectedImages) {
         showToast(message: 'Please add at least one image');
+        return;
       }
       if (recipeModel != null) {
         final shouldClear = await _navigationService.navigateToRecipeViewView(
@@ -709,13 +731,15 @@ class AddRecipeViewModel extends BaseViewModel {
         );
         if (shouldClear == true) {
           log(' Clearing');
+          // Dispose existing controllers first
           recorderController.dispose();
           playerController.dispose();
           titleController.dispose();
           servingSize.dispose();
+
+          // Reset state
           alreadySelectedImages.clear();
           hasRecordedAudio = false;
-
           formattedDuration = '';
           selectedImages.clear();
           ingredientsList.clear();
@@ -724,16 +748,18 @@ class AddRecipeViewModel extends BaseViewModel {
           selectedTimeMethod = '';
           selectedValue1 = 'public';
           count = 0;
-          waveFormData!.clear();
+          waveFormData?.clear();
           prepreationTime = '';
           tagsList.clear();
 
-          rebuildUi();
+          // Recreate controllers BEFORE rebuilding UI to avoid using disposed instances
           titleController = TextEditingController();
-          recorderController = RecorderController();
+          servingSize = TextEditingController()..text = '1';
           playerController = PlayerController();
           _initialiseController();
+          _bottomNavBarView.setIndex(4);
 
+          // Now rebuild with fresh controllers/state
           rebuildUi();
         }
       } else {
@@ -763,33 +789,35 @@ class AddRecipeViewModel extends BaseViewModel {
         log('shouldClear $shouldClear');
         if (shouldClear == true) {
           log(' Clearing');
+          // Dispose existing controllers first
           recorderController.dispose();
           playerController.dispose();
           titleController.dispose();
           servingSize.dispose();
 
+          // Reset state
           alreadySelectedImages.clear();
           hasRecordedAudio = false;
-
           formattedDuration = '';
           selectedImages.clear();
           ingredientsList.clear();
           thumbnails.clear();
           methodsList.clear();
           selectedTimeMethod = '';
-
           selectedValue1 = 'public';
           count = 0;
-          waveFormData!.clear();
+          waveFormData?.clear();
           prepreationTime = '';
           tagsList.clear();
 
-          rebuildUi();
+          // Recreate controllers BEFORE rebuilding UI to avoid using disposed instances
           titleController = TextEditingController();
-          recorderController = RecorderController();
+          servingSize = TextEditingController()..text = '1';
           playerController = PlayerController();
           _initialiseController();
+          _bottomNavBarView.setIndex(4);
 
+          // Now rebuild with fresh controllers/state
           rebuildUi();
         }
       }
@@ -811,9 +839,12 @@ class AddRecipeViewModel extends BaseViewModel {
 
   @override
   void dispose() {
+    _onCompletionSub?.cancel();
+    _onDurationSub?.cancel();
     recorderController.dispose();
     playerController.dispose();
     titleController.dispose();
+
     servingSize.dispose();
 
     selectedImages = [];
@@ -840,6 +871,6 @@ class AddRecipeViewModel extends BaseViewModel {
   late List<String> imageUrls;
 
   void back() {
-    _navigationService.back();
+    _navigationService.back<void>();
   }
 }
