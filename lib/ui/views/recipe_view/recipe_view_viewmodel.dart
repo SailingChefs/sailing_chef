@@ -17,6 +17,7 @@ class RecipeViewViewModel extends BaseViewModel {
 
   PageController pageController = PageController();
   PlayerController playerController = PlayerController();
+
   late VideoPlayerController controller;
   final navigationService = locator<NavigationService>();
   final _recipeService = locator<RecipeService>();
@@ -111,7 +112,7 @@ class RecipeViewViewModel extends BaseViewModel {
 
   Future<void> durationCalculate(File path) async {
     if (path.path.isNotEmpty && waveFormData != null) {
-      waveFormData = await playerController.extractWaveformData(path: path.path);
+      waveFormData = await playerController.waveformExtraction.extractWaveformData(path: path.path);
       if (waveFormData!.isNotEmpty) {
         final duration =
             Duration(milliseconds: await playerController.getDuration(DurationType.max));

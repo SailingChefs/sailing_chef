@@ -308,9 +308,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void _initialiseController() {
-    recorderController = RecorderController()
-      ..androidEncoder = AndroidEncoder.aac
-      ..androidOutputFormat = AndroidOutputFormat.mpeg4;
+    recorderController = RecorderController();
   }
 
   Future<void> addIngredients(List<Ingredient> newIngredients) async {
@@ -343,7 +341,6 @@ class AddRecipeViewModel extends BaseViewModel {
     if (audioNotePath.isEmpty) return;
     await recorderController.record(
       path: audioNotePath,
-      androidOutputFormat: AndroidOutputFormat.mpeg4,
     );
     rebuildUi();
   }
@@ -352,7 +349,8 @@ class AddRecipeViewModel extends BaseViewModel {
     await recorderController.stop();
     log('Path=> $audioNotePath');
     if (audioNotePath.isEmpty) return;
-    waveFormData = await playerController.extractWaveformData(path: audioNotePath);
+    waveFormData =
+        await playerController.waveformExtraction.extractWaveformData(path: audioNotePath);
     hasRecordedAudio = true;
     rebuildUi();
 
