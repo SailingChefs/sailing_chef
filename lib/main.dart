@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
@@ -24,11 +25,21 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 
 Uuid uuid = const Uuid();
+
+/// Web client ID from google-services.json (client_type: 3)
+const String _kServerClientId =
+    '66812962587-29m1bjj4pl8ofeakl78d7lvoeldc6a6s.apps.googleusercontent.com';
+
 void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    // Initialize Google Sign-In with serverClientId for Android
+    await GoogleSignIn.instance.initialize(
+      serverClientId: _kServerClientId,
     );
 
     setupLocator();

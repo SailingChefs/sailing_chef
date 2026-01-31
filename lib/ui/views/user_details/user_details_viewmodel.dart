@@ -285,7 +285,7 @@ class UserDetailsViewModel extends BaseViewModel {
 
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         _navigationService.clearStackAndShowView<Widget>(
-          BottomNavBarView(),
+          const BottomNavBarView(),
         );
       } else {
         // _snakbarService.showSnackbar(message: "Please varify your email first");

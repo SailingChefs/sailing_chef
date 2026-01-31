@@ -27,7 +27,7 @@ class BlockAccountDialogModel extends BaseViewModel {
     //         data: check) as DialogResponse);
 
     _navigationService.clearStackAndShowView(
-      BottomNavBarView(),
+      const BottomNavBarView(),
     );
   }
 }

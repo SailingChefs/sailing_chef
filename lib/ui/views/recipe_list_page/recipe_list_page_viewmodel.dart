@@ -34,17 +34,17 @@ class RecipeListPageViewModel extends BaseViewModel {
   // }
   Future<void> toHomeView() async {
     if (isFromDraft) {
-      _navigationService.clearStackAndShowView(BottomNavBarView());
+      _navigationService.clearStackAndShowView(const BottomNavBarView());
       // _navigationService.replaceWithBottomNavBarView();
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
-    _navigationService.clearStackAndShowView(BottomNavBarView());
+    _navigationService.clearStackAndShowView(const BottomNavBarView());
   }
 
   Future<void> onPopInvoked(bool didPop) async {
     if (isFromDraft) {
-      _navigationService.clearStackAndShowView(BottomNavBarView());
+      _navigationService.clearStackAndShowView(const BottomNavBarView());
       return;
     }
     await Future.delayed(const Duration(milliseconds: 150));
