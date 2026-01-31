@@ -59,13 +59,13 @@ class MainRecipeViewContainer extends ViewModelWidget<SavedRecipeDetailsViewMode
           // verticalSpace(16.h),
           if (recipeModel.user != null)
             Visibility(
-              visible: viewModel.checkOwn(recipeModel),
+              visible: !viewModel.isOwnRecipe(recipeModel),
               child: ViewProfileRow(
                 user: recipeModel.user!,
               ),
             ),
           Visibility(
-            visible: viewModel.checkOwn(recipeModel),
+            visible: !viewModel.isOwnRecipe(recipeModel),
             child: CommentsDetailsScreen(
                 isFromPrivateProfile: isFromPrivateProfile, recipeModel: recipeModel),
           ),
