@@ -28,7 +28,9 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcErrorColor),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: kcErrorColor),
             ),
           ],
         ),
@@ -52,7 +54,8 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                           width: MediaQuery.sizeOf(context).width * 0.68,
                           decoration: BoxDecoration(
                             color: kcPrimaryColor.withOpacity(0.07),
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -102,7 +105,8 @@ class CookingInstructions extends ViewModelWidget<AddRecipeViewModel> {
                 },
                 child: Container(
                   height: 50,
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: kcPrimaryColor.withOpacity(0.07),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),

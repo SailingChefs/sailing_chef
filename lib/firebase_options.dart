@@ -60,8 +60,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '66812962587',
     projectId: 'sailingchefs-3e3cb',
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
-    androidClientId: '66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com',
-    iosClientId: '66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um.apps.googleusercontent.com',
+    androidClientId:
+        '66812962587-1urft5vf5ho831et6t37vlldhbrf7rud.apps.googleusercontent.com',
+    iosClientId:
+        '66812962587-1melobgoo2n16rbnukfsu3qcfvpeo7um.apps.googleusercontent.com',
     iosBundleId: 'com.drudotstech.SailingChefs',
   );
 
@@ -74,5 +76,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'sailingchefs-3e3cb.appspot.com',
     measurementId: 'G-EEH9TH82Q1',
   );
-
 }

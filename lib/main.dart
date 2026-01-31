@@ -2,7 +2,8 @@ import 'dart:async' show runZonedGuarded;
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart' show FirebaseCrashlytics;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart'
+    show FirebaseCrashlytics;
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,7 +61,8 @@ void main() {
       ..displayDuration = const Duration(seconds: 1)
       ..maskType = EasyLoadingMaskType.none;
 
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) async {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+        .then((_) async {
       // final PendingDynamicLinkData? data =
       //     await FirebaseDynamicLinks.instance.getInitialLink();
       // if (data != null) {
@@ -74,7 +76,8 @@ void main() {
   }, (e, s) {
     log('runZonedGuarded', name: 'Main', error: e, stackTrace: s);
     if (kReleaseMode) {
-      FirebaseCrashlytics.instance.recordError(e, s, reason: 'runZonedGuarded Error');
+      FirebaseCrashlytics.instance
+          .recordError(e, s, reason: 'runZonedGuarded Error');
     }
   });
 }
@@ -113,7 +116,9 @@ Future<void> _navigateToRecipe(Uri deepLink) async {
     if (recipe != null) {
       final navigation = locator<NavigationService>();
       navigation.navigateToSavedRecipeDetailsView(
-          recipeModel: recipe, isFromPrivateProfile: false, randomRecipeList: allRecipes!);
+          recipeModel: recipe,
+          isFromPrivateProfile: false,
+          randomRecipeList: allRecipes!);
     }
   }
 }
@@ -132,7 +137,8 @@ class MainApp extends StatelessWidget {
         child: Builder(
           builder: (context) {
             // Initialize BitmapImageService after runApp
-            Future.microtask(() => locator<BitmapImageService>().initialise(context));
+            Future.microtask(
+                () => locator<BitmapImageService>().initialise(context));
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute: Routes.startupView,

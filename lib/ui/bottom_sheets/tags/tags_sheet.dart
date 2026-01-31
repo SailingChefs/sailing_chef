@@ -23,7 +23,8 @@ class TagsSheet extends StackedView<TagsSheetModel> {
     // Set the initial selected tags
     if (!viewModel.initialTagsSet) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        viewModel.setInitialSelectedTags(request.data['savedTags'] as List<String>);
+        viewModel
+            .setInitialSelectedTags(request.data['savedTags'] as List<String>);
         viewModel.initialTagsSet = true;
       });
     }

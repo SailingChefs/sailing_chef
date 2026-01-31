@@ -11,10 +11,12 @@ class DiscardSheetModel extends ReactiveViewModel {
   final RecipeModel recipe;
   DiscardSheetModel({required this.recipe});
 
-  Future<void> saveButton(RecipeModel recipe, List<XFile?> images, String audioNotePath) async {
+  Future<void> saveButton(
+      RecipeModel recipe, List<XFile?> images, String audioNotePath) async {
     List<String> imageUrls;
-    imageUrls =
-        images.isNotEmpty ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!) : [];
+    imageUrls = images.isNotEmpty
+        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!)
+        : [];
     final chefNote = audioNotePath.isNotEmpty
         ? await _recipeService.uploadChefNoteToFirebaseStorage(audioNotePath)
         : '';

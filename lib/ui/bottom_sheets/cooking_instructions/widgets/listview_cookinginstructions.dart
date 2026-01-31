@@ -2,7 +2,8 @@ import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet_model.dart';
 
-class ListViewCookingInstructions extends ViewModelWidget<CookingInstructionsSheetModel> {
+class ListViewCookingInstructions
+    extends ViewModelWidget<CookingInstructionsSheetModel> {
   const ListViewCookingInstructions({required this.listIndex, super.key});
 
   final int listIndex;
@@ -24,7 +25,8 @@ class ListViewCookingInstructions extends ViewModelWidget<CookingInstructionsShe
                 children: [
                   Text(
                     'Step ${index + listIndex + 1}',
-                    style: TextStyle(fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
+                    style: TextStyle(
+                        fontSize: 16, color: kcDarkColor.withOpacity(0.4)),
                   ),
                   verticalSpaceTiny,
                   Row(
@@ -35,7 +37,8 @@ class ListViewCookingInstructions extends ViewModelWidget<CookingInstructionsShe
                           width: 300.w,
                           decoration: BoxDecoration(
                             color: kcVeryLightGrey.withOpacity(0.2),
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),

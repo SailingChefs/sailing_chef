@@ -17,7 +17,8 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   const BottomNavBarView({this.index, super.key});
 
   @override
-  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
+  Widget builder(
+      BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: getViewForIndex(index ?? viewModel.currentIndex),
@@ -94,7 +95,8 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   bool get disposeViewModel => false;
 
   @override
-  BottomNavBarViewModel viewModelBuilder(BuildContext context) => locator<BottomNavBarViewModel>();
+  BottomNavBarViewModel viewModelBuilder(BuildContext context) =>
+      locator<BottomNavBarViewModel>();
 
   Widget getViewForIndex(int index) {
     switch (index) {

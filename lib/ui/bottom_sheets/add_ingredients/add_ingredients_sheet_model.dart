@@ -35,7 +35,8 @@ class AddIngredientsSheetModel extends BaseViewModel {
   void onSaved() {
     if (completer != null && ingredientsList.isNotEmpty) {
       completer!(SheetResponse(
-          confirmed: true, data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
+          confirmed: true,
+          data: AddIngredientsSheetResponse(ingredientsList: ingredientsList)));
     }
   }
 
@@ -64,7 +65,9 @@ class AddIngredientsSheetModel extends BaseViewModel {
 
   void addIngredients(String name, String quantity, int index) {
     ingredientsList.insert(
-        index, Ingredient(serving: 1, name: name, quantity: quantity, unit: '---', id: ''));
+        index,
+        Ingredient(
+            serving: 1, name: name, quantity: quantity, unit: '---', id: ''));
     notifyListeners();
   }
 

@@ -16,8 +16,8 @@ class ManagePins extends StatelessWidget {
         PinnedLocationStatus.published => DismissDirection.endToStart,
       };
 
-  Future<bool> _handleDismiss(
-      BuildContext context, PinnedLocation pin, DismissDirection direction) async {
+  Future<bool> _handleDismiss(BuildContext context, PinnedLocation pin,
+      DismissDirection direction) async {
     try {
       switch (direction) {
         case DismissDirection.startToEnd:
@@ -45,7 +45,8 @@ class ManagePins extends StatelessWidget {
         return Dismissible(
           key: Key(pin.id!),
           direction: _dismissDirection,
-          confirmDismiss: (direction) => _handleDismiss(context, pin, direction),
+          confirmDismiss: (direction) =>
+              _handleDismiss(context, pin, direction),
           background: Container(
             color: Colors.green,
             alignment: Alignment.centerLeft,
@@ -56,7 +57,9 @@ class ManagePins extends StatelessWidget {
                   padding: EdgeInsets.only(right: 8.0),
                   child: Text('Publish',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)),
                 ),
                 Icon(Icons.check, color: Colors.white),
               ],
@@ -73,7 +76,9 @@ class ManagePins extends StatelessWidget {
                   padding: EdgeInsets.only(right: 8.0),
                   child: Text('Review',
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16)),
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)),
                 ),
                 Icon(Icons.rate_review, color: Colors.black),
               ],
@@ -104,8 +109,9 @@ class ManagePins extends StatelessWidget {
                   viewModel.toPinDetailsScreen(pin);
                 }
               },
-              title:
-                  Text(pin.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+              title: Text(pin.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 20)),
               subtitle: Text(pin.description),
             ),
           ),

@@ -31,14 +31,19 @@ class EditProfileViewModel extends BaseViewModel {
   void onViewModelReady() {
     setBusy(true);
 
-    nameController.text = userDetails!.displayName == null ? '' : userDetails!.displayName!;
-    emailController.text = userDetails!.email == null ? '' : userDetails!.email!;
+    nameController.text =
+        userDetails!.displayName == null ? '' : userDetails!.displayName!;
+    emailController.text =
+        userDetails!.email == null ? '' : userDetails!.email!;
     linkController.text = userDetails!.link == null ? '' : userDetails!.link!;
     bioController.text = userDetails!.bio == null ? '' : userDetails!.bio!;
-    location.text = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
-    address = userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    location.text =
+        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
+    address =
+        userDetails!.namedLocation == null ? '' : userDetails!.namedLocation!;
 
-    boatController.text = userDetails!.boatName == null ? '' : userDetails!.boatName!;
+    boatController.text =
+        userDetails!.boatName == null ? '' : userDetails!.boatName!;
     log(boatController.text);
 
     setBusy(false);
@@ -150,7 +155,8 @@ class EditProfileViewModel extends BaseViewModel {
         'bio': bioController.text,
         'address': address
       };
-      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails!.displayPicture = imageLink;
       _navigationService.navigateToBottomNavBarView();
       notifyListeners();
@@ -195,7 +201,8 @@ class EditProfileViewModel extends BaseViewModel {
       userData['display_picture'] = userDetails!.displayPicture;
     }
 
-    await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
+    await userDataService.storeUserDetails(
+        userData, FirebaseAuth.instance.currentUser!.uid);
     userDetails = await _userService.getUserDetails();
     _navigationService.navigateToBottomNavBarView();
   }
@@ -207,14 +214,16 @@ class EditProfileViewModel extends BaseViewModel {
         'bio': bio,
       };
       if (selectedImageFile != null) {
-        await userDataService.deleteFileFromStorage(userDetails!.displayPicture!);
+        await userDataService
+            .deleteFileFromStorage(userDetails!.displayPicture!);
         final imageLink = await _userService.uploadImage(
           selectedImageFile!,
           selectedImageFile!.path.split('/').last,
         );
         userData['display_picture'] = imageLink;
       }
-      await userDataService.storeUserDetails(userData, FirebaseAuth.instance.currentUser!.uid);
+      await userDataService.storeUserDetails(
+          userData, FirebaseAuth.instance.currentUser!.uid);
       userDetails = await _userService.getUserDetails();
       _navigationService.navigateToBottomNavBarView();
       notifyListeners();

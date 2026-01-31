@@ -20,7 +20,8 @@ class SavedRecipeModel {
     return SavedRecipeModel(
       recipeId: data['recipeId'] as String,
       recipeModel: data['recipeModel'] != null
-          ? RecipeModel.fromSnapshot(data['recipeModel'] as DocumentSnapshot<Object?>)
+          ? RecipeModel.fromSnapshot(
+              data['recipeModel'] as DocumentSnapshot<Object?>)
           : null,
     );
   }

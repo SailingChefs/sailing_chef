@@ -33,7 +33,8 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                 padding: const EdgeInsets.all(9.0),
                 child: GestureDetector(
                   onTap: () {
-                    viewModel.getImage(ImageSource.camera, user.uid!, conversationId);
+                    viewModel.getImage(
+                        ImageSource.camera, user.uid!, conversationId);
                   },
                   child: SvgPicture.asset(
                     'assets/images/icons/camera.svg',
@@ -50,18 +51,22 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                     filled: true,
                     fillColor: kcWhiteColor.withOpacity(0.9),
                     hintText: 'Type your message here...',
-                    hintStyle: TextStyle(fontSize: 12, color: kcBlackColor.withOpacity(0.6)),
+                    hintStyle: TextStyle(
+                        fontSize: 12, color: kcBlackColor.withOpacity(0.6)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(color: kcWhiteColor.withOpacity(0.2)),
+                      borderSide:
+                          BorderSide(color: kcWhiteColor.withOpacity(0.2)),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
@@ -85,7 +90,9 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
                 padding: const EdgeInsets.all(6.0),
                 child: GestureDetector(
                   onTap: () {
-                    viewModel.isBusy ? EasyLoading() : viewModel.getFile(user.uid!, conversationId);
+                    viewModel.isBusy
+                        ? EasyLoading()
+                        : viewModel.getFile(user.uid!, conversationId);
                   },
                   child: SvgPicture.asset(
                     'assets/images/icons/clip.svg',

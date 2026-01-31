@@ -100,26 +100,35 @@ class RoundedTransparentTextField extends StatelessWidget {
       enableInteractiveSelection: enableInteractiveSelection,
       style: style ??
           globalTextStyle(
-              fontSize: 13.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w400),
+              fontSize: 13.sp,
+              color: textColor ?? kcWhiteColor,
+              fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         hintText: labelText,
         hintStyle: globalTextStyle(
-            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
+            fontSize: 14.sp,
+            color: textColor ?? kcWhiteColor,
+            fontWeight: FontWeight.w500),
         filled: true,
         fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
         labelStyle: globalTextStyle(
-            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
+            fontSize: 14.sp,
+            color: textColor ?? kcWhiteColor,
+            fontWeight: FontWeight.w500),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide:
+              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

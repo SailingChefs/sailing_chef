@@ -32,16 +32,23 @@ class ManageRecipesView extends StackedView<ManageRecipesViewModel> {
               ),
               Expanded(
                 child: StreamBuilder(
-                    stream: viewModel.recipeService.fetchPublicRecipesAsStream(),
+                    stream:
+                        viewModel.recipeService.fetchPublicRecipesAsStream(),
                     builder: (context, asyncSnapshot) {
                       final recipes = asyncSnapshot.data;
 
-                      final pendingRecipes =
-                          recipes?.where((recipe) => recipe.status == 'pending').toList() ?? [];
-                      final reviewRecipes =
-                          recipes?.where((recipe) => recipe.status == 'review').toList() ?? [];
-                      final publishedRecipes =
-                          recipes?.where((recipe) => recipe.status == 'published').toList() ?? [];
+                      final pendingRecipes = recipes
+                              ?.where((recipe) => recipe.status == 'pending')
+                              .toList() ??
+                          [];
+                      final reviewRecipes = recipes
+                              ?.where((recipe) => recipe.status == 'review')
+                              .toList() ??
+                          [];
+                      final publishedRecipes = recipes
+                              ?.where((recipe) => recipe.status == 'published')
+                              .toList() ??
+                          [];
 
                       return TabBarView(
                         children: [

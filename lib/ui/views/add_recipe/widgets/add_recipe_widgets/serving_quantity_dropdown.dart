@@ -27,7 +27,9 @@ class ServingQuantity extends ViewModelWidget<AddRecipeViewModel> {
             Text(
               '*',
               style: globalTextStyle(
-                  fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcErrorColor),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: kcErrorColor),
             ),
           ],
         ),

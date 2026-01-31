@@ -19,8 +19,10 @@ class TopBarFilterScreen extends ViewModelWidget<FilterViewModel> {
         ),
         Text(
           'Filter',
-          style:
-              globalTextStyle(fontSize: 20.0.dg, color: kcBlackColor, fontWeight: FontWeight.w600),
+          style: globalTextStyle(
+              fontSize: 20.0.dg,
+              color: kcBlackColor,
+              fontWeight: FontWeight.w600),
         ),
         horizontalSpaceLarge,
       ],

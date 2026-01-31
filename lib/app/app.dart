@@ -82,6 +82,7 @@ import 'package:sailing_chefs/ui/views/share_recipe_to_sailing_cheff_user/share_
 import 'package:sailing_chefs/ui/views/shopping_list/shopping_list_view.dart';
 import 'package:sailing_chefs/ui/views/sign_up/sign_up_view.dart';
 import 'package:sailing_chefs/ui/views/startup/startup_view.dart';
+import 'package:sailing_chefs/ui/views/terms_conditions/terms_conditions_view.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_view.dart';
 import 'package:sailing_chefs/ui/views/video_player/video_player_view.dart';
 import 'package:sailing_chefs/ui/views/view_all_drafts/view_all_drafts_view.dart';
@@ -140,6 +141,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ShareRecipeToSailingCheffUserView),
     MaterialRoute(page: ManageRecipesView),
     MaterialRoute(page: ManagePinsView),
+    MaterialRoute(page: TermsConditionsView),
 // @stacked-route
   ],
   dependencies: [

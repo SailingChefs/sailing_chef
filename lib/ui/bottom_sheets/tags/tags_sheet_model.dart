@@ -10,7 +10,9 @@ class Tag {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Tag && runtimeType == other.runtimeType && tagString == other.tagString;
+      other is Tag &&
+          runtimeType == other.runtimeType &&
+          tagString == other.tagString;
 
   @override
   int get hashCode => tagString.hashCode;
@@ -110,12 +112,14 @@ class TagsSheetModel extends BaseViewModel {
   void setInitialSelectedTags(List<String> savedTags) {
     for (final tagString in savedTags) {
       if (courseTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(courseTags, courseTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(courseTags,
+            courseTagsList.firstWhere((tag) => tag.label == tagString));
       } else if (categoryTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(categoryTags, categoryTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(categoryTags,
+            categoryTagsList.firstWhere((tag) => tag.label == tagString));
       } else if (dietaryNeedsTagsList.any((tag) => tag.label == tagString)) {
-        toggleSelection(
-            dietaryNeedsTags, dietaryNeedsTagsList.firstWhere((tag) => tag.label == tagString));
+        toggleSelection(dietaryNeedsTags,
+            dietaryNeedsTagsList.firstWhere((tag) => tag.label == tagString));
       }
     }
   }

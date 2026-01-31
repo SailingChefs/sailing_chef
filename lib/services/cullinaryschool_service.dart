@@ -50,7 +50,8 @@ class CullinaryschoolService with ListenableServiceMixin {
         )
         .where('uid', isNotEqualTo: firebaseAuth.currentUser?.uid)
         .snapshots()
-        .map((querySnapshot) => querySnapshot.docs.map(UserModel.fromSnapshot).toList());
+        .map((querySnapshot) =>
+            querySnapshot.docs.map(UserModel.fromSnapshot).toList());
   }
 
   Future<void> deleteCullinaryCoursesData(
@@ -58,12 +59,16 @@ class CullinaryschoolService with ListenableServiceMixin {
   ) async {
     try {
       // First update the database
-      await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
+      await firebasestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
         'school_courses': FieldValue.arrayRemove([courseId])
       });
 
       // Then update the local data
-      await _deleteCourseFromDatabase(userId: userDetails!.uid!, courseId: courseId);
+      await _deleteCourseFromDatabase(
+          userId: userDetails!.uid!, courseId: courseId);
       courses.removeWhere((element) => element.id == courseId);
 
       // Show toast and notify listeners after all operations are complete
@@ -120,7 +125,10 @@ class CullinaryschoolService with ListenableServiceMixin {
 
   Future<List<Course>> _updateCourseToDatabase(Course course) async {
     try {
-      await firebasestore.collection('courses').doc(course.id).update(course.toMap());
+      await firebasestore
+          .collection('courses')
+          .doc(course.id)
+          .update(course.toMap());
       courses = courses.map((c) => c.id == course.id ? course : c).toList();
       // Remove notifyListeners from here - let the calling method handle UI updates
       return courses;
@@ -136,16 +144,19 @@ class CullinaryschoolService with ListenableServiceMixin {
     var courses = <Course>[];
 
     try {
-      final querySnapshot = await firebasestore.collection('users').doc(userId).get();
+      final querySnapshot =
+          await firebasestore.collection('users').doc(userId).get();
 
       if (querySnapshot.exists) {
-        final courseIds =
-            (querySnapshot.data()?['school_courses'] as List?)?.cast<String>() ?? <String>[];
+        final courseIds = (querySnapshot.data()?['school_courses'] as List?)
+                ?.cast<String>() ??
+            <String>[];
 
         // Use Future.wait to fetch courses in parallel for better performance
         final futures = courseIds.map((courseId) async {
           try {
-            final courseSnapshot = await firebasestore.collection('courses').doc(courseId).get();
+            final courseSnapshot =
+                await firebasestore.collection('courses').doc(courseId).get();
 
             if (courseSnapshot.exists) {
               final courseData = courseSnapshot.data()!;
@@ -158,7 +169,8 @@ class CullinaryschoolService with ListenableServiceMixin {
         }).toList();
 
         final results = await Future.wait(futures);
-        courses = results.where((course) => course != null).cast<Course>().toList();
+        courses =
+            results.where((course) => course != null).cast<Course>().toList();
       }
     } catch (e) {
       log('Error fetching courses for user $userId: $e');

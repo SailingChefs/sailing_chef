@@ -11,11 +11,13 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
   @override
   Widget build(BuildContext context, PinDropMapViewModel viewModel) {
     return ListView.builder(
-      itemCount:
-          viewModel.filteredPins.isEmpty ? viewModel.pins.length : viewModel.filteredPins.length,
+      itemCount: viewModel.filteredPins.isEmpty
+          ? viewModel.pins.length
+          : viewModel.filteredPins.length,
       itemBuilder: (context, index) {
-        final pin =
-            viewModel.filteredPins.isEmpty ? viewModel.pins[index] : viewModel.filteredPins[index];
+        final pin = viewModel.filteredPins.isEmpty
+            ? viewModel.pins[index]
+            : viewModel.filteredPins[index];
 
         final imageUrl = pin.picture.isNotEmpty ? pin.picture[0] : '';
 
@@ -78,7 +80,8 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       // Rating
                                       Row(
@@ -129,29 +132,35 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                               ),
                             ],
                           ),
-                          if ([PinnedLocationStatus.pending, PinnedLocationStatus.review]
-                              .contains(pin.status))
+                          if ([
+                            PinnedLocationStatus.pending,
+                            PinnedLocationStatus.review
+                          ].contains(pin.status))
                             Positioned(
                               right: 8.dg,
                               top: 8.dg,
                               child: Container(
                                 height: 25.h,
-                                padding: EdgeInsets.only(left: 10.dg, right: 10.dg),
+                                padding:
+                                    EdgeInsets.only(left: 10.dg, right: 10.dg),
                                 decoration: BoxDecoration(
-                                  color: pin.status == PinnedLocationStatus.pending
-                                      ? Colors.yellow
-                                      : Colors.orange,
+                                  color:
+                                      pin.status == PinnedLocationStatus.pending
+                                          ? Colors.yellow
+                                          : Colors.orange,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(20.r),
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       pin.status.name.capitalizeFirst(),
                                       maxLines: 1,
-                                      style: globalTextStyle(fontSize: 10.sp, color: kcBlackColor),
+                                      style: globalTextStyle(
+                                          fontSize: 10.sp, color: kcBlackColor),
                                     )
                                   ],
                                 ),

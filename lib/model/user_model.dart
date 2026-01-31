@@ -74,19 +74,23 @@ class UserModel {
       boatName: data['boat_name'] as String?,
       createdTime: (data['created_time'] as Timestamp?)?.toDate(),
       displayPicture: data['display_picture'] as String?,
-      followers:
-          List<String>.from((data['followers'] as List<dynamic>?)?.map((e) => e as String) ?? []),
-      following:
-          List<String>.from((data['following'] as List<dynamic>?)?.map((e) => e as String) ?? []),
+      followers: List<String>.from(
+          (data['followers'] as List<dynamic>?)?.map((e) => e as String) ?? []),
+      following: List<String>.from(
+          (data['following'] as List<dynamic>?)?.map((e) => e as String) ?? []),
       link: data['link'] as String?,
       savedRecipes: List<String>.from(
-          (data['saved_Recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
+          (data['saved_Recipes'] as List<dynamic>?)?.map((e) => e as String) ??
+              []),
       blockedAccounts: List<String>.from(
-          (data['blocked_accounts'] as List<dynamic>?)?.map((e) => e as String) ?? []),
+          (data['blocked_accounts'] as List<dynamic>?)
+                  ?.map((e) => e as String) ??
+              []),
       schoolCourses: List<String>.from(
-          (data['school_courses'] as List<dynamic>?)?.map((e) => e as String) ?? []),
-      recipes:
-          List<String>.from((data['recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
+          (data['school_courses'] as List<dynamic>?)?.map((e) => e as String) ??
+              []),
+      recipes: List<String>.from(
+          (data['recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
       namedLocation: data['address'] as String?,
       isAdmin: (data['is_admin'] as bool?) ?? false,
     );

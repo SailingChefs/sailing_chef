@@ -30,9 +30,12 @@ class ReviewsModel {
       feedback: data['feedback'] as String?,
       userName: (data['userName'] as String?) ?? '',
       userImageUrl: (data['userImageUrl'] as String?) ?? '',
-      timestamp:
-          data['created_time'] is Timestamp ? data['created_time'] as Timestamp : Timestamp.now(),
-      rating: (data['rating'] != null) ? double.tryParse(data['rating'].toString()) ?? 0.0 : 0.0,
+      timestamp: data['created_time'] is Timestamp
+          ? data['created_time'] as Timestamp
+          : Timestamp.now(),
+      rating: (data['rating'] != null)
+          ? double.tryParse(data['rating'].toString()) ?? 0.0
+          : 0.0,
     );
   }
   Map<String, dynamic> toJson() {

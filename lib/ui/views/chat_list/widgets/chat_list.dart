@@ -22,7 +22,8 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                           height: MediaQuery.sizeOf(context).height * 0.7,
                           child: Center(
                             child: Text('No chats',
-                                style: globalTextStyle(fontSize: 18, color: kcPrimaryColor)),
+                                style: globalTextStyle(
+                                    fontSize: 18, color: kcPrimaryColor)),
                           ),
                         )
                       : Expanded(
@@ -32,8 +33,8 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                               itemBuilder: (BuildContext context, int index) {
                                 final conversation = snapshot.data![index];
 
-                                final dateTime =
-                                    DateTime.parse(conversation.latestMessageTime.toString());
+                                final dateTime = DateTime.parse(
+                                    conversation.latestMessageTime.toString());
                                 final hour = dateTime.hour;
                                 final minute = dateTime.minute;
 
@@ -57,33 +58,48 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                           viewModel.toChatScreen(conversation);
                                         },
                                         child: ListTile(
-                                          contentPadding: const EdgeInsets.all(5),
+                                          contentPadding:
+                                              const EdgeInsets.all(5),
                                           title: Text(
-                                            capitalizeEachWord(conversation.user!.displayName!),
+                                            capitalizeEachWord(conversation
+                                                .user!.displayName!),
                                           ),
-                                          subtitle: conversation.latestMessageType == 'String'
+                                          subtitle: conversation
+                                                      .latestMessageType ==
+                                                  'String'
                                               ? Text(
-                                                  conversation.latestMessage.capitalize(),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  conversation.latestMessage
+                                                      .capitalize(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                      color: kcBlackColor.withOpacity(0.5)),
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.5)),
                                                 )
-                                              : (conversation.latestMessageType == 'image') ||
-                                                      conversation.latestMessageType == 'file'
+                                              : (conversation.latestMessageType ==
+                                                          'image') ||
+                                                      conversation
+                                                              .latestMessageType ==
+                                                          'file'
                                                   ? Text(
                                                       'Sent an attachment',
                                                       style: TextStyle(
-                                                          color: kcBlackColor.withOpacity(0.5)),
+                                                          color: kcBlackColor
+                                                              .withOpacity(
+                                                                  0.5)),
                                                     )
                                                   : Text(
                                                       style: TextStyle(
-                                                          color: kcBlackColor.withOpacity(0.5)),
+                                                          color: kcBlackColor
+                                                              .withOpacity(
+                                                                  0.5)),
                                                       'Create new message',
                                                     ),
                                           leading: CircleAvatar(
                                             radius: 30.r,
-                                            backgroundImage: ImageUtils.safeNetworkImageForAvatar(
+                                            backgroundImage: ImageUtils
+                                                .safeNetworkImageForAvatar(
                                               conversation.user?.displayPicture,
                                             ),
                                           ),

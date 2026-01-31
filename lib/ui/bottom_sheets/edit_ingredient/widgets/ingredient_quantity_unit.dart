@@ -13,12 +13,14 @@ class IngredientQuantityUnit extends ViewModelWidget<EditIngredientSheetModel> {
   @override
   Widget build(BuildContext context, EditIngredientSheetModel viewModel) {
     // Ensure the selected value is in the list of values
-    if (!viewModel.values.contains(viewModel.selectedValue) && viewModel.values.isNotEmpty) {
+    if (!viewModel.values.contains(viewModel.selectedValue) &&
+        viewModel.values.isNotEmpty) {
       viewModel.selectedValue = viewModel.values.first;
     }
 
     return Padding(
-      padding: const EdgeInsets.only(left: 28.0, right: 10, top: 10, bottom: 10),
+      padding:
+          const EdgeInsets.only(left: 28.0, right: 10, top: 10, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -66,7 +68,8 @@ class IngredientQuantityUnit extends ViewModelWidget<EditIngredientSheetModel> {
                       viewModel.updateValue(newValue);
                     }
                   },
-                  items: viewModel.values.map<DropdownMenuItem<String>>((String value) {
+                  items: viewModel.values
+                      .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),

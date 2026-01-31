@@ -26,8 +26,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                   child: Row(
                     children: [
                       ...viewModel.alreadySelectedImages.map((String url) {
-                        final media = viewModel.alreadySelectedImages
-                            .elementAt(viewModel.alreadySelectedImages.indexOf(url));
+                        final media = viewModel.alreadySelectedImages.elementAt(
+                            viewModel.alreadySelectedImages.indexOf(url));
 
                         if (media.isFirebaseVideoUrl) {
                           return Stack(
@@ -50,8 +50,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 top: 10,
                                 right: 10,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      viewModel.fireBaseImage(drafts!.docId!, media.indexOf(url)),
+                                  onTap: () => viewModel.fireBaseImage(
+                                      drafts!.docId!, media.indexOf(url)),
                                   child: Icon(
                                     Icons.close,
                                     size: 24,
@@ -92,8 +92,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 top: 10,
                                 right: 10,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      viewModel.fireBaseImage(drafts!.docId!, media.indexOf(url)),
+                                  onTap: () => viewModel.fireBaseImage(
+                                      drafts!.docId!, media.indexOf(url)),
                                   child: Icon(
                                     Icons.close,
                                     size: 24,
@@ -111,7 +111,9 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                           ...viewModel.selectedImages.map((XFile image) {
                             viewModel.updateVideoSource(
                               File(viewModel
-                                  .selectedImages[viewModel.selectedImages.indexOf(image)].path),
+                                  .selectedImages[
+                                      viewModel.selectedImages.indexOf(image)]
+                                  .path),
                             );
 
                             final media = File(image.path);
@@ -137,7 +139,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                     top: 10,
                                     right: 10,
                                     child: GestureDetector(
-                                      onTap: () => viewModel.deleteCurrentImage(image),
+                                      onTap: () =>
+                                          viewModel.deleteCurrentImage(image),
                                       child: Icon(
                                         Icons.close,
                                         size: 24,
@@ -154,7 +157,9 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       )),
                                 ],
                               );
-                            } else if (media.path.toLowerCase().endsWith('.jpg') ||
+                            } else if (media.path
+                                    .toLowerCase()
+                                    .endsWith('.jpg') ||
                                 media.path.toLowerCase().endsWith('.jpeg') ||
                                 media.path.toLowerCase().endsWith('.png')) {
                               return Stack(
@@ -175,7 +180,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                     top: 10,
                                     right: 10,
                                     child: GestureDetector(
-                                      onTap: () => viewModel.deleteCurrentImage(image),
+                                      onTap: () =>
+                                          viewModel.deleteCurrentImage(image),
                                       child: Icon(
                                         Icons.close,
                                         size: 24,
@@ -214,8 +220,11 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                 // color: kcBlackColor.withOpacity(0.3),
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
-                                      vertical: MediaQuery.of(context).size.width * 0.08),
-                                  width: MediaQuery.of(context).size.width * 0.4,
+                                      vertical:
+                                          MediaQuery.of(context).size.width *
+                                              0.08),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -255,13 +264,17 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                   Text(
                     'Add Images',
                     style: TextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.bold, color: kcBlackColor),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: kcBlackColor),
                   ),
                   horizontalSpaceTiny,
                   Text(
                     '*',
                     style: globalTextStyle(
-                        fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcErrorColor),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: kcErrorColor),
                   ),
                 ],
               ),
@@ -279,7 +292,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                         // color: kcBlackColor.withOpacity(0.3),
                         child: Container(
                           margin: EdgeInsets.symmetric(
-                              vertical: MediaQuery.of(context).size.width * 0.08),
+                              vertical:
+                                  MediaQuery.of(context).size.width * 0.08),
                           width: MediaQuery.of(context).size.width * 0.4,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -390,17 +404,20 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.98.w,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.98.w,
                                 padding: const EdgeInsets.all(10.0),
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      ...viewModel.selectedImages.map((XFile image) {
+                                      ...viewModel.selectedImages
+                                          .map((XFile image) {
                                         viewModel.updateVideoSource(
                                           File(viewModel
-                                              .selectedImages[
-                                                  viewModel.selectedImages.indexOf(image)]
+                                              .selectedImages[viewModel
+                                                  .selectedImages
+                                                  .indexOf(image)]
                                               .path),
                                         );
 
@@ -410,14 +427,19 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                           return Stack(
                                             children: [
                                               Container(
-                                                margin: const EdgeInsets.only(right: 8.0),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8.0),
                                                 height: 148.0,
                                                 width: 138.0,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(15.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
                                                 child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(15.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                   child: CustomVideoPlayer.file(
                                                     pathh: media.path,
                                                   ),
@@ -427,11 +449,14 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                 top: 10,
                                                 right: 10,
                                                 child: GestureDetector(
-                                                  onTap: () => viewModel.deleteCurrentImage(image),
+                                                  onTap: () => viewModel
+                                                      .deleteCurrentImage(
+                                                          image),
                                                   child: Icon(
                                                     Icons.close,
                                                     size: 24,
-                                                    color: kcwhitecolor.withOpacity(0.5),
+                                                    color: kcwhitecolor
+                                                        .withOpacity(0.5),
                                                   ),
                                                 ),
                                               ),
@@ -440,7 +465,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                   left: 10,
                                                   child: Text(
                                                     'video',
-                                                    style: globalTextStyle(fontSize: 7.sp),
+                                                    style: globalTextStyle(
+                                                        fontSize: 7.sp),
                                                   )),
                                             ],
                                           );
@@ -448,7 +474,8 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                           return Stack(
                                             children: [
                                               Container(
-                                                margin: const EdgeInsets.only(right: 8.0),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8.0),
                                                 height: 148.0,
                                                 width: 138.0,
                                                 decoration: BoxDecoration(
@@ -456,18 +483,23 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                     image: FileImage(media),
                                                     fit: BoxFit.cover,
                                                   ),
-                                                  borderRadius: BorderRadius.circular(15.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
                                               ),
                                               Positioned(
                                                 top: 10,
                                                 right: 10,
                                                 child: GestureDetector(
-                                                  onTap: () => viewModel.deleteCurrentImage(image),
+                                                  onTap: () => viewModel
+                                                      .deleteCurrentImage(
+                                                          image),
                                                   child: Icon(
                                                     Icons.close,
                                                     size: 24,
-                                                    color: kcwhitecolor.withOpacity(0.5),
+                                                    color: kcwhitecolor
+                                                        .withOpacity(0.5),
                                                   ),
                                                 ),
                                               ),
@@ -475,15 +507,18 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                 top: 10,
                                                 left: 10,
                                                 child: GestureDetector(
-                                                  onTap: () => viewModel.showCroppper(
+                                                  onTap: () =>
+                                                      viewModel.showCroppper(
                                                     media,
                                                     context,
-                                                    viewModel.selectedImages.indexOf(image),
+                                                    viewModel.selectedImages
+                                                        .indexOf(image),
                                                   ),
                                                   child: Icon(
                                                     Icons.crop,
                                                     size: 24,
-                                                    color: kcwhitecolor.withOpacity(0.6),
+                                                    color: kcwhitecolor
+                                                        .withOpacity(0.6),
                                                   ),
                                                 ),
                                               ),
@@ -504,10 +539,17 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                             child: Container(
                                               margin: EdgeInsets.symmetric(
                                                   vertical:
-                                                      MediaQuery.of(context).size.width * 0.08),
-                                              width: MediaQuery.of(context).size.width * 0.35,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.08),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.35,
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   SvgPicture.asset(
                                                     'assets/images/icons/photo.svg',
@@ -519,8 +561,10 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                     style: globalTextStyle(
                                                       fontSize: 14.0.sp,
                                                       letterSpacing: -0.7,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: kcBlackColor.withOpacity(0.3),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: kcBlackColor
+                                                          .withOpacity(0.3),
                                                     ),
                                                   ),
                                                   verticalSpaceSmall,

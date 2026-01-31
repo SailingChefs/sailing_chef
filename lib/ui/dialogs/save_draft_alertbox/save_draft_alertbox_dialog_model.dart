@@ -12,11 +12,13 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _recipeService = locator<RecipeService>();
 
-  Future<void> yesButton(RecipeModel recipe, List<XFile?> images, String audioNotePath) async {
+  Future<void> yesButton(
+      RecipeModel recipe, List<XFile?> images, String audioNotePath) async {
     List<String> imageUrls;
     log(recipe.docId?.toString() ?? 'No docId found for recipe');
-    imageUrls =
-        images.isNotEmpty ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!) : [];
+    imageUrls = images.isNotEmpty
+        ? await _recipeService.uploadMediaToFirebase(images, recipe.docId!)
+        : [];
     final chefNote = audioNotePath.isNotEmpty
         ? await _recipeService.uploadChefNoteToFirebaseStorage(audioNotePath)
         : '';
@@ -32,8 +34,10 @@ class SaveDraftAlertboxDialogModel extends BaseViewModel {
     }
   }
 
-  void noButton(RecipeModel model, List<XFile?> selectedImages, String path, bool isDraft) {
-    _bottomSheetService.showCustomSheet(variant: BottomSheetType.discard, data: {
+  void noButton(RecipeModel model, List<XFile?> selectedImages, String path,
+      bool isDraft) {
+    _bottomSheetService
+        .showCustomSheet(variant: BottomSheetType.discard, data: {
       'model': model,
       'images': selectedImages,
       'path': path,

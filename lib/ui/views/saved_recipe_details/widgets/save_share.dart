@@ -6,7 +6,8 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 
 class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipe;
-  const SaveShare({required this.isFromPrivateProfile, required this.recipe, super.key});
+  const SaveShare(
+      {required this.isFromPrivateProfile, required this.recipe, super.key});
   final bool isFromPrivateProfile;
   @override
   Widget build(BuildContext context, SavedRecipeDetailsViewModel viewModel) {

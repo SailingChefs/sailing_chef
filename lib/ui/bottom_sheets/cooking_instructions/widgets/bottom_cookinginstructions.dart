@@ -3,7 +3,8 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_inst
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
-class BottomCookingInstructions extends ViewModelWidget<CookingInstructionsSheetModel> {
+class BottomCookingInstructions
+    extends ViewModelWidget<CookingInstructionsSheetModel> {
   const BottomCookingInstructions(this.method, this.index, {super.key});
 
   final String? method;

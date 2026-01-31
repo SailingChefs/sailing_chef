@@ -265,8 +265,8 @@ class FilterViewModel extends BaseViewModel {
       log('prep time $prepTimeHours');
 
       // Check if prep time falls within the specified range
-      final timeInRange =
-          prepTimeHours >= (values.start as double) && prepTimeHours <= (values.end as double);
+      final timeInRange = prepTimeHours >= (values.start as double) &&
+          prepTimeHours <= (values.end as double);
 
       // Return true if both tag and time conditions are met
       if (filterOptions.isEmpty) {
@@ -299,7 +299,10 @@ class FilterViewModel extends BaseViewModel {
       final value = double.parse(match.group(0)!);
 
       // Check if the value is followed by 'h' or 'hour' (indicating hours)
-      if (prepTime.substring(match.end).toLowerCase().startsWith(RegExp('h|hour'))) {
+      if (prepTime
+          .substring(match.end)
+          .toLowerCase()
+          .startsWith(RegExp('h|hour'))) {
         totalMinutes += value * 60; // Convert hours to minutes
       } else {
         // Assume it's minutes if not specified as hours

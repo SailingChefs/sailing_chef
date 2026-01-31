@@ -33,8 +33,11 @@ class CommentModel {
       userName: (data['userName'] as String?) ?? '',
       userImageUrl: (data['userImageUrl'] as String?) ?? '',
       timestamp: (data['timestamp'] as Timestamp?) ?? Timestamp.now(),
-      imageUrl: List<String>.from((data['imageUrl'] as List<dynamic>?) ?? const []),
-      rating: data['rating'] != null ? (double.tryParse(data['rating'].toString()) ?? 0.0) : 0.0,
+      imageUrl:
+          List<String>.from((data['imageUrl'] as List<dynamic>?) ?? const []),
+      rating: data['rating'] != null
+          ? (double.tryParse(data['rating'].toString()) ?? 0.0)
+          : 0.0,
     );
   }
 

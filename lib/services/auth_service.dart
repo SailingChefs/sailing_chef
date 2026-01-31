@@ -20,7 +20,8 @@ class AuthService {
   }) async {
     try {
       EasyLoading.show();
-      final user = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final user = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
 
       if (!user.user!.emailVerified) {
         EasyLoading.dismiss();
@@ -95,7 +96,8 @@ class AuthService {
       await userCredential.user!.updateDisplayName(userModel.displayName);
       await userCredential.user!.sendEmailVerification();
 
-      await userService.storeUserDetails(userModel.toJson(), userCredential.user!.uid);
+      await userService.storeUserDetails(
+          userModel.toJson(), userCredential.user!.uid);
 
       EasyLoading.dismiss();
       showToast(
@@ -114,7 +116,8 @@ class AuthService {
         case 'email-already-in-use':
           showToast(message: 'Email already in use');
         default:
-          showToast(message: 'Failed to login, Your email might not be verified');
+          showToast(
+              message: 'Failed to login, Your email might not be verified');
       }
       EasyLoading.dismiss();
       return false;
@@ -137,7 +140,8 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       final user = userCredential.user;
 
@@ -161,13 +165,15 @@ class AuthService {
         );
 
         if (userCredential.additionalUserInfo!.isNewUser) {
-          await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
+          await userService.storeUserDetails(
+              userDetails!.toJson(), userDetails!.uid!);
           dialogService.showCustomDialog(
             variant: DialogType.roleDialog,
           );
         } else {
           userDetails = await userService.fetchUserByUID(user.uid);
-          await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
+          await userService.storeUserDetails(
+              userDetails!.toJson(), userDetails!.uid!);
           navigationService.replaceWithBottomNavBarView();
         }
 

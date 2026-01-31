@@ -61,9 +61,11 @@ class DropPinSheetSheetModel extends BaseViewModel {
       log('Phone number validation failed: ${phone.text}');
       showToast(message: 'Please enter a valid phone number');
     } else if (formKey.currentState!.validate()) {
-      final place = await getCityCountry(location.location!.latitude, location.location!.longitude);
+      final place = await getCityCountry(
+          location.location!.latitude, location.location!.longitude);
       if (selectedImageFile != null) {
-        imageUrls = await _navigationpinService.uploadImages(selectedImageFile!);
+        imageUrls =
+            await _navigationpinService.uploadImages(selectedImageFile!);
       }
 
       final pinnedLocation = PinnedLocation(
@@ -77,7 +79,8 @@ class DropPinSheetSheetModel extends BaseViewModel {
         name: name.text,
         picture: imageUrls ?? [],
         tags: selectedTabSelections,
-        location: GeoPoint(location.location!.latitude, location.location!.longitude),
+        location:
+            GeoPoint(location.location!.latitude, location.location!.longitude),
         rating: ratings,
         status: PinnedLocationStatus.pending,
       );
@@ -136,7 +139,8 @@ class DropPinSheetSheetModel extends BaseViewModel {
 
   Future<void> getPfpImage() async {
     final pickedFiles = await picker.pickMultiImage(
-      imageQuality: const int.fromEnvironment('imageQuality', defaultValue: 100),
+      imageQuality:
+          const int.fromEnvironment('imageQuality', defaultValue: 100),
       maxHeight: 500,
       maxWidth: 500,
     );

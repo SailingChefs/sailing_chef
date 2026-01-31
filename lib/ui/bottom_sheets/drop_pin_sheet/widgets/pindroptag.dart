@@ -73,9 +73,14 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                 visible: viewModel.isTagsVisible,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  height: viewModel.isTagsVisible ? MediaQuery.of(context).size.height * 0.41 : 0,
-                  width: viewModel.isTagsVisible ? MediaQuery.of(context).size.width * 0.95 : 0,
-                  padding: const EdgeInsets.only(left: 12.0, right: 9.0, top: 1.0, bottom: 15.0),
+                  height: viewModel.isTagsVisible
+                      ? MediaQuery.of(context).size.height * 0.41
+                      : 0,
+                  width: viewModel.isTagsVisible
+                      ? MediaQuery.of(context).size.width * 0.95
+                      : 0,
+                  padding: const EdgeInsets.only(
+                      left: 12.0, right: 9.0, top: 1.0, bottom: 15.0),
                   decoration: viewModel.isTagsVisible
                       ? BoxDecoration(
                           color: kcwhitecolor,

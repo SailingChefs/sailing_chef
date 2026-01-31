@@ -153,7 +153,8 @@ class RecipeModel {
       'cover_image': coverImage,
       'tags': tags,
       'created_time': createdTime,
-      'ingredients': ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'ingredients':
+          ingredients.map((ingredient) => ingredient.toJson()).toList(),
       'methods': methods,
       'prep_time': prepTime,
       'serving_size': servingSize,
@@ -172,10 +173,12 @@ class RecipeModel {
       visibility: map['visibility'] as String? ?? '',
       docId: map['doc_id'] as String? ?? '',
       chefNote: map['chef_note'] as String? ?? '',
-      coverImage: List<String>.from((map['cover_image'] as List<dynamic>?) ?? []),
+      coverImage:
+          List<String>.from((map['cover_image'] as List<dynamic>?) ?? []),
       createdTime: (map['created_time'] as Timestamp?) ?? Timestamp.now(),
       ingredients: ((map['ingredients'] as List<dynamic>?) ?? [])
-          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+          .map((ingredient) =>
+              Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
       methods: List<String>.from((map['methods'] as List<dynamic>?) ?? []),
       prepTime: map['prep_time'] as String? ?? '',

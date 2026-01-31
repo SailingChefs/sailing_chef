@@ -5,20 +5,19 @@
 // StackedBottomsheetGenerator
 // **************************************************************************
 
+import 'package:sailing_chefs/app/app.locator.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/courses/courses_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/discard/discard_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/notice/notice_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/social_icons/social_icons_sheet.dart';
+import 'package:sailing_chefs/ui/bottom_sheets/tags/tags_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'app.locator.dart';
-import '../ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
-import '../ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
-import '../ui/bottom_sheets/courses/courses_sheet.dart';
-import '../ui/bottom_sheets/discard/discard_sheet.dart';
-import '../ui/bottom_sheets/drop_pin_buttons/drop_pin_buttons_sheet.dart';
-import '../ui/bottom_sheets/drop_pin_sheet/drop_pin_sheet_sheet.dart';
-import '../ui/bottom_sheets/edit_ingredient/edit_ingredient_sheet.dart';
-import '../ui/bottom_sheets/notice/notice_sheet.dart';
-import '../ui/bottom_sheets/other_chef_profile/other_chef_profile_sheet.dart';
-import '../ui/bottom_sheets/social_icons/social_icons_sheet.dart';
-import '../ui/bottom_sheets/tags/tags_sheet.dart';
 
 enum BottomSheetType {
   notice,
@@ -37,7 +36,7 @@ enum BottomSheetType {
 void setupBottomSheetUi() {
   final bottomsheetService = locator<BottomSheetService>();
 
-  final Map<BottomSheetType, SheetBuilder> builders = {
+  final builders = <BottomSheetType, SheetBuilder>{
     BottomSheetType.notice: (context, request, completer) =>
         NoticeSheet(request: request, completer: completer),
     BottomSheetType.addIngredients: (context, request, completer) =>

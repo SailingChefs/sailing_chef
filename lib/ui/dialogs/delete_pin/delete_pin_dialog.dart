@@ -86,5 +86,6 @@ class DeletePinDialog extends StackedView<DeletePinDialogModel> {
   }
 
   @override
-  DeletePinDialogModel viewModelBuilder(BuildContext context) => DeletePinDialogModel();
+  DeletePinDialogModel viewModelBuilder(BuildContext context) =>
+      DeletePinDialogModel();
 }

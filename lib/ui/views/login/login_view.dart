@@ -109,7 +109,8 @@ class LoginView extends StackedView<LoginViewModel> {
                               onChanged: (value) => viewModel.rebuildUi(),
                               keyboardType: TextInputType.emailAddress,
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.027),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.027),
                             RoundedTransparentTextField(
                               controller: viewModel.passwordController,
                               labelText: 'password',
@@ -126,7 +127,8 @@ class LoginView extends StackedView<LoginViewModel> {
                               },
                               validator: viewModel.validatePassword,
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.014),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.014),
                             CustomTextButton(
                               onPressed: () {
                                 viewModel.vaigateToForgetPassword();
@@ -135,7 +137,8 @@ class LoginView extends StackedView<LoginViewModel> {
                               fontWeight: FontWeight.w400,
                               fontSize: 14.sp,
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.045),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.045),
                             RoundedElevatedButton(
                               onPressed: viewModel.login,
                               textColor: kclightgreencolor,
@@ -145,7 +148,8 @@ class LoginView extends StackedView<LoginViewModel> {
                               textFontSize: 18.sp,
                               isEnabled: viewModel.isLoginButtonEnabled(),
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.03),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.03),
                             Row(
                               children: [
                                 const Expanded(
@@ -156,7 +160,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: Text(
                                     'or',
                                     style: globalTextStyle(
@@ -175,7 +180,8 @@ class LoginView extends StackedView<LoginViewModel> {
                                 ),
                               ],
                             ),
-                            verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                            verticalSpace(
+                                MediaQuery.of(context).size.height * 0.05),
                             SizedBox(
                               width: MediaQuery.of(context).size.height * 0.4,
                               child: OutlinedButton(
@@ -189,10 +195,12 @@ class LoginView extends StackedView<LoginViewModel> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 50),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     const SizedBox(),
                                     const SizedBox(),

@@ -22,7 +22,8 @@ class ManagePinsViewModel extends BaseViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [pinsService, _cullinaryService, _chefService, _userService];
 
-  Future<void> setPinStatus(String recipeId, PinnedLocationStatus status) async {
+  Future<void> setPinStatus(
+      String recipeId, PinnedLocationStatus status) async {
     setBusy(true);
     await pinsService.updatePinStatus(recipeId, {'status': status.name});
     setBusy(false);

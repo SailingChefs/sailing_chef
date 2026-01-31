@@ -25,7 +25,9 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
             horizontalSpaceTiny,
             Text('*',
                 style: globalTextStyle(
-                    fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcErrorColor)),
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: kcErrorColor)),
           ],
         ),
         verticalSpaceSmall,
@@ -76,7 +78,8 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                       padding: EdgeInsets.symmetric(horizontal: 25.dg),
                       decoration: BoxDecoration(
                         color: const Color(0xff427536).withOpacity(0.16),
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                       ),
                       child: Center(
                         child: Text(
@@ -98,7 +101,8 @@ class AddFilters extends ViewModelWidget<AddRecipeViewModel> {
                 Container(
                   // height: 50.h,
                   // width: 50.w,
-                  padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
                   decoration: BoxDecoration(
                     color: kcPrimaryColor.withOpacity(0.06),
                     borderRadius: const BorderRadius.all(Radius.circular(25)),

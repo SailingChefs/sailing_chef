@@ -19,17 +19,25 @@ class DishModel {
   factory DishModel.fromSnapshot(DocumentSnapshot snapshot) {
     return DishModel(
       dishId: snapshot.id,
-      dishName: (snapshot.data() as Map<String, dynamic>?)?['title']?.toString() ?? '',
+      dishName:
+          (snapshot.data() as Map<String, dynamic>?)?['title']?.toString() ??
+              '',
       dishImagePath: (() {
-        final cover = (snapshot.data() as Map<String, dynamic>?)?['cover_image'];
+        final cover =
+            (snapshot.data() as Map<String, dynamic>?)?['cover_image'];
         if (cover is List && cover.isNotEmpty) {
           return cover.first.toString();
         }
         return cover?.toString() ?? '';
       })(),
       dishPreparationTime:
-          (snapshot.data() as Map<String, dynamic>?)?['prep_time']?.toString() ?? '',
-      dishChefImage: ((snapshot.data() as Map<String, dynamic>?)?['cover_image'])?.toString() ?? '',
+          (snapshot.data() as Map<String, dynamic>?)?['prep_time']
+                  ?.toString() ??
+              '',
+      dishChefImage:
+          ((snapshot.data() as Map<String, dynamic>?)?['cover_image'])
+                  ?.toString() ??
+              '',
     );
   }
 }

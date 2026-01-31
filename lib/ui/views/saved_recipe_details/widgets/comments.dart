@@ -5,12 +5,15 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/custom_comments_list.dart';
 
-class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel> {
+class CommentsDetailsScreen
+    extends ViewModelWidget<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
 
   final bool isFromPrivateProfile;
   const CommentsDetailsScreen(
-      {required this.isFromPrivateProfile, required this.recipeModel, super.key});
+      {required this.isFromPrivateProfile,
+      required this.recipeModel,
+      super.key});
 
   List<Widget> createCommentWidgets(SavedRecipeDetailsViewModel viewModel) {
     viewModel.commentsList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -19,7 +22,8 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
       final comments = viewModel.commentsList;
       commentTiles = comments.map((comment) {
         // Check if this comment belongs to the current user
-        final isUserComment = comment.userId == FirebaseAuth.instance.currentUser!.uid;
+        final isUserComment =
+            comment.userId == FirebaseAuth.instance.currentUser!.uid;
 
         return Column(
           children: [
@@ -31,8 +35,11 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
               ratingImages: comment.imageUrl ?? [],
               rating: comment.rating ?? 0,
               isUserComment: isUserComment,
-              onEdit: isUserComment ? () => viewModel.onCommentLongPress(comment) : null,
-              onDelete: isUserComment ? () => viewModel.deleteComment(comment) : null,
+              onEdit: isUserComment
+                  ? () => viewModel.onCommentLongPress(comment)
+                  : null,
+              onDelete:
+                  isUserComment ? () => viewModel.deleteComment(comment) : null,
             ),
           ],
         );
@@ -91,7 +98,8 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
                   Row(
                     children: [
                       Text(
-                        viewModel.calculateAverageRating(viewModel.commentsList),
+                        viewModel
+                            .calculateAverageRating(viewModel.commentsList),
                         style: globalTextStyle(
                           fontSize: 18.0.sp,
                           fontWeight: FontWeight.w700,
@@ -107,14 +115,18 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
                   ),
                 ],
               ),
-              if (viewModel.images.isNotEmpty) _buildImagePreview(viewModel) else Container(),
+              if (viewModel.images.isNotEmpty)
+                _buildImagePreview(viewModel)
+              else
+                Container(),
               verticalSpaceSmall,
               Visibility(
                 visible: !viewModel.isOwnRecipe(recipeModel) &&
                     (!viewModel.checkHasReviewed(viewModel.commentsList) ||
                         viewModel.isEditingComment),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0.dg, vertical: 2.0.dg),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 5.0.dg, vertical: 2.0.dg),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10.0.dg),
@@ -154,7 +166,8 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
                         minRating: 1,
                         allowHalfRating: true,
                         itemSize: 15.0.dg,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 1.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -168,7 +181,8 @@ class CommentsDetailsScreen extends ViewModelWidget<SavedRecipeDetailsViewModel>
                         )
                       else
                         IconButton(
-                          onPressed: () => viewModel.addComment(recipeModel.docId!),
+                          onPressed: () =>
+                              viewModel.addComment(recipeModel.docId!),
                           icon: const Icon(
                             Icons.send,
                             color: kcPrimaryColor,

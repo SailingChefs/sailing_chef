@@ -47,8 +47,12 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.navigateToViewAllDraftsView();
   }
 
-  void getTerms() {
+  void getPrivacyPolicy() {
     _navigationService.navigateToPrivacyPolicyView();
+  }
+
+  void getTermsConditions() {
+    _navigationService.navigateToTermsConditionsView();
   }
 
   Future<void> signOutUser() async {

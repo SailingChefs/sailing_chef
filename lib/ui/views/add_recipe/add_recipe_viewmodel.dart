@@ -85,13 +85,15 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   bool get isWaveformAndChefNoteEmpty {
-    return (waveFormData?.length ?? 0) == 0 && (recipeModel?.chefNote ?? '').isEmpty;
+    return (waveFormData?.length ?? 0) == 0 &&
+        (recipeModel?.chefNote ?? '').isEmpty;
   }
 
   Future<void> editIngredient(Ingredient ingredient, int listIndex) async {
     updatedIngredientsList = ingredientsList.toList();
-    final result = await _bottomSheetService.showCustomSheet<dynamic, Ingredient>(
-        variant: BottomSheetType.editIngredient, data: ingredient);
+    final result =
+        await _bottomSheetService.showCustomSheet<dynamic, Ingredient>(
+            variant: BottomSheetType.editIngredient, data: ingredient);
 
     if (result == null) return;
     updatedIngredientsList[listIndex] = result.data as Ingredient; //
@@ -131,7 +133,8 @@ class AddRecipeViewModel extends BaseViewModel {
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {
-    final result = await _bottomSheetService.showCustomSheet<TagsSheetResponse, dynamic>(
+    final result =
+        await _bottomSheetService.showCustomSheet<TagsSheetResponse, dynamic>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.tags,
@@ -213,7 +216,9 @@ class AddRecipeViewModel extends BaseViewModel {
     if (value!.isEmpty) {
       return 'Please enter your name';
     }
-    return value.length >= 3 ? null : 'Title must be at least 3 characters long';
+    return value.length >= 3
+        ? null
+        : 'Title must be at least 3 characters long';
   }
 
   Future<void> onViewModelReady() async {
@@ -231,7 +236,8 @@ class AddRecipeViewModel extends BaseViewModel {
       }
       // selectedTime = recipeModel!.prepTime as TimeOfDay?;
       tagsList = recipeModel!.tags!;
-      if (recipeModel!.chefNote.isNotEmpty && recipeModel!.waveForm.isNotEmpty) {
+      if (recipeModel!.chefNote.isNotEmpty &&
+          recipeModel!.waveForm.isNotEmpty) {
         waveFormData = recipeModel!.waveForm;
         // await downloadAudio();
       }
@@ -278,7 +284,8 @@ class AddRecipeViewModel extends BaseViewModel {
     rebuildUi();
 
     _onDurationSub?.cancel();
-    _onDurationSub = playerController.onCurrentDurationChanged.listen((positionData) {
+    _onDurationSub =
+        playerController.onCurrentDurationChanged.listen((positionData) {
       final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -312,19 +319,21 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> addIngredients(List<Ingredient> newIngredients) async {
-    final result = await _bottomSheetService.showCustomSheet<dynamic, AddIngredientsSheetResponse>(
+    final result = await _bottomSheetService
+        .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
       variant: BottomSheetType.addIngredients,
     );
     if (result == null) return;
-    updatedIngredientsList = (result.data.ingredientsList as List).cast<Ingredient>();
+    updatedIngredientsList =
+        (result.data.ingredientsList as List).cast<Ingredient>();
     updatedIngredientsList.addAll(newIngredients);
     ingredientsList = updatedIngredientsList;
     notifyListeners();
   }
 
   Future<void> addMethods(List<String> newMethods) async {
-    final method =
-        await _bottomSheetService.showCustomSheet<CookingInstructionsSheetResponse, dynamic>(
+    final method = await _bottomSheetService
+        .showCustomSheet<CookingInstructionsSheetResponse, dynamic>(
       variant: BottomSheetType.cookingInstructions,
       data: {'listIndex': newMethods.length},
     );
@@ -349,8 +358,8 @@ class AddRecipeViewModel extends BaseViewModel {
     await recorderController.stop();
     log('Path=> $audioNotePath');
     if (audioNotePath.isEmpty) return;
-    waveFormData =
-        await playerController.waveformExtraction.extractWaveformData(path: audioNotePath);
+    waveFormData = await playerController.waveformExtraction
+        .extractWaveformData(path: audioNotePath);
     hasRecordedAudio = true;
     rebuildUi();
 
@@ -359,7 +368,8 @@ class AddRecipeViewModel extends BaseViewModel {
       volume: 100,
     );
     _onDurationSub?.cancel();
-    _onDurationSub = playerController.onCurrentDurationChanged.listen((positionData) {
+    _onDurationSub =
+        playerController.onCurrentDurationChanged.listen((positionData) {
       final position = Duration(milliseconds: positionData);
       updateDuration(position);
     });
@@ -377,7 +387,8 @@ class AddRecipeViewModel extends BaseViewModel {
   void deleteCurrentRecording() {
     hasRecordedAudio = false;
     if (recipeModel!.chefNote.isNotEmpty) {
-      _recipeService.deleteAudioFromDocument(recipeModel!.docId!, recipeModel!.chefNote);
+      _recipeService.deleteAudioFromDocument(
+          recipeModel!.docId!, recipeModel!.chefNote);
       formattedDuration = '0:00';
       recipeModel!.chefNote = '';
       recipeModel!.waveForm.clear();
@@ -396,7 +407,8 @@ class AddRecipeViewModel extends BaseViewModel {
 
   void fireBaseImage(String recipeId, int index) {
     alreadySelectedImages.removeAt(index);
-    _recipeService.deleteIndexImageFromDocument(recipeId, alreadySelectedImages[index]);
+    _recipeService.deleteIndexImageFromDocument(
+        recipeId, alreadySelectedImages[index]);
     _userSerice.deleteFileFromStorage(alreadySelectedImages[index]);
     notifyListeners();
     rebuildUi();
@@ -424,7 +436,8 @@ class AddRecipeViewModel extends BaseViewModel {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Select Time', style: globalTextStyle(color: Colors.black, fontSize: 20)),
+          title: Text('Select Time',
+              style: globalTextStyle(color: Colors.black, fontSize: 20)),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -457,8 +470,9 @@ class AddRecipeViewModel extends BaseViewModel {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15.0,
                     ),
-                    child:
-                        Text('Cancel', style: globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                    child: Text('Cancel',
+                        style:
+                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -473,19 +487,24 @@ class AddRecipeViewModel extends BaseViewModel {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                     ),
-                    child:
-                        Text('Set Time', style: globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                    child: Text('Set Time',
+                        style:
+                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
                   ),
                   onPressed: () {
                     log(_hourController.text);
-                    final hour =
-                        _hourController.text.isEmpty ? 0 : int.tryParse(_hourController.text);
+                    final hour = _hourController.text.isEmpty
+                        ? 0
+                        : int.tryParse(_hourController.text);
 
-                    final minute =
-                        _minuteController.text.isEmpty ? 0 : int.tryParse(_minuteController.text);
+                    final minute = _minuteController.text.isEmpty
+                        ? 0
+                        : int.tryParse(_minuteController.text);
 
                     if (hour == null || minute == null) {
-                      showToast(message: 'Please enter valid numbers for hours and minutes');
+                      showToast(
+                          message:
+                              'Please enter valid numbers for hours and minutes');
                       return;
                     }
 
@@ -533,8 +552,10 @@ class AddRecipeViewModel extends BaseViewModel {
           thumbnails.add(XFile(image.path));
           log('added image thumbnail');
         } else {
-          controller = VideoPlayerController.file(
-              images.where((element) => File(element.path).isVideo).first.toFile);
+          controller = VideoPlayerController.file(images
+              .where((element) => File(element.path).isVideo)
+              .first
+              .toFile);
           controller.play();
           final thumbnailss = await VideoThumbnail.thumbnailFile(
             video: image.path,
@@ -582,65 +603,77 @@ class AddRecipeViewModel extends BaseViewModel {
     }
 
     if (recipeModel == null) {
-      _dialogService.showCustomDialog<void, dynamic>(variant: DialogType.saveDraftAlertbox, data: {
-        'model': RecipeModel(
-          visibility: 'private',
-          chefNote: 'recorderController',
-          // coverImage expects List<String>. When using newly selected images (XFile),
-          // pass their file paths to satisfy the type.
-          coverImage: alreadySelectedImages,
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          tags: tagsList,
-          methods: methodsList,
-          prepTime: (prepreationTime?.isEmpty ?? true) ? formatDuration() : prepreationTime!,
-          servingSize: int.parse(servingSize.text),
-          status: 'draft',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-          docId: '',
-          waveForm: waveFormData == null ? [] : waveFormData!,
-        ),
-        'images': selectedImages,
-        'path': audioNotePath,
-        'isDraft': isDraft,
-      });
+      _dialogService.showCustomDialog<void, dynamic>(
+          variant: DialogType.saveDraftAlertbox,
+          data: {
+            'model': RecipeModel(
+              visibility: 'private',
+              chefNote: 'recorderController',
+              // coverImage expects List<String>. When using newly selected images (XFile),
+              // pass their file paths to satisfy the type.
+              coverImage: alreadySelectedImages,
+              createdTime: Timestamp.now(),
+              ingredients: ingredientsList,
+              tags: tagsList,
+              methods: methodsList,
+              prepTime: (prepreationTime?.isEmpty ?? true)
+                  ? formatDuration()
+                  : prepreationTime!,
+              servingSize: int.parse(servingSize.text),
+              status: 'draft',
+              title: titleController.text.trim(),
+              uid: firebaseAuth.currentUser!.uid,
+              docId: '',
+              waveForm: waveFormData == null ? [] : waveFormData!,
+            ),
+            'images': selectedImages,
+            'path': audioNotePath,
+            'isDraft': isDraft,
+          });
     } else {
-      _dialogService.showCustomDialog<void, dynamic>(variant: DialogType.saveDraftAlertbox, data: {
-        'model': RecipeModel(
-          visibility: 'private',
-          chefNote: 'recorderController',
-          // Ensure type matches RecipeModel.coverImage (List<String>)
-          coverImage: alreadySelectedImages,
-          createdTime: Timestamp.now(),
-          ingredients: ingredientsList,
-          tags: tagsList,
-          methods: methodsList,
-          prepTime: (prepreationTime?.isEmpty ?? true) ? formatDuration() : prepreationTime!,
-          servingSize: int.parse(servingSize.text),
-          status: 'draft',
-          title: titleController.text.trim(),
-          uid: firebaseAuth.currentUser!.uid,
-          docId: recipeModel!.docId,
-          waveForm: waveFormData == null ? [] : waveFormData!,
-        ),
-        'images': selectedImages,
-        'path': audioNotePath,
-        'isDraft': isDraft,
-      }).then((_) {
+      _dialogService.showCustomDialog<void, dynamic>(
+          variant: DialogType.saveDraftAlertbox,
+          data: {
+            'model': RecipeModel(
+              visibility: 'private',
+              chefNote: 'recorderController',
+              // Ensure type matches RecipeModel.coverImage (List<String>)
+              coverImage: alreadySelectedImages,
+              createdTime: Timestamp.now(),
+              ingredients: ingredientsList,
+              tags: tagsList,
+              methods: methodsList,
+              prepTime: (prepreationTime?.isEmpty ?? true)
+                  ? formatDuration()
+                  : prepreationTime!,
+              servingSize: int.parse(servingSize.text),
+              status: 'draft',
+              title: titleController.text.trim(),
+              uid: firebaseAuth.currentUser!.uid,
+              docId: recipeModel!.docId,
+              waveForm: waveFormData == null ? [] : waveFormData!,
+            ),
+            'images': selectedImages,
+            'path': audioNotePath,
+            'isDraft': isDraft,
+          }).then((_) {
         _recipeService.fetchDraftRecipes(userDetails!.uid!);
       });
     }
   }
 
   Future<void> callIngredientsBottomSheet() async {
-    final result = await _bottomSheetService.showCustomSheet<dynamic, AddIngredientsSheetResponse>(
+    final result = await _bottomSheetService
+        .showCustomSheet<dynamic, AddIngredientsSheetResponse>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.addIngredients,
     );
     if (result == null) return;
-    ingredientsList = (result.data as AddIngredientsSheetResponse?)?.ingredientsList.toList() ?? [];
+    ingredientsList = (result.data as AddIngredientsSheetResponse?)
+            ?.ingredientsList
+            .toList() ??
+        [];
     rebuildUi();
     notifyListeners();
   }
@@ -650,8 +683,8 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   Future<void> callCookingInstructionBottomSheet() async {
-    final method =
-        await _bottomSheetService.showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
+    final method = await _bottomSheetService
+        .showCustomSheet<dynamic, CookingInstructionsSheetResponse>(
       barrierDismissible: false,
       isScrollControlled: true,
       variant: BottomSheetType.cookingInstructions,
@@ -659,8 +692,10 @@ class AddRecipeViewModel extends BaseViewModel {
     log(method.runtimeType.toString());
 
     if (method == null) return;
-    methodsList =
-        (method.data as CookingInstructionsSheetResponse?)?.instructionsListResponse.toList() ?? [];
+    methodsList = (method.data as CookingInstructionsSheetResponse?)
+            ?.instructionsListResponse
+            .toList() ??
+        [];
 
     rebuildUi();
     notifyListeners();
@@ -697,7 +732,8 @@ class AddRecipeViewModel extends BaseViewModel {
         ingredientsList.isNotEmpty &&
         servingSize.text.isNotEmpty) {
       final hasImage = selectedImages.any((image) => image.isImage);
-      final hasAlreadySelectedImages = alreadySelectedImages.any((image) => image.isNotEmpty);
+      final hasAlreadySelectedImages =
+          alreadySelectedImages.any((image) => image.isNotEmpty);
 
       if (!hasImage && !hasAlreadySelectedImages) {
         showToast(message: 'Please add at least one image');
@@ -709,12 +745,14 @@ class AddRecipeViewModel extends BaseViewModel {
           recipeModel: RecipeModel(
             visibility: selectedValue1,
             chefNote: '',
-            coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+            coverImage:
+                alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
             ingredients: ingredientsList,
             methods: methodsList,
             tags: tagsList,
-            prepTime: prepreationTime == '' ? formatDuration() : prepreationTime!,
+            prepTime:
+                prepreationTime == '' ? formatDuration() : prepreationTime!,
             servingSize: int.parse(servingSize.text),
             status: 'draft',
             title: titleController.text.trim(),
@@ -766,12 +804,14 @@ class AddRecipeViewModel extends BaseViewModel {
           recipeModel: RecipeModel(
             visibility: selectedValue1,
             chefNote: '',
-            coverImage: alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
+            coverImage:
+                alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
             createdTime: Timestamp.now(),
             ingredients: ingredientsList,
             methods: methodsList,
             tags: tagsList,
-            prepTime: prepreationTime == '' ? formatDuration() : prepreationTime!,
+            prepTime:
+                prepreationTime == '' ? formatDuration() : prepreationTime!,
             servingSize: int.parse(servingSize.text),
             status: '',
             title: titleController.text.trim(),

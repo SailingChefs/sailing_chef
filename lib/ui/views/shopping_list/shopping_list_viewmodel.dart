@@ -47,8 +47,10 @@ class ShoppingListViewModel extends ReactiveViewModel {
     rebuildUi();
   }
 
-  void addRemoveAllIngredientsToShoppingList(RecipeModel recipee, int servings) {
-    shoppingListService.addAllItemstoShoppingList(recipee: recipee, servings: servings);
+  void addRemoveAllIngredientsToShoppingList(
+      RecipeModel recipee, int servings) {
+    shoppingListService.addAllItemstoShoppingList(
+        recipee: recipee, servings: servings);
     rebuildUi();
   }
 
@@ -120,7 +122,8 @@ class ShoppingListViewModel extends ReactiveViewModel {
       // ShoppingItem ingredient
       {required Ingredient ingredient,
       required RecipeModel recipee}) {
-    shoppingListService.addNewIngredienttoSHoppingList(recipee: recipee, ingredient: ingredient);
+    shoppingListService.addNewIngredienttoSHoppingList(
+        recipee: recipee, ingredient: ingredient);
 
     // if (!localShoppingList.contains(ingredient)) {
     //   isDeleted = false;

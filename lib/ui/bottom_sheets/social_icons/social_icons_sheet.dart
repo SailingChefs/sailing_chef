@@ -38,19 +38,26 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
           children: [
             Text(
               'Share this recipe',
-              style:
-                  globalTextStyle(fontSize: 19, fontWeight: FontWeight.w500, color: kcBlackColor),
+              style: globalTextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500,
+                  color: kcBlackColor),
             ),
             verticalSpaceLarge,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildSocialIcon(FlutterRemix.whatsapp_fill, 'WhatsApp', 1, viewModel),
-                _buildSocialIcon(FlutterRemix.facebook_fill, 'Facebook', 2, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.whatsapp_fill, 'WhatsApp', 1, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.facebook_fill, 'Facebook', 2, viewModel),
                 _buildSocialIcon(Icons.email, 'Email', 3, viewModel),
-                _buildSocialIcon(FlutterRemix.instagram_fill, 'Instagram', 4, viewModel),
-                _buildSocialIcon(FlutterRemix.snapchat_fill, 'S.C. Users', 5, viewModel),
-                _buildSocialIcon(FlutterRemix.file_copy_2_fill, 'Copy', 6, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.instagram_fill, 'Instagram', 4, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.snapchat_fill, 'S.C. Users', 5, viewModel),
+                _buildSocialIcon(
+                    FlutterRemix.file_copy_2_fill, 'Copy', 6, viewModel),
               ],
             ),
             verticalSpaceMedium,
@@ -60,7 +67,8 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, String label, int num, SocialIconsSheetModel viewmodel) {
+  Widget _buildSocialIcon(
+      IconData icon, String label, int num, SocialIconsSheetModel viewmodel) {
     return Column(
       children: [
         IconButton(
@@ -101,5 +109,6 @@ class SocialIconsSheet extends StackedView<SocialIconsSheetModel> {
   }
 
   @override
-  SocialIconsSheetModel viewModelBuilder(BuildContext context) => SocialIconsSheetModel();
+  SocialIconsSheetModel viewModelBuilder(BuildContext context) =>
+      SocialIconsSheetModel();
 }

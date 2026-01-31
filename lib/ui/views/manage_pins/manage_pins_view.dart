@@ -37,15 +37,19 @@ class ManagePinsView extends StackedView<ManagePinsViewModel> {
                       final pins = asyncSnapshot.data;
 
                       final pendingPins = pins
-                              ?.where((recipe) => recipe.status == PinnedLocationStatus.pending)
+                              ?.where((recipe) =>
+                                  recipe.status == PinnedLocationStatus.pending)
                               .toList() ??
                           [];
                       final reviewPins = pins
-                              ?.where((recipe) => recipe.status == PinnedLocationStatus.review)
+                              ?.where((recipe) =>
+                                  recipe.status == PinnedLocationStatus.review)
                               .toList() ??
                           [];
                       final publishedPins = pins
-                              ?.where((recipe) => recipe.status == PinnedLocationStatus.published)
+                              ?.where((recipe) =>
+                                  recipe.status ==
+                                  PinnedLocationStatus.published)
                               .toList() ??
                           [];
 

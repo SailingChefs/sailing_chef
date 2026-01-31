@@ -15,7 +15,8 @@ class EditIngredientSheetModel extends BaseViewModel {
   TextEditingController ingredientQuantityController = TextEditingController();
   String ingredientType = '';
 
-  String selectedValue = ''; // Make sure this matches one of the items in the values list
+  String selectedValue =
+      ''; // Make sure this matches one of the items in the values list
 
   void onViewModelReady() {
     setBusy(true);

@@ -19,7 +19,8 @@ class ConversationModel {
     required this.users,
     this.user,
   });
-  factory ConversationModel.fromDocument(DocumentSnapshot doc, UserModel? otherUser) {
+  factory ConversationModel.fromDocument(
+      DocumentSnapshot doc, UserModel? otherUser) {
     return ConversationModel(
       lastActive: (doc.get('lastActive') as Timestamp).toDate(),
       latestMessage: doc.get('latestMessage') as String,

@@ -21,12 +21,14 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+              child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
                 return ShrinkWrappingViewport(
                   offset: ViewportOffset.zero(),
                   slivers: [
                     SliverGrid(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 15.0,
                         mainAxisSpacing: 18.0,
@@ -34,12 +36,14 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                          final recipe = viewModel.searchRecipes().elementAt(index);
+                          final recipe =
+                              viewModel.searchRecipes().elementAt(index);
                           return PrimaryGridTile(
                               chefId: savedRecipesGlobal[index].user!.uid!,
                               rating: savedRecipesGlobal[index].rating,
                               recipe: recipe,
-                              onTap: () => viewModel.toDishDetailsScreen(recipe),
+                              onTap: () =>
+                                  viewModel.toDishDetailsScreen(recipe),
                               foodImagePath: recipe.coverImage
                                   .where((element) => element.contains('.jpg'))
                                   .first,
@@ -65,13 +69,14 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child:
-                        LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+                    child: LayoutBuilder(builder:
+                        (BuildContext context, BoxConstraints constraints) {
                       return ShrinkWrappingViewport(
                         offset: ViewportOffset.zero(),
                         slivers: [
                           SliverGrid(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 15.0,
                               mainAxisSpacing: 18.0,
@@ -80,18 +85,23 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                             delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                                 return PrimaryGridTile(
-                                    chefId: savedRecipesGlobal[index].user!.uid!,
+                                    chefId:
+                                        savedRecipesGlobal[index].user!.uid!,
                                     rating: savedRecipesGlobal[index].rating,
                                     recipe: savedRecipesGlobal[index],
-                                    onTap: () =>
-                                        viewModel.toDishDetailsScreen(savedRecipesGlobal[index]),
+                                    onTap: () => viewModel.toDishDetailsScreen(
+                                        savedRecipesGlobal[index]),
                                     foodImagePath: savedRecipesGlobal[index]
                                         .coverImage
-                                        .where((element) => element.contains('.jpg'))
+                                        .where((element) =>
+                                            element.contains('.jpg'))
                                         .first,
                                     dishName: savedRecipesGlobal[index].title,
-                                    duration: savedRecipesGlobal[index].prepTime,
-                                    chefImagePath: savedRecipesGlobal[index].user!.displayPicture!);
+                                    duration:
+                                        savedRecipesGlobal[index].prepTime,
+                                    chefImagePath: savedRecipesGlobal[index]
+                                        .user!
+                                        .displayPicture!);
                               },
                               childCount: savedRecipesGlobal.length,
                             ),

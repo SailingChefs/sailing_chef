@@ -17,8 +17,8 @@ class ManageRecipes extends StatelessWidget {
         _ => DismissDirection.none,
       };
 
-  Future<bool> _handleDismiss(
-      BuildContext context, RecipeModel recipe, DismissDirection direction) async {
+  Future<bool> _handleDismiss(BuildContext context, RecipeModel recipe,
+      DismissDirection direction) async {
     try {
       switch (direction) {
         case DismissDirection.startToEnd:
@@ -46,7 +46,8 @@ class ManageRecipes extends StatelessWidget {
         return Dismissible(
           key: Key(recipe.docId!),
           direction: _dismissDirection,
-          confirmDismiss: (direction) => _handleDismiss(context, recipe, direction),
+          confirmDismiss: (direction) =>
+              _handleDismiss(context, recipe, direction),
           background: Container(
             color: Colors.green,
             alignment: Alignment.centerLeft,
@@ -57,7 +58,9 @@ class ManageRecipes extends StatelessWidget {
                   padding: EdgeInsets.only(right: 8.0),
                   child: Text('Publish',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)),
                 ),
                 Icon(Icons.check, color: Colors.white),
               ],
@@ -74,7 +77,9 @@ class ManageRecipes extends StatelessWidget {
                   padding: EdgeInsets.only(right: 8.0),
                   child: Text('Review',
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16)),
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)),
                 ),
                 Icon(Icons.rate_review, color: Colors.black),
               ],
@@ -106,7 +111,8 @@ class ManageRecipes extends StatelessWidget {
                 }
               },
               title: Text(recipe.title,
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 20)),
               subtitle: Text(recipe.user?.displayName ?? 'Unknown Chef'),
             ),
           ),

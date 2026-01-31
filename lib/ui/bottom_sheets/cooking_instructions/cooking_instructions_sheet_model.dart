@@ -2,10 +2,12 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_instructions_sheet.dart';
 
 class CookingInstructionsSheetModel extends BaseViewModel {
-  final Function(SheetResponse<CookingInstructionsSheetResponse> response)? completer;
+  final Function(SheetResponse<CookingInstructionsSheetResponse> response)?
+      completer;
   CookingInstructionsSheetModel({required this.completer});
   final _navigationService = locator<NavigationService>();
-  final TextEditingController cookingInstructionController = TextEditingController();
+  final TextEditingController cookingInstructionController =
+      TextEditingController();
   List<String> instructionsList = [];
 
   void popBack() {

@@ -12,7 +12,9 @@ class AllChefsViewModel extends BaseViewModel {
 
   Iterable<UserModel> searchUsers(List<UserModel> chefs) sync* {
     for (final user in chefs) {
-      if (user.displayName!.toLowerCase().contains(searchController.text.toLowerCase())) {
+      if (user.displayName!
+          .toLowerCase()
+          .contains(searchController.text.toLowerCase())) {
         log('Searched Chef --------->  ${user.displayName!.toLowerCase()}');
         yield user;
       }

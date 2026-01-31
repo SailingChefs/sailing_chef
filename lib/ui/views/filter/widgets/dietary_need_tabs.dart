@@ -11,8 +11,10 @@ class DietaryNeedTabsFilterScreen extends ViewModelWidget<FilterViewModel> {
       children: [
         Text(
           'Dietary Needs',
-          style:
-              globalTextStyle(fontSize: 20.0.dg, color: kcBlackColor, fontWeight: FontWeight.w500),
+          style: globalTextStyle(
+              fontSize: 20.0.dg,
+              color: kcBlackColor,
+              fontWeight: FontWeight.w500),
         ),
         verticalSpaceSmall,
         Wrap(
@@ -73,7 +75,8 @@ class _DietaryTagChip extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  const _DietaryTagChip({required this.label, required this.selected, required this.onTap});
+  const _DietaryTagChip(
+      {required this.label, required this.selected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -107,7 +107,8 @@ class ShoppingItem {
       'ingredient_id': ingredientId,
       'recipe_id': recipeId,
       'is_removed': isRemoved,
-      'ingredients': ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'ingredients':
+          ingredients.map((ingredient) => ingredient.toJson()).toList(),
     };
   }
 
@@ -123,7 +124,8 @@ class ShoppingItem {
       recipeId: data['recipe_id'] as String,
       isRemoved: (data['is_removed'] as bool?) ?? false,
       ingredients: (data['ingredients'] as List<dynamic>? ?? [])
-          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+          .map((ingredient) =>
+              Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
     );
   }
@@ -139,7 +141,8 @@ class ShoppingItem {
       recipeId: (map['recipe_id'] as String?) ?? '',
       isRemoved: (map['is_removed'] as bool?) ?? false,
       ingredients: (map['ingredients'] as List<dynamic>? ?? [])
-          .map((ingredient) => Ingredient.fromMap(ingredient as Map<String, dynamic>))
+          .map((ingredient) =>
+              Ingredient.fromMap(ingredient as Map<String, dynamic>))
           .toList(),
     );
   }

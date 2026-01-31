@@ -21,8 +21,10 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
           backgroundColor: kcBackgroundColor,
           title: Text(
             'Drafts',
-            style:
-                globalTextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kcBlackColor),
+            style: globalTextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+                color: kcBlackColor),
           ),
           centerTitle: true,
           leading: Padding(
@@ -81,7 +83,8 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
                           itemCount: viewModel.draft.length,
                           // physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(vertical: 15.h),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 15.0,
                             mainAxisSpacing: 18.0,
@@ -93,10 +96,12 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
                               onTap: () {
                                 viewModel.toDishCreateScreen(index);
                               },
-                              foodImagePath: viewModel.draft[index].coverImage.isEmpty
+                              foodImagePath: viewModel
+                                      .draft[index].coverImage.isEmpty
                                   ? 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
                                   : viewModel.draft[index].coverImage
-                                      .where((element) => element.isFirebaseImageUrl)
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
                                       .first,
                               dishName: viewModel.draft[index].title,
                             );

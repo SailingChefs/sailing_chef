@@ -44,7 +44,8 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
             Center(
               child: Text(
                 request.title ?? 'Add your ingredients',
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
             verticalSpaceTiny,

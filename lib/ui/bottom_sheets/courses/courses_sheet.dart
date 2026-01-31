@@ -142,19 +142,23 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                             completer!(SheetResponse(confirmed: true));
                             viewModel.deleteCourse(course?.id ?? '');
                           },
-                          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                            Icon(
-                              FlutterRemix.delete_bin_6_line,
-                              color: kcBlackColor.withOpacity(0.6),
-                              size: 20,
-                            ),
-                            horizontalSpaceSmall,
-                            Text(
-                              'Delete this course',
-                              style: globalTextStyle(
-                                  color: kcallertcolor, fontSize: 14, fontWeight: FontWeight.w500),
-                            ),
-                          ]),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  FlutterRemix.delete_bin_6_line,
+                                  color: kcBlackColor.withOpacity(0.6),
+                                  size: 20,
+                                ),
+                                horizontalSpaceSmall,
+                                Text(
+                                  'Delete this course',
+                                  style: globalTextStyle(
+                                      color: kcallertcolor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ]),
                         )
                       else
                         Container(),
@@ -174,5 +178,6 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
   }
 
   @override
-  CoursesSheetModel viewModelBuilder(BuildContext context) => CoursesSheetModel(completer);
+  CoursesSheetModel viewModelBuilder(BuildContext context) =>
+      CoursesSheetModel(completer);
 }

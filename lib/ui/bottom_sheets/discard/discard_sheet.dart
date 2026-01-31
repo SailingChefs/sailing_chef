@@ -38,7 +38,8 @@ class DiscardSheet extends StackedView<DiscardSheetModel> {
           verticalSpaceMedium,
           Text(
             'Discard edits?',
-            style: globalTextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: kcBlackColor),
+            style: globalTextStyle(
+                fontSize: 22, fontWeight: FontWeight.w600, color: kcBlackColor),
           ),
           verticalSpaceMedium,
           Text(
