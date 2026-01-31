@@ -128,59 +128,61 @@ class AuthService {
   }
 
   Future<void> signInWithGoogle() async {
-    final dialogService = locator<DialogService>();
-    final googleUser = await GoogleSignIn.instance.authenticate();
-    final googleAuth = googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      // accessToken: googleAuth?.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
-    final user = userCredential.user;
-
-    if (user != null) {
-      userDetails = UserModel(
-        uid: user.uid,
-        userRole: '',
-        email: user.email,
-        displayName: user.displayName,
-        displayPicture: user.photoURL,
-        following: [],
-        followers: [],
-        savedRecipes: [],
-        blockedAccounts: [],
-        createdTime: DateTime.now(),
-        link: '',
-        bio: '',
-        boatName: '',
-        schoolCourses: [],
-        recipes: [],
+    try {
+      final dialogService = locator<DialogService>();
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final googleAuth = googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        // accessToken: googleAuth?.accessToken,
+        idToken: googleAuth.idToken,
       );
 
-      if (userCredential.additionalUserInfo!.isNewUser) {
-        await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
-        dialogService.showCustomDialog(
-          variant: DialogType.roleDialog,
-        );
-      } else {
-        userDetails = await userService.fetchUserByUID(user.uid);
-        await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
-        navigationService.replaceWithBottomNavBarView();
-      }
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
-      // else if (userDetails!.userRole == 'guest') {
-      //   userDetails!.userRole = 'guest';
-      //   final res = await userService.storeUserDetails(
-      //       userDetails!.toJson(), userDetails!.uid!);
-      //   navigationService.replaceWithBottomBarGuestView();
-      // } else {
-      //   userDetails!.userRole = 'guest';
-      //   final res = await userService.storeUserDetails(
-      //       userDetails!.toJson(), userDetails!.uid!);
-      //   navigationService.replaceWithBottomNavBarView();
-      // }
-    }
+      final user = userCredential.user;
+
+      if (user != null) {
+        userDetails = UserModel(
+          uid: user.uid,
+          userRole: '',
+          email: user.email,
+          displayName: user.displayName,
+          displayPicture: user.photoURL,
+          following: [],
+          followers: [],
+          savedRecipes: [],
+          blockedAccounts: [],
+          createdTime: DateTime.now(),
+          link: '',
+          bio: '',
+          boatName: '',
+          schoolCourses: [],
+          recipes: [],
+        );
+
+        if (userCredential.additionalUserInfo!.isNewUser) {
+          await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
+          dialogService.showCustomDialog(
+            variant: DialogType.roleDialog,
+          );
+        } else {
+          userDetails = await userService.fetchUserByUID(user.uid);
+          await userService.storeUserDetails(userDetails!.toJson(), userDetails!.uid!);
+          navigationService.replaceWithBottomNavBarView();
+        }
+
+        // else if (userDetails!.userRole == 'guest') {
+        //   userDetails!.userRole = 'guest';
+        //   final res = await userService.storeUserDetails(
+        //       userDetails!.toJson(), userDetails!.uid!);
+        //   navigationService.replaceWithBottomBarGuestView();
+        // } else {
+        //   userDetails!.userRole = 'guest';
+        //   final res = await userService.storeUserDetails(
+        //       userDetails!.toJson(), userDetails!.uid!);
+        //   navigationService.replaceWithBottomNavBarView();
+        // }
+      }
+    } finally {}
   }
 }

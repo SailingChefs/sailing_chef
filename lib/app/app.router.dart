@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart' as _i47;
 import 'package:sailing_chefs/core/imports/core_imports.dart' as _i44;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i45;
 import 'package:sailing_chefs/model/user_model.dart' as _i46;
-import 'package:sailing_chefs/ui/views/Messages/chat_view.dart' as _i31;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i13;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i25;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i28;
@@ -46,6 +45,7 @@ import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_view.dart'
     as _i42;
 import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_view.dart'
     as _i41;
+import 'package:sailing_chefs/ui/views/Messages/chat_view.dart' as _i31;
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart' as _i3;
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart'
     as _i16;
