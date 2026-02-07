@@ -5,24 +5,25 @@
 // StackedDialogGenerator
 // **************************************************************************
 
-import 'package:sailing_chefs/app/app.locator.dart';
-import 'package:sailing_chefs/ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/block_account/block_account_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/course_saved/course_saved_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/delete_account/delete_account_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/delete_pin/delete_pin_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/enter_pass/enter_pass_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/long_press_comment/long_press_comment_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/pindetails/pindetails_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/rate_experience/rate_experience_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/reviews_all/reviews_all_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/role_dialog/role_dialog_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
-import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import 'app.locator.dart';
+import '../ui/dialogs/addpindropshow/addpindropshow_dialog.dart';
+import '../ui/dialogs/block_account/block_account_dialog.dart';
+import '../ui/dialogs/course_saved/course_saved_dialog.dart';
+import '../ui/dialogs/delete_account/delete_account_dialog.dart';
+import '../ui/dialogs/delete_pin/delete_pin_dialog.dart';
+import '../ui/dialogs/deleteconfirmation/deleteconfirmation_dialog.dart';
+import '../ui/dialogs/enter_pass/enter_pass_dialog.dart';
+import '../ui/dialogs/info_alert/info_alert_dialog.dart';
+import '../ui/dialogs/long_press_comment/long_press_comment_dialog.dart';
+import '../ui/dialogs/pindetails/pindetails_dialog.dart';
+import '../ui/dialogs/pindrop_dialoguebox/pindrop_dialoguebox_dialog.dart';
+import '../ui/dialogs/rate_experience/rate_experience_dialog.dart';
+import '../ui/dialogs/reviews_all/reviews_all_dialog.dart';
+import '../ui/dialogs/role_dialog/role_dialog_dialog.dart';
+import '../ui/dialogs/save_draft_alertbox/save_draft_alertbox_dialog.dart';
+import '../ui/dialogs/success/success_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -46,7 +47,7 @@ enum DialogType {
 void setupDialogUi() {
   final dialogService = locator<DialogService>();
 
-  final builders = <DialogType, DialogBuilder>{
+  final Map<DialogType, DialogBuilder> builders = {
     DialogType.infoAlert: (context, request, completer) =>
         InfoAlertDialog(request: request, completer: completer),
     DialogType.saveDraftAlertbox: (context, request, completer) =>

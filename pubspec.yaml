@@ -10,8 +10,8 @@ dependencies:
   app_links: ^7.0.0
   audio_waveforms: ^2.0.0
   cached_network_image: ^3.3.1
-  clipboard: ^2.0.2
-  cloud_firestore: ^5.6.3
+  clipboard: ^3.0.14
+  cloud_firestore: ^6.1.2
   collection: ^1.18.0
   crypto: ^3.0.6
   csc_picker_plus: ^0.0.3
@@ -20,11 +20,11 @@ dependencies:
   dotted_border: ^3.1.0
   equatable: ^2.0.5
   file_picker: ^10.1.9
-  firebase_auth: ^5.4.2
-  firebase_core: ^3.11.0
-  firebase_crashlytics: ^4.3.10
+  firebase_auth: ^6.1.4
+  firebase_core: ^4.4.0
+  firebase_crashlytics: ^5.0.7
   # firebase_dynamic_links: ^6.1.2
-  firebase_storage: ^12.4.2
+  firebase_storage: ^13.0.6
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
@@ -43,7 +43,7 @@ dependencies:
   geoflutterfire_plus: ^0.0.21
   geolocator: ^14.0.2
   get: ^4.6.6
-  google_fonts: ^6.2.1
+  google_fonts: ^8.0.1
   google_maps_flutter: ^2.6.0
   google_sign_in: ^7.1.1
 
@@ -62,12 +62,12 @@ dependencies:
   record: ^6.0.0
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
-  smooth_page_indicator: ^1.1.0
+  smooth_page_indicator: ^2.0.1
   stacked: ^3.5.0
   stacked_services: ^1.6.0
   stacked_shared: any
-  syncfusion_flutter_core: ^31.1.19
-  syncfusion_flutter_sliders: ^31.1.19
+  syncfusion_flutter_core: ^32.2.3
+  syncfusion_flutter_sliders: ^32.2.3
   url_launcher: ^6.2.6
   uuid: ^4.4.2
 
