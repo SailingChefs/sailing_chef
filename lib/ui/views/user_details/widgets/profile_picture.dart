@@ -1,9 +1,9 @@
 import 'dart:io';
+
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/user_details/user_details_viewmodel.dart';
 
-class ProfilePictureUserDetailsScreen
-    extends ViewModelWidget<UserDetailsViewModel> {
+class ProfilePictureUserDetailsScreen extends ViewModelWidget<UserDetailsViewModel> {
   const ProfilePictureUserDetailsScreen({super.key});
 
   @override
@@ -26,19 +26,25 @@ class ProfilePictureUserDetailsScreen
                   ),
                 )))
           else
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: FileImage(
-                File(viewModel.selectedImagePath!),
-              ),
-            ),
+            Container(
+                height: MediaQuery.sizeOf(context).height * 0.12,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: FileImage(
+                      File(viewModel.selectedImagePath!),
+                    ),
+                  ),
+                )),
           Positioned(
             bottom: 0,
-            right: 130,
+            right: 115,
             child: Container(
               height: 30,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: kcWhiteColor),
+              decoration: const BoxDecoration(shape: BoxShape.circle, color: kcWhiteColor),
               child: IconButton(
                 icon: Icon(
                   FlutterRemix.camera_fill,
@@ -46,7 +52,7 @@ class ProfilePictureUserDetailsScreen
                   color: kcBlackColor.withOpacity(0.6),
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
+                  showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
                       return Container(

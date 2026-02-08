@@ -17,8 +17,9 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   const BottomNavBarView({this.index, super.key});
 
   @override
-  Widget builder(
-      BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
+  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
+    final dialogService = locator<DialogService>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: getViewForIndex(index ?? viewModel.currentIndex),
@@ -31,7 +32,21 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
         currentIndex: index ?? viewModel.currentIndex,
-        onTap: viewModel.setIndex,
+        onTap: (newTabIndex) {
+          // if (viewModel.currentIndex == 2 && newTabIndex != 2) {
+          //   final response = await dialogService.showCustomDialog<dynamic, dynamic>(
+          //     variant: DialogType.saveDraftAlertbox,
+          //     // title: 'Cancel Recipe Draft',
+          //     // description: 'Do you want to cancel your recipe draft?',
+          //     // mainButtonTitle: 'Yes, Cancel',
+          //     // secondaryButtonTitle: 'No, Keep Editing',
+          //   );
+          //   if (response?.data == 'No, Keep Editing') {
+          //     return;
+          //   }
+          // }
+          viewModel.setIndex(newTabIndex);
+        },
         items: [
           BottomNavigationBarItem(
             activeIcon: SvgPicture.asset(
@@ -95,8 +110,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   bool get disposeViewModel => false;
 
   @override
-  BottomNavBarViewModel viewModelBuilder(BuildContext context) =>
-      locator<BottomNavBarViewModel>();
+  BottomNavBarViewModel viewModelBuilder(BuildContext context) => locator<BottomNavBarViewModel>();
 
   Widget getViewForIndex(int index) {
     switch (index) {

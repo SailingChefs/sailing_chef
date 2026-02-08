@@ -23,12 +23,15 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
     AddIngredientsSheetModel viewModel,
     Widget? child,
   ) {
-    return SingleChildScrollView(
+    final mediaQuery = MediaQuery.of(context);
+    final keyboardInset = mediaQuery.viewInsets.bottom;
+    final baseHeight = mediaQuery.size.height * 0.95;
+    final sheetHeight = (baseHeight - keyboardInset).clamp(0.0, baseHeight);
+
+    return SizedBox(
+      height: sheetHeight,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 5,
-        ),
         decoration: const BoxDecoration(
           color: kcwhitecolor,
           borderRadius: BorderRadius.only(
@@ -38,37 +41,45 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
+            // Fixed top bar that never scrolls
             const IngredientsSheetTopBar(),
-            Center(
-              child: Text(
-                request.title ?? 'Add your ingredients',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            // Scrollable content in the middle
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5,
+                ),
+                child: const ListViewQuantityName(),
               ),
             ),
-            verticalSpaceTiny,
-            const ListViewQuantityName(),
-            verticalSpaceMedium,
-            SizedBox(
-              width: double.infinity,
-              child: AddIngredientTextField(
-                hintText: 'Add ingredients',
-                prefix: Icons.drag_indicator,
+            // Fixed bottom section that never scrolls
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 5,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: AddIngredientTextField(
+                      hintText: 'Add ingredients',
+                      prefix: Icons.drag_indicator,
+                    ),
+                  ),
+                  const AddIngredientsTwoTextFields(),
+                  Center(
+                    child: SaveRecipeButton(
+                      onPressed: viewModel.addIngredientToList,
+                      buttonText: 'Add Ingredient',
+                      prefix: Icons.add,
+                    ),
+                  ),
+                ],
               ),
             ),
-            verticalSpaceTiny,
-            const AddIngredientsTwoTextFields(),
-            verticalSpaceTiny,
-            Center(
-              child: SaveRecipeButton(
-                onPressed: viewModel.addIngredientToList,
-                buttonText: 'Add Ingredient',
-                prefix: Icons.add,
-              ),
-            ),
-            verticalSpaceSmall,
           ],
         ),
       ),

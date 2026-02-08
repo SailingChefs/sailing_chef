@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
@@ -15,46 +14,30 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
     return viewModel.searchControllerRecipe.text.isNotEmpty
         ? Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LayoutBuilder(builder:
-                    (BuildContext context, BoxConstraints constraints) {
-                  return ShrinkWrappingViewport(
-                    offset: ViewportOffset.zero(),
-                    slivers: [
-                      SliverGrid(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15.0,
-                          mainAxisSpacing: 18.0,
-                          childAspectRatio: 7.4 / 9,
-                        ),
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            final recipe = viewModel
-                                .searchRecipes(recipes)
-                                .elementAt(index);
-                            return PrimaryGridTile(
-                                rating: recipe.rating,
-                                chefId: recipe.user!.uid!,
-                                recipe: recipe,
-                                onTap: () =>
-                                    viewModel.toDishDetailsScreen(recipe),
-                                foodImagePath: recipe.coverImage
-                                    .where(
-                                        (element) => element.isFirebaseImageUrl)
-                                    .first,
-                                dishName: recipe.title,
-                                duration: recipe.prepTime,
-                                chefImagePath: recipe.user!.displayPicture!);
-                          },
-                          childCount: viewModel.searchRecipes(recipes).length,
-                        ),
-                      ),
-                    ],
-                  );
-                }),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: viewModel.searchRecipes(recipes).length,
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15.0,
+                    mainAxisSpacing: 18.0,
+                    childAspectRatio: 7.4 / 9,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    final recipe = viewModel.searchRecipes(recipes).elementAt(index);
+                    return PrimaryGridTile(
+                        rating: recipe.rating,
+                        chefId: recipe.user!.uid!,
+                        recipe: recipe,
+                        onTap: () => viewModel.toDishDetailsScreen(recipe),
+                        foodImagePath:
+                            recipe.coverImage.where((element) => element.isFirebaseImageUrl).first,
+                        dishName: recipe.title,
+                        duration: recipe.prepTime,
+                        chefImagePath: recipe.user!.displayPicture!);
+                  },
+                ),
               ),
               verticalSpace(90),
               ExploreAllButtonSearch(
@@ -69,60 +52,45 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                 child: Center(
                     child: Text(
                   'No Recipe Found',
-                  style:
-                      globalTextStyle(fontSize: 15.sp, color: kcPrimaryColor),
+                  style: globalTextStyle(fontSize: 15.sp, color: kcPrimaryColor),
                 )))
-            : Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: LayoutBuilder(builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return ShrinkWrappingViewport(
-                        offset: ViewportOffset.zero(),
-                        slivers: [
-                          SliverGrid(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 18.0,
-                              childAspectRatio: 7.4 / 9,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                return PrimaryGridTile(
-                                    chefId: recipes[index].uid,
-                                    rating: recipes[index].rating,
-                                    recipe: recipes[index],
-                                    onTap: () => viewModel
-                                        .toDishDetailsScreen(recipes[index]),
-                                    foodImagePath: recipes[index]
-                                        .coverImage
-                                        .where((element) =>
-                                            element.contains('.jpg'))
-                                        .first,
-                                    dishName: recipes[index].title,
-                                    duration: recipes[index].prepTime,
-                                    chefImagePath:
-                                        recipes[index].user?.displayPicture ??
-                                            '');
-                              },
-                              childCount:
-                                  recipes.length > 4 ? 4 : recipes.length,
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-                  ),
-                  verticalSpace(90),
-                  ExploreAllButtonSearch(
-                    text: 'Discover more Recipes',
-                    onTap: () => viewModel.toAllDishesScreen(recipes),
-                  ),
-                  verticalSpace(30),
-                ],
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    GridView.builder(
+                      itemCount: recipes.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15.0,
+                        mainAxisSpacing: 18.0,
+                        childAspectRatio: 7.4 / 9,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return PrimaryGridTile(
+                            chefId: recipes[index].uid,
+                            rating: recipes[index].rating,
+                            recipe: recipes[index],
+                            onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
+                            foodImagePath: recipes[index]
+                                .coverImage
+                                .where((element) => element.contains('.jpg'))
+                                .first,
+                            dishName: recipes[index].title,
+                            duration: recipes[index].prepTime,
+                            chefImagePath: recipes[index].user?.displayPicture ?? '');
+                      },
+                    ),
+                    verticalSpace(10),
+                    ExploreAllButtonSearch(
+                      text: 'View All Recipes',
+                      onTap: () => viewModel.toAllDishesScreen(recipes),
+                    ),
+                    verticalSpace(30),
+                  ],
+                ),
               );
   }
 }

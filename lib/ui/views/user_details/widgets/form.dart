@@ -31,9 +31,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                       ),
                       verticalSpaceSmall,
                       SemiRoundedTranpaentTextField(
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(200)
-                        ],
+                        inputFormatters: [LengthLimitingTextInputFormatter(200)],
                         maxLines: 5,
                         suffixIcon: false,
                         validator: (value) => viewModel.validateBio(value),
@@ -61,14 +59,12 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                         flagState: CountryFlag.DISABLE,
 
                         dropdownDecoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: kcPrimaryColor.withOpacity(0.09),
                         ),
 
                         disabledDropdownDecoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: kcPrimaryColor.withOpacity(0.09),
                         ),
 
@@ -98,16 +94,13 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                         searchBarRadius: 10.0,
 
-                        onCountryChanged: (value) =>
-                            viewModel.setCountryValue(value),
+                        onCountryChanged: (value) => viewModel.setCountryValue(value),
 
                         ///triggers once state selected in dropdown
-                        onStateChanged: (value) =>
-                            viewModel.setStateValue(value ?? ''),
+                        onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
 
                         ///triggers once city selected in dropdown
-                        onCityChanged: (value) =>
-                            viewModel.setCityValue(value ?? ''),
+                        onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
                       ),
                     ],
                   )
@@ -116,28 +109,23 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                       ? Column(
                           children: [
                             SemiRoundedTranpaentTextField(
-                              validator: (value) =>
-                                  viewModel.validateName(value),
+                              validator: (value) => viewModel.validateName(value),
                               controller: viewModel.nameController,
                               labelText: 'Company Name',
                               suffixIcon: false,
                             ),
                             verticalSpaceSmall,
                             SemiRoundedTranpaentTextField(
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(200)
-                                ],
+                                inputFormatters: [LengthLimitingTextInputFormatter(200)],
                                 maxLines: 5,
                                 suffixIcon: false,
                                 fillColor: kcPrimaryColor.withOpacity(0.09),
-                                validator: (value) =>
-                                    viewModel.validateBio(value),
+                                validator: (value) => viewModel.validateBio(value),
                                 controller: viewModel.bioController,
                                 labelText: 'Description'),
                             verticalSpaceSmall,
                             SemiRoundedTranpaentTextField(
-                                validator: (value) =>
-                                    viewModel.validateLink(value),
+                                validator: (value) => viewModel.validateLink(value),
                                 controller: viewModel.linkController,
                                 suffixIcon: false,
                                 labelText: 'Link'),
@@ -146,14 +134,12 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                               flagState: CountryFlag.DISABLE,
 
                               dropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                borderRadius: const BorderRadius.all(Radius.circular(10)),
                                 color: kcPrimaryColor.withOpacity(0.09),
                               ),
 
                               disabledDropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                borderRadius: const BorderRadius.all(Radius.circular(10)),
                                 color: kcPrimaryColor.withOpacity(0.09),
                               ),
 
@@ -188,38 +174,31 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
 
                               searchBarRadius: 10.0,
 
-                              onCountryChanged: (value) =>
-                                  viewModel.setCountryValue(value),
+                              onCountryChanged: (value) => viewModel.setCountryValue(value),
 
                               ///triggers once state selected in dropdown
-                              onStateChanged: (value) =>
-                                  viewModel.setStateValue(value ?? ''),
+                              onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
 
                               ///triggers once city selected in dropdown
-                              onCityChanged: (value) =>
-                                  viewModel.setCityValue(value ?? ''),
+                              onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
                             ),
                           ],
                         )
                       : Column(
                           children: [
                             SemiRoundedTranpaentTextField(
-                              validator: (value) =>
-                                  viewModel.validateName(value),
+                              validator: (value) => viewModel.validateName(value),
                               controller: viewModel.nameController,
                               labelText: 'Name',
                               suffixIcon: false,
                             ),
                             verticalSpaceSmall,
                             SemiRoundedTranpaentTextField(
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(200)
-                                ],
+                                inputFormatters: [LengthLimitingTextInputFormatter(200)],
                                 maxLines: 5,
                                 suffixIcon: false,
                                 fillColor: kcPrimaryColor.withOpacity(0.09),
-                                validator: (value) =>
-                                    viewModel.validateBio(value),
+                                validator: (value) => viewModel.validateBio(value),
                                 controller: viewModel.bioController,
                                 labelText: 'Bio'),
                             verticalSpaceMedium,
@@ -234,9 +213,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
           100.w,
           onPressed: () {
             if (userRole == 'chef' || userRole == 'culinarySchool') {
-              if (viewModel.formKey.currentState!.validate()) {
-                viewModel.saveUserDetails();
-              }
+              viewModel.saveUserDetails();
             } else {
               viewModel.saveguestDetails();
             }

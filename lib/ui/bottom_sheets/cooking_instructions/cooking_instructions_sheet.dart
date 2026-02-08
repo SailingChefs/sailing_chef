@@ -4,8 +4,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/bott
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/cooking_topbar.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/widgets/listview_cookinginstructions.dart';
 
-class CookingInstructionsSheet
-    extends StackedView<CookingInstructionsSheetModel> {
+class CookingInstructionsSheet extends StackedView<CookingInstructionsSheetModel> {
   final Function(SheetResponse response)? completer;
   final SheetRequest request;
   const CookingInstructionsSheet({
@@ -25,11 +24,16 @@ class CookingInstructionsSheet
     final listIndex = data?['listIndex'] as int?;
     final method = data?['method'] as String?;
 
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
+    final mediaQuery = MediaQuery.of(context);
+    final keyboardInset = mediaQuery.viewInsets.bottom;
+    final baseHeight = mediaQuery.size.height * 0.95;
+    final sheetHeight = (baseHeight - keyboardInset).clamp(0.0, baseHeight);
+
+    final isEdit = method != null && listIndex != null;
+
+    return SizedBox(
+        height: isEdit ? sheetHeight / 2 : sheetHeight,
+        child: DecoratedBox(
           decoration: const BoxDecoration(
             color: kcwhitecolor,
             borderRadius: BorderRadius.only(
@@ -37,29 +41,38 @@ class CookingInstructionsSheet
               topRight: Radius.circular(30),
             ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CookingTopBar(listIndex, method != null),
-              Center(
-                child: Text(
-                  '${method == null ? 'Add' : 'Edit'} Instructions',
-                  style: globalTextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor),
+          child: Column(children: [
+            // Fixed top section
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CookingTopBar(listIndex, method != null),
+                  verticalSpaceMedium,
+                ],
+              ),
+            ),
+            if (!isEdit)
+              // Scrollable middle section for instructions
+              Expanded(
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: ListViewCookingInstructions(
+                      listIndex: listIndex ?? 0,
+                    ),
+                  ),
                 ),
               ),
-              verticalSpaceMedium,
-              ListViewCookingInstructions(
-                listIndex: listIndex ?? 0,
-              ),
-              BottomCookingInstructions(method, listIndex),
-            ],
-          ),
-        ),
-      ),
-    );
+            // Fixed bottom section that stays above keyboard
+            Container(
+              padding: const EdgeInsets.only(bottom: 15, left: 5, right: 5),
+              child: BottomCookingInstructions(method, listIndex),
+            ),
+          ]),
+        ));
   }
 
   @override
@@ -71,6 +84,5 @@ class CookingInstructionsSheetResponse {
   final List<String> instructionsListResponse;
   final String? method;
 
-  const CookingInstructionsSheetResponse(
-      {required this.instructionsListResponse, this.method});
+  const CookingInstructionsSheetResponse({required this.instructionsListResponse, this.method});
 }

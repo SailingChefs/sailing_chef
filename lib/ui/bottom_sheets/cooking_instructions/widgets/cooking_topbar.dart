@@ -16,6 +16,12 @@ class CookingTopBar extends ViewModelWidget<CookingInstructionsSheetModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BackArrowWidget(onTap: viewModel.popBack),
+          const Center(
+            child: Text(
+              'Add Instructions',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          ),
           GestureDetector(
             onTap: () {
               if (viewModel.instructionsList.isNotEmpty && !isEdit) {

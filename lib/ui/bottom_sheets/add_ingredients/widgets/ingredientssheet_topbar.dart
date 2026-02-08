@@ -8,23 +8,33 @@ class IngredientsSheetTopBar extends ViewModelWidget<AddIngredientsSheetModel> {
   @override
   Widget build(BuildContext context, AddIngredientsSheetModel viewModel) {
     return Padding(
-      padding: EdgeInsets.all(13.0.dg),
+      padding: EdgeInsets.fromLTRB(13.0.dg, 20.0.dg, 13.0.dg, 13.0.dg),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BackArrowWidget(
-            onTap: viewModel.popBack,
+          Center(
+            child: BackArrowWidget(
+              onTap: viewModel.popBack,
+            ),
           ),
-          GestureDetector(
-            onTap: viewModel.ingredientsList.isEmpty ? null : viewModel.onSaved,
+          const Center(
             child: Text(
-              'Save',
-              style: globalTextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: viewModel.ingredientsList.isEmpty
-                      ? Colors.grey.shade300
-                      : const Color(0xFF6C908D)),
+              'Add your ingredients',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: viewModel.ingredientsList.isEmpty ? null : viewModel.onSaved,
+              child: Text(
+                'Save',
+                style: globalTextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: viewModel.ingredientsList.isEmpty
+                        ? Colors.grey.shade300
+                        : const Color(0xFF6C908D)),
+              ),
             ),
           ),
         ],

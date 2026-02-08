@@ -30,6 +30,9 @@ class RoundedTransparentTextField extends StatelessWidget {
   final FocusNode? focsNode;
   // When false, long-press selection (and thus accidental focus via long-press-drag) is disabled.
   final bool? enableInteractiveSelection;
+  final SpellCheckConfiguration? spellCheckConfiguration;
+  final bool autocorrect;
+  final bool enableSuggestions;
 
   const RoundedTransparentTextField({
     super.key,
@@ -60,6 +63,9 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.inputFormatters,
     this.focsNode,
     this.enableInteractiveSelection = false,
+    this.spellCheckConfiguration,
+    this.autocorrect = true,
+    this.enableSuggestions = true,
   });
 
   @override
@@ -82,6 +88,12 @@ class RoundedTransparentTextField extends StatelessWidget {
     if (maxLength != null) {
       inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
     }
+
+    final effectiveSpellCheckConfiguration = spellCheckConfiguration ??
+        ((obscureText || (readOnly ?? false))
+            ? const SpellCheckConfiguration.disabled()
+            : const SpellCheckConfiguration());
+
     return TextFormField(
       readOnly: readOnly ?? false,
       cursorColor: kcPrimaryColor,
@@ -96,39 +108,33 @@ class RoundedTransparentTextField extends StatelessWidget {
       maxLength: maxLength,
       maxLines: maxLines ?? 1,
       validator: validator,
+      autocorrect: autocorrect,
+      enableSuggestions: enableSuggestions,
+      spellCheckConfiguration: effectiveSpellCheckConfiguration,
       inputFormatters: inputFormattersList,
       enableInteractiveSelection: enableInteractiveSelection,
       style: style ??
           globalTextStyle(
-              fontSize: 13.sp,
-              color: textColor ?? kcWhiteColor,
-              fontWeight: FontWeight.w400),
+              fontSize: 13.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         hintText: labelText,
         hintStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
         filled: true,
         fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
         labelStyle: globalTextStyle(
-            fontSize: 14.sp,
-            color: textColor ?? kcWhiteColor,
-            fontWeight: FontWeight.w500),
+            fontSize: 14.sp, color: textColor ?? kcWhiteColor, fontWeight: FontWeight.w500),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),
-          borderSide:
-              BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
+          borderSide: BorderSide(color: borderColor ?? kcWhiteColor.withOpacity(0.2)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 25.0.r),

@@ -24,10 +24,8 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
         backgroundColor: kcWhiteColor,
         elevation: 0,
         title: Text('Explore All Recipes',
-            style: globalTextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-                color: kcBlackColor)),
+            style:
+                globalTextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: kcBlackColor)),
         centerTitle: true,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -43,11 +41,11 @@ class ExploreAllRecipesView extends StackedView<ExploreAllRecipesViewModel> {
         ),
         child: Column(
           children: [
-            verticalSpace(24),
+            verticalSpace(10),
             SearchBarAllRecipesScreen(
               recipes: recipes,
             ),
-            verticalSpace(16),
+            verticalSpace(10),
             if (viewModel.isBusy)
               const ShimmerLoaderAllRecipes()
             else

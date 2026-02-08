@@ -173,8 +173,12 @@ class UserDetailsViewModel extends BaseViewModel {
       }
 
       if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        showToast(message: 'Please verify your email first');
-        return;
+        final user = FirebaseAuth.instance.currentUser!;
+        await user.reload();
+        if (!user.emailVerified) {
+          showToast(message: 'Please verify your email first');
+          return;
+        }
       }
 
       final imageLink = await _userService.uploadImage(
@@ -206,13 +210,11 @@ class UserDetailsViewModel extends BaseViewModel {
         userDetails = await _userService.getUserDetails();
         if (userDetails!.userRole == 'guest') {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomBarGuestView();
         } else {
           locator.removeRegistrationIfExists<BottomNavBarViewModel>();
-          locator.registerLazySingleton<BottomNavBarViewModel>(
-              BottomNavBarViewModel.new);
+          locator.registerLazySingleton<BottomNavBarViewModel>(BottomNavBarViewModel.new);
           _navigationService.replaceWithBottomNavBarView();
         }
       } else {
@@ -227,8 +229,7 @@ class UserDetailsViewModel extends BaseViewModel {
     var imageLink = '';
     if (formKey.currentState!.validate()) {
       if (selectedImageFile == null) {
-        imageLink =
-            'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
+        imageLink = 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg';
       } else {
         imageLink = await _userService.uploadImage(
           selectedImageFile!,

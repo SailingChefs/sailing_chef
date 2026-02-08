@@ -40,7 +40,6 @@ class Ingredients extends ViewModelWidget<AddRecipeViewModel> {
             children: [
               ListView.builder(
                 shrinkWrap: true,
-                reverse: true,
                 itemCount: viewModel.ingredientsList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {

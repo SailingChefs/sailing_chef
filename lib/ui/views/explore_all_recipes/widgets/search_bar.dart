@@ -5,8 +5,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 
-class SearchBarAllRecipesScreen
-    extends ViewModelWidget<ExploreAllRecipesViewModel> {
+class SearchBarAllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
   const SearchBarAllRecipesScreen({required this.recipes, super.key});
 
@@ -14,6 +13,7 @@ class SearchBarAllRecipesScreen
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
     return FittedBox(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.75,
@@ -32,8 +32,7 @@ class SearchBarAllRecipesScreen
                 ),
                 filled: true,
                 fillColor: kcPrimaryColor.withOpacity(0.09),
-                labelStyle: TextStyle(
-                    fontSize: 12.sp, color: kcBlackColor.withOpacity(0.6)),
+                labelStyle: TextStyle(fontSize: 14.sp, color: kcBlackColor.withOpacity(0.6)),
                 labelText: 'Search',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0.r),
@@ -45,9 +44,8 @@ class SearchBarAllRecipesScreen
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0.r),
-                  borderSide: BorderSide(
-                      color: kcWhiteColor
-                          .withOpacity(0.2)), // Unfocused border color
+                  borderSide:
+                      BorderSide(color: kcWhiteColor.withOpacity(0.2)), // Unfocused border color
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0.r),
@@ -67,7 +65,7 @@ class SearchBarAllRecipesScreen
                 ),
                 prefixIcon: Icon(
                   FlutterRemix.search_line,
-                  color: kcBlackColor.withOpacity(0.6),
+                  color: kcBlackColor.withOpacity(0.5),
                   size: 20,
                 ),
               ),

@@ -1,14 +1,12 @@
 // ignore_for_file: unrelated_type_equality_checks, deprecated_member_use
 
 import 'package:flutter_svg/svg.dart';
-import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
-class ProfileDescriptionChefProfileScreen
-    extends ViewModelWidget<ChefProfileViewModel> {
+class ProfileDescriptionChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
   const ProfileDescriptionChefProfileScreen(this.user, {super.key});
   final UserModel user;
 
@@ -38,11 +36,10 @@ class ProfileDescriptionChefProfileScreen
           else
             Text(
               user.namedLocation == null
-                  ? capitalizeEachWord(userDetails!.boatName!)
+                  ? capitalizeEachWord(user.boatName!)
                   : user.boatName!.isEmpty
                       ? capitalizeEachWord(user.namedLocation!)
-                      : capitalizeEachWord(
-                          '${user.boatName!}, ${user.namedLocation}'),
+                      : capitalizeEachWord('${user.boatName!}\n${user.namedLocation}'),
               style: globalTextStyle(
                 fontSize: 14.sp,
                 letterSpacing: -0.3,

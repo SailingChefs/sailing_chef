@@ -6,8 +6,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/profile/profile_viewmodel.dart';
 
-class ProfileDescriptionProfileScreen
-    extends ViewModelWidget<ProfileViewModel> {
+class ProfileDescriptionProfileScreen extends ViewModelWidget<ProfileViewModel> {
   const ProfileDescriptionProfileScreen({super.key});
 
   @override
@@ -19,9 +18,7 @@ class ProfileDescriptionProfileScreen
         children: [
           verticalSpaceSmall,
           Text(
-            userDetails!.displayName!.isEmpty
-                ? ''
-                : capitalizeEachWord(userDetails!.displayName!),
+            userDetails!.displayName!.isEmpty ? '' : capitalizeEachWord(userDetails!.displayName!),
             style: globalTextStyle(
                 letterSpacing: -0.3,
                 fontSize: 18.sp,
@@ -33,22 +30,28 @@ class ProfileDescriptionProfileScreen
           else
             userDetails!.namedLocation == null && userDetails!.boatName == null
                 ? Container()
-                : Text(
-                    userDetails!.namedLocation == null
-                        ? userDetails!.boatName!
-                        : userDetails!.boatName == null
-                            ? userDetails!.namedLocation!
-                            : userDetails!.namedLocation != null &&
-                                    userDetails!.boatName!.isNotEmpty
-                                ? '${userDetails!.boatName!},${userDetails!.namedLocation!}'
-                                : userDetails!.namedLocation!,
-                    style: globalTextStyle(
-                      fontSize: 14.sp,
-                      letterSpacing: -0.3,
-                      fontWeight: FontWeight.w600,
-                      color: kcBlackColor,
-                    ),
-                  ),
+                : Builder(builder: (context) {
+                    final boatName = userDetails!.boatName;
+                    final namedLocation = userDetails!.namedLocation;
+                    final hasBoatName = boatName != null && boatName.isNotEmpty;
+                    final hasNamedLocation = namedLocation != null && namedLocation.isNotEmpty;
+
+                    final displayText = hasBoatName && hasNamedLocation
+                        ? '$boatName\n$namedLocation'
+                        : hasBoatName
+                            ? boatName
+                            : namedLocation ?? '';
+
+                    return Text(
+                      displayText,
+                      style: globalTextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: -0.3,
+                        fontWeight: FontWeight.w600,
+                        color: kcBlackColor,
+                      ),
+                    );
+                  }),
           verticalSpaceSmall,
           Text(
             userDetails!.bio!.isEmpty ? '' : userDetails!.bio!,
@@ -83,9 +86,7 @@ class ProfileDescriptionProfileScreen
                           width: 300,
                           child: Text(
                             overflow: TextOverflow.ellipsis,
-                            userDetails!.link!.isEmpty
-                                ? ' '
-                                : userDetails!.link!,
+                            userDetails!.link!.isEmpty ? ' ' : userDetails!.link!,
                             style: globalTextStyle(
                               fontSize: 14.sp,
                               letterSpacing: -0.3,

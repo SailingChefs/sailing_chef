@@ -25,6 +25,7 @@ class IndexView extends StackedView<IndexViewModel> {
         body: RefreshIndicator(
           onRefresh: viewModel.onRefresh,
           child: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
                 Padding(
@@ -61,9 +62,7 @@ class IndexView extends StackedView<IndexViewModel> {
                         ],
                       ),
                       if (viewModel.isMySelected)
-                        viewModel.showShimmer
-                            ? const ShimmerChef()
-                            : const ChefListIndexScreen()
+                        viewModel.showShimmer ? const ShimmerChef() : const ChefListIndexScreen()
                       else
                         viewModel.showShimmer
                             ? const ShimmerChef()
@@ -78,15 +77,14 @@ class IndexView extends StackedView<IndexViewModel> {
                   padding: EdgeInsets.all(6.0),
                   child: DishListIndexScreen(),
                 ),
-                verticalSpaceMedium,
+                verticalSpaceSmall,
                 if (viewModel.dishes.isNotEmpty)
                   Center(
                     child: TextButton(
                       onPressed: viewModel.toAllRecipesView,
                       child: Text(
                         'View All Recipes',
-                        style: globalTextStyle(
-                            fontSize: 14, color: kcPrimaryColor),
+                        style: globalTextStyle(fontSize: 14, color: kcPrimaryColor),
                       ),
                     ),
                   )

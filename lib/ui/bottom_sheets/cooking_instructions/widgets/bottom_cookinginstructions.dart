@@ -3,8 +3,7 @@ import 'package:sailing_chefs/ui/bottom_sheets/cooking_instructions/cooking_inst
 import 'package:sailing_chefs/ui/widgets/bottom_sheet_btn.dart';
 import 'package:sailing_chefs/ui/widgets/rounded_tranparent_textfield.dart';
 
-class BottomCookingInstructions
-    extends ViewModelWidget<CookingInstructionsSheetModel> {
+class BottomCookingInstructions extends ViewModelWidget<CookingInstructionsSheetModel> {
   const BottomCookingInstructions(this.method, this.index, {super.key});
 
   final String? method;
@@ -18,7 +17,7 @@ class BottomCookingInstructions
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 25.0, right: 35, bottom: 60),
+          padding: const EdgeInsets.only(left: 25.0, right: 35, bottom: 10),
           child: SizedBox(
             width: double.infinity,
             child: RoundedTransparentTextField(
@@ -27,7 +26,7 @@ class BottomCookingInstructions
               fillColor: const Color(0xFF427536).withOpacity(0.04),
               textColor: kcBlackColor.withOpacity(0.4),
               prefixIcon: true,
-              prefixIconData: isEdit ? null : Icons.add,
+              prefixIconData: isEdit ? Icons.edit : Icons.add,
             ),
           ),
         ),

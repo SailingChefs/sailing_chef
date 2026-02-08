@@ -66,30 +66,31 @@ class SearchView extends StackedView<SearchViewModel> {
                     ],
                     //,
                   ),
-                  body: SingleChildScrollView(
+                  body: Container(
                     padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 15.0,
+                      left: 25.0,
+                      right: 25.0,
                     ),
                     child: Column(
                       children: [
                         // const TopBarSearchScreen(),
-                        verticalSpaceMedium,
+                        verticalSpace(10),
                         SearchBarSearchScreen(
                           selectedTagsCount,
                           recipes: recipeModel,
                         ),
-                        verticalSpaceMedium,
+                        verticalSpace(16),
                         const TabBarSeacrhScreen(),
-                        verticalSpaceTiny,
-                        if (viewModel.isRecipeSelected)
-                          RecipeScreen(
-                            recipes: recipeModel,
-                          )
-                        else
-                          ChefScreen(
-                            chef: chefList,
-                          ),
+                        verticalSpaceSmall,
+                        Expanded(
+                          child: viewModel.isRecipeSelected
+                              ? RecipeScreen(
+                                  recipes: recipeModel,
+                                )
+                              : ChefScreen(
+                                  chef: chefList,
+                                ),
+                        ),
                       ],
                     ),
                   )),

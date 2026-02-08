@@ -9,8 +9,7 @@ import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SaveDraftAlertboxDialog
-    extends StackedView<SaveDraftAlertboxDialogModel> {
+class SaveDraftAlertboxDialog extends StackedView<SaveDraftAlertboxDialogModel> {
   final DialogRequest? request;
   final Function(DialogResponse)? completer;
 
@@ -78,8 +77,7 @@ class SaveDraftAlertboxDialog
                             TextButton(
                               onPressed: () {
                                 completer!(DialogResponse(confirmed: true));
-                                viewModel.noButton(
-                                    recipe, images, path, isDraft);
+                                viewModel.noButton(recipe, images, path, isDraft);
                               },
                               child: Text(
                                 'No',
