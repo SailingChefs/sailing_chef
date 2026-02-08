@@ -37,8 +37,7 @@ class RecipeService with ListenableServiceMixin {
   Future<bool> doesDraftExist(String uid) async {
     log(uid);
     try {
-      final DocumentSnapshot snapshot =
-          await firebasestore.collection('recipes').doc(uid).get();
+      final DocumentSnapshot snapshot = await firebasestore.collection('recipes').doc(uid).get();
       if (snapshot.exists) {
         return true;
       }
@@ -58,8 +57,7 @@ class RecipeService with ListenableServiceMixin {
 
         final QuerySnapshot commentsSnapshot =
             await docSnapshot.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         final user = await _userService.fetchUserByUID(recipe.uid);
@@ -94,10 +92,8 @@ class RecipeService with ListenableServiceMixin {
           userCache[recipe.uid] = user;
         }
 
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         recipes.add(recipe);
@@ -136,8 +132,7 @@ class RecipeService with ListenableServiceMixin {
 
   Future<void> deleteIndexImageFromDocument(String id, String link) async {
     try {
-      final CollectionReference collection =
-          firebasestore.collection('recipes');
+      final CollectionReference collection = firebasestore.collection('recipes');
       final documentReference = collection.doc(id);
 
       await documentReference.update({
@@ -156,8 +151,7 @@ class RecipeService with ListenableServiceMixin {
 
       log(draftExists.toString());
       if (draftExists) {
-        final DocumentReference docRef =
-            firebasestore.collection('recipes').doc(recipe.docId);
+        final DocumentReference docRef = firebasestore.collection('recipes').doc(recipe.docId);
 
         await docRef.update(recipe.toMap());
 
@@ -185,10 +179,8 @@ class RecipeService with ListenableServiceMixin {
     log('addRecipeToFirestore ${recipe.docId}');
     EasyLoading.show();
     try {
-      final QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('doc_id', isEqualTo: recipe.docId)
-          .get();
+      final QuerySnapshot snapshot =
+          await firebasestore.collection('recipes').where('doc_id', isEqualTo: recipe.docId).get();
 
       if (snapshot.docs.isNotEmpty && recipe.docId != null) {
         final DocumentReference docRef =
@@ -200,10 +192,7 @@ class RecipeService with ListenableServiceMixin {
         await docRef.update({
           'doc_id': docId,
         });
-        await firebasestore
-            .collection('users')
-            .doc(firebaseAuth.currentUser!.uid)
-            .update({
+        await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(recipe.docId!);
@@ -219,10 +208,7 @@ class RecipeService with ListenableServiceMixin {
         final docId = docRef.id;
 
         await docRef.update({'doc_id': docId});
-        await firebasestore
-            .collection('users')
-            .doc(firebaseAuth.currentUser!.uid)
-            .update({
+        await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({
           'recipes': FieldValue.arrayUnion([docId])
         });
         userDetails!.recipes!.add(docId);
@@ -248,8 +234,7 @@ class RecipeService with ListenableServiceMixin {
         return '';
       }
       EasyLoading.show();
-      final storageReference =
-          firebaseStorage.ref().child('audio/${DateTime.now()}.mpeg4');
+      final storageReference = firebaseStorage.ref().child('audio/${DateTime.now()}.mpeg4');
       final uploadTask = storageReference.putFile(file);
       // ignore: avoid_print
       await uploadTask.whenComplete(() => print('File Uploaded'));
@@ -339,17 +324,7 @@ class RecipeService with ListenableServiceMixin {
   String _guessContentType(String ext, bool isVideo) {
     final lower = ext.toLowerCase();
     if (isVideo) {
-      const mp4Group = {
-        'mp4',
-        'm4v',
-        '3gp',
-        '3g2',
-        'mpg',
-        'mpeg',
-        'ts',
-        'mts',
-        'm2ts'
-      };
+      const mp4Group = {'mp4', 'm4v', '3gp', '3g2', 'mpg', 'mpeg', 'ts', 'mts', 'm2ts'};
       if (mp4Group.contains(lower)) return 'video/mp4';
       if (lower == 'mov') return 'video/quicktime';
       if (lower == 'webm') return 'video/webm';
@@ -371,8 +346,7 @@ class RecipeService with ListenableServiceMixin {
 
   Future<void> deleteAudioFromDocument(String id, String url) async {
     try {
-      final CollectionReference collection =
-          firebasestore.collection('recipes');
+      final CollectionReference collection = firebasestore.collection('recipes');
       final documentReference = collection.doc(id);
       EasyLoading.show();
       var filePath = Uri.decodeFull(Uri.parse(url).path);
@@ -434,10 +408,8 @@ class RecipeService with ListenableServiceMixin {
         final recipe = RecipeModel.fromSnapshot(doc);
 
         // Fetch comments for the current recipe
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         recipe.comment = comments;
 
         // Fetch user details by UID and assign it to the recipe
@@ -470,10 +442,8 @@ class RecipeService with ListenableServiceMixin {
           final recipe = RecipeModel.fromSnapshot(doc);
 
           // Fetch comments for the current recipe
-          final QuerySnapshot commentsSnapshot =
-              await doc.reference.collection('comments').get();
-          final comments =
-              commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+          final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+          final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
           recipe.comment = comments;
 
           // Fetch user details by UID and assign it to the recipe
@@ -527,10 +497,8 @@ class RecipeService with ListenableServiceMixin {
   Future<List<RecipeModel>> fetchAllMyRecipes() async {
     try {
       // Fetches all documents from the 'recipes' collection
-      final QuerySnapshot snapshot = await firebasestore
-          .collection('recipes')
-          .where('uid', isEqualTo: userDetails!.uid)
-          .get();
+      final QuerySnapshot snapshot =
+          await firebasestore.collection('recipes').where('uid', isEqualTo: userDetails!.uid).get();
 
       // Maps each DocumentSnapshot to a RecipeModel
       return snapshot.docs.map(RecipeModel.fromSnapshot).toList();
@@ -554,20 +522,15 @@ class RecipeService with ListenableServiceMixin {
       for (final doc in snapshot.docs) {
         final draftRecipe = RecipeModel.fromSnapshot(doc);
 
-        final QuerySnapshot commentsSnapshot =
-            await doc.reference.collection('comments').get();
-        final comments =
-            commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
+        final QuerySnapshot commentsSnapshot = await doc.reference.collection('comments').get();
+        final comments = commentsSnapshot.docs.map(CommentModel.fromSnapshot).toList();
         draftRecipe.comment = comments;
 
         final user = await _userService.fetchUserByUID(draftRecipe.uid);
         draftRecipe.user = user;
 
         if (drafts.any((element) => element.docId == doc.id)) {
-          await firebasestore
-              .collection('recipes')
-              .doc(doc.id)
-              .update(draftRecipe.toMap());
+          await firebasestore.collection('recipes').doc(doc.id).update(draftRecipe.toMap());
         } else {
           draftRecipe.docId = doc.id;
           draftRecipes.add(draftRecipe);
@@ -589,8 +552,7 @@ class RecipeService with ListenableServiceMixin {
       log('draft exits $draftExists');
       EasyLoading.show();
       if (draftExists) {
-        final DocumentReference docRef =
-            firebasestore.collection('recipes').doc(recipe.docId);
+        final DocumentReference docRef = firebasestore.collection('recipes').doc(recipe.docId);
 
         await docRef.update({'visibility': 'Public', 'status': 'pending'});
 
@@ -630,8 +592,7 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
-  Future<void> updateRecipeStatus(
-      String recipeId, Map<String, String> value) async {
+  Future<void> updateRecipeStatus(String recipeId, Map<String, String> value) async {
     try {
       EasyLoading.show();
       await firebasestore.collection('recipes').doc(recipeId).update(value);

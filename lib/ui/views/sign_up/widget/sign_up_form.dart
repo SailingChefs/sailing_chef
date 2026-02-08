@@ -19,6 +19,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             validator: viewModel.validateName,
             fillColor: filledcolorlogin.withOpacity(0.3),
             keyboardType: TextInputType.name,
+            autocorrect: false,
           ),
           verticalSpace(MediaQuery.of(context).size.height * 0.020),
           RoundedTransparentTextField(
@@ -28,6 +29,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             onChanged: (value) => viewModel.rebuildUi(),
             validator: viewModel.validateEmail,
             keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
           ),
           verticalSpace(MediaQuery.of(context).size.height * 0.020),
           RoundedTransparentTextField(
@@ -40,6 +42,7 @@ class SignUpForm extends ViewModelWidget<SignUpViewModel> {
             suffixIconbool: true,
             isPasswordVisible: viewModel.showPassword,
             onChanged: (value) => viewModel.rebuildUi(),
+            autocorrect: false,
             onVisibilityToggle: () {
               viewModel.passwordVisibility();
               viewModel.showPassword;

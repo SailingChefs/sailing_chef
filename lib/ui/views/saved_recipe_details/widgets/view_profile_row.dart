@@ -2,7 +2,6 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/user_model.dart';
-
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -14,6 +13,10 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
     if (user.uid == null || user.uid!.isEmpty) {
       return const SizedBox();
     }
+
+    final recipes = viewModel.recipes.map((e) => e.docId).toSet();
+    final userPublicRecipes = user.recipes?.where(recipes.contains).toList().length ?? 0;
+
     return GestureDetector(
       onTap: () {
         viewModel.viewChefProfile(user);
@@ -50,9 +53,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.displayName == null
-                          ? 'Blocked User'
-                          : user.displayName!,
+                      user.displayName == null ? 'Blocked User' : user.displayName!,
                       style: globalTextStyle(
                         letterSpacing: -0.5,
                         fontSize: 18.sp,
@@ -63,7 +64,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                     Text(
                       user.recipes == null
                           ? 'No dishes '
-                          : '${user.recipes!.length} dishes',
+                          : '${userPublicRecipes == 0 ? 'No' : userPublicRecipes} ${userPublicRecipes == 1 ? 'dish' : 'dishes'}',
                       style: globalTextStyle(
                         fontSize: 14.sp,
                         letterSpacing: -0.3,
@@ -82,8 +83,7 @@ class ViewProfileRow extends ViewModelWidget<SavedRecipeDetailsViewModel> {
             user.userRole == null
                 ? const SizedBox()
                 : OutlinedButton(
-                    style:
-                        OutlinedButton.styleFrom(backgroundColor: kcsgreycolor),
+                    style: OutlinedButton.styleFrom(backgroundColor: kcsgreycolor),
                     onPressed: () => viewModel.moveToChatScreen(user),
                     child: const Icon(
                       FlutterRemix.chat_4_line,

@@ -17,6 +17,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/add_recipe_session_service.dart';
 import 'package:sailing_chefs/services/recipe_service.dart';
 import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
@@ -43,6 +44,7 @@ class AddRecipeViewModel extends BaseViewModel {
   final _recipeService = locator<RecipeService>();
   final _userSerice = locator<UserdataServiceService>();
   final _bottomNavBarView = locator<BottomNavBarViewModel>();
+  final _addRecipeSessionService = locator<AddRecipeSessionService>();
 
   late Directory directory;
   String audioNotePath = '';
@@ -252,7 +254,50 @@ class AddRecipeViewModel extends BaseViewModel {
     }
 
     audioNotePath = '${directory.path}/recording.mpeg4';
+    _addRecipeSessionService.registerSession(
+      hasPendingChangesProvider: _hasPendingChanges,
+      dialogDataProvider: _buildExitDialogData,
+    );
     setBusy(false);
+  }
+
+  bool _hasPendingChanges() {
+    final hasServingEdit = servingSize.text.trim().isNotEmpty && servingSize.text.trim() != '1';
+    final hasAudio = (waveFormData?.isNotEmpty ?? false) || hasRecordedAudio;
+    return titleController.text.trim().isNotEmpty ||
+        selectedImages.isNotEmpty ||
+        alreadySelectedImages.isNotEmpty ||
+        ingredientsList.isNotEmpty ||
+        methodsList.isNotEmpty ||
+        tagsList.isNotEmpty ||
+        (prepreationTime?.isNotEmpty ?? false) ||
+        hasServingEdit ||
+        hasAudio;
+  }
+
+  Map<String, dynamic> _buildExitDialogData() {
+    final prepTime = (prepreationTime?.isNotEmpty ?? false) ? prepreationTime! : formatDuration();
+    return {
+      'model': RecipeModel(
+        visibility: 'private',
+        chefNote: 'recorderController',
+        coverImage: alreadySelectedImages.toList(),
+        createdTime: Timestamp.now(),
+        ingredients: ingredientsList.toList(),
+        tags: tagsList.toList(),
+        methods: methodsList.toList(),
+        prepTime: prepTime,
+        servingSize: int.tryParse(servingSize.text.trim()) ?? 1,
+        status: 'draft',
+        title: titleController.text.trim(),
+        uid: firebaseAuth.currentUser?.uid ?? '',
+        docId: recipeModel?.docId ?? '',
+        waveForm: waveFormData == null ? [] : List<double>.from(waveFormData!),
+      ),
+      'images': List<XFile?>.from(selectedImages),
+      'path': audioNotePath,
+      'isDraft': recipeModel != null,
+    };
   }
 
   void onVolumeUpIconPressed() {
@@ -645,8 +690,7 @@ class AddRecipeViewModel extends BaseViewModel {
       variant: BottomSheetType.addIngredients,
     );
     if (result == null) return;
-    final newIngredients =
-        (result.data as AddIngredientsSheetResponse).ingredientsList.toList();
+    final newIngredients = (result.data as AddIngredientsSheetResponse).ingredientsList.toList();
     ingredientsList = [...ingredientsList, ...newIngredients];
     rebuildUi();
     notifyListeners();
@@ -844,6 +888,7 @@ class AddRecipeViewModel extends BaseViewModel {
 
   @override
   void dispose() {
+    _addRecipeSessionService.clearSession();
     _onCompletionSub?.cancel();
     _onDurationSub?.cancel();
     recorderController.dispose();

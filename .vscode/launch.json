@@ -1,25 +1,38 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "sailing_chefs",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "sailing_chefs (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "sailing_chefs (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "sailing_chefs Android",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": [
+        "--dart-define",
+        "GOOGLE_PLACES_API_KEY=AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
+      ]
+    },
+    {
+      "name": "sailing_chefs iOS",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": [
+        "--dart-define",
+        "GOOGLE_PLACES_API_KEY=AIzaSyBpzT46q83H88YZxaX32aLZyHECfdRfZdQ"
+      ]
+    },
+    {
+      "name": "sailing_chefs (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "sailing_chefs (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
 }

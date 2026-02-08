@@ -3,7 +3,9 @@
 import 'dart:developer';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/services/add_recipe_session_service.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
@@ -19,6 +21,7 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
   @override
   Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
     final dialogService = locator<DialogService>();
+    final addRecipeSessionService = locator<AddRecipeSessionService>();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -32,19 +35,24 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
         currentIndex: index ?? viewModel.currentIndex,
-        onTap: (newTabIndex) {
-          // if (viewModel.currentIndex == 2 && newTabIndex != 2) {
-          //   final response = await dialogService.showCustomDialog<dynamic, dynamic>(
-          //     variant: DialogType.saveDraftAlertbox,
-          //     // title: 'Cancel Recipe Draft',
-          //     // description: 'Do you want to cancel your recipe draft?',
-          //     // mainButtonTitle: 'Yes, Cancel',
-          //     // secondaryButtonTitle: 'No, Keep Editing',
-          //   );
-          //   if (response?.data == 'No, Keep Editing') {
-          //     return;
-          //   }
-          // }
+        onTap: (newTabIndex) async {
+          if (viewModel.currentIndex == 2 &&
+              newTabIndex != 2 &&
+              addRecipeSessionService.shouldPromptOnExit) {
+            final dialogData = addRecipeSessionService.getDialogData();
+            if (dialogData == null || (dialogData['images'] as List).isEmpty) {
+              viewModel.setIndex(newTabIndex);
+              return;
+            }
+            final response = await dialogService.showCustomDialog<dynamic, dynamic>(
+              variant: DialogType.saveDraftAlertbox,
+              title: 'Do you want to save it for later?',
+              data: dialogData,
+            );
+            if (!(response?.confirmed ?? false)) {
+              return;
+            }
+          }
           viewModel.setIndex(newTabIndex);
         },
         items: [

@@ -8,6 +8,7 @@
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/services/add_recipe_session_service.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
@@ -50,6 +51,7 @@ void setupLocator({
   locator.registerLazySingleton(ShoppingListService.new);
   locator.registerLazySingleton(SnackbarService.new);
   locator.registerLazySingleton(UserdataServiceService.new);
+  locator.registerLazySingleton(AddRecipeSessionService.new);
   locator.registerLazySingleton(BottomNavBarViewModel.new);
   locator.registerLazySingleton(CommentService.new);
   locator.registerLazySingleton(SavedRecipeService.new);

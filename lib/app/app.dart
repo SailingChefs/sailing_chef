@@ -1,5 +1,6 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/add_recipe_session_service.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/block_user_service.dart';
 import 'package:sailing_chefs/services/chef_service.dart';
@@ -158,6 +159,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: SnackbarService),
 
     LazySingleton(classType: UserdataServiceService),
+    LazySingleton(classType: AddRecipeSessionService),
     LazySingleton(classType: BottomNavBarViewModel),
     LazySingleton(classType: CommentService),
     LazySingleton(classType: SavedRecipeService),

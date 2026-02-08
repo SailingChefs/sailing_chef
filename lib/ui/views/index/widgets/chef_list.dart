@@ -15,22 +15,18 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
         ? Center(
             child: Text(
               'No Chef Found',
-              style: globalTextStyle(
-                  fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
+              style: globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
             ),
           )
         : Column(
             children: <Widget>[
               verticalSpaceSmall,
               SizedBox(
-                height: screenHeight <= 680.0
-                    ? screenHeight * 0.25
-                    : screenHeight * 0.27,
+                height: screenHeight <= 680.0 ? screenHeight * 0.25 : screenHeight * 0.27,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: viewModel.chefList.length > 20
-                      ? 5
-                      : viewModel.chefList.length,
+                  itemCount: viewModel.chefList.length > 20 ? 5 : viewModel.chefList.length,
+                  cacheExtent: 10,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -60,8 +56,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r),
                               ),
-                              child: viewModel.chefList[index].displayPicture ==
-                                      ''
+                              child: viewModel.chefList[index].displayPicture == ''
                                   ? Image.asset(
                                       'assets/images/misc/blank_image.png',
                                       fit: BoxFit.cover,
@@ -69,13 +64,16 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       width: double.infinity,
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: viewModel
-                                          .chefList[index].displayPicture!,
+                                      imageUrl: viewModel.chefList[index].displayPicture!,
+                                      fadeInDuration: const Duration(milliseconds: 200),
+                                      fadeOutDuration: const Duration(milliseconds: 200),
                                       height: screenHeight * 0.2,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
-                                      progressIndicatorBuilder:
-                                          (context, url, progress) => Container(
+                                      memCacheWidth: 600,
+                                      maxWidthDiskCache: 600,
+                                      progressIndicatorBuilder: (context, url, progress) =>
+                                          Container(
                                         decoration: const BoxDecoration(
                                           color: kcsgreycolor,
                                         ),
@@ -83,12 +81,10 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                     ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8.0.w, right: 8.0.w, top: 15.0.h),
+                              padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 15.0.h),
                               child: Text(
                                 overflow: TextOverflow.ellipsis,
-                                capitalizeEachWord(
-                                    viewModel.chefList[index].displayName!),
+                                capitalizeEachWord(viewModel.chefList[index].displayName!),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,

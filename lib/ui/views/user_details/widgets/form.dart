@@ -8,6 +8,103 @@ import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
   const FormUserDetailsScrenn({required this.userRole, super.key});
   final String userRole;
+
+  Widget _buildLocationPicker(UserDetailsViewModel viewModel) {
+    if (viewModel.useManualLocationInputs) {
+      return Column(
+        children: [
+          CSCPickerPlus(
+            flagState: CountryFlag.DISABLE,
+            showStates: false,
+            showCities: false,
+            currentCountry: viewModel.countryValue.isEmpty ? null : viewModel.countryValue,
+            dropdownDecoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              color: kcPrimaryColor.withOpacity(0.09),
+            ),
+            disabledDropdownDecoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              color: kcPrimaryColor.withOpacity(0.09),
+            ),
+            countrySearchPlaceholder: 'Country',
+            countryDropdownLabel: '  *Country',
+            selectedItemStyle: TextStyle(
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 14,
+              height: 2,
+            ),
+            dropdownHeadingStyle: TextStyle(
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+            dropdownItemStyle: TextStyle(
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 14,
+            ),
+            dropdownDialogRadius: 10.0,
+            searchBarRadius: 10.0,
+            onCountryChanged: (value) => viewModel.setCountryValue(value),
+          ),
+          verticalSpaceSmall,
+          SemiRoundedTranpaentTextField(
+            suffixIcon: false,
+            controller: viewModel.manualStateController,
+            labelText: 'State*',
+            onChanged: viewModel.setManualStateValue,
+          ),
+          verticalSpaceSmall,
+          SemiRoundedTranpaentTextField(
+            suffixIcon: false,
+            controller: viewModel.manualCityController,
+            labelText: 'City*',
+            onChanged: viewModel.setManualCityValue,
+          ),
+        ],
+      );
+    }
+
+    return CSCPickerPlus(
+      flagState: CountryFlag.DISABLE,
+      currentCountry: viewModel.countryValue.isEmpty ? null : viewModel.countryValue,
+      currentState: viewModel.stateValue.isEmpty ? null : viewModel.stateValue,
+      currentCity: viewModel.cityValue.isEmpty ? null : viewModel.cityValue,
+      dropdownDecoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: kcPrimaryColor.withOpacity(0.09),
+      ),
+      disabledDropdownDecoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: kcPrimaryColor.withOpacity(0.09),
+      ),
+      countrySearchPlaceholder: 'Country',
+      stateSearchPlaceholder: 'State',
+      citySearchPlaceholder: 'City',
+      countryDropdownLabel: '  *Country',
+      stateDropdownLabel: '  *State',
+      cityDropdownLabel: '  *City',
+      selectedItemStyle: TextStyle(
+        color: Colors.black.withOpacity(0.6),
+        fontSize: 14,
+        height: 2,
+      ),
+      dropdownHeadingStyle: TextStyle(
+        color: Colors.black.withOpacity(0.6),
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
+      ),
+      dropdownItemStyle: TextStyle(
+        color: Colors.black.withOpacity(0.6),
+        fontSize: 14,
+      ),
+      dropdownDialogRadius: 10.0,
+      searchBarRadius: 10.0,
+      onCountryChanged: (value) => viewModel.setCountryValue(value),
+      onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
+      onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
+    );
+  }
+
   @override
   Widget build(BuildContext context, UserDetailsViewModel viewModel) {
     return Column(
@@ -38,6 +135,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                         fillColor: kcPrimaryColor.withOpacity(0.09),
                         controller: viewModel.bioController,
                         labelText: 'Bio',
+                        spellCheckOn: true,
                         // focusNode: viewModel.bioFocusNode,
                       ),
                       verticalSpaceSmall,
@@ -55,53 +153,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                           controller: viewModel.boatNameController,
                           labelText: 'Boat Name '),
                       verticalSpaceSmall,
-                      CSCPickerPlus(
-                        flagState: CountryFlag.DISABLE,
-
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: kcPrimaryColor.withOpacity(0.09),
-                        ),
-
-                        disabledDropdownDecoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: kcPrimaryColor.withOpacity(0.09),
-                        ),
-
-                        ///placeholders for dropdown search field
-                        countrySearchPlaceholder: 'Country',
-                        stateSearchPlaceholder: 'State',
-                        citySearchPlaceholder: 'City',
-
-                        selectedItemStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.6),
-                          fontSize: 14,
-                        ),
-
-                        ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                        dropdownHeadingStyle: TextStyle(
-                            color: Colors.black.withOpacity(0.6),
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-
-                        ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                        dropdownItemStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.6),
-                          fontSize: 14,
-                        ),
-
-                        dropdownDialogRadius: 10.0,
-
-                        searchBarRadius: 10.0,
-
-                        onCountryChanged: (value) => viewModel.setCountryValue(value),
-
-                        ///triggers once state selected in dropdown
-                        onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
-
-                        ///triggers once city selected in dropdown
-                        onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
-                      ),
+                      _buildLocationPicker(viewModel),
                     ],
                   )
                 else
@@ -130,58 +182,7 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                                 suffixIcon: false,
                                 labelText: 'Link'),
                             verticalSpaceSmall,
-                            CSCPickerPlus(
-                              flagState: CountryFlag.DISABLE,
-
-                              dropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                color: kcPrimaryColor.withOpacity(0.09),
-                              ),
-
-                              disabledDropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                color: kcPrimaryColor.withOpacity(0.09),
-                              ),
-
-                              ///placeholders for dropdown search field
-                              countrySearchPlaceholder: 'Country',
-                              stateSearchPlaceholder: 'State',
-                              citySearchPlaceholder: 'City',
-
-                              ///labels for dropdown
-                              countryDropdownLabel: '*Country',
-                              stateDropdownLabel: '*State',
-                              cityDropdownLabel: '*City',
-
-                              selectedItemStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 14,
-                              ),
-
-                              ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                              dropdownHeadingStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.6),
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-
-                              ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                              dropdownItemStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 14,
-                              ),
-
-                              dropdownDialogRadius: 10.0,
-
-                              searchBarRadius: 10.0,
-
-                              onCountryChanged: (value) => viewModel.setCountryValue(value),
-
-                              ///triggers once state selected in dropdown
-                              onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
-
-                              ///triggers once city selected in dropdown
-                              onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
-                            ),
+                            _buildLocationPicker(viewModel),
                           ],
                         )
                       : Column(
@@ -194,13 +195,15 @@ class FormUserDetailsScrenn extends ViewModelWidget<UserDetailsViewModel> {
                             ),
                             verticalSpaceSmall,
                             SemiRoundedTranpaentTextField(
-                                inputFormatters: [LengthLimitingTextInputFormatter(200)],
-                                maxLines: 5,
-                                suffixIcon: false,
-                                fillColor: kcPrimaryColor.withOpacity(0.09),
-                                validator: (value) => viewModel.validateBio(value),
-                                controller: viewModel.bioController,
-                                labelText: 'Bio'),
+                              inputFormatters: [LengthLimitingTextInputFormatter(200)],
+                              maxLines: 5,
+                              suffixIcon: false,
+                              fillColor: kcPrimaryColor.withOpacity(0.09),
+                              validator: (value) => viewModel.validateBio(value),
+                              controller: viewModel.bioController,
+                              labelText: 'Bio',
+                              spellCheckOn: true,
+                            ),
                             verticalSpaceMedium,
                           ],
                         ),

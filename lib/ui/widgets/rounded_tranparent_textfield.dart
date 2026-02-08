@@ -30,7 +30,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final FocusNode? focsNode;
   // When false, long-press selection (and thus accidental focus via long-press-drag) is disabled.
   final bool? enableInteractiveSelection;
-  final SpellCheckConfiguration? spellCheckConfiguration;
+  final bool? spellCheckConfiguration;
   final bool autocorrect;
   final bool enableSuggestions;
 
@@ -63,7 +63,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.inputFormatters,
     this.focsNode,
     this.enableInteractiveSelection = false,
-    this.spellCheckConfiguration,
+    this.spellCheckConfiguration = false,
     this.autocorrect = true,
     this.enableSuggestions = true,
   });
@@ -89,10 +89,9 @@ class RoundedTransparentTextField extends StatelessWidget {
       inputFormattersList.add(LengthLimitingTextInputFormatter(maxLength));
     }
 
-    final effectiveSpellCheckConfiguration = spellCheckConfiguration ??
-        ((obscureText || (readOnly ?? false))
-            ? const SpellCheckConfiguration.disabled()
-            : const SpellCheckConfiguration());
+    final effectiveSpellCheckConfiguration = ((obscureText || (readOnly ?? false))
+        ? const SpellCheckConfiguration.disabled()
+        : const SpellCheckConfiguration());
 
     return TextFormField(
       readOnly: readOnly ?? false,
@@ -110,7 +109,9 @@ class RoundedTransparentTextField extends StatelessWidget {
       validator: validator,
       autocorrect: autocorrect,
       enableSuggestions: enableSuggestions,
-      spellCheckConfiguration: effectiveSpellCheckConfiguration,
+      spellCheckConfiguration: spellCheckConfiguration!
+          ? effectiveSpellCheckConfiguration
+          : const SpellCheckConfiguration.disabled(),
       inputFormatters: inputFormattersList,
       enableInteractiveSelection: enableInteractiveSelection,
       style: style ??

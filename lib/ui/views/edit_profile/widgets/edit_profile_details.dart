@@ -11,6 +11,107 @@ import 'package:sailing_chefs/ui/widgets/semi_rounded_textfield.dart';
 class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
   const EditProfileForm({super.key});
 
+  Widget _buildLocationInputs(EditProfileViewModel viewModel,
+      {required double selectedTextOpacity}) {
+    final pickerDecoration = BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(20.r)),
+      color: kcPrimaryColor.withOpacity(0.07),
+    );
+
+    final selectedStyle = globalTextStyle(
+      color: kcBlackColor.withOpacity(selectedTextOpacity),
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w400,
+      height: 2,
+    );
+
+    final headingStyle = globalTextStyle(
+      color: kcBlackColor.withOpacity(0.5),
+      fontSize: 17.sp,
+      letterSpacing: -0.5,
+      fontWeight: FontWeight.w400,
+    );
+
+    final itemStyle = globalTextStyle(
+      color: Colors.black.withOpacity(0.4),
+      fontSize: 14.sp,
+      letterSpacing: -0.5,
+      fontWeight: FontWeight.w400,
+    );
+
+    if (viewModel.useManualLocationInputs) {
+      return Column(
+        children: [
+          CSCPickerPlus(
+            flagState: CountryFlag.DISABLE,
+            showStates: false,
+            showCities: false,
+            currentCountry: viewModel.countryValue.isEmpty ? null : viewModel.countryValue,
+            dropdownDecoration: pickerDecoration,
+            disabledDropdownDecoration: pickerDecoration,
+            countrySearchPlaceholder: 'Country',
+            countryDropdownLabel: '  Country*',
+            selectedItemStyle: selectedStyle,
+            dropdownHeadingStyle: headingStyle,
+            dropdownItemStyle: itemStyle,
+            dropdownDialogRadius: 10.0,
+            searchBarRadius: 10.0,
+            onCountryChanged: (value) {
+              viewModel.setCountryValue(value);
+            },
+          ),
+          verticalSpaceTiny,
+          SemiRoundedTranpaentTextField(
+            suffixIcon: false,
+            borderRadius: 27.dg,
+            controller: viewModel.manualStateController,
+            labelText: 'State*',
+            textColor: viewModel.manualStateController.text.isNotEmpty
+                ? Colors.black.withOpacity(0.8)
+                : Colors.black.withOpacity(0.4),
+            onChanged: viewModel.setManualStateValue,
+          ),
+          verticalSpaceSmall,
+          SemiRoundedTranpaentTextField(
+            suffixIcon: false,
+            borderRadius: 27.dg,
+            controller: viewModel.manualCityController,
+            labelText: 'City*',
+            textColor: viewModel.manualCityController.text.isNotEmpty
+                ? Colors.black.withOpacity(0.8)
+                : Colors.black.withOpacity(0.4),
+            onChanged: viewModel.setManualCityValue,
+          ),
+        ],
+      );
+    }
+
+    return CSCPickerPlus(
+      flagState: CountryFlag.DISABLE,
+      currentCountry: viewModel.countryValue.isEmpty ? null : viewModel.countryValue,
+      currentState: viewModel.stateValue.isEmpty ? null : viewModel.stateValue,
+      currentCity: viewModel.cityValue.isEmpty ? null : viewModel.cityValue,
+      dropdownDecoration: pickerDecoration,
+      disabledDropdownDecoration: pickerDecoration,
+      countrySearchPlaceholder: 'Country',
+      stateSearchPlaceholder: 'State',
+      citySearchPlaceholder: 'City',
+      countryDropdownLabel: '  Country*',
+      stateDropdownLabel: '  State*',
+      cityDropdownLabel: '  City*',
+      selectedItemStyle: selectedStyle,
+      dropdownHeadingStyle: headingStyle,
+      dropdownItemStyle: itemStyle,
+      dropdownDialogRadius: 10.0,
+      searchBarRadius: 10.0,
+      onCountryChanged: (value) {
+        viewModel.setCountryValue(value);
+      },
+      onStateChanged: (value) => viewModel.setStateValue(value ?? ''),
+      onCityChanged: (value) => viewModel.setCityValue(value ?? ''),
+    );
+  }
+
   @override
   Widget build(BuildContext context, EditProfileViewModel viewModel) {
     return SingleChildScrollView(
@@ -37,13 +138,12 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         SemiRoundedTranpaentTextField(
                           suffixIcon: false,
                           maxLines: 5,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(250)
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(250)],
                           controller: viewModel.bioController,
                           fillColor: kcPrimaryColor.withOpacity(0.08),
                           borderRadius: 27.dg,
                           labelText: 'Bio',
+                          spellCheckOn: true,
                         ),
                         // const LablesText(text: 'Email'),
                         //  Container(
@@ -112,65 +212,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         ),
                         Visibility(
                           visible: viewModel.isChange,
-                          child: CSCPickerPlus(
-                            flagState: CountryFlag.DISABLE,
-
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.r)),
-                              color: kcPrimaryColor.withOpacity(0.07),
-                            ),
-
-                            disabledDropdownDecoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.r)),
-                              color: kcPrimaryColor.withOpacity(0.07),
-                            ),
-
-                            ///placeholders for dropdown search field
-                            countrySearchPlaceholder: 'Country',
-                            stateSearchPlaceholder: 'State',
-                            citySearchPlaceholder: 'City',
-
-                            ///labels for dropdown
-                            countryDropdownLabel: 'country*',
-                            stateDropdownLabel: 'state*',
-                            cityDropdownLabel: 'city*',
-
-                            selectedItemStyle: globalTextStyle(
-                                color: kcBlackColor.withOpacity(0.6),
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400),
-
-                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                            dropdownHeadingStyle: globalTextStyle(
-                              color: kcBlackColor.withOpacity(0.5),
-                              fontSize: 17.sp,
-                              letterSpacing: -0.5,
-                              fontWeight: FontWeight.w400,
-                            ),
-
-                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                            dropdownItemStyle: globalTextStyle(
-                                color: Colors.black.withOpacity(0.4),
-                                fontSize: 14.sp,
-                                letterSpacing: -0.5,
-                                fontWeight: FontWeight.w400),
-
-                            dropdownDialogRadius: 10.0,
-
-                            searchBarRadius: 10.0,
-
-                            onCountryChanged: (value) =>
-                                viewModel.setCountryValue(value),
-
-                            ///triggers once state selected in dropdown
-                            onStateChanged: (value) =>
-                                viewModel.setStateValue(value ?? ''),
-
-                            ///triggers once city selected in dropdown
-                            onCityChanged: (value) =>
-                                viewModel.setCityValue(value ?? ''),
+                          child: _buildLocationInputs(
+                            viewModel,
+                            selectedTextOpacity: 0.8,
                           ),
                         ),
                       ],
@@ -207,12 +251,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             SemiRoundedTranpaentTextField(
                               suffixIcon: false,
                               maxLines: 5,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(250)
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(250)],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
+                              spellCheckOn: true,
                             ),
                             verticalSpaceTiny,
                             const LablesText(text: 'Link'),
@@ -258,65 +301,9 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             ),
                             Visibility(
                               visible: viewModel.isChange,
-                              child: CSCPickerPlus(
-                                flagState: CountryFlag.DISABLE,
-
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.r)),
-                                  color: kcPrimaryColor.withOpacity(0.07),
-                                ),
-
-                                disabledDropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.r)),
-                                  color: kcPrimaryColor.withOpacity(0.07),
-                                ),
-
-                                ///placeholders for dropdown search field
-                                countrySearchPlaceholder: 'Country',
-                                stateSearchPlaceholder: 'State',
-                                citySearchPlaceholder: 'City',
-
-                                ///labels for dropdown
-                                countryDropdownLabel: 'country*',
-                                stateDropdownLabel: 'state*',
-                                cityDropdownLabel: 'city*',
-
-                                selectedItemStyle: globalTextStyle(
-                                    color: kcBlackColor.withOpacity(0.5),
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
-
-                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                                dropdownHeadingStyle: globalTextStyle(
-                                  color: kcBlackColor.withOpacity(0.5),
-                                  fontSize: 17.sp,
-                                  letterSpacing: -0.5,
-                                  fontWeight: FontWeight.w400,
-                                ),
-
-                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                                dropdownItemStyle: globalTextStyle(
-                                    color: Colors.black.withOpacity(0.4),
-                                    fontSize: 14.sp,
-                                    letterSpacing: -0.5,
-                                    fontWeight: FontWeight.w400),
-
-                                dropdownDialogRadius: 10.0,
-
-                                searchBarRadius: 10.0,
-
-                                onCountryChanged: (value) =>
-                                    viewModel.setCountryValue(value),
-
-                                ///triggers once state selected in dropdown
-                                onStateChanged: (value) =>
-                                    viewModel.setStateValue(value ?? ''),
-
-                                ///triggers once city selected in dropdown
-                                onCityChanged: (value) =>
-                                    viewModel.setCityValue(value ?? ''),
+                              child: _buildLocationInputs(
+                                viewModel,
+                                selectedTextOpacity: 0.8,
                               ),
                             ),
                           ],
@@ -353,12 +340,11 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                               maxLines: 5,
                               borderRadius: 27.dg,
                               suffixIcon: false,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(250)
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(250)],
                               controller: viewModel.bioController,
                               fillColor: kcPrimaryColor.withOpacity(0.08),
                               labelText: 'Bio',
+                              spellCheckOn: true,
                             ),
                           ],
                         ),
@@ -372,13 +358,8 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         final bio = viewModel.bioController.text.trim();
 
                         viewModel.saveEditDetailsGuest(
-                            name.isEmpty
-                                ? (UserdataServiceService.user.displayName ??
-                                    '')
-                                : name,
-                            bio.isEmpty
-                                ? (UserdataServiceService.user.bio ?? '')
-                                : bio);
+                            name.isEmpty ? (UserdataServiceService.user.displayName ?? '') : name,
+                            bio.isEmpty ? (UserdataServiceService.user.bio ?? '') : bio);
                       },
                       buttonText: 'Save',
                     ),

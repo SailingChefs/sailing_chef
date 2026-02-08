@@ -1,6 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:image_picker/image_picker.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
@@ -24,6 +27,8 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final TextEditingController manualStateController = TextEditingController();
+  final TextEditingController manualCityController = TextEditingController();
 
   // Focus nodes with skipTraversal so they are only focused via explicit taps
   // final nameFocusNode = FocusNode(skipTraversal: true);
@@ -37,6 +42,8 @@ class UserDetailsViewModel extends BaseViewModel {
   String stateValue = '';
   String cityValue = '';
   String? address;
+  bool useManualLocationInputs = false;
+  final Map<String, bool> _countryHasStatesByName = {};
 
   File? selectedImageFile;
   String? selectedImagePath;
@@ -57,59 +64,56 @@ class UserDetailsViewModel extends BaseViewModel {
 
   //
   void setCountryValue(String value) {
-    countryValue = value;
-
-    //
+    countryValue = _normalizeCountryName(value);
+    stateValue = '';
+    cityValue = '';
+    manualStateController.clear();
+    manualCityController.clear();
+    useManualLocationInputs = false;
+    _updateAddress();
     rebuildUi();
+    unawaited(_resolveCountryLocationMode(countryValue));
   }
 
   void setStateValue(String? value) {
     if (value == 'state*') {
       stateValue = '';
       cityValue = '';
-
-      rebuildUi();
     } else if (value == 'null') {
       stateValue = '';
-
-      rebuildUi();
     } else if (value == null) {
       stateValue = '';
-
-      rebuildUi();
     } else {
       stateValue = value;
       cityValue = '';
-      rebuildUi();
     }
-
+    _updateAddress();
     rebuildUi();
   }
 
   void setCityValue(String? value) {
     if (value == 'city*') {
       cityValue = '';
-      rebuildUi();
     } else if (value == 'null') {
       cityValue = '';
-      rebuildUi();
     } else if (value == null) {
       cityValue = '';
-      rebuildUi();
     } else {
       cityValue = value;
-      rebuildUi();
     }
-    if (countryValue != '' && stateValue == '' && cityValue == '') {
-      address = countryValue;
-    }
-    if (countryValue != '' && stateValue != '' && cityValue == '') {
-      address = '$stateValue,$countryValue';
-    }
-    if (cityValue != '' && stateValue != '' && countryValue != '') {
-      address = '$cityValue,$stateValue,$countryValue';
-    }
+    _updateAddress();
+    rebuildUi();
+  }
 
+  void setManualStateValue(String value) {
+    stateValue = value.trim();
+    _updateAddress();
+    rebuildUi();
+  }
+
+  void setManualCityValue(String value) {
+    cityValue = value.trim();
+    _updateAddress();
     rebuildUi();
   }
 
@@ -309,6 +313,52 @@ class UserDetailsViewModel extends BaseViewModel {
     linkController.dispose();
     boatNameController.dispose();
     locationController.dispose();
+    manualStateController.dispose();
+    manualCityController.dispose();
     super.dispose();
+  }
+
+  void _updateAddress() {
+    final city = cityValue.trim();
+    final state = stateValue.trim();
+    final country = countryValue.trim();
+    final parts = <String>[];
+    if (city.isNotEmpty) parts.add(city);
+    if (state.isNotEmpty) parts.add(state);
+    if (country.isNotEmpty) parts.add(country);
+    address = parts.join(',');
+  }
+
+  String _normalizeCountryName(String value) {
+    if (value.contains('    ')) {
+      return value.split('    ').last.trim();
+    }
+    return value.trim();
+  }
+
+  Future<bool> _countryHasStates(String countryName) async {
+    await _ensureCountryStateAvailability();
+    return _countryHasStatesByName[countryName] ?? true;
+  }
+
+  Future<void> _resolveCountryLocationMode(String country) async {
+    final hasStates = await _countryHasStates(country);
+    if (country != countryValue) return;
+    useManualLocationInputs = !hasStates;
+    _updateAddress();
+    rebuildUi();
+  }
+
+  Future<void> _ensureCountryStateAvailability() async {
+    if (_countryHasStatesByName.isNotEmpty) return;
+    final raw = await rootBundle.loadString('packages/csc_picker_plus/lib/assets/countries.json');
+    final parsed = jsonDecode(raw) as List<dynamic>;
+    for (final item in parsed) {
+      final map = item as Map<String, dynamic>;
+      final name = (map['name'] as String?)?.trim();
+      final states = map['state'] as List<dynamic>?;
+      if (name == null || name.isEmpty) continue;
+      _countryHasStatesByName[name] = (states ?? const []).isNotEmpty;
+    }
   }
 }
