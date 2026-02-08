@@ -21,72 +21,86 @@ class ProfileShareView extends StackedView<ProfileShareViewModel> {
       backgroundColor: Colors.transparent,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: Get.back,
+        onTap: () => Get.back<void>(),
         child: Container(
           height: size.height,
           width: size.width,
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          child: Hero(
-              tag: 'profileShareOption',
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // (size.height * 0.15).verticalSpace,
-                  if (type.startsWith('a'))
-                    CircleAvatar(
-                      radius: size.width * 0.35,
-                      backgroundImage: AssetImage(image),
-                    )
-                  else
-                    CircleAvatar(
-                      radius: size.width * 0.35,
-                      backgroundImage: ImageUtils.safeNetworkImageForAvatar(
-                        image,
-                      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: 'profileShareOption',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    height: size.width * 0.7,
+                    width: size.width * 0.7,
+                    decoration: const BoxDecoration(
+                      color: Colors.white24,
+                      shape: BoxShape.circle,
                     ),
-                  verticalSpaceMedium,
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(24.r),
-                  //   ),
-                  //   width: size.width * 0.7,
-                  //   padding: EdgeInsets.only(
-                  //       top: 16.h, bottom: 16.h, left: 16.w, right: 16.w),
-                  //   child: Column(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Text("Share Link",
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w600,
-                  //               color: kcBlackColor,
-                  //               fontSize: 16.sp)),
-                  //       Divider(
-                  //         thickness: 0.1,
-                  //         height: 24.h,
-                  //         color: kcBlackColor,
-                  //       ),
-                  //       Text("Copy Link",
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w600,
-                  //               color: kcBlackColor,
-                  //               fontSize: 16.sp)),
-                  //       Divider(
-                  //         thickness: 0.1,
-                  //         height: 24.h,
-                  //         color: kcBlackColor,
-                  //       ),
-                  //       Text("QR Code",
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w600,
-                  //               color: kcBlackColor,
-                  //               fontSize: 16.sp)),
-                  //     ],
-                  //   ),
-                  // )
-                ],
-              )),
+                    child: ClipOval(
+                      child: type.startsWith('a')
+                          ? Image.asset(
+                              image,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            )
+                          : Image(
+                              image: ImageUtils.safeNetworkImageForAvatar(image),
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+              verticalSpaceMedium,
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(24.r),
+              //   ),
+              //   width: size.width * 0.7,
+              //   padding: EdgeInsets.only(
+              //       top: 16.h, bottom: 16.h, left: 16.w, right: 16.w),
+              //   child: Column(
+              //     mainAxisSize: MainAxisSize.min,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text("Share Link",
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.w600,
+              //               color: kcBlackColor,
+              //               fontSize: 16.sp)),
+              //       Divider(
+              //         thickness: 0.1,
+              //         height: 24.h,
+              //         color: kcBlackColor,
+              //       ),
+              //       Text("Copy Link",
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.w600,
+              //               color: kcBlackColor,
+              //               fontSize: 16.sp)),
+              //       Divider(
+              //         thickness: 0.1,
+              //         height: 24.h,
+              //         color: kcBlackColor,
+              //       ),
+              //       Text("QR Code",
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.w600,
+              //               color: kcBlackColor,
+              //               fontSize: 16.sp)),
+              //     ],
+              //   ),
+              // )
+            ],
+          ),
         ),
       ),
     );

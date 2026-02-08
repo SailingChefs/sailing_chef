@@ -11,17 +11,17 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
     return FittedBox(
       child: Row(
         children: [
-          Hero(
-            tag: 'profileShareOption',
-            child: GestureDetector(
-              onTap: () {
-                viewModel.profileShare(
-                    context,
-                    userDetails!.displayPicture!.isEmpty
-                        ? 'assets/images/misc/blank_image.png'
-                        : userDetails!.displayPicture!,
-                    userDetails!.displayPicture!.isEmpty ? 'asset' : 'network');
-              },
+          GestureDetector(
+            onTap: () {
+              viewModel.profileShare(
+                  context,
+                  userDetails!.displayPicture!.isEmpty
+                      ? 'assets/images/misc/blank_image.png'
+                      : userDetails!.displayPicture!,
+                  userDetails!.displayPicture!.isEmpty ? 'asset' : 'network');
+            },
+            child: Hero(
+              tag: 'profileShareOption',
               child: Container(
                 height: 90.h,
                 width: 90.w,
@@ -29,29 +29,26 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                   color: kcVeryLightGrey,
                   shape: BoxShape.circle,
                 ),
-                child: userDetails!.displayPicture!.isEmpty
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/misc/blank_image.png')),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CachedNetworkImage(
-                          imageUrl: userDetails!.displayPicture!,
-                          height:
-                              MediaQuery.sizeOf(context).height * 0.25.h - 56.h,
+                child: ClipOval(
+                  child: userDetails!.displayPicture!.isEmpty
+                      ? const Image(
+                          image: AssetImage('assets/images/misc/blank_image.png'),
                           fit: BoxFit.cover,
-                          width: double.maxFinite,
-                          progressIndicatorBuilder: (context, url, progress) =>
-                              Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: userDetails!.displayPicture!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                          progressIndicatorBuilder: (context, url, progress) => Container(
                             decoration: const BoxDecoration(
                               color: kcsgreycolor,
                             ),
                           ),
                         ),
-                      ),
+                ),
               ),
             ),
           ),
