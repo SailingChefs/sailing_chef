@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "66812962587",
+    "project_id": "sailingchefs-3e3cb",
+    "storage_bucket": "sailingchefs-3e3cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66812962587:android:f03afe9f66caf284e655be",
+        "android_client_info": {
+          "package_name": "com.stackwise.sailingChefs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66812962587:android:d12967c9b26256bde655be",
+        "android_client_info": {
+          "package_name": "com.stackwise.sailingchefs.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGaiYFveXnwbag-ORPYbsV6m3XuWsX1jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
