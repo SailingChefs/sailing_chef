@@ -57,6 +57,8 @@ class StartupViewModel extends BaseViewModel {
             if (userDetails!.userRole == 'guest') {
               viewmodel.initialised;
               _navigationService.replaceWithBottomBarGuestView();
+            } else if (userDetails!.userRole == 'supplier') {
+              _navigationService.replaceWithSupplierBottomNavView();
             } else {
               viewmodel.initialised;
               _navigationService.replaceWithBottomNavBarView();

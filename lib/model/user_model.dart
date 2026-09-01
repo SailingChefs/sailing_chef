@@ -18,6 +18,15 @@ class UserModel {
   final List<String>? schoolCourses;
   final List<String>? recipes;
   final String? namedLocation;
+  // Supplier-specific fields
+  final String? businessName;
+  final String? businessCategory;
+  final String? businessContact;
+  final String? businessWebsite;
+  final String? businessDescription;
+  final GeoPoint? supplierLocation;
+  // Chef availability
+  bool? isAvailable;
 
   UserModel({
     this.schoolCourses,
@@ -37,6 +46,13 @@ class UserModel {
     this.link,
     this.savedRecipes,
     this.blockedAccounts,
+    this.businessName,
+    this.businessCategory,
+    this.businessContact,
+    this.businessWebsite,
+    this.businessDescription,
+    this.supplierLocation,
+    this.isAvailable,
   });
 
   Map<String, dynamic> toJson() {
@@ -56,6 +72,13 @@ class UserModel {
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
+      'business_name': businessName,
+      'business_category': businessCategory,
+      'business_contact': businessContact,
+      'business_website': businessWebsite,
+      'business_description': businessDescription,
+      'supplier_location': supplierLocation,
+      'is_available': isAvailable ?? false,
     };
   }
 
@@ -79,6 +102,13 @@ class UserModel {
       schoolCourses: List<String>.from(data['school_courses'] ?? []),
       recipes: List<String>.from(data['recipes'] ?? []),
       namedLocation: data['address'],
+      businessName: data['business_name'],
+      businessCategory: data['business_category'],
+      businessContact: data['business_contact'],
+      businessWebsite: data['business_website'],
+      businessDescription: data['business_description'],
+      supplierLocation: data['supplier_location'] as GeoPoint?,
+      isAvailable: data['is_available'] as bool? ?? false,
     );
   }
 }

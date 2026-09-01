@@ -21,17 +21,45 @@ class ProfileDescriptionChefProfileScreen
         children: [
           user.displayName!.isEmpty
               ? const SizedBox()
-              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  verticalSpaceSmall,
-                  Text(
-                    capitalizeEachWord(user.displayName!),
-                    style: globalTextStyle(
-                        letterSpacing: -0.3,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: kcBlackColor),
-                  ),
-                ]),
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    verticalSpaceSmall,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          capitalizeEachWord(user.displayName!),
+                          style: globalTextStyle(
+                              letterSpacing: -0.3,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              color: kcBlackColor),
+                        ),
+                        if (user.userRole == 'chef' &&
+                            (user.isAvailable ?? false)) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF34A853),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'Available',
+                              style: globalTextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
           user.namedLocation == null && user.boatName == null
               ? Container()
               : Text(

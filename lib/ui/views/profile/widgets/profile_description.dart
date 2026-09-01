@@ -19,15 +19,40 @@ class ProfileDescriptionProfileScreen
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpaceSmall,
-          Text(
-            userDetails!.displayName!.isEmpty
-                ? ''
-                : capitalizeEachWord(userDetails!.displayName!),
-            style: globalTextStyle(
-                letterSpacing: -0.3,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-                color: kcBlackColor),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                userDetails!.displayName!.isEmpty
+                    ? ''
+                    : capitalizeEachWord(userDetails!.displayName!),
+                style: globalTextStyle(
+                    letterSpacing: -0.3,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    color: kcBlackColor),
+              ),
+              if (userDetails!.userRole == 'chef' &&
+                  (userDetails!.isAvailable ?? false)) ...[
+                SizedBox(width: 8),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF34A853),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    'Available',
+                    style: globalTextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ],
           ),
           userDetails!.userRole == 'guest'
               ? Container()

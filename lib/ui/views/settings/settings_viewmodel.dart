@@ -1,8 +1,9 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/instances.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
-import 'package:sailing_chefs/ui/views/login/login_view.dart';
+import 'package:sailing_chefs/ui/common/show_toast.dart';
 
 import '../onboarding/onboarding_view.dart';
 
@@ -10,6 +11,24 @@ class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
+
+  bool get isAvailable => userDetails?.isAvailable ?? false;
+
+  Future<void> toggleAvailability() async {
+    final newValue = !isAvailable;
+    userDetails?.isAvailable = newValue;
+    notifyListeners();
+    try {
+      await firebasestore
+          .collection('users')
+          .doc(userDetails!.uid)
+          .update({'is_available': newValue});
+    } catch (_) {
+      userDetails?.isAvailable = !newValue;
+      notifyListeners();
+      showToast(message: 'Failed to update. Please try again.');
+    }
+  }
 
   void getBack() {
     // if (userDetails!.userRole == 'chef' ||

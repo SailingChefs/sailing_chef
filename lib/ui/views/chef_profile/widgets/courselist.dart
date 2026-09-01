@@ -59,25 +59,28 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                     ),
                                   ],
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    viewModel.enquireNow(user, index);
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: kcChatBubbleColor,
+                                TextButton(
+                                  onPressed: () =>
+                                      viewModel.enquireNow(user, index),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kcPrimaryColor,
+                                    side: const BorderSide(
+                                        color: kcPrimaryColor, width: 1.5),
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: Center(
-                                        child: Text(
-                                      'Enquire now',
-                                      style: globalTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: kcWhiteColor),
-                                    )),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 6),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  child: Text(
+                                    'Enquire',
+                                    style: globalTextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: kcPrimaryColor),
                                   ),
                                 )
                               ],

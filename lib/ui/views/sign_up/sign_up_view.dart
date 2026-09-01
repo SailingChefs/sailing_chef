@@ -77,7 +77,9 @@ class SignUpView extends StackedView<SignUpViewModel> {
                       verticalSpace(MediaQuery.of(context).size.height * 0.028),
                       const RoleSelector(),
                       verticalSpace(MediaQuery.of(context).size.height * 0.05),
-                      const SignUpForm(),
+                      viewModel.selectedSignUpAs == 'supplier'
+                          ? _SupplierGetStarted(viewModel: viewModel)
+                          : const SignUpForm(),
                     ],
                   ),
                 ),
@@ -91,4 +93,45 @@ class SignUpView extends StackedView<SignUpViewModel> {
 
   @override
   SignUpViewModel viewModelBuilder(BuildContext context) => SignUpViewModel();
+}
+
+class _SupplierGetStarted extends StatelessWidget {
+  final SignUpViewModel viewModel;
+  const _SupplierGetStarted({required this.viewModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Ready to list your business for sailors nearby?',
+          textAlign: TextAlign.center,
+          style: globalTextStyle(
+            fontSize: 14.sp,
+            color: kcWhiteColor.withOpacity(0.85),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        verticalSpace(24),
+        ElevatedButton(
+          onPressed: viewModel.navigateToSupplierWizard,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kcPrimaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+          ),
+          child: Text(
+            'Set up my store →',
+            style: globalTextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w600,
+              color: kcWhiteColor,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

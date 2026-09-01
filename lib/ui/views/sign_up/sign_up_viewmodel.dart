@@ -123,10 +123,16 @@ class SignUpViewModel extends BaseViewModel {
       case 2:
         selectedSignUpAs = 'chef';
         break;
-
+      case 3:
+        selectedSignUpAs = 'supplier';
+        break;
       default:
         break;
     }
     rebuildUi();
+  }
+
+  void navigateToSupplierWizard() {
+    _navigationService.navigateToSupplierSignUpView();
   }
 }

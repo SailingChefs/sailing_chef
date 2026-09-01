@@ -12,6 +12,36 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
     return Column(
       children: [
         verticalSpaceMedium,
+        if (userDetails!.userRole == 'chef') ...[
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+            title: Text(
+              'Open to work',
+              style: globalTextStyle(
+                fontSize: 14.0.dg,
+                color: kcBlackColor,
+                letterSpacing: -0.3,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            subtitle: Text(
+              'Agencies can find your profile when this is on',
+              style: globalTextStyle(
+                fontSize: 11.0.dg,
+                color: kcBlackColor.withOpacity(0.5),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            trailing: Switch(
+              value: viewModel.isAvailable,
+              onChanged: (_) => viewModel.toggleAvailability(),
+              activeColor: kcPrimaryColor,
+            ),
+          ),
+          Divider(
+            color: kcBlackColor.withOpacity(0.08),
+          ),
+        ],
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {
