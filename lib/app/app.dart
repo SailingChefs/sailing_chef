@@ -97,6 +97,8 @@ import 'package:sailing_chefs/ui/views/supplier_sign_up/supplier_sign_up_view.da
 import 'package:sailing_chefs/ui/views/supplier_confirmation/supplier_confirmation_view.dart';
 import 'package:sailing_chefs/ui/views/supplier_bottom_nav/supplier_bottom_nav_view.dart';
 import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart';
+import 'package:sailing_chefs/ui/views/featured_listing_info/featured_listing_info_view.dart';
+import 'package:sailing_chefs/ui/views/agency_access_info/agency_access_info_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -152,6 +154,8 @@ import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.da
     MaterialRoute(page: SupplierConfirmationView),
     MaterialRoute(page: SupplierBottomNavView),
     MaterialRoute(page: SupplierProfileView),
+    MaterialRoute(page: FeaturedListingInfoView),
+    MaterialRoute(page: AgencyAccessInfoView),
 // @stacked-route
   ],
   dependencies: [

@@ -35,7 +35,41 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                       padding: EdgeInsets.all(10.0),
                       child: SearchBarPinDrop(),
                     ),
-                    verticalSpace(10),
+                    verticalSpace(6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: viewModel.goToFeaturedListingInfo,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: kcDarkColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.store_rounded,
+                                    color: Colors.white, size: 14),
+                                const SizedBox(width: 5),
+                                Text(
+                                  'List your business',
+                                  style: globalTextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    verticalSpace(6),
                     Flexible(
                       child: Stack(
                         children: [

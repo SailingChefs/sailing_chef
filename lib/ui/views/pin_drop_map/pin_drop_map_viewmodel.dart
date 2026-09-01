@@ -22,6 +22,7 @@ class PinDropMapViewModel extends ReactiveViewModel {
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
   final _locationService = locator<LocationService>();
+  final _navigationService = locator<NavigationService>();
   late bool serviceEnabled;
   late LocationPermission permission;
   Position currentPosition = Position(
@@ -408,5 +409,9 @@ class PinDropMapViewModel extends ReactiveViewModel {
     // Calculate the average rating
     double averageRating = totalRating / comments.length;
     return averageRating.toStringAsFixed(1);
+  }
+
+  void goToFeaturedListingInfo() {
+    _navigationService.navigateToFeaturedListingInfoView();
   }
 }
