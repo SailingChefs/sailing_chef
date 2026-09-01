@@ -19,7 +19,7 @@ class ShareRecipeToSailingCheffUserView
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: kclightgreencolor,
+        backgroundColor: kcPrimaryColor,
         // leadingWidth: 40.w,
         leading: Padding(
           padding: const EdgeInsets.only(left: 20).w,
@@ -82,7 +82,7 @@ class ShareRecipeToSailingCheffUserView
                     },
                     child: CircleAvatar(
                       radius: 20.r,
-                      backgroundColor: kclightgreencolor,
+                      backgroundColor: kcPrimaryColor,
                       child: Center(
                         child: Icon(
                           Icons.send,

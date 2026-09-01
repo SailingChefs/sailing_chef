@@ -68,7 +68,7 @@ class LoginView extends StackedView<LoginViewModel> {
                           RoundedElevatedButton(
                             onPressed: viewModel.toSignUp,
                             buttonText: 'sign up',
-                            textColor: kclightgreencolor,
+                            textColor: kcPrimaryColor,
                             buttonColor: kcWhiteColor,
                             width: screenWidth(context) * 0.3,
                             height: 34,
@@ -103,7 +103,7 @@ class LoginView extends StackedView<LoginViewModel> {
                           children: [
                             RoundedTransparentTextField(
                               controller: viewModel.emailController,
-                              fillColor: filledcolorlogin.withOpacity(0.3),
+                              fillColor: kcSurfaceColor.withOpacity(0.3),
                               labelText: 'email',
                               validator: viewModel.validateEmail,
                               onChanged: (value) => viewModel.rebuildUi(),
@@ -116,7 +116,7 @@ class LoginView extends StackedView<LoginViewModel> {
                               labelText: 'password',
                               ispassvisible: viewModel.showPassword,
                               onChanged: (value) => viewModel.rebuildUi(),
-                              fillColor: filledcolorlogin.withOpacity(0.3),
+                              fillColor: kcSurfaceColor.withOpacity(0.3),
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: !viewModel.showPassword,
                               suffixIconbool: true,
@@ -142,7 +142,7 @@ class LoginView extends StackedView<LoginViewModel> {
                                 MediaQuery.of(context).size.height * 0.045),
                             RoundedElevatedButton(
                               onPressed: viewModel.login,
-                              textColor: kclightgreencolor,
+                              textColor: kcPrimaryColor,
                               buttonText: 'login',
                               width: 144.dg,
                               height: 40.dg,
@@ -209,12 +209,12 @@ class LoginView extends StackedView<LoginViewModel> {
                                       'assets/images/logo/google.svg',
                                       height: 40,
                                       width: 40,
-                                      color: kcwhitecolor,
+                                      color: kcWhiteColor,
                                     ),
                                     Text(
                                       'Sign in with Google',
                                       style: globalTextStyle(
-                                        color: kcwhitecolor,
+                                        color: kcWhiteColor,
                                         fontSize: 15,
                                       ),
                                     ),

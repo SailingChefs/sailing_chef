@@ -49,7 +49,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                     ),
                     color: viewModel.selectedSignUpAs == 'chef'
                         ? kcPrimaryColor
-                        : kcwhitecolor,
+                        : kcWhiteColor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +60,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         child: SvgPicture.asset(
                           'assets/images/icons/hat.svg',
                           color: viewModel.selectedSignUpAs == 'chef'
-                              ? kcwhitecolor
+                              ? kcWhiteColor
                               : kcPrimaryColor,
                         ),
                       ),
@@ -97,7 +97,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                     ),
                     color: viewModel.selectedSignUpAs == 'culinarySchool'
                         ? kcPrimaryColor
-                        : kcwhitecolor,
+                        : kcWhiteColor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +108,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         child: SvgPicture.asset(
                           'assets/images/icons/school.svg',
                           color: viewModel.selectedSignUpAs == 'culinarySchool'
-                              ? kcwhitecolor
+                              ? kcWhiteColor
                               : kcPrimaryColor,
                         ),
                       ),
@@ -118,7 +118,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedSignUpAs == 'culinarySchool'
-                              ? kcwhitecolor
+                              ? kcWhiteColor
                               : kcPrimaryColor,
                         ),
                       ),
@@ -138,7 +138,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                     ),
                     color: viewModel.selectedSignUpAs == 'guest'
                         ? kcPrimaryColor
-                        : kcwhitecolor,
+                        : kcWhiteColor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +149,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         child: SvgPicture.asset(
                           'assets/images/icons/guest.svg',
                           color: viewModel.selectedSignUpAs == 'guest'
-                              ? kcwhitecolor
+                              ? kcWhiteColor
                               : kcPrimaryColor,
                         ),
                       ),
@@ -159,7 +159,7 @@ class RoleDialogDialog extends StackedView<RoleDialogDialogModel> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: viewModel.selectedSignUpAs == 'guest'
-                              ? kcwhitecolor
+                              ? kcWhiteColor
                               : kcPrimaryColor,
                         ),
                       ),

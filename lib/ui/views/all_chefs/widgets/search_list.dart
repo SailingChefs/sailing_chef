@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
   final List<UserModel> chefs;
@@ -13,8 +14,10 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
         if (viewModel.searchUsers(chefs).isEmpty) {
-          return const Center(
-            child: Text('No Chef Found'),
+          return const AppEmptyState(
+            icon: Icons.search_off_outlined,
+            title: 'No chefs found',
+            subtitle: 'Try a different name.',
           );
         }
 
@@ -39,7 +42,7 @@ class SearchListAllChefs extends ViewModelWidget<AllChefsViewModel> {
                     child: Container(
                       width: 190.w,
                       decoration: BoxDecoration(
-                        color: kcwhitecolor,
+                        color: kcWhiteColor,
                         boxShadow: [
                           BoxShadow(
                             color: kcBlackColor.withOpacity(0.08),

@@ -115,7 +115,7 @@ class RoundedTransparentTextField extends StatelessWidget {
             color: textColor ?? kcWhiteColor,
             fontWeight: FontWeight.w500),
         filled: true,
-        fillColor: fillColor ?? kcwhitecolor.withOpacity(0.3),
+        fillColor: fillColor ?? kcWhiteColor.withOpacity(0.3),
         labelStyle: globalTextStyle(
             fontSize: 14.sp,
             color: textColor ?? kcWhiteColor,
@@ -154,7 +154,7 @@ class RoundedTransparentTextField extends StatelessWidget {
         prefixIcon: prefixIcon == true
             ? Icon(
                 prefixIconData,
-                color: editIconColor,
+                color: kcIconColor,
                 size: size ?? 16,
               )
             : null,

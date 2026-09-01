@@ -121,7 +121,7 @@ class CustomListTileComments extends StatelessWidget {
                                     progressIndicatorBuilder:
                                         (context, url, progress) => Container(
                                       decoration: const BoxDecoration(
-                                        color: kcsgreycolor,
+                                        color: kcSurfaceColor,
                                       ),
                                     ),
                                   ),

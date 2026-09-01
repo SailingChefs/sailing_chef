@@ -3,6 +3,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
   final List<RecipeModel> recipes;
@@ -12,7 +13,14 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
   Widget build(BuildContext context, ExploreAllRecipesViewModel viewModel) {
     recipes.sort((a, b) => b.createdTime.compareTo(a.createdTime));
     return recipes.isEmpty
-        ? const Center(child: Text('No Recipe Found'))
+        ? const SizedBox(
+            height: 300,
+            child: AppEmptyState(
+              icon: Icons.restaurant_menu_outlined,
+              title: 'No recipes found',
+              subtitle: 'Try adjusting your search or filters.',
+            ),
+          )
         : SizedBox(
             height: screenHeight(context) * 0.77,
             child: GridView.builder(

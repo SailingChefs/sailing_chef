@@ -4,6 +4,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/shimmerloader.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
   const ChatListScreen({super.key});
@@ -19,10 +20,11 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                   ? snapshot.data!.isEmpty
                       ? SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.7,
-                          child: Center(
-                            child: Text('No Chats',
-                                style: globalTextStyle(
-                                    fontSize: 18, color: kcPrimaryColor)),
+                          child: const AppEmptyState(
+                            icon: Icons.chat_bubble_outline,
+                            title: 'No conversations yet',
+                            subtitle:
+                                'Find a chef and say hello.',
                           ),
                         )
                       : Expanded(
@@ -115,7 +117,16 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
                                 );
                               }),
                         )
-                  : Container();
+                  : snapshot.hasError
+                      ? SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.7,
+                          child: const AppEmptyState(
+                            icon: Icons.cloud_off_outlined,
+                            title: "Couldn't load messages",
+                            subtitle: 'Check your connection and try again.',
+                          ),
+                        )
+                      : Container();
         });
   }
 }

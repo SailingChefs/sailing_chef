@@ -18,7 +18,7 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
             width: 185,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: kcbuttoncolor.withOpacity(0.1)),
+                color: kcButtonColor.withOpacity(0.1)),
             child: TextButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -40,7 +40,7 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
             width: 185,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: filterIconColor),
+                color: kcPrimaryColorDark),
             child: TextButton(
               onPressed: () async {
                 await viewModel.savePinDrop();
@@ -49,7 +49,7 @@ class ButtonsPindrop extends ViewModelWidget<DropPinSheetSheetModel> {
                 'Save',
                 style: globalTextStyle(
                     fontSize: 14,
-                    color: kcwhitecolor,
+                    color: kcWhiteColor,
                     fontWeight: FontWeight.w500),
               ),
             ),

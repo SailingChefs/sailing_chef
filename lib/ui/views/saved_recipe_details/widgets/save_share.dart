@@ -22,7 +22,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   height: 35.h,
                   width: 35.w,
                   decoration: const BoxDecoration(
-                    color: kcsgreycolor,
+                    color: kcSurfaceColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -44,7 +44,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   height: 35.h,
                   width: 35.w,
                   decoration: const BoxDecoration(
-                    color: kcsgreycolor,
+                    color: kcSurfaceColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -66,7 +66,7 @@ class SaveShare extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   height: 35.h,
                   width: 35.w,
                   decoration: const BoxDecoration(
-                    color: kcsgreycolor,
+                    color: kcSurfaceColor,
                     shape: BoxShape.circle,
                   ),
                   child: userDetails!.savedRecipes!.contains(recipe.docId)

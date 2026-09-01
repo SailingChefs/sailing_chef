@@ -12,7 +12,7 @@ class OrDesign extends StatelessWidget {
           child: Divider(
             indent: 75.dg,
             endIndent: 15,
-            color: kclightgreencolor,
+            color: kcPrimaryColor,
             thickness: 1,
           ),
         ),
@@ -27,7 +27,7 @@ class OrDesign extends StatelessWidget {
           child: Divider(
             indent: 15,
             endIndent: 70.dg,
-            color: kclightgreencolor,
+            color: kcPrimaryColor,
             thickness: 1,
           ),
         ),

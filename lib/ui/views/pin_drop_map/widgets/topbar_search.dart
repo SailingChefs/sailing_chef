@@ -22,7 +22,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               height: MediaQuery.of(context).size.height * 0.05,
               padding: const EdgeInsets.only(left: 16.0),
               decoration: BoxDecoration(
-                color: kcbuttoncolor.withOpacity(0.08),
+                color: kcButtonColor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
@@ -31,10 +31,10 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
                   SvgPicture.asset(
                     'assets/images/icons/search.svg',
                     colorFilter: const ColorFilter.mode(
-                      searchIconColor,
+                      kcIconColor,
                       BlendMode.srcIn,
                     ),
-                    // color: searchIconColor,
+                    // color: kcIconColor,
                     width: 20.dg,
                     height: 20,
                   ),
@@ -43,7 +43,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
                     'Search',
                     style: globalTextStyle(
                       fontSize: 16.sp,
-                      color: searchIconColor,
+                      color: kcIconColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -59,7 +59,7 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               onPressed: viewModel.tagsIconSelected,
               icon: SvgPicture.asset(
                 'assets/images/misc/equilizer.svg',
-                color: filterIconColor,
+                color: kcPrimaryColorDark,
                 width: 30,
                 height: 30,
               ),
@@ -72,12 +72,12 @@ class SearchBarPinDrop extends ViewModelWidget<PinDropMapViewModel> {
               child: Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: const BoxDecoration(
-                  color: filterIconColor,
+                  color: kcPrimaryColorDark,
                   shape: BoxShape.circle,
                 ),
                 child: Text(
                   viewModel.totalFilters.toString(),
-                  style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
+                  style: globalTextStyle(fontSize: 10.sp, color: kcWhiteColor),
                 ),
               ),
             ),

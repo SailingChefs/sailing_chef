@@ -21,7 +21,7 @@ class ExploreAllButton extends ViewModelWidget<SavedRecipesViewModel> {
           child: Text(
             textAlign: TextAlign.center,
             'Discover more  recipes',
-            style: globalTextStyle(fontSize: 14, color: kcwhitecolor),
+            style: globalTextStyle(fontSize: 14, color: kcWhiteColor),
           ),
         ),
       ),

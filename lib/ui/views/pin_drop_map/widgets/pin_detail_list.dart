@@ -86,7 +86,7 @@ class PinDetailList extends ViewModelWidget<PinDropMapViewModel> {
                                       children: [
                                         const Icon(
                                           Icons.star,
-                                          color: kclightgreencolor,
+                                          color: kcPrimaryColor,
                                           size: 18,
                                         ),
                                         horizontalSpaceTiny,

@@ -40,7 +40,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                   child: Container(
                                     width: 200.w,
                                     decoration: BoxDecoration(
-                                      color: kcwhitecolor,
+                                      color: kcWhiteColor,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.5),
@@ -139,7 +139,7 @@ class ChefScreen extends ViewModelWidget<SearchViewModel> {
                                 child: Container(
                                   width: 200.w,
                                   decoration: BoxDecoration(
-                                    color: kcwhitecolor,
+                                    color: kcWhiteColor,
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey.withOpacity(0.5),

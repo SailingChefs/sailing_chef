@@ -21,7 +21,7 @@ class ExploreAllButtonSearch extends ViewModelWidget<SearchViewModel> {
           child: Text(
             textAlign: TextAlign.center,
             text,
-            style: globalTextStyle(fontSize: 14, color: kcwhitecolor),
+            style: globalTextStyle(fontSize: 14, color: kcWhiteColor),
           ),
         ),
       ),

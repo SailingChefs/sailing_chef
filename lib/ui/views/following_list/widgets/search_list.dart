@@ -65,7 +65,7 @@ class SearchList extends ViewModelWidget<FollowingListViewModel> {
                             ? 'Following'
                             : 'Follow',
                         style: TextStyle(
-                            color: kcwhitecolor,
+                            color: kcWhiteColor,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),

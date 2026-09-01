@@ -34,7 +34,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                   'Allow chefs to book your courses',
                                   style: globalTextStyle(
                                       fontSize: 14.0.dg,
-                                      color: filterIconColor,
+                                      color: kcPrimaryColorDark,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 verticalSpaceMedium,
@@ -53,7 +53,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                       children: [
                                         const Icon(
                                           Icons.add_circle,
-                                          color: kcwhitecolor,
+                                          color: kcWhiteColor,
                                           size: 26,
                                         ),
                                         horizontalSpaceTiny,
@@ -61,7 +61,7 @@ class SavedProfileScreen extends ViewModelWidget<ProfileViewModel> {
                                           'Add courses',
                                           style: globalTextStyle(
                                               fontSize: 14,
-                                              color: kcwhitecolor),
+                                              color: kcWhiteColor),
                                         )
                                       ],
                                     ),

@@ -12,7 +12,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          color: kcbackgroundCourses,
+          color: kcSurfaceColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
             child: Row(
@@ -50,7 +50,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                     height: 40,
                     width: 74,
                     decoration: BoxDecoration(
-                      color: kcchatboxecolor,
+                      color: kcChatBubbleColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
@@ -59,7 +59,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                       style: globalTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: kcwhitecolor),
+                          color: kcWhiteColor),
                     )),
                   ),
                 )
@@ -106,14 +106,14 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                         children: [
                           const Icon(
                             Icons.add_circle,
-                            color: kcwhitecolor,
+                            color: kcWhiteColor,
                             size: 26,
                           ),
                           horizontalSpaceTiny,
                           Text(
                             'Add courses',
                             style: globalTextStyle(
-                                fontSize: 14, color: kcwhitecolor),
+                                fontSize: 14, color: kcWhiteColor),
                           )
                         ],
                       ),
@@ -132,7 +132,7 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                       'Allow chefs to book your courses',
                       style: globalTextStyle(
                           fontSize: 14.0.dg,
-                          color: filterIconColor,
+                          color: kcPrimaryColorDark,
                           fontWeight: FontWeight.w600),
                     ),
                     verticalSpaceMedium,
@@ -150,14 +150,14 @@ class ListViewSavedCources extends ViewModelWidget<ProfileViewModel> {
                           children: [
                             const Icon(
                               Icons.add_circle,
-                              color: kcwhitecolor,
+                              color: kcWhiteColor,
                               size: 26,
                             ),
                             horizontalSpaceTiny,
                             Text(
                               'Add courses',
                               style: globalTextStyle(
-                                  fontSize: 14, color: kcwhitecolor),
+                                  fontSize: 14, color: kcWhiteColor),
                             )
                           ],
                         ),

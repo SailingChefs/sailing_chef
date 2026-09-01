@@ -44,7 +44,7 @@ class ShimmerDialog extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.star,
-                          color: kclightgreencolor,
+                          color: kcPrimaryColor,
                         ),
                         ShimmerContainer(
                           height: 20,

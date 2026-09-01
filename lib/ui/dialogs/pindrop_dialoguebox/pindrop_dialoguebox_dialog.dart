@@ -85,7 +85,7 @@ class PindropDialogueboxDialog
                                 children: [
                                   const Icon(
                                     Icons.star,
-                                    color: kclightgreencolor,
+                                    color: kcPrimaryColor,
                                   ),
                                   horizontalSpaceSmall,
                                   Text(

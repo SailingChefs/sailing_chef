@@ -27,7 +27,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.cancel, color: kcLightGrey),
+              icon: Icon(Icons.cancel, color: kcTextColor),
               onPressed: () => viewModel.removeImage(index),
             )
           ],
@@ -56,7 +56,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               onPressed: viewModel.pickImage,
               child: Icon(
                 Icons.camera_alt_outlined,
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 size: 18.sp,
               ),
             ),
@@ -78,7 +78,7 @@ class LeaveComment extends ViewModelWidget<SavedRecipeDetailsViewModel> {
               onPressed: () => viewModel.addComment(recipeId),
               child: const Icon(
                 FlutterRemix.send_plane_line,
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 size: 18,
               ),
             ),

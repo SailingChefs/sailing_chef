@@ -19,7 +19,7 @@ class ProfilePictureUserDetailsScreen
                   ),
                   child: Center(
                       child: CircleAvatar(
-                    backgroundColor: kcwhitecolor,
+                    backgroundColor: kcWhiteColor,
                     radius: MediaQuery.of(context).size.width * 0.18,
                     backgroundImage: const AssetImage(
                       'assets/images/icons/imageicon.png',

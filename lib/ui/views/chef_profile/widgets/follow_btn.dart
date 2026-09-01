@@ -38,7 +38,7 @@ class FollowBtuton extends StatelessWidget {
             children: [
               Icon(
                 prefix,
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 size: 20.sp,
               ),
               Text(
@@ -51,7 +51,7 @@ class FollowBtuton extends StatelessWidget {
               ),
               Icon(
                 postfix,
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 size: 20.sp,
               ),
             ],

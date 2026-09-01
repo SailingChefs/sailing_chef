@@ -32,20 +32,25 @@ class SavedRecipesView extends StackedView<SavedRecipesViewModel> {
                       color: kcBlackColor)),
               centerTitle: true,
             ),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: Column(
-                children: [
-                  verticalSpaceMedium,
-                  const TabBarSavedRecipesScreen(),
-                  verticalSpaceMedium,
-                  viewModel.isAllSelected
-                      ? const AllSavedRecipesScreen()
-                      : const FollowingSavedRecipesScreen(),
-                ],
+            body: RefreshIndicator(
+              color: kcPrimaryColor,
+              onRefresh: viewModel.refresh,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  right: 15.0,
+                ),
+                child: Column(
+                  children: [
+                    verticalSpaceMedium,
+                    const TabBarSavedRecipesScreen(),
+                    verticalSpaceMedium,
+                    viewModel.isAllSelected
+                        ? const AllSavedRecipesScreen()
+                        : const FollowingSavedRecipesScreen(),
+                  ],
+                ),
               ),
             )),
       ),

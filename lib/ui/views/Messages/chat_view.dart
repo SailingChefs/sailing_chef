@@ -32,7 +32,7 @@ class ChatView extends StackedView<ChatViewModel> {
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
                 resizeToAvoidBottomInset: true,
-                backgroundColor: kcwhitecolor,
+                backgroundColor: kcWhiteColor,
                 appBar: _CollapsedAppBar(
                   viewModel,
                   conversationId,
@@ -108,7 +108,7 @@ class _MessageListAndAppBar extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 40.0),
                               child: Container(
                                 decoration: const BoxDecoration(
-                                  color: kcsgreycolor,
+                                  color: kcSurfaceColor,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20),
                                     bottomLeft: Radius.circular(20),
@@ -140,7 +140,7 @@ class _MessageListAndAppBar extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
-                                  color: kcLightGrey.withOpacity(0.2),
+                                  color: kcTextColor.withOpacity(0.2),
                                   spreadRadius: 2,
                                   blurRadius: 5,
                                   offset: const Offset(0, 3),
@@ -162,7 +162,7 @@ class _MessageListAndAppBar extends StatelessWidget {
                                       onTap: () async {},
                                       child: const Icon(
                                         Icons.download,
-                                        color: kcsgreycolor,
+                                        color: kcSurfaceColor,
                                       )),
                                   leading: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
@@ -264,7 +264,7 @@ class _CollapsedAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       height: kToolbarHeight,
-      color: kcwhitecolor,
+      color: kcWhiteColor,
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10),

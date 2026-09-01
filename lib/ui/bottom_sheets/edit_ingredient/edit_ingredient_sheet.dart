@@ -47,7 +47,7 @@ class EditIngredientSheet extends StackedView<EditIngredientSheetModel> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
-              // color: kcLightGrey.withOpacity(0.7),
+              // color: kcTextColor.withOpacity(0.7),
               border: Border.all(color: kcVeryLightGrey),
             ),
             width: double.infinity,

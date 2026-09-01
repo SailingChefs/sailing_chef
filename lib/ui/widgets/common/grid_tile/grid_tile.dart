@@ -76,7 +76,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       progressIndicatorBuilder: (context, url, progress) =>
                           Container(
                         decoration: const BoxDecoration(
-                          color: kcsgreycolor,
+                          color: kcSurfaceColor,
                         ),
                       ),
                     ),
@@ -189,7 +189,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       //       progressIndicatorBuilder: (context, url, progress) =>
                       //           Container(
                       //         decoration: const BoxDecoration(
-                      //           color: kcsgreycolor,
+                      //           color: kcSurfaceColor,
                       //         ),
                       //       ),
                       //     ),
@@ -223,7 +223,7 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                 //             progressIndicatorBuilder: (context, url, progress) =>
                 //                 Container(
                 //               decoration: const BoxDecoration(
-                //                 color: kcsgreycolor,
+                //                 color: kcSurfaceColor,
                 //               ),
                 //             ),
                 //           ),

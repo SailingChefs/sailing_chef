@@ -11,13 +11,27 @@ class RecipeListPageViewModel extends BaseViewModel {
   RecipeListPageViewModel({required this.isFromDraft});
   final RecipeService _recipeService = locator<RecipeService>();
   List<RecipeModel> recipes = [];
+  bool hasLoadError = false;
+
   void onViewModelReady() async {
+    await _loadRecipes();
+  }
+
+  Future<void> _loadRecipes() async {
     setBusy(true);
-
-    recipes =
-        await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
-
+    hasLoadError = false;
+    try {
+      recipes =
+          await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
+    } catch (_) {
+      hasLoadError = true;
+    }
     setBusy(false);
+  }
+
+  Future<void> refresh() async {
+    recipes = [];
+    await _loadRecipes();
   }
 
   // myRecipesList() async {

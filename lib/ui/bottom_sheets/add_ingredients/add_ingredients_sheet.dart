@@ -31,7 +31,7 @@ class AddIngredientsSheet extends StackedView<AddIngredientsSheetModel> {
           horizontal: 5,
         ),
         decoration: const BoxDecoration(
-          color: kcwhitecolor,
+          color: kcWhiteColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),

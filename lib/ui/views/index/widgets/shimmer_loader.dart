@@ -19,7 +19,7 @@ class ShimmerLoader extends StatelessWidget {
               width: 150.w,
               height: 40,
               decoration: BoxDecoration(
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -41,7 +41,7 @@ class ShimmerLoader extends StatelessWidget {
             child: Container(
               height: 40,
               decoration: BoxDecoration(
-                color: kcwhitecolor,
+                color: kcWhiteColor,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),

@@ -2,8 +2,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar_following.dart';
-
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class FollowingSavedRecipesScreen
     extends ViewModelWidget<SavedRecipesViewModel> {
@@ -44,7 +44,15 @@ class FollowingSavedRecipesScreen
               ),
             )
           : viewModel.followingRecipes.isEmpty
-              ? const Center(child: Text('No Following Saved Recipe Found'))
+              ? const SizedBox(
+                  height: 300,
+                  child: AppEmptyState(
+                    icon: Icons.people_outline,
+                    title: 'No recipes from people you follow',
+                    subtitle:
+                        'Follow chefs to see their saved recipes here.',
+                  ),
+                )
               : SizedBox(
                   height: 500.h,
                   child: GridView.builder(

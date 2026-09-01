@@ -51,7 +51,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                         //   decoration: BoxDecoration(
                         //     color: kcPrimaryColor.withOpacity(0.07),
                         //     borderRadius: BorderRadius.circular(27.dg),
-                        //     // border: Border.all(color: filterIconColor),
+                        //     // border: Border.all(color: kcPrimaryColorDark),
                         //   ),
                         //   child: Padding(
                         //     padding: const EdgeInsets.only(left: 10),
@@ -103,7 +103,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                             labelText: '',
                             suffixIconData: IconButton(
                               icon: const Icon(Icons.edit_outlined),
-                              color: filterIconColor,
+                              color: kcPrimaryColorDark,
                               onPressed: () {
                                 viewModel.changeLocation();
                               },
@@ -253,7 +253,7 @@ class EditProfileForm extends ViewModelWidget<EditProfileViewModel> {
                                 labelText: '',
                                 suffixIconData: IconButton(
                                   icon: const Icon(Icons.edit_outlined),
-                                  color: filterIconColor,
+                                  color: kcPrimaryColorDark,
                                   onPressed: () {
                                     viewModel.changeLocation();
                                   },

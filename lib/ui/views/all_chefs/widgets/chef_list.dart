@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ChefList extends ViewModelWidget<AllChefsViewModel> {
   final List<UserModel> chefList;
@@ -12,6 +13,14 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
     return Expanded(
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
+        if (chefList.isEmpty) {
+          return const AppEmptyState(
+            icon: Icons.location_on_outlined,
+            title: 'No chefs in this area yet',
+            subtitle: 'Be the first to drop a pin.',
+          );
+        }
+
         return CustomScrollView(
           slivers: [
             SliverGrid(
@@ -30,7 +39,7 @@ class ChefList extends ViewModelWidget<AllChefsViewModel> {
                     child: Container(
                       width: 150.w,
                       decoration: BoxDecoration(
-                        color: kcwhitecolor,
+                        color: kcWhiteColor,
                         boxShadow: [
                           BoxShadow(
                             color: kcBlackColor.withOpacity(0.08),

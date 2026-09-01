@@ -440,7 +440,7 @@
 //               controller: _hourController,
 //               keyboardType: TextInputType.number,
 //               labelText: 'Hours',
-//               fillColor: kcsgreycolor.withOpacity(0.1),
+//               fillColor: kcSurfaceColor.withOpacity(0.1),
 //               borderColor: kcPrimaryColor,
 //               textColor: Colors.black,
 //             ),
@@ -449,7 +449,7 @@
 //               controller: _minuteController,
 //               keyboardType: TextInputType.number,
 //               labelText: 'Minutes',
-//               fillColor: kcsgreycolor.withOpacity(0.1),
+//               fillColor: kcSurfaceColor.withOpacity(0.1),
 //               borderColor: kcPrimaryColor,
 //               textColor: Colors.black,
 //             ),
@@ -467,7 +467,7 @@
 //                   ),
 //                   child: Text('Cancel',
 //                       style:
-//                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+//                           globalTextStyle(color: kcWhiteColor, fontSize: 15)),
 //                 ),
 //                 onPressed: () {
 //                   Navigator.of(context).pop();
@@ -484,7 +484,7 @@
 //                   ),
 //                   child: Text('Set Time',
 //                       style:
-//                           globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+//                           globalTextStyle(color: kcWhiteColor, fontSize: 15)),
 //                 ),
 //                 onPressed: () {
 //                   int hour = int.parse(_hourController.text);
@@ -1068,6 +1068,9 @@ class AddRecipeViewModel extends BaseViewModel {
       }
 
       selectedQuantity = recipeModel!.servingSize;
+      if (recipeModel!.chefNote.isNotEmpty) {
+        chefNotesController.text = recipeModel!.chefNote;
+      }
       rebuildUi();
       notifyListeners();
 
@@ -1301,7 +1304,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 controller: _hourController,
                 keyboardType: TextInputType.number,
                 labelText: 'Hours',
-                fillColor: kcsgreycolor.withOpacity(0.1),
+                fillColor: kcSurfaceColor.withOpacity(0.1),
                 borderColor: kcPrimaryColor,
                 textColor: kcBlackColor.withOpacity(0.5),
               ),
@@ -1310,7 +1313,7 @@ class AddRecipeViewModel extends BaseViewModel {
                 controller: _minuteController,
                 keyboardType: TextInputType.number,
                 labelText: 'Minutes',
-                fillColor: kcsgreycolor.withOpacity(0.1),
+                fillColor: kcSurfaceColor.withOpacity(0.1),
                 borderColor: kcPrimaryColor,
                 textColor: kcBlackColor.withOpacity(0.5),
               ),
@@ -1328,7 +1331,7 @@ class AddRecipeViewModel extends BaseViewModel {
                     ),
                     child: Text('Cancel',
                         style:
-                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                            globalTextStyle(color: kcWhiteColor, fontSize: 15)),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -1345,7 +1348,7 @@ class AddRecipeViewModel extends BaseViewModel {
                     ),
                     child: Text('Set Time',
                         style:
-                            globalTextStyle(color: kcwhitecolor, fontSize: 15)),
+                            globalTextStyle(color: kcWhiteColor, fontSize: 15)),
                   ),
                   onPressed: () {
                     log(_hourController.text.toString());
@@ -1618,15 +1621,19 @@ class AddRecipeViewModel extends BaseViewModel {
             isFromDraft: true,
             recipeModel: RecipeModel(
               visibility: selectedValue,
-              chefNote: '',
+              chefNote: chefNotesController.text,
               coverImage:
                   alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
               createdTime: Timestamp.now(),
               ingredients: ingredientsList,
               methods: methodsList,
-              tags: tagsList,
-              prepTime:
-                  prepreationTime == '' ? formatDuration() : prepreationTime!,
+              tags: [
+                ...tagsList,
+                if (selectedDifficulty.isNotEmpty &&
+                    !tagsList.contains(selectedDifficulty))
+                  selectedDifficulty,
+              ],
+              prepTime: _computePrepTime(),
               servingSize: selectedQuantity,
               status: 'draft',
               title: titleController.text.trim().toLowerCase(),
@@ -1659,6 +1666,12 @@ class AddRecipeViewModel extends BaseViewModel {
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
+            wizardStep = 0;
+            _wizardDraftDocId = null;
+            chefNotesController.clear();
+            wizardStep = 0;
+            _wizardDraftDocId = null;
+            chefNotesController.clear();
 
             rebuildUi();
             titleController = TextEditingController();
@@ -1673,16 +1686,20 @@ class AddRecipeViewModel extends BaseViewModel {
             isFromDraft: false,
             recipeModel: RecipeModel(
               visibility: selectedValue,
-              chefNote: '',
+              chefNote: chefNotesController.text,
               coverImage:
                   alreadySelectedImages.isNotEmpty ? alreadySelectedImages : [],
               createdTime: Timestamp.now(),
               ingredients: ingredientsList,
               methods: methodsList,
-              tags: tagsList,
-              prepTime:
-                  prepreationTime == '' ? formatDuration() : prepreationTime!,
-              servingSize: int.parse(servingSize.text),
+              tags: [
+                ...tagsList,
+                if (selectedDifficulty.isNotEmpty &&
+                    !tagsList.contains(selectedDifficulty))
+                  selectedDifficulty,
+              ],
+              prepTime: _computePrepTime(),
+              servingSize: selectedQuantity,
               status: '',
               title: titleController.text.trim().toLowerCase(),
               uid: firebaseAuth.currentUser!.uid,
@@ -1715,6 +1732,9 @@ class AddRecipeViewModel extends BaseViewModel {
             waveFormData!.clear();
             prepreationTime = '';
             tagsList.clear();
+            wizardStep = 0;
+            _wizardDraftDocId = null;
+            chefNotesController.clear();
 
             rebuildUi();
             titleController = TextEditingController();
@@ -1747,6 +1767,7 @@ class AddRecipeViewModel extends BaseViewModel {
     recorderController.dispose();
     playerController.dispose();
     titleController.dispose();
+    chefNotesController.dispose();
 
     selectedImages = [];
     ingredientsList = [];
@@ -1757,6 +1778,8 @@ class AddRecipeViewModel extends BaseViewModel {
     count = 1;
     path = '';
     waveFormData = [];
+    wizardStep = 0;
+    _wizardDraftDocId = null;
     super.dispose();
   }
 
@@ -1770,4 +1793,118 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   late List<String> imageUrls;
+
+  // ── Wizard state ──────────────────────────────────────────────────────────
+  int wizardStep = 0;
+  String selectedDifficulty = 'Easy';
+  TextEditingController chefNotesController = TextEditingController();
+  String? _wizardDraftDocId;
+
+  static const List<String> difficultyOptions = [
+    'Easy',
+    'Medium',
+    'Hard',
+    'Expert',
+  ];
+
+  void selectDifficulty(String difficulty) {
+    selectedDifficulty = difficulty;
+    notifyListeners();
+  }
+
+  bool _validateStep1() {
+    if (titleController.text.trim().isEmpty) {
+      showToast(message: 'Please enter a recipe title');
+      return false;
+    }
+    if (selectedImages.isEmpty && alreadySelectedImages.isEmpty) {
+      showToast(message: 'Please add at least one cover photo');
+      return false;
+    }
+    return true;
+  }
+
+  bool _validateStep2() {
+    if (ingredientsList.isEmpty) {
+      showToast(message: 'Please add at least one ingredient');
+      return false;
+    }
+    return true;
+  }
+
+  void goToNextStep() {
+    if (wizardStep == 0 && !_validateStep1()) return;
+    if (wizardStep == 1 && !_validateStep2()) return;
+    if (wizardStep < 2) {
+      wizardStep++;
+      notifyListeners();
+      autoSaveDraft();
+    }
+  }
+
+  void goToPreviousStep() {
+    if (wizardStep > 0) {
+      wizardStep--;
+      notifyListeners();
+    }
+  }
+
+  void autoSaveDraft() {
+    if (titleController.text.trim().isEmpty) return;
+    final effectiveDocId = recipeModel?.docId ?? _wizardDraftDocId ?? '';
+    if (effectiveDocId.isNotEmpty) {
+      _recipeService.addOrUpdateDraft(_buildDraftModel(effectiveDocId));
+    } else {
+      _createNewDraft();
+    }
+  }
+
+  Future<void> _createNewDraft() async {
+    try {
+      final model = _buildDraftModel('');
+      final docRef =
+          await firebasestore.collection('recipes').add(model.toMap());
+      _wizardDraftDocId = docRef.id;
+      await docRef.update({'doc_id': _wizardDraftDocId});
+    } catch (e) {
+      log('Auto-save failed: $e');
+    }
+  }
+
+  RecipeModel _buildDraftModel(String docId) {
+    final allTags = [
+      ...tagsList,
+      if (selectedDifficulty.isNotEmpty &&
+          !tagsList.contains(selectedDifficulty))
+        selectedDifficulty,
+    ];
+    return RecipeModel(
+      visibility: 'private',
+      chefNote: chefNotesController.text,
+      coverImage: alreadySelectedImages,
+      createdTime: Timestamp.now(),
+      ingredients: ingredientsList,
+      tags: allTags,
+      methods: methodsList,
+      prepTime: _computePrepTime(),
+      servingSize: selectedQuantity,
+      status: 'draft',
+      title: titleController.text.trim().toLowerCase(),
+      uid: firebaseAuth.currentUser!.uid,
+      docId: docId,
+      waveForm: waveFormData ?? [],
+    );
+  }
+
+  String _computePrepTime() {
+    if (prepreationTime != null && prepreationTime!.isNotEmpty) {
+      return prepreationTime!;
+    }
+    if (selectedTime == null) return '';
+    final h = selectedTime!.hour;
+    final m = selectedTime!.minute % 60;
+    if (m == 0) return '${h}h';
+    if (h == 0) return '$m mins';
+    return '$h h $m mins';
+  }
 }

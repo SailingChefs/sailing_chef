@@ -38,7 +38,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
                   width: 185,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: kcbuttoncolor.withOpacity(0.1)),
+                      color: kcButtonColor.withOpacity(0.1)),
                   child: TextButton(
                     onPressed: () => completer == null
                         ? Navigator.pop(context)
@@ -60,7 +60,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
                   width: 185,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: filterIconColor),
+                      color: kcPrimaryColorDark),
                   child: TextButton(
                     onPressed: () => completer == null
                         ? Navigator.pop(context)
@@ -69,7 +69,7 @@ class DropPinButtonsSheet extends StackedView<DropPinButtonsSheetModel> {
                       'Drop Pin',
                       style: globalTextStyle(
                           fontSize: 14,
-                          color: kcwhitecolor,
+                          color: kcWhiteColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),

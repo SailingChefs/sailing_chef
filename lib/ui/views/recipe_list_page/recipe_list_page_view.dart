@@ -6,7 +6,9 @@ import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/ui/views/recipe_list_page/widgets/shimmer_recipe_list.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 import 'recipe_list_page_viewmodel.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
@@ -26,151 +28,187 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
       canPop: false,
       onPopInvoked: viewModel.onPopInvoked,
       child: Scaffold(
-          backgroundColor: kcwhitecolor,
-          appBar: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: BackArrowWidget(
-                onTap: viewModel.toHomeView,
-              ),
+        backgroundColor: kcWhiteColor,
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: BackArrowWidget(
+              onTap: viewModel.toHomeView,
             ),
-            title: Text(
-              'Recipes',
-              style: globalTextStyle(
-                fontSize: 16.0.dg,
-                color: kcBlackColor,
-                letterSpacing: -0.3,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            centerTitle: true,
           ),
-          body: viewModel.isBusy
-              ? const Center(
-                  child: CircularProgressIndicator(
-                  color: kcPrimaryColor,
-                ))
-              : ListView.builder(
-                  itemCount: viewModel.recipes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final RecipeModel recipe = viewModel.recipes[index];
-                    return GestureDetector(
-                      onTap: () => viewModel.toDishDetailsScreen(recipe),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+          title: Text(
+            'Recipes',
+            style: globalTextStyle(
+              fontSize: 16.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: RefreshIndicator(
+          color: kcPrimaryColor,
+          onRefresh: viewModel.refresh,
+          child: viewModel.isBusy
+              ? const ShimmerRecipeList()
+              : viewModel.hasLoadError
+                  ? ListView(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          child: const AppEmptyState(
+                            icon: Icons.cloud_off_outlined,
+                            title: "Couldn't load your recipes",
+                            subtitle:
+                                'Pull down to try again.',
+                          ),
+                        ),
+                      ],
+                    )
+                  : viewModel.recipes.isEmpty
+                      ? ListView(
                           children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 225.0.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        recipe.coverImage
-                                            .where((element) =>
-                                                element.isFirebaseImageUrl)
-                                            .first,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 10.dg,
-                                  left: 10.dg,
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.black54.withOpacity(0.5),
-                                        borderRadius:
-                                            BorderRadius.circular(30.0.r),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15.0.w, vertical: 8.h),
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/images/misc/clock.svg',
-                                            color: kcWhiteColor,
-                                            height: 15.h,
-                                            width: 15.w,
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            recipe.prepTime,
-                                            style: const TextStyle(
-                                                fontSize: 12.0,
-                                                color: kcWhiteColor),
-                                          )
-                                        ],
-                                      )),
-                                ),
-                              ],
-                            ),
-                            // const SizedBox(width: 16.0),
-                            verticalSpaceSmall,
                             SizedBox(
-                              width: screenWidth(context) * 0.8.w,
-                              // height: recipe.title.length > 20 ? 40.h : 50.h,
-                              child: Text(
-                                capitalizeEachWord(recipe.title),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: globalTextStyle(
-                                  letterSpacing: -0.5,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: kcBlackColor,
-                                ),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.65,
+                              child: const AppEmptyState(
+                                icon: Icons.restaurant_menu_outlined,
+                                title: 'No recipes yet',
+                                subtitle:
+                                    'Tap + to share your first recipe.',
                               ),
                             ),
-                            // const SizedBox(height: 4.0),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 35.h,
-                                  width: 35.w,
-                                  decoration: BoxDecoration(
-                                    color: kcVeryLightGrey,
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: userDetails!
-                                              .displayPicture!.isEmpty
-                                          ? const AssetImage(
-                                              'assets/images/misc/blank_image.png')
-                                          : NetworkImage(
-                                                  userDetails!.displayPicture!)
-                                              as ImageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  userDetails!.displayName!,
-                                  style: globalTextStyle(
-                                    letterSpacing: -0.5,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w300,
-                                    color: kcBlackColor.withOpacity(0.3),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
+                        )
+                      : ListView.builder(
+                          itemCount: viewModel.recipes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final RecipeModel recipe =
+                                viewModel.recipes[index];
+                            return GestureDetector(
+                              onTap: () =>
+                                  viewModel.toDishDetailsScreen(recipe),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 225.0.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                recipe.coverImage
+                                                    .where((element) =>
+                                                        element
+                                                            .isFirebaseImageUrl)
+                                                    .first,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10.dg,
+                                          left: 10.dg,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.black54
+                                                  .withOpacity(0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      30.0.r),
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15.0.w,
+                                                vertical: 8.h),
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/images/misc/clock.svg',
+                                                  color: kcWhiteColor,
+                                                  height: 15.h,
+                                                  width: 15.w,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  recipe.prepTime,
+                                                  style: const TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: kcWhiteColor),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    verticalSpaceSmall,
+                                    SizedBox(
+                                      width:
+                                          screenWidth(context) * 0.8.w,
+                                      child: Text(
+                                        capitalizeEachWord(recipe.title),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: globalTextStyle(
+                                          letterSpacing: -0.5,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 35.h,
+                                          width: 35.w,
+                                          decoration: BoxDecoration(
+                                            color: kcVeryLightGrey,
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: userDetails!
+                                                      .displayPicture!
+                                                      .isEmpty
+                                                  ? const AssetImage(
+                                                      'assets/images/misc/blank_image.png')
+                                                  : NetworkImage(userDetails!
+                                                          .displayPicture!)
+                                                      as ImageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          userDetails!.displayName!,
+                                          style: globalTextStyle(
+                                            letterSpacing: -0.5,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w300,
+                                            color: kcBlackColor
+                                                .withOpacity(0.3),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    );
-                  },
-                )),
+        ),
+      ),
     );
   }
 

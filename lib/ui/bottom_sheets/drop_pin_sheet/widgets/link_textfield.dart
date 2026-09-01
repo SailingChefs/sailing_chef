@@ -55,7 +55,7 @@ class DopPinTextFieldLink extends ViewModelWidget<DropPinSheetSheetModel> {
                 fontSize: 14.sp,
                 letterSpacing: -0.5,
                 fontWeight: FontWeight.w400,
-                color: kclightgreencolor,
+                color: kcPrimaryColor,
               ),
               decoration: InputDecoration(
                 border: InputBorder.none,

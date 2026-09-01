@@ -54,7 +54,7 @@ class CourseSavedDialog extends StackedView<CourseSavedDialogModel> {
               'Your course is successfully submitted for review',
               style: globalTextStyle(
                 fontSize: 17,
-                color: kclightgreencolor,
+                color: kcPrimaryColor,
                 fontWeight: FontWeight.w500,
               ),
             ),

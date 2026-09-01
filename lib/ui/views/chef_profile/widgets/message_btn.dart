@@ -31,7 +31,7 @@ class MessageBtuton extends StatelessWidget {
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
               side: BorderSide(
-            color: filterIconColor,
+            color: kcPrimaryColorDark,
           )),
           onPressed: onPressed,
           child: FittedBox(
@@ -41,20 +41,20 @@ class MessageBtuton extends StatelessWidget {
               children: [
                 Icon(
                   prefix,
-                  color: kcwhitecolor,
+                  color: kcWhiteColor,
                   size: 20.sp,
                 ),
                 Text(
                   buttonText,
                   style: globalTextStyle(
                     fontSize: fontSize.sp,
-                    color: filterIconColor,
+                    color: kcPrimaryColorDark,
                     fontWeight: fontWeight,
                   ),
                 ),
                 Icon(
                   postfix,
-                  color: kcwhitecolor,
+                  color: kcWhiteColor,
                   size: 20.sp,
                 ),
               ],

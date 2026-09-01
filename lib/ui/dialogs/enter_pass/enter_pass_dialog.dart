@@ -147,7 +147,7 @@ class EnterPassDialog extends StackedView<EnterPassDialogModel> {
     );
 
     // Container(
-    //   color: kcwhitecolor,
+    //   color: kcWhiteColor,
     //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     //   width: MediaQuery.of(context).size.width,
     //   height: MediaQuery.of(context).size.height * 0.3,

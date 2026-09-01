@@ -90,7 +90,7 @@ class ProfileDescriptionProfileScreen
                                 fontSize: 14.sp,
                                 letterSpacing: -0.3,
                                 fontWeight: FontWeight.w400,
-                                color: filterIconColor,
+                                color: kcPrimaryColorDark,
                                 decoration: TextDecoration.none,
                               ),
                             ),

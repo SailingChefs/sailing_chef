@@ -21,7 +21,7 @@ class InputFieldChatScreen extends ViewModelWidget<ChatViewModel> {
       width: double.infinity,
       height: 63,
       decoration: BoxDecoration(
-        color: kcbuttoncolor.withOpacity(0.03),
+        color: kcButtonColor.withOpacity(0.03),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(0),
           topRight: Radius.circular(0),

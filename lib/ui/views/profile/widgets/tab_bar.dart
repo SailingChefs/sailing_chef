@@ -29,7 +29,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Myrecipes'
-                      ? filterIconColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -61,7 +61,7 @@ class TabBarProfileScreen extends ViewModelWidget<ProfileViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Saved'
-                      ? filterIconColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(

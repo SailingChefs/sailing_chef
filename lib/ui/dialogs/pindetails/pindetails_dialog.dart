@@ -25,7 +25,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
       alignment: Alignment.topCenter,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
       insetPadding: const EdgeInsets.only(left: 20, top: 20, right: 20),
-      backgroundColor: kcwhitecolor,
+      backgroundColor: kcWhiteColor,
       child: viewModel.isBusy
           ? SizedBox(
               width: double.infinity,
@@ -84,8 +84,8 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                         dotWidth: 10.0,
                                         dotHeight: 10.0,
                                         strokeWidth: 1,
-                                        dotColor: kcwhitecolor.withOpacity(0.5),
-                                        activeDotColor: kcwhitecolor,
+                                        dotColor: kcWhiteColor.withOpacity(0.5),
+                                        activeDotColor: kcWhiteColor,
                                       ),
                                     ),
                                   ),
@@ -156,7 +156,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                         const Icon(
                                           Icons.star,
                                           size: 15,
-                                          color: kclightgreencolor,
+                                          color: kcPrimaryColor,
                                         ),
                                         horizontalSpaceSmall,
                                         Text(
@@ -284,7 +284,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                 child: Text(
                                   'Get directions',
                                   style: globalTextStyle(
-                                    color: kcwhitecolor,
+                                    color: kcWhiteColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -306,7 +306,7 @@ class PindetailsDialog extends StackedView<PindetailsDialogModel> {
                                 child: Text(
                                   'Edit',
                                   style: globalTextStyle(
-                                    color: kcwhitecolor,
+                                    color: kcWhiteColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),

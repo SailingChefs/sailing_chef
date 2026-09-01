@@ -27,7 +27,7 @@ class Methods extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                   child: Center(
                     child: Text(
                       '${i + 1}',
-                      style: globalTextStyle(color: kcwhitecolor, fontSize: 12),
+                      style: globalTextStyle(color: kcWhiteColor, fontSize: 12),
                     ),
                   ),
                 ),

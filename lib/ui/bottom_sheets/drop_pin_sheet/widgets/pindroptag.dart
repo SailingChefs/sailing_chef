@@ -83,7 +83,7 @@ class TagsSelectionWidget extends ViewModelWidget<DropPinSheetSheetModel> {
                       left: 12.0, right: 9.0, top: 1.0, bottom: 15.0),
                   decoration: viewModel.isTagsVisible
                       ? BoxDecoration(
-                          color: kcwhitecolor,
+                          color: kcWhiteColor,
                           borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(

@@ -29,7 +29,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Yacht Chefs'
-                      ? kclightgreencolor
+                      ? kcPrimaryColor
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -61,7 +61,7 @@ class TabBarIndexScreen extends ViewModelWidget<IndexViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Culinary School'
-                      ? kclightgreencolor
+                      ? kcPrimaryColor
                       : Colors.transparent,
                 ),
                 child: Column(

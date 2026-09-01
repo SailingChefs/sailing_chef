@@ -52,7 +52,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                               onPressed: viewModel.toFilterView,
                               icon: SvgPicture.asset(
                                 'assets/images/misc/equilizer.svg',
-                                color: filterIconColor,
+                                color: kcPrimaryColorDark,
                                 width: 30.dg,
                                 height: 30.dg,
                               ),

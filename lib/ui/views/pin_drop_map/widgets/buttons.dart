@@ -23,7 +23,7 @@ class ButtonsDropPin extends ViewModelWidget<PinDropMapViewModel> {
                   width: 150,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: kcbuttoncolor.withOpacity(0.1)),
+                      color: kcButtonColor.withOpacity(0.1)),
                   child: TextButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -54,7 +54,7 @@ class ButtonsDropPin extends ViewModelWidget<PinDropMapViewModel> {
                       'Drop Pin',
                       style: globalTextStyle(
                           fontSize: 14,
-                          color: kcwhitecolor,
+                          color: kcWhiteColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),

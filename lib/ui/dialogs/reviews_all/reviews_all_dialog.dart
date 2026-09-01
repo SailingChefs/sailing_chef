@@ -118,7 +118,7 @@ class ReviewsAllDialog extends StackedView<ReviewsAllDialogModel> {
                                         const Icon(
                                           Icons.star,
                                           size: 15,
-                                          color: kclightgreencolor,
+                                          color: kcPrimaryColor,
                                         ),
                                         horizontalSpaceSmall,
                                         Text(

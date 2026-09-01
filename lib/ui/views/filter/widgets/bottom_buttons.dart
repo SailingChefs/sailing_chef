@@ -23,7 +23,7 @@ class BottomButtons extends ViewModelWidget<FilterViewModel> {
             onPressed: viewModel.reset,
             buttonText: 'Reset',
             isEnabled: true,
-            buttonColor: filterIconColor,
+            buttonColor: kcPrimaryColorDark,
             textColor: kcVeryLightGrey,
             width: MediaQuery.sizeOf(context).width * 0.42,
             height: MediaQuery.sizeOf(context).height * 0.049,
@@ -35,7 +35,7 @@ class BottomButtons extends ViewModelWidget<FilterViewModel> {
             textColor: kcBlackColor.withOpacity(0.6),
             width: MediaQuery.sizeOf(context).width * 0.42,
             height: MediaQuery.sizeOf(context).height * 0.049,
-            buttonColor: kcsgreycolor,
+            buttonColor: kcSurfaceColor,
           )
         ],
       ),

@@ -49,7 +49,7 @@ class ChefProfileDetailsDesc extends ViewModelWidget<ChefProfileViewModel> {
                           progressIndicatorBuilder: (context, url, progress) =>
                               Container(
                             decoration: const BoxDecoration(
-                              color: kcsgreycolor,
+                              color: kcSurfaceColor,
                             ),
                           ),
                         ),

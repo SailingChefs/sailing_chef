@@ -42,7 +42,7 @@ class TextFieldLink extends ViewModelWidget<CoursesSheetModel> {
             style: globalTextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
-              color: kclightgreencolor,
+              color: kcPrimaryColor,
             ),
             decoration: InputDecoration(
               border: InputBorder.none,

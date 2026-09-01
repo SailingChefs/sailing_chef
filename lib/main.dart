@@ -39,7 +39,7 @@ Future<void> main() async {
     ..indicatorSize = 30
     ..textColor = kcPrimaryColor
     ..textStyle = globalTextStyle(fontSize: 14)
-    ..indicatorColor = kcwhitecolor
+    ..indicatorColor = kcWhiteColor
     ..maskColor = kcBlackColor
     ..userInteractions = false
     ..displayDuration = const Duration(seconds: 1)

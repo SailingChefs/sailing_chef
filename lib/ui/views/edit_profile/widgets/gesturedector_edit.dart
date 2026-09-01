@@ -23,7 +23,7 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
                     ListTile(
                       leading: const Icon(
                         Icons.photo_library,
-                        color: kclightgreencolor,
+                        color: kcPrimaryColor,
                       ),
                       title: const Text('Choose from Gallery'),
                       onTap: () {
@@ -34,7 +34,7 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
                     ListTile(
                       leading: const Icon(
                         Icons.camera_alt,
-                        color: kclightgreencolor,
+                        color: kcPrimaryColor,
                       ),
                       title: const Text('Take a Photo'),
                       onTap: () {
@@ -52,7 +52,7 @@ class GestureDetectorEdit extends ViewModelWidget<EditProfileViewModel> {
           height: 26.h,
           width: 26.w,
           decoration: BoxDecoration(
-              color: kcwhitecolor,
+              color: kcWhiteColor,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(

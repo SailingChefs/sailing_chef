@@ -36,7 +36,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
         horizontal: 3,
       ),
       decoration: const BoxDecoration(
-        color: kcwhitecolor,
+        color: kcWhiteColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
           topRight: Radius.circular(50),
@@ -46,7 +46,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
         padding: EdgeInsets.only(top: 16, left: 16.w, right: 16.w),
         child: Container(
           decoration: const BoxDecoration(
-              color: kcwhitecolor,
+              color: kcWhiteColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50),
                 topRight: Radius.circular(50),
@@ -200,7 +200,7 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
                   //               Text(
                   //                 'Delete This Pin Drop',
                   //                 style: globalTextStyle(
-                  //                     color: kcallertcolor,
+                  //                     color: kcErrorColor,
                   //                     fontSize: 14,
                   //                     fontWeight: FontWeight.w500),
                   //               ),

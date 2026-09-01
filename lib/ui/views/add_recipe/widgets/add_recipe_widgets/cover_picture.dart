@@ -57,7 +57,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                   child: Icon(
                                     Icons.close,
                                     size: 24,
-                                    color: kcwhitecolor.withOpacity(0.5),
+                                    color: kcWhiteColor.withOpacity(0.5),
                                   ),
                                 ),
                               ),
@@ -70,7 +70,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       fontSize: 8.sp,
                                       letterSpacing: -0.5,
                                       fontWeight: FontWeight.w600,
-                                      color: kcwhitecolor.withOpacity(0.5)),
+                                      color: kcWhiteColor.withOpacity(0.5)),
                                 ),
                               ),
                             ],
@@ -99,7 +99,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                   child: Icon(
                                     Icons.close,
                                     size: 24,
-                                    color: kcwhitecolor.withOpacity(0.5),
+                                    color: kcWhiteColor.withOpacity(0.5),
                                   ),
                                 ),
                               ),
@@ -148,7 +148,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       child: Icon(
                                         Icons.close,
                                         size: 24,
-                                        color: kcwhitecolor.withOpacity(0.5),
+                                        color: kcWhiteColor.withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -189,7 +189,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       child: Icon(
                                         Icons.close,
                                         size: 24,
-                                        color: kcwhitecolor.withOpacity(0.5),
+                                        color: kcWhiteColor.withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -205,7 +205,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                       child: Icon(
                                         Icons.crop,
                                         size: 24,
-                                        color: kcwhitecolor.withOpacity(0.6),
+                                        color: kcWhiteColor.withOpacity(0.6),
                                       ),
                                     ),
                                   ),
@@ -462,7 +462,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                   child: Icon(
                                                     Icons.close,
                                                     size: 24,
-                                                    color: kcwhitecolor
+                                                    color: kcWhiteColor
                                                         .withOpacity(0.5),
                                                   ),
                                                 ),
@@ -505,7 +505,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                   child: Icon(
                                                     Icons.close,
                                                     size: 24,
-                                                    color: kcwhitecolor
+                                                    color: kcWhiteColor
                                                         .withOpacity(0.5),
                                                   ),
                                                 ),
@@ -524,7 +524,7 @@ class CoverPictureSelector extends ViewModelWidget<AddRecipeViewModel> {
                                                   child: Icon(
                                                     Icons.crop,
                                                     size: 24,
-                                                    color: kcwhitecolor
+                                                    color: kcWhiteColor
                                                         .withOpacity(0.6),
                                                   ),
                                                 ),

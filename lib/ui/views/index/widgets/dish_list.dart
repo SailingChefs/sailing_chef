@@ -5,6 +5,7 @@ import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/index/widgets/shimmer_dishes.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const DishListIndexScreen({super.key});
@@ -18,14 +19,10 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
         : viewModel.dishes.isEmpty
             ? SizedBox(
                 height: MediaQuery.of(context).size.height * 0.3,
-                child: Center(
-                  child: Text(
-                    'No Dishes Found',
-                    style: globalTextStyle(
-                        fontSize: 14.sp,
-                        color: kcPrimaryColor,
-                        letterSpacing: -0.5),
-                  ),
+                child: const AppEmptyState(
+                  icon: Icons.restaurant_menu_outlined,
+                  title: 'No recipes yet',
+                  subtitle: 'Tap + to share your first recipe.',
                 ),
               )
             : Padding(

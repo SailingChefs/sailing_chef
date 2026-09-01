@@ -6,6 +6,7 @@ import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dar
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/explore_all_button.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
   const AllSavedRecipesScreen({
@@ -66,7 +67,15 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
               ],
             )
           : savedRecipesGlobal.isEmpty
-              ? const Center(child: Text('No Saved Recipe Found'))
+              ? const SizedBox(
+                  height: 300,
+                  child: AppEmptyState(
+                    icon: Icons.bookmark_border_outlined,
+                    title: 'Nothing saved yet',
+                    subtitle:
+                        'Explore recipes and tap the bookmark.',
+                  ),
+                )
               : Column(
                   children: [
                     Padding(

@@ -75,7 +75,15 @@ class SavedRecipesViewModel extends ReactiveViewModel {
     await Future.wait([
       followingChefRecipe(),
     ]);
+    setBusy(false);
+  }
 
+  Future<void> refresh() async {
+    followingRecipes = [];
+    setBusy(true);
+    try {
+      await followingChefRecipe();
+    } catch (_) {}
     setBusy(false);
   }
 

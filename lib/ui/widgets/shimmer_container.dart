@@ -15,7 +15,7 @@ class ShimmerContainer extends StatelessWidget {
         width: width ?? 150.w,
         height: height ?? 20.h,
         decoration: BoxDecoration(
-          color: kcwhitecolor,
+          color: kcWhiteColor,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),

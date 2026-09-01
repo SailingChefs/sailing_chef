@@ -27,7 +27,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'All'
-                      ? filterIconColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(
@@ -59,7 +59,7 @@ class TabBarSeacrhScreen extends ViewModelWidget<SearchViewModel> {
                     Radius.circular(20.dg),
                   ),
                   color: viewModel.selectedTab == 'Following'
-                      ? filterIconColor
+                      ? kcPrimaryColorDark
                       : Colors.transparent,
                 ),
                 child: Column(

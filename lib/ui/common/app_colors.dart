@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 
+// Brand
 const Color kcPrimaryColor = Color(0xFF61A389);
 const Color kcPrimaryColorDark = Color(0xFF6C908D);
-const Color kcTextColor = Color(0xFF80B5A0);
-const Color kcBlackColor = Color.fromARGB(255, 0, 0, 0);
-const Color kcWhiteColor = Color(0xFFFFFFFF);
 const Color kcDarkColor = Color(0xFF1E5D6D);
-const Color kcMediumGrey = Color(0xFF85A09F);
-Color kcLightGrey = const Color(0xFF80B5A0).withOpacity(0.8);
-const Color kcVeryLightGrey = Color(0xFFE3E3E3);
-const Color kcVerybg = Color(0xFFF2F3F5);
-const Color kclightgreycolor = Color(0xFFD0DBEA);
-const Color kclightgreencolor = Color(0xFF61A289);
-const Color kcsgreycolor = Color(0xFFF0F4EF);
-const Color kcsgreylinecolor = Color(0xFFD0DBEA);
 
+// Neutral
+const Color kcBlackColor = Color(0xFF000000);
+const Color kcWhiteColor = Color(0xFFFFFFFF);
+const Color kcVeryLightGrey = Color(0xFFE3E3E3);
+const Color kcLightGreyColor = Color(0xFFD0DBEA);
+const Color kcMediumGrey = Color(0xFF85A09F);
+const Color kcTextColor = Color(0xFF80B5A0);
+
+// Surfaces / backgrounds
+const Color kcSurfaceColor = Color(0xFFF0F4EF);
 const Color kcBackgroundColor = Color.fromARGB(1, 108, 144, 141);
-const Color kcErrorColor = Color.fromARGB(255, 253, 0, 0);
-const Color ontop = Color.fromARGB(30, 93, 109, 1);
-const Color kcwhitecolor = Color(0xFFFFFFFF);
-const Color kcchatboxecolor = Color(0xFFC2D2BE);
-const Color kcbuttoncolor = Color(0xFF427536);
-const Color kcallertcolor = Color(0xFFDA1B1B);
-const Color kcwhitelight = Color(0xFFC4C4C4);
-const Color editTextColor = Color(0xFF1F1F1F);
-const Color editIconColor = Color(0xFF636363);
-const Color filledcolorlogin = Color(0xFFF4F8F7);
-const Color filterIconColor = Color(0xFF6C908D);
-const Color searchIconColor = Color(0xFF606260);
-const Color kcbackgroundCourses = Color(0xFFF7F9F7);
+
+// Text / icons
+const Color kcIconColor = Color(0xFF636363);
+
+// Semantic
+const Color kcErrorColor = Color(0xFFDA1B1B);
+const Color kcButtonColor = Color(0xFF427536);
+const Color kcChatBubbleColor = Color(0xFFC2D2BE);
+
 const MaterialColor primarySwatch = MaterialColor(
   0xFF1E5D6D,
   <int, Color>{

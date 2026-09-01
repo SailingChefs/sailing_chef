@@ -36,7 +36,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
               horizontal: 5,
             ),
             decoration: const BoxDecoration(
-              color: kcwhitecolor,
+              color: kcWhiteColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50),
                 topRight: Radius.circular(50),
@@ -102,7 +102,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                       ),
                       TextFieldLink(
                         hinttext: 'Add link',
-                        color: kclightgreencolor.withOpacity(0.8),
+                        color: kcPrimaryColor.withOpacity(0.8),
                         controller: viewModel.link,
                       ),
                       Divider(
@@ -155,7 +155,7 @@ class CoursesSheet extends StackedView<CoursesSheetModel> {
                                     Text(
                                       'Delete this course',
                                       style: globalTextStyle(
-                                          color: kcallertcolor,
+                                          color: kcErrorColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500),
                                     ),

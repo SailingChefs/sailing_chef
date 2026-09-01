@@ -84,7 +84,7 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               },
               icon: SvgPicture.asset(
                 'assets/images/misc/equilizer.svg',
-                color: filterIconColor,
+                color: kcPrimaryColorDark,
                 width: 30,
                 height: 30,
               ),
@@ -97,12 +97,12 @@ class SearchBarSearchScreen extends ViewModelWidget<SearchViewModel> {
               child: Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: const BoxDecoration(
-                  color: filterIconColor,
+                  color: kcPrimaryColorDark,
                   shape: BoxShape.circle,
                 ),
                 child: Text(
                   selectedTagsCount.toString(),
-                  style: globalTextStyle(fontSize: 10.sp, color: kcwhitecolor),
+                  style: globalTextStyle(fontSize: 10.sp, color: kcWhiteColor),
                 ),
               ),
             ),

@@ -12,7 +12,7 @@ class LablesText extends StatelessWidget {
             fontSize: 14.sp,
             letterSpacing: -0.5,
             fontWeight: FontWeight.w500,
-            color: editTextColor,
+            color: kcBlackColor,
           )),
     );
   }

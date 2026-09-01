@@ -41,7 +41,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                       child: Container(
                         width: screenWidth * 0.43,
                         decoration: BoxDecoration(
-                          color: kcwhitecolor,
+                          color: kcWhiteColor,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.1),
@@ -78,7 +78,7 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
                                         decoration: const BoxDecoration(
-                                          color: kcsgreycolor,
+                                          color: kcSurfaceColor,
                                         ),
                                       ),
                                     ),

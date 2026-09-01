@@ -20,7 +20,7 @@ class SavedGuestButton extends ViewModelWidget<ProfileViewModel> {
               child: Text(
                 textAlign: TextAlign.center,
                 'Saved Recipes',
-                style: globalTextStyle(fontSize: 14, color: kcwhitecolor),
+                style: globalTextStyle(fontSize: 14, color: kcWhiteColor),
               ),
             ),
           ),

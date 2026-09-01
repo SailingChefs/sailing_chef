@@ -58,7 +58,7 @@ class DopPinTextFields extends ViewModelWidget<DropPinSheetSheetModel> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        color: kcsgreycolor,
+                        color: kcSurfaceColor,
                         width: 1,
                         height: 45,
                       ),

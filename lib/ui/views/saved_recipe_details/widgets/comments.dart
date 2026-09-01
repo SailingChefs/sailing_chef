@@ -58,7 +58,7 @@ class CommentsDetailsScreen
               ),
             ),
             IconButton(
-              icon: Icon(Icons.cancel, color: kcLightGrey),
+              icon: Icon(Icons.cancel, color: kcTextColor),
               onPressed: () => viewModel.removeImage(index),
             )
           ],

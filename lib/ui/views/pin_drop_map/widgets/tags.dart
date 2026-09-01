@@ -33,11 +33,11 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                   left: padding, right: padding, top: verticalPadding),
               child: Container(
                 decoration: BoxDecoration(
-                    color: kcwhitecolor,
+                    color: kcWhiteColor,
                     borderRadius: BorderRadius.circular(borderRadius),
                     boxShadow: [
                       BoxShadow(
-                        color: kcsgreycolor.withOpacity(0.5),
+                        color: kcSurfaceColor.withOpacity(0.5),
                         spreadRadius: 5,
                       )
                     ]),
@@ -207,7 +207,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.circular(borderRadius),
-                                  color: filterIconColor),
+                                  color: kcPrimaryColorDark),
                               child: TextButton(
                                 onPressed: () {
                                   viewModel.totalFilters =
@@ -220,7 +220,7 @@ class TagsSelectionWidget extends ViewModelWidget<PinDropMapViewModel> {
                                   style: globalTextStyle(
                                       fontSize: textFontSize,
                                       letterSpacing: -0.5,
-                                      color: kcwhitecolor,
+                                      color: kcWhiteColor,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),

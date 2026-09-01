@@ -27,7 +27,7 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
                 width: 185,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: kcbuttoncolor.withOpacity(0.1)),
+                    color: kcButtonColor.withOpacity(0.1)),
                 child: TextButton(
                   onPressed: viewModel.onCancel,
                   // => completer == null
@@ -50,7 +50,7 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
                 width: 185,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: filterIconColor),
+                    color: kcPrimaryColorDark),
                 child: TextButton(
                   onPressed: () {
                     viewModel.dropPin(isNew: true);
@@ -62,7 +62,7 @@ class BottomButtonPinsDropView extends ViewModelWidget<PinDropMapViewModel> {
                     'Drop Pin',
                     style: globalTextStyle(
                         fontSize: 14,
-                        color: kcwhitecolor,
+                        color: kcWhiteColor,
                         fontWeight: FontWeight.w500),
                   ),
                 ),

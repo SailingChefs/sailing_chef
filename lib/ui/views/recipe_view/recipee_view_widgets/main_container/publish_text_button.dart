@@ -27,7 +27,7 @@ class PublishTextButton extends ViewModelWidget<RecipeViewViewModel> {
             ),
           ),
           const Divider(
-            color: kclightgreencolor,
+            color: kcPrimaryColor,
             indent: 120,
             endIndent: 120,
             thickness: 2,

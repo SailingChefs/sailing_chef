@@ -8,7 +8,7 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
   @override
   Widget build(BuildContext context, SignUpViewModel viewModel) {
     return Container(
-      height: screenHeight(context) * 0.08,
+      height: screenHeight(context) * 0.11,
       decoration: BoxDecoration(
         color: const Color(0xFFF4F8F7).withOpacity(0.3),
         borderRadius: BorderRadius.circular(10),
@@ -43,6 +43,13 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                       'Chef',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
+                        color: kcWhiteColor,
+                      ),
+                    ),
+                    const Text(
+                      'Share recipes',
+                      style: TextStyle(
+                        fontSize: 9,
                         color: kcWhiteColor,
                       ),
                     ),
@@ -89,6 +96,13 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                         color: kcWhiteColor,
                       ),
                     ),
+                    const Text(
+                      'Publish courses',
+                      style: TextStyle(
+                        fontSize: 9,
+                        color: kcWhiteColor,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -122,6 +136,13 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
                       'Guest',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
+                        color: kcWhiteColor,
+                      ),
+                    ),
+                    const Text(
+                      'Browse & save',
+                      style: TextStyle(
+                        fontSize: 9,
                         color: kcWhiteColor,
                       ),
                     ),

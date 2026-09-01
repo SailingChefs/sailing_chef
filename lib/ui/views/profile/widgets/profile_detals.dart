@@ -47,7 +47,7 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                           progressIndicatorBuilder: (context, url, progress) =>
                               Container(
                             decoration: const BoxDecoration(
-                              color: kcsgreycolor,
+                              color: kcSurfaceColor,
                             ),
                           ),
                         ),

@@ -16,7 +16,7 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
             width: 180,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: filterIconColor),
+                color: kcPrimaryColorDark),
             child: TextButton(
               onPressed: () {
                 viewModel.saveCourse();
@@ -25,7 +25,7 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
                 'Submit for review',
                 style: globalTextStyle(
                     fontSize: 14,
-                    color: kcwhitecolor,
+                    color: kcWhiteColor,
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -38,7 +38,7 @@ class CoursesButtons extends ViewModelWidget<CoursesSheetModel> {
             width: 180,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: kcbuttoncolor.withOpacity(0.1)),
+                color: kcButtonColor.withOpacity(0.1)),
             child: TextButton(
               onPressed: () {
                 Navigator.pop(context);

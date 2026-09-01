@@ -28,7 +28,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      color: kcsgreycolor,
+                      color: kcSurfaceColor,
                       child: InkWell(
                         onTap: () {},
                         child: SizedBox(
@@ -67,7 +67,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                     height: 40,
                                     width: 120,
                                     decoration: BoxDecoration(
-                                      color: kcchatboxecolor,
+                                      color: kcChatBubbleColor,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
@@ -76,7 +76,7 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                       style: globalTextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          color: kcwhitecolor),
+                                          color: kcWhiteColor),
                                     )),
                                   ),
                                 )

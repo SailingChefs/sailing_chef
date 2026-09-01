@@ -28,10 +28,10 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: kcWhiteColor,
           selectedItemColor: kcPrimaryColor,
-          unselectedIconTheme: const IconThemeData(color: kcWhiteColor),
+          unselectedIconTheme: const IconThemeData(color: kcMediumGrey),
           selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
-          unselectedLabelStyle: const TextStyle(color: kcWhiteColor),
-          selectedLabelStyle: const TextStyle(color: kcPrimaryColor),
+          unselectedLabelStyle: const TextStyle(color: kcMediumGrey, fontSize: 10),
+          selectedLabelStyle: const TextStyle(color: kcPrimaryColor, fontSize: 10),
           currentIndex: viewModel.currentIndex,
           onTap: viewModel.setIndex,
           items: [
@@ -40,7 +40,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
                 'assets/images/icons/homeselected.svg',
                 color: kcPrimaryColor,
               ),
-              label: '',
+              label: 'Home',
               icon: SvgPicture.asset(
                 'assets/images/icons/homeselected.svg',
                 color: Colors.grey[500],
@@ -51,7 +51,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
                 'assets/images/misc/bookmark.svg',
                 color: kcPrimaryColor,
               ),
-              label: '',
+              label: 'Saved',
               icon: SvgPicture.asset(
                 'assets/images/misc/bookmark.svg',
                 color: Colors.grey[600],
@@ -62,7 +62,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
                 'assets/images/icons/chat.svg',
                 color: kcPrimaryColor,
               ),
-              label: '',
+              label: 'Messages',
               icon: SvgPicture.asset(
                 'assets/images/icons/chat.svg',
                 color: Colors.grey[600],
@@ -73,7 +73,7 @@ class BottomBarGuestView extends StackedView<BottomBarGuestViewModel> {
                 'assets/images/icons/profile.svg',
                 color: kcPrimaryColor,
               ),
-              label: '',
+              label: 'Profile',
               icon: SvgPicture.asset(
                 'assets/images/icons/profile.svg',
                 color: Colors.grey[600],

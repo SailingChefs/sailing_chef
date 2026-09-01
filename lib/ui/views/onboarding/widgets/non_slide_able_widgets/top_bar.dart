@@ -22,7 +22,7 @@ class TopBarOnboardingScreen extends ViewModelWidget<OnboardingViewModel> {
           height: 34,
           textFontSize: 14.sp,
           textFontWeight: FontWeight.w600,
-          textColor: kclightgreencolor,
+          textColor: kcPrimaryColor,
           onPressed: () {
             viewModel.toLogin();
           },

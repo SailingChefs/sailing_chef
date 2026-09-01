@@ -98,7 +98,7 @@ class RateExperienceDialog extends StackedView<RateExperienceDialogModel> {
                       child: Text(
                         'Submit Review',
                         style: globalTextStyle(
-                          color: kcwhitecolor,
+                          color: kcWhiteColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),

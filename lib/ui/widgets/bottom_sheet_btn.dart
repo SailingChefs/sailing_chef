@@ -29,7 +29,7 @@ class SaveRecipeButton extends StatelessWidget {
         width: 310.w,
         child: TextButton(
           style: TextButton.styleFrom(
-            backgroundColor: kclightgreencolor,
+            backgroundColor: kcPrimaryColor,
           ),
           onPressed: onPressed,
           child: Row(
@@ -37,7 +37,7 @@ class SaveRecipeButton extends StatelessWidget {
             children: [
               Icon(
                 prefix,
-                color: kcsgreycolor,
+                color: kcSurfaceColor,
                 size: 20.sp,
               ),
               horizontalSpaceSmall,
@@ -53,7 +53,7 @@ class SaveRecipeButton extends StatelessWidget {
               horizontalSpaceSmall,
               Icon(
                 postfix,
-                color: kcsgreycolor,
+                color: kcSurfaceColor,
                 size: 20.sp,
               ),
             ],

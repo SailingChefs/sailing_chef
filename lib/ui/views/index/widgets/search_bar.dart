@@ -30,7 +30,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
                 children: [
                   SvgPicture.asset(
                     'assets/images/icons/search.svg',
-                    color: searchIconColor,
+                    color: kcIconColor,
                     width: 16.w,
                     height: 16.h,
                   ),
@@ -40,7 +40,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
                     style: globalTextStyle(
                       fontSize: 12.sp,
                       letterSpacing: -0.5,
-                      color: searchIconColor,
+                      color: kcIconColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -53,7 +53,7 @@ class SearchBarIndexView extends ViewModelWidget<IndexViewModel> {
           onPressed: viewModel.goToFilterView,
           icon: SvgPicture.asset(
             'assets/images/misc/equilizer.svg',
-            color: filterIconColor,
+            color: kcPrimaryColorDark,
             width: 30.dg,
             height: 30.dg,
           ),
