@@ -51,6 +51,7 @@ import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart';
@@ -111,6 +112,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: FollowingListView),
     MaterialRoute(page: RecipeViewView),
     MaterialRoute(page: BottomBarGuestView),
+    MaterialRoute(page: BottomNavBarSupplierView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
     MaterialRoute(

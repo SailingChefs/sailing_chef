@@ -32,6 +32,14 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
           isSelected: viewModel.selectedSignUpAs == 'guest',
           onTap: () => viewModel.handleSignUpAs(0),
         ),
+        const SizedBox(height: 10),
+        _RoleCard(
+          svgPath: 'assets/images/icons/supplier.svg',
+          label: 'Supplier',
+          description: 'List your marine products and reach sailing chefs',
+          isSelected: viewModel.selectedSignUpAs == 'supplier',
+          onTap: () => viewModel.handleSignUpAs(3),
+        ),
       ],
     );
   }

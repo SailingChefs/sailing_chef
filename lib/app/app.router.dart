@@ -21,6 +21,8 @@ import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.da
     as _i19;
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
     as _i7;
+import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_view.dart'
+    as _i50;
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i22;
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
     as _i21;
@@ -169,6 +171,8 @@ class Routes {
 
   static const termsConditionsView = '/terms-conditions-view';
 
+  static const bottomNavBarSupplierView = '/bottom-nav-bar-supplier-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -212,6 +216,7 @@ class Routes {
     manageRecipesView,
     managePinsView,
     termsConditionsView,
+    bottomNavBarSupplierView,
   };
 }
 
@@ -274,6 +279,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.manageRecipesView, page: _i41.ManageRecipesView),
     _i1.RouteDef(Routes.managePinsView, page: _i42.ManagePinsView),
     _i1.RouteDef(Routes.termsConditionsView, page: _i43.TermsConditionsView),
+    _i1.RouteDef(
+      Routes.bottomNavBarSupplierView,
+      page: _i50.BottomNavBarSupplierView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -677,6 +686,15 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i44.MaterialPageRoute<dynamic>(
         builder: (context) => _i43.TermsConditionsView(key: args.key),
+        settings: data,
+      );
+    },
+    _i50.BottomNavBarSupplierView: (data) {
+      final args = data.getArgs<BottomNavBarSupplierViewArguments>(
+        orElse: () => const BottomNavBarSupplierViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i50.BottomNavBarSupplierView(key: args.key),
         settings: data,
       );
     },
@@ -1729,6 +1747,28 @@ class TermsConditionsViewArguments {
 
   @override
   bool operator ==(covariant TermsConditionsViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class BottomNavBarSupplierViewArguments {
+  const BottomNavBarSupplierViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BottomNavBarSupplierViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key;
   }
@@ -3377,6 +3417,42 @@ extension NavigatorStateExtension on _i49.NavigationService {
     return replaceWith<dynamic>(
       Routes.termsConditionsView,
       arguments: TermsConditionsViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToBottomNavBarSupplierView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.bottomNavBarSupplierView,
+      arguments: BottomNavBarSupplierViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithBottomNavBarSupplierView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.bottomNavBarSupplierView,
+      arguments: BottomNavBarSupplierViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

@@ -172,7 +172,13 @@ class AuthService {
           userDetails = await userService.fetchUserByUID(user.uid);
           await userService.storeUserDetails(
               userDetails!.toJson(), userDetails!.uid!);
-          navigationService.replaceWithBottomNavBarView();
+          if (userDetails!.userRole == 'guest') {
+            navigationService.replaceWithBottomBarGuestView();
+          } else if (userDetails!.userRole == 'supplier') {
+            navigationService.replaceWithBottomNavBarSupplierView();
+          } else {
+            navigationService.replaceWithBottomNavBarView();
+          }
         }
 
         // else if (userDetails!.userRole == 'guest') {
