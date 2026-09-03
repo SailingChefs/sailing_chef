@@ -3,10 +3,11 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_viewmodel.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
-import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
+import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart';
 
 class BottomNavBarSupplierView extends StackedView<BottomNavBarSupplierViewModel> {
   const BottomNavBarSupplierView({super.key});
@@ -90,7 +91,7 @@ class BottomNavBarSupplierView extends StackedView<BottomNavBarSupplierViewModel
       case 2:
         return const ChatListView();
       case 3:
-        return const ProfileView();
+        return SupplierProfileView(supplier: userDetails!, isSelf: true);
       default:
         return const IndexView();
     }

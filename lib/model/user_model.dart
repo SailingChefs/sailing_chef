@@ -19,12 +19,16 @@ class UserModel {
   final List<String>? recipes;
   final String? namedLocation;
   final bool isAdmin;
+  final String? businessCategory;
+  final String? contactNumber;
 
   UserModel({
     this.schoolCourses,
     this.displayName,
     this.recipes,
     this.namedLocation,
+    this.businessCategory,
+    this.contactNumber,
     this.email,
     this.userRole,
     this.uid,
@@ -55,6 +59,8 @@ class UserModel {
       'following': following,
       'link': link,
       'address': namedLocation,
+      'business_category': businessCategory,
+      'contact_number': contactNumber,
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
@@ -93,6 +99,8 @@ class UserModel {
           (data['recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
       namedLocation: data['address'] as String?,
       isAdmin: (data['is_admin'] as bool?) ?? false,
+      businessCategory: data['business_category'] as String?,
+      contactNumber: data['contact_number'] as String?,
     );
   }
 }

@@ -23,6 +23,8 @@ import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
     as _i7;
 import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_view.dart'
     as _i50;
+import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart'
+    as _i51;
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i22;
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
     as _i21;
@@ -173,6 +175,8 @@ class Routes {
 
   static const bottomNavBarSupplierView = '/bottom-nav-bar-supplier-view';
 
+  static const supplierProfileView = '/supplier-profile-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -217,6 +221,7 @@ class Routes {
     managePinsView,
     termsConditionsView,
     bottomNavBarSupplierView,
+    supplierProfileView,
   };
 }
 
@@ -283,6 +288,7 @@ class StackedRouter extends _i1.RouterBase {
       Routes.bottomNavBarSupplierView,
       page: _i50.BottomNavBarSupplierView,
     ),
+    _i1.RouteDef(Routes.supplierProfileView, page: _i51.SupplierProfileView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -423,7 +429,8 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const PinDropMapViewArguments(),
       );
       return _i44.MaterialPageRoute<dynamic>(
-        builder: (context) => _i16.PinDropMapView(key: args.key),
+        builder: (context) => _i16.PinDropMapView(
+              onboardingMode: args.onboardingMode, key: args.key),
         settings: data,
       );
     },
@@ -695,6 +702,18 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i44.MaterialPageRoute<dynamic>(
         builder: (context) => _i50.BottomNavBarSupplierView(key: args.key),
+        settings: data,
+      );
+    },
+    _i51.SupplierProfileView: (data) {
+      final args =
+          data.getArgs<SupplierProfileViewArguments>(nullOk: false);
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i51.SupplierProfileView(
+          supplier: args.supplier,
+          isSelf: args.isSelf,
+          key: args.key,
+        ),
         settings: data,
       );
     },
@@ -1030,24 +1049,25 @@ class RecipeListPageViewArguments {
 }
 
 class PinDropMapViewArguments {
-  const PinDropMapViewArguments({this.key});
+  const PinDropMapViewArguments({this.onboardingMode = false, this.key});
 
+  final bool onboardingMode;
   final _i45.Key? key;
 
   @override
   String toString() {
-    return '{"key": "$key"}';
+    return '{"onboardingMode": "$onboardingMode", "key": "$key"}';
   }
 
   @override
   bool operator ==(covariant PinDropMapViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key;
+    return other.onboardingMode == onboardingMode && other.key == key;
   }
 
   @override
   int get hashCode {
-    return key.hashCode;
+    return onboardingMode.hashCode ^ key.hashCode;
   }
 }
 
@@ -1757,6 +1777,36 @@ class TermsConditionsViewArguments {
   }
 }
 
+class SupplierProfileViewArguments {
+  const SupplierProfileViewArguments({
+    required this.supplier,
+    this.isSelf = false,
+    this.key,
+  });
+
+  final _i47.UserModel supplier;
+  final bool isSelf;
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"supplier": "$supplier", "isSelf": "$isSelf", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant SupplierProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.supplier == supplier &&
+        other.isSelf == isSelf &&
+        other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return supplier.hashCode ^ isSelf.hashCode ^ key.hashCode;
+  }
+}
+
 class BottomNavBarSupplierViewArguments {
   const BottomNavBarSupplierViewArguments({this.key});
 
@@ -2046,6 +2096,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }
 
   Future<dynamic> navigateToPinDropMapView({
+    bool onboardingMode = false,
     _i45.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -2055,7 +2106,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.pinDropMapView,
-      arguments: PinDropMapViewArguments(key: key),
+      arguments: PinDropMapViewArguments(onboardingMode: onboardingMode, key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -2868,6 +2919,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }
 
   Future<dynamic> replaceWithPinDropMapView({
+    bool onboardingMode = false,
     _i45.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -2877,7 +2929,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.pinDropMapView,
-      arguments: PinDropMapViewArguments(key: key),
+      arguments: PinDropMapViewArguments(onboardingMode: onboardingMode, key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -3417,6 +3469,27 @@ extension NavigatorStateExtension on _i49.NavigationService {
     return replaceWith<dynamic>(
       Routes.termsConditionsView,
       arguments: TermsConditionsViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToSupplierProfileView({
+    required _i47.UserModel supplier,
+    bool isSelf = false,
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.supplierProfileView,
+      arguments: SupplierProfileViewArguments(
+          supplier: supplier, isSelf: isSelf, key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

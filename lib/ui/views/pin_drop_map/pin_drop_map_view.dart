@@ -9,7 +9,8 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/topbar_search.dart';
 import 'package:uuid/uuid.dart';
 
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
-  const PinDropMapView({super.key});
+  final bool onboardingMode;
+  const PinDropMapView({this.onboardingMode = false, super.key});
 
   @override
   Widget builder(
@@ -135,15 +136,11 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   @override
   void onViewModelReady(PinDropMapViewModel viewModel) {
     final markerId = const Uuid().v4();
-
     viewModel.onViewModelReady(markerId);
     super.onViewModelReady(viewModel);
   }
 
   @override
-  PinDropMapViewModel viewModelBuilder(
-    BuildContext context,
-  ) {
-    return PinDropMapViewModel();
-  }
+  PinDropMapViewModel viewModelBuilder(BuildContext context) =>
+      PinDropMapViewModel(onboardingMode: onboardingMode);
 }
