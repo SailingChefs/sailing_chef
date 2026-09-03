@@ -1,12 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/userdata_service_service.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
+  final _userDataService = locator<UserdataServiceService>();
+
+  bool get isAvailable => userDetails?.isAvailable ?? false;
+
+  Future<void> toggleAvailability(bool value) async {
+    final previous = userDetails?.isAvailable ?? false;
+    userDetails?.isAvailable = value;
+    notifyListeners();
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+
+    try {
+      await _userDataService.storeUserDetails({'is_available': value}, uid);
+    } catch (_) {
+      userDetails?.isAvailable = previous;
+      notifyListeners();
+    }
+  }
 
   @override
   void getBack() {

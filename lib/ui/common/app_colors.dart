@@ -34,6 +34,7 @@ const Color filledcolorlogin = Color(0xFFF4F8F7);     // login form fill
 const Color searchIconColor = Color(0xFF606260);       // search icon
 const Color editTextColor = Color(0xFF1F1F1F);
 const Color editIconColor = Color(0xFF636363);
+const Color kcAvailableGreen = Color(0xFF34A853);    // "Available to work" badge
 
 // ─── Material swatch ─────────────────────────────────────────────────────────
 
