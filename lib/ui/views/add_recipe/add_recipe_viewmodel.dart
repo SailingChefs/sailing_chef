@@ -35,6 +35,67 @@ class AddRecipeViewModel extends BaseViewModel {
   AddRecipeViewModel({this.recipeModel});
 
   PageController pageController = PageController();
+  int currentStep = 0;
+
+  void onStepPageChanged(int page) {
+    currentStep = page;
+    notifyListeners();
+  }
+
+  void nextStep() {
+    if (currentStep == 0) {
+      if (titleController.text.trim().isEmpty) {
+        showToast(message: 'Please add a recipe title');
+        return;
+      }
+      if (selectedImages.isEmpty && alreadySelectedImages.isEmpty) {
+        showToast(message: 'Please add a cover photo');
+        return;
+      }
+    }
+    if (currentStep == 1 && ingredientsList.isEmpty) {
+      showToast(message: 'Please add at least one ingredient');
+      return;
+    }
+    if (currentStep < 2) {
+      _silentSaveDraft();
+      pageController.animateToPage(
+        currentStep + 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _silentSaveDraft() {
+    _recipeService.addOrUpdateDraft(RecipeModel(
+      visibility: 'private',
+      chefNote: 'recorderController',
+      coverImage: alreadySelectedImages,
+      createdTime: Timestamp.now(),
+      ingredients: ingredientsList,
+      tags: tagsList,
+      methods: methodsList,
+      prepTime: (prepreationTime?.isEmpty ?? true) ? formatDuration() : prepreationTime!,
+      servingSize: int.tryParse(servingSize.text) ?? 1,
+      status: 'draft',
+      title: titleController.text.trim(),
+      uid: firebaseAuth.currentUser!.uid,
+      docId: recipeModel?.docId ?? '',
+      waveForm: waveFormData ?? [],
+    ));
+  }
+
+  void previousStep() {
+    if (currentStep > 0) {
+      pageController.animateToPage(
+        currentStep - 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   late RecorderController recorderController;
   late PlayerController playerController;
   late VideoPlayerController controller;
