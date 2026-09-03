@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/chat_list.dart';
@@ -20,17 +21,22 @@ class ChatListView extends StackedView<ChatListViewModel> {
         : SafeArea(
             child: Scaffold(
                 backgroundColor: Colors.white,
-                body: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const TopBarChatListScreen(),
-                      // verticalSpaceMedium,
-                      // const SearchBarAllChatsScreen(),
-                      verticalSpaceMedium,
-                      const ChatListScreen(),
-                    ],
+                body: RefreshIndicator(
+                  color: kcPrimaryColor,
+                  onRefresh: () async {
+                    viewModel.notifyListeners();
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const TopBarChatListScreen(),
+                        verticalSpaceMedium,
+                        const ChatListScreen(),
+                      ],
+                    ),
                   ),
                 )),
           );

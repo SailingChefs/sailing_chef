@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ManagePins extends StatelessWidget {
   const ManagePins(this.viewModel, this.pins, {super.key, this.onTap});
@@ -10,7 +11,9 @@ class ManagePins extends StatelessWidget {
   final List<PinnedLocation> pins;
   final VoidCallback? onTap;
 
-  DismissDirection get _dismissDirection => switch (pins.first.status) {
+  DismissDirection get _dismissDirection => pins.isEmpty
+      ? DismissDirection.none
+      : switch (pins.first.status) {
         PinnedLocationStatus.pending => DismissDirection.horizontal,
         PinnedLocationStatus.review => DismissDirection.startToEnd,
         PinnedLocationStatus.published => DismissDirection.endToStart,
@@ -38,6 +41,13 @@ class ManagePins extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (pins.isEmpty) {
+      return const EmptyStateWidget(
+        icon: Icons.location_off_outlined,
+        title: 'No pins here',
+        subtitle: 'Pins in this status will appear here',
+      );
+    }
     return ListView.builder(
       itemCount: pins.length,
       itemBuilder: (context, index) {
