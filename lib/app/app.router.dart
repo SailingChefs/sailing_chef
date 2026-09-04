@@ -13,6 +13,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart' as _i45;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i46;
 import 'package:sailing_chefs/model/user_model.dart' as _i47;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i13;
+import 'package:sailing_chefs/ui/views/agency_access_info/agency_access_info_view.dart'
+    as _i53;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i25;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i28;
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart'
@@ -181,6 +183,8 @@ class Routes {
 
   static const featuredListingInfoView = '/featured-listing-info-view';
 
+  static const agencyAccessInfoView = '/agency-access-info-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -227,6 +231,7 @@ class Routes {
     bottomNavBarSupplierView,
     supplierProfileView,
     featuredListingInfoView,
+    agencyAccessInfoView,
   };
 }
 
@@ -297,6 +302,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.featuredListingInfoView,
       page: _i52.FeaturedListingInfoView,
+    ),
+    _i1.RouteDef(
+      Routes.agencyAccessInfoView,
+      page: _i53.AgencyAccessInfoView,
     ),
   ];
 
@@ -732,6 +741,15 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i44.MaterialPageRoute<dynamic>(
         builder: (context) => _i52.FeaturedListingInfoView(key: args.key),
+        settings: data,
+      );
+    },
+    _i53.AgencyAccessInfoView: (data) {
+      final args = data.getArgs<AgencyAccessInfoViewArguments>(
+        orElse: () => const AgencyAccessInfoViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i53.AgencyAccessInfoView(key: args.key),
         settings: data,
       );
     },
@@ -1869,6 +1887,28 @@ class FeaturedListingInfoViewArguments {
   }
 }
 
+class AgencyAccessInfoViewArguments {
+  const AgencyAccessInfoViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AgencyAccessInfoViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i49.NavigationService {
   Future<dynamic> navigateToStartupView({
     _i45.Key? key,
@@ -2711,6 +2751,24 @@ extension NavigatorStateExtension on _i49.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToAgencyAccessInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.agencyAccessInfoView,
+      arguments: AgencyAccessInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView({
     _i45.Key? key,
     int? routerId,
@@ -3545,6 +3603,24 @@ extension NavigatorStateExtension on _i49.NavigationService {
     return replaceWith<dynamic>(
       Routes.featuredListingInfoView,
       arguments: FeaturedListingInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithAgencyAccessInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.agencyAccessInfoView,
+      arguments: AgencyAccessInfoViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

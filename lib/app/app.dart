@@ -46,6 +46,7 @@ import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
+import 'package:sailing_chefs/ui/views/agency_access_info/agency_access_info_view.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
@@ -149,6 +150,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ManagePinsView),
     MaterialRoute(page: TermsConditionsView),
     MaterialRoute(page: FeaturedListingInfoView),
+    MaterialRoute(page: AgencyAccessInfoView),
 // @stacked-route
   ],
   dependencies: [
