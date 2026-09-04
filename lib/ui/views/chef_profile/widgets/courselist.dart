@@ -58,25 +58,29 @@ class ListViewChefSavedCources extends ViewModelWidget<ChefProfileViewModel> {
                                     ),
                                   ],
                                 ),
-                                GestureDetector(
-                                  onTap: () {
+                                TextButton(
+                                  onPressed: () {
                                     viewModel.enquireNow(user, index);
                                   },
-                                  child: Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: kcchatboxecolor,
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kcPrimaryColor,
+                                    side: const BorderSide(
+                                        color: kcPrimaryColor),
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: Center(
-                                        child: Text(
-                                      'Enquire now',
-                                      style: globalTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: kcwhitecolor),
-                                    )),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 6),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  child: Text(
+                                    'Enquire',
+                                    style: globalTextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: kcPrimaryColor),
                                   ),
                                 )
                               ],
