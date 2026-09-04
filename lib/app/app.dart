@@ -61,6 +61,7 @@ import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewa
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_view.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart';
+import 'package:sailing_chefs/ui/views/featured_listing_info/featured_listing_info_view.dart';
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
@@ -147,6 +148,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ManageRecipesView),
     MaterialRoute(page: ManagePinsView),
     MaterialRoute(page: TermsConditionsView),
+    MaterialRoute(page: FeaturedListingInfoView),
 // @stacked-route
   ],
   dependencies: [

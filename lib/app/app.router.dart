@@ -37,6 +37,8 @@ import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart'
     as _i23;
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart'
     as _i32;
+import 'package:sailing_chefs/ui/views/featured_listing_info/featured_listing_info_view.dart'
+    as _i52;
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart' as _i38;
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart' as _i11;
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart'
@@ -177,6 +179,8 @@ class Routes {
 
   static const supplierProfileView = '/supplier-profile-view';
 
+  static const featuredListingInfoView = '/featured-listing-info-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -222,6 +226,7 @@ class Routes {
     termsConditionsView,
     bottomNavBarSupplierView,
     supplierProfileView,
+    featuredListingInfoView,
   };
 }
 
@@ -289,6 +294,10 @@ class StackedRouter extends _i1.RouterBase {
       page: _i50.BottomNavBarSupplierView,
     ),
     _i1.RouteDef(Routes.supplierProfileView, page: _i51.SupplierProfileView),
+    _i1.RouteDef(
+      Routes.featuredListingInfoView,
+      page: _i52.FeaturedListingInfoView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -714,6 +723,15 @@ class StackedRouter extends _i1.RouterBase {
           isSelf: args.isSelf,
           key: args.key,
         ),
+        settings: data,
+      );
+    },
+    _i52.FeaturedListingInfoView: (data) {
+      final args = data.getArgs<FeaturedListingInfoViewArguments>(
+        orElse: () => const FeaturedListingInfoViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i52.FeaturedListingInfoView(key: args.key),
         settings: data,
       );
     },
@@ -1829,6 +1847,28 @@ class BottomNavBarSupplierViewArguments {
   }
 }
 
+class FeaturedListingInfoViewArguments {
+  const FeaturedListingInfoViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant FeaturedListingInfoViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i49.NavigationService {
   Future<dynamic> navigateToStartupView({
     _i45.Key? key,
@@ -2653,6 +2693,24 @@ extension NavigatorStateExtension on _i49.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToFeaturedListingInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.featuredListingInfoView,
+      arguments: FeaturedListingInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView({
     _i45.Key? key,
     int? routerId,
@@ -3469,6 +3527,24 @@ extension NavigatorStateExtension on _i49.NavigationService {
     return replaceWith<dynamic>(
       Routes.termsConditionsView,
       arguments: TermsConditionsViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithFeaturedListingInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.featuredListingInfoView,
+      arguments: FeaturedListingInfoViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

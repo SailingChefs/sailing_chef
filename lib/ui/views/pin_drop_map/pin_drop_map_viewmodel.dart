@@ -215,6 +215,10 @@ class PinDropMapViewModel extends BaseViewModel {
     allMarkers[markerId] = createMarker(markerId, location, status);
   }
 
+  void toFeaturedListingInfo() {
+    _navigationService.navigateToFeaturedListingInfoView();
+  }
+
   void showMyLocation() {
     // currentPosition = await getCurrentLocation();
 
