@@ -191,6 +191,10 @@ class ProfileViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
+  Future<void> onRefresh() async {
+    await onViewModelReady();
+  }
+
   void ini() {}
 
   void toDishesScreen() {

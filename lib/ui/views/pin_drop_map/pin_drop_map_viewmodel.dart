@@ -14,13 +14,19 @@ import 'package:sailing_chefs/model/reviews.dart';
 import 'package:sailing_chefs/services/bitmap_image_service.dart';
 import 'package:sailing_chefs/services/location_service.dart';
 import 'package:sailing_chefs/services/pin_drop_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:uuid/uuid.dart';
 
 class PinDropMapViewModel extends BaseViewModel {
+  final bool onboardingMode;
+  PinDropMapViewModel({this.onboardingMode = false});
+
   final _navigationpinService = locator<PinDropService>();
   final DialogService _dialogService = locator<DialogService>();
   final _locationService = locator<LocationService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _userServices = locator<UserServices>();
+  final _navigationService = locator<NavigationService>();
   late bool serviceEnabled;
   late LocationPermission permission;
 
@@ -87,6 +93,9 @@ class PinDropMapViewModel extends BaseViewModel {
       await loadPinsNearUser();
 
       setBusy(false);
+      if (onboardingMode) {
+        showMarker = true;
+      }
       notifyListeners();
     }
   }
@@ -204,6 +213,10 @@ class PinDropMapViewModel extends BaseViewModel {
   void addMarkers(
       String markerId, LatLng location, PinnedLocationStatus status) {
     allMarkers[markerId] = createMarker(markerId, location, status);
+  }
+
+  void toFeaturedListingInfo() {
+    _navigationService.navigateToFeaturedListingInfoView();
   }
 
   void showMyLocation() {
@@ -506,7 +519,35 @@ class PinDropMapViewModel extends BaseViewModel {
         showMarker = false;
         await loadPinsNearUser(); // Refresh pins
         notifyListeners();
+
+        if (onboardingMode) {
+          await _writeAddressToProfile(
+            currentCameraPosition!.target.latitude,
+            currentCameraPosition!.target.longitude,
+          );
+          _navigationService.replaceWithBottomNavBarSupplierView();
+        }
       }
+    }
+  }
+
+  Future<void> _writeAddressToProfile(double lat, double lng) async {
+    try {
+      final placemarks = await placemarkFromCoordinates(lat, lng);
+      if (placemarks.isNotEmpty) {
+        final p = placemarks.first;
+        final parts = [p.subLocality, p.locality, p.administrativeArea, p.country]
+            .where((s) => s != null && s.isNotEmpty)
+            .toList();
+        final address = parts.join(', ');
+        // namedLocation is final on UserModel — Firestore is the source of truth
+        await _userServices.storeUserDetails(
+          {'address': address},
+          userDetails!.uid!,
+        );
+      }
+    } catch (e) {
+      log('_writeAddressToProfile error: $e');
     }
   }
 }

@@ -13,6 +13,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart' as _i45;
 import 'package:sailing_chefs/model/recipe_model.dart' as _i46;
 import 'package:sailing_chefs/model/user_model.dart' as _i47;
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart' as _i13;
+import 'package:sailing_chefs/ui/views/agency_access_info/agency_access_info_view.dart'
+    as _i53;
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart' as _i25;
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart' as _i28;
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart'
@@ -21,6 +23,10 @@ import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.da
     as _i19;
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart'
     as _i7;
+import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_view.dart'
+    as _i50;
+import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart'
+    as _i51;
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart' as _i22;
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart'
     as _i21;
@@ -33,6 +39,8 @@ import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart'
     as _i23;
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart'
     as _i32;
+import 'package:sailing_chefs/ui/views/featured_listing_info/featured_listing_info_view.dart'
+    as _i52;
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart' as _i38;
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart' as _i11;
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart'
@@ -169,6 +177,14 @@ class Routes {
 
   static const termsConditionsView = '/terms-conditions-view';
 
+  static const bottomNavBarSupplierView = '/bottom-nav-bar-supplier-view';
+
+  static const supplierProfileView = '/supplier-profile-view';
+
+  static const featuredListingInfoView = '/featured-listing-info-view';
+
+  static const agencyAccessInfoView = '/agency-access-info-view';
+
   static const all = <String>{
     startupView,
     onboardingView,
@@ -212,6 +228,10 @@ class Routes {
     manageRecipesView,
     managePinsView,
     termsConditionsView,
+    bottomNavBarSupplierView,
+    supplierProfileView,
+    featuredListingInfoView,
+    agencyAccessInfoView,
   };
 }
 
@@ -274,6 +294,19 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.manageRecipesView, page: _i41.ManageRecipesView),
     _i1.RouteDef(Routes.managePinsView, page: _i42.ManagePinsView),
     _i1.RouteDef(Routes.termsConditionsView, page: _i43.TermsConditionsView),
+    _i1.RouteDef(
+      Routes.bottomNavBarSupplierView,
+      page: _i50.BottomNavBarSupplierView,
+    ),
+    _i1.RouteDef(Routes.supplierProfileView, page: _i51.SupplierProfileView),
+    _i1.RouteDef(
+      Routes.featuredListingInfoView,
+      page: _i52.FeaturedListingInfoView,
+    ),
+    _i1.RouteDef(
+      Routes.agencyAccessInfoView,
+      page: _i53.AgencyAccessInfoView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -414,7 +447,8 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const PinDropMapViewArguments(),
       );
       return _i44.MaterialPageRoute<dynamic>(
-        builder: (context) => _i16.PinDropMapView(key: args.key),
+        builder: (context) => _i16.PinDropMapView(
+              onboardingMode: args.onboardingMode, key: args.key),
         settings: data,
       );
     },
@@ -677,6 +711,45 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i44.MaterialPageRoute<dynamic>(
         builder: (context) => _i43.TermsConditionsView(key: args.key),
+        settings: data,
+      );
+    },
+    _i50.BottomNavBarSupplierView: (data) {
+      final args = data.getArgs<BottomNavBarSupplierViewArguments>(
+        orElse: () => const BottomNavBarSupplierViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i50.BottomNavBarSupplierView(key: args.key),
+        settings: data,
+      );
+    },
+    _i51.SupplierProfileView: (data) {
+      final args =
+          data.getArgs<SupplierProfileViewArguments>(nullOk: false);
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i51.SupplierProfileView(
+          supplier: args.supplier,
+          isSelf: args.isSelf,
+          key: args.key,
+        ),
+        settings: data,
+      );
+    },
+    _i52.FeaturedListingInfoView: (data) {
+      final args = data.getArgs<FeaturedListingInfoViewArguments>(
+        orElse: () => const FeaturedListingInfoViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i52.FeaturedListingInfoView(key: args.key),
+        settings: data,
+      );
+    },
+    _i53.AgencyAccessInfoView: (data) {
+      final args = data.getArgs<AgencyAccessInfoViewArguments>(
+        orElse: () => const AgencyAccessInfoViewArguments(),
+      );
+      return _i44.MaterialPageRoute<dynamic>(
+        builder: (context) => _i53.AgencyAccessInfoView(key: args.key),
         settings: data,
       );
     },
@@ -1012,24 +1085,25 @@ class RecipeListPageViewArguments {
 }
 
 class PinDropMapViewArguments {
-  const PinDropMapViewArguments({this.key});
+  const PinDropMapViewArguments({this.onboardingMode = false, this.key});
 
+  final bool onboardingMode;
   final _i45.Key? key;
 
   @override
   String toString() {
-    return '{"key": "$key"}';
+    return '{"onboardingMode": "$onboardingMode", "key": "$key"}';
   }
 
   @override
   bool operator ==(covariant PinDropMapViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key;
+    return other.onboardingMode == onboardingMode && other.key == key;
   }
 
   @override
   int get hashCode {
-    return key.hashCode;
+    return onboardingMode.hashCode ^ key.hashCode;
   }
 }
 
@@ -1739,6 +1813,102 @@ class TermsConditionsViewArguments {
   }
 }
 
+class SupplierProfileViewArguments {
+  const SupplierProfileViewArguments({
+    required this.supplier,
+    this.isSelf = false,
+    this.key,
+  });
+
+  final _i47.UserModel supplier;
+  final bool isSelf;
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"supplier": "$supplier", "isSelf": "$isSelf", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant SupplierProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.supplier == supplier &&
+        other.isSelf == isSelf &&
+        other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return supplier.hashCode ^ isSelf.hashCode ^ key.hashCode;
+  }
+}
+
+class BottomNavBarSupplierViewArguments {
+  const BottomNavBarSupplierViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BottomNavBarSupplierViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class FeaturedListingInfoViewArguments {
+  const FeaturedListingInfoViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant FeaturedListingInfoViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class AgencyAccessInfoViewArguments {
+  const AgencyAccessInfoViewArguments({this.key});
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AgencyAccessInfoViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i49.NavigationService {
   Future<dynamic> navigateToStartupView({
     _i45.Key? key,
@@ -2006,6 +2176,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }
 
   Future<dynamic> navigateToPinDropMapView({
+    bool onboardingMode = false,
     _i45.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -2015,7 +2186,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.pinDropMapView,
-      arguments: PinDropMapViewArguments(key: key),
+      arguments: PinDropMapViewArguments(onboardingMode: onboardingMode, key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -2562,6 +2733,42 @@ extension NavigatorStateExtension on _i49.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToFeaturedListingInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.featuredListingInfoView,
+      arguments: FeaturedListingInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToAgencyAccessInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.agencyAccessInfoView,
+      arguments: AgencyAccessInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView({
     _i45.Key? key,
     int? routerId,
@@ -2828,6 +3035,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }
 
   Future<dynamic> replaceWithPinDropMapView({
+    bool onboardingMode = false,
     _i45.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -2837,7 +3045,7 @@ extension NavigatorStateExtension on _i49.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.pinDropMapView,
-      arguments: PinDropMapViewArguments(key: key),
+      arguments: PinDropMapViewArguments(onboardingMode: onboardingMode, key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -3377,6 +3585,99 @@ extension NavigatorStateExtension on _i49.NavigationService {
     return replaceWith<dynamic>(
       Routes.termsConditionsView,
       arguments: TermsConditionsViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithFeaturedListingInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.featuredListingInfoView,
+      arguments: FeaturedListingInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithAgencyAccessInfoView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.agencyAccessInfoView,
+      arguments: AgencyAccessInfoViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToSupplierProfileView({
+    required _i47.UserModel supplier,
+    bool isSelf = false,
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.supplierProfileView,
+      arguments: SupplierProfileViewArguments(
+          supplier: supplier, isSelf: isSelf, key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToBottomNavBarSupplierView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.bottomNavBarSupplierView,
+      arguments: BottomNavBarSupplierViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithBottomNavBarSupplierView({
+    _i45.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.bottomNavBarSupplierView,
+      arguments: BottomNavBarSupplierViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

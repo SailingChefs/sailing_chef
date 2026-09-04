@@ -116,16 +116,14 @@ class AuthService {
         case 'email-already-in-use':
           showToast(message: 'Email already in use');
         default:
-          showToast(
-              message: 'Failed to login, Your email might not be verified');
+          showToast(message: 'Failed to sign up, please try again');
       }
       EasyLoading.dismiss();
       return false;
     } catch (e) {
       debugPrint('Error signing up: $e');
-
       EasyLoading.dismiss();
-      showToast(message: 'Failed to sign up because $e');
+      showToast(message: 'Something went wrong, please try again');
       return false;
     }
   }
@@ -174,7 +172,13 @@ class AuthService {
           userDetails = await userService.fetchUserByUID(user.uid);
           await userService.storeUserDetails(
               userDetails!.toJson(), userDetails!.uid!);
-          navigationService.replaceWithBottomNavBarView();
+          if (userDetails!.userRole == 'guest') {
+            navigationService.replaceWithBottomBarGuestView();
+          } else if (userDetails!.userRole == 'supplier') {
+            navigationService.replaceWithBottomNavBarSupplierView();
+          } else {
+            navigationService.replaceWithBottomNavBarView();
+          }
         }
 
         // else if (userDetails!.userRole == 'guest') {

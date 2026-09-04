@@ -43,9 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# Android NDK build artifacts
-/android/app/.cxx/
+rubygems-3.4.22/
 
 # FVM Version Cache
 .fvm/
