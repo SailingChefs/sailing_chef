@@ -814,6 +814,14 @@ class AddRecipeViewModel extends BaseViewModel {
 
           // Now rebuild with fresh controllers/state
           rebuildUi();
+
+          // This screen was reached by editing a draft from View all Drafts,
+          // i.e. pushed as its own route on top of the tab-based
+          // BottomNavBarView -- so setIndex(4) alone has nothing to show
+          // (it only affects the IndexedStack underneath, which isn't
+          // visible). Pop back to it now that it's set to the Profile tab,
+          // instead of leaving the user staring at a freshly reset wizard.
+          _navigationService.back<void>();
         }
       } else {
         final shouldClear = await _navigationService.navigateToRecipeViewView(
