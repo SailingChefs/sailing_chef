@@ -208,6 +208,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'boat_name': boatNameController.text,
           'address': address,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -248,6 +249,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'display_name': nameController.text,
           'bio': bioController.text,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -286,6 +288,16 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   Future<void> skipToHome() async {
+    // Skipping is a deliberate way of finishing onboarding (not filling in
+    // every field), so mark it complete here too -- otherwise startup
+    // routing would keep bouncing this account back to UserDetailsView on
+    // every future launch, defeating the point of the Skip button.
+    userDetails!.isProfileComplete = true;
+    await _userService.storeUserDetails(
+      {'is_profile_complete': true},
+      FirebaseAuth.instance.currentUser!.uid,
+    );
+
     if (userDetails!.userRole == 'guest') {
       _navigationService.clearStackAndShowView<Widget>(
         const BottomBarGuestView(),
@@ -349,6 +361,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'business_category': businessCategory,
           'contact_number': contactController.text.trim(),
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );

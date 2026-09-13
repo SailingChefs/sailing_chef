@@ -34,7 +34,15 @@ class AddRecipeView extends StackedView<AddRecipeViewModel> {
             : GestureDetector(
                 onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  // resizeToAvoidBottomInset is false above, so the wizard's
+                  // fixed nav bar (Back/Next) needs to lift above the keyboard
+                  // itself, otherwise it ends up hidden behind it.
+                  padding: EdgeInsets.fromLTRB(
+                    25,
+                    0,
+                    25,
+                    MediaQuery.of(context).viewInsets.bottom,
+                  ),
                   child: Column(
                     children: [
                       verticalSpaceMedium,

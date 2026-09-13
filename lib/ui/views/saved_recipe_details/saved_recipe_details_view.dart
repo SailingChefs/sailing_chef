@@ -6,6 +6,7 @@ import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/maincontainer.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/save_share.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/widgets/top_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
   final RecipeModel recipeModel;
@@ -27,7 +28,7 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
     return Material(
         elevation: 1,
         child: viewModel.isBusy
-            ? const Center()
+            ? const _ShimmerRecipeDetails()
             : WillPopScope(
                 onWillPop: () async {
                   try {
@@ -118,4 +119,50 @@ class SavedRecipeDetailsView extends StackedView<SavedRecipeDetailsViewModel> {
       SavedRecipeDetailsViewModel(
         recipeModel: recipeModel,
       );
+}
+
+// ─── Loading skeleton ─────────────────────────────────────────────────────────
+// Matches the shimmer treatment used elsewhere in the app (e.g. the recipe
+// list) instead of a plain spinner while the recipe's comments/shopping-list
+// data are still loading.
+class _ShimmerRecipeDetails extends StatelessWidget {
+  const _ShimmerRecipeDetails();
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade100,
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.44,
+              color: Colors.white,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(width: 220, height: 22, color: Colors.white),
+                  const SizedBox(height: 12),
+                  Container(width: 140, height: 14, color: Colors.white),
+                  const SizedBox(height: 20),
+                  Container(width: double.infinity, height: 14, color: Colors.white),
+                  const SizedBox(height: 8),
+                  Container(width: double.infinity, height: 14, color: Colors.white),
+                  const SizedBox(height: 8),
+                  Container(width: 180, height: 14, color: Colors.white),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

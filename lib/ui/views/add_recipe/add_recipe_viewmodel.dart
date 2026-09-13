@@ -43,6 +43,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void nextStep() {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (currentStep == 0) {
       if (titleController.text.trim().isEmpty) {
         showToast(message: 'Please add a recipe title');
@@ -87,6 +88,7 @@ class AddRecipeViewModel extends BaseViewModel {
   }
 
   void previousStep() {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (currentStep > 0) {
       pageController.animateToPage(
         currentStep - 1,

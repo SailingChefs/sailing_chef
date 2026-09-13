@@ -22,6 +22,7 @@ class UserModel {
   final String? businessCategory;
   final String? contactNumber;
   bool isAvailable;
+  bool isProfileComplete;
 
   UserModel({
     this.schoolCourses,
@@ -45,6 +46,7 @@ class UserModel {
     this.blockedAccounts,
     this.isAdmin = false,
     this.isAvailable = false,
+    this.isProfileComplete = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -68,6 +70,7 @@ class UserModel {
       'school_courses': schoolCourses,
       'is_admin': isAdmin,
       'is_available': isAvailable,
+      'is_profile_complete': isProfileComplete,
     };
   }
 
@@ -103,6 +106,12 @@ class UserModel {
       namedLocation: data['address'] as String?,
       isAdmin: (data['is_admin'] as bool?) ?? false,
       isAvailable: (data['is_available'] as bool?) ?? false,
+      // Missing field = account predates this flag, so treat it as already
+      // onboarded rather than bouncing every existing user back into
+      // UserDetailsView. Freshly created docs always write this explicitly
+      // (see AuthService/UserServices.storeUserRoleAndName), so a genuine
+      // in-progress signup is never mistaken for a legacy account.
+      isProfileComplete: (data['is_profile_complete'] as bool?) ?? true,
       businessCategory: data['business_category'] as String?,
       contactNumber: data['contact_number'] as String?,
     );

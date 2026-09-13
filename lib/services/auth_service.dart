@@ -172,7 +172,13 @@ class AuthService {
           userDetails = await userService.fetchUserByUID(user.uid);
           await userService.storeUserDetails(
               userDetails!.toJson(), userDetails!.uid!);
-          if (userDetails!.userRole == 'guest') {
+          if (!userDetails!.isProfileComplete) {
+            // Same guard as startup routing: role exists but onboarding was
+            // never finished or skipped -- send them back to it.
+            navigationService.replaceWithUserDetailsView(
+              userRole: userDetails!.userRole ?? '',
+            );
+          } else if (userDetails!.userRole == 'guest') {
             navigationService.replaceWithBottomBarGuestView();
           } else if (userDetails!.userRole == 'supplier') {
             navigationService.replaceWithBottomNavBarSupplierView();
