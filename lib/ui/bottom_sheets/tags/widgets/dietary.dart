@@ -39,7 +39,7 @@ class DietaryNeedTabsFilterSheet extends ViewModelWidget<TagsSheetModel> {
     required Tag tag,
     required VoidCallback onTap,
   }) {
-    final isSelected = viewModel.isSelected(tag);
+    final isSelected = viewModel.isDietaryTagSelected(tag);
     return GestureDetector(
       onTap: onTap,
       child: Container(

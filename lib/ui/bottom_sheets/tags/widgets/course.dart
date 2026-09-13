@@ -39,7 +39,7 @@ class CourseTabBarFilerSheet extends ViewModelWidget<TagsSheetModel> {
     required Tag tag,
     required VoidCallback onTap,
   }) {
-    final isSelected = viewModel.isSelected(tag);
+    final isSelected = viewModel.isCourseTagSelected(tag);
     return GestureDetector(
       onTap: onTap,
       child: Container(

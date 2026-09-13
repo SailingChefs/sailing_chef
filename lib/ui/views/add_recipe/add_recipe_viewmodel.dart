@@ -137,6 +137,10 @@ class AddRecipeViewModel extends BaseViewModel {
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {
+    // Without this, a keyboard left open from an earlier field on this page
+    // (e.g. the recipe title) stayed open behind/under the tags sheet, even
+    // though nothing on the sheet itself is a text field.
+    FocusManager.instance.primaryFocus?.unfocus();
     final result = await _bottomSheetService.showCustomSheet<TagsSheetResponse, dynamic>(
       barrierDismissible: false,
       isScrollControlled: true,

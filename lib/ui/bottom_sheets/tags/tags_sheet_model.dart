@@ -85,12 +85,12 @@ class TagsSheetModel extends BaseViewModel {
     toggleSelection(dietaryNeedsTags, need);
   }
 
-  // Helper function to check if an item is selected
-  bool isSelected(Tag item) {
-    return courseTags.contains(item) ||
-        categoryTags.contains(item) ||
-        dietaryNeedsTags.contains(item);
-  }
+  // Scoped selection checks -- each section only checks its own set, so a
+  // tag selected in Category (or Course) can never make a same-labelled
+  // chip in Dietary Needs render as selected, and vice versa.
+  bool isCourseTagSelected(Tag item) => courseTags.contains(item);
+  bool isCategoryTagSelected(Tag item) => categoryTags.contains(item);
+  bool isDietaryTagSelected(Tag item) => dietaryNeedsTags.contains(item);
 
   bool isTagStringSelected(String tagString) {
     return courseTags.any((tag) => tag.tagString == tagString) ||
