@@ -63,6 +63,13 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   //
+  // csc_picker_plus opens its country/state/city pickers via showDialog()
+  // with an autofocus search TextField inside. When that dialog is popped,
+  // Flutter's route-focus-restoration hands focus back to whatever field was
+  // focused before the dialog opened (typically "Link", the last real text
+  // field before the location picker) -- which pops the keyboard back open
+  // and looks like the cursor "jumped" there. Explicitly unfocusing after
+  // each selection clears that restored focus before it's visible.
   void setCountryValue(String value) {
     countryValue = _normalizeCountryName(value);
     stateValue = '';
@@ -71,6 +78,7 @@ class UserDetailsViewModel extends BaseViewModel {
     manualCityController.clear();
     useManualLocationInputs = false;
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
     unawaited(_resolveCountryLocationMode(countryValue));
   }
@@ -88,6 +96,7 @@ class UserDetailsViewModel extends BaseViewModel {
       cityValue = '';
     }
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
   }
 
@@ -102,6 +111,7 @@ class UserDetailsViewModel extends BaseViewModel {
       cityValue = value;
     }
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
   }
 
