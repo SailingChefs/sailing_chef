@@ -187,9 +187,12 @@ class UserDetailsViewModel extends BaseViewModel {
       }
 
       if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        final user = FirebaseAuth.instance.currentUser!;
-        await user.reload();
-        if (!user.emailVerified) {
+        await FirebaseAuth.instance.currentUser!.reload();
+        // Re-fetch currentUser after reload() rather than reusing the
+        // pre-reload reference -- emailVerified on the stale object doesn't
+        // pick up the refreshed value, which was blocking Save even for
+        // users who had already verified their email.
+        if (!FirebaseAuth.instance.currentUser!.emailVerified) {
           showToast(message: 'Please verify your email first');
           return;
         }
