@@ -1,9 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/conversation_service.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,26 +50,22 @@ class SupplierProfileViewModel extends BaseViewModel {
   Future<void> messageSupplier() async {
     if (_isProcessing) return;
     _isProcessing = true;
-    EasyLoading.show();
     notifyListeners();
     try {
-      final conversation = ConversationModel(
-        latestMessage: '',
-        users: [FirebaseAuth.instance.currentUser!.uid, supplier.uid!],
-        latestMessageType: 'text',
-        latestMessageTime: DateTime.now(),
-        lastActive: DateTime.now(),
-        uid: '',
+      // Computed client-side, no Firestore write here -- the conversation
+      // document is only created once a message is actually sent (see
+      // ConversationService.sendMessage), so backing out of an empty chat
+      // no longer leaves a chatroom behind for either side. Matches the fix
+      // already applied to the other "Message"/"Enquire" entry points.
+      final conversationId = _conversationService.conversationIdFor(
+        [FirebaseAuth.instance.currentUser!.uid, supplier.uid!],
       );
-      final conversationId =
-          await _conversationService.createOrUpdateConversation(conversation);
       _navigationService.navigateToChatView(
           messageFromCource: '', receiver: supplier, conversationId: conversationId);
     } catch (e) {
       log('SupplierProfileViewModel.messageSupplier: $e');
     } finally {
       _isProcessing = false;
-      EasyLoading.dismiss();
       notifyListeners();
     }
   }
