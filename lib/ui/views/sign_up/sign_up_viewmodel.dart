@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
@@ -84,6 +85,10 @@ class SignUpViewModel extends BaseViewModel {
       );
       final userRegistered = await _authService.signUp(
           password: passwordController.text.trim(), userModel: signupUser);
+
+      // Signals the autofill "session" is done and offers saving the new
+      // credential -- pairs with the newPassword autofillHint on the form.
+      TextInput.finishAutofillContext(shouldSave: userRegistered);
 
       if (userRegistered) {
         _navigationService.replaceWithUserDetailsView(

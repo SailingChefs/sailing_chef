@@ -99,131 +99,132 @@ class LoginView extends StackedView<LoginViewModel> {
                       verticalSpace(MediaQuery.of(context).size.height * 0.060),
                       Form(
                         key: viewModel.formKey,
-                        child: Column(
-                          children: [
-                            RoundedTransparentTextField(
-                              controller: viewModel.emailController,
-                              fillColor: filledcolorlogin.withOpacity(0.3),
-                              labelText: 'email',
-                              validator: viewModel.validateEmail,
-                              onChanged: (value) => viewModel.rebuildUi(),
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            verticalSpace(
-                                MediaQuery.of(context).size.height * 0.027),
-                            RoundedTransparentTextField(
-                              controller: viewModel.passwordController,
-                              labelText: 'password',
-                              ispassvisible: viewModel.showPassword,
-                              onChanged: (value) => viewModel.rebuildUi(),
-                              fillColor: filledcolorlogin.withOpacity(0.3),
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: !viewModel.showPassword,
-                              suffixIconbool: true,
-                              isPasswordVisible: viewModel.showPassword,
-                              onVisibilityToggle: () {
-                                viewModel.passwordVisibility();
-                                viewModel.showPassword;
-                              },
-                              validator: viewModel.validatePassword,
-                            ),
-                            verticalSpace(
-                                MediaQuery.of(context).size.height * 0.014),
-                            CustomTextButton(
-                              onPressed: () {
-                                viewModel.vaigateToForgetPassword();
-                              },
-                              buttonText: 'Forgot password?',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                            ),
-                            verticalSpace(
-                                MediaQuery.of(context).size.height * 0.045),
-                            RoundedElevatedButton(
-                              onPressed: viewModel.login,
-                              textColor: kclightgreencolor,
-                              buttonText: 'Log in',
-                              width: 144.dg,
-                              height: 40.dg,
-                              textFontSize: 18.sp,
-                              isEnabled: viewModel.isLoginButtonEnabled(),
-                            ),
-                            verticalSpace(
-                                MediaQuery.of(context).size.height * 0.03),
-                            Row(
-                              children: [
-                                const Expanded(
-                                  child: Divider(
-                                    color: kcPrimaryColor,
-                                    indent: 95,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text(
-                                    'or',
-                                    style: globalTextStyle(
-                                      fontSize: 14.sp,
-                                      color: kcWhiteColor,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                                const Expanded(
-                                  child: Divider(
-                                    color: kcPrimaryColor,
-                                    endIndent: 95,
-                                    thickness: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(
-                                MediaQuery.of(context).size.height * 0.05),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.height * 0.4,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  viewModel.signInWithGoogleAccount();
+                        // Groups the email+password fields so the platform
+                        // treats them as one login credential pair -- needed
+                        // for both the "save password?" prompt and prefill
+                        // on a later login.
+                        child: AutofillGroup(
+                          child: Column(
+                            children: [
+                              RoundedTransparentTextField(
+                                controller: viewModel.emailController,
+                                fillColor: filledcolorlogin.withOpacity(0.3),
+                                labelText: 'email',
+                                validator: viewModel.validateEmail,
+                                onChanged: (value) => viewModel.rebuildUi(),
+                                keyboardType: TextInputType.emailAddress,
+                                autofillHints: const [AutofillHints.email],
+                              ),
+                              verticalSpace(MediaQuery.of(context).size.height * 0.027),
+                              RoundedTransparentTextField(
+                                controller: viewModel.passwordController,
+                                labelText: 'password',
+                                ispassvisible: viewModel.showPassword,
+                                onChanged: (value) => viewModel.rebuildUi(),
+                                fillColor: filledcolorlogin.withOpacity(0.3),
+                                keyboardType: TextInputType.visiblePassword,
+                                obscureText: !viewModel.showPassword,
+                                suffixIconbool: true,
+                                isPasswordVisible: viewModel.showPassword,
+                                onVisibilityToggle: () {
+                                  viewModel.passwordVisibility();
+                                  viewModel.showPassword;
                                 },
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(
-                                    color: kcPrimaryColor,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 50),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const SizedBox(),
-                                    const SizedBox(),
-                                    SvgPicture.asset(
-                                      'assets/images/logo/google.svg',
-                                      height: 40,
-                                      width: 40,
-                                      color: kcwhitecolor,
+                                validator: viewModel.validatePassword,
+                                autofillHints: const [AutofillHints.password],
+                              ),
+                              verticalSpace(MediaQuery.of(context).size.height * 0.014),
+                              CustomTextButton(
+                                onPressed: () {
+                                  viewModel.vaigateToForgetPassword();
+                                },
+                                buttonText: 'Forgot password?',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
+                              ),
+                              verticalSpace(MediaQuery.of(context).size.height * 0.045),
+                              RoundedElevatedButton(
+                                onPressed: viewModel.login,
+                                textColor: kclightgreencolor,
+                                buttonText: 'Log in',
+                                width: 144.dg,
+                                height: 40.dg,
+                                textFontSize: 18.sp,
+                                isEnabled: viewModel.isLoginButtonEnabled(),
+                              ),
+                              verticalSpace(MediaQuery.of(context).size.height * 0.03),
+                              Row(
+                                children: [
+                                  const Expanded(
+                                    child: Divider(
+                                      color: kcPrimaryColor,
+                                      indent: 95,
+                                      thickness: 1,
                                     ),
-                                    Text(
-                                      'Sign in with Google',
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Text(
+                                      'or',
                                       style: globalTextStyle(
-                                        color: kcwhitecolor,
-                                        fontSize: 15,
+                                        fontSize: 14.sp,
+                                        color: kcWhiteColor,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                    const SizedBox(),
-                                    const SizedBox(),
-                                  ],
+                                  ),
+                                  const Expanded(
+                                    child: Divider(
+                                      color: kcPrimaryColor,
+                                      endIndent: 95,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpace(MediaQuery.of(context).size.height * 0.05),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.height * 0.4,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    viewModel.signInWithGoogleAccount();
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: kcPrimaryColor,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(),
+                                      const SizedBox(),
+                                      SvgPicture.asset(
+                                        'assets/images/logo/google.svg',
+                                        height: 40,
+                                        width: 40,
+                                        color: kcwhitecolor,
+                                      ),
+                                      Text(
+                                        'Sign in with Google',
+                                        style: globalTextStyle(
+                                          color: kcwhitecolor,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      const SizedBox(),
+                                      const SizedBox(),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],

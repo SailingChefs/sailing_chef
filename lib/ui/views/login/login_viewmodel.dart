@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
@@ -61,6 +62,12 @@ class LoginViewModel extends BaseViewModel {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      // Tells the platform the autofill "session" for this form is done and
+      // whether to offer saving/updating the credential -- without this the
+      // save-password prompt on iOS is unreliable even with autofillHints
+      // set on the fields.
+      TextInput.finishAutofillContext(shouldSave: success);
 
       if (success) {
         userDetails = await _userService.getUserDetails();
