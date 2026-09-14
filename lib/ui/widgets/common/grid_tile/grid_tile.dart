@@ -70,17 +70,43 @@ class PrimaryGridTile extends StackedView<GridTileModel> {
                       topLeft: Radius.circular(15.0.r),
                       topRight: Radius.circular(15.0.r),
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl: foodImagePath,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          Container(
-                        decoration: const BoxDecoration(
-                          color: kcsgreycolor,
-                        ),
-                      ),
-                    ),
+                    // Without a validity check + errorWidget, a recipe with
+                    // no usable cover image (foodImagePath == '', e.g. the
+                    // upload silently failed) rendered as a permanent grey
+                    // block: CachedNetworkImage can't even attempt to fetch
+                    // an empty URL, and had nothing to fall back to.
+                    child: ImageUtils.isValidImageUrl(foodImagePath)
+                        ? CachedNetworkImage(
+                            imageUrl: foodImagePath,
+                            fit: BoxFit.cover,
+                            width: double.maxFinite,
+                            progressIndicatorBuilder:
+                                (context, url, progress) => Container(
+                              decoration: const BoxDecoration(
+                                color: kcsgreycolor,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              decoration: const BoxDecoration(
+                                color: kcsgreycolor,
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.broken_image_outlined,
+                                color: kcBlackColor.withOpacity(0.3),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            decoration: const BoxDecoration(
+                              color: kcsgreycolor,
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.image_outlined,
+                              color: kcBlackColor.withOpacity(0.3),
+                            ),
+                          ),
                   ),
                 ),
                 verticalSpaceTiny,

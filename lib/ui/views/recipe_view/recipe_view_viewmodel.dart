@@ -182,8 +182,14 @@ class RecipeViewViewModel extends BaseViewModel {
   Future<void> saveRecipe(
       RecipeModel recipe, List<XFile?> selectedImages) async {
     log('to Recipe List');
-    final imageUrls = await _recipeService.uploadMediaToFirebase(
-        selectedImages, recipe.docId!);
+    // Generate the doc id upfront for a brand-new recipe (recipe.docId is ''
+    // at this point) instead of uploading media under an empty-id Storage
+    // path (recipes//images/...) and only getting a real id afterwards --
+    // that mismatch could silently fail the upload (or orphan the files),
+    // leaving coverImage empty and the recipe rendering as a grey block.
+    final docId = _recipeService.ensureRecipeId(recipe.docId);
+    final imageUrls =
+        await _recipeService.uploadMediaToFirebase(selectedImages, docId);
     // String chefNote = '';
     // if (path!.isNotEmpty) {
     //   chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
@@ -205,7 +211,7 @@ class RecipeViewViewModel extends BaseViewModel {
           title: recipe.title,
           tags: recipe.tags,
           uid: recipe.uid,
-          docId: recipe.docId,
+          docId: docId,
           waveForm: waveFormData == null ? [] : waveFormData!,
         ),
       );
@@ -224,8 +230,11 @@ class RecipeViewViewModel extends BaseViewModel {
 
   Future<void> saveRecipeToPrivate(
       RecipeModel recipe, List<XFile?> selectedImages) async {
-    final imageUrls = await _recipeService.uploadMediaToFirebase(
-        selectedImages, recipe.docId!);
+    // Same fix as saveRecipe(): resolve a real doc id before uploading so
+    // media isn't namespaced under an empty-id Storage path.
+    final docId = _recipeService.ensureRecipeId(recipe.docId);
+    final imageUrls =
+        await _recipeService.uploadMediaToFirebase(selectedImages, docId);
     var chefNote = '';
     if (path!.isNotEmpty) {
       chefNote = await _recipeService.uploadChefNoteToFirebaseStorage(path!);
@@ -246,7 +255,7 @@ class RecipeViewViewModel extends BaseViewModel {
             title: recipe.title,
             tags: recipe.tags,
             uid: recipe.uid,
-            docId: recipe.docId,
+            docId: docId,
             waveForm: waveFormData == null ? [] : waveFormData!,
           ))
           .then((value) => navigationService.navigateToPrivateRecipesView());
