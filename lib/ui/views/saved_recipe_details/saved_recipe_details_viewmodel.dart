@@ -15,7 +15,6 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
-import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
@@ -355,19 +354,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
-    final conversationModel = ConversationModel(
-      latestMessage: '',
-      users: [
-        FirebaseAuth.instance.currentUser!.uid,
-        chef.uid!,
-      ],
-      latestMessageType: 'text',
-      latestMessageTime: DateTime.now(),
-      lastActive: DateTime.now(),
-      uid: '',
+    // Same fix as chef_profile_viewmodel's moveToChatScreen: compute the
+    // deterministic conversation id client-side instead of eagerly creating
+    // an (empty) conversation document on tap -- it's only created once a
+    // message is actually sent.
+    final conversationId = _serviceConversations.conversationIdFor(
+      [FirebaseAuth.instance.currentUser!.uid, chef.uid!],
     );
-    final conversationId =
-        await _serviceConversations.createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
         messageFromCource: '', receiver: chef, conversationId: conversationId);

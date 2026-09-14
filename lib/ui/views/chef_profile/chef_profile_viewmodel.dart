@@ -5,7 +5,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/cullinary_cources.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -186,19 +185,13 @@ class ChefProfileViewModel extends ReactiveViewModel {
     notifyListeners();
 
     try {
-      final conversationModel = ConversationModel(
-        latestMessage: '',
-        users: [
-          FirebaseAuth.instance.currentUser!.uid,
-          chef.uid!,
-        ],
-        latestMessageType: 'text',
-        latestMessageTime: DateTime.now(),
-        lastActive: DateTime.now(),
-        uid: '',
+      // Computed client-side, no Firestore write here -- the conversation
+      // document is only created once a message is actually sent (see
+      // ConversationService.sendMessage), so backing out of an empty chat
+      // no longer leaves a chatroom behind for either side.
+      final conversationId = _serviceConversations.conversationIdFor(
+        [FirebaseAuth.instance.currentUser!.uid, chef.uid!],
       );
-      final conversationId =
-          await _serviceConversations.createOrUpdateConversation(conversationModel);
       log('conversationId: $conversationId');
       _navigationService.navigateToChatView(
           messageFromCource: '', receiver: chef, conversationId: conversationId);
@@ -263,19 +256,11 @@ class ChefProfileViewModel extends ReactiveViewModel {
   }
 
   Future<void> moveToChatScreenWithMessage(UserModel chef, String message) async {
-    final conversationModel = ConversationModel(
-      latestMessage: '',
-      users: [
-        FirebaseAuth.instance.currentUser!.uid,
-        chef.uid!,
-      ],
-      latestMessageType: 'text',
-      latestMessageTime: DateTime.now(),
-      lastActive: DateTime.now(),
-      uid: '',
+    // Same as moveToChatScreen: no conversation document until the enquiry
+    // is actually sent.
+    final conversationId = _serviceConversations.conversationIdFor(
+      [FirebaseAuth.instance.currentUser!.uid, chef.uid!],
     );
-    final conversationId =
-        await _serviceConversations.createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
         messageFromCource: message, receiver: chef, conversationId: conversationId);
