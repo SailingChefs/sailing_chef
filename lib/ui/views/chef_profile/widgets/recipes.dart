@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
@@ -92,8 +93,8 @@ class RecipesProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                           recipe: viewModel.chefRecipes[index],
                           onTap: () => viewModel.toDishDetailsScreen(index),
                           foodImagePath: viewModel.chefRecipes[index].coverImage
-                              .where((element) => element.contains('.jpg'))
-                              .first,
+                              .firstWhere((element) => element.isFirebaseImageUrl,
+                                  orElse: () => ''),
                           dishName: viewModel.chefRecipes[index].title,
                           duration: viewModel.chefRecipes[index].prepTime,
                           chefImagePath: viewModel

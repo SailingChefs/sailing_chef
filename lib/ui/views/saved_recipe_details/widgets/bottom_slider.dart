@@ -1,6 +1,8 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
@@ -57,19 +59,26 @@ class BottomSlider extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                                       SizedBox(
                                         width: 140.w,
                                         height: 180.h,
-                                        child: ClipRRect(
+                                        child: ImageUtils.networkImageWithFallback(
+                                          // .contains('jpg') dropped any
+                                          // cover image not literally named
+                                          // ".jpg" (.png/.jpeg/.heic, etc.),
+                                          // and .first threw when nothing
+                                          // matched. isFirebaseImageUrl
+                                          // recognises every common image
+                                          // extension, and the fallback
+                                          // helper handles both "no match"
+                                          // and genuine load failures.
+                                          imageUrl: recipeList[index]
+                                              .coverImage
+                                              .firstWhere(
+                                                  (element) =>
+                                                      element.isFirebaseImageUrl,
+                                                  orElse: () => ''),
+                                          width: 140.w,
+                                          height: 160.h,
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(22.7.dg),
-                                          ),
-                                          child: Image.network(
-                                            recipeList[index]
-                                                .coverImage
-                                                .where((element) =>
-                                                    element.contains('jpg'))
-                                                .first,
-                                            fit: BoxFit.cover,
-                                            width: 140.w,
-                                            height: 160.h,
                                           ),
                                         ),
                                       ),

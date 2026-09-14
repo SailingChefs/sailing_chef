@@ -1,3 +1,4 @@
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/widgets/search_bar_following.dart';
@@ -33,8 +34,8 @@ class FollowingSavedRecipesScreen
                   recipe: recipe,
                   onTap: () => viewModel.toDishDetailsScreen(recipe),
                   foodImagePath: recipe.coverImage
-                      .where((element) => element.contains('.jpg'))
-                      .first,
+                      .firstWhere((element) => element.isFirebaseImageUrl,
+                          orElse: () => ''),
                   dishName: recipe.title,
                   duration: recipe.prepTime,
                   chefImagePath: recipe.user!.displayPicture!);
@@ -65,8 +66,8 @@ class FollowingSavedRecipesScreen
                             viewModel.followingRecipes[index]),
                         foodImagePath: viewModel
                             .followingRecipes[index].coverImage
-                            .where((element) => element.contains('.jpg'))
-                            .first,
+                            .firstWhere((element) => element.isFirebaseImageUrl,
+                                orElse: () => ''),
                         dishName: viewModel.followingRecipes[index].title,
                         duration: viewModel.followingRecipes[index].prepTime,
                         chefImagePath: viewModel
