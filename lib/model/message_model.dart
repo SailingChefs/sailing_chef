@@ -19,13 +19,20 @@ class MessageModel {
   factory MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()! as Map<String, dynamic>;
 
+    // Every field used to be a hard `as String`/`as Timestamp` cast, so a
+    // legacy message doc missing any one of them (e.g. written before
+    // fileName existed) threw here -- caught by the per-document try/catch
+    // in ConversationService.getMessages, which just logs and drops the
+    // message with no indication to either participant that anything is
+    // missing from the conversation. Defaulting missing fields keeps those
+    // messages visible instead of silently disappearing.
     return MessageModel(
-      content: data['content'] as String,
-      receiverId: data['receiverId'] as String,
-      senderId: data['senderId'] as String,
-      timestamp: (data['timestamp'] as Timestamp).toDate(),
-      type: data['type'] as String,
-      fileName: data['fileName'] as String,
+      content: data['content'] as String? ?? '',
+      receiverId: data['receiverId'] as String? ?? '',
+      senderId: data['senderId'] as String? ?? '',
+      timestamp: (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      type: data['type'] as String? ?? 'String',
+      fileName: data['fileName'] as String? ?? '',
     );
   }
 
