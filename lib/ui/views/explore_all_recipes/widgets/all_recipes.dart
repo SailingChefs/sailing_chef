@@ -32,9 +32,14 @@ class AllRecipesScreen extends ViewModelWidget<ExploreAllRecipesViewModel> {
                     recipe: recipes[index],
                     onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
                     foodImagePath: recipes[index]
-                        .coverImage
-                        .where((element) => element.isFirebaseImageUrl)
-                        .first,
+                            .coverImage
+                            .where((element) => element.isFirebaseImageUrl)
+                            .isNotEmpty
+                        ? recipes[index]
+                            .coverImage
+                            .where((element) => element.isFirebaseImageUrl)
+                            .first
+                        : '',
                     dishName: recipes[index].title,
                     duration: recipes[index].prepTime,
                     chefImagePath: recipes[index].user!.displayPicture != null

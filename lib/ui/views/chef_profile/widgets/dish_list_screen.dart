@@ -37,10 +37,16 @@ class DishListScreen extends ViewModelWidget<ChefProfileViewModel> {
                               recipe: recipes[index],
                               onTap: () => viewModel.toDishDetailsScreen(index),
                               foodImagePath: recipes[index]
-                                  .coverImage
-                                  .where(
-                                      (element) => element.isFirebaseImageUrl)
-                                  .first,
+                                      .coverImage
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
+                                      .isNotEmpty
+                                  ? recipes[index]
+                                      .coverImage
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
+                                      .first
+                                  : '',
                               dishName: recipes[index].title,
                               duration: recipes[index].prepTime,
                               chefImagePath: user.displayPicture == null
