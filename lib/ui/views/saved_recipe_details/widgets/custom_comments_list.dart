@@ -109,9 +109,25 @@ class CustomListTileComments extends StatelessWidget {
     );
   }
 
+  // dd-MM-yyyy read the same on every device regardless of locale -- a
+  // US reader expecting MM/dd/yyyy would misread it. DateFormat.yMd()
+  // renders the device's own locale-appropriate field order instead. It
+  // needs that locale's data preloaded via initializeDateFormatting(),
+  // which isn't set up app-wide, so fall back to the original fixed
+  // format rather than crash for a locale that isn't initialized -- the
+  // exact locales this fix is meant to help.
+  String _formatDate(BuildContext context, Timestamp timestamp) {
+    final locale = Localizations.maybeLocaleOf(context)?.toString();
+    try {
+      return DateFormat.yMd(locale).format(timestamp.toDate());
+    } catch (_) {
+      return DateFormat('dd-MM-yyyy').format(timestamp.toDate());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat('dd-MM-yyyy').format(date.toDate());
+    final formattedDate = _formatDate(context, date);
     return Column(
       children: [
         ListTile(

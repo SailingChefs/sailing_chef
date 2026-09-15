@@ -11,6 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:media_cache_manager/media_cache_manager.dart';
 import 'package:sailing_chefs/app/app.bottomsheets.dart';
 import 'package:sailing_chefs/app/app.dialogs.dart';
@@ -34,6 +35,14 @@ const String _kServerClientId =
 void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    // Loads intl's locale symbol/pattern data for every bundled locale --
+    // without this, DateFormat.yMd(locale) (used for the locale-aware
+    // comment timestamp) throws for any locale other than intl's built-in
+    // default and falls back to a fixed format, defeating the point of the
+    // fix for non-English devices.
+    await initializeDateFormatting();
+
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
