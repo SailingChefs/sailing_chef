@@ -1,7 +1,9 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/unit_conversion_service.dart';
 import 'package:sailing_chefs/ui/views/saved_recipe_details/saved_recipe_details_viewmodel.dart';
 
 class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
@@ -10,7 +12,12 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
 
   List<Widget> createIngredientWidgets(
       List<Ingredient> ingredients, SavedRecipeDetailsViewModel viewModel) {
+    final pref = userDetails?.unitPreference ?? 'metric';
     return ingredients.map((ingredient) {
+      final scaledQty =
+          viewModel.parseQuantity(ingredient.quantity, ingredient.serving);
+      final converted =
+          UnitConversionService.convertForDisplay(scaledQty, ingredient.unit, pref);
       return Column(
         children: [
           SizedBox(height: 16.0.h),
@@ -38,7 +45,7 @@ class IngredientsClass extends ViewModelWidget<SavedRecipeDetailsViewModel> {
                       //       )),
                       // ),
                       Text(
-                        '${viewModel.parseQuantity(ingredient.quantity, ingredient.serving)} ${ingredient.unit}',
+                        '${converted.quantity} ${converted.unit}',
                         style: globalTextStyle(
                           color: kcBlackColor.withOpacity(0.87),
                           letterSpacing: -0.3,

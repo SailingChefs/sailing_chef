@@ -103,6 +103,32 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
             size: 14.dg,
           ),
         ),
+        Divider(
+          color: kcBlackColor.withOpacity(0.08),
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+          title: Text(
+            'Unit System',
+            style: globalTextStyle(
+              fontSize: 14.0.dg,
+              color: kcBlackColor,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          subtitle: Text(
+            viewModel.isMetric ? 'Metric (g, ml, …)' : 'Imperial (oz, cup, …)',
+            style: globalTextStyle(
+              fontSize: 12.0.dg,
+              color: kcBlackColor.withOpacity(0.5),
+              letterSpacing: -0.3,
+            ),
+          ),
+          value: viewModel.isMetric,
+          activeThumbColor: kcPrimaryColorDark,
+          onChanged: viewModel.toggleUnitPreference,
+        ),
         if (userDetails!.userRole == 'guest')
           Column(
             children: [

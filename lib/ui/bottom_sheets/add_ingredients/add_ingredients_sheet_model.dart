@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/units.dart';
 import 'package:sailing_chefs/main.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/ui/bottom_sheets/add_ingredients/add_ingredients_sheet.dart';
@@ -13,17 +14,7 @@ class AddIngredientsSheetModel extends BaseViewModel {
   final quantityController = TextEditingController();
   final ingredientNameController = TextEditingController();
 
-  List<String> values = [
-    '---',
-    'As needed',
-    'bag',
-    'block',
-    'bottle',
-    'box',
-    'bulb',
-    'bunch',
-    'bowl'
-  ];
+  List<String> values = kAllUnits;
   List<Ingredient> ingredientsList = [];
 
   void updateValue(String value) {

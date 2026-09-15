@@ -1,7 +1,9 @@
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
+import 'package:sailing_chefs/services/unit_conversion_service.dart';
 import 'package:sailing_chefs/ui/views/recipe_view/recipe_view_viewmodel.dart';
 
 class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
@@ -13,13 +15,16 @@ class IngredientsClass extends ViewModelWidget<RecipeViewViewModel> {
   });
 
   List<Widget> createIngredientWidgets(List<Ingredient> ingredients) {
+    final pref = userDetails?.unitPreference ?? 'metric';
     return ingredients.map((ingredient) {
+      final converted = UnitConversionService.convertForDisplay(
+          ingredient.quantity, ingredient.unit, pref);
       return Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${ingredient.quantity} ${ingredient.unit}',
+              Text('${converted.quantity} ${converted.unit}',
                   style: globalTextStyle(
                     color: kcBlackColor.withOpacity(0.87),
                     letterSpacing: -0.3,

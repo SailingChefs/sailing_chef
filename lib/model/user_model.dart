@@ -20,6 +20,7 @@ class UserModel {
   final String? namedLocation;
   final bool isAdmin;
   bool isProfileComplete;
+  String unitPreference;
 
   UserModel({
     this.schoolCourses,
@@ -41,6 +42,7 @@ class UserModel {
     this.blockedAccounts,
     this.isAdmin = false,
     this.isProfileComplete = false,
+    this.unitPreference = 'metric',
   });
 
   Map<String, dynamic> toJson() {
@@ -62,6 +64,7 @@ class UserModel {
       'school_courses': schoolCourses,
       'is_admin': isAdmin,
       'is_profile_complete': isProfileComplete,
+      'unit_preference': unitPreference,
     };
   }
 
@@ -99,6 +102,7 @@ class UserModel {
       // Missing field means the account predates this flag -- default to
       // true so existing accounts aren't bounced back to UserDetailsView.
       isProfileComplete: (data['is_profile_complete'] as bool?) ?? true,
+      unitPreference: (data['unit_preference'] as String?) ?? 'metric',
     );
   }
 }

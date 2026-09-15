@@ -1,4 +1,5 @@
 import 'package:sailing_chefs/core/imports/core_imports.dart';
+import 'package:sailing_chefs/core/units.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 
 class EditIngredientSheetModel extends BaseViewModel {
@@ -29,17 +30,7 @@ class EditIngredientSheetModel extends BaseViewModel {
     rebuildUi();
   }
 
-  List<String> values = [
-    '---',
-    'As needed',
-    'bag',
-    'block',
-    'bottle',
-    'box',
-    'bulb',
-    'bunch',
-    'bowl'
-  ]; // Example values
+  List<String> values = kAllUnits;
   void updateValue(String value) {
     selectedValue = value;
     notifyListeners();

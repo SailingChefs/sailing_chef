@@ -1,12 +1,29 @@
 import 'package:sailing_chefs/app/app.dialogs.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/services/auth_service.dart';
+import 'package:sailing_chefs/services/user_services.dart';
 import 'package:sailing_chefs/ui/views/onboarding/onboarding_view.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final _dialogService = locator<DialogService>();
+  final _userServices = locator<UserServices>();
+
+  bool get isMetric => (userDetails?.unitPreference ?? 'metric') == 'metric';
+
+  Future<void> toggleUnitPreference(bool metric) async {
+    final pref = metric ? 'metric' : 'imperial';
+    userDetails?.unitPreference = pref;
+    rebuildUi();
+    try {
+      await _userServices.updateUnitPreference(pref);
+    } catch (_) {
+      // Firestore write failed; in-memory preference is already updated
+      // so the UI stays consistent for the remainder of the session.
+    }
+  }
 
   @override
   void getBack() {

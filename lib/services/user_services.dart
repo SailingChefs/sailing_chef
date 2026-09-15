@@ -223,6 +223,13 @@ class UserServices with ListenableServiceMixin {
     }
   }
 
+  Future<void> updateUnitPreference(String preference) async {
+    await firebasestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .update({'unit_preference': preference});
+  }
+
   Future<void> clickOnForgetPassword({required String email}) async {
     try {
       EasyLoading.show();
