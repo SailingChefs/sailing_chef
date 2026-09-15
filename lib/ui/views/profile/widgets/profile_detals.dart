@@ -47,6 +47,18 @@ class ProfileDetailsProfileScreen extends ViewModelWidget<ProfileViewModel> {
                               color: kcsgreycolor,
                             ),
                           ),
+                          // Without this, a broken/expired image URL left
+                          // the loading placeholder above stuck on screen
+                          // forever.
+                          errorWidget: (context, url, error) => DecoratedBox(
+                            decoration: const BoxDecoration(
+                              color: kcsgreycolor,
+                            ),
+                            child: Icon(
+                              Icons.broken_image_outlined,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ),
                 ),
               ),
