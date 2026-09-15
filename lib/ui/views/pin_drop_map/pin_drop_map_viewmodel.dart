@@ -73,7 +73,13 @@ class PinDropMapViewModel extends BaseViewModel {
         onTimeout: () => throw TimeoutException('Location fetch timed out'),
       );
     } catch (e) {
-      await Geolocator.getLastKnownPosition();
+      // The fetched position was never assigned back to currentPosition --
+      // the map silently fell back to the field default (0, 0) instead of
+      // the device's last-known location.
+      final lastKnownPosition = await Geolocator.getLastKnownPosition();
+      if (lastKnownPosition != null) {
+        currentPosition = lastKnownPosition;
+      }
 
       log('Error in onViewModelReady: $e');
       showErrorDialog('Failed to initialize map: $e');
