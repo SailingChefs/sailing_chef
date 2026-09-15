@@ -84,7 +84,7 @@ class UnitConversionService {
     } else {
       final flOz = ml / 29.5735;
       if (flOz >= 8) {
-        return (quantity: _trimFixed(ml / 236.588, 2), unit: 'cup');
+        return (quantity: _roundToCupFraction(ml / 236.588), unit: 'cup');
       }
       return (quantity: _trimFixed(flOz, 1), unit: 'fl oz');
     }
@@ -109,6 +109,34 @@ class UnitConversionService {
       }
     }
     return num.tryParse(s);
+  }
+
+  // Round a cup quantity to the nearest common kitchen fraction
+  // (¼, ⅓, ½, ⅔, ¾, or whole). Outputs Unicode fraction characters so
+  // the result reads as "2½" rather than "2.5".
+  static String _roundToCupFraction(double cups) {
+    final whole = cups.floor();
+    final frac = cups - whole;
+
+    const fracValues = [0.0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4, 1.0];
+    const fracLabels = ['', '¼', '⅓', '½', '⅔', '¾', ''];
+
+    var nearestIdx = 0;
+    var nearestDiff = (fracValues[0] - frac).abs();
+    for (var i = 1; i < fracValues.length; i++) {
+      final diff = (fracValues[i] - frac).abs();
+      if (diff < nearestDiff) {
+        nearestDiff = diff;
+        nearestIdx = i;
+      }
+    }
+
+    final roundsToOne = nearestIdx == fracValues.length - 1;
+    final w = roundsToOne ? whole + 1 : whole;
+    final label = roundsToOne ? '' : fracLabels[nearestIdx];
+
+    if (w == 0) return label.isEmpty ? '0' : label;
+    return label.isEmpty ? '$w' : '$w$label';
   }
 
   // Round to `places` decimal places and strip a trailing ".0".
