@@ -150,11 +150,15 @@ class PinDropService with ListenableServiceMixin {
       final docId = docRef.id;
 
       await docRef.update({'doc_id': docId});
-      pins
-          .where((element) => element.id == reviews.pindropId)
-          .first
-          .reviews!
-          .add(reviews);
+      // The Firestore write above already succeeded -- guard the local
+      // cache update separately so a stale/missing pin in the local `pins`
+      // list doesn't throw here and get reported to the user as a failed
+      // review, when the review was actually saved.
+      final matchingPins =
+          pins.where((element) => element.id == reviews.pindropId);
+      if (matchingPins.isNotEmpty) {
+        matchingPins.first.reviews!.add(reviews);
+      }
       EasyLoading.dismiss();
       showToast(message: 'review added successfully');
       return true;
