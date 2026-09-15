@@ -43,6 +43,24 @@ class ManagePins extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Previously an empty tab rendered a blank ListView with nothing to
+    // tell the admin whether the list was actually empty or still loading.
+    if (pins.isEmpty) {
+      return SizedBox(
+        height: screenHeight(context) * 0.7,
+        width: double.infinity,
+        child: Center(
+          child: Text(
+            'No pins to show',
+            style: globalTextStyle(
+              fontSize: 14,
+              color: kcPrimaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      );
+    }
     return ListView.builder(
       itemCount: pins.length,
       itemBuilder: (context, index) {
