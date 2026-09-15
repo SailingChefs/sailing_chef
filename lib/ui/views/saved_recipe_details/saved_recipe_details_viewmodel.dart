@@ -462,8 +462,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       commentController.clear();
       images.clear();
       rating = 0;
-      RecipeService.recipes.where((element) => element.docId == recipeId).first.rating =
-          calculateAverageRating(commentService.comments);
+      // The comment write above already succeeded -- guard the local cache
+      // update separately so a recipe that isn't in the in-memory
+      // RecipeService.recipes list (private recipe, deep-linked recipe, or
+      // one from a chef you don't follow) doesn't crash the app afterwards.
+      final matchingRecipes =
+          RecipeService.recipes.where((element) => element.docId == recipeId);
+      if (matchingRecipes.isNotEmpty) {
+        matchingRecipes.first.rating = calculateAverageRating(commentService.comments);
+      }
       rebuildUi();
       showToast(message: 'Comment Added');
     }
