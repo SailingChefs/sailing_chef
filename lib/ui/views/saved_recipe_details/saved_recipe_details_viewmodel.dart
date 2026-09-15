@@ -84,9 +84,17 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         final fraction = Fraction.fromString(quantity);
         final result = fraction * Fraction(serving); // Convert int serving to Fraction
         return result.toString();
-      } // If it's a whole number, just multiply it as an integer
-      final parsedQuantity = int.parse(quantity);
-      return (parsedQuantity * serving).toString();
+      }
+      // num.parse handles both whole numbers ("2") and decimals ("1.5") --
+      // the previous int.parse() threw on any decimal quantity, was
+      // silently swallowed by the catch below, and returned the ingredient
+      // unscaled with no indication to the user that it hadn't adjusted.
+      final parsedQuantity = num.parse(quantity);
+      final scaled = parsedQuantity * serving;
+      // Render a whole result as "4" rather than "4.0".
+      return scaled == scaled.roundToDouble()
+          ? scaled.toInt().toString()
+          : scaled.toString();
     } catch (e) {
       // Handle parsing error, if any
       print('Error parsing quantity: $e');
