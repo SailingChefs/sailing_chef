@@ -26,6 +26,8 @@ class UserDetailsViewModel extends BaseViewModel {
   final TextEditingController bioController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
   final TextEditingController boatNameController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  String businessCategory = '';
   final TextEditingController locationController = TextEditingController();
   final TextEditingController manualStateController = TextEditingController();
   final TextEditingController manualCityController = TextEditingController();
@@ -206,6 +208,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'boat_name': boatNameController.text,
           'address': address,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -246,6 +249,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'display_name': nameController.text,
           'bio': bioController.text,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -284,6 +288,16 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   Future<void> skipToHome() async {
+    // Skipping is a deliberate way of finishing onboarding (not filling in
+    // every field), so mark it complete here too -- otherwise startup
+    // routing would keep bouncing this account back to UserDetailsView on
+    // every future launch, defeating the point of the Skip button.
+    userDetails!.isProfileComplete = true;
+    await _userService.storeUserDetails(
+      {'is_profile_complete': true},
+      FirebaseAuth.instance.currentUser!.uid,
+    );
+
     if (userDetails!.userRole == 'guest') {
       _navigationService.clearStackAndShowView<Widget>(
         const BottomBarGuestView(),
@@ -302,6 +316,67 @@ class UserDetailsViewModel extends BaseViewModel {
     }
   }
 
+  void setBusinessCategory(String val) {
+    businessCategory = val;
+    notifyListeners();
+  }
+
+  Future<void> saveSupplierDetails() async {
+    if (formKey.currentState!.validate()) {
+      if (selectedImageFile == null) {
+        showToast(message: 'Please select a profile image to proceed');
+        return;
+      }
+      if (businessCategory.isEmpty) {
+        showToast(message: 'Please select a category');
+        return;
+      }
+
+      if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+        final user = FirebaseAuth.instance.currentUser!;
+        await user.reload();
+        if (!user.emailVerified) {
+          showToast(message: 'Please verify your email first');
+          return;
+        }
+      }
+
+      final imageLink = await _userService.uploadImage(
+        selectedImageFile!,
+        selectedImageFile!.path.split('/').last,
+      );
+
+      var processedLink = linkController.text.trim().toLowerCase();
+      if (processedLink.startsWith('https://')) {
+        processedLink = processedLink.substring('https://'.length);
+      } else if (processedLink.startsWith('http://')) {
+        processedLink = processedLink.substring('http://'.length);
+      }
+
+      final saved = await _userService.storeUserDetails(
+        {
+          'display_name': nameController.text.trim(),
+          'bio': bioController.text.trim(),
+          'link': processedLink,
+          'business_category': businessCategory,
+          'contact_number': contactController.text.trim(),
+          'display_picture': imageLink,
+          'is_profile_complete': true,
+        },
+        FirebaseAuth.instance.currentUser!.uid,
+      );
+
+      if (saved) {
+        userDetails = await _userService.getUserDetails();
+        _navigationService.replaceWithPinDropMapView(onboardingMode: true);
+      } else {
+        _navigationService.replaceWithUserDetailsView(userRole: userrole);
+      }
+    } else {
+      showToast(message: 'Please fill all required fields');
+    }
+  }
+
   @override
   void dispose() {
     // nameFocusNode.dispose();
@@ -312,6 +387,7 @@ class UserDetailsViewModel extends BaseViewModel {
     bioController.dispose();
     linkController.dispose();
     boatNameController.dispose();
+    contactController.dispose();
     locationController.dispose();
     manualStateController.dispose();
     manualCityController.dispose();

@@ -1,31 +1,26 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:developer';
-
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
-import 'package:sailing_chefs/services/add_recipe_session_service.dart';
-import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
-import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_viewmodel.dart';
+import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/index/index_view.dart';
 import 'package:sailing_chefs/ui/views/pin_drop_map/pin_drop_map_view.dart';
-import 'package:sailing_chefs/ui/views/profile/profile_view.dart';
+import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart';
 
-class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
-  final int? index;
-
-  const BottomNavBarView({this.index, super.key});
+class BottomNavBarSupplierView extends StackedView<BottomNavBarSupplierViewModel> {
+  const BottomNavBarSupplierView({super.key});
 
   @override
-  Widget builder(BuildContext context, BottomNavBarViewModel viewModel, Widget? child) {
-    final dialogService = locator<DialogService>();
-    final addRecipeSessionService = locator<AddRecipeSessionService>();
-
+  Widget builder(
+    BuildContext context,
+    BottomNavBarSupplierViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: getViewForIndex(index ?? viewModel.currentIndex),
+      body: _viewForIndex(viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: kcWhiteColor,
@@ -35,27 +30,8 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
         selectedIconTheme: const IconThemeData(color: kcPrimaryColor),
         unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 10),
         selectedLabelStyle: const TextStyle(color: kcPrimaryColor, fontSize: 10),
-        currentIndex: index ?? viewModel.currentIndex,
-        onTap: (newTabIndex) async {
-          if (viewModel.currentIndex == 2 &&
-              newTabIndex != 2 &&
-              addRecipeSessionService.shouldPromptOnExit) {
-            final dialogData = addRecipeSessionService.getDialogData();
-            if (dialogData == null || (dialogData['images'] as List).isEmpty) {
-              viewModel.setIndex(newTabIndex);
-              return;
-            }
-            final response = await dialogService.showCustomDialog<dynamic, dynamic>(
-              variant: DialogType.saveDraftAlertbox,
-              title: 'Do you want to save it for later?',
-              data: dialogData,
-            );
-            if (!(response?.confirmed ?? false)) {
-              return;
-            }
-          }
-          viewModel.setIndex(newTabIndex);
-        },
+        currentIndex: viewModel.currentIndex,
+        onTap: viewModel.setIndex,
         items: [
           BottomNavigationBarItem(
             activeIcon: SvgPicture.asset(
@@ -77,15 +53,6 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
             icon: SvgPicture.asset(
               'assets/images/icons/locationIcon.svg',
               color: Colors.grey,
-            ),
-          ),
-          BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              'assets/images/icons/centerplus.svg',
-            ),
-            label: 'Add',
-            icon: SvgPicture.asset(
-              'assets/images/icons/centerplus.svg',
             ),
           ),
           BottomNavigationBarItem(
@@ -115,31 +82,22 @@ class BottomNavBarView extends StackedView<BottomNavBarViewModel> {
     );
   }
 
-  @override
-  bool get disposeViewModel => false;
-
-  @override
-  BottomNavBarViewModel viewModelBuilder(BuildContext context) => locator<BottomNavBarViewModel>();
-
-  Widget getViewForIndex(int index) {
+  Widget _viewForIndex(int index) {
     switch (index) {
       case 0:
-        log(index.toString());
         return const IndexView();
       case 1:
-        log(index.toString());
         return const PinDropMapView();
       case 2:
-        log(index.toString());
-        return const AddRecipeView();
-      case 3:
-        log(index.toString());
         return const ChatListView();
-      case 4:
-        log(index.toString());
-        return const ProfileView();
+      case 3:
+        return SupplierProfileView(supplier: userDetails!, isSelf: true);
       default:
-        return const Text('On Index Number  4');
+        return const IndexView();
     }
   }
+
+  @override
+  BottomNavBarSupplierViewModel viewModelBuilder(BuildContext context) =>
+      BottomNavBarSupplierViewModel();
 }

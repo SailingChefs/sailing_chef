@@ -53,9 +53,21 @@ class StartupViewModel extends BaseViewModel {
                 userShoppingList?.shoppingRecipeeIngredient ?? {};
             showShoppingListview = userShoppingList?.showShoppingListview ?? {};
 
-            if (userDetails!.userRole == 'guest') {
+            if (!userDetails!.isProfileComplete) {
+              // Role is set (doc created at signup) but the user never
+              // finished (or explicitly skipped) UserDetailsView -- e.g. they
+              // backgrounded/force-quit the app mid-onboarding. Send them
+              // back to finish instead of dropping them into the main app
+              // with a blank profile.
+              _navigationService.replaceWithUserDetailsView(
+                userRole: userDetails!.userRole ?? '',
+              );
+            } else if (userDetails!.userRole == 'guest') {
               viewmodel.initialised;
               _navigationService.replaceWithBottomBarGuestView();
+            } else if (userDetails!.userRole == 'supplier') {
+              viewmodel.initialised;
+              _navigationService.replaceWithBottomNavBarSupplierView();
             } else {
               viewmodel.initialised;
               _navigationService.replaceWithBottomNavBarView();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sailing_chefs/app/extenstions.dart';
-import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/widgets/top_bar.dart';
 import 'package:sailing_chefs/ui/widgets/common/grid_tile/grid_tile.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 import 'package:stacked/stacked.dart';
 
 class CullinarySavedrecipesView
@@ -22,18 +22,21 @@ class CullinarySavedrecipesView
     return SafeArea(
       child: Scaffold(
           appBar: const TopBarSavedRecipesProfile(),
-          body: viewModel.savedRecipes.isEmpty
-              ? SizedBox(
-                  height: screenHeight(context) * 0.9,
-                  child: Center(
-                      child: Text(
-                    'Save your favorite recipes for later',
-                    style: globalTextStyle(
-                      fontSize: 14,
-                      color: kcPrimaryColor,
-                      fontWeight: FontWeight.w600,
+          body: RefreshIndicator(
+            color: kcPrimaryColor,
+            onRefresh: () async => viewModel.notifyListeners(),
+            child: viewModel.savedRecipes.isEmpty
+              ? ListView(
+                  children: [
+                    SizedBox(
+                      height: screenHeight(context) * 0.75,
+                      child: const EmptyStateWidget(
+                        icon: Icons.bookmark_border_rounded,
+                        title: 'No saved recipes',
+                        subtitle: 'Bookmark recipes to find them here',
+                      ),
                     ),
-                  )),
+                  ],
                 )
               : Padding(
                   padding: const EdgeInsets.only(
@@ -82,7 +85,9 @@ class CullinarySavedrecipesView
                       ],
                     );
                   }),
-                )),
+                ),
+              ),
+          ),
     );
   }
 

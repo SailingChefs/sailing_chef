@@ -115,7 +115,8 @@ class SignUpViewModel extends BaseViewModel {
         selectedSignUpAs = 'culinarySchool';
       case 2:
         selectedSignUpAs = 'chef';
-
+      case 3:
+        selectedSignUpAs = 'supplier';
       default:
         break;
     }

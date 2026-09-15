@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ManageRecipes extends StatelessWidget {
   const ManageRecipes(this.viewModel, this.recipes, {super.key, this.onTap});
@@ -10,7 +11,9 @@ class ManageRecipes extends StatelessWidget {
   final List<RecipeModel> recipes;
   final VoidCallback? onTap;
 
-  DismissDirection get _dismissDirection => switch (recipes.first.status) {
+  DismissDirection get _dismissDirection => recipes.isEmpty
+      ? DismissDirection.none
+      : switch (recipes.first.status) {
         'pending' => DismissDirection.horizontal,
         'review' => DismissDirection.startToEnd,
         'published' => DismissDirection.endToStart,
@@ -39,6 +42,13 @@ class ManageRecipes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (recipes.isEmpty) {
+      return const EmptyStateWidget(
+        icon: Icons.restaurant_menu_outlined,
+        title: 'No recipes here',
+        subtitle: 'Recipes in this status will appear here',
+      );
+    }
     return ListView.builder(
       itemCount: recipes.length,
       itemBuilder: (context, index) {

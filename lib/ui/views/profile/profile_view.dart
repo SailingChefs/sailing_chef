@@ -26,7 +26,10 @@ class ProfileView extends StackedView<ProfileViewModel> {
       child: Scaffold(
         backgroundColor: kcBackgroundColor,
         appBar: const TopBarProfileScreen(),
-        body: Padding(
+        body: RefreshIndicator(
+          color: kcPrimaryColor,
+          onRefresh: viewModel.onRefresh,
+          child: Padding(
           padding: const EdgeInsets.only(
             left: 15.0,
             right: 15.0,
@@ -86,6 +89,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

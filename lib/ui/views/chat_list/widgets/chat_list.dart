@@ -5,6 +5,7 @@ import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/widgets/shimmerloader.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
   const ChatListScreen({super.key});
@@ -19,11 +20,11 @@ class ChatListScreen extends ViewModelWidget<ChatListViewModel> {
               : snapshot.hasData
                   ? snapshot.data!.isEmpty
                       ? SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.7,
-                          child: Center(
-                            child: Text('No chats',
-                                style: globalTextStyle(
-                                    fontSize: 18, color: kcPrimaryColor)),
+                          height: MediaQuery.sizeOf(context).height * 0.6,
+                          child: const EmptyStateWidget(
+                            icon: Icons.chat_bubble_outline_rounded,
+                            title: 'No conversations yet',
+                            subtitle: 'Start chatting with a chef or school',
                           ),
                         )
                       : Expanded(

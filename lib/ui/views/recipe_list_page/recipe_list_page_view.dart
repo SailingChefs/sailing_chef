@@ -8,6 +8,8 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/core/utils/image_utils.dart';
 import 'package:sailing_chefs/ui/views/recipe_list_page/recipe_list_page_viewmodel.dart';
 import 'package:sailing_chefs/ui/widgets/back_arrow.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
   final bool isFromDraft;
@@ -46,11 +48,13 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
             centerTitle: true,
           ),
           body: viewModel.isBusy
-              ? const Center(
-                  child: CircularProgressIndicator(
+              ? const _ShimmerRecipeList()
+              : RefreshIndicator(
                   color: kcPrimaryColor,
-                ))
-              : ListView.builder(
+                  onRefresh: viewModel.onRefresh,
+                  child: viewModel.recipes.isEmpty
+                      ? const _EmptyRecipes()
+                      : ListView.builder(
                   itemCount: viewModel.recipes.length,
                   itemBuilder: (BuildContext context, int index) {
                     final recipe = viewModel.recipes[index];
@@ -171,7 +175,9 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
                       ),
                     );
                   },
-                )),
+                ),
+              ),
+          ),
     );
   }
 
@@ -186,4 +192,57 @@ class RecipeListPageView extends StackedView<RecipeListPageViewModel> {
     BuildContext context,
   ) =>
       RecipeListPageViewModel(isFromDraft: isFromDraft);
+}
+
+class _ShimmerRecipeList extends StatelessWidget {
+  const _ShimmerRecipeList();
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade100,
+      child: ListView.builder(
+        itemCount: 4,
+        itemBuilder: (_, __) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 225,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                  width: 180, height: 18, color: Colors.white),
+              const SizedBox(height: 6),
+              Container(
+                  width: 120, height: 14, color: Colors.white),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyRecipes extends StatelessWidget {
+  const _EmptyRecipes();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: const EmptyStateWidget(
+        icon: Icons.menu_book_outlined,
+        title: 'No recipes yet',
+        subtitle: 'Pull down to refresh, or add your first recipe',
+      ),
+    );
+  }
 }

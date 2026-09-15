@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/index/index_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
   const ChefListIndexScreen({super.key});
@@ -12,10 +13,12 @@ class ChefListIndexScreen extends ViewModelWidget<IndexViewModel> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return viewModel.chefList.isEmpty
-        ? Center(
-            child: Text(
-              'No Chef Found',
-              style: globalTextStyle(fontSize: 14.sp, color: kcPrimaryColor, letterSpacing: -0.5),
+        ? SizedBox(
+            height: screenHeight * 0.22,
+            child: const EmptyStateWidget(
+              icon: Icons.people_outline_rounded,
+              title: 'No chefs yet',
+              subtitle: 'Pull down to refresh',
             ),
           )
         : Column(

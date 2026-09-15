@@ -29,27 +29,21 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
     DropPinSheetSheetModel viewModel,
     Widget? child,
   ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 3,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
       ),
+      child: Container(
+      padding: EdgeInsets.only(top: 20, left: 16.w, right: 16.w),
       decoration: const BoxDecoration(
         color: kcwhitecolor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(50),
-          topRight: Radius.circular(50),
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.only(top: 16, left: 16.w, right: 16.w),
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-              color: kcwhitecolor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-              )),
-          child: SingleChildScrollView(
+      child: SingleChildScrollView(
             dragStartBehavior: DragStartBehavior.down,
             child: Form(
               key: viewModel.formKey,
@@ -215,9 +209,9 @@ class DropPinSheetSheet extends StackedView<DropPinSheetSheetModel> {
             ),
           ),
         ),
-      ),
     );
   }
+
 
   @override
   void onViewModelReady(DropPinSheetSheetModel viewModel) {

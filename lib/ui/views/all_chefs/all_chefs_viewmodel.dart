@@ -25,6 +25,10 @@ class AllChefsViewModel extends BaseViewModel {
     _navigationService.navigateToChefProfileView(user: chef);
   }
 
+  void toAgencyAccessInfo() {
+    _navigationService.navigateToAgencyAccessInfoView();
+  }
+
   void toHomeView() {
     _navigationService.back();
   }
