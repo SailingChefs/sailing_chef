@@ -15,7 +15,6 @@ import 'package:sailing_chefs/app/app.dialogs.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/comment_model.dart';
-import 'package:sailing_chefs/model/conversation_model.dart';
 import 'package:sailing_chefs/model/ingredients_model.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/model/shopping_list.dart';
@@ -85,9 +84,17 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
         final fraction = Fraction.fromString(quantity);
         final result = fraction * Fraction(serving); // Convert int serving to Fraction
         return result.toString();
-      } // If it's a whole number, just multiply it as an integer
-      final parsedQuantity = int.parse(quantity);
-      return (parsedQuantity * serving).toString();
+      }
+      // num.parse handles both whole numbers ("2") and decimals ("1.5") --
+      // the previous int.parse() threw on any decimal quantity, was
+      // silently swallowed by the catch below, and returned the ingredient
+      // unscaled with no indication to the user that it hadn't adjusted.
+      final parsedQuantity = num.parse(quantity);
+      final scaled = parsedQuantity * serving;
+      // Render a whole result as "4" rather than "4.0".
+      return scaled == scaled.roundToDouble()
+          ? scaled.toInt().toString()
+          : scaled.toString();
     } catch (e) {
       // Handle parsing error, if any
       print('Error parsing quantity: $e');
@@ -355,19 +362,13 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
   Future<void> moveToChatScreen(
     UserModel chef,
   ) async {
-    final conversationModel = ConversationModel(
-      latestMessage: '',
-      users: [
-        FirebaseAuth.instance.currentUser!.uid,
-        chef.uid!,
-      ],
-      latestMessageType: 'text',
-      latestMessageTime: DateTime.now(),
-      lastActive: DateTime.now(),
-      uid: '',
+    // Same fix as chef_profile_viewmodel's moveToChatScreen: compute the
+    // deterministic conversation id client-side instead of eagerly creating
+    // an (empty) conversation document on tap -- it's only created once a
+    // message is actually sent.
+    final conversationId = _serviceConversations.conversationIdFor(
+      [FirebaseAuth.instance.currentUser!.uid, chef.uid!],
     );
-    final conversationId =
-        await _serviceConversations.createOrUpdateConversation(conversationModel);
     log('conversationId: $conversationId');
     _navigationService.navigateToChatView(
         messageFromCource: '', receiver: chef, conversationId: conversationId);
@@ -461,8 +462,15 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
       commentController.clear();
       images.clear();
       rating = 0;
-      RecipeService.recipes.where((element) => element.docId == recipeId).first.rating =
-          calculateAverageRating(commentService.comments);
+      // The comment write above already succeeded -- guard the local cache
+      // update separately so a recipe that isn't in the in-memory
+      // RecipeService.recipes list (private recipe, deep-linked recipe, or
+      // one from a chef you don't follow) doesn't crash the app afterwards.
+      final matchingRecipes =
+          RecipeService.recipes.where((element) => element.docId == recipeId);
+      if (matchingRecipes.isNotEmpty) {
+        matchingRecipes.first.rating = calculateAverageRating(commentService.comments);
+      }
       rebuildUi();
       showToast(message: 'Comment Added');
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/theme/text_styles.dart';
 import 'package:sailing_chefs/ui/common/app_colors.dart';
 import 'package:sailing_chefs/ui/common/ui_helpers.dart';
@@ -70,9 +71,10 @@ class PrivateRecipesView extends StackedView<PrivateRecipesViewModel> {
                                         index, viewModel.privateRecipe![index]),
                                     foodImagePath: viewModel
                                         .privateRecipe![index].coverImage
-                                        .where((element) =>
-                                            element.contains('.jpg'))
-                                        .first,
+                                        .firstWhere(
+                                            (element) =>
+                                                element.isFirebaseImageUrl,
+                                            orElse: () => ''),
                                     dishName:
                                         viewModel.privateRecipe![index].title,
                                     duration: viewModel

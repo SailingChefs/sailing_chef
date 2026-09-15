@@ -137,6 +137,10 @@ class AddRecipeViewModel extends BaseViewModel {
   bool hasRecordedAudio = false;
 
   Future<void> showTagsSheet(context) async {
+    // Without this, a keyboard left open from an earlier field on this page
+    // (e.g. the recipe title) stayed open behind/under the tags sheet, even
+    // though nothing on the sheet itself is a text field.
+    FocusManager.instance.primaryFocus?.unfocus();
     final result = await _bottomSheetService.showCustomSheet<TagsSheetResponse, dynamic>(
       barrierDismissible: false,
       isScrollControlled: true,
@@ -810,6 +814,14 @@ class AddRecipeViewModel extends BaseViewModel {
 
           // Now rebuild with fresh controllers/state
           rebuildUi();
+
+          // This screen was reached by editing a draft from View all Drafts,
+          // i.e. pushed as its own route on top of the tab-based
+          // BottomNavBarView -- so setIndex(4) alone has nothing to show
+          // (it only affects the IndexedStack underneath, which isn't
+          // visible). Pop back to it now that it's set to the Profile tab,
+          // instead of leaving the user staring at a freshly reset wizard.
+          _navigationService.back<void>();
         }
       } else {
         final shouldClear = await _navigationService.navigateToRecipeViewView(

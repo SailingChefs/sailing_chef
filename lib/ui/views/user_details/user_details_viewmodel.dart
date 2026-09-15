@@ -63,6 +63,13 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   //
+  // csc_picker_plus opens its country/state/city pickers via showDialog()
+  // with an autofocus search TextField inside. When that dialog is popped,
+  // Flutter's route-focus-restoration hands focus back to whatever field was
+  // focused before the dialog opened (typically "Link", the last real text
+  // field before the location picker) -- which pops the keyboard back open
+  // and looks like the cursor "jumped" there. Explicitly unfocusing after
+  // each selection clears that restored focus before it's visible.
   void setCountryValue(String value) {
     countryValue = _normalizeCountryName(value);
     stateValue = '';
@@ -71,6 +78,7 @@ class UserDetailsViewModel extends BaseViewModel {
     manualCityController.clear();
     useManualLocationInputs = false;
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
     unawaited(_resolveCountryLocationMode(countryValue));
   }
@@ -88,6 +96,7 @@ class UserDetailsViewModel extends BaseViewModel {
       cityValue = '';
     }
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
   }
 
@@ -102,6 +111,7 @@ class UserDetailsViewModel extends BaseViewModel {
       cityValue = value;
     }
     _updateAddress();
+    FocusManager.instance.primaryFocus?.unfocus();
     rebuildUi();
   }
 
@@ -177,9 +187,12 @@ class UserDetailsViewModel extends BaseViewModel {
       }
 
       if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        final user = FirebaseAuth.instance.currentUser!;
-        await user.reload();
-        if (!user.emailVerified) {
+        await FirebaseAuth.instance.currentUser!.reload();
+        // Re-fetch currentUser after reload() rather than reusing the
+        // pre-reload reference -- emailVerified on the stale object doesn't
+        // pick up the refreshed value, which was blocking Save even for
+        // users who had already verified their email.
+        if (!FirebaseAuth.instance.currentUser!.emailVerified) {
           showToast(message: 'Please verify your email first');
           return;
         }
@@ -206,6 +219,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'boat_name': boatNameController.text,
           'address': address,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -246,6 +260,7 @@ class UserDetailsViewModel extends BaseViewModel {
           'display_name': nameController.text,
           'bio': bioController.text,
           'display_picture': imageLink,
+          'is_profile_complete': true,
         },
         FirebaseAuth.instance.currentUser!.uid,
       );
@@ -284,6 +299,16 @@ class UserDetailsViewModel extends BaseViewModel {
   }
 
   Future<void> skipToHome() async {
+    // Skipping is a deliberate way of finishing onboarding (not filling in
+    // every field), so mark it complete here too -- otherwise startup
+    // routing would keep bouncing this account back to UserDetailsView on
+    // every future launch, defeating the point of the Skip button.
+    userDetails!.isProfileComplete = true;
+    await _userService.storeUserDetails(
+      {'is_profile_complete': true},
+      FirebaseAuth.instance.currentUser!.uid,
+    );
+
     if (userDetails!.userRole == 'guest') {
       _navigationService.clearStackAndShowView<Widget>(
         const BottomBarGuestView(),

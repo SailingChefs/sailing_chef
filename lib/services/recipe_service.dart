@@ -175,6 +175,16 @@ class RecipeService with ListenableServiceMixin {
     }
   }
 
+  /// Returns [existingId] if it's set, otherwise generates a fresh Firestore
+  /// document id upfront. Callers that upload media before writing the
+  /// recipe document (saveRecipe/saveRecipeToPrivate) use this so the
+  /// Storage upload path is namespaced by the same id the recipe document
+  /// ends up with, instead of an empty string for brand-new recipes.
+  String ensureRecipeId(String? existingId) {
+    if (existingId != null && existingId.isNotEmpty) return existingId;
+    return firebasestore.collection('recipes').doc().id;
+  }
+
   Future<bool> addRecipeToFirestore(RecipeModel recipe) async {
     log('addRecipeToFirestore ${recipe.docId}');
     EasyLoading.show();
@@ -202,10 +212,12 @@ class RecipeService with ListenableServiceMixin {
         }
         showToast(message: 'Recipe updated successfully');
       } else {
-        final DocumentReference docRef =
-            await firebasestore.collection('recipes').add(recipe.toMap());
-
-        final docId = docRef.id;
+        // Use the id the caller already generated (see ensureRecipeId) so it
+        // matches whatever Storage path any uploaded media was saved under,
+        // rather than letting .add() mint a different, unrelated id here.
+        final docId = ensureRecipeId(recipe.docId);
+        final DocumentReference docRef = firebasestore.collection('recipes').doc(docId);
+        await docRef.set(recipe.toMap());
 
         await docRef.update({'doc_id': docId});
         await firebasestore.collection('users').doc(firebaseAuth.currentUser!.uid).update({

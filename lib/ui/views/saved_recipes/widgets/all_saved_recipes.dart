@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/ui/views/saved_recipes/saved_recipes_viewmodel.dart';
@@ -45,8 +46,8 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                               onTap: () =>
                                   viewModel.toDishDetailsScreen(recipe),
                               foodImagePath: recipe.coverImage
-                                  .where((element) => element.contains('.jpg'))
-                                  .first,
+                                  .firstWhere((element) => element.isFirebaseImageUrl,
+                                      orElse: () => ''),
                               dishName: recipe.title,
                               duration: recipe.prepTime,
                               chefImagePath: recipe.user!.displayPicture!);
@@ -93,9 +94,10 @@ class AllSavedRecipesScreen extends ViewModelWidget<SavedRecipesViewModel> {
                                         savedRecipesGlobal[index]),
                                     foodImagePath: savedRecipesGlobal[index]
                                         .coverImage
-                                        .where((element) =>
-                                            element.contains('.jpg'))
-                                        .first,
+                                        .firstWhere(
+                                            (element) =>
+                                                element.isFirebaseImageUrl,
+                                            orElse: () => ''),
                                     dishName: savedRecipesGlobal[index].title,
                                     duration:
                                         savedRecipesGlobal[index].prepTime,

@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:sailing_chefs/app/extenstions.dart';
 import 'package:sailing_chefs/core/global_uservariable.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/saved_recipe_model.dart';
@@ -79,9 +80,10 @@ class SavedChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
                                         viewModel.toDishDetailsScreen(index),
                                     foodImagePath: savedRecipesGlobal[index]
                                         .coverImage
-                                        .where((element) =>
-                                            element.contains('.jpg'))
-                                        .first,
+                                        .firstWhere(
+                                            (element) =>
+                                                element.isFirebaseImageUrl,
+                                            orElse: () => ''),
                                     dishName:
                                         savedRecipes[index].recipeModel!.title,
                                     duration: savedRecipes[index]

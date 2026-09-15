@@ -15,6 +15,19 @@ import 'package:stacked/stacked.dart';
 class ConversationService with ListenableServiceMixin {
   final _userService = locator<UserServices>();
 
+  /// Deterministic conversation id for a pair of users, computed purely
+  /// client-side. Lets a "Message"/"Enquire" button send the user straight
+  /// to a chat screen without writing a conversation document to Firestore
+  /// yet -- the document itself is only created lazily, the first time a
+  /// message actually gets sent (see sendMessage). Previously those buttons
+  /// called createOrUpdateConversation() immediately on tap, so backing out
+  /// without sending anything still left an empty chatroom behind for both
+  /// participants.
+  String conversationIdFor(List<String> userIds) {
+    final sorted = List<String>.of(userIds)..sort();
+    return sorted.join('_');
+  }
+
   Future<String> createOrUpdateConversation(
       ConversationModel conversation) async {
     // final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -165,8 +178,9 @@ class ConversationService with ListenableServiceMixin {
       {String? imageUrl, String? file}) async {
     final CollectionReference conversationsCollection =
         firebasestore.collection('conversations');
+    final conversationDoc = conversationsCollection.doc(conversationId);
     final CollectionReference messagesCollection =
-        conversationsCollection.doc(conversationId).collection('messages');
+        conversationDoc.collection('messages');
 
     if (imageUrl != null) {
       message.content = imageUrl;
@@ -180,12 +194,23 @@ class ConversationService with ListenableServiceMixin {
       // Add the message to the messages subcollection
       await messagesCollection.add(message.toMap());
 
-      // Update the parent conversation document with the latest message info
-      await conversationsCollection.doc(conversationId).update({
+      // set(merge: true) instead of update(): this is what actually creates
+      // the conversation document the first time a message is sent (it may
+      // not exist yet -- conversationId is now computed deterministically
+      // client-side, see conversationIdFor), and safely merges the latest-
+      // message fields on every send after that without clobbering anything
+      // else on the document.
+      final participants = <String>{message.senderId, message.receiverId}.toList()
+        ..sort();
+      await conversationDoc.set({
+        'users': participants,
+        'sortedParticipants': participants.join(','),
+        'uid': conversationId,
+        'lastActive': FieldValue.serverTimestamp(),
         'latestMessage': message.content,
         'latestMessageTime': FieldValue.serverTimestamp(),
         'latestMessageType': message.type,
-      });
+      }, SetOptions(merge: true));
     } catch (error) {
       log('Error sending message: $error');
     }

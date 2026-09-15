@@ -76,8 +76,8 @@ class RecipeScreen extends ViewModelWidget<SearchViewModel> {
                             onTap: () => viewModel.toDishDetailsScreen(recipes[index]),
                             foodImagePath: recipes[index]
                                 .coverImage
-                                .where((element) => element.contains('.jpg'))
-                                .first,
+                                .firstWhere((element) => element.isFirebaseImageUrl,
+                                    orElse: () => ''),
                             dishName: recipes[index].title,
                             duration: recipes[index].prepTime,
                             chefImagePath: recipes[index].user?.displayPicture ?? '');

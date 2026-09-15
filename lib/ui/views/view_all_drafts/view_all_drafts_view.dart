@@ -97,12 +97,15 @@ class ViewAllDraftsView extends StackedView<ViewAllDraftsViewModel> {
                                 viewModel.toDishCreateScreen(index);
                               },
                               foodImagePath: viewModel
-                                      .draft[index].coverImage.isEmpty
-                                  ? 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
-                                  : viewModel.draft[index].coverImage
+                                      .draft[index].coverImage
                                       .where((element) =>
                                           element.isFirebaseImageUrl)
-                                      .first,
+                                      .isNotEmpty
+                                  ? viewModel.draft[index].coverImage
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
+                                      .first
+                                  : 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
                               dishName: viewModel.draft[index].title,
                             );
                           },

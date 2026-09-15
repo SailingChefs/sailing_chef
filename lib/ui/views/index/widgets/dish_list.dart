@@ -56,10 +56,16 @@ class DishListIndexScreen extends ViewModelWidget<IndexViewModel> {
                                 viewModel.toDishDetailsScreen(dishes[index]);
                               },
                               foodImagePath: dishes[index]
-                                  .coverImage
-                                  .where(
-                                      (element) => element.isFirebaseImageUrl)
-                                  .first,
+                                      .coverImage
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
+                                      .isNotEmpty
+                                  ? dishes[index]
+                                      .coverImage
+                                      .where((element) =>
+                                          element.isFirebaseImageUrl)
+                                      .first
+                                  : '',
                               dishName: dishes[index].title,
                               duration: dishes[index].prepTime,
                               chefImagePath: dishes[index].user == null

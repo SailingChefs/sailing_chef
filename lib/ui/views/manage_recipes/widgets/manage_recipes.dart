@@ -10,7 +10,11 @@ class ManageRecipes extends StatelessWidget {
   final List<RecipeModel> recipes;
   final VoidCallback? onTap;
 
-  DismissDirection get _dismissDirection => switch (recipes.first.status) {
+  // Computed per-item from that recipe's own status, not recipes.first --
+  // the previous version read the whole list's first element regardless of
+  // which item was being built, which also crashed outright the moment a
+  // tab (Pending/Review/Published) had zero recipes.
+  DismissDirection _dismissDirectionFor(String status) => switch (status) {
         'pending' => DismissDirection.horizontal,
         'review' => DismissDirection.startToEnd,
         'published' => DismissDirection.endToStart,
@@ -45,7 +49,7 @@ class ManageRecipes extends StatelessWidget {
         final recipe = recipes[index];
         return Dismissible(
           key: Key(recipe.docId!),
-          direction: _dismissDirection,
+          direction: _dismissDirectionFor(recipe.status),
           confirmDismiss: (direction) =>
               _handleDismiss(context, recipe, direction),
           background: Container(

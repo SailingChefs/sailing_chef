@@ -33,6 +33,7 @@ class RoundedTransparentTextField extends StatelessWidget {
   final bool? spellCheckConfiguration;
   final bool autocorrect;
   final bool enableSuggestions;
+  final Iterable<String>? autofillHints;
 
   const RoundedTransparentTextField({
     super.key,
@@ -66,6 +67,7 @@ class RoundedTransparentTextField extends StatelessWidget {
     this.spellCheckConfiguration = false,
     this.autocorrect = true,
     this.enableSuggestions = true,
+    this.autofillHints,
   });
 
   @override
@@ -106,6 +108,7 @@ class RoundedTransparentTextField extends StatelessWidget {
       controller: controller,
       maxLength: maxLength,
       maxLines: maxLines ?? 1,
+      autofillHints: autofillHints,
       validator: validator,
       autocorrect: autocorrect,
       enableSuggestions: enableSuggestions,

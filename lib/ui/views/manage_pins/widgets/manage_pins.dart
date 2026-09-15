@@ -10,7 +10,12 @@ class ManagePins extends StatelessWidget {
   final List<PinnedLocation> pins;
   final VoidCallback? onTap;
 
-  DismissDirection get _dismissDirection => switch (pins.first.status) {
+  // Computed per-item from that pin's own status, not pins.first -- the
+  // previous version read the whole list's first element regardless of
+  // which item was being built, which also crashed outright the moment a
+  // tab (Pending/Review/Published) had zero pins.
+  DismissDirection _dismissDirectionFor(PinnedLocationStatus status) =>
+      switch (status) {
         PinnedLocationStatus.pending => DismissDirection.horizontal,
         PinnedLocationStatus.review => DismissDirection.startToEnd,
         PinnedLocationStatus.published => DismissDirection.endToStart,
@@ -44,7 +49,7 @@ class ManagePins extends StatelessWidget {
         final pin = pins[index];
         return Dismissible(
           key: Key(pin.id!),
-          direction: _dismissDirection,
+          direction: _dismissDirectionFor(pin.status),
           confirmDismiss: (direction) =>
               _handleDismiss(context, pin, direction),
           background: Container(

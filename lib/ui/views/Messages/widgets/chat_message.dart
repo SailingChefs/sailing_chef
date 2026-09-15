@@ -114,8 +114,9 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                 (context, url, progress) => Container(
                                     width: 120,
                                     height: 178,
+                                    alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey,
+                                      color: Colors.grey.shade300,
                                       borderRadius: BorderRadius.only(
                                           topLeft: isCurrentUser
                                               ? const Radius.circular(20)
@@ -129,7 +130,39 @@ class ChatMessage extends ViewModelWidget<ChatViewModel> {
                                           bottomRight: !isCurrentUser
                                               ? const Radius.circular(20)
                                               : const Radius.circular(0)),
+                                    ),
+                                    child: const CircularProgressIndicator(
+                                      color: kcPrimaryColor,
+                                      strokeWidth: 2,
                                     )),
+                            // Without this, a broken/expired image URL left
+                            // the loading placeholder above stuck on screen
+                            // forever -- a large flat grey block with no
+                            // indication anything had gone wrong.
+                            errorWidget: (context, url, error) => Container(
+                                width: 120,
+                                height: 178,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: isCurrentUser
+                                          ? const Radius.circular(20)
+                                          : Radius.zero,
+                                      bottomLeft: isCurrentUser
+                                          ? const Radius.circular(20)
+                                          : Radius.zero,
+                                      topRight: !isCurrentUser
+                                          ? const Radius.circular(20)
+                                          : Radius.zero,
+                                      bottomRight: !isCurrentUser
+                                          ? const Radius.circular(20)
+                                          : Radius.zero),
+                                ),
+                                child: Icon(
+                                  Icons.broken_image_outlined,
+                                  color: Colors.grey.shade600,
+                                )),
                             fit: BoxFit.cover,
                           ),
                         ),
