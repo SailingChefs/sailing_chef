@@ -71,7 +71,7 @@ class LoginViewModel extends BaseViewModel {
 
       if (success) {
         userDetails = await _userService.getUserDetails();
-        if (userDetails!.displayPicture == '') {
+        if (!userDetails!.isProfileComplete) {
           _navigationService.replaceWithUserDetailsView(
               userRole: userDetails!.userRole!);
         } else {

@@ -19,6 +19,7 @@ class UserModel {
   final List<String>? recipes;
   final String? namedLocation;
   final bool isAdmin;
+  bool isProfileComplete;
 
   UserModel({
     this.schoolCourses,
@@ -39,6 +40,7 @@ class UserModel {
     this.savedRecipes,
     this.blockedAccounts,
     this.isAdmin = false,
+    this.isProfileComplete = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -59,6 +61,7 @@ class UserModel {
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
       'is_admin': isAdmin,
+      'is_profile_complete': isProfileComplete,
     };
   }
 
@@ -93,6 +96,9 @@ class UserModel {
           (data['recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
       namedLocation: data['address'] as String?,
       isAdmin: (data['is_admin'] as bool?) ?? false,
+      // Missing field means the account predates this flag -- default to
+      // true so existing accounts aren't bounced back to UserDetailsView.
+      isProfileComplete: (data['is_profile_complete'] as bool?) ?? true,
     );
   }
 }
