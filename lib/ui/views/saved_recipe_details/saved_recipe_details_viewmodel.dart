@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fraction/fraction.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -647,7 +646,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
 
   Future<void> onViewModelReady(String recipeId) async {
     setBusy(true);
-    EasyLoading.show();
 
     // waveFormData = recipeModel.waveForm;
     await commentService.getComments(recipeId);
@@ -659,7 +657,6 @@ class SavedRecipeDetailsViewModel extends ReactiveViewModel {
     servings = recipeModel.servingSize;
 
     checkSave(recipeId);
-    EasyLoading.dismiss();
 
     log('\n\n\n\n\t\t\t\tShopping List : $shoppingRecipeeIngredient');
 

@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/pin_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/manage_pins/manage_pins_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ManagePins extends StatelessWidget {
   const ManagePins(this.viewModel, this.pins, {super.key, this.onTap});
@@ -43,22 +44,11 @@ class ManagePins extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Previously an empty tab rendered a blank ListView with nothing to
-    // tell the admin whether the list was actually empty or still loading.
     if (pins.isEmpty) {
-      return SizedBox(
-        height: screenHeight(context) * 0.7,
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            'No pins to show',
-            style: globalTextStyle(
-              fontSize: 14,
-              color: kcPrimaryColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+      return const EmptyStateWidget(
+        icon: Icons.location_off_outlined,
+        title: 'No pins here',
+        subtitle: 'Pins in this status will appear here',
       );
     }
     return ListView.builder(

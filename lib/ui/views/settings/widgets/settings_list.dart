@@ -83,6 +83,35 @@ class SettingsListSettingsScreen extends ViewModelWidget<SettingsViewModel> {
         Divider(
           color: kcBlackColor.withOpacity(0.08),
         ),
+        if (userDetails!.userRole == 'chef') ...[
+          SwitchListTile(
+            contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
+            activeThumbColor: kcPrimaryColor,
+            value: viewModel.isAvailable,
+            onChanged: viewModel.toggleAvailability,
+            title: Text(
+              'Open to work',
+              style: globalTextStyle(
+                fontSize: 14.0.dg,
+                color: kcBlackColor,
+                letterSpacing: -0.3,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            subtitle: Text(
+              'Agencies can find your profile when this is on',
+              style: globalTextStyle(
+                fontSize: 12.0.dg,
+                color: kcBlackColor.withOpacity(0.6),
+                letterSpacing: -0.3,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          Divider(
+            color: kcBlackColor.withOpacity(0.08),
+          ),
+        ],
         ListTile(
           contentPadding: EdgeInsets.only(left: 20.0.dg, right: 20),
           onTap: () {

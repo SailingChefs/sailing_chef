@@ -2,6 +2,7 @@ import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/recipe_model.dart';
 import 'package:sailing_chefs/ui/common/show_toast.dart';
 import 'package:sailing_chefs/ui/views/manage_recipes/manage_recipes_viewmodel.dart';
+import 'package:sailing_chefs/ui/widgets/empty_state.dart';
 
 class ManageRecipes extends StatelessWidget {
   const ManageRecipes(this.viewModel, this.recipes, {super.key, this.onTap});
@@ -43,22 +44,11 @@ class ManageRecipes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Previously an empty tab rendered a blank ListView with nothing to
-    // tell the admin whether the list was actually empty or still loading.
     if (recipes.isEmpty) {
-      return SizedBox(
-        height: screenHeight(context) * 0.7,
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            'No recipes to show',
-            style: globalTextStyle(
-              fontSize: 14,
-              color: kcPrimaryColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+      return const EmptyStateWidget(
+        icon: Icons.restaurant_menu_outlined,
+        title: 'No recipes here',
+        subtitle: 'Recipes in this status will appear here',
       );
     }
     return ListView.builder(

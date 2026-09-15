@@ -9,7 +9,8 @@ import 'package:sailing_chefs/ui/views/pin_drop_map/widgets/topbar_search.dart';
 import 'package:uuid/uuid.dart';
 
 class PinDropMapView extends StackedView<PinDropMapViewModel> {
-  const PinDropMapView({super.key});
+  final bool onboardingMode;
+  const PinDropMapView({this.onboardingMode = false, super.key});
 
   @override
   Widget builder(
@@ -34,6 +35,36 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
                       padding: EdgeInsets.all(10.0),
                       child: SearchBarPinDrop(),
                     ),
+                    if (!viewModel.onboardingMode)
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0),
+                          child: TextButton.icon(
+                            onPressed: viewModel.toFeaturedListingInfo,
+                            style: TextButton.styleFrom(
+                              foregroundColor: kcPrimaryColor,
+                              side: const BorderSide(color: kcPrimaryColor),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              minimumSize: Size.zero,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            icon: const Icon(Icons.storefront, size: 16),
+                            label: Text(
+                              'List your business',
+                              style: globalTextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: kcPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     verticalSpace(10),
                     Flexible(
                       child: Stack(
@@ -135,15 +166,11 @@ class PinDropMapView extends StackedView<PinDropMapViewModel> {
   @override
   void onViewModelReady(PinDropMapViewModel viewModel) {
     final markerId = const Uuid().v4();
-
     viewModel.onViewModelReady(markerId);
     super.onViewModelReady(viewModel);
   }
 
   @override
-  PinDropMapViewModel viewModelBuilder(
-    BuildContext context,
-  ) {
-    return PinDropMapViewModel();
-  }
+  PinDropMapViewModel viewModelBuilder(BuildContext context) =>
+      PinDropMapViewModel(onboardingMode: onboardingMode);
 }

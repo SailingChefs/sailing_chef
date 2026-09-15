@@ -32,6 +32,12 @@ class RecipeListPageViewModel extends BaseViewModel {
   //     }
   //   }
   // }
+  Future<void> onRefresh() async {
+    recipes =
+        await _recipeService.fetchRecipesByUID(firebaseAuth.currentUser!.uid);
+    notifyListeners();
+  }
+
   Future<void> toHomeView() async {
     if (isFromDraft) {
       _navigationService.clearStackAndShowView(const BottomNavBarView());

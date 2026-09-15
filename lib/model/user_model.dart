@@ -19,6 +19,9 @@ class UserModel {
   final List<String>? recipes;
   final String? namedLocation;
   final bool isAdmin;
+  final String? businessCategory;
+  final String? contactNumber;
+  bool isAvailable;
   bool isProfileComplete;
 
   UserModel({
@@ -26,6 +29,8 @@ class UserModel {
     this.displayName,
     this.recipes,
     this.namedLocation,
+    this.businessCategory,
+    this.contactNumber,
     this.email,
     this.userRole,
     this.uid,
@@ -40,6 +45,7 @@ class UserModel {
     this.savedRecipes,
     this.blockedAccounts,
     this.isAdmin = false,
+    this.isAvailable = false,
     this.isProfileComplete = false,
   });
 
@@ -57,10 +63,13 @@ class UserModel {
       'following': following,
       'link': link,
       'address': namedLocation,
+      'business_category': businessCategory,
+      'contact_number': contactNumber,
       'saved_recipes': savedRecipes,
       'blocked_accounts': blockedAccounts,
       'school_courses': schoolCourses,
       'is_admin': isAdmin,
+      'is_available': isAvailable,
       'is_profile_complete': isProfileComplete,
     };
   }
@@ -96,9 +105,12 @@ class UserModel {
           (data['recipes'] as List<dynamic>?)?.map((e) => e as String) ?? []),
       namedLocation: data['address'] as String?,
       isAdmin: (data['is_admin'] as bool?) ?? false,
+      isAvailable: (data['is_available'] as bool?) ?? false,
       // Missing field means the account predates this flag -- default to
       // true so existing accounts aren't bounced back to UserDetailsView.
       isProfileComplete: (data['is_profile_complete'] as bool?) ?? true,
+      businessCategory: data['business_category'] as String?,
+      contactNumber: data['contact_number'] as String?,
     );
   }
 }

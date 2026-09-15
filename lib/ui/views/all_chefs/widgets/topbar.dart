@@ -31,7 +31,23 @@ class TopBarMeetChefsScreen extends ViewModelWidget<AllChefsViewModel>
             style: globalTextStyle(
                 fontSize: 18, fontWeight: FontWeight.w600, color: kcBlackColor),
           ),
-          const SizedBox(),
+          TextButton(
+            onPressed: viewModel.toAgencyAccessInfo,
+            style: TextButton.styleFrom(
+              foregroundColor: kcPrimaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: Text(
+              'For agencies',
+              style: globalTextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: kcPrimaryColor,
+              ),
+            ),
+          ),
         ],
       ),
     );

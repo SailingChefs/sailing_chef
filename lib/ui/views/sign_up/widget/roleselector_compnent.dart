@@ -7,130 +7,115 @@ class RoleSelector extends ViewModelWidget<SignUpViewModel> {
 
   @override
   Widget build(BuildContext context, SignUpViewModel viewModel) {
-    return Container(
-      height: screenHeight(context) * 0.08,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF4F8F7).withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(2),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
-                  color: viewModel.selectedSignUpAs == 'chef'
-                      ? kcPrimaryColor
-                      : Colors.transparent,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 14,
-                      height: 14,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/hat.svg',
-                      ),
-                    ),
-                    verticalSpaceTiny,
-                    const Text(
-                      'Chef',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcWhiteColor,
-                      ),
-                    ),
-                  ],
-                ),
+    return Column(
+      children: [
+        _RoleCard(
+          svgPath: 'assets/images/icons/hat.svg',
+          label: 'Chef',
+          description: 'Share recipes, build your portfolio and get discovered',
+          isSelected: viewModel.selectedSignUpAs == 'chef',
+          onTap: () => viewModel.handleSignUpAs(2),
+        ),
+        const SizedBox(height: 10),
+        _RoleCard(
+          svgPath: 'assets/images/icons/school.svg',
+          label: 'Culinary School',
+          description: 'List your courses and connect with aspiring chefs',
+          isSelected: viewModel.selectedSignUpAs == 'culinarySchool',
+          onTap: () => viewModel.handleSignUpAs(1),
+        ),
+        const SizedBox(height: 10),
+        _RoleCard(
+          svgPath: 'assets/images/icons/guest.svg',
+          label: 'Guest',
+          description: 'Browse recipes and discover top sailing chefs',
+          isSelected: viewModel.selectedSignUpAs == 'guest',
+          onTap: () => viewModel.handleSignUpAs(0),
+        ),
+        const SizedBox(height: 10),
+        _RoleCard(
+          svgPath: 'assets/images/icons/supplier.svg',
+          label: 'Supplier',
+          description: 'List your marine products and reach sailing chefs',
+          isSelected: viewModel.selectedSignUpAs == 'supplier',
+          onTap: () => viewModel.handleSignUpAs(3),
+        ),
+      ],
+    );
+  }
+}
+
+class _RoleCard extends StatelessWidget {
+  final String svgPath;
+  final String label;
+  final String description;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _RoleCard({
+    required this.svgPath,
+    required this.label,
+    required this.description,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected ? kcPrimaryColor.withOpacity(0.12) : Colors.white.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? kcPrimaryColor : Colors.white.withOpacity(0.25),
+            width: isSelected ? 1.8 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset(
+                svgPath,
+                color: isSelected ? kcPrimaryColor : kcWhiteColor.withOpacity(0.8),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(1),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border(
-                    right: BorderSide(
-                      width: 2,
-                      color: kcWhiteColor.withOpacity(0.2),
-                    ),
-                    left: BorderSide(
-                      width: 2,
-                      color: kcWhiteColor.withOpacity(0.2),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: globalTextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: isSelected ? kcPrimaryColor : kcWhiteColor,
                     ),
                   ),
-                  color: viewModel.selectedSignUpAs == 'culinarySchool'
-                      ? kcPrimaryColor
-                      : Colors.transparent,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/school.svg',
-                      ),
+                  const SizedBox(height: 2),
+                  Text(
+                    description,
+                    style: globalTextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: isSelected
+                          ? kcPrimaryColor.withOpacity(0.8)
+                          : kcWhiteColor.withOpacity(0.6),
                     ),
-                    const SizedBox(height: 3),
-                    const Text(
-                      'Culinary school',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcWhiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => viewModel.handleSignUpAs(0),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
                   ),
-                  color: viewModel.selectedSignUpAs == 'guest'
-                      ? kcPrimaryColor
-                      : Colors.transparent,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/guest.svg',
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    const Text(
-                      'Guest',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kcWhiteColor,
-                      ),
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
-          ),
-        ],
+            if (isSelected)
+              Icon(Icons.check_circle_rounded, color: kcPrimaryColor, size: 20),
+          ],
+        ),
       ),
     );
   }

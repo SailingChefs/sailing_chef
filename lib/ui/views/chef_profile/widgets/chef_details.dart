@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sailing_chefs/core/helpers/capitalize_first_fucntion.dart';
 import 'package:sailing_chefs/core/imports/core_imports.dart';
 import 'package:sailing_chefs/model/user_model.dart';
+import 'package:sailing_chefs/ui/common/widgets/available_badge.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_viewmodel.dart';
 
 class ProfileDescriptionChefProfileScreen extends ViewModelWidget<ChefProfileViewModel> {
@@ -22,13 +23,23 @@ class ProfileDescriptionChefProfileScreen extends ViewModelWidget<ChefProfileVie
           else
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               verticalSpaceSmall,
-              Text(
-                capitalizeEachWord(user.displayName!),
-                style: globalTextStyle(
-                    letterSpacing: -0.3,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: kcBlackColor),
+              Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      capitalizeEachWord(user.displayName!),
+                      style: globalTextStyle(
+                          letterSpacing: -0.3,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: kcBlackColor),
+                    ),
+                  ),
+                  if (user.userRole == 'chef' && user.isAvailable) ...[
+                    horizontalSpaceSmall,
+                    const AvailableBadge(),
+                  ],
+                ],
               ),
             ]),
           if (user.namedLocation == null && user.boatName == null)

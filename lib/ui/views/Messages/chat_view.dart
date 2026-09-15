@@ -86,6 +86,7 @@ class _MessageListAndAppBar extends StatelessWidget {
             ),
             child: SingleChildScrollView(
               controller: viewModel.scrollController,
+              padding: const EdgeInsets.only(bottom: 80),
               child: Column(
                 children: [
                   verticalSpaceMedium,

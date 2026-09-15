@@ -46,11 +46,14 @@ import 'package:sailing_chefs/ui/dialogs/save_draft_alertbox/save_draft_alertbox
 import 'package:sailing_chefs/ui/dialogs/success/success_dialog.dart';
 import 'package:sailing_chefs/ui/views/Messages/chat_view.dart';
 import 'package:sailing_chefs/ui/views/add_recipe/add_recipe_view.dart';
+import 'package:sailing_chefs/ui/views/agency_access_info/agency_access_info_view.dart';
 import 'package:sailing_chefs/ui/views/all_chefs/all_chefs_view.dart';
 import 'package:sailing_chefs/ui/views/becomechef/becomechef_view.dart';
 import 'package:sailing_chefs/ui/views/blocked_accounts/blocked_accounts_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_bar_guest/bottom_bar_guest_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_view.dart';
+import 'package:sailing_chefs/ui/views/bottom_nav_bar_supplier/bottom_nav_bar_supplier_view.dart';
+import 'package:sailing_chefs/ui/views/supplier_profile/supplier_profile_view.dart';
 import 'package:sailing_chefs/ui/views/bottom_nav_bar/bottom_nav_bar_viewmodel.dart';
 import 'package:sailing_chefs/ui/views/chat_list/chat_list_view.dart';
 import 'package:sailing_chefs/ui/views/chef_profile/chef_profile_view.dart';
@@ -59,6 +62,7 @@ import 'package:sailing_chefs/ui/views/culineryschoolviewall/culineryschoolviewa
 import 'package:sailing_chefs/ui/views/cullinary_savedrecipes/cullinary_savedrecipes_view.dart';
 import 'package:sailing_chefs/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:sailing_chefs/ui/views/explore_all_recipes/explore_all_recipes_view.dart';
+import 'package:sailing_chefs/ui/views/featured_listing_info/featured_listing_info_view.dart';
 import 'package:sailing_chefs/ui/views/feedback/feedback_view.dart';
 import 'package:sailing_chefs/ui/views/filter/filter_view.dart';
 import 'package:sailing_chefs/ui/views/following_list/following_list_view.dart';
@@ -111,6 +115,8 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: FollowingListView),
     MaterialRoute(page: RecipeViewView),
     MaterialRoute(page: BottomBarGuestView),
+    MaterialRoute(page: BottomNavBarSupplierView),
+    MaterialRoute(page: SupplierProfileView),
     MaterialRoute(page: SavedRecipeDetailsView),
     MaterialRoute(page: ChefProfileView),
     MaterialRoute(
@@ -143,6 +149,8 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ManageRecipesView),
     MaterialRoute(page: ManagePinsView),
     MaterialRoute(page: TermsConditionsView),
+    MaterialRoute(page: FeaturedListingInfoView),
+    MaterialRoute(page: AgencyAccessInfoView),
 // @stacked-route
   ],
   dependencies: [
